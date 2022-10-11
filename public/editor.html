@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="css/main.css?v=e4913234">
+  <link rel="stylesheet" href="css/widgets.css?v=e4913234">
+
+  <script src="jquery/jquery-3.6.1.slim.min.js"></script>
+
+  <script src="ace-1.11.2/ace.js"></script>
+  <script src="ace-1.11.2/ext-language_tools.js"></script>
+
+  <script src="js/msg.js"></script>
+  <script src="js/common/widgets.js?v=1f9e01aa"></script>
+
+  <title>IoTy</title>
+</head>
+
+<body>
+  <header>
+    <!-- <img class="gearsIcon" src="favicon-32.png"> -->
+    <div>IoTy</div>
+    <input type="text" id="projectName" placeholder="Project Name" autocomplete="off">
+
+    <div class="menuBar">
+      <div class="menuItem fileMenu">File</div>
+      <div class="menuItem helpMenu">Help</div>
+    </div>
+
+    <div class="language"><span class="icon-globe"></span> &#x25BE;</div>
+  </header>
+
+  <main>
+    <nav>
+      <ul class="panelTabs">
+        <li id="navBlocks" class="active">Blocks</li>
+        <li id="navPython">Python</li>
+        <li id="navMonitor">Monitor</li>
+      </ul>
+      <div class="panelControlsArea">
+        Connect symbol
+      </div>
+    </nav>
+    <div class="panels">
+
+      <div class="blocklyEditor panel active" aria-labelledby="navBlocks">
+        <div id="blocklyDiv" style="height: 100%; width: 100%;"></div>
+      </div>
+
+      <div class="panel" aria-labelledby="navPython">
+        <div id="pythonCode"></div>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="blockly-9.0.0/blockly.js"></script>
+  <script src="blockly-9.0.0/blocks.js"></script>
+  <script src="blockly-9.0.0/python.js"></script>
+
+  <script src="js/ioty_generator.js?v=1"></script>
+  <script src="js/blockly.js?v=3a1d10b5"></script>
+  <script src="js/blocklyPanel.js?v=3a1d10b5"></script>
+  <script src="js/pythonPanel.js?v=84d500ff"></script>
+  <script src="js/main.js?v=90af7425"></script>
+
+  <script>
+    // Init classes
+    blockly.init();
+  </script>
+</body>
+</html>

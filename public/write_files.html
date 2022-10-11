@@ -1,0 +1,179 @@
+<html>
+  <head>
+    <title>Web Bluetooth</title>
+  </head>
+  <body>
+    <button id="connect">Connect</button>
+    <button id="send">Send</button>
+    <button id="erase">Erase</button><br>
+    <input id="newName" type="text" maxlength="8"><button id="changeName">Change Device Name</button><br>
+    <div>Status: <span id="status"></span></div>
+    Filename: <input id="name" type="text"><br>
+    Content:<br>
+    <textarea id="main" rows="30" cols="80"></textarea><br>
+    <div id="console" style="white-space: pre; height: 20em; width: 40em; border: solid 1px black; overflow: scroll;"></div>
+    <input id="consoleInput" type="text" style="width: 40em;">
+
+    <script>
+const _MODE_OPEN = 1;
+const _MODE_APPEND = 2;
+const _MODE_CLOSE = 3;
+const _MODE_ERASE = 4;
+
+const BUFFER_SIZE = 512;
+
+const serviceUuid = 'ba48d887-db79-4cac-8d72-a4d9ecdfcde2';
+const cmd = '4423f470-dad0-437a-8c18-9a378981cca9';
+const data = 'e4494fc7-fae6-42cf-81c0-8f835a0ace7f';
+const serial = 'c12fee47-2a93-4138-9505-2a97da04b413';
+
+let cmdCharacteristic;
+let dataCharacteristic;
+
+document.getElementById('connect').onclick = connect;
+document.getElementById('send').onclick = send;
+document.getElementById('erase').onclick = erase;
+document.getElementById('changeName').onclick = changeName;
+document.getElementById('consoleInput').onkeydown = sendOnEnter;
+
+let statusSpan = document.getElementById('status');
+let consoleDiv = document.getElementById('console');
+
+async function connect() {
+  try {
+    console.log('Requesting Bluetooth Device...');
+    const device = await navigator.bluetooth.requestDevice({
+      filters: [{services: [serviceUuid]}]});
+
+    device.addEventListener('gattserverdisconnected', function(event){
+      statusSpan.innerText = 'Disconnected';
+    });
+
+
+    console.log('Connecting to GATT Server...');
+    const server = await device.gatt.connect();
+
+    console.log('Getting Service...');
+    const service = await server.getPrimaryService(serviceUuid);
+
+    console.log('Getting Characteristic...');
+    cmdCharacteristic = await service.getCharacteristic(cmd);
+    dataCharacteristic = await service.getCharacteristic(data);
+    serialCharacteristic = await service.getCharacteristic(serial);
+
+    console.log('Starting notifications');
+    await serialCharacteristic.startNotifications();
+    serialCharacteristic.addEventListener('characteristicvaluechanged', handleNotifications);
+
+    statusSpan.innerText = 'Connected';
+  } catch(error) {
+    console.log('Argh! ' + error);
+  }
+}
+
+// Receive serial messages
+function handleNotifications(event) {
+  let value = event.target.value;
+  let utf8decoder = new TextDecoder();
+  let text = utf8decoder.decode(value);
+  consoleDiv.innerText += text;
+  consoleDiv.scrollTop = consoleDiv.scrollHeight - consoleDiv.clientHeight
+}
+
+// Set modes
+async function modeOpenFile() {
+  let value = Uint8Array.of(_MODE_OPEN);
+  await cmdCharacteristic.writeValueWithResponse(value);
+}
+
+async function modeAppendFile() {
+  let value = Uint8Array.of(_MODE_APPEND);
+  await cmdCharacteristic.writeValueWithResponse(value);
+}
+
+async function modeCloseFile() {
+  let value = Uint8Array.of(_MODE_CLOSE);
+  await cmdCharacteristic.writeValueWithResponse(value);
+}
+
+async function modeEraseFiles() {
+  let value = Uint8Array.of(_MODE_ERASE);
+  await cmdCharacteristic.writeValueWithResponse(value);
+}
+
+async function sendSerial(text) {
+  const utf8Encode = new TextEncoder();
+  value = utf8Encode.encode(text + '\r\n');
+  console.log(value);
+  await serialCharacteristic.writeValueWithResponse(value);
+}
+
+// Write String
+async function writeData(str) {
+  var value = new TextEncoder('utf-8').encode(str);
+  for (i=0; i<value.byteLength; i+=BUFFER_SIZE) {
+    await dataCharacteristic.writeValueWithResponse(value.slice(i, i + BUFFER_SIZE));
+    statusSpan.innerText += '.';
+  }
+}
+
+// Write File
+async function writeFile(name, value) {
+  await modeOpenFile();
+  await writeData(name);
+  await modeAppendFile();
+  await writeData(value);
+  await modeCloseFile();
+}
+
+async function send() {
+  try {
+    // Write
+    console.log('Writing...');
+    let filename = document.getElementById('name').value;
+    let content = document.getElementById('main').value;
+    statusSpan.innerText = 'Writing';
+    await writeFile(filename, content);
+    statusSpan.innerText = 'Write completed';
+  } catch(error) {
+    console.log('Argh! ' + error);
+  }
+}
+
+async function changeName() {
+  try {
+    // Write
+    console.log('Changing Name...');
+    let filename = '_name.py';
+    let name = document.getElementById('newName').value.slice(0, 8);
+    let content = 'NAME = \'' + name + '\'';
+    statusSpan.innerText = 'Changing name';
+    await writeFile(filename, content);
+    statusSpan.innerText = 'Change completed';
+  } catch(error) {
+    console.log('Argh! ' + error);
+  }
+}
+
+async function erase() {
+  try {
+    // Write
+    console.log('Erasing...');
+    modeEraseFiles();
+    statusSpan.innerText = 'Erase completed';
+  } catch(error) {
+    console.log('Argh! ' + error);
+  }
+}
+
+async function sendOnEnter(event) {
+    if(event.key === 'Enter') {
+        console.log('Sending...');
+        console.log(event.target.value);
+        sendSerial(event.target.value);
+    }
+}
+
+    </script>
+  </body>
+</html>

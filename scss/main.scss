@@ -1,0 +1,265 @@
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+  position: absolute;
+  top: 0px;
+}
+
+body {
+  background: #f0e4fe;
+  font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  background: #7e49fb;
+  display: flex;
+  flex-direction: row;
+  color: white;
+  padding: 0em 1em;
+  height: 2.2em;
+  align-items: center;
+
+  .gearsIcon {
+    height: 1.6em;
+    margin-right: 0.5em;
+    margin-top: -0.3em;
+    margin-bottom: -0.3em;
+  }
+
+  #projectName, #robotName {
+    margin-left: 1em;
+    background: #b095f0;
+    border: dashed 1px #5781BA;
+    border-radius: 0.3em;
+    padding: 0.3em 0.5em;
+    position: relative;
+    color: white;
+  }
+
+  #projectName::placeholder {
+    color: #727272;
+  }
+
+  .language {
+    margin-left: auto;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .menuBar {
+    display: flex;
+    margin-left: 0.5em;
+
+    .menuItem {
+      padding: 0.3em 0.5em;
+      font-weight: bold;
+      color: white;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .menuItem:hover {
+      color: black;
+    }
+  }
+}
+
+.bold {
+  font-weight: bold;
+}
+
+main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+nav {
+  margin-top: 0.5em;
+  display: flex;
+  border-bottom: solid 1px #bbbbbb;
+  align-items: center;
+
+  ul.panelTabs {
+    display: flex;
+    padding-left: 5px;
+    margin: 0;
+
+    li {
+      display: block;
+      border: solid 1px #bbbbbb;
+      padding: 0.3em 1em;
+      border-radius: 0.5em 0.5em 0 0;
+      border-bottom: none;
+      margin-left: -5px;
+      background: #D9E3F1;
+      color: #999999;
+      cursor: pointer;
+      user-select: none;
+      white-space:nowrap;
+
+      .py-mod-controls {
+        display: none;
+
+        span {
+          padding: 0px;
+        }
+      }
+    }
+
+    li.active .py-mod-controls {
+      display: inline;
+    }
+
+    li:hover {
+      background: #f0e4fe;
+    }
+
+    li.active {
+      z-index: 1;
+      background: white;
+      color: #4994FB;
+      margin-top: -5px;
+      font-size: 110%;
+    }
+  }
+
+  .news {
+    margin-left: 2em;
+    font-weight: bold;
+    color: red;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .panelControlsArea {
+    margin-left: auto;
+
+    .panelControls {
+      display: none;
+    }
+
+    .panelControls.active {
+      display: block;
+    }
+  }
+}
+
+.panels {
+  flex-grow: 1;
+  position: relative;
+  overflow: hidden;
+
+  .panel {
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+    position: absolute;
+  }
+
+  .panel.active {
+    z-index: 0;
+  }
+}
+
+.saveBlockly, .savePython {
+  font-weight: bold;
+  color: gray;
+  cursor: pointer;
+  user-select: none;
+  margin: 0 1em;
+}
+
+.saveBlockly.hide, .savePython.hide {
+  display: none;
+}
+
+#pythonCode {
+  width: 100%;
+  height: 100%;
+  font-size: 120%;
+}
+
+#pythonCode.hide {
+  display: none;
+}
+
+.pythonModule {
+  width: 100%;
+  height: 100%;
+  font-size: 120%; }
+
+.dialogWindow {
+  .selectRobot {
+    // max-height: 60vh;
+    // display: flex;
+    // flex-direction: column;
+
+    .description {
+      display: flex;
+      border: solid 1px white;
+      margin-top: 0.5em;
+
+      .thumbnail {
+        width: 200px;
+        height: 200px;
+      }
+
+      .text {
+        border-left: solid 1px white;
+        padding: 0 1em;
+        flex-shrink: 1;
+      }
+    }
+
+    .configurations {
+      border: solid 1px white;
+      margin-top: 0.5em;
+      padding: 0 0.5em;
+      // overflow-y: auto;
+      // max-height: 20em;
+    }
+  }
+}
+
+ul.menuDropDown {
+  background: #f0e4fe;
+  border: solid 1px #bbbbbb;
+  position: absolute;
+  // top: 71px;
+  // left: 272px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  border-radius: 0 0 0.5em 0.5em;
+  overflow: hidden;
+  box-shadow: 0px 10px 6px 0px rgba(0,0,0,0.25);
+
+  li {
+    display: block;
+    color: gray;
+    padding: 0.5em;
+  }
+  li:hover {
+    background: white;
+  }
+  li.underline {
+    border-bottom: solid 1px #bbbbbb;
+  }
+  .tick {
+    color: green;
+  }
+}
+
+ul.menuDropDownRightAlign {
+  top: 100%;
+}
+
+@import '_blocklyPanel.scss';
+@import '_font.scss';

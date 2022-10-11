@@ -1,0 +1,130 @@
+@keyframes show {
+  0% {
+    transform: translateY(100vh) scaleX(0.1); }
+  100% {
+    transform: translateY(0) scaleX(1); } }
+@keyframes hide {
+  from {
+    transform: scale(1, 1); }
+  to {
+    transform: scale(0, 0); } }
+@keyframes toast {
+  0% {
+    transform: scale(0, 0); }
+  10% {
+    transform: scale(1, 1); }
+  90% {
+    transform: scale(1, 1); }
+  100% {
+    transform: scale(0, 0); } }
+.animatedHide {
+  animation-name: hide !important; }
+
+#activitySpinner {
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  #activitySpinner > i {
+    font-size: 200px;
+    color: white; }
+
+.toastMsg {
+  z-index: 2000;
+  animation-name: toast;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  position: fixed;
+  font-size: 130%;
+  width: 60%;
+  left: 0;
+  right: 0;
+  margin: auto;
+  top: 3%;
+  border-radius: 10px;
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  text-align: center;
+  box-shadow: 5px 5px 10px black;
+  background: grey;
+  color: white; }
+
+.dialogScreen {
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  font-size: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column; }
+  .dialogScreen > .dialogWindow {
+    animation-name: show;
+    animation-duration: 0.2s;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    width: 40em;
+    max-width: 90%;
+    top: 10%;
+    position: absolute;
+    background: #4994FB;
+    color: white;
+    border-radius: 10px;
+    font-size: 120%;
+    max-height: 80%;
+    overflow-y: auto;
+    margin: auto;
+    border: solid 2px white;
+    display: flex;
+    flex-direction: column; }
+    .dialogScreen > .dialogWindow > .dialogTitle {
+      padding: 0.4rem 1.2rem;
+      font-size: 130%;
+      font-weight: bold;
+      border-bottom: solid 2px #bbbbbb; }
+    .dialogScreen > .dialogWindow > .dialogBody {
+      padding: 0.8rem 1.2rem;
+      overflow-y: auto; }
+    .dialogScreen > .dialogWindow > .dialogButtonsRow {
+      display: flex;
+      justify-content: flex-end;
+      width: 100%;
+      padding: 0.5em 1em;
+      box-sizing: border-box; }
+      .dialogScreen > .dialogWindow > .dialogButtonsRow > button {
+        margin-left: 5px;
+        font-size: 100%;
+        border: none;
+        border-radius: 0.3em;
+        padding: 0.2em 0.5em;
+        min-width: 4em;
+        border: solid 2px #bbbbbb; }
+      .dialogScreen > .dialogWindow > .dialogButtonsRow .push-left {
+        margin-right: auto; }
+      .dialogScreen > .dialogWindow > .dialogButtonsRow .btn-success {
+        color: white;
+        background-color: #28a745; }
+      .dialogScreen > .dialogWindow > .dialogButtonsRow .btn-light {
+        background-color: #f8f9fa; }
+    .dialogScreen > .dialogWindow select {
+      font-size: 100%;
+      width: 100%;
+      background: #4994FB;
+      color: white;
+      border-color: white; }
+
+.animateClick {
+  transform: scale(0.95);
+  transition: all 0.1s; }
