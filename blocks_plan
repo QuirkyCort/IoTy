@@ -1,3 +1,142 @@
+# machine
 pin set mode
 pin on / off
 pin value
+
+Avoid pins...
+ 1,3 UART
+ 6,7,8,11,16,17 Flash
+ 34-39 input only, no pullup
+
+# pwm
+# PWM can be enabled on all output-enabled pins
+from machine import Pin, PWM
+
+pwm2 = PWM(Pin(2), freq=20000, duty=512)  # default 5khz (1hz to 40MHz), 512 (0-1023)
+pwm2.duty(256)             # set duty cycle from 0 to 1023 as a ratio duty/1023, (now 25%)
+pwm0.deinit()              # turn off PWM on the pin
+
+# ADC
+# On the ESP32, ADC functionality is available on pins 32-39 (ADC block 1) and pins 0, 2, 4, 12-15 and 25-27 (ADC block 2).
+# ADC block 2 is also used by WiFi and so attempting to read analog values from block 2 pins when WiFi is active will raise an exception
+
+from machine import ADC
+
+adc = ADC(pin)        # create an ADC object acting on a pin
+val = adc.read_u16()  # read a raw analog value in the range 0-65535
+val = adc.read_uv()   # read an analog value in microvolts
+
+# time
+time.sleep(1)           # sleep for 1 second
+time.sleep_ms(500)      # sleep for 500 milliseconds
+time.sleep_us(10)       # sleep for 10 microseconds
+start = time.ticks_ms() # get millisecond counter
+delta = time.ticks_diff(time.ticks_ms(), start) # compute time difference
+
+# Neopixel
+
+from machine import Pin
+from neopixel import NeoPixel
+
+pin = Pin(0, Pin.OUT)   # set GPIO0 to output to drive NeoPixels
+np = NeoPixel(pin, 8)   # create NeoPixel driver on GPIO0 for 8 pixels
+np[0] = (255, 255, 255) # set the first pixel to white
+np.write()              # write data to all pixels
+r, g, b = np[0]         # get first pixel colour
+
+# I2C
+#Software I2C (using bit-banging) works on all output-capable pins
+
+from machine import Pin, SoftI2C
+
+i2c = SoftI2C(scl=Pin(5), sda=Pin(4), freq=100000)
+
+i2c.scan()              # scan for devices
+
+i2c.readfrom(0x3a, 4)   # read 4 bytes from device with address 0x3a
+i2c.writeto(0x3a, '12') # write '12' to device with address 0x3a
+
+buf = bytearray(10)     # create a buffer with 10 bytes
+i2c.writeto(0x3a, buf)  # write the given buffer to the peripheral
+
+# SPI
+# Software SPI (using bit-banging) works on all pins,
+
+from machine import Pin, SoftSPI
+
+# construct a SoftSPI bus on the given pins
+# polarity is the idle state of SCK
+# phase=0 means sample on the first edge of SCK, phase=1 means the second
+spi = SoftSPI(baudrate=100000, polarity=1, phase=0, sck=Pin(0), mosi=Pin(2), miso=Pin(4))
+
+spi.init(baudrate=200000) # set the baudrate
+
+spi.read(10)            # read 10 bytes on MISO
+spi.read(10, 0xff)      # read 10 bytes while outputting 0xff on MOSI
+
+buf = bytearray(50)     # create a buffer
+spi.readinto(buf)       # read into the given buffer (reads 50 bytes in this case)
+spi.readinto(buf, 0xff) # read into the given buffer and output 0xff on MOSI
+
+spi.write(b'12345')     # write 5 bytes on MOSI
+
+buf = bytearray(4)      # create a buffer
+spi.write_readinto(b'1234', buf) # write to MOSI and read from MISO into the buffer
+spi.write_readinto(buf, buf) # write buf to MOSI and read MISO back into buf
+
+# Network
+import network
+
+wlan = network.WLAN(network.STA_IF) # create station interface
+wlan.active(True)       # activate the interface
+wlan.scan()             # scan for access points
+wlan.isconnected()      # check if the station is connected to an AP
+wlan.connect('ssid', 'key') # connect to an AP
+wlan.config('mac')      # get the interface's MAC address
+wlan.ifconfig()         # get the interface's IP/netmask/gw/DNS addresses
+
+ap = network.WLAN(network.AP_IF) # create access-point interface
+ap.config(ssid='ESP-AP') # set the SSID of the access point
+ap.config(max_clients=10) # set how many clients can connect to the network
+ap.active(True)         # activate the interface
+
+def do_connect():
+    import network
+    wlan = network.WLAN(network.STA_IF)
+    wlan.active(True)
+    if not wlan.isconnected():
+        print('connecting to network...')
+        wlan.connect('ssid', 'key')
+        while not wlan.isconnected():
+            pass
+    print('network config:', wlan.ifconfig())
+
+Once the network is established the socket module can be used to create and use TCP/UDP sockets as usual
+urequests module for convenient HTTP requests.
+
+After a call to wlan.connect(), the device will by default retry to connect forever, even when the authentication failed or no AP is in range.
+wlan.status() will return network.STAT_CONNECTING in this state until a connection succeeds or the interface gets disabled.
+wlan.config(reconnects=n), where n are the number of desired reconnect attempts (0 means it won’t retry, -1 will restore the default behaviour of trying to reconnect forever).
+
+# IoT
+
+use socket
+
+# http
+
+Useful?
+
+# ESP32 specific
+esp32.raw_temperature()¶
+Read the raw value of the internal temperature sensor, returning an integer.
+
+esp32.hall_sensor()¶
+Read the raw value of the internal Hall sensor, returning an integer.
+
+
+# Others
+map
+constrain
+servo
+ultrasonic
+OLED display

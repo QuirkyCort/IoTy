@@ -41,7 +41,12 @@
         <li id="navMonitor">Monitor</li>
       </ul>
       <div class="panelControlsArea">
-        Connect symbol
+        <div id="connectGroup">
+          <div id="connectionStatus">Disconnected</div>
+          <div id="connectMenu">
+            <span class="icon-kebab"></span>
+          </div>
+        </div>
       </div>
     </nav>
     <div class="panels">
@@ -52,6 +57,17 @@
 
       <div class="panel" aria-labelledby="navPython">
         <div id="pythonCode"></div>
+      </div>
+
+      <div class="monitor panel" aria-labelledby="navMonitor">
+        <div class="monitorRow">
+          <input id="monitorInput">
+          <button id="monitorSend">Send</button>
+        </div>
+        <div id="monitorDisplay">Test text: iWiW</div>
+        <div class="monitorRow">
+          <button id="monitorClear">Clear Monitor</button>
+        </div>
       </div>
 
     </div>
@@ -65,6 +81,9 @@
   <script src="js/blockly.js?v=3a1d10b5"></script>
   <script src="js/blocklyPanel.js?v=3a1d10b5"></script>
   <script src="js/pythonPanel.js?v=84d500ff"></script>
+  <script src="js/monitorPanel.js?v=84d500ff"></script>
+  <script src="js/ble.js"></script>
+
   <script src="js/main.js?v=90af7425"></script>
 
   <script>

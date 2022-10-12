@@ -1,9 +1,12 @@
 import bluetooth
 import struct
 import os
+import json
 
 from _name import NAME
 from micropython import const
+
+_VERSION = 1
 
 _SERIAL_BUFFER_SIZE = 80
 _DATA_BUFFER_SIZE = 512
@@ -24,16 +27,20 @@ _FLAG_NOTIFY = const(0x0010)
 _MODE_OPEN = const(1)
 _MODE_APPEND = const(2)
 _MODE_CLOSE = const(3)
-_MODE_ERASE = const(4)
+_MODE_DELETE_ALL = const(4)
+_MODE_GET_VERSION = const(5)
+_MODE_LIST = const(6)
+_MODE_READ = const(7)
+_MODE_DELETE = const(8)
 
 _SERVICE_UUID = bluetooth.UUID('ba48d887-db79-4cac-8d72-a4d9ecdfcde2')
 _CMD_CHAR = (
     bluetooth.UUID('4423f470-dad0-437a-8c18-9a378981cca9'),
-    _FLAG_WRITE,
+    _FLAG_WRITE | _FLAG_READ,
 )
 _DATA_CHAR = (
     bluetooth.UUID('e4494fc7-fae6-42cf-81c0-8f835a0ace7f'),
-    _FLAG_WRITE,
+    _FLAG_WRITE | _FLAG_READ,
 )
 _SERIAL_CHAR = (
     bluetooth.UUID('c12fee47-2a93-4138-9505-2a97da04b413'),
@@ -115,9 +122,15 @@ class BLE_Service:
         elif cmd == _MODE_CLOSE:
             self._mode = cmd
             self._close_file()
-        elif cmd == _MODE_ERASE:
+        elif cmd == _MODE_DELETE_ALL:
             self._mode = cmd
             self._erase_files()
+        elif cmd == _MODE_GET_VERSION:
+            value = _VERSION.to_bytes(2, 'big')
+            self._ble.gatts_write(self._handle_cmd, value)
+        # elif cmd == _MODE_LIST:
+        #     listing = os.listdir()
+        #     value = json.dumps(listing, separators=(',', ':')).encode(encoding = 'UTF-8')
 
     def _close_file(self):
         self._file.close()

@@ -9,6 +9,9 @@ var main = new function() {
     self.$helpMenu = $('.helpMenu');
     self.$languageMenu = $('.language');
     self.$newsButton = $('.news');
+    self.$connectMenu = $('#connectMenu');
+
+    self.$projectName = $('#projectName');
 
     self.updateTextLanguage();
 
@@ -17,6 +20,7 @@ var main = new function() {
     self.$helpMenu.click(self.toggleHelpMenu);
     self.$languageMenu.click(self.toggleLanguageMenu);
     self.$newsButton.click(self.showNews);
+    self.$connectMenu.click(self.toggleConnectMenu);
 
     window.addEventListener('beforeunload', self.checkUnsaved);
     blocklyPanel.onActive();
@@ -114,6 +118,23 @@ var main = new function() {
       ];
 
       menuDropDown(self.$helpMenu, menuItems, {className: 'helpMenuDropDown'});
+    }
+  };
+
+  // Toggle connect
+  this.toggleConnectMenu = function(e) {
+    if ($('.connectMenuDropDown').length == 0) {
+      $('.menuDropDown').remove();
+      e.stopPropagation();
+
+      let menuItems = [
+        {html: i18n.get('#main-connect#'), line: false, callback: ble.connect },
+        {html: i18n.get('#main-download#'), line: false, callback: ble.download },
+        {html: i18n.get('#main-erase#'), line: false, callback: ble.erase },
+        {html: i18n.get('#main-changeName#'), line: false, callback: ble.changeName},
+      ];
+
+      menuDropDown(self.$connectMenu, menuItems, {className: 'connectMenuDropDown', align: 'right'});
     }
   };
 

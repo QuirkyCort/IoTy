@@ -5,7 +5,9 @@
   <body>
     <button id="connect">Connect</button>
     <button id="send">Send</button>
-    <button id="erase">Erase</button><br>
+    <button id="erase">Erase</button>
+    <button id="getVersion">Get Version</button>
+    <br>
     <input id="newName" type="text" maxlength="8"><button id="changeName">Change Device Name</button><br>
     <div>Status: <span id="status"></span></div>
     Filename: <input id="name" type="text"><br>
@@ -18,7 +20,11 @@
 const _MODE_OPEN = 1;
 const _MODE_APPEND = 2;
 const _MODE_CLOSE = 3;
-const _MODE_ERASE = 4;
+const _MODE_DELETE_ALL = 4;
+const _MODE_GET_VERSION = 5;
+const _MODE_LIST = 6;
+const _MODE_READ = 7;
+const _MODE_DELETE = 8;
 
 const BUFFER_SIZE = 512;
 
@@ -32,8 +38,9 @@ let dataCharacteristic;
 
 document.getElementById('connect').onclick = connect;
 document.getElementById('send').onclick = send;
-document.getElementById('erase').onclick = erase;
+document.getElementById('erase').onclick = eraseAll;
 document.getElementById('changeName').onclick = changeName;
+document.getElementById('getVersion').onclick = getVersion;
 document.getElementById('consoleInput').onkeydown = sendOnEnter;
 
 let statusSpan = document.getElementById('status');
@@ -81,24 +88,13 @@ function handleNotifications(event) {
 }
 
 // Set modes
-async function modeOpenFile() {
-  let value = Uint8Array.of(_MODE_OPEN);
+async function setCmdMode(mode) {
+  let value = Uint8Array.of(mode);
   await cmdCharacteristic.writeValueWithResponse(value);
 }
 
-async function modeAppendFile() {
-  let value = Uint8Array.of(_MODE_APPEND);
-  await cmdCharacteristic.writeValueWithResponse(value);
-}
-
-async function modeCloseFile() {
-  let value = Uint8Array.of(_MODE_CLOSE);
-  await cmdCharacteristic.writeValueWithResponse(value);
-}
-
-async function modeEraseFiles() {
-  let value = Uint8Array.of(_MODE_ERASE);
-  await cmdCharacteristic.writeValueWithResponse(value);
+async function readCmdCharacteristic() {
+  return await cmdCharacteristic.readValue();
 }
 
 async function sendSerial(text) {
@@ -119,11 +115,11 @@ async function writeData(str) {
 
 // Write File
 async function writeFile(name, value) {
-  await modeOpenFile();
+  await setCmdMode(_MODE_OPEN);
   await writeData(name);
-  await modeAppendFile();
+  await setCmdMode(_MODE_APPEND);
   await writeData(value);
-  await modeCloseFile();
+  await setCmdMode(_MODE_CLOSE);
 }
 
 async function send() {
@@ -155,12 +151,25 @@ async function changeName() {
   }
 }
 
-async function erase() {
+async function eraseAll() {
   try {
     // Write
     console.log('Erasing...');
-    modeEraseFiles();
+    await setCmdMode(_MODE_DELETE_ALL);
     statusSpan.innerText = 'Erase completed';
+  } catch(error) {
+    console.log('Argh! ' + error);
+  }
+}
+
+async function getVersion() {
+  try {
+    console.log('Get version...');
+    await setCmdMode(_MODE_GET_VERSION);
+    let value = await readCmdCharacteristic();
+    let version = value.getUint16(0);
+    console.log('Version', version);
+    statusSpan.innerText = 'Version ' + version;
   } catch(error) {
     console.log('Argh! ' + error);
   }

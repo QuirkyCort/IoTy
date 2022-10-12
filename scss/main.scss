@@ -138,14 +138,28 @@ nav {
 
   .panelControlsArea {
     margin-left: auto;
+  }
+}
 
-    .panelControls {
-      display: none;
-    }
+#connectGroup {
+  display: flex;
+  margin-top: -5px;
+  margin-right: 0.2em;
 
-    .panelControls.active {
-      display: block;
-    }
+  #connectionStatus {
+    padding: 0.4em 0.5em 0.2em 0.5em;
+    border-radius: 0.5em 0 0 0.5em;
+    background: red;
+    color: white;
+  }
+
+  #connectMenu {
+    padding: 0.4em 0.5em 0.2em 0.45em;
+    border-radius: 0 0.5em 0.5em 0;
+    background: #7e49fb;
+    color: white;
+    cursor: pointer;
+    user-select: none;
   }
 }
 
@@ -262,4 +276,5 @@ ul.menuDropDownRightAlign {
 }
 
 @import '_blocklyPanel.scss';
+@import '_monitorPanel.scss';
 @import '_font.scss';

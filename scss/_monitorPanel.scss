@@ -1,0 +1,30 @@
+.monitor {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  font-size: 125%;
+  font-family: monospace;
+
+  .monitorRow {
+    margin: 0.2em;
+    display: flex;
+  }
+
+  #monitorInput, #monitorSend, #monitorClear {
+    font-size: 100%;
+    font-family: inherit;
+  }
+
+  #monitorInput {
+    margin-right: 0.2em;
+    flex-grow: 1;
+  }
+
+  #monitorDisplay {
+    flex-grow: 1;
+    background: white;
+    border: solid 1px black;
+    margin: 0 0.2em;
+    padding: 0.2em;
+  }
+}

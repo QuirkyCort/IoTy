@@ -1621,6 +1621,18 @@ let MSGS = {
     he: 'קובץ רובוט לא חוקי (חסרים נתוני תצורת רובוט)',
     hu: 'Érvénytelen robotfájl (hiányzó robotkonfigurációs adatok)',
   },
+  '#main-connect#': {
+    en: 'Connect',
+  },
+  '#main-download#': {
+    en: 'Download to device',
+  },
+  '#main-erase#': {
+    en: 'Erase device',
+  },
+  '#main-changeName#': {
+    en: 'Change device name',
+  },
   '#arena-show_names#': {
     en: 'Show Names',
     nl: 'Toon namen',
