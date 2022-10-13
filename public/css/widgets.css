@@ -118,6 +118,8 @@
         background-color: #28a745; }
       .dialogScreen > .dialogWindow > .dialogButtonsRow .btn-light {
         background-color: #f8f9fa; }
+    .dialogScreen > .dialogWindow > .dialogButtonsRow.hide {
+      display: none; }
     .dialogScreen > .dialogWindow select {
       font-size: 100%;
       width: 100%;

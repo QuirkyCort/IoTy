@@ -32,6 +32,7 @@ _MODE_GET_VERSION = const(5)
 _MODE_LIST = const(6)
 _MODE_READ = const(7)
 _MODE_DELETE = const(8)
+_MODE_UPDATE = const(9)
 
 _SERVICE_UUID = bluetooth.UUID('ba48d887-db79-4cac-8d72-a4d9ecdfcde2')
 _CMD_CHAR = (
@@ -128,9 +129,22 @@ class BLE_Service:
         elif cmd == _MODE_GET_VERSION:
             value = _VERSION.to_bytes(2, 'big')
             self._ble.gatts_write(self._handle_cmd, value)
-        # elif cmd == _MODE_LIST:
-        #     listing = os.listdir()
-        #     value = json.dumps(listing, separators=(',', ':')).encode(encoding = 'UTF-8')
+        elif cmd == _MODE_UPDATE:
+            self._update()
+
+    def _update(self):
+        name_pairs = []
+        try:
+            with open('_ioty_updates', 'r') as f:
+                for line in f.readlines():
+                    name_pairs.append(line.split())
+
+            for name_pair in name_pairs:
+                os.rename(name_pair[0], name_pair[1])
+
+            os.remove('_ioty_updates')
+        except:
+            pass
 
     def _close_file(self):
         self._file.close()

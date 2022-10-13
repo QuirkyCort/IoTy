@@ -1,6 +1,9 @@
 var main = new function() {
   var self = this;
 
+  this.STATUS_CONNECTED = 1;
+  this.STATUS_DISCONNECTED = 2;
+
   // Run on page load
   this.init = function() {
     self.$navs = $('nav li');
@@ -9,6 +12,7 @@ var main = new function() {
     self.$helpMenu = $('.helpMenu');
     self.$languageMenu = $('.language');
     self.$newsButton = $('.news');
+    self.$connectStatus = $('#connectionStatus')
     self.$connectMenu = $('#connectMenu');
 
     self.$projectName = $('#projectName');
@@ -153,6 +157,17 @@ var main = new function() {
       ];
 
       menuDropDown(self.$fileMenu, menuItems, {className: 'fileMenuDropDown'});
+    }
+  };
+
+  // Set connect status
+  this.setConnectStatus = function(status) {
+    if (status == self.STATUS_CONNECTED) {
+      self.$connectStatus.text('Connected');
+      self.$connectStatus.addClass('connected');
+    } else if (status == self.STATUS_DISCONNECTED) {
+      self.$connectStatus.text('Disconnected');
+      self.$connectStatus.removeClass('connected');
     }
   };
 

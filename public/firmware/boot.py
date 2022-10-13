@@ -3,8 +3,6 @@ import _ioty_service
 from machine import Pin
 from time import sleep_ms
 
-_NAME = 'IoTy-000'
-
 def main():
     led = Pin(2, Pin.OUT)
     btn = Pin(0, Pin.IN, Pin.PULL_UP)

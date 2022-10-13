@@ -112,6 +112,8 @@ nav {
     border-radius: 0.5em 0 0 0.5em;
     background: red;
     color: white; }
+  #connectGroup #connectionStatus.connected {
+    background: green; }
   #connectGroup #connectMenu {
     padding: 0.4em 0.5em 0.2em 0.45em;
     border-radius: 0 0.5em 0.5em 0;
