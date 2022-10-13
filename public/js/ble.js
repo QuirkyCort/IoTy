@@ -1,7 +1,7 @@
 var ble = new function() {
   var self = this;
 
-  this.CURRENT_VERSION = 3;
+  this.CURRENT_VERSION = 1;
 
   this._MODE_APPEND = 2;
   this._MODE_OPEN = 1;
@@ -26,6 +26,8 @@ var ble = new function() {
   this.CMD_UUID = '4423f470-dad0-437a-8c18-9a378981cca9';
   this.DATA_UUID = 'e4494fc7-fae6-42cf-81c0-8f835a0ace7f';
   this.SERIAL_UUID = 'c12fee47-2a93-4138-9505-2a97da04b413';
+
+  this.isConnected = false;
 
   // Run on page load
   this.init = function() {
@@ -77,6 +79,7 @@ var ble = new function() {
       $connectWindow.close();
 
       main.setConnectStatus(main.STATUS_CONNECTED);
+      self.isConnected = true;
     } catch(error) {
       console.log(error);
       $connectWindow.$body.text('Connection error');
@@ -97,11 +100,11 @@ var ble = new function() {
   this.setCmdMode = async function(mode) {
     let value = Uint8Array.of(mode);
     await self.cmdCharacteristic.writeValueWithResponse(value);
-  }
+  };
 
   this.readCmdCharacteristic = async function() {
     return await self.cmdCharacteristic.readValue();
-  }
+  };
 
   this.writeData = async function(str, progressCB) {
     var value = new TextEncoder('utf-8').encode(str);
@@ -111,7 +114,7 @@ var ble = new function() {
         progressCB();
       }
     }
-  }
+  };
 
   this.writeFile = async function(name, value, progressCB) {
     await self.setCmdMode(self._MODE_OPEN);
@@ -119,13 +122,13 @@ var ble = new function() {
     await self.setCmdMode(self._MODE_APPEND);
     await self.writeData(value, progressCB);
     await self.setCmdMode(self._MODE_CLOSE);
-  }
+  };
 
   this.getVersion = async function() {
     await self.setCmdMode(self._MODE_GET_VERSION);
     let value = await self.readCmdCharacteristic();
     return value.getUint16(0);
-  }
+  };
 
   this.checkVersion = async function() {
     self.version = await self.getVersion();
@@ -138,7 +141,7 @@ var ble = new function() {
           'Errors may occur if you do not update your firmware.'
       }, self.updateFirmware);
     }
-  }
+  };
 
   this.updateFirmware = async function() {
     // Draw window
@@ -206,6 +209,7 @@ var ble = new function() {
 
   this.disconnected = function() {
     main.setConnectStatus(main.STATUS_DISCONNECTED);
+    self.isConnected = false;
   };
 
   this.handleNotifications = function() {
@@ -216,12 +220,62 @@ var ble = new function() {
 
   };
 
-  this.erase = function() {
+  this.eraseDialog = function() {
+    if (! self.isConnected) {
+      toastMsg('Not connected. Please connect to device.');
+      return;
+    }
 
+    confirmDialog({
+      title: 'Erase Device?',
+      confirm: 'Erase All',
+      message: 'This will erase all programs from your device, restoring it to its initial state.'
+    }, self.erase);
   };
 
-  this.changeName = function() {
+  this.erase = async function() {
+    let $deleteWindow = self.hiddenButtonDialog('Erase Device', 'Deleting all programs from device...');
 
+    try {
+      await self.setCmdMode(self._MODE_DELETE_ALL);
+      $deleteWindow.$body.text('Delete completed.');
+      $deleteWindow.$buttonsRow.removeClass('hide');
+    } catch (error) {
+      console.log(error);
+      $deleteWindow.$body.text('Error deleting programs.');
+      $deleteWindow.$buttonsRow.removeClass('hide');
+    }
+  };
+
+  this.changeNameDialog = function() {
+    if (! self.isConnected) {
+      toastMsg('Not connected. Please connect to device.');
+      return;
+    }
+
+    let $changeNameWindow = confirmDialog({
+      title: 'Change device name',
+      message: '<div>New name: <input id="newName" type="text" maxlength="8" value="' + self.device.name + '"></div>'
+    }, function() {
+      let newName = $changeNameWindow.$body.find('#newName').val();
+      self.changeName(newName);
+    })
+  };
+
+  this.changeName = async function(newName) {
+    let $changeNameWindow = self.hiddenButtonDialog('Change Device Name', 'Changing Name...');
+
+    try {
+      let filename = '_ioty_name';
+      let content = newName.slice(0, 8);
+      await self.writeFile(filename, content);
+      $changeNameWindow.$body.text('Change completed. Restart your device to see the new name.');
+      $changeNameWindow.$buttonsRow.removeClass('hide');
+    } catch (error) {
+      console.log(error);
+      $changeNameWindow.$body.text('Error changing name.');
+      $changeNameWindow.$buttonsRow.removeClass('hide');
+    }
   };
 }
 

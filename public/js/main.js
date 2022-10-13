@@ -134,8 +134,8 @@ var main = new function() {
       let menuItems = [
         {html: i18n.get('#main-connect#'), line: false, callback: ble.connect },
         {html: i18n.get('#main-download#'), line: false, callback: ble.download },
-        {html: i18n.get('#main-erase#'), line: false, callback: ble.erase },
-        {html: i18n.get('#main-changeName#'), line: false, callback: ble.changeName},
+        {html: i18n.get('#main-erase#'), line: false, callback: ble.eraseDialog },
+        {html: i18n.get('#main-changeName#'), line: false, callback: ble.changeNameDialog},
       ];
 
       menuDropDown(self.$connectMenu, menuItems, {className: 'connectMenuDropDown', align: 'right'});

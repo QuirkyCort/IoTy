@@ -3,7 +3,6 @@ import struct
 import os
 import json
 
-from _name import NAME
 from micropython import const
 
 _VERSION = 1
@@ -52,7 +51,7 @@ _SERVICE = (
     (_CMD_CHAR, _DATA_CHAR, _SERIAL_CHAR),
 )
 
-_PRESERVE_FILES = ('boot.py', '_ioty_service.py', '_name.py', '_ioty_monitor.py')
+_PRESERVE_FILES = ('boot.py', '_ioty_service.py', '_ioty_name', '_ioty_monitor.py')
 
 def advertising_payload(limited_disc=False, br_edr=False, name=None, services=None, appearance=0):
     payload = bytearray()
@@ -81,6 +80,8 @@ def advertising_payload(limited_disc=False, br_edr=False, name=None, services=No
 
 class BLE_Service:
     def __init__(self, data_buf_size=_DATA_BUFFER_SIZE, serial_buf_size=_SERIAL_BUFFER_SIZE):
+        with open('_ioty_name', 'r') as f:
+            name = f.readline()
         self._ble = bluetooth.BLE()
         self._file = None
         self._mode = 0
@@ -92,7 +93,7 @@ class BLE_Service:
         self._ble.gatts_set_buffer(self._handle_serial, serial_buf_size)
         self._serial_buf_size = serial_buf_size
         self._connections = set()
-        self._payload = advertising_payload(name=NAME, services=[_SERVICE_UUID])
+        self._payload = advertising_payload(name=name, services=[_SERVICE_UUID])
         self._advertise()
 
     def _irq(self, event, data):
