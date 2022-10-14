@@ -64,10 +64,12 @@ var ioty_generator = new function() {
 
     let workspaceCode = Blockly.Python.workspaceToCode(blockly.workspace);
 
-    let code = 'import machine\n';
+    let code = 'import _ioty_monitor\n';
     for (let key in self.imports) {
       code += self.imports[key] + '\n';
     }
+    code += '\n';
+
     code += workspaceCode;
 
     return code

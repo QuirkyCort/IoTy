@@ -144,19 +144,6 @@ nav {
 .saveBlockly.hide, .savePython.hide {
   display: none; }
 
-#pythonCode {
-  width: 100%;
-  height: 100%;
-  font-size: 120%; }
-
-#pythonCode.hide {
-  display: none; }
-
-.pythonModule {
-  width: 100%;
-  height: 100%;
-  font-size: 120%; }
-
 .dialogWindow .selectRobot .description {
   display: flex;
   border: solid 1px white;
@@ -236,12 +223,62 @@ ul.menuDropDownRightAlign {
 .blocklyEditor.hide {
   display: none; }
 
+.python {
+  display: flex;
+  flex-direction: column;
+  background: #2F3129;
+  font-size: 125%;
+  font-family: monospace;
+  width: 100%;
+  height: 100%; }
+  .python #pythonCode {
+    width: 100%;
+    height: 100%;
+    font-size: 120%; }
+  .python #pythonCode.hide {
+    display: none; }
+  .python #filesRow {
+    display: flex;
+    align-items: center; }
+    .python #filesRow #filesList {
+      display: flex;
+      overflow-x: scroll;
+      -ms-overflow-style: none;
+      /* IE and Edge */
+      scrollbar-width: none;
+      /* Firefox */ }
+      .python #filesRow #filesList .file {
+        display: flex;
+        background: #515251;
+        color: #999b99;
+        border: solid 1px black;
+        padding: 0.3em;
+        cursor: pointer;
+        user-select: none; }
+        .python #filesRow #filesList .file .renameFile, .python #filesRow #filesList .file .deleteFile {
+          display: none;
+          margin-left: 0.5em; }
+      .python #filesRow #filesList .file.selected {
+        background-color: #181818;
+        color: white; }
+        .python #filesRow #filesList .file.selected .renameFile, .python #filesRow #filesList .file.selected .deleteFile {
+          display: block; }
+    .python #filesRow #filesList::-webkit-scrollbar {
+      display: none; }
+    .python #filesRow #addNewFile {
+      padding: 0.3em 0.5em;
+      color: white;
+      cursor: pointer;
+      user-select: none; }
+
 .monitor {
   display: flex;
   flex-direction: column;
   background: white;
   font-size: 125%;
-  font-family: monospace; }
+  font-family: monospace;
+  width: 100%;
+  height: 100%; }
   .monitor .monitorRow {
     margin: 0.2em;
     display: flex; }
@@ -256,12 +293,14 @@ ul.menuDropDownRightAlign {
     background: white;
     border: solid 1px black;
     margin: 0 0.2em;
-    padding: 0.2em; }
+    padding: 0.2em;
+    overflow-y: scroll;
+    overflow-x: auto; }
 
 @font-face {
   font-family: 'icomoon';
-  src: url("../fonts/icomoon.eot?ofj2a6");
-  src: url("../fonts/icomoon.eot?ofj2a6#iefix") format("embedded-opentype"), url("../fonts/icomoon.ttf?ofj2a6") format("truetype"), url("../fonts/icomoon.woff?ofj2a6") format("woff"), url("../fonts/icomoon.svg?ofj2a6#icomoon") format("svg");
+  src: url("../fonts/icomoon.eot?zcpech");
+  src: url("../fonts/icomoon.eot?zcpech#iefix") format("embedded-opentype"), url("../fonts/icomoon.ttf?zcpech") format("truetype"), url("../fonts/icomoon.woff?zcpech") format("woff"), url("../fonts/icomoon.svg?zcpech#icomoon") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: block; }
@@ -277,6 +316,9 @@ ul.menuDropDownRightAlign {
   /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
+
+.icon-edit:before {
+  content: "\e91b"; }
 
 .icon-kebab:before {
   content: "\e918"; }

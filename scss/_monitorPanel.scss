@@ -4,6 +4,8 @@
   background: white;
   font-size: 125%;
   font-family: monospace;
+  width: 100%;
+  height: 100%;
 
   .monitorRow {
     margin: 0.2em;
@@ -26,5 +28,7 @@
     border: solid 1px black;
     margin: 0 0.2em;
     padding: 0.2em;
+    overflow-y: scroll;
+    overflow-x: auto;
   }
 }

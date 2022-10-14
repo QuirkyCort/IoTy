@@ -133,14 +133,23 @@ var ble = new function() {
   this.checkVersion = async function() {
     self.version = await self.getVersion();
     if (self.version != self.CURRENT_VERSION) {
-      confirmDialog({
-        title: 'Firmware Update',
-        confirm: 'Update Now',
-        message:
-          'A new firmware (version ' + self.CURRENT_VERSION + ') is available, your device is using version ' + self.version + '. ' +
-          'Errors may occur if you do not update your firmware.'
-      }, self.updateFirmware);
+      self.updateFirmwareDialog();
     }
+  };
+
+  this.updateFirmwareDialog = function() {
+    if (! self.isConnected) {
+      toastMsg('Not connected. Please connect to device.');
+      return;
+    }
+
+    confirmDialog({
+      title: 'Firmware Update',
+      confirm: 'Update Now',
+      message:
+        'A new firmware (version ' + self.CURRENT_VERSION + ') is available, your device is using version ' + self.version + '. ' +
+        'Errors may occur if you do not update your firmware.'
+    }, self.updateFirmware);
   };
 
   this.updateFirmware = async function() {
@@ -212,11 +221,69 @@ var ble = new function() {
     self.isConnected = false;
   };
 
-  this.handleNotifications = function() {
+  this.handleNotifications = function(event) {
+    let utf8decoder = new TextDecoder();
+    let text = utf8decoder.decode(event.target.value);
 
+    monitorPanel.appendText(text);
   };
 
-  this.download = function() {
+  this.sendSerial = async function(text) {
+    if (! self.isConnected) {
+      toastMsg('Not connected. Please connect to device.');
+      return;
+    }
+
+    const utf8Encode = new TextEncoder();
+    value = utf8Encode.encode(text + '\r\n');
+    try {
+      await self.serialCharacteristic.writeValueWithResponse(value);
+    } catch (error) {
+      console.log(error);
+      toastMsg('Error sending');
+    }
+  }
+
+  this.download = async function() {
+    if (! self.isConnected) {
+      toastMsg('Not connected. Please connect to device.');
+      return;
+    }
+
+    if (filesManager.modified == false) {
+      pythonPanel.loadPythonFromBlockly();
+    }
+    filesManager.updateCurrentFile();
+
+    let $downloadWindow = self.hiddenButtonDialog('Download to Device', 'Erasing...');
+
+    let totalFilesCount = Object.keys(filesManager.files).length;
+    let currentFileCount = 0;
+    let progressBar = '';
+
+    function updateProgress() {
+      progressBar += '.';
+      $downloadWindow.$body.text('Downloading (' + currentFileCount + '/' + totalFilesCount + ')' + progressBar);
+    }
+
+    try {
+      await self.setCmdMode(self._MODE_DELETE_ALL);
+
+      for (let filename in filesManager.files) {
+        progressBar = '';
+        currentFileCount++;
+        updateProgress();
+
+        await self.writeFile(filename, filesManager.files[filename], updateProgress);
+      }
+
+      $downloadWindow.$body.text('Update Completed. Please restart your device.');
+      $downloadWindow.$buttonsRow.removeClass('hide');
+    } catch (error) {
+      console.log(error);
+      $downloadWindow.$body.text('Error downloading files.');
+      $downloadWindow.$buttonsRow.removeClass('hide');
+    }
 
   };
 

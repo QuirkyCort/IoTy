@@ -25,6 +25,7 @@ const _MODE_GET_VERSION = 5;
 const _MODE_LIST = 6;
 const _MODE_READ = 7;
 const _MODE_DELETE = 8;
+const _MODE_UPDATE = 9;
 
 const BUFFER_SIZE = 512;
 
@@ -55,7 +56,6 @@ async function connect() {
     device.addEventListener('gattserverdisconnected', function(event){
       statusSpan.innerText = 'Disconnected';
     });
-
 
     console.log('Connecting to GATT Server...');
     const server = await device.gatt.connect();

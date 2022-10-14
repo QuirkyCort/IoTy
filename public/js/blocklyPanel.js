@@ -14,7 +14,7 @@ var blocklyPanel = new function() {
 
     self.loadPagesOptions();
 
-    setInterval(blockly.saveLocalStorage, 15 * 1000);
+    setInterval(blockly.saveLocalStorage, 2 * 1000);
   };
 
   // Update text already in html
@@ -202,7 +202,7 @@ var blocklyPanel = new function() {
 
   // Run when panel made active
   this.onActive = function() {
-    if (pythonPanel.modified) {
+    if (filesManager.modified) {
       self.setDisable(true);
     } else {
       self.setDisable(false);
@@ -223,8 +223,9 @@ var blocklyPanel = new function() {
     if (state == true) {
       if (self.$panel.find('.disable').length < 1) {
         self.$panel.append('<div class="disable"><div class="enable">' + i18n.get('#blockly-enable_blocks#') + '</div></div>');
-        if (Blockly.selected) {
-          Blockly.selected.unselect();
+        let selected = Blockly.getSelected();
+        if (selected) {
+          selected.unselect();
         }
         Blockly.clipboardSource_ = null;
         Blockly.clipboardTypeCounts_ = null;
@@ -240,7 +241,7 @@ var blocklyPanel = new function() {
   // Re-enable blocks mode
   this.enableBlocks = function(){
     confirmDialog(i18n.get('#blockly-python_lost_warning#'), function(){
-      pythonPanel.modified = false;
+      filesManager.modified = false;
       localStorage.setItem('pythonModified', false);
       self.setDisable(false);
     });

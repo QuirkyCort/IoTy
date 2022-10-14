@@ -136,6 +136,7 @@ var main = new function() {
         {html: i18n.get('#main-download#'), line: false, callback: ble.download },
         {html: i18n.get('#main-erase#'), line: false, callback: ble.eraseDialog },
         {html: i18n.get('#main-changeName#'), line: false, callback: ble.changeNameDialog},
+        {html: i18n.get('#main-updateFirmware#'), line: false, callback: ble.updateFirmwareDialog},
       ];
 
       menuDropDown(self.$connectMenu, menuItems, {className: 'connectMenuDropDown', align: 'right'});
@@ -273,7 +274,7 @@ var main = new function() {
 
   // Check for unsaved changes
   this.checkUnsaved = function (event) {
-    if (blockly.unsaved || pythonPanel.unsaved) {
+    if (blockly.unsaved || filesManager.unsaved) {
       event.preventDefault();
       event.returnValue = '';
     }

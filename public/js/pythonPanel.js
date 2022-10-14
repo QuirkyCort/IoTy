@@ -1,18 +1,11 @@
 var pythonPanel = new function() {
   var self = this;
 
-  this.unsaved = false;
-  this.modified = false;
-  this.blocklyModified = false;
+  this.ignoreChange = 0;
 
   // Run on page load
   this.init = function() {
     self.$pythonCode = $('#pythonCode');
-    self.$save = $('.savePython');
-
-    self.updateTextLanguage();
-
-    self.$save.click(self.save);
 
     self.loadPythonEditor();
   };
@@ -34,14 +27,9 @@ var pythonPanel = new function() {
     self.$pythonCode.css('font-size', '120%');
   };
 
-  // Update text already in html
-  this.updateTextLanguage = function() {
-    self.$save.text(i18n.get('#python-save#'));
-  };
-
   // Runs when panel is made active
   this.onActive = function() {
-    if (self.modified == false) {
+    if (filesManager.modified == false) {
       self.loadPythonFromBlockly();
     }
     self.$pythonCode.removeClass('hide');
@@ -50,7 +38,7 @@ var pythonPanel = new function() {
   // Run when panel is inactive
   this.onInActive = function() {
     self.$pythonCode.addClass('hide');
-  };  
+  };
 
   // Load ace editor
   this.loadPythonEditor = function() {
@@ -85,72 +73,33 @@ var pythonPanel = new function() {
     };
     langTools.addCompleter(staticWordCompleter);
 
-    self.loadLocalStorage();
-
     self.editor.on('change', self.warnModify);
-
-    setInterval(self.saveLocalStorage, 15 * 1000);
   };
 
   // Warn when changing python code
   this.warnModify = function() {
-    if (self.blocklyModified) {
+    if (self.ignoreChange > 0) {
       return;
     }
-    self.unsaved = true;
-    self.showSave();
+    filesManager.unsaved = true;
 
-    if (! self.modified) {
+    if (! filesManager.modified) {
       acknowledgeDialog({
         title: i18n.get('#python-warning#'),
         message: i18n.get('#python-cannot_change_back_warning#')
       });
-      self.modified = true;
+      filesManager.modified = true;
     }
   };
 
   // Load Python code from blockly
   this.loadPythonFromBlockly = function() {
-    self.blocklyModified = true;
+    self.ignoreChange++;
+    filesManager.setToDefault();
+    filesManager.select('main.py');
     let code = blockly.generator.genCode();
     self.editor.setValue(code, 1);
-    self.blocklyModified = false;
-  };
-
-  // Save to local storage
-  this.saveLocalStorage = function() {
-    if (self.unsaved) {
-      self.unsaved = false;
-      self.hideSave();
-      localStorage.setItem('pythonCode', self.editor.getValue());
-      localStorage.setItem('pythonModified', self.modified);
-    }
-  };
-
-  // Load from local storage
-  this.loadLocalStorage = function() {
-    var code = localStorage.getItem('pythonCode');
-    if (code) {
-      self.editor.setValue(code);
-    }
-    if (localStorage.getItem('pythonModified') == 'true') {
-      self.modified = true;
-    }
-  };
-
-  // Save
-  this.save = function() {
-    self.saveLocalStorage();
-  };
-
-  // Hide save button
-  this.hideSave = function() {
-    self.$save.addClass('hide');
-  };
-
-  // Show save button
-  this.showSave = function() {
-    self.$save.removeClass('hide');
+    self.ignoreChange--;
   };
 }
 

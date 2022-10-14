@@ -56,17 +56,25 @@
       </div>
 
       <div class="panel" aria-labelledby="navPython">
-        <div id="pythonCode"></div>
+        <div class="python">
+          <div id="pythonCode"></div>
+          <div id="filesRow">
+            <div id="filesList"></div>
+            <div id="addNewFile"><span class="icon-plus"></span></div>
+          </div>
+        </div>
       </div>
 
-      <div class="monitor panel" aria-labelledby="navMonitor">
-        <div class="monitorRow">
-          <input id="monitorInput">
-          <button id="monitorSend">Send</button>
-        </div>
-        <div id="monitorDisplay">Test text: iWiW</div>
-        <div class="monitorRow">
-          <button id="monitorClear">Clear Monitor</button>
+      <div class="panel" aria-labelledby="navMonitor">
+        <div class="monitor">
+          <div class="monitorRow">
+            <input id="monitorInput">
+            <button id="monitorSend">Send</button>
+          </div>
+          <div id="monitorDisplay"></div>
+          <div class="monitorRow">
+            <button id="monitorClear">Clear Monitor</button>
+          </div>
         </div>
       </div>
 
@@ -81,6 +89,7 @@
   <script src="js/blockly.js?v=3a1d10b5"></script>
   <script src="js/blocklyPanel.js?v=3a1d10b5"></script>
   <script src="js/pythonPanel.js?v=84d500ff"></script>
+  <script src="js/filesManager.js?v=84d500ff"></script>
   <script src="js/monitorPanel.js?v=84d500ff"></script>
   <script src="js/ble.js"></script>
 
