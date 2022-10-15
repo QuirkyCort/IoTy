@@ -1,0 +1,15 @@
+{
+  "type": "set_analog_reader",
+  "message0": "#blk-set_analog_reader# %1",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "pin",
+      "options": $_AnalogPins
+    }
+  ],
+  "output": "ADC",
+  "colour": 230,
+  "tooltip": "",
+  "helpUrl": ""
+}

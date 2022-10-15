@@ -1,0 +1,8 @@
+{
+  "type": "when_started",
+  "message0": "#blk-when_started#",
+  "nextStatement": null,
+  "colour": 65,
+  "tooltip": "",
+  "helpUrl": ""
+}

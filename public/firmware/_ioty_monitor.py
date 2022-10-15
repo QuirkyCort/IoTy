@@ -1,6 +1,7 @@
 import _ioty_service
 import os
 import io
+from time import sleep_ms
 
 class BLE_IO(io.IOBase):
     def __init__(self, ble_console):
@@ -25,9 +26,11 @@ class BLE_IO(io.IOBase):
         self._data = self._data[b:]
         return b
 
-def main():
-    ble_console = _ioty_service.BLE_Service()
-    ble_io = BLE_IO(ble_console)
-    os.dupterm(ble_io)
+def wait_for_connection():
+    while not ble_service.is_connected():
+        sleep_ms(10)
+    sleep_ms(1000)
 
-main()
+ble_service = _ioty_service.BLE_Service()
+ble_io = BLE_IO(ble_service)
+os.dupterm(ble_io)

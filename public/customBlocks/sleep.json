@@ -1,0 +1,34 @@
+{
+  "type": "sleep",
+  "message0": "#blk-sleep_for# %1 %2",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "duration",
+      "check": "Number"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "units",
+      "options": [
+        [
+          "#blk-seconds#",
+          "SECONDS"
+        ],
+        [
+          "#blk-milliseconds#",
+          "MILLISECONDS"
+        ],
+        [
+          "#blk-microseconds#",
+          "MICROSECONDS"
+        ]
+      ]
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 65,
+  "tooltip": "",
+  "helpUrl": ""
+}

@@ -1,0 +1,23 @@
+{
+  "type": "analog_read_pin",
+  "message0": "#blk-analog_read_pin# %1 #blk-in_units_of# %2",
+  "args0": [
+    {
+      "type": "field_variable",
+      "name": "pin",
+      "variable": "adc"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "units",
+      "options": [
+        ["#blk-u16#", "U16"],
+        ["#blk-microvolts#", "MICROVOLTS"]
+      ]
+    }
+  ],
+  "output": "Number",
+  "colour": 230,
+  "tooltip": "",
+  "helpUrl": ""
+}

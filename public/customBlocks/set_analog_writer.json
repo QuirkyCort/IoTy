@@ -1,0 +1,20 @@
+{
+  "type": "set_analog_writer",
+  "message0": "#blk-set_analog_writer# %1 #blk-at# %2 #blk-hz#",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "pin",
+      "options": $_IoPins
+    },
+    {
+      "type": "input_value",
+      "name": "frequency",
+      "check": "Number"
+    }
+  ],
+  "output": "PWM",
+  "colour": 230,
+  "tooltip": "#blk-set_analog_write_pin_tooltip#",
+  "helpUrl": ""
+}

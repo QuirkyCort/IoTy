@@ -1,0 +1,8 @@
+{
+  "type": "exit",
+  "message0": "#blk-exit_program#",
+  "previousStatement": null,
+  "colour": 65,
+  "tooltip": "#blk-exit_tooltip#",
+  "helpUrl": ""
+}

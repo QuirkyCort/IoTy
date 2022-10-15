@@ -1,0 +1,14 @@
+{
+  "type": "read_input",
+  "message0": "#blk-read_input_with_prompt# %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "prompt"
+    }
+  ],
+  "output": "String",
+  "colour": 160,
+  "tooltip": "",
+  "helpUrl": ""
+}

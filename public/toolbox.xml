@@ -1,281 +1,72 @@
 <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
-  <category name="#blk-motion#" colour="#5b67a5">
-    <block type="move_tank">
-      <field name="units">PERCENT</field>
-      <value name="left">
-        <shadow type="math_number">
-          <field name="NUM">20</field>
-        </shadow>
-      </value>
-      <value name="right">
-        <shadow type="math_number">
-          <field name="NUM">20</field>
-        </shadow>
+  <category name="#blk-pins#" colour="#5b67a5">
+    <block type="variables_set">
+      <field name="VAR">p</field>
+      <value name="VALUE">
+        <block type="set_pin_mode">
+          <field name="pin">0</field>
+          <field name="mode">INPUT</field>
+        </block>
       </value>
     </block>
-    <block type="move_tank_for">
-      <field name="units">PERCENT</field>
-      <field name="units2">ROTATIONS</field>
-      <value name="left">
-        <shadow type="math_number">
-          <field name="NUM">20</field>
-        </shadow>
-      </value>
-      <value name="right">
-        <shadow type="math_number">
-          <field name="NUM">20</field>
-        </shadow>
-      </value>
-      <value name="duration">
-        <shadow type="math_number">
-          <field name="NUM">1</field>
-        </shadow>
-      </value>
+    <block type="digital_read_pin">
     </block>
-    <block type="move_steering">
-      <field name="units">PERCENT</field>
-      <value name="steering">
-        <shadow type="math_number">
-          <field name="NUM">0</field>
-        </shadow>
-      </value>
-      <value name="speed">
-        <shadow type="math_number">
-          <field name="NUM">20</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="move_steering_for">
-      <field name="units">PERCENT</field>
-      <field name="units2">ROTATIONS</field>
-      <value name="steering">
-        <shadow type="math_number">
-          <field name="NUM">0</field>
-        </shadow>
-      </value>
-      <value name="speed">
-        <shadow type="math_number">
-          <field name="NUM">20</field>
-        </shadow>
-      </value>
-      <value name="duration">
-        <shadow type="math_number">
-          <field name="NUM">1</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="stop">
-      <field name="stop_action">HOLD</field>
-    </block>
-    <block type="set_movement_motors">
-      <field name="left_port">A</field>
-      <field name="right_port">B</field>
-    </block>
-  </category>
-  <category name="#blk-motor#" colour="#5b67a5">
-    <block type="run_motor">
-      <field name="port">A</field>
-      <field name="unit">PERCENT</field>
-      <value name="speed">
-        <shadow type="math_number">
-          <field name="NUM">20</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="run_motor_for">
-      <field name="port">A</field>
-      <field name="unit">PERCENT</field>
-      <field name="unit2">ROTATIONS</field>
-      <field name="block">BLOCK</field>
-      <value name="speed">
-        <shadow type="math_number">
-          <field name="NUM">20</field>
-        </shadow>
-      </value>
-      <value name="duration">
-        <shadow type="math_number">
-          <field name="NUM">1</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="run_motor_to">
-      <field name="port">A</field>
-      <field name="unit">PERCENT</field>
-      <field name="block">BLOCK</field>
-      <value name="speed">
-        <shadow type="math_number">
-          <field name="NUM">20</field>
-        </shadow>
-      </value>
-      <value name="degrees">
-        <shadow type="math_number">
-          <field name="NUM">0</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="stop_motor">
-      <field name="port">A</field>
-      <field name="stop_action">BRAKE</field>
-    </block>
-    <block type="speed">
-      <field name="port">A</field>
-    </block>
-    <block type="position">
-      <field name="port">A</field>
-    </block>
-    <block type="reset_motor">
-      <field name="port">BOTH</field>
-    </block>
-  </category>
-  <category name="#blk-sensors#" colour="#5ba58c">
-    <block type="color_sensor">
-      <field name="type">INTENSITY</field>
-      <field name="port">AUTO</field>
-    </block>
-    <block type="color">
-      <field name="color">BLACK</field>
-      <field name="type">NUMBER</field>
-    </block>
-    <block type="ultrasonic_sensor">
-      <field name="port">AUTO</field>
-      <field name="units">CM</field>
-    </block>
-    <block type="laser_sensor">
-      <field name="port">AUTO</field>
-      <field name="units">CM</field>
-    </block>
-    <block type="gyro_sensor">
-      <field name="type">ANGLE</field>
-      <field name="port">AUTO</field>
-    </block>
-    <block type="reset_gyro">
-      <field name="port">AUTO</field>
-    </block>
-    <block type="gps_sensor">
-      <field name="type">X</field>
-      <field name="port">AUTO</field>
-    </block>
-    <block type="touch_state">
-      <field name="state">PRESSED</field>
-      <field name="port">AUTO</field>
-    </block>
-    <block type="wait_for_state">
-      <field name="state">PRESSED</field>
-      <field name="port">AUTO</field>
-    </block>
-    <block type="button_state">
-      <field name="button">CENTER</field>
-      <field name="state">PRESSED</field>
-    </block>
-    <block type="wait_until_button">
-      <field name="button">CENTER</field>
-      <field name="state">PRESSED</field>
-    </block>
-  </category>
-  <category name="#blk-sound#" colour="#a5745b">
-    <block type="say">
-      <field name="block">NO_BLOCK</field>
-      <value name="text">
-        <shadow type="text">
-          <field name="TEXT">Hello world</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="beep">
-      <field name="block">NO_BLOCK</field>
-    </block>
-    <block type="play_tone">
-      <field name="block">NO_BLOCK</field>
-      <value name="frequency">
-        <shadow type="math_number">
-          <field name="NUM">400</field>
-        </shadow>
-      </value>
-      <value name="duration">
-        <shadow type="math_number">
-          <field name="NUM">0.5</field>
-        </shadow>
-      </value>
-    </block>
-  </category>
-  <category name="#blk-pen-category#" colour="#a5745b">
-    <block type="penDown">
-    </block>
-    <block type="penUp">
-    </block>
-    <block type="penSetColor">
-      <value name="red">
-        <shadow type="math_number">
-          <field name="NUM">0</field>
-        </shadow>
-      </value>
-      <value name="green">
-        <shadow type="math_number">
-          <field name="NUM">0</field>
-        </shadow>
-      </value>
-      <value name="blue">
-        <shadow type="math_number">
-          <field name="NUM">0.5</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="penSetWidth">
-      <value name="width">
-        <shadow type="math_number">
-          <field name="NUM">1</field>
-        </shadow>
-      </value>
-    </block>
-  </category>
-  <category name="#blk-radio-category#" colour="#a55b80">
-    <block type="radio_send">
+    <block type="digital_write_pin">
       <value name="value">
-        <shadow type="text">
-          <field name="TEXT">abc</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="radio_available">
-    </block>
-    <block type="radio_read">
-    </block>
-    <block type="radio_read_content">
-    </block>
-    <block type="radio_empty">
-    </block>
-  </category>
-  <category name="#blk-control#" colour="#9fa55b">
-    <block type="sleep">
-      <field name="units">SECONDS</field>
-      <value name="seconds">
         <shadow type="math_number">
           <field name="NUM">1</field>
         </shadow>
       </value>
     </block>
-    <block type="wait_until">
-      <value name="value">
-        <block type="logic_compare">
-          <field name="OP">EQ</field>
-          <value name="A">
+    <block type="variables_set">
+      <field name="VAR">adc</field>
+      <value name="VALUE">
+        <block type="set_analog_reader">
+          <field name="pin">32</field>
+        </block>
+      </value>
+    </block>
+    <block type="analog_read_pin">
+      <field name="units">U16</field>
+    </block>
+    <block type="variables_set">
+      <field name="VAR">pwm</field>
+      <value name="VALUE">
+        <block type="set_analog_writer">
+          <field name="pin">2</field>
+          <value name="frequency">
             <shadow type="math_number">
-              <field name="NUM">0</field>
-            </shadow>
-          </value>
-          <value name="B">
-            <shadow type="math_number">
-              <field name="NUM">0</field>
+              <field name="NUM">1000</field>
             </shadow>
           </value>
         </block>
       </value>
     </block>
-    <block type="time"></block>
+   <block type="analog_write_pin">
+      <value name="value">
+        <shadow type="math_number">
+          <field name="NUM">1023</field>
+        </shadow>
+      </value>
+    </block>
+  </category>
+  <category name="#blk-control#" colour="#9fa55b">
+    <block type="comment"></block>
+    <block type="sleep">
+      <value name="duration">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+      <field name="units">SECONDS</field>
+    </block>
+    <block type="wait_until_connected"></block>
+    <block type="time">
+      <field name="units">MILLI</field>
+    </block>
     <block type="exit"></block>
   </category>
   <category name="#blk-logic#" colour="#5b80a5">
-    <block type="controls_if"></block>
     <block type="controls_if">
       <value name="IF0">
         <block type="logic_compare">
@@ -461,6 +252,20 @@
     <block type="math_random_float"></block>
   </category>
   <category name="#blk-text#" colour="#5ba58c">
+    <block type="text_print">
+      <value name="TEXT">
+        <shadow type="text">
+          <field name="TEXT">abc</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="read_input">
+      <value name="prompt">
+        <shadow type="text">
+          <field name="TEXT">What is your name?</field>
+        </shadow>
+      </value>
+    </block>
     <block type="text">
       <field name="TEXT"></field>
     </block>
@@ -531,22 +336,6 @@
     </block>
     <block type="text_trim">
       <field name="MODE">BOTH</field>
-      <value name="TEXT">
-        <shadow type="text">
-          <field name="TEXT">abc</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="text_print">
-      <value name="TEXT">
-        <shadow type="text">
-          <field name="TEXT">abc</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="text_prompt_ext">
-      <mutation type="TEXT"></mutation>
-      <field name="TYPE">TEXT</field>
       <value name="TEXT">
         <shadow type="text">
           <field name="TEXT">abc</field>

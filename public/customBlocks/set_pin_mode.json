@@ -1,0 +1,33 @@
+{
+  "type": "set_pin_mode",
+  "message0": "#blk-set_pin# %1 #blk-and_mode# %2",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "pin",
+      "options": $_IoPins
+    },
+    {
+      "type": "field_dropdown",
+      "name": "mode",
+      "options": [
+        [
+          "#blk-input#",
+          "INPUT"
+        ],
+        [
+          "#blk-input_pullup#",
+          "INPUT_PULLUP"
+        ],
+        [
+          "#blk-output#",
+          "OUTPUT"
+        ]
+      ]
+    }
+  ],
+  "output": "Pin",
+  "colour": 230,
+  "tooltip": "",
+  "helpUrl": ""
+}

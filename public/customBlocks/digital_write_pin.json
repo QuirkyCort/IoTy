@@ -1,0 +1,22 @@
+{
+  "type": "digital_write_pin",
+  "message0": "#blk-write_pin# %1 #blk-to# %2",
+  "args0": [
+    {
+      "type": "field_variable",
+      "name": "pin",
+      "variable": "p"
+    },
+    {
+      "type": "input_value",
+      "name": "value",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "",
+  "helpUrl": ""
+}

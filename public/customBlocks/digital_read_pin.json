@@ -1,0 +1,15 @@
+{
+  "type": "digital_read_pin",
+  "message0": "#blk-read_pin# %1",
+  "args0": [
+    {
+      "type": "field_variable",
+      "name": "pin",
+      "variable": "p"
+    }
+  ],
+  "output": "Number",
+  "colour": 230,
+  "tooltip": "",
+  "helpUrl": ""
+}

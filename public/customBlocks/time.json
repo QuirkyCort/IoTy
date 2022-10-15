@@ -1,0 +1,18 @@
+{
+  "type": "time",
+  "message0": "#blk-time# %1",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "units",
+      "options": [
+        ["#blk-milliseconds#", "MILLI"],
+        ["#blk-microseconds#", "MICRO"]
+      ]
+    }
+  ],
+  "output": "Number",
+  "colour": 65,
+  "tooltip": "#blk-time_tooltip#",
+  "helpUrl": ""
+}
