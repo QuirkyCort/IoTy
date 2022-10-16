@@ -1,48 +1,33 @@
 <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
   <category name="#blk-pins#" colour="#5b67a5">
-    <block type="variables_set">
-      <field name="VAR">p</field>
-      <value name="VALUE">
-        <block type="set_pin_mode">
-          <field name="pin">0</field>
-          <field name="mode">INPUT</field>
-        </block>
-      </value>
+    <block type="set_pin_mode">
+      <field name="pin">0</field>
+      <field name="mode">INPUT</field>
     </block>
     <block type="digital_read_pin">
+      <field name="pin">0</field>
     </block>
     <block type="digital_write_pin">
+      <field name="pin">2</field>
       <value name="value">
         <shadow type="math_number">
           <field name="NUM">1</field>
         </shadow>
       </value>
     </block>
-    <block type="variables_set">
-      <field name="VAR">adc</field>
-      <value name="VALUE">
-        <block type="set_analog_reader">
-          <field name="pin">32</field>
-        </block>
-      </value>
-    </block>
     <block type="analog_read_pin">
-      <field name="units">U16</field>
+      <field name="pin">32</field>
     </block>
-    <block type="variables_set">
-      <field name="VAR">pwm</field>
-      <value name="VALUE">
-        <block type="set_analog_writer">
-          <field name="pin">2</field>
-          <value name="frequency">
-            <shadow type="math_number">
-              <field name="NUM">1000</field>
-            </shadow>
-          </value>
-        </block>
+    <block type="set_analog_write_freq">
+      <field name="pin">2</field>
+      <value name="frequency">
+        <shadow type="math_number">
+          <field name="NUM">1000</field>
+        </shadow>
       </value>
     </block>
-   <block type="analog_write_pin">
+    <block type="analog_write_pin">
+      <field name="pin">2</field>
       <value name="value">
         <shadow type="math_number">
           <field name="NUM">1023</field>

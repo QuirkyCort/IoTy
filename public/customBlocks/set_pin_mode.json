@@ -1,6 +1,6 @@
 {
   "type": "set_pin_mode",
-  "message0": "#blk-set_pin# %1 #blk-and_mode# %2",
+  "message0": "#blk-set_pin# %1 #blk-to_mode# %2",
   "args0": [
     {
       "type": "field_dropdown",
@@ -26,7 +26,9 @@
       ]
     }
   ],
-  "output": "Pin",
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
   "colour": 230,
   "tooltip": "",
   "helpUrl": ""

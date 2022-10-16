@@ -119,10 +119,10 @@ let MSGS = {
     hu: 'Indításkor',
   },
   '#blk-set_pin#': {
-    en: 'Pin'
+    en: 'set pin'
   },
-  '#blk-and_mode#': {
-    en: 'and mode',
+  '#blk-to_mode#': {
+    en: 'to mode',
   },
   '#blk-input#': {
     en: 'input',
@@ -142,41 +142,26 @@ let MSGS = {
   '#blk-to#': {
     en: 'to',
   },
-  '#blk-set_analog_reader#': {
-    en: 'Analog reader on pin',
-  },
   '#blk-analog_read_pin#': {
     en: 'analog read pin',
   },
-  '#blk-in_units_of#': {
-    en: 'in units of',
+  '#blk-analog_read_pin_tooltip#': {
+    en: 'Range from 0 to 65535',
   },
-  '#blk-u16#': {
-    en: '0 to 65535',
+  '#blk-set_analog_write_freq#': {
+    en: 'Set analog write frequency on pin',
   },
-  '#blk-microvolts#': {
-    en: 'microvolts',
+  '#blk-hz#': {
+    en: 'Hz',
   },
-  '#blk-set_analog_writer#': {
-    en: 'Analog writer on pin',
-  },
-  '#blk-at#': {
-    en: 'at',
+  '#blk-set_analog_write_freq_tooltip#': {
+    en: 'Range from 1Hz to 40,000,000Hz',
   },
   '#blk-analog_write_pin#': {
     en: 'analog write pin',
   },
   '#blk-analog_write_pin_tooltip#': {
     en: 'Range from 0 to 1023',
-  },
-  '#blk-set_analog_write_pin#': {
-    en: 'set analog write pin',
-  },
-  '#blk-hz#': {
-    en: 'Hz',
-  },
-  '#blk-set_analog_write_pin_tooltip#': {
-    en: 'Range from 1Hz to 40,000,000Hz',
   },
   '#blk-sleep_for#': {
     en: 'sleep for',

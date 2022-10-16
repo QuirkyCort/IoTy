@@ -1,4 +1,4 @@
-import _ioty_service
+from ioty.ble import BLE_Service
 import os
 import io
 from time import sleep_ms
@@ -31,6 +31,6 @@ def wait_for_connection():
         sleep_ms(10)
     sleep_ms(1000)
 
-ble_service = _ioty_service.BLE_Service()
+ble_service = BLE_Service()
 ble_io = BLE_IO(ble_service)
 os.dupterm(ble_io)

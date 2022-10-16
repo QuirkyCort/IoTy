@@ -1,3 +1,5 @@
-_ioty_1 boot.py
-_ioty_2 _ioty_service.py
-_ioty_3 _ioty_monitor.py
+mkdir _ioty
+mv ioty_1 boot.py
+mv ioty_2 ioty/ble.py
+mv ioty_3 ioty/monitor.py
+mv ioty_4 ioty/pin.py

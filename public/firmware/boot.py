@@ -1,4 +1,4 @@
-import _ioty_service
+from ioty.ble import BLE_Service
 
 from machine import Pin
 from time import sleep_ms
@@ -15,7 +15,7 @@ def main():
 
     if btn.value() == 0:
         led.on()
-        _ioty_service.BLE_Service()
+        BLE_Service()
 
         while True:
             sleep_ms(10)

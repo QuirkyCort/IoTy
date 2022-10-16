@@ -1,23 +1,15 @@
 {
   "type": "analog_read_pin",
-  "message0": "#blk-analog_read_pin# %1 #blk-in_units_of# %2",
+  "message0": "#blk-analog_read_pin# %1",
   "args0": [
     {
-      "type": "field_variable",
-      "name": "pin",
-      "variable": "adc"
-    },
-    {
       "type": "field_dropdown",
-      "name": "units",
-      "options": [
-        ["#blk-u16#", "U16"],
-        ["#blk-microvolts#", "MICROVOLTS"]
-      ]
+      "name": "pin",
+      "options": $_AnalogPins
     }
   ],
   "output": "Number",
   "colour": 230,
-  "tooltip": "",
+  "tooltip": "#blk-analog_read_pin_tooltip#",
   "helpUrl": ""
 }

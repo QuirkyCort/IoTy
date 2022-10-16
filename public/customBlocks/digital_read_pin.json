@@ -3,9 +3,9 @@
   "message0": "#blk-read_pin# %1",
   "args0": [
     {
-      "type": "field_variable",
+      "type": "field_dropdown",
       "name": "pin",
-      "variable": "p"
+      "options": $_IoPins
     }
   ],
   "output": "Number",

@@ -51,7 +51,7 @@ _SERVICE = (
     (_CMD_CHAR, _DATA_CHAR, _SERIAL_CHAR),
 )
 
-_PRESERVE_FILES = ('boot.py', '_ioty_service.py', '_ioty_name', '_ioty_monitor.py')
+_PRESERVE_FILES = ('boot.py', 'ioty', '_ioty_name')
 
 def advertising_payload(limited_disc=False, br_edr=False, name=None, services=None, appearance=0):
     payload = bytearray()
@@ -134,14 +134,20 @@ class BLE_Service:
             self._update()
 
     def _update(self):
-        name_pairs = []
+        commands = []
         try:
             with open('_ioty_updates', 'r') as f:
                 for line in f.readlines():
-                    name_pairs.append(line.split())
+                    commands.append(line.split())
 
-            for name_pair in name_pairs:
-                os.rename(name_pair[0], name_pair[1])
+            for command in commands:
+                if command[0] == 'mkdir':
+                    try:
+                        os.mkdir(command[1])
+                    except:
+                        pass
+                elif command[0] == 'mv':
+                    os.rename(command[1], command[2])
 
             os.remove('_ioty_updates')
         except:

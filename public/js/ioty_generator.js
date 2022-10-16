@@ -9,9 +9,8 @@ var ioty_generator = new function() {
     Blockly.Python['set_pin_mode'] = self.set_pin_mode;
     Blockly.Python['digital_read_pin'] = self.digital_read_pin;
     Blockly.Python['digital_write_pin'] = self.digital_write_pin;
-    Blockly.Python['set_analog_reader'] = self.set_analog_reader;
     Blockly.Python['analog_read_pin'] = self.analog_read_pin;
-    Blockly.Python['set_analog_writer'] = self.set_analog_writer;
+    Blockly.Python['set_analog_write_freq'] = self.set_analog_write_freq;
     Blockly.Python['analog_write_pin'] = self.analog_write_pin;
     Blockly.Python['comment'] = self.comment;
     Blockly.Python['sleep'] = self.sleep;
@@ -24,13 +23,22 @@ var ioty_generator = new function() {
   // Generate python code
   this.genCode = function() {
     self.imports = {};
-    self.analogPins = {};
+    self.iotyImports = {};
 
     let workspaceCode = Blockly.Python.workspaceToCode(blockly.workspace);
 
-    let code = 'import _ioty_monitor\n';
+    let code = 'import ioty.monitor\n';
     for (let key in self.imports) {
       code += self.imports[key] + '\n';
+    }
+
+    if (Object.keys(self.iotyImports).length > 0) {
+      let iotyImportCode = 'from ioty import ';
+      for (let key in self.iotyImports) {
+        iotyImportCode += key + ', ';
+      }
+      iotyImportCode = iotyImportCode.slice(0, -2);
+      code += iotyImportCode + '\n';
     }
     code += '\n';
 
@@ -50,90 +58,73 @@ var ioty_generator = new function() {
   };
 
   this.set_pin_mode = function(block) {
-    self.imports['machine'] = 'import machine';
+    self.iotyImports['pin'] = 'pin';
 
     var pin = block.getFieldValue('pin');
     var mode = block.getFieldValue('mode');
 
     if (mode == 'INPUT') {
-      mode = 'machine.Pin.IN';
+      mode = 'pin.IN';
     } else if (mode == 'INPUT_PULLUP') {
-      mode = 'machine.Pin.IN, machine.Pin.PULL_UP';
+      mode = 'pin.PULL_UP';
     } else if (mode == 'OUTPUT') {
-      mode = 'machine.Pin.OUT';
+      mode = 'pin.OUT';
     }
 
-    var code = 'machine.Pin(' + pin + ', ' + mode + ')';
+    var code = 'pin.set_pin_mode(' + pin + ', ' + mode + ')\n';
 
-    return [code, Blockly.Python.ORDER_ATOMIC];
+    return code;
   };
 
   this.digital_read_pin = function(block) {
-    self.imports['machine'] = 'import machine';
+    self.iotyImports['pin'] = 'pin';
 
-    var pin = Blockly.Python.nameDB_.getName(block.getFieldValue('pin'), Blockly.Names.NameType.VARIABLE);
+    var pin = block.getFieldValue('pin');
 
-    var code = pin + '.value()';
+    var code = 'pin.digital_read(' + pin + ')';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };
 
   this.digital_write_pin = function(block) {
-    self.imports['machine'] = 'import machine';
+    self.iotyImports['pin'] = 'pin';
 
-    var pin = Blockly.Python.nameDB_.getName(block.getFieldValue('pin'), Blockly.Names.NameType.VARIABLE);
+    var pin = block.getFieldValue('pin');
     var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_ATOMIC);
 
-    var code = pin + '.value(' + value + ')\n';
+    var code = 'pin.digital_write(' + pin + ', ' + value + ')\n';
 
     return code;
   };
 
-  this.set_analog_reader = function(block) {
-    self.imports['machine'] = 'import machine';
+  this.analog_read_pin = function(block) {
+    self.iotyImports['pin'] = 'pin';
 
     var pin = block.getFieldValue('pin');
 
-    var code = 'machine.ADC(machine.Pin(' + pin + '))';
+    var code = 'pin.analog_read(' + pin + ')';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };
 
-  this.analog_read_pin = function(block) {
-    self.imports['machine'] = 'import machine';
-
-    var pin = Blockly.Python.nameDB_.getName(block.getFieldValue('pin'), Blockly.Names.NameType.VARIABLE);
-    var units = block.getFieldValue('units');
-
-    if (units == 'U16') {
-      units = '.read_u16()';
-    } else if (units == 'MICROVOLTS') {
-      units = '.read_uv()';
-    }
-
-    var code = pin + units;
-
-    return [code, Blockly.Python.ORDER_ATOMIC];
-  };
-
-  this.set_analog_writer = function(block) {
-    self.imports['machine'] = 'import machine';
+  this.set_analog_write_freq = function(block) {
+    self.iotyImports['pin'] = 'pin';
 
     var pin = block.getFieldValue('pin');
     var frequency = Blockly.Python.valueToCode(block, 'frequency', Blockly.Python.ORDER_ATOMIC);
 
-    var code = 'machine.PWM(machine.Pin(' + pin + '), freq=' + frequency + ', duty=0)';
+    var code = 'pin.set_analog_write_freq(' + pin + ', ' + frequency + ')\n';
 
-    return [code, Blockly.Python.ORDER_ATOMIC];
+    return code;
   };
 
   this.analog_write_pin = function(block) {
-    self.imports['machine'] = 'import machine';
+    self.iotyImports['pin'] = 'pin';
 
-    var pin = Blockly.Python.nameDB_.getName(block.getFieldValue('pin'), Blockly.Names.NameType.VARIABLE);
+    var pin = block.getFieldValue('pin');
     var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_ATOMIC);
 
-    var code = pin + '.duty(' + value + ')\n';
+    var code = 'pin.analog_write(' + pin + ', ' + value + ')\n';
 
     return code;
   };
@@ -168,7 +159,7 @@ var ioty_generator = new function() {
   };
 
   this.wait_until_connected = function(block) {
-    var code = '_ioty_monitor.wait_for_connection()\n';
+    var code = 'ioty.monitor.wait_for_connection()\n';
 
     return code;
   };

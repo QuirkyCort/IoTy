@@ -3,9 +3,9 @@
   "message0": "#blk-analog_write_pin# %1 #blk-to# %2",
   "args0": [
     {
-      "type": "field_variable",
+      "type": "field_dropdown",
       "name": "pin",
-      "variable": "pwm"
+      "options": $_IoPins
     },
     {
       "type": "input_value",

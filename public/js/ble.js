@@ -22,6 +22,8 @@ var ble = new function() {
     '_ioty_service.py',
   ];
 
+  this.FIRWARE_UPDATE_FILE = '_ioty_updates';
+
   this.SERVICE_UUID = 'ba48d887-db79-4cac-8d72-a4d9ecdfcde2';
   this.CMD_UUID = '4423f470-dad0-437a-8c18-9a378981cca9';
   this.DATA_UUID = 'e4494fc7-fae6-42cf-81c0-8f835a0ace7f';
@@ -159,31 +161,38 @@ var ble = new function() {
     // Retrieve and prep firmware
     let firmwareFiles = {};
 
-    async function retrieveFiles() {
-      for (let file of self.FIRWARE_FILES) {
-        let response = await fetch('firmware/' + file);
-        let text = await response.text();
-        firmwareFiles[file] = {
-          content: text
+    async function retrieveUpdateFile() {
+      let response = await fetch('firmware/' + self.FIRWARE_UPDATE_FILE);
+      let text = await response.text();
+
+      firmwareFiles[self.FIRWARE_UPDATE_FILE] = {
+        content: text,
+        tempName: self.FIRWARE_UPDATE_FILE
+      }
+
+      let tempNames = {};
+      for (let row of text.split('\n')) {
+        let command = row.split(' ');
+        if (command[0] == 'mv') {
+          firmwareFiles[command[2]] = {
+            content: '',
+            tempName: command[1]
+          }
         }
       }
     }
 
-    function updateTempName() {
-      let tempNames = {};
-      for (let row of firmwareFiles['_ioty_updates'].content.split('\n')) {
-        let names = row.split(' ');
-        tempNames[names[1]] = names[0];
-      }
-
-      for (let key in firmwareFiles) {
-        firmwareFiles[key]['tempName'] = tempNames[key];
+    async function retrieveFiles() {
+      for (let file in firmwareFiles) {
+        let response = await fetch('firmware/' + file);
+        let text = await response.text();
+        firmwareFiles[file].content = text;
       }
     }
 
     try {
+      await retrieveUpdateFile();
       await retrieveFiles();
-      updateTempName();
 
       let totalFilesCount = Object.keys(firmwareFiles).length;
       let currentFileCount = 0;
@@ -199,11 +208,7 @@ var ble = new function() {
         currentFileCount++;
         updateProgress();
 
-        if (typeof firmwareFiles[key].tempName == 'undefined') {
-          await self.writeFile(key, firmwareFiles[key].content, updateProgress);
-        } else {
-          await self.writeFile(firmwareFiles[key].tempName, firmwareFiles[key].content, updateProgress);
-        }
+        await self.writeFile(firmwareFiles[key].tempName, firmwareFiles[key].content, updateProgress);
       }
 
       await self.setCmdMode(self._MODE_UPDATE);
