@@ -221,6 +221,10 @@ var ble = new function() {
     }
   };
 
+  this.disconnect = function() {
+    self.server.disconnect();
+  };
+
   this.disconnected = function() {
     main.setConnectStatus(main.STATUS_DISCONNECTED);
     self.isConnected = false;

@@ -1,16 +1,18 @@
 Category
 ===
 
-# Neopixel
+"set _strip_ to" "NeoPixel at pin _x_ with _y_ leds of type _z_"
+  strip = NeoPixel(Pin(0, Pin.OUT), 8, bpp) # bpp3 for RGB, 4 for RGBW
 
-from machine import Pin
-from neopixel import NeoPixel
+"set NeoPixel _var_ color at _x_ to _r_ _g_ _b_ _w_"
+  strip[0] = (255, 255, 255)
 
-pin = Pin(0, Pin.OUT)   # set GPIO0 to output to drive NeoPixels
-np = NeoPixel(pin, 8)   # create NeoPixel driver on GPIO0 for 8 pixels
-np[0] = (255, 255, 255) # set the first pixel to white
-np.write()              # write data to all pixels
-r, g, b = np[0]         # get first pixel colour
+"fill NeoPixel _var_ with color _r_ _g_ _b_ _w_"
+  strip.fill((255, 255, 255))
+
+"show NeoPixel _var_"
+  strip.write()
+
 
 # I2C
 #Software I2C (using bit-banging) works on all output-capable pins

@@ -421,6 +421,9 @@ let MSGS = {
   '#main-updateFirmware#': {
     en: 'Update Firmware',
   },
+  '#main-disconnect#': {
+    en: 'Disconnect',
+  },
   '#blockly-save#': {
     en: 'Save Now',
     fr: 'Enregistrer maintenant',
