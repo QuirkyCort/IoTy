@@ -82,7 +82,7 @@ Select your device and click "Pair".
 After connection, open the kebab menu and select "Download to device".
 Restart your device after download completes.
 
-## Monitoring the program
+## Monitoring the program (Optional)
 
 When your program is running, you can connect to your device to view the output of print statements and error messages in the "Monitor" tab.
 
