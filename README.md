@@ -16,8 +16,8 @@ It should work with any ESP32, and even non-ESP32 board, provided that...
 * It has a boot button wired to GPIO 0 (...either built-in or external)
 * An LED connected to GPIO 2 helps with detecting the boot-up sequence, but is not essential
 
-[2] Chrome and other Chrome based browsers (eg. Edge, Opera) should work on all platforms (eg. Windows, Mac, Linux, Android), except iOS.
-This is because Apple forces all webbrowsers on the iOS to be based on the Safari engine, and Safari do not support Web Bluetooth.
+[2] Chrome and other Chrome based browsers (eg. Edge, Opera) should work on all platforms (eg. Windows, Mac, Linux, Android), **except iOS**.
+This is because Apple forces all webbrowsers on iOS to be based on the Safari engine, and **Safari do not support Web Bluetooth**.
 
 ## Setup
 
