@@ -31,7 +31,7 @@ Follow the instructions to here : https://docs.micropython.org/en/latest/esp32/t
 ### 2) Select a name
 
 Edit the file "_ioty_name" in the "public/firmware" folder to set the bluetooth name for your device.
-Keep within 8 characters.
+**Keep within 8 characters**.
 
 ### 3) Install pyboard
 
@@ -62,7 +62,7 @@ pyboard --device /dev/ttyUSB0 -f cp ioty/* :ioty
 ### 6) Restart the device and put it into program mode
 
 Restart your ESP32 (...press the reset button or power-cycle it); the built-in LED should flash 3 times.
-Before the 3 flashes complete, press and hold the boot button; now the LED should stay on after the 3 flashes.
+Before the 3 flashes complete, press and hold the boot button until the 3 flashes complete and the LED should stay on.
 
 Your device is now ready to be connected and programmed via the IoTy site at https://quirkycort.github.io/IoTy/public/editor.html
 
