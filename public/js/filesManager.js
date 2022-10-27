@@ -48,13 +48,15 @@ var filesManager = new function() {
   this.setToDefault = function() {
     self.files = {};
     self.$filesList.find('.file').remove();
-    self.add('main.py', '');
+    self.add('main.py', pythonPanel.editor.getValue());
     self.select('main.py');
   };
 
   this.updateCurrentFile = function() {
     let currentFilename = self.getCurrentFilename();
-    self.files[currentFilename] = pythonPanel.editor.getValue();
+    if (currentFilename != '') {
+      self.files[currentFilename] = pythonPanel.editor.getValue();
+    }
   };
 
   this.getCurrentFilename = function() {
@@ -63,6 +65,7 @@ var filesManager = new function() {
   };
 
   this.add = function(filename, content) {
+    self.updateCurrentFile();
     self.files[filename] = content;
     let $file = $(
       '<div class="file">' +
@@ -70,9 +73,12 @@ var filesManager = new function() {
       '</div>'
     );
 
-    $file.click(function() {
+    $file.click(function(ele) {
       self.updateCurrentFile();
-      self.select(filename);
+      if (ele.target.classList.contains('file') || ele.target.classList.contains('filename')) {
+        filename = ele.target.innerText;
+        self.select(filename);
+      }
     });
 
     if (filename != 'main.py') {
@@ -163,6 +169,8 @@ var filesManager = new function() {
 
   this.addNewFile = function() {
     let counter = 1;
+
+    pythonPanel.warnModify();
 
     while (('untitled-' + counter + '.py') in self.files) {
       counter++;
