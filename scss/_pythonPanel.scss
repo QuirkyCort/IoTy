@@ -44,7 +44,8 @@
 
       .file.selected {
         background-color: #181818;
-        color: white;
+        color: rgb(255, 255, 255);
+        font-weight: bold;
         .renameFile, .deleteFile {
           display: block;
         }

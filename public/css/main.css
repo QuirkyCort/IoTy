@@ -260,7 +260,8 @@ ul.menuDropDownRightAlign {
           margin-left: 0.5em; }
       .python #filesRow #filesList .file.selected {
         background-color: #181818;
-        color: white; }
+        color: white;
+        font-weight: bold; }
         .python #filesRow #filesList .file.selected .renameFile, .python #filesRow #filesList .file.selected .deleteFile {
           display: block; }
     .python #filesRow #filesList::-webkit-scrollbar {
