@@ -1,0 +1,17 @@
+{
+  "type": "neopixel_write",
+  "message0": "#blk-write_neopixel# %1",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "pin",
+      "options": $_IoPins
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "",
+  "helpUrl": ""
+}

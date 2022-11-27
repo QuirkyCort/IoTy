@@ -44,7 +44,7 @@ This is needed to transfer the IoTy firmware to the ESP32.
 Create the "ioty" directory on the ESP32 using the following command...
 
 ```
-pyboard --device /dev/ttyUSB0 -f mkdir ioty
+pyboard.py --device /dev/ttyUSB0 -f mkdir ioty
 ```
 
 The "/dev/ttyUSB0" will need to be changed to whatever makes sense for your computer.
@@ -55,8 +55,8 @@ Transfer the IoTy files to the ESP32 using the following command.
 Make sure you are in the "public/firmware" directory first.
 
 ```
-pyboard --device /dev/ttyUSB0 -f cp boot.py _ioty_name :
-pyboard --device /dev/ttyUSB0 -f cp ioty/* :ioty
+pyboard.py --device /dev/ttyUSB0 -f cp boot.py _ioty_name :
+pyboard.py --device /dev/ttyUSB0 -f cp ioty/* :ioty/
 ```
 
 ### 6) Restart the device and put it into program mode

@@ -18,6 +18,13 @@ var ioty_generator = new function() {
     Blockly.Python['time'] = self.time;
     Blockly.Python['exit'] = self.exit;
     Blockly.Python['read_input'] = self.read_input;
+    Blockly.Python['type_cast'] = self.type_cast;
+    Blockly.Python['neopixel_init'] = self.neopixel_init;
+    Blockly.Python['neopixel_set_rgb'] = self.neopixel_set_rgb;
+    Blockly.Python['neopixel_set_hsv'] = self.neopixel_set_hsv;
+    Blockly.Python['neopixel_fill_rgb'] = self.neopixel_fill_rgb;
+    Blockly.Python['neopixel_fill_hsv'] = self.neopixel_fill_hsv;
+    Blockly.Python['neopixel_write'] = self.neopixel_write;
   };
 
   // Generate python code
@@ -111,7 +118,7 @@ var ioty_generator = new function() {
     self.iotyImports['pin'] = 'pin';
 
     var pin = block.getFieldValue('pin');
-    var frequency = Blockly.Python.valueToCode(block, 'frequency', Blockly.Python.ORDER_ATOMIC);
+    var frequency = Blockly.Python.valueToCode(block, 'frequency', Blockly.Python.ORDER_NONE);
 
     var code = 'pin.set_analog_write_freq(' + pin + ', ' + frequency + ')\n';
 
@@ -196,5 +203,97 @@ var ioty_generator = new function() {
     return [code, Blockly.Python.ORDER_ATOMIC];
   };
 
+  this.type_cast = function(block) {
+    var type = block.getFieldValue('type');
+    var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_ATOMIC);
+
+    if (type == 'INTEGER') {
+      type = 'int(';
+    } else if (type == 'FLOAT') {
+      type = 'float(';
+    } else if (type == 'STRING') {
+      type = 'str(';
+    }
+
+    var code = type + value + ')';
+
+    return [code, Blockly.Python.ORDER_FUNCTION_CALL];
+  };
+
+  this.neopixel_init = function(block) {
+    self.iotyImports['neopixel'] = 'neopixel';
+
+    var pin = block.getFieldValue('pin');
+    var pixels = Blockly.Python.valueToCode(block, 'pixels', Blockly.Python.ORDER_ATOMIC);
+    var format = block.getFieldValue('format');
+
+    var code = 'neopixel.init(' + pin + ', ' + pixels + ', format=' + format + ')\n';
+
+    return code;
+  };
+
+  this.neopixel_set_rgb = function(block) {
+    self.iotyImports['neopixel'] = 'neopixel';
+
+    var pin = block.getFieldValue('pin');
+    var pixel = Blockly.Python.valueToCode(block, 'pixel', Blockly.Python.ORDER_ATOMIC);
+    var red = Blockly.Python.valueToCode(block, 'red', Blockly.Python.ORDER_ATOMIC);
+    var green = Blockly.Python.valueToCode(block, 'green', Blockly.Python.ORDER_ATOMIC);
+    var blue = Blockly.Python.valueToCode(block, 'blue', Blockly.Python.ORDER_ATOMIC);
+
+    var code = 'neopixel.set_rgb(' + pin + ', ' + pixel + ', (' + red + ', ' + green + ', ' + blue + '))\n';
+
+    return code;
+  };
+
+  this.neopixel_set_hsv = function(block) {
+    self.iotyImports['neopixel'] = 'neopixel';
+
+    var pin = block.getFieldValue('pin');
+    var pixel = Blockly.Python.valueToCode(block, 'pixel', Blockly.Python.ORDER_ATOMIC);
+    var hue = Blockly.Python.valueToCode(block, 'hue', Blockly.Python.ORDER_ATOMIC);
+    var saturation = Blockly.Python.valueToCode(block, 'saturation', Blockly.Python.ORDER_ATOMIC);
+    var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_ATOMIC);
+
+    var code = 'neopixel.set_hsv(' + pin + ', ' + pixel + ', (' + hue + ', ' + saturation + ', ' + value + '))\n';
+
+    return code;
+  };
+
+  this.neopixel_fill_rgb = function(block) {
+    self.iotyImports['neopixel'] = 'neopixel';
+
+    var pin = block.getFieldValue('pin');
+    var red = Blockly.Python.valueToCode(block, 'red', Blockly.Python.ORDER_ATOMIC);
+    var green = Blockly.Python.valueToCode(block, 'green', Blockly.Python.ORDER_ATOMIC);
+    var blue = Blockly.Python.valueToCode(block, 'blue', Blockly.Python.ORDER_ATOMIC);
+
+    var code = 'neopixel.fill_rgb(' + pin + ', (' + red + ', ' + green + ', ' + blue + '))\n';
+
+    return code;
+  };
+
+  this.neopixel_fill_hsv = function(block) {
+    self.iotyImports['neopixel'] = 'neopixel';
+
+    var pin = block.getFieldValue('pin');
+    var hue = Blockly.Python.valueToCode(block, 'hue', Blockly.Python.ORDER_ATOMIC);
+    var saturation = Blockly.Python.valueToCode(block, 'saturation', Blockly.Python.ORDER_ATOMIC);
+    var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_ATOMIC);
+
+    var code = 'neopixel.fill_hsv(' + pin + ', (' + hue + ', ' + saturation + ', ' + value + '))\n';
+
+    return code;
+  };
+
+  this.neopixel_write = function(block) {
+    self.iotyImports['neopixel'] = 'neopixel';
+
+    var pin = block.getFieldValue('pin');
+
+    var code = 'neopixel.write(' + pin + ')\n';
+
+    return code;
+  };
 }
 

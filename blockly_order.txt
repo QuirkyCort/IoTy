@@ -1,0 +1,22 @@
+Python.ORDER_ATOMIC = 0;             // 0 "" ...
+Python.ORDER_COLLECTION = 1;         // tuples, lists, dictionaries
+Python.ORDER_STRING_CONVERSION = 1;  // `expression...`
+Python.ORDER_MEMBER = 2.1;           // . []
+Python.ORDER_FUNCTION_CALL = 2.2;    // ()
+Python.ORDER_EXPONENTIATION = 3;     // **
+Python.ORDER_UNARY_SIGN = 4;         // + -
+Python.ORDER_BITWISE_NOT = 4;        // ~
+Python.ORDER_MULTIPLICATIVE = 5;     // * / // %
+Python.ORDER_ADDITIVE = 6;           // + -
+Python.ORDER_BITWISE_SHIFT = 7;      // << >>
+Python.ORDER_BITWISE_AND = 8;        // &
+Python.ORDER_BITWISE_XOR = 9;        // ^
+Python.ORDER_BITWISE_OR = 10;        // |
+Python.ORDER_RELATIONAL = 11;        // in, not in, is, is not,
+                                     //     <, <=, >, >=, <>, !=, ==
+Python.ORDER_LOGICAL_NOT = 12;       // not
+Python.ORDER_LOGICAL_AND = 13;       // and
+Python.ORDER_LOGICAL_OR = 14;        // or
+Python.ORDER_CONDITIONAL = 15;       // if else
+Python.ORDER_LAMBDA = 16;            // lambda
+Python.ORDER_NONE = 99;              // (...)

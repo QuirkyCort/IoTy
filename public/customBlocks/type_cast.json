@@ -1,0 +1,32 @@
+{
+  "type": "type_cast",
+  "message0": "#blk-type_cast# %1 %2",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "type",
+      "options": [
+        [
+          "integer",
+          "INTEGER"
+        ],
+        [
+          "float",
+          "FLOAT"
+        ],
+        [
+          "string",
+          "STRING"
+        ]
+      ]
+    },
+    {
+      "type": "input_value",
+      "name": "value"
+    }
+  ],
+  "output": null,
+  "colour": 230,
+  "tooltip": "",
+  "helpUrl": ""
+}

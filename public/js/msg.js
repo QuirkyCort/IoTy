@@ -264,6 +264,48 @@ let MSGS = {
   '#blk-read_input_with_prompt#': {
     en: 'prompt for input with message',
   },
+  '#blk-type_cast#': {
+    en: 'convert to',
+  },
+  '#blk-neopixel_init#': {
+    en: 'Initialize Neopixel at pin',
+  },
+  '#blk-with#': {
+    en: 'with',
+  },
+  '#blk-led_as#': {
+    en: 'leds as',
+  },
+  '#blk-neopixel_at_pin#': {
+    en: 'Neopixel at pin',
+  },
+  '#blk-set_pixel#': {
+    en: 'set pixel',
+  },
+  '#blk-set_all_pixels#': {
+    en: 'set all pixels',
+  },
+  '#blk-to_red#': {
+    en: 'to red',
+  },
+  '#blk-green#': {
+    en: 'green',
+  },
+  '#blk-blue#': {
+    en: 'blue',
+  },
+  '#blk-to_hue#': {
+    en: 'to hue',
+  },
+  '#blk-saturation#': {
+    en: 'saturation',
+  },
+  '#blk-value#': {
+    en: 'value',
+  },
+  '#blk-write_neopixel#': {
+    en: 'write Neopixel at pin',
+  },
   '#main-blocks#': {
     en: 'Blocks',
     tlh: 'Porgh',

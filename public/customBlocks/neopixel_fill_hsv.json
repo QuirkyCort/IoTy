@@ -1,0 +1,32 @@
+{
+  "type": "neopixel_fill_hsv",
+  "message0": "#blk-neopixel_at_pin# %1 #blk-set_all_pixels# #blk-to_hue# %2 #blk-saturation# %3 #blk-value# %4",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "pin",
+      "options": $_IoPins
+    },
+    {
+      "type": "input_value",
+      "name": "hue",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "saturation",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "value",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "",
+  "helpUrl": ""
+}

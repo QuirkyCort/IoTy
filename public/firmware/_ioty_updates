@@ -3,3 +3,4 @@ mv ioty_1 boot.py
 mv ioty_2 ioty/ble.py
 mv ioty_3 ioty/monitor.py
 mv ioty_4 ioty/pin.py
+mv ioty_5 ioty/neopixel.py

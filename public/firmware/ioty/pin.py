@@ -2,8 +2,6 @@ from machine import Pin, ADC, PWM
 
 from micropython import const
 
-
-
 OUT = Pin.OUT
 IN = Pin.IN
 PULL_UP = Pin.PULL_UP
