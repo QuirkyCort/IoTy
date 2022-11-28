@@ -431,6 +431,34 @@
         </shadow>
       </value>
     </block>
+    <block type="neopixel_set_rgbw">
+      <field name="pin">13</field>
+      <value name="pixel">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="red">
+        <shadow type="math_number">
+          <field name="NUM">255</field>
+        </shadow>
+      </value>
+      <value name="green">
+        <shadow type="math_number">
+          <field name="NUM">255</field>
+        </shadow>
+      </value>
+      <value name="blue">
+        <shadow type="math_number">
+          <field name="NUM">255</field>
+        </shadow>
+      </value>
+      <value name="white">
+        <shadow type="math_number">
+          <field name="NUM">255</field>
+        </shadow>
+      </value>
+    </block>
     <block type="neopixel_set_hsv">
       <field name="pin">13</field>
       <value name="pixel">
@@ -467,6 +495,29 @@
         </shadow>
       </value>
       <value name="blue">
+        <shadow type="math_number">
+          <field name="NUM">255</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="neopixel_fill_rgbw">
+      <field name="pin">13</field>
+      <value name="red">
+        <shadow type="math_number">
+          <field name="NUM">255</field>
+        </shadow>
+      </value>
+      <value name="green">
+        <shadow type="math_number">
+          <field name="NUM">255</field>
+        </shadow>
+      </value>
+      <value name="blue">
+        <shadow type="math_number">
+          <field name="NUM">255</field>
+        </shadow>
+      </value>
+      <value name="white">
         <shadow type="math_number">
           <field name="NUM">255</field>
         </shadow>

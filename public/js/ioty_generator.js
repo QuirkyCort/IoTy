@@ -21,8 +21,10 @@ var ioty_generator = new function() {
     Blockly.Python['type_cast'] = self.type_cast;
     Blockly.Python['neopixel_init'] = self.neopixel_init;
     Blockly.Python['neopixel_set_rgb'] = self.neopixel_set_rgb;
+    Blockly.Python['neopixel_set_rgbw'] = self.neopixel_set_rgbw;
     Blockly.Python['neopixel_set_hsv'] = self.neopixel_set_hsv;
     Blockly.Python['neopixel_fill_rgb'] = self.neopixel_fill_rgb;
+    Blockly.Python['neopixel_fill_rgbw'] = self.neopixel_fill_rgbw;
     Blockly.Python['neopixel_fill_hsv'] = self.neopixel_fill_hsv;
     Blockly.Python['neopixel_write'] = self.neopixel_write;
   };
@@ -246,6 +248,21 @@ var ioty_generator = new function() {
     return code;
   };
 
+  this.neopixel_set_rgbw = function(block) {
+    self.iotyImports['neopixel'] = 'neopixel';
+
+    var pin = block.getFieldValue('pin');
+    var pixel = Blockly.Python.valueToCode(block, 'pixel', Blockly.Python.ORDER_ATOMIC);
+    var red = Blockly.Python.valueToCode(block, 'red', Blockly.Python.ORDER_ATOMIC);
+    var green = Blockly.Python.valueToCode(block, 'green', Blockly.Python.ORDER_ATOMIC);
+    var blue = Blockly.Python.valueToCode(block, 'blue', Blockly.Python.ORDER_ATOMIC);
+    var white = Blockly.Python.valueToCode(block, 'white', Blockly.Python.ORDER_ATOMIC);
+
+    var code = 'neopixel.set_rgbw(' + pin + ', ' + pixel + ', (' + red + ', ' + green + ', ' + blue + ', ' + white + '))\n';
+
+    return code;
+  };
+
   this.neopixel_set_hsv = function(block) {
     self.iotyImports['neopixel'] = 'neopixel';
 
@@ -269,6 +286,20 @@ var ioty_generator = new function() {
     var blue = Blockly.Python.valueToCode(block, 'blue', Blockly.Python.ORDER_ATOMIC);
 
     var code = 'neopixel.fill_rgb(' + pin + ', (' + red + ', ' + green + ', ' + blue + '))\n';
+
+    return code;
+  };
+
+  this.neopixel_fill_rgbw = function(block) {
+    self.iotyImports['neopixel'] = 'neopixel';
+
+    var pin = block.getFieldValue('pin');
+    var red = Blockly.Python.valueToCode(block, 'red', Blockly.Python.ORDER_ATOMIC);
+    var green = Blockly.Python.valueToCode(block, 'green', Blockly.Python.ORDER_ATOMIC);
+    var blue = Blockly.Python.valueToCode(block, 'blue', Blockly.Python.ORDER_ATOMIC);
+    var white = Blockly.Python.valueToCode(block, 'white', Blockly.Python.ORDER_ATOMIC);
+
+    var code = 'neopixel.fill_rgbw(' + pin + ', (' + red + ', ' + green + ', ' + blue + ', ' + white + '))\n';
 
     return code;
   };

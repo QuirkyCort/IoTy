@@ -294,6 +294,9 @@ let MSGS = {
   '#blk-blue#': {
     en: 'blue',
   },
+  '#blk-white#': {
+    en: 'white',
+  },
   '#blk-to_hue#': {
     en: 'to hue',
   },
