@@ -408,6 +408,26 @@
         </shadow>
       </value>
     </block>
+    <block type="neopixel_set">
+      <field name="pin">13</field>
+      <value name="pixel">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="color">
+        <shadow type="neopixel_color"></shadow>
+      </value>
+    </block>
+    <block type="neopixel_fill">
+      <field name="pin">13</field>
+      <value name="color">
+        <shadow type="neopixel_color"></shadow>
+      </value>
+    </block>
+    <block type="neopixel_write">
+      <field name="pin">13</field>
+    </block>
     <block type="neopixel_color"></block>
     <block type="neopixel_rgb">
       <value name="red">
@@ -464,26 +484,6 @@
           <field name="NUM">1</field>
         </shadow>
       </value>
-    </block>
-    <block type="neopixel_set">
-      <field name="pin">13</field>
-      <value name="pixel">
-        <shadow type="math_number">
-          <field name="NUM">0</field>
-        </shadow>
-      </value>
-      <value name="color">
-        <shadow type="neopixel_color"></shadow>
-      </value>
-    </block>
-    <block type="neopixel_fill">
-      <field name="pin">13</field>
-      <value name="color">
-        <shadow type="neopixel_color"></shadow>
-      </value>
-    </block>
-    <block type="neopixel_write">
-      <field name="pin">13</field>
     </block>
   </category>
 </xml>
