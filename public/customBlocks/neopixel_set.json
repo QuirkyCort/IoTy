@@ -1,6 +1,6 @@
 {
-  "type": "neopixel_set_rgb",
-  "message0": "#blk-neopixel_at_pin# %1 #blk-set_pixel# %2 #blk-to_red# %3 #blk-green# %4 #blk-blue# %5",
+  "type": "neopixel_set",
+  "message0": "#blk-neopixel_at_pin# %1 #blk-set_pixel# %2 #blk-to_color# %3",
   "args0": [
     {
       "type": "field_dropdown",
@@ -14,18 +14,8 @@
     },
     {
       "type": "input_value",
-      "name": "red",
-      "check": "Number"
-    },
-    {
-      "type": "input_value",
-      "name": "green",
-      "check": "Number"
-    },
-    {
-      "type": "input_value",
-      "name": "blue",
-      "check": "Number"
+      "name": "color",
+      "check": "Array"
     }
   ],
   "inputsInline": true,

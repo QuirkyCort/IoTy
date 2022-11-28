@@ -1,0 +1,26 @@
+{
+  "type": "neopixel_rgb",
+  "message0": "#blk-red# %1 #blk-green# %2 #blk-blue# %3",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "red",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "green",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "blue",
+      "check": "Number"
+    }
+  ],
+  "output": "Array",
+  "inputsInline": true,
+  "colour": 230,
+  "tooltip": "",
+  "helpUrl": ""
+}

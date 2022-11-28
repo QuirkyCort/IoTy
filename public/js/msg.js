@@ -285,8 +285,14 @@ let MSGS = {
   '#blk-set_all_pixels#': {
     en: 'set all pixels',
   },
+  '#blk-to_color#': {
+    en: 'to color',
+  },
   '#blk-to_red#': {
     en: 'to red',
+  },
+  '#blk-red#': {
+    en: 'red',
   },
   '#blk-green#': {
     en: 'green',
@@ -296,6 +302,9 @@ let MSGS = {
   },
   '#blk-white#': {
     en: 'white',
+  },
+  '#blk-hue#': {
+    en: 'hue',
   },
   '#blk-to_hue#': {
     en: 'to hue',

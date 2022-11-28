@@ -6,17 +6,11 @@ _pins = [None] * 39
 def init(pin, pixels, format=3):
     _pins[pin] = NeoPixel(Pin(pin, Pin.OUT), pixels, bpp=format)
 
-def set_rgb(pin, pixel, rgb):
-    _pins[pin][pixel] = rgb
+def set(pin, pixel, color):
+    _pins[pin][pixel] = color
 
-def set_rgbw(pin, pixel, rgbw):
-    _pins[pin][pixel] = rgbw
-
-def fill_rgb(pin, rgb):
-    _pins[pin].fill(rgb)
-
-def fill_rgbw(pin, rgbw):
-    _pins[pin].fill(rgbw)
+def fill(pin, color):
+    _pins[pin].fill(color)
 
 def hsv2rgb(h, s, v):
     if s == 0.0:
@@ -44,12 +38,6 @@ def hsv2rgb(h, s, v):
         return t, p, v
     if i == 5:
         return v, p, q
-
-def set_hsv(pin, pixel, hsv):
-    _pins[pin][pixel] = hsv2rgb(*hsv)
-
-def fill_hsv(pin, hsv):
-    _pins[pin].fill(hsv2rgb(*hsv))
 
 def write(pin):
     _pins[pin].write()
