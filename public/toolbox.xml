@@ -45,7 +45,6 @@
       </value>
       <field name="units">SECONDS</field>
     </block>
-    <block type="wait_until_connected"></block>
     <block type="time">
       <field name="units">MILLI</field>
     </block>

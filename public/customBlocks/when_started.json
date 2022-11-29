@@ -1,6 +1,22 @@
 {
   "type": "when_started",
-  "message0": "#blk-when_started#",
+  "message0": "#blk-when_started# %1",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "start_type",
+      "options": [
+        [
+          "run immediately",
+          "RUN"
+        ],
+        [
+          "wait for connection",
+          "WAIT"
+        ]
+      ]
+    }
+  ],
   "nextStatement": null,
   "colour": 65,
   "tooltip": "",

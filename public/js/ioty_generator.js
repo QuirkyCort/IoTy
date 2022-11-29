@@ -33,10 +33,16 @@ var ioty_generator = new function() {
   this.genCode = function() {
     self.imports = {};
     self.iotyImports = {};
+    self.startType = 'RUN';
 
     let workspaceCode = Blockly.Python.workspaceToCode(blockly.workspace);
 
     let code = 'import ioty.monitor\n';
+
+    if (self.startType == 'WAIT') {
+      code += 'ioty.monitor.wait_for_connection()\n\n';
+    }
+
     for (let key in self.imports) {
       code += self.imports[key] + '\n';
     }
@@ -62,6 +68,10 @@ var ioty_generator = new function() {
 
   // Start
   this.when_started = function(block) {
+    var start_type = block.getFieldValue('start_type');
+
+    self.startType = start_type;
+
     var code = '';
     return code;
   };
