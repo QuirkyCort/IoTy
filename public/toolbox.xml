@@ -34,6 +34,26 @@
         </shadow>
       </value>
     </block>
+    <block type="servo_write_deg">
+      <field name="pin">4</field>
+      <value name="deg">
+        <shadow type="math_number">
+          <field name="NUM">180</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="servo_write_us">
+      <field name="pin">4</field>
+      <value name="us">
+        <shadow type="math_number">
+          <field name="NUM">1500</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="hc_sr04_ping">
+      <field name="trig">4</field>
+      <field name="echo">5</field>
+    </block>
   </category>
   <category name="#blk-control#" colour="#9fa55b">
     <block type="comment"></block>

@@ -27,6 +27,10 @@ var ioty_generator = new function() {
     Blockly.Python['neopixel_set'] = self.neopixel_set;
     Blockly.Python['neopixel_fill'] = self.neopixel_fill;
     Blockly.Python['neopixel_write'] = self.neopixel_write;
+    Blockly.Python['servo_write_deg'] = self.servo_write_deg;
+    Blockly.Python['servo_write_us'] = self.servo_write_us;
+    Blockly.Python['hc_sr04_ping'] = self.hc_sr04_ping;
+
   };
 
   // Generate python code
@@ -317,5 +321,47 @@ var ioty_generator = new function() {
 
     return code;
   };
+
+  this.servo_write_deg = function(block) {
+    self.iotyImports['pin'] = 'pin';
+
+    var pin = block.getFieldValue('pin');
+    var deg = Blockly.Python.valueToCode(block, 'deg', Blockly.Python.ORDER_NONE);
+
+    var code = 'pin.servo_write_deg(' + pin + ', ' + deg + ')\n';
+
+    return code;
+  };
+
+  this.servo_write_us = function(block) {
+    self.iotyImports['pin'] = 'pin';
+
+    var pin = block.getFieldValue('pin');
+    var us = Blockly.Python.valueToCode(block, 'us', Blockly.Python.ORDER_NONE);
+
+    var code = 'pin.servo_write_us(' + pin + ', ' + us + ')\n';
+
+    return code;
+  };
+
+  this.hc_sr04_ping = function(block) {
+    self.iotyImports['pin'] = 'pin';
+
+    var trig = block.getFieldValue('trig');
+    var echo = block.getFieldValue('echo');
+    var unit = block.getFieldValue('unit');
+
+    var code;
+    if (unit == 'CM') {
+      code = 'pin.hc_sr04_ping_cm(';
+    } else if (unit == 'US') {
+      code = 'pin.hc_sr04_ping_us(';
+    }
+
+    code += trig + ', ' + echo + ')';
+
+    return [code, Blockly.Python.ORDER_FUNCTION_CALL];
+  };
+
 }
 

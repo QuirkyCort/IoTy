@@ -1,5 +1,5 @@
-from machine import Pin, ADC, PWM
-
+import time
+from machine import Pin, ADC, PWM, time_pulse_us
 from micropython import const
 
 OUT = Pin.OUT
@@ -10,6 +10,7 @@ _IN = const(1)
 _OUT = const(2)
 _ADC = const(3)
 _PWM = const(4)
+_SERVO = const(5)
 
 _pins = []
 for _ in range(39):
@@ -60,3 +61,40 @@ def analog_write(pin, value):
         _pins[pin][1] = _PWM
 
     _pins[pin][0].duty(value)
+
+def servo_write_deg(pin, deg):
+    if _pins[pin][1] != _SERVO:
+        _pins[pin][0] = PWM(Pin(pin), freq=50, duty=deg)
+        _pins[pin][1] = _SERVO
+
+    _pins[pin][0].duty_ns(1000000 + int(deg * 1000000 / 180))
+
+def servo_write_us(pin, us):
+    if _pins[pin][1] != _SERVO:
+        _pins[pin][0] = PWM(Pin(pin), freq=50, duty=us)
+        _pins[pin][1] = _SERVO
+
+    _pins[pin][0].duty_ns(int(us) * 1000)
+
+def hc_sr04_ping_us(trig, echo, timeout=4000*2*3):
+    _pins[trig][0] = Pin(trig, OUT)
+    _pins[trig][1] = _OUT
+    _pins[trig][0].value(0)
+
+    _pins[echo][0] = Pin(echo, IN)
+    _pins[echo][1] = _IN
+
+    time.sleep_us(5)
+
+    _pins[trig][0].value(1)
+    time.sleep_us(10)
+    _pins[trig][0].value(0)
+
+    return time_pulse_us(_pins[echo][0], 1, timeout)
+
+def hc_sr04_ping_cm(trig, echo, timeout=4000*2*3):
+    us = hc_sr04_ping_us(trig, echo, timeout=timeout)
+    if us < 0:
+        return sleep_us
+    else:
+        return us / 2 / 29.1

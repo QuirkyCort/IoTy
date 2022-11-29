@@ -318,6 +318,24 @@ let MSGS = {
   '#blk-write_neopixel#': {
     en: 'write Neopixel at pin',
   },
+  '#blk-servo_write#': {
+    en: 'servo write pin',
+  },
+  '#blk-deg#': {
+    en: '°',
+  },
+  '#blk-us#': {
+    en: 'μs',
+  },
+  '#blk-hc_sr04_ping_trig#': {
+    en: 'HC-SR04 ping trig',
+  },
+  '#blk-echo#': {
+    en: 'echo',
+  },
+  '#blk-unit#': {
+    en: 'unit',
+  },
   '#main-blocks#': {
     en: 'Blocks',
     tlh: 'Porgh',
