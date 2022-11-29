@@ -2,28 +2,47 @@ from ioty.ble import BLE_Service
 import os
 import io
 from time import sleep_ms
+import machine
+
+_timer = machine.Timer(-1)
+
+def schedule_in(handler, delay_ms):
+    def _wrap(_arg):
+        handler()
+
+    _timer.init(mode=machine.Timer.ONE_SHOT, period=delay_ms, callback=_wrap)
 
 class BLE_IO(io.IOBase):
     def __init__(self, ble_console):
         self.ble_console = ble_console
         self.ble_console.on_serial_write = self.on_ble_serial_write
-        self._data = bytearray()
+        self._rx_buf = bytearray()
+        self._tx_buf = bytearray()
 
     def on_ble_serial_write(self, value):
-        self._data[:] = value[:]
+        self._rx_buf[:] = value[:]
         if hasattr(os, 'dupterm_notify'):
             os.dupterm_notify(None)
 
-    def write(self, data):
+    def _flush(self):
+        data = self._tx_buf[0:80]
+        self._tx_buf = self._tx_buf[80:]
         self.ble_console.serial_send(data)
-        return len(data)
+        if self._tx_buf:
+            schedule_in(self._flush, 50)
+
+    def write(self, data):
+        empty = not self._tx_buf
+        self._tx_buf += data
+        if empty:
+            schedule_in(self._flush, 50)
 
     def readinto(self, data):
-        if not self._data:
+        if not self._rx_buf:
             return None
-        b = min(len(data), len(self._data))
-        data[:b] = self._data[:b]
-        self._data = self._data[b:]
+        b = min(len(data), len(self._rx_buf))
+        data[:b] = self._rx_buf[:b]
+        self._rx_buf = self._rx_buf[b:]
         return b
 
 def wait_for_connection():
