@@ -264,7 +264,7 @@ var ble = new function() {
     }
     filesManager.updateCurrentFile();
 
-    let $downloadWindow = self.hiddenButtonDialog('Download to Device', 'Erasing...');
+    let $downloadWindow = self.hiddenButtonDialog('Download to Device', 'Checking syntax...');
 
     let totalFilesCount = Object.keys(filesManager.files).length;
     let currentFileCount = 0;
@@ -274,6 +274,33 @@ var ble = new function() {
       progressBar += '.';
       $downloadWindow.$body.text('Downloading (' + currentFileCount + '/' + totalFilesCount + ')' + progressBar);
     }
+
+    // Check syntax
+    Sk.configure({
+      __future__: Sk.python3
+    });
+    let syntaxError = false;
+    let errorText = '';
+    for (let filename in filesManager.files) {
+      try {
+        Sk.compile(filesManager.files[filename], filename);
+      } catch (error) {
+        console.log(error);
+        errorText += 'File "' + error.traceback[0].filename + '", line ' + error.traceback[0].lineno + '\n';
+        errorText += '  ' + error.args.v[0].v + '\n';
+        syntaxError = true;
+      }
+    }
+
+    if (syntaxError) {
+      $downloadWindow.$body.text('Syntax Error');
+      let $error = $('<pre>' + errorText + '</pre>');
+      $downloadWindow.$body.append($error);
+      $downloadWindow.$buttonsRow.removeClass('hide');
+      return;
+    }
+
+    $downloadWindow.$body.text('Erasing...');
 
     try {
       await self.setCmdMode(self._MODE_DELETE_ALL);
