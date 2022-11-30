@@ -13,6 +13,10 @@
         [
           "wait for connection",
           "WAIT"
+        ],
+        [
+          "disable connection",
+          "DISABLE"
         ]
       ]
     }
