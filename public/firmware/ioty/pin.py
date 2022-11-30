@@ -67,7 +67,7 @@ def servo_write_deg(pin, deg):
         _pins[pin][0] = PWM(Pin(pin), freq=50, duty=deg)
         _pins[pin][1] = _SERVO
 
-    _pins[pin][0].duty_ns(1000000 + int(deg * 1000000 / 180))
+    _pins[pin][0].duty_ns(500000 + int(deg * 2000000 / 180))
 
 def servo_write_us(pin, us):
     if _pins[pin][1] != _SERVO:
