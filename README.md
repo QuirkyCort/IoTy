@@ -39,7 +39,14 @@ Download the pyboard.py command line utility by following the instructions here 
 
 This is needed to transfer the IoTy firmware to the ESP32.
 
-### 4) Make a directory
+### 4) Reformat Filesystem (Optional)
+
+It is recommended to reformat the device filesystem to Littlefs.
+Littlefs is a filesystem designed for flash-based devices, and is much more resistant to filesystem corruption.
+
+Follow the instructions here https://docs.micropython.org/en/latest/reference/filesystem.html#littlefs
+
+### 5) Make a directory
 
 Create the "ioty" directory on the ESP32 using the following command...
 
@@ -49,7 +56,7 @@ pyboard.py --device /dev/ttyUSB0 -f mkdir ioty
 
 The "/dev/ttyUSB0" will need to be changed to whatever makes sense for your computer.
 
-### 5) Transfer IoTy files
+### 6) Transfer IoTy files
 
 Transfer the IoTy files to the ESP32 using the following command.
 Make sure you are in the "public/firmware" directory first.
@@ -59,7 +66,7 @@ pyboard.py --device /dev/ttyUSB0 -f cp boot.py _ioty_name :
 pyboard.py --device /dev/ttyUSB0 -f cp ioty/* :ioty/
 ```
 
-### 6) Restart the device and put it into program mode
+### 7) Restart the device and put it into program mode
 
 Restart your ESP32 (...press the reset button or power-cycle it); the built-in LED should flash 3 times.
 Before the 3 flashes complete, press and hold the boot button until the 3 flashes complete and the LED should stay on.
@@ -86,7 +93,7 @@ Restart your device after download completes.
 
 When your program is running, you can connect to your device to view the output of print statements and error messages in the "Monitor" tab.
 
-To prevent missing any messages that were transmitted before connection is completed, you can add a "wait until connected" block to the top of your program.
+To prevent missing any messages that were transmitted before connection is completed, you can set the "When Started" block to "wait for connection".
 If you're using Python, add...
 
 ```
