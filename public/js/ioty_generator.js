@@ -41,7 +41,7 @@ var ioty_generator = new function() {
 
     let workspaceCode = Blockly.Python.workspaceToCode(blockly.workspace);
 
-    let code;
+    let code = '';
 
     if (self.startType == 'RUN') {
       code += 'import ioty.monitor\n';
