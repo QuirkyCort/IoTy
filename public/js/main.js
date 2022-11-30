@@ -81,6 +81,7 @@ var main = new function() {
         '<ul>' +
           '<li><a href="https://developers.google.com/blockly" target="_blank">Blockly</a></li>' +
           '<li><a href="https://ace.c9.io/" target="_blank">Ace Editor</a></li>' +
+          '<li><a href="https://skulpt.org/" target="_blank">Skulpt</a></li>' +
         '</ul>' +
         '<h3>Contact</h3>' +
         '<p>Please direct all complaints or requests to <a href="mailto:cort@aposteriori.com.sg">Cort</a>.</p>' +
@@ -114,8 +115,8 @@ var main = new function() {
       e.stopPropagation();
 
       let menuItems = [
-        {html: 'Wiki', line: false, callback: function() { self.openPage('https://github.com/QuirkyCort/gears/wiki'); }},
-        {html: 'Github', line: false, callback: function() { self.openPage('https://github.com/QuirkyCort/gears'); }},
+        // {html: 'Wiki', line: false, callback: function() { self.openPage('https://github.com/QuirkyCort/gears/wiki'); }},
+        {html: 'Github', line: false, callback: function() { self.openPage('https://github.com/QuirkyCort/IoTy'); }},
         {html: i18n.get('#main-whats_new#'), line: false, callback: function() { self.showWhatsNew(true); }},
         {html: i18n.get('#main-privacy#'), line: false, callback: function() { self.openPage('privacy.html'); }},
         {html: i18n.get('#main-about#'), line: true, callback: self.openAbout },
