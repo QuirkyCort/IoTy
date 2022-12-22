@@ -95,6 +95,6 @@ def hc_sr04_ping_us(trig, echo, timeout=4000*2*3):
 def hc_sr04_ping_cm(trig, echo, timeout=4000*2*3):
     us = hc_sr04_ping_us(trig, echo, timeout=timeout)
     if us < 0:
-        return sleep_us
+        return us
     else:
         return us / 2 / 29.1
