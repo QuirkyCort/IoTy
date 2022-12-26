@@ -13,6 +13,11 @@ var ble = new function() {
   this._MODE_DELETE = 8;
   this._MODE_UPDATE = 9;
 
+  this._STATUS_SUCCESS = 0;
+  this._STATUS_PENDING = 1;
+  this._STATUS_FAILED = 2;
+  this._STATUS_CHECKSUM_ERROR = 3;
+
   this.DATA_BUFFER_SIZE = 512;
 
   this.FIRWARE_FILES = [
@@ -194,6 +199,7 @@ var ble = new function() {
       await retrieveUpdateFile();
       await retrieveFiles();
 
+      // Transfer to device
       let totalFilesCount = Object.keys(firmwareFiles).length;
       let currentFileCount = 0;
       let progressBar = '';
@@ -211,9 +217,34 @@ var ble = new function() {
         await self.writeFile(firmwareFiles[key].tempName, firmwareFiles[key].content, updateProgress);
       }
 
+      // Trigger update
       await self.setCmdMode(self._MODE_UPDATE);
-      $updateWindow.$body.text('Update Completed. Please restart your device.');
-      $updateWindow.$buttonsRow.removeClass('hide');
+
+      // Check status
+      async function awaitTimeout(delay) {
+        return new Promise(resolve => setTimeout(resolve, delay));
+      }
+      let timeout = true;
+      for (let i=0; i<10; i++) {
+        await awaitTimeout(200);
+        let value = await self.readCmdCharacteristic();
+        if (value.getUint16(0) != self._STATUS_PENDING) {
+          timeout = false;
+          break;
+        }
+      }
+
+      if (timeout) {
+        $updateWindow.$body.text('Error updating device (timeout). Please try again.');
+        $updateWindow.$buttonsRow.removeClass('hide');  
+      } else if (value.getUint16(0) != 0) {
+        $updateWindow.$body.text('Error updating device (corrupted firmware). Please try again.');
+        $updateWindow.$buttonsRow.removeClass('hide');  
+      } else {
+        $updateWindow.$body.text('Update Completed. Please restart your device.');
+        $updateWindow.$buttonsRow.removeClass('hide');  
+      }
+
     } catch (error) {
       console.log(error);
       $updateWindow.$body.text('Error updating device. Please try again.');

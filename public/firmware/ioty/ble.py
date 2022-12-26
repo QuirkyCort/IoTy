@@ -2,10 +2,12 @@ import bluetooth
 import struct
 import os
 import json
+import hashlib
+import binascii
 
 from micropython import const
 
-_VERSION = 1
+_VERSION = 2
 
 _SERIAL_BUFFER_SIZE = 80
 _DATA_BUFFER_SIZE = 512
@@ -32,6 +34,11 @@ _MODE_LIST = const(6)
 _MODE_READ = const(7)
 _MODE_DELETE = const(8)
 _MODE_UPDATE = const(9)
+
+_STATUS_SUCCESS = const(0)
+_STATUS_PENDING = const(1)
+_STATUS_FAILED = const(2)
+_STATUS_CHECKSUM_ERROR = const(3)
 
 _SERVICE_UUID = bluetooth.UUID('ba48d887-db79-4cac-8d72-a4d9ecdfcde2')
 _CMD_CHAR = (
@@ -132,13 +139,36 @@ class BLE_Service:
             self._ble.gatts_write(self._handle_cmd, value)
         elif cmd == _MODE_UPDATE:
             self._update()
+    
+    def set_status(self, status):
+        value = status.to_bytes(2, 'big')
+        self._ble.gatts_write(self._handle_cmd, value)
+
+    def _gen_hash(self, filename):
+        f = open(filename, 'rb')
+        d = f.read()
+        h = hashlib.sha256(d)
+        return binascii.hexlify(h.digest()).decode()
 
     def _update(self):
+        self.set_status(_STATUS_PENDING)
+
         commands = []
         try:
             with open('_ioty_updates', 'r') as f:
                 for line in f.readlines():
                     commands.append(line.split())
+
+            hash_pass = True
+            for command in commands:
+                if command[0] == 'mv' and len(command) > 3:
+                    hash = self._gen_hash(command[1])
+                    if hash != command[3]:
+                        hash_pass = False
+                        break
+
+            if hash_pass == False:
+                self.set_status(_STATUS_CHECKSUM_ERROR)
 
             for command in commands:
                 if command[0] == 'mkdir':
@@ -150,6 +180,8 @@ class BLE_Service:
                     os.rename(command[1], command[2])
 
             os.remove('_ioty_updates')
+
+            self.set_status(_STATUS_SUCCESS)
         except:
             pass
 
