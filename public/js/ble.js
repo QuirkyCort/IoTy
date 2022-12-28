@@ -1,7 +1,7 @@
 var ble = new function() {
   var self = this;
 
-  this.CURRENT_VERSION = 1;
+  this.CURRENT_VERSION = 2;
 
   this._MODE_APPEND = 2;
   this._MODE_OPEN = 1;
@@ -19,13 +19,7 @@ var ble = new function() {
   this._STATUS_CHECKSUM_ERROR = 3;
 
   this.DATA_BUFFER_SIZE = 512;
-
-  this.FIRWARE_FILES = [
-    '_ioty_updates',
-    'boot.py',
-    '_ioty_monitor.py',
-    '_ioty_service.py',
-  ];
+  // this.DATA_BUFFER_SIZE = 20;
 
   this.FIRWARE_UPDATE_FILE = '_ioty_updates';
 
@@ -203,10 +197,16 @@ var ble = new function() {
       let totalFilesCount = Object.keys(firmwareFiles).length;
       let currentFileCount = 0;
       let progressBar = '';
+      let progressBarCounter = 0;
+      const PROGRESS_BAR_LIMIT = 1;
 
       function updateProgress() {
-        progressBar += '.';
-        $updateWindow.$body.text('Updating Firmware (' + currentFileCount + '/' + totalFilesCount + ')' + progressBar);
+        progressBarCounter++;
+        if (progressBarCounter == PROGRESS_BAR_LIMIT) {
+          progressBarCounter = 0;
+          progressBar += '.';
+          $updateWindow.$body.text('Updating Firmware (' + currentFileCount + '/' + totalFilesCount + ')' + progressBar);
+        }
       }
 
       for (let key in firmwareFiles) {
@@ -225,10 +225,11 @@ var ble = new function() {
         return new Promise(resolve => setTimeout(resolve, delay));
       }
       let timeout = true;
+      let status;
       for (let i=0; i<10; i++) {
         await awaitTimeout(200);
-        let value = await self.readCmdCharacteristic();
-        if (value.getUint16(0) != self._STATUS_PENDING) {
+        status = await self.readCmdCharacteristic();
+        if (status.getUint16(0) != self._STATUS_PENDING) {
           timeout = false;
           break;
         }
@@ -237,7 +238,7 @@ var ble = new function() {
       if (timeout) {
         $updateWindow.$body.text('Error updating device (timeout). Please try again.');
         $updateWindow.$buttonsRow.removeClass('hide');  
-      } else if (value.getUint16(0) != 0) {
+      } else if (status.getUint16(0) != 0) {
         $updateWindow.$body.text('Error updating device (corrupted firmware). Please try again.');
         $updateWindow.$buttonsRow.removeClass('hide');  
       } else {
@@ -247,7 +248,7 @@ var ble = new function() {
 
     } catch (error) {
       console.log(error);
-      $updateWindow.$body.text('Error updating device. Please try again.');
+      $updateWindow.$body.text('Error updating device. Please reset your device and try again.');
       $updateWindow.$buttonsRow.removeClass('hide');
     }
   };
