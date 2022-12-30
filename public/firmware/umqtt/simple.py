@@ -1,6 +1,7 @@
 import usocket as socket
 import ustruct as struct
 from ubinascii import hexlify
+import time
 
 
 class MQTTException(Exception):
@@ -36,6 +37,7 @@ class MQTTClient:
         self.lw_msg = None
         self.lw_qos = 0
         self.lw_retain = False
+        self.last_keepalive = time.time()
 
     def _send_str(self, s):
         self.sock.write(struct.pack("!H", len(s)))
@@ -212,5 +214,9 @@ class MQTTClient:
     # If not, returns immediately with None. Otherwise, does
     # the same processing as wait_msg.
     def check_msg(self):
+        if time.time() - self.keepalive > self.last_keepalive:
+            self.last_keepalive = time.time()
+            self.ping()
+
         self.sock.setblocking(False)
         return self.wait_msg()
