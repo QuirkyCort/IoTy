@@ -327,7 +327,10 @@ var main = new function() {
     if (lastShown == null || parseInt(lastShown) < current || forceShow) {
       let options = {
         title: 'What\'s New',
-        message: ''
+        message:
+        '<h3>31 Dec 2022 (MQTT)</h3>' +
+        '<p>WiFi and MQTT blocks and modules are now available.</p>' +
+        '<p>When using MQTT, be sure to call "Check for message" frequently in a loop to keep the connection alive.</p>'
       }
       acknowledgeDialog(options, function(){
         localStorage.setItem('whatsNew', current);
