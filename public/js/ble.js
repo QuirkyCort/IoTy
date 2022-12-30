@@ -229,7 +229,12 @@ var ble = new function() {
       for (let i=0; i<10; i++) {
         await awaitTimeout(200);
         status = await self.readCmdCharacteristic();
-        if (status.getUint16(0) != self._STATUS_PENDING) {
+        try {
+          status = status.getUint16(0);
+        } catch (error) {
+          status = -1;
+        }
+        if (status != self._STATUS_PENDING) {
           timeout = false;
           break;
         }
@@ -238,9 +243,12 @@ var ble = new function() {
       if (timeout) {
         $updateWindow.$body.text('Error updating device (timeout). Please try again.');
         $updateWindow.$buttonsRow.removeClass('hide');  
-      } else if (status.getUint16(0) != 0) {
+      } else if (status == -1) {
+        $updateWindow.$body.text('Unable to verify update. Please reset your device and try again.');
+        $updateWindow.$buttonsRow.removeClass('hide');
+      } else if (status != 0) {
         $updateWindow.$body.text('Error updating device (corrupted firmware). Please try again.');
-        $updateWindow.$buttonsRow.removeClass('hide');  
+        $updateWindow.$buttonsRow.removeClass('hide');
       } else {
         $updateWindow.$body.text('Update Completed. Please restart your device.');
         $updateWindow.$buttonsRow.removeClass('hide');  
