@@ -1,0 +1,11 @@
+{
+  "type": "mqtt_wait_msg",
+  "message0": "#blk-mqtt_wait_msg#",
+  "args0": [],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 65,
+  "tooltip": "",
+  "helpUrl": ""
+}

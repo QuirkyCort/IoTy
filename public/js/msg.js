@@ -336,6 +336,39 @@ let MSGS = {
   '#blk-unit#': {
     en: 'unit',
   },
+  '#blk-network#': {
+    en: 'Network',
+  },
+  '#blk-connect_to_wifi#': {
+    en: 'Connect to WiFi',
+  },
+  '#blk-with_password#': {
+    en: 'with password',
+  },
+  '#blk-connect_to_mqtt_server#': {
+    en: 'MQTT: Connect to server',
+  },
+  '#blk-on_port#': {
+    en: 'on port',
+  },
+  '#blk-with_user#': {
+    en: 'with user',
+  },
+  '#blk-and_password#': {
+    en: 'and password',
+  },
+  '#blk-mqtt_wait_msg#': {
+    en: 'MQTT: Wait for message',
+  },
+  '#blk-mqtt_check_msg#': {
+    en: 'MQTT: Check for message',
+  },
+  '#blk-mqtt_on_receive#': {
+    en: 'MQTT: On receive message for topic',
+  },
+  '#blk-with_mqtt_msg#': {
+    en: 'with: mqtt_msg',
+  },
   '#main-blocks#': {
     en: 'Blocks',
     tlh: 'Porgh',

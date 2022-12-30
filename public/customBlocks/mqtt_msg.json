@@ -1,0 +1,9 @@
+{
+  "type": "mqtt_msg",
+  "message0": "mqtt_msg",
+  "args0": [],
+  "output": "String",
+  "colour": 330,
+  "tooltip": "",
+  "helpUrl": ""
+}

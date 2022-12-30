@@ -1,0 +1,23 @@
+{
+  "type": "mqtt_on_receive",
+  "message0": "#blk-mqtt_on_receive# %1 #blk-with_mqtt_msg# %2 %3",
+  "args0": [
+    {
+      "type": "field_input",
+      "name": "topic",
+      "text": "topic"
+    },
+    {
+      "type": "input_dummy"
+    },
+    {
+      "type": "input_statement",
+      "name": "statements"
+    }
+  ],
+  "inputsInline": true,
+  "nextStatement": null,
+  "colour": 65,
+  "tooltip": "",
+  "helpUrl": ""
+}

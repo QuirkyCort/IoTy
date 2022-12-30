@@ -1,0 +1,32 @@
+{
+  "type": "mqtt_connect_to_server",
+  "message0": "#blk-connect_to_mqtt_server# %1 #blk-on_port# %2 #blk-with_user# %3 #blk-and_password# %4",
+  "args0": [
+    {
+      "type": "field_input",
+      "name": "server",
+      "text": "a9i.sg"
+    },
+    {
+      "type": "field_input",
+      "name": "port",
+      "text": "1883"
+    },
+    {
+      "type": "field_input",
+      "name": "name",
+      "text": "name"
+    },
+    {
+      "type": "field_input",
+      "name": "password",
+      "text": "password"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 65,
+  "tooltip": "",
+  "helpUrl": ""
+}
