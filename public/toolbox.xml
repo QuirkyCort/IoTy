@@ -420,11 +420,16 @@
   <category name="Functions" colour="#995ba5" custom="PROCEDURE"></category>
   <category name="#blk-network#" colour="#9fa55b">
     <block type="connect_to_wifi"></block>
-    <sep gap="32"></sep>
     <block type="mqtt_connect_to_server"></block>
     <block type="mqtt_on_receive"></block>
     <block type="mqtt_msg"></block>
-    <block type="mqtt_wait_msg"></block>
+    <block type="mqtt_publish">
+      <value name="value">
+        <shadow type="text">
+          <field name="TEXT">hello</field>
+        </shadow>
+      </value>
+    </block>
     <block type="mqtt_check_msg"></block>
   </category>
   <category name="Neopixel" colour="#5b67a5">

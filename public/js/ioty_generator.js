@@ -41,6 +41,7 @@ var ioty_generator = new function() {
     Blockly.Python['mqtt_check_msg'] = self.mqtt_check_msg;
     Blockly.Python['mqtt_on_receive'] = self.mqtt_on_receive;
     Blockly.Python['mqtt_msg'] = self.mqtt_msg;
+    Blockly.Python['mqtt_publish'] = self.mqtt_publish;
 
   };
 
@@ -519,5 +520,15 @@ var ioty_generator = new function() {
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };
+
+  this.mqtt_publish = function(block) {
+    var topic = block.getFieldValue('topic');
+    var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_NONE);
+
+    var code = 'ioty_mqtt.publish(b\'' + topic + '\', bytes(' + value + ', \'utf-8\'))\n'
+
+    return code;
+  };
+
 }
 

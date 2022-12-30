@@ -44,6 +44,9 @@ class MQTTClient(simple.MQTTClient):
             self.reconnect()
 
     def check_msg(self, attempts=2):
+        if utime.time() - self.keepalive > self.last_keepalive:
+            self.last_keepalive = utime.time()
+            self.ping()
         while attempts:
             self.sock.setblocking(False)
             try:

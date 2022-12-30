@@ -369,6 +369,12 @@ let MSGS = {
   '#blk-with_mqtt_msg#': {
     en: 'with: mqtt_msg',
   },
+  '#blk-mqtt_publish#': {
+    en: 'MQTT: Publish to topic',
+  },
+  '#blk-message#': {
+    en: 'message',
+  },
   '#main-blocks#': {
     en: 'Blocks',
     tlh: 'Porgh',
