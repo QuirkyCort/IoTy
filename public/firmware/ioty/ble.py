@@ -58,7 +58,7 @@ _SERVICE = (
     (_CMD_CHAR, _DATA_CHAR, _SERIAL_CHAR),
 )
 
-_PRESERVE_FILES = ('boot.py', 'ioty', '_ioty_name')
+_PRESERVE_FILES = ('boot.py', 'ioty', '_ioty_name', 'umqtt')
 
 def advertising_payload(limited_disc=False, br_edr=False, name=None, services=None, appearance=0):
     payload = bytearray()
