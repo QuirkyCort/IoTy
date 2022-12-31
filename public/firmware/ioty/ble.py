@@ -35,6 +35,7 @@ _MODE_LIST = const(6)
 _MODE_READ = const(7)
 _MODE_DELETE = const(8)
 _MODE_UPDATE = const(9)
+_MODE_FILE_HASH = const(10)
 
 _STATUS_SUCCESS = const(0)
 _STATUS_PENDING = const(1)
@@ -91,7 +92,9 @@ class BLE_Service:
         with open('_ioty_name', 'r') as f:
             name = f.readline()
         self._ble = bluetooth.BLE()
-        self._file = None
+        self._file_name = ''
+        self._file_data = bytearray()
+        self._file_hash = bytearray()
         self._mode = 0
         self.on_serial_write = None
         self._ble.active(True)
@@ -127,6 +130,7 @@ class BLE_Service:
         cmd = int.from_bytes(value, 'big')
         if cmd == _MODE_OPEN:
             self._mode = cmd
+            self._open_file()
         elif cmd == _MODE_APPEND:
             self._mode = cmd
         elif cmd == _MODE_CLOSE:
@@ -140,16 +144,12 @@ class BLE_Service:
             self._ble.gatts_write(self._handle_cmd, value)
         elif cmd == _MODE_UPDATE:
             self._update()
-    
+        elif cmd == _MODE_FILE_HASH:
+            self._mode = cmd
+
     def set_status(self, status):
         value = status.to_bytes(2, 'big')
         self._ble.gatts_write(self._handle_cmd, value)
-
-    def _gen_hash(self, filename):
-        f = open(filename, 'rb')
-        d = f.read()
-        h = hashlib.sha256(d)
-        return binascii.hexlify(h.digest()).decode()
 
     def _update(self):
         self.set_status(_STATUS_PENDING)
@@ -159,17 +159,6 @@ class BLE_Service:
             with open('_ioty_updates', 'r') as f:
                 for line in f.readlines():
                     commands.append(line.split())
-
-            hash_pass = True
-            for command in commands:
-                if command[0] == 'mv' and len(command) > 3:
-                    hash = self._gen_hash(command[1])
-                    if hash != command[3]:
-                        hash_pass = False
-                        break
-
-            if hash_pass == False:
-                self.set_status(_STATUS_CHECKSUM_ERROR)
 
             for command in commands:
                 if command[0] == 'mkdir':
@@ -186,9 +175,25 @@ class BLE_Service:
         except:
             pass
 
+    def _open_file(self):
+        self._file_name = ''
+        self._file_hash = bytearray()
+        self._file_data = bytearray()
+        self.set_status(_STATUS_PENDING)
+
     def _close_file(self):
-        self._file.close()
-        self._file = None
+        if self._check_hash():
+            file = open(self._file_name, 'wb')
+            file.write(self._file_data)
+            file.close()
+            self.set_status(_STATUS_SUCCESS)
+        else:
+            self.set_status(_STATUS_CHECKSUM_ERROR)
+
+    def _check_hash(self):
+        h = hashlib.sha256(self._file_data)
+        local_hash = h.digest()
+        return local_hash == self._file_hash
 
     def _erase_files(self):
         for f in os.listdir():
@@ -198,10 +203,11 @@ class BLE_Service:
     def on_data_write(self, value):
         if self._mode == _MODE_OPEN:
             text = value.decode("utf-8")
-            self._file = open(text, 'wb')
+            self._file_name += text
         elif self._mode == _MODE_APPEND:
-            if self._file:
-                self._file.write(value)
+            self._file_data.extend(value)
+        elif self._mode == _MODE_FILE_HASH:
+            self._file_hash.extend(value)
 
     def serial_send(self, data):
         for conn_handle in self._connections:

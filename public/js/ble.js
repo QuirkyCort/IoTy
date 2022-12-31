@@ -12,6 +12,7 @@ var ble = new function() {
   this._MODE_READ = 7;
   this._MODE_DELETE = 8;
   this._MODE_UPDATE = 9;
+  this._MODE_FILE_HASH = 10
 
   this._STATUS_SUCCESS = 0;
   this._STATUS_PENDING = 1;
@@ -19,8 +20,8 @@ var ble = new function() {
   this._STATUS_CHECKSUM_ERROR = 3;
 
   this.SERIAL_BUFFER_SIZE = 20;
-  this.DATA_BUFFER_SIZE = 512;
-  // this.DATA_BUFFER_SIZE = 20;
+  // this.DATA_BUFFER_SIZE = 512;
+  this.DATA_BUFFER_SIZE = 20;
   // this.DATA_BUFFER_SIZE_MIN = 20;
 
   this.FIRWARE_UPDATE_FILE = '_ioty_updates';
@@ -109,10 +110,12 @@ var ble = new function() {
     return await self.cmdCharacteristic.readValue();
   };
 
-  this.writeData = async function(str, progressCB) {
-    var value = new TextEncoder('utf-8').encode(str);
-    for (let i=0; i<value.byteLength; i+=self.DATA_BUFFER_SIZE) {
-      await self.dataCharacteristic.writeValueWithResponse(value.slice(i, i + self.DATA_BUFFER_SIZE));
+  this.writeData = async function(data, progressCB) {
+    if (typeof data == 'string') {
+      data = new TextEncoder('utf-8').encode(data);
+    }
+    for (let i=0; i<data.byteLength; i+=self.DATA_BUFFER_SIZE) {
+      await self.dataCharacteristic.writeValueWithResponse(data.slice(i, i + self.DATA_BUFFER_SIZE));
       if (typeof progressCB == 'function') {
         progressCB();
       }
@@ -130,7 +133,7 @@ var ble = new function() {
   //       if (typeof progressCB == 'function') {
   //         progressCB();
   //       }
-  //     }  
+  //     }
   //   } catch(error) {
   //     if (bufferSize == self.DATA_BUFFER_SIZE) {
   //       console.log('Try smaller buffer');
@@ -166,9 +169,40 @@ var ble = new function() {
   this.writeFile = async function(name, value, progressCB) {
     await self.setCmdMode(self._MODE_OPEN);
     await self.writeData(name, progressCB);
+
     await self.setCmdMode(self._MODE_APPEND);
     await self.writeData(value, progressCB);
+
+    let data = new TextEncoder().encode(value);
+    let hash = await crypto.subtle.digest('SHA-256', data);
+    await self.setCmdMode(self._MODE_FILE_HASH);
+    await self.writeData(hash, progressCB);
+
     await self.setCmdMode(self._MODE_CLOSE);
+
+    return await self.retrieve_status();
+  };
+
+  this.retrieve_status = async function() {
+    async function awaitTimeout(delay) {
+      return new Promise(resolve => setTimeout(resolve, delay));
+    }
+
+    let status;
+    for (let i=0; i<10; i++) {
+      await awaitTimeout(100);
+      status = await self.readCmdCharacteristic();
+      try {
+        status = status.getUint16(0);
+      } catch (error) {
+        status = -1;
+      }
+      if (status != self._STATUS_PENDING) {
+        break;
+      }
+    }
+
+    return status;
   };
 
   this.getVersion = async function() {
@@ -243,61 +277,42 @@ var ble = new function() {
       let totalFilesCount = Object.keys(firmwareFiles).length;
       let currentFileCount = 0;
       let progressBar = '';
-      let progressBarCounter = 0;
-      const PROGRESS_BAR_LIMIT = 1;
 
       function updateProgress() {
-        progressBarCounter++;
-        if (progressBarCounter == PROGRESS_BAR_LIMIT) {
-          progressBarCounter = 0;
-          progressBar += '.';
-          $updateWindow.$body.text('Updating Firmware (' + currentFileCount + '/' + totalFilesCount + ')' + progressBar);
-        }
+        progressBar += '.';
+        $updateWindow.$body.text('Updating Firmware (' + currentFileCount + '/' + totalFilesCount + ')' + progressBar);
       }
 
+      let status;
       for (let key in firmwareFiles) {
         progressBar = '';
         currentFileCount++;
         updateProgress();
 
-        await self.writeFile(firmwareFiles[key].tempName, firmwareFiles[key].content, updateProgress);
-      }
-
-      // Trigger update
-      await self.setCmdMode(self._MODE_UPDATE);
-
-      // Check status
-      async function awaitTimeout(delay) {
-        return new Promise(resolve => setTimeout(resolve, delay));
-      }
-      let timeout = true;
-      let status;
-      for (let i=0; i<10; i++) {
-        await awaitTimeout(200);
-        status = await self.readCmdCharacteristic();
-        try {
-          status = status.getUint16(0);
-        } catch (error) {
-          status = -1;
-        }
-        if (status != self._STATUS_PENDING) {
-          timeout = false;
+        status = await self.writeFile(firmwareFiles[key].tempName, firmwareFiles[key].content, updateProgress);
+        if (status != self._STATUS_SUCCESS) {
           break;
         }
       }
 
-      if (timeout) {
+      if (status == self._STATUS_SUCCESS) {
+        // Trigger update
+        await self.setCmdMode(self._MODE_UPDATE);
+        status = await self.retrieve_status();
+      }
+
+      if (status == self._STATUS_SUCCESS) {
+        $updateWindow.$body.text('Update Completed. Please restart your device.');
+        $updateWindow.$buttonsRow.removeClass('hide');
+      } else if (status == self._STATUS_PENDING) {
         $updateWindow.$body.text('Error updating device (timeout). Please try again.');
-        $updateWindow.$buttonsRow.removeClass('hide');  
+        $updateWindow.$buttonsRow.removeClass('hide');
       } else if (status == -1) {
         $updateWindow.$body.text('Unable to verify update. Please reset your device and try again.');
         $updateWindow.$buttonsRow.removeClass('hide');
-      } else if (status != 0) {
+      } else {
         $updateWindow.$body.text('Error updating device (corrupted firmware). Please try again.');
         $updateWindow.$buttonsRow.removeClass('hide');
-      } else {
-        $updateWindow.$body.text('Update Completed. Please restart your device.');
-        $updateWindow.$buttonsRow.removeClass('hide');  
       }
 
     } catch (error) {
@@ -357,11 +372,6 @@ var ble = new function() {
     let currentFileCount = 0;
     let progressBar = '';
 
-    function updateProgress() {
-      progressBar += '.';
-      $downloadWindow.$body.text('Downloading (' + currentFileCount + '/' + totalFilesCount + ')' + progressBar);
-    }
-
     // Check syntax
     Sk.configure({
       __future__: Sk.python3
@@ -392,16 +402,33 @@ var ble = new function() {
     try {
       await self.setCmdMode(self._MODE_DELETE_ALL);
 
+      function updateProgress() {
+        progressBar += '.';
+        $downloadWindow.$body.text('Downloading (' + currentFileCount + '/' + totalFilesCount + ')' + progressBar);
+      }
+
+      let status;
       for (let filename in filesManager.files) {
         progressBar = '';
         currentFileCount++;
         updateProgress();
 
-        await self.writeFile(filename, filesManager.files[filename], updateProgress);
+        status = await self.writeFile(filename, filesManager.files[filename], updateProgress);
+        if (status != self._STATUS_SUCCESS) {
+          break;
+        }
       }
 
-      $downloadWindow.$body.text('Update Completed. Please restart your device.');
-      $downloadWindow.$buttonsRow.removeClass('hide');
+      if (status == self._STATUS_SUCCESS) {
+        $downloadWindow.$body.text('Download Completed. Please restart your device.');
+        $downloadWindow.$buttonsRow.removeClass('hide');
+      } else if (status == self._STATUS_PENDING) {
+        $downloadWindow.$body.text('Download verification timeout. Please try again.');
+        $downloadWindow.$buttonsRow.removeClass('hide');
+      } else {
+        $downloadWindow.$body.text('Error downloading (corrupted data). Please try again.');
+        $downloadWindow.$buttonsRow.removeClass('hide');
+      }
     } catch (error) {
       console.log(error);
       $downloadWindow.$body.text('Error downloading files.');
