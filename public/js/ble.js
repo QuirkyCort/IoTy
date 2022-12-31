@@ -1,7 +1,7 @@
 var ble = new function() {
   var self = this;
 
-  this.CURRENT_VERSION = 2;
+  this.CURRENT_VERSION = 3;
 
   this._MODE_APPEND = 2;
   this._MODE_OPEN = 1;

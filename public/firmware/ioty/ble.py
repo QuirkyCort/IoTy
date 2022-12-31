@@ -7,7 +7,7 @@ import binascii
 
 from micropython import const
 
-_VERSION = 2
+_VERSION = 3
 
 _SERIAL_BUFFER_SIZE = 20
 _DATA_BUFFER_SIZE = 512
