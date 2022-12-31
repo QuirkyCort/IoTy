@@ -22,6 +22,7 @@ _IRQ_CENTRAL_DISCONNECT = const(2)
 _IRQ_GATTS_WRITE = const(3)
 
 _FLAG_READ = const(0x0002)
+_FLAG_WRITE_NO_RESPONSE = const(0x0004)
 _FLAG_WRITE = const(0x0008)
 _FLAG_NOTIFY = const(0x0010)
 
@@ -47,7 +48,7 @@ _CMD_CHAR = (
 )
 _DATA_CHAR = (
     bluetooth.UUID('e4494fc7-fae6-42cf-81c0-8f835a0ace7f'),
-    _FLAG_WRITE | _FLAG_READ,
+    _FLAG_WRITE_NO_RESPONSE | _FLAG_WRITE | _FLAG_READ,
 )
 _SERIAL_CHAR = (
     bluetooth.UUID('c12fee47-2a93-4138-9505-2a97da04b413'),
@@ -195,12 +196,12 @@ class BLE_Service:
                 os.remove(f)
 
     def on_data_write(self, value):
-        text = value.decode("utf-8")
         if self._mode == _MODE_OPEN:
-            self._file = open(text, 'w')
+            text = value.decode("utf-8")
+            self._file = open(text, 'wb')
         elif self._mode == _MODE_APPEND:
             if self._file:
-                self._file.write(text)
+                self._file.write(value)
 
     def serial_send(self, data):
         for conn_handle in self._connections:

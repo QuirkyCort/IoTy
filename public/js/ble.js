@@ -20,6 +20,7 @@ var ble = new function() {
 
   this.DATA_BUFFER_SIZE = 512;
   // this.DATA_BUFFER_SIZE = 20;
+  // this.DATA_BUFFER_SIZE_MIN = 20;
 
   this.FIRWARE_UPDATE_FILE = '_ioty_updates';
 
@@ -109,13 +110,57 @@ var ble = new function() {
 
   this.writeData = async function(str, progressCB) {
     var value = new TextEncoder('utf-8').encode(str);
-    for (i=0; i<value.byteLength; i+=self.DATA_BUFFER_SIZE) {
+    for (let i=0; i<value.byteLength; i+=self.DATA_BUFFER_SIZE) {
       await self.dataCharacteristic.writeValueWithResponse(value.slice(i, i + self.DATA_BUFFER_SIZE));
       if (typeof progressCB == 'function') {
         progressCB();
       }
     }
   };
+
+  // this.writeData = async function(str, progressCB, bufferSize) {
+  //   if (typeof bufferSize == 'undefined') {
+  //     bufferSize = self.DATA_BUFFER_SIZE;
+  //   }
+  //   try {
+  //     var value = new TextEncoder('utf-8').encode(str);
+  //     for (let i=0; i<value.byteLength; i+=bufferSize) {
+  //       await self.dataCharacteristic.writeValueWithResponse(value.slice(i, i + bufferSize));
+  //       if (typeof progressCB == 'function') {
+  //         progressCB();
+  //       }
+  //     }  
+  //   } catch(error) {
+  //     if (bufferSize == self.DATA_BUFFER_SIZE) {
+  //       console.log('Try smaller buffer');
+  //       await self.writeData(str, progressCB, self.DATA_BUFFER_SIZE_MIN);
+  //     } else {
+  //       throw error;
+  //     }
+  //   }
+  // };
+
+//   this.writeData = async function(str, progressCB) {
+//     async function awaitTimeout(delay) {
+//       return new Promise(resolve => setTimeout(resolve, delay));
+//     }
+// start=Date.now()
+//     var value = new TextEncoder('utf-8').encode(str);
+//     let withoutResponseCtr = 0;
+//     for (i=0; i<value.byteLength; i+=self.DATA_BUFFER_SIZE) {
+//       withoutResponseCtr++;
+//       await awaitTimeout(40);
+//       if (withoutResponseCtr > 10 || i + self.DATA_BUFFER_SIZE >= value.byteLength) {
+//         await self.dataCharacteristic.writeValueWithResponse(value.slice(i, i + self.DATA_BUFFER_SIZE));
+//       } else {
+//         await self.dataCharacteristic.writeValueWithoutResponse(value.slice(i, i + self.DATA_BUFFER_SIZE));
+//       }
+//       if (typeof progressCB == 'function') {
+//         progressCB();
+//       }
+//     }
+// console.log(Date.now() - start);
+//   };
 
   this.writeFile = async function(name, value, progressCB) {
     await self.setCmdMode(self._MODE_OPEN);
