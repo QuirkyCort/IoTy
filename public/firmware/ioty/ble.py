@@ -9,7 +9,7 @@ from micropython import const
 
 _VERSION = 2
 
-_SERIAL_BUFFER_SIZE = 80
+_SERIAL_BUFFER_SIZE = 20
 _DATA_BUFFER_SIZE = 512
 
 _ADV_TYPE_FLAGS = const(0x01)

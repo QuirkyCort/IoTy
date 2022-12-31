@@ -18,6 +18,7 @@ var ble = new function() {
   this._STATUS_FAILED = 2;
   this._STATUS_CHECKSUM_ERROR = 3;
 
+  this.SERIAL_BUFFER_SIZE = 20;
   this.DATA_BUFFER_SIZE = 512;
   // this.DATA_BUFFER_SIZE = 20;
   // this.DATA_BUFFER_SIZE_MIN = 20;
@@ -328,10 +329,11 @@ var ble = new function() {
       return;
     }
 
-    const utf8Encode = new TextEncoder();
-    value = utf8Encode.encode(text + '\r\n');
+    var value = new TextEncoder('utf-8').encode(text + '\r\n');
     try {
-      await self.serialCharacteristic.writeValueWithResponse(value);
+      for (let i=0; i<value.byteLength; i+=self.SERIAL_BUFFER_SIZE) {
+        await self.serialCharacteristic.writeValueWithResponse(value.slice(i, i + self.SERIAL_BUFFER_SIZE));
+      }
     } catch (error) {
       console.log(error);
       toastMsg('Error sending');
