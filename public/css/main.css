@@ -296,7 +296,8 @@ ul.menuDropDownRightAlign {
     margin: 0 0.2em;
     padding: 0.2em;
     overflow-y: scroll;
-    overflow-x: auto; }
+    overflow-x: auto;
+    white-space: pre; }
 
 @font-face {
   font-family: 'icomoon';

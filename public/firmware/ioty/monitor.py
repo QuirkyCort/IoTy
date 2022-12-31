@@ -25,8 +25,8 @@ class BLE_IO(io.IOBase):
             os.dupterm_notify(None)
 
     def _flush(self):
-        data = self._tx_buf[0:80]
-        self._tx_buf = self._tx_buf[80:]
+        data = self._tx_buf[0:20]
+        self._tx_buf = self._tx_buf[20:]
         self.ble_console.serial_send(data)
         if self._tx_buf:
             schedule_in(self._flush, 50)
