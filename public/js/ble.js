@@ -20,8 +20,8 @@ var ble = new function() {
   this._STATUS_CHECKSUM_ERROR = 3;
 
   this.SERIAL_BUFFER_SIZE = 20;
-  // this.DATA_BUFFER_SIZE = 512;
-  this.DATA_BUFFER_SIZE = 20;
+  this.DATA_BUFFER_SIZE = 512;
+  // this.DATA_BUFFER_SIZE = 20;
   // this.DATA_BUFFER_SIZE_MIN = 20;
 
   this.FIRWARE_UPDATE_FILE = '_ioty_updates';

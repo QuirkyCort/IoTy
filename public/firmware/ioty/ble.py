@@ -3,7 +3,6 @@ import struct
 import os
 import json
 import hashlib
-import binascii
 
 from micropython import const
 
