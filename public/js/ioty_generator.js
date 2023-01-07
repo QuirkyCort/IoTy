@@ -472,7 +472,7 @@ var ioty_generator = new function() {
       '\n# Connect to MQTT server\n' +
       'ioty_mqtt = MQTTClient(' +
         'ubinascii.hexlify(machine.unique_id()), \'' + server + '\'' +
-        ', port=' + port + 
+        ', port=' + port +
         ', user=\'' + name + '\'' +
         ', password=\'' + password + '\'' +
         ', keepalive=60)\n' +
@@ -497,6 +497,28 @@ var ioty_generator = new function() {
   };
 
   this.mqtt_on_receive = function(block) {
+    // First, add a 'global' statement for every variable that is not shadowed by
+    // a local parameter.
+    const globals = [];
+    const workspace = blockly.workspace;
+    const usedVariables = Blockly.Variables.allUsedVarModels(workspace) || [];
+    for (let i = 0, variable; (variable = usedVariables[i]); i++) {
+      const varName = variable.name;
+      if (block.getVars().indexOf(varName) === -1) {
+        globals.push(Blockly.Python.nameDB_.getName(varName, Blockly.Names.NameType.VARIABLE));
+      }
+    }
+    // Add developer variables.
+    const devVarList = Blockly.Variables.allDeveloperVariables(workspace);
+    for (let i = 0; i < devVarList.length; i++) {
+      globals.push(
+          Blockly.Python.nameDB_.getName(devVarList[i], Blockly.Names.NameType.DEVELOPER_VARIABLE));
+    }
+    const globalString = globals.length ?
+      Blockly.Python.INDENT + 'global ' + globals.join(', ') + '\n' :
+      '';
+
+    // Usual stuff
     var topic = block.getFieldValue('topic');
     var statements = Blockly.Python.statementToCode(block, 'statements');
 
@@ -506,7 +528,8 @@ var ioty_generator = new function() {
 
     var code =
       '\n# MQTT callback for topic ' + topic + '\n' +
-      'def ' + functionName + '(mqtt_msg):\n';
+      'def ' + functionName + '(mqtt_msg):\n'
+      + globalString;
 
     code += statements;
 
