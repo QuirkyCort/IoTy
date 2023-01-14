@@ -18,6 +18,7 @@ It should work with any ESP32, and even non-ESP32 board, provided that...
 
 [2] Chrome and other Chrome based browsers (eg. Edge, Opera) should work on all platforms (eg. Windows, Mac, Linux, Android), **except iOS**.
 This is because Apple forces all webbrowsers on iOS to be based on the Safari engine, and **Safari do not support Web Bluetooth**.
+On linux, you'll need to enable web-bluetooth using chrome://flags/#enable-web-bluetooth
 
 ## Setup
 
