@@ -517,8 +517,17 @@ let MSGS = {
     ru: 'Политика конфиденциальности',
     hu: 'Adatvédelem',
   },
-  '#main-connect#': {
-    en: 'Connect',
+  '#main-connectMode#': {
+    en: 'Connection Mode...',
+  },
+  '#main-connectBLE#': {
+    en: 'Connect (Bluetooth)',
+  },
+  '#main-connectAP#': {
+    en: 'Connect (Access Point)',
+  },
+  '#main-connectInet#': {
+    en: 'Connect (Internet)',
   },
   '#main-download#': {
     en: 'Download to device',

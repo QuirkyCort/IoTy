@@ -1,30 +1,9 @@
 var ble = new function() {
   var self = this;
 
-  this.CURRENT_VERSION = 3;
-
-  this._MODE_APPEND = 2;
-  this._MODE_OPEN = 1;
-  this._MODE_CLOSE = 3;
-  this._MODE_DELETE_ALL = 4;
-  this._MODE_GET_VERSION = 5;
-  this._MODE_LIST = 6;
-  this._MODE_READ = 7;
-  this._MODE_DELETE = 8;
-  this._MODE_UPDATE = 9;
-  this._MODE_FILE_HASH = 10
-
-  this._STATUS_SUCCESS = 0;
-  this._STATUS_PENDING = 1;
-  this._STATUS_FAILED = 2;
-  this._STATUS_CHECKSUM_ERROR = 3;
-
   this.SERIAL_BUFFER_SIZE = 20;
   this.DATA_BUFFER_SIZE = 512;
   // this.DATA_BUFFER_SIZE = 20;
-  // this.DATA_BUFFER_SIZE_MIN = 20;
-
-  this.FIRWARE_UPDATE_FILE = '_ioty_updates';
 
   this.SERVICE_UUID = 'ba48d887-db79-4cac-8d72-a4d9ecdfcde2';
   this.CMD_UUID = '4423f470-dad0-437a-8c18-9a378981cca9';
@@ -54,7 +33,7 @@ var ble = new function() {
       return;
     }
 
-    let $connectWindow = self.hiddenButtonDialog('Connecting Device', 'Connecting (1/5)...');
+    let $connectWindow = main.hiddenButtonDialog('Connecting Device', 'Connecting (1/5)...');
 
     try {
       self.device.addEventListener('gattserverdisconnected', self.disconnected);
@@ -89,16 +68,6 @@ var ble = new function() {
       $connectWindow.$body.text('Connection error');
       $connectWindow.$buttonsRow.removeClass('hide');
     }
-  };
-
-  this.hiddenButtonDialog = function(title, body) {
-    let $dialog = acknowledgeDialog({
-      title: title,
-      message: body
-    });
-    $dialog.$buttonsRow.addClass('hide');
-
-    return $dialog;
   };
 
   this.setCmdMode = async function(mode) {
@@ -167,18 +136,18 @@ var ble = new function() {
 //   };
 
   this.writeFile = async function(name, value, progressCB) {
-    await self.setCmdMode(self._MODE_OPEN);
+    await self.setCmdMode(constants._MODE_OPEN);
     await self.writeData(name, progressCB);
 
-    await self.setCmdMode(self._MODE_APPEND);
+    await self.setCmdMode(constants._MODE_APPEND);
     await self.writeData(value, progressCB);
 
     let data = new TextEncoder().encode(value);
     let hash = await crypto.subtle.digest('SHA-256', data);
-    await self.setCmdMode(self._MODE_FILE_HASH);
+    await self.setCmdMode(constants._MODE_FILE_HASH);
     await self.writeData(hash, progressCB);
 
-    await self.setCmdMode(self._MODE_CLOSE);
+    await self.setCmdMode(constants._MODE_CLOSE);
 
     return await self.retrieve_status();
   };
@@ -197,7 +166,7 @@ var ble = new function() {
       } catch (error) {
         status = -1;
       }
-      if (status != self._STATUS_PENDING) {
+      if (status != constants._STATUS_PENDING) {
         break;
       }
     }
@@ -206,7 +175,7 @@ var ble = new function() {
   };
 
   this.getVersion = async function() {
-    await self.setCmdMode(self._MODE_GET_VERSION);
+    await self.setCmdMode(constants._MODE_GET_VERSION);
     let value = await self.readCmdCharacteristic();
     return value.getUint16(0);
   };
@@ -234,45 +203,15 @@ var ble = new function() {
   };
 
   this.updateFirmware = async function() {
+    if (main.firmwarePreloaded == false) {
+      toastMsg('Firmware files not preloaded.');
+      return;
+    }
+
     // Draw window
-    let $updateWindow = self.hiddenButtonDialog('Firmware Update', 'Retrieving Firmware...');
-
-    // Retrieve and prep firmware
-    let firmwareFiles = {};
-
-    async function retrieveUpdateFile() {
-      let response = await fetch('firmware/' + self.FIRWARE_UPDATE_FILE);
-      let text = await response.text();
-
-      firmwareFiles[self.FIRWARE_UPDATE_FILE] = {
-        content: text,
-        tempName: self.FIRWARE_UPDATE_FILE
-      }
-
-      let tempNames = {};
-      for (let row of text.split('\n')) {
-        let command = row.split(' ');
-        if (command[0] == 'mv') {
-          firmwareFiles[command[2]] = {
-            content: '',
-            tempName: command[1]
-          }
-        }
-      }
-    }
-
-    async function retrieveFiles() {
-      for (let file in firmwareFiles) {
-        let response = await fetch('firmware/' + file);
-        let text = await response.text();
-        firmwareFiles[file].content = text;
-      }
-    }
+    let $updateWindow = main.hiddenButtonDialog('Firmware Update', 'Updating Firmware...');
 
     try {
-      await retrieveUpdateFile();
-      await retrieveFiles();
-
       // Transfer to device
       let totalFilesCount = Object.keys(firmwareFiles).length;
       let currentFileCount = 0;
@@ -290,21 +229,21 @@ var ble = new function() {
         updateProgress();
 
         status = await self.writeFile(firmwareFiles[key].tempName, firmwareFiles[key].content, updateProgress);
-        if (status != self._STATUS_SUCCESS) {
+        if (status != constants._STATUS_SUCCESS) {
           break;
         }
       }
 
-      if (status == self._STATUS_SUCCESS) {
+      if (status == constants._STATUS_SUCCESS) {
         // Trigger update
-        await self.setCmdMode(self._MODE_UPDATE);
+        await self.setCmdMode(constants._MODE_UPDATE);
         status = await self.retrieve_status();
       }
 
-      if (status == self._STATUS_SUCCESS) {
+      if (status == constants._STATUS_SUCCESS) {
         $updateWindow.$body.text('Update Completed. Please restart your device.');
         $updateWindow.$buttonsRow.removeClass('hide');
-      } else if (status == self._STATUS_PENDING) {
+      } else if (status == constants._STATUS_PENDING) {
         $updateWindow.$body.text('Error updating device (timeout). Please try again.');
         $updateWindow.$buttonsRow.removeClass('hide');
       } else if (status == -1) {
@@ -366,7 +305,7 @@ var ble = new function() {
     }
     filesManager.updateCurrentFile();
 
-    let $downloadWindow = self.hiddenButtonDialog('Download to Device', 'Checking syntax...');
+    let $downloadWindow = main.hiddenButtonDialog('Download to Device', 'Checking syntax...');
 
     let totalFilesCount = Object.keys(filesManager.files).length;
     let currentFileCount = 0;
@@ -400,7 +339,7 @@ var ble = new function() {
     $downloadWindow.$body.text('Erasing...');
 
     try {
-      await self.setCmdMode(self._MODE_DELETE_ALL);
+      await self.setCmdMode(constants._MODE_DELETE_ALL);
 
       function updateProgress() {
         progressBar += '.';
@@ -414,15 +353,15 @@ var ble = new function() {
         updateProgress();
 
         status = await self.writeFile(filename, filesManager.files[filename], updateProgress);
-        if (status != self._STATUS_SUCCESS) {
+        if (status != constants._STATUS_SUCCESS) {
           break;
         }
       }
 
-      if (status == self._STATUS_SUCCESS) {
+      if (status == constants._STATUS_SUCCESS) {
         $downloadWindow.$body.text('Download Completed. Please restart your device.');
         $downloadWindow.$buttonsRow.removeClass('hide');
-      } else if (status == self._STATUS_PENDING) {
+      } else if (status == constants._STATUS_PENDING) {
         $downloadWindow.$body.text('Download verification timeout. Please try again.');
         $downloadWindow.$buttonsRow.removeClass('hide');
       } else {
@@ -451,10 +390,10 @@ var ble = new function() {
   };
 
   this.erase = async function() {
-    let $deleteWindow = self.hiddenButtonDialog('Erase Device', 'Deleting all programs from device...');
+    let $deleteWindow = main.hiddenButtonDialog('Erase Device', 'Deleting all programs from device...');
 
     try {
-      await self.setCmdMode(self._MODE_DELETE_ALL);
+      await self.setCmdMode(constants._MODE_DELETE_ALL);
       $deleteWindow.$body.text('Delete completed.');
       $deleteWindow.$buttonsRow.removeClass('hide');
     } catch (error) {
@@ -480,7 +419,7 @@ var ble = new function() {
   };
 
   this.changeName = async function(newName) {
-    let $changeNameWindow = self.hiddenButtonDialog('Change Device Name', 'Changing Name...');
+    let $changeNameWindow = main.hiddenButtonDialog('Change Device Name', 'Changing Name...');
 
     try {
       let filename = '_ioty_name';

@@ -5,8 +5,7 @@ import json
 import hashlib
 
 from micropython import const
-
-_VERSION = 3
+import constants
 
 _SERIAL_BUFFER_SIZE = 20
 _DATA_BUFFER_SIZE = 512
@@ -25,22 +24,6 @@ _FLAG_WRITE_NO_RESPONSE = const(0x0004)
 _FLAG_WRITE = const(0x0008)
 _FLAG_NOTIFY = const(0x0010)
 
-_MODE_OPEN = const(1)
-_MODE_APPEND = const(2)
-_MODE_CLOSE = const(3)
-_MODE_DELETE_ALL = const(4)
-_MODE_GET_VERSION = const(5)
-_MODE_LIST = const(6)
-_MODE_READ = const(7)
-_MODE_DELETE = const(8)
-_MODE_UPDATE = const(9)
-_MODE_FILE_HASH = const(10)
-
-_STATUS_SUCCESS = const(0)
-_STATUS_PENDING = const(1)
-_STATUS_FAILED = const(2)
-_STATUS_CHECKSUM_ERROR = const(3)
-
 _SERVICE_UUID = bluetooth.UUID('ba48d887-db79-4cac-8d72-a4d9ecdfcde2')
 _CMD_CHAR = (
     bluetooth.UUID('4423f470-dad0-437a-8c18-9a378981cca9'),
@@ -58,8 +41,6 @@ _SERVICE = (
     _SERVICE_UUID,
     (_CMD_CHAR, _DATA_CHAR, _SERIAL_CHAR),
 )
-
-_PRESERVE_FILES = ('boot.py', 'ioty', '_ioty_name', 'umqtt')
 
 def advertising_payload(limited_disc=False, br_edr=False, name=None, services=None, appearance=0):
     payload = bytearray()
@@ -127,31 +108,25 @@ class BLE_Service:
 
     def on_cmd_write(self, value):
         cmd = int.from_bytes(value, 'big')
-        if cmd == _MODE_OPEN:
-            self._mode = cmd
+        self._mode = cmd
+        if cmd == constants._MODE_OPEN:
             self._open_file()
-        elif cmd == _MODE_APPEND:
-            self._mode = cmd
-        elif cmd == _MODE_CLOSE:
-            self._mode = cmd
+        elif cmd == constants._MODE_CLOSE:
             self._close_file()
-        elif cmd == _MODE_DELETE_ALL:
-            self._mode = cmd
+        elif cmd == constants._MODE_DELETE_ALL:
             self._erase_files()
-        elif cmd == _MODE_GET_VERSION:
-            value = _VERSION.to_bytes(2, 'big')
+        elif cmd == constants._MODE_GET_VERSION:
+            value = constants._VERSION.to_bytes(2, 'big')
             self._ble.gatts_write(self._handle_cmd, value)
-        elif cmd == _MODE_UPDATE:
+        elif cmd == constants._MODE_UPDATE:
             self._update()
-        elif cmd == _MODE_FILE_HASH:
-            self._mode = cmd
 
     def set_status(self, status):
         value = status.to_bytes(2, 'big')
         self._ble.gatts_write(self._handle_cmd, value)
 
     def _update(self):
-        self.set_status(_STATUS_PENDING)
+        self.set_status(constants._STATUS_PENDING)
 
         commands = []
         try:
@@ -170,7 +145,7 @@ class BLE_Service:
 
             os.remove('_ioty_updates')
 
-            self.set_status(_STATUS_SUCCESS)
+            self.set_status(constants._STATUS_SUCCESS)
         except:
             pass
 
@@ -178,16 +153,16 @@ class BLE_Service:
         self._file_name = ''
         self._file_hash = bytearray()
         self._file_data = bytearray()
-        self.set_status(_STATUS_PENDING)
+        self.set_status(constants._STATUS_PENDING)
 
     def _close_file(self):
         if self._check_hash():
             file = open(self._file_name, 'wb')
             file.write(self._file_data)
             file.close()
-            self.set_status(_STATUS_SUCCESS)
+            self.set_status(constants._STATUS_SUCCESS)
         else:
-            self.set_status(_STATUS_CHECKSUM_ERROR)
+            self.set_status(constants._STATUS_CHECKSUM_ERROR)
 
     def _check_hash(self):
         h = hashlib.sha256(self._file_data)
@@ -196,16 +171,16 @@ class BLE_Service:
 
     def _erase_files(self):
         for f in os.listdir():
-            if not(f in _PRESERVE_FILES):
+            if not(f in constants._PRESERVE_FILES):
                 os.remove(f)
 
     def on_data_write(self, value):
-        if self._mode == _MODE_OPEN:
+        if self._mode == constants._MODE_OPEN:
             text = value.decode("utf-8")
             self._file_name += text
-        elif self._mode == _MODE_APPEND:
+        elif self._mode == constants._MODE_APPEND:
             self._file_data.extend(value)
-        elif self._mode == _MODE_FILE_HASH:
+        elif self._mode == constants._MODE_FILE_HASH:
             self._file_hash.extend(value)
 
     def serial_send(self, data):

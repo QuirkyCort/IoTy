@@ -4,8 +4,19 @@ var main = new function() {
   this.STATUS_CONNECTED = 1;
   this.STATUS_DISCONNECTED = 2;
 
+  this.connectionMode = 'ble';
+  this.bleAvailable = true;
+
+  this.firmwareFiles = {};
+  this.firmwarePreloaded = false;
+
   // Run on page load
-  this.init = function() {
+  this.init = async function() {
+    if (typeof navigator.bluetooth == 'undefined') {
+      self.bleAvailable = false;
+      self.connectionMode = 'ap';
+    }
+
     self.$navs = $('nav li');
     self.$panels = $('.panels .panel');
     self.$fileMenu = $('.fileMenu');
@@ -30,7 +41,56 @@ var main = new function() {
     blocklyPanel.onActive();
     self.loadProjectName();
 
+    let $firmwareWindow = self.hiddenButtonDialog('Firmware Download', 'Preloading Firmware...');
+    self.preloadFirmwareFiles();
+    $firmwareWindow.close();
+
     self.showWhatsNew();
+  };
+
+  this.hiddenButtonDialog = function(title, body) {
+    let $dialog = acknowledgeDialog({
+      title: title,
+      message: body
+    });
+    $dialog.$buttonsRow.addClass('hide');
+
+    return $dialog;
+  };
+
+
+  this.preloadFirmwareFiles = async function() {
+    async function retrieveUpdateFile() {
+      let response = await fetch('firmware/' + constants.FIRWARE_UPDATE_FILE);
+      let text = await response.text();
+
+      self.firmwareFiles[constants.FIRWARE_UPDATE_FILE] = {
+        content: text,
+        tempName: constants.FIRWARE_UPDATE_FILE
+      }
+
+      for (let row of text.split('\n')) {
+        let command = row.split(' ');
+        if (command[0] == 'mv') {
+          self.firmwareFiles[command[2]] = {
+            content: '',
+            tempName: command[1]
+          }
+        }
+      }
+    }
+
+    async function retrieveFiles() {
+      for (let file in self.firmwareFiles) {
+        let response = await fetch('firmware/' + file);
+        let text = await response.text();
+        self.firmwareFiles[file].content = text;
+      }
+    }
+
+    await retrieveUpdateFile();
+    await retrieveFiles();
+    self.firmwarePreloaded = true;
   };
 
   // Update text already in html
@@ -132,17 +192,146 @@ var main = new function() {
       $('.menuDropDown').remove();
       e.stopPropagation();
 
-      let menuItems = [
-        {html: i18n.get('#main-connect#'), line: false, callback: ble.connect },
-        {html: i18n.get('#main-download#'), line: false, callback: ble.download },
-        {html: i18n.get('#main-erase#'), line: false, callback: ble.eraseDialog },
-        {html: i18n.get('#main-changeName#'), line: false, callback: ble.changeNameDialog},
-        {html: i18n.get('#main-updateFirmware#'), line: false, callback: ble.updateFirmwareDialog},
-        {html: i18n.get('#main-disconnect#'), line: false, callback: ble.disconnect},
-      ];
-
-      menuDropDown(self.$connectMenu, menuItems, {className: 'connectMenuDropDown', align: 'right'});
+      if (self.connectionMode == 'ble') {
+        self.bleConnectMenu(e);
+      } else if (self.connectionMode == 'ap') {
+        self.apConnectMenu(e);
+      } else if (self.connectionMode == 'mqtt') {
+        self.mqttConnectMenu(e);
+      }
     }
+  };
+
+  this.bleConnectMenu = function(e) {
+    let menuItems = [
+      {html: i18n.get('#main-connectMode#'), line: false, callback: self.connectModeMenu },
+      {html: i18n.get('#main-connectBLE#'), line: false, callback: ble.connect },
+      {html: i18n.get('#main-download#'), line: false, callback: ble.download },
+      {html: i18n.get('#main-erase#'), line: false, callback: ble.eraseDialog },
+      {html: i18n.get('#main-changeName#'), line: false, callback: ble.changeNameDialog},
+      {html: i18n.get('#main-updateFirmware#'), line: false, callback: ble.updateFirmwareDialog},
+      {html: i18n.get('#main-disconnect#'), line: false, callback: ble.disconnect},
+    ];
+
+    menuDropDown(self.$connectMenu, menuItems, {className: 'connectMenuDropDown', align: 'right'});
+  };
+
+  this.apConnectMenu = function(e) {
+    let menuItems = [
+      {html: i18n.get('#main-connectMode#'), line: false, callback: self.connectModeMenu },
+      {html: i18n.get('#main-connectAP#'), line: false, callback: ap.connect },
+      {html: i18n.get('#main-download#'), line: false, callback: ap.download },
+      {html: i18n.get('#main-erase#'), line: false, callback: ap.eraseDialog },
+      {html: i18n.get('#main-changeName#'), line: false, callback: ap.changeNameDialog},
+      {html: i18n.get('#main-updateFirmware#'), line: false, callback: ap.updateFirmwareDialog},
+    ];
+
+    menuDropDown(self.$connectMenu, menuItems, {className: 'connectMenuDropDown', align: 'right'});
+  };
+
+  this.mqttConnectMenu = function(e) {
+    let menuItems = [
+      {html: i18n.get('#main-connectMode#'), line: false, callback: self.connectModeMenu },
+      {html: i18n.get('#main-connectInet#'), line: false, callback: mqtt.connect },
+      {html: i18n.get('#main-download#'), line: false, callback: mqtt.download },
+      {html: i18n.get('#main-erase#'), line: false, callback: mqtt.eraseDialog },
+      {html: i18n.get('#main-changeName#'), line: false, callback: mqtt.changeNameDialog},
+      {html: i18n.get('#main-updateFirmware#'), line: false, callback: mqtt.updateFirmwareDialog},
+    ];
+
+    menuDropDown(self.$connectMenu, menuItems, {className: 'connectMenuDropDown', align: 'right'});
+  };
+
+  this.checkPythonSyntax = function() {
+    Sk.configure({
+      __future__: Sk.python3
+    });
+    let syntaxError = false;
+    let errorText = '';
+    for (let filename in filesManager.files) {
+      try {
+        Sk.compile(filesManager.files[filename], filename);
+      } catch (error) {
+        console.log(error);
+        errorText += 'File "' + error.traceback[0].filename + '", line ' + error.traceback[0].lineno + '\n';
+        errorText += '  ' + error.args.v[0].v + '\n';
+        syntaxError = true;
+      }
+    }
+
+    return {
+      error: syntaxError,
+      text: errorText
+    };
+  }
+
+  this.connectModeMenu = function() {
+    let $body = $(
+      '<div>' +
+        '<select></select>' +
+        '<div class="description"></div>' +
+      '</div>'
+    );
+    let $select = $body.find('select');
+    if (self.bleAvailable) {
+      $select.append('<option value="ble">Bluetooth</option>');
+    }
+    $select.append('<option value="ap">Access Point</option>');
+    $select.append('<option value="mqtt">Internet</option>');
+
+    let $description = $body.find('.description');
+    $select.change(setDescription);
+
+    function setDescription() {
+      if ($select.val() == 'ble') {
+        $description.html(
+          '<p>' +
+            'Bluetooth mode only works with Chrome and Chrome based browsers, and on all platforms except iOS. ' +
+          '</p>' +
+          '<p>' +
+            'Your computer will need to have Bluetooth hardware compatible with the IoTy device.' +
+          '</p>' +
+          '<p>' +
+            'Web Bluetooth is an experimental technology and you may encounter compatibility problems. ' +
+            'If so, please try a different connection mode.' +
+          '</p>'
+        );
+      } else if ($select.val() == 'ap') {
+        $description.html(
+          '<p>' +
+            'In Access Point mode, the IoTy device acts like a WiFi access point that you can connect your computer to. ' +
+            'While connected to the IoTy WiFi access point, you will not have internet access.' +
+          '</p>' +
+          '<p>' +
+            'This mode should be compatible with all browsers on any OS.' +
+          '</p>'
+        );
+      } else if ($select.val() == 'mqtt') {
+        $description.html(
+          '<p>' +
+            'In Internet mode, the IoTy device connects to an MQTT broker via the internet and receives programs from through the broker. ' +
+          '</p>' +
+          '<p>' +
+            'To use Internet mode, the IoTy device must first be configured using another mode, and provided with the credentials required to connect to your router and the MQTT broker. ' +
+          '</p>' +
+          '<p>' +
+            'This mode should be compatible with all browsers on any OS.' +
+          '</p>'
+        );
+      }
+    }
+
+    setDescription();
+    let $buttons = $(
+      '<button type="button" class="confirm btn-success">Ok</button>'
+    );
+
+    let $dialog = dialog('Connection Mode', $body, $buttons);
+
+    $buttons.click(function(){
+      self.connectionMode = $select.val();
+      $dialog.close();
+    });
   };
 
   // Toggle filemenu
