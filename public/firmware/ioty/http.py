@@ -1,6 +1,7 @@
 import network
 import socket
 import json
+import os
 
 from micropython import const
 import constants
@@ -57,19 +58,40 @@ class HTTP_Service:
                     print('content_length', content_length)
 
             if len(buf) >= content_length:
-                try:
-                    req = json.loads(buf)
-                    if req['mode'] == constants._MODE_GET_VERSION:
-                        response_data = self.get_version(req)
-                except:
-                    pass
-
+                response_data = self.process_req(buf)
                 break
 
         response = 'HTTP/1.0 200 OK\r\n\r\n' + json.dumps(response_data)
         client_connection.sendall(response.encode())
         client_connection.close()
-    
+
+    def process_req(self, buf):
+        try:
+            req = json.loads(buf)
+            if req['mode'] == constants._MODE_GET_VERSION:
+                return self.get_version(req)
+            elif req['mode'] == constants._MODE_WRITE_FILES:
+                return self.write_files(req)
+            elif req['mode'] == constants._MODE_DELETE_ALL:
+                return self.delete_all(req)
+        except:
+            pass
+
+        return {
+            'status': constants._STATUS_ERROR
+        }
+
+    def delete_all(self, req):
+        for f in os.listdir():
+            if not(f in constants._PRESERVE_FILES):
+                os.remove(f)
+
+
+    def write_files(self, req):
+        for filename in req['content']:
+            with open(filename, 'wb') as file:
+                file.write(req['content']['filename'])
+
     def get_version(self, req):
         return {
             'status': constants._STATUS_SUCCESS,
