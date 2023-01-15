@@ -182,7 +182,7 @@ var ble = new function() {
 
   this.checkVersion = async function() {
     self.version = await self.getVersion();
-    if (self.version != self.CURRENT_VERSION) {
+    if (self.version != constants.CURRENT_VERSION) {
       self.updateFirmwareDialog();
     }
   };
@@ -262,7 +262,9 @@ var ble = new function() {
   };
 
   this.disconnect = function() {
-    self.server.disconnect();
+    if (self.server) {
+      self.server.disconnect();
+    }
   };
 
   this.disconnected = function() {

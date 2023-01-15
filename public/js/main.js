@@ -237,11 +237,12 @@ var main = new function() {
   this.mqttConnectMenu = function(e) {
     let menuItems = [
       {html: i18n.get('#main-connectMode#'), line: false, callback: self.connectModeMenu },
-      {html: i18n.get('#main-connectInet#'), line: false, callback: mqtt.connect },
+      {html: i18n.get('#main-connectInet#'), line: false, callback: mqtt.connectDialog },
       {html: i18n.get('#main-download#'), line: false, callback: mqtt.download },
       {html: i18n.get('#main-erase#'), line: false, callback: mqtt.eraseDialog },
       {html: i18n.get('#main-changeName#'), line: false, callback: mqtt.changeNameDialog},
       {html: i18n.get('#main-updateFirmware#'), line: false, callback: mqtt.updateFirmwareDialog},
+      {html: i18n.get('#main-disconnect#'), line: false, callback: mqtt.disconnect},
     ];
 
     menuDropDown(self.$connectMenu, menuItems, {className: 'connectMenuDropDown', align: 'right'});
@@ -328,16 +329,28 @@ var main = new function() {
 
     setDescription();
     let $buttons = $(
+      '<button type="button" class="cancel btn-light">Cancel</button>' +
       '<button type="button" class="confirm btn-success">Ok</button>'
     );
 
     let $dialog = dialog('Connection Mode', $body, $buttons);
 
-    $buttons.click(function(){
-      self.connectionMode = $select.val();
-      localStorage.setItem('connectionMode', self.connectionMode);
+    $buttons.siblings('.cancel').click(function(){
       $dialog.close();
     });
+    $buttons.siblings('.confirm').click(function(){
+      self.connectionMode = $select.val();
+      localStorage.setItem('connectionMode', self.connectionMode);
+      self.disconnectUnusedMode();
+      $dialog.close();
+    });
+  };
+
+  this.disconnectUnusedMode = function() {
+    if (self.connectionMode != 'ble') {
+      ble.disconnect();
+    }
+    main.setConnectStatus(main.STATUS_DISCONNECTED);
   };
 
   // Toggle filemenu

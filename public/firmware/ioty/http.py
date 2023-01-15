@@ -18,7 +18,6 @@ class HTTP_Service:
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.socket.bind(('192.168.4.1', '8000'))
         self.socket.listen(0)
-        print('listening')
 
     def _split_bytes(self, bytes, delimiter, max_split=-1):
         bytes_len = len(bytes)
@@ -43,7 +42,6 @@ class HTTP_Service:
 
     def wait_for_connection(self):    
         client_connection, _ = self.socket.accept()
-        print('accepted')
 
         buf = bytearray()
         content_length = None
@@ -54,20 +52,17 @@ class HTTP_Service:
         while True:
             data = client_connection.recv(1024)
             if len(data) == 0:
-                print('connection closed')
                 break
 
             buf.extend(data)
             if content_length == None:
                 if b'\r\n\r\n' in buf:
-                    print('header delimited')
                     headers_b, buf = self._split_bytes(buf, b'\r\n\r\n', max_split=1)
                     headers = self.process_headers(headers_b)
                     if 'Content-Length:' in headers:
                         content_length = int(headers['Content-Length:'].decode('utf-8'))
                     else:
                         content_length = 0
-                    print('content_length', content_length)
 
             if len(buf) >= content_length:
                 response_data = self.process_req(buf)
@@ -102,7 +97,6 @@ class HTTP_Service:
         }
 
     def write_files(self, req):
-        print('write files')
         try:
             for filename in req['content']:
                 with open(filename, 'wb') as file:

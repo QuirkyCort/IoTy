@@ -45,7 +45,7 @@ var ap = new function() {
         $connectWindow.$buttonsRow.removeClass('hide');
         return;
       }
-      self.version = parseInt(result.content);
+      self.version = result.content;
       self.name = result.name;
   
       if (self.version != constants.CURRENT_VERSION) {
@@ -60,6 +60,7 @@ var ap = new function() {
       $connectWindow.$body.text('Connection timed out');
       $connectWindow.$buttonsRow.removeClass('hide');
       main.setConnectStatus(main.STATUS_DISCONNECTED);
+      self.isConnected = false;
     }
   };
 

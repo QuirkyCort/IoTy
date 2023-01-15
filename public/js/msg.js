@@ -527,7 +527,7 @@ let MSGS = {
     en: 'Connect (Access Point)',
   },
   '#main-connectInet#': {
-    en: 'Connect (Internet)',
+    en: 'Connect (Internet)...',
   },
   '#main-download#': {
     en: 'Download to device',
