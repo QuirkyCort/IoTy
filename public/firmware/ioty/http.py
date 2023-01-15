@@ -4,14 +4,14 @@ import json
 import os
 
 from micropython import const
-import constants
+import ioty.constants as constants
 
 class HTTP_Service:
     def __init__(self):
         with open('_ioty_name', 'r') as f:
-            name = f.readline()
+            self.name = f.readline()
         self.ap = network.WLAN(network.AP_IF)
-        self.ap.config(ssid=name)
+        self.ap.config(essid=self.name)
         self.ap.config(max_clients=1)
         self.ap.active(True)
 
@@ -20,12 +20,24 @@ class HTTP_Service:
         self.socket.listen(0)
         print('listening')
 
+    def _split_bytes(self, bytes, delimiter, max_split=-1):
+        bytes_len = len(bytes)
+        delimiter_len = len(delimiter)
+        for i in range(bytes_len - delimiter_len + 1):
+            if bytes[i:i+delimiter_len] == delimiter:
+                if max_split == 1 or delimiter not in bytes[i+delimiter_len:]:
+                    return bytes[:i], bytes[i+delimiter_len:]
+                else:
+                    result = [bytes[:i]]
+                    result.extend(self._split_bytes(bytes[i+delimiter_len:], delimiter, max_split - 1))
+                    return result
+
     def process_headers(self, headers_b):
-        header_lines = headers_b.split(b'\r\n')
+        header_lines = self._split_bytes(headers_b, b'\r\n')
         headers = {}
         for header_line in header_lines:
             if b' ' in header_line:
-                type, value = header_line.split(b' ', maxsplit=1)
+                type, value = self._split_bytes(header_line, b' ', max_split=1)
                 headers[type.decode()] = value
         return headers
 
@@ -49,10 +61,10 @@ class HTTP_Service:
             if content_length == None:
                 if b'\r\n\r\n' in buf:
                     print('header delimited')
-                    headers_b, buf = buf.split(b'\r\n\r\n', maxsplit=1)
+                    headers_b, buf = self._split_bytes(buf, b'\r\n\r\n', max_split=1)
                     headers = self.process_headers(headers_b)
                     if 'Content-Length:' in headers:
-                        content_length = int(headers['Content-Length:'])
+                        content_length = int(headers['Content-Length:'].decode('utf-8'))
                     else:
                         content_length = 0
                     print('content_length', content_length)
@@ -61,7 +73,7 @@ class HTTP_Service:
                 response_data = self.process_req(buf)
                 break
 
-        response = 'HTTP/1.0 200 OK\r\n\r\n' + json.dumps(response_data)
+        response = 'HTTP/1.0 200 OK\r\nAccess-Control-Allow-Origin: *\r\n\r\n' + json.dumps(response_data)
         client_connection.sendall(response.encode())
         client_connection.close()
 
@@ -85,15 +97,27 @@ class HTTP_Service:
         for f in os.listdir():
             if not(f in constants._PRESERVE_FILES):
                 os.remove(f)
-
+        return {
+            'status': constants._STATUS_SUCCESS
+        }
 
     def write_files(self, req):
-        for filename in req['content']:
-            with open(filename, 'wb') as file:
-                file.write(req['content']['filename'])
+        print('write files')
+        try:
+            for filename in req['content']:
+                with open(filename, 'wb') as file:
+                    file.write(req['content'][filename])
+            return {
+                'status': constants._STATUS_SUCCESS
+            }
+        except:
+            return {
+                'status': constants._STATUS_ERROR
+            }
 
     def get_version(self, req):
         return {
             'status': constants._STATUS_SUCCESS,
-            'content': constants._VERSION
+            'content': constants._VERSION,
+            'name': self.name
         }

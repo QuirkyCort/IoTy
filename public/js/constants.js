@@ -1,5 +1,5 @@
 var constants = {
-  CURRENT_VERSION: 3,
+  CURRENT_VERSION: 4,
   FIRWARE_UPDATE_FILE: '_ioty_updates',
 
   _MODE_OPEN: 1,

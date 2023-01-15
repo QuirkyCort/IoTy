@@ -15,7 +15,7 @@ var ap = new function() {
     const response = await fetch(self.URL, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'text/plain'
       },
       body: JSON.stringify(data),
       signal: controller.signal  
@@ -43,9 +43,12 @@ var ap = new function() {
       if (result.status != constants._STATUS_SUCCESS) {
         $connectWindow.$body.text('Connection error');
         $connectWindow.$buttonsRow.removeClass('hide');
+        return;
       }
+      self.version = parseInt(result.content);
+      self.name = result.name;
   
-      if (result.content != constants.CURRENT_VERSION) {
+      if (self.version != constants.CURRENT_VERSION) {
         self.updateFirmwareDialog();
       }
   
@@ -56,6 +59,7 @@ var ap = new function() {
       console.log(error);
       $connectWindow.$body.text('Connection timed out');
       $connectWindow.$buttonsRow.removeClass('hide');
+      main.setConnectStatus(main.STATUS_DISCONNECTED);
     }
   };
 
@@ -69,7 +73,7 @@ var ap = new function() {
       title: 'Firmware Update',
       confirm: 'Update Now',
       message:
-        'A new firmware (version ' + self.CURRENT_VERSION + ') is available, your device is using version ' + self.version + '. ' +
+        'A new firmware (version ' + constants.CURRENT_VERSION + ') is available, your device is using version ' + self.version + '. ' +
         'Errors may occur if you do not update your firmware.'
     }, self.updateFirmware);
   };
@@ -120,7 +124,10 @@ var ap = new function() {
     // Download
     $downloadWindow.$body.text('Downloading...');
     await self.sendCmd(constants._MODE_WRITE_FILES, filesManager.files);
-  };
+
+    $downloadWindow.$body.text('Download Completed. Please restart your device.');
+    $downloadWindow.$buttonsRow.removeClass('hide');
+};
 
   this.eraseDialog = function() {
     if (! self.isConnected) {
@@ -152,7 +159,7 @@ var ap = new function() {
 
     let $changeNameWindow = confirmDialog({
       title: 'Change device name',
-      message: '<div>New name: <input id="newName" type="text" maxlength="8" value="' + self.device.name + '"></div>'
+      message: '<div>New name: <input id="newName" type="text" maxlength="8" value="' + self.name + '"></div>'
     }, function() {
       let newName = $changeNameWindow.$body.find('#newName').val();
       self.changeName(newName);

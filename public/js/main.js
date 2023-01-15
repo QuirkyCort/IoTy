@@ -12,6 +12,11 @@ var main = new function() {
 
   // Run on page load
   this.init = async function() {
+    self.connectionMode = localStorage.getItem('connectionMode');
+    if (self.connectionMode == null) {
+      self.connectionMode = 'ble';
+    }
+
     if (typeof navigator.bluetooth == 'undefined') {
       self.bleAvailable = false;
       self.connectionMode = 'ap';
@@ -330,6 +335,7 @@ var main = new function() {
 
     $buttons.click(function(){
       self.connectionMode = $select.val();
+      localStorage.setItem('connectionMode', self.connectionMode);
       $dialog.close();
     });
   };

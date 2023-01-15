@@ -31,12 +31,14 @@ def main():
                 sleep_ms(10)
         else:
             while True:
-                led.on()
-                sleep_ms(50)
                 led.off()
+                sleep_ms(50)
+                led.on()
                 sleep_ms(50)
                 if btn.value() == 1:
                     break
-            HTTP_Service()
+            http = HTTP_Service()
+            while True:
+                http.wait_for_connection()
 
 main()

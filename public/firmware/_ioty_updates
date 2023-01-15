@@ -2,8 +2,10 @@ mkdir ioty
 mkdir umqtt
 mv ioty_1 boot.py
 mv ioty_2 ioty/ble.py
-mv ioty_3 ioty/monitor.py
-mv ioty_4 ioty/pin.py
-mv ioty_5 ioty/neopixel.py
-mv ioty_6 umqtt/simple.py
-mv ioty_7 umqtt/robust.py
+mv ioty_3 ioty/http.py
+mv ioty_4 ioty/monitor.py
+mv ioty_5 ioty/pin.py
+mv ioty_6 ioty/constants.py
+mv ioty_7 ioty/neopixel.py
+mv ioty_8 umqtt/simple.py
+mv ioty_9 umqtt/robust.py

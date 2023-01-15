@@ -5,7 +5,7 @@ import json
 import hashlib
 
 from micropython import const
-import constants
+import ioty.constants as constants
 
 _SERIAL_BUFFER_SIZE = 20
 _DATA_BUFFER_SIZE = 512
