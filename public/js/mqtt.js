@@ -213,7 +213,7 @@ var mqtt = new function() {
 
     let files = {};
     for (let filename in main.firmwareFiles) {
-      if (filename == constants.FIRWARE_UPDATE_FILE) {
+      if (filename == constants.FIRMWARE_UPDATE_FILE) {
         continue;
       }
       files[filename] = main.firmwareFiles[filename].content;
@@ -287,7 +287,7 @@ var mqtt = new function() {
 
     $downloadWindow.$body.text('Download Completed. Please restart your device.');
     $downloadWindow.$buttonsRow.removeClass('hide');
-};
+  };
 
   this.eraseDialog = function() {
     if (! self.isConnected) {
@@ -337,10 +337,11 @@ var mqtt = new function() {
   this.changeName = async function(newName) {
     let $changeNameWindow = main.hiddenButtonDialog('Change Device Name', 'Changing Name...');
 
-    let files = {
-      '_ioty_name': newName.slice(0, 8)
-    };
+    let files = {};
+    files[constants.NAME_FILE] = newName.slice(0, 8);
+
     let nonce = await self.sendCmd(constants._MODE_WRITE_FILES, files);
+    let response = await self.waitForResponse(nonce);
     if (response == null) {
       $changeNameWindow.$body.text('Connection timed out');
       $changeNameWindow.$buttonsRow.removeClass('hide');
@@ -349,6 +350,26 @@ var mqtt = new function() {
       $changeNameWindow.$buttonsRow.removeClass('hide');
     } else {
       $changeNameWindow.$body.text('Change completed. Restart your device to see the new name.');
+      $changeNameWindow.$buttonsRow.removeClass('hide');
+    }
+  };
+
+  this.configureDeviceNetwork = async function(content) {
+    let $changeNameWindow = main.hiddenButtonDialog('Configure Device Network', 'Downloading Settings...');
+
+    let files = {};
+    files[constants.NAME_FILE] = content;
+
+    let nonce = await self.sendCmd(constants._MODE_WRITE_FILES, files);
+    let response = await self.waitForResponse(nonce);
+    if (response == null) {
+      $changeNameWindow.$body.text('Connection timed out');
+      $changeNameWindow.$buttonsRow.removeClass('hide');
+    } else if (response.status != _STATUS_SUCCESS) {
+      $changeNameWindow.$body.text('Error configuring network');
+      $changeNameWindow.$buttonsRow.removeClass('hide');
+    } else {
+      $changeNameWindow.$body.text('Change completed. Restart your device to connect to the network.');
       $changeNameWindow.$buttonsRow.removeClass('hide');
     }
   };

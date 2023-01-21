@@ -1,6 +1,8 @@
 var constants = {
   CURRENT_VERSION: 4,
-  FIRWARE_UPDATE_FILE: '_ioty_updates',
+  FIRMWARE_UPDATE_FILE: '_ioty_updates',
+  NETWORK_CONFIGURATION_FILE: '_ioty_network',
+  NAME_FILE: '_ioty_name',
 
   _MODE_OPEN: 1,
   _MODE_APPEND: 2,

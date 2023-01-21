@@ -541,6 +541,9 @@ let MSGS = {
   '#main-updateFirmware#': {
     en: 'Update Firmware',
   },
+  '#main-configureDeviceNetwork#': {
+    en: 'Configure Device Network...',
+  },
   '#main-disconnect#': {
     en: 'Disconnect',
   },

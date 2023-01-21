@@ -66,12 +66,12 @@ var main = new function() {
 
   this.preloadFirmwareFiles = async function() {
     async function retrieveUpdateFile() {
-      let response = await fetch('firmware/' + constants.FIRWARE_UPDATE_FILE);
+      let response = await fetch('firmware/' + constants.FIRMWARE_UPDATE_FILE);
       let text = await response.text();
 
-      self.firmwareFiles[constants.FIRWARE_UPDATE_FILE] = {
+      self.firmwareFiles[constants.FIRMWARE_UPDATE_FILE] = {
         content: text,
-        tempName: constants.FIRWARE_UPDATE_FILE
+        tempName: constants.FIRMWARE_UPDATE_FILE
       }
 
       for (let row of text.split('\n')) {
@@ -215,6 +215,7 @@ var main = new function() {
       {html: i18n.get('#main-erase#'), line: false, callback: ble.eraseDialog },
       {html: i18n.get('#main-changeName#'), line: false, callback: ble.changeNameDialog},
       {html: i18n.get('#main-updateFirmware#'), line: false, callback: ble.updateFirmwareDialog},
+      {html: i18n.get('#main-configureDeviceNetwork#'), line: false, callback: main.configureDeviceNetwork},
       {html: i18n.get('#main-disconnect#'), line: false, callback: ble.disconnect},
     ];
 
@@ -228,6 +229,7 @@ var main = new function() {
       {html: i18n.get('#main-download#'), line: false, callback: ap.download },
       {html: i18n.get('#main-erase#'), line: false, callback: ap.eraseDialog },
       {html: i18n.get('#main-changeName#'), line: false, callback: ap.changeNameDialog},
+      {html: i18n.get('#main-configureDeviceNetwork#'), line: false, callback: main.configureDeviceNetwork},
       {html: i18n.get('#main-updateFirmware#'), line: false, callback: ap.updateFirmwareDialog},
     ];
 
@@ -242,10 +244,94 @@ var main = new function() {
       {html: i18n.get('#main-erase#'), line: false, callback: mqtt.eraseDialog },
       {html: i18n.get('#main-changeName#'), line: false, callback: mqtt.changeNameDialog},
       {html: i18n.get('#main-updateFirmware#'), line: false, callback: mqtt.updateFirmwareDialog},
+      {html: i18n.get('#main-configureDeviceNetwork#'), line: false, callback: main.configureDeviceNetwork},
       {html: i18n.get('#main-disconnect#'), line: false, callback: mqtt.disconnect},
     ];
 
     menuDropDown(self.$connectMenu, menuItems, {className: 'connectMenuDropDown', align: 'right'});
+  };
+
+  this.configureDeviceNetwork = function(e) {
+    let $body = $(
+      '<div>' +
+        'Configure WiFi access and MQTT connection for your IoTy device.' +
+      '</div>' +
+      '<div>' +
+        'These credentials are only used for programming your IoTy device, ' +
+        'they are not used for your IoT programs and can be different from the credentials used there.' +
+      '</div>' +
+      '<div class="configuration">' +
+        '<div class="configurationTitle">WiFi SSID</div>' +
+        '<div class="text"><input type="text" class="ssid"></div>' +
+      '</div>' +
+      '<div class="configuration">' +
+        '<div class="configurationTitle">WiFi Password</div>' +
+        '<div class="text"><input type="text" class="wifiPassword"></div>' +
+      '</div>' +
+      '<div class="configuration">' +
+        '<div class="configurationTitle">MQTT Host</div>' +
+        '<div class="text"><input type="text" class="host"></div>' +
+      '</div>' +
+      '<div class="configuration">' +
+        '<div class="configurationTitle">MQTT Port</div>' +
+        '<div class="text"><input type="text" class="port"></div>' +
+      '</div>' +
+      '<div class="configuration">' +
+        '<div class="configurationTitle">Username</div>' +
+        '<div class="text"><input type="text" class="username"></div>' +
+      '</div>' +
+      '<div class="configuration">' +
+        '<div class="configurationTitle">Password</div>' +
+        '<div class="text"><input type="text" class="mqttPassword"></div>' +
+      '</div>'
+    );
+
+    let $ssid = $body.find('.ssid');
+    let $wifiPassword = $body.find('.wifiPassword');
+    let $host = $body.find('.host');
+    let $port = $body.find('.port');
+    let $username = $body.find('.username');
+    let $mqttPassword = $body.find('.mqttPassword');
+
+    let $buttons = $(
+      '<button type="button" class="cancel btn-light">Cancel</button>' +
+      '<button type="button" class="confirm btn-success">Ok</button>'
+    );
+
+    let $dialog = dialog('Connect', $body, $buttons);
+
+    $buttons.siblings('.cancel').click(function(){
+      $dialog.close();
+    });
+    $buttons.siblings('.confirm').click(function(){
+      let deviceWifiSettings = {
+        ssid: $ssid.val().trim(),
+        wifiPassword: $wifiPassword.val().trim(),
+        host: $host.val().trim(),
+        port: $port.val().trim(),
+        username: $username.val().trim(),
+        mqttPassword: $mqttPassword.val().trim()
+      };
+      localStorage.setItem('deviceWifiSettings', JSON.stringify(deviceWifiSettings));
+
+      let file = '';
+      file += deviceWifiSettings.ssid + '\n';
+      file += deviceWifiSettings.wifiPassword + '\n';
+      file += deviceWifiSettings.host + '\n';
+      file += deviceWifiSettings.port + '\n';
+      file += deviceWifiSettings.username + '\n';
+      file += deviceWifiSettings.mqttPassword + '\n';
+
+      if (self.connectionMode == 'ble') {
+        ble.configureDeviceNetwork(file);
+      } else if (self.connectionMode == 'ap') {
+        ap.configureDeviceNetwork(file);
+      } else if (self.connectionMode == 'mqtt') {
+        mqtt.configureDeviceNetwork(file);
+      }
+
+      $dialog.close();
+    });
   };
 
   this.checkPythonSyntax = function() {

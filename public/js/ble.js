@@ -424,7 +424,7 @@ var ble = new function() {
     let $changeNameWindow = main.hiddenButtonDialog('Change Device Name', 'Changing Name...');
 
     try {
-      let filename = '_ioty_name';
+      let filename = constants.NAME_FILE;
       let content = newName.slice(0, 8);
       await self.writeFile(filename, content);
       $changeNameWindow.$body.text('Change completed. Restart your device to see the new name.');
@@ -432,6 +432,21 @@ var ble = new function() {
     } catch (error) {
       console.log(error);
       $changeNameWindow.$body.text('Error changing name.');
+      $changeNameWindow.$buttonsRow.removeClass('hide');
+    }
+  };
+
+  this.configureDeviceNetwork = async function(content) {
+    let $changeNameWindow = main.hiddenButtonDialog('Configure Device Network', 'Downloading Settings...');
+
+    try {
+      let filename = constants.NETWORK_CONFIGURATION_FILE;
+      await self.writeFile(filename, content);
+      $changeNameWindow.$body.text('Change completed. Restart your device to connect to the network.');
+      $changeNameWindow.$buttonsRow.removeClass('hide');
+    } catch (error) {
+      console.log(error);
+      $changeNameWindow.$body.text('Error configuring network.');
       $changeNameWindow.$buttonsRow.removeClass('hide');
     }
   };
