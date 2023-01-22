@@ -10,11 +10,25 @@ var main = new function() {
   this.firmwareFiles = {};
   this.firmwarePreloaded = false;
 
+  this.deviceWifiSettings = {
+    ssid: '',
+    wifiPassword: '',
+    host: 'iot.a9i.sg',
+    port: '1883',
+    username: '',
+    mqttPassword: ''
+  };
+
   // Run on page load
   this.init = async function() {
-    self.connectionMode = localStorage.getItem('connectionMode');
-    if (self.connectionMode == null) {
-      self.connectionMode = 'ble';
+    let connectionMode = localStorage.getItem('connectionMode');
+    if (connectionMode != null) {
+      self.connectionMode = connectionMode;
+    }
+
+    let deviceWifiSettings = localStorage.getItem('deviceWifiSettings');
+    if (deviceWifiSettings) {
+      self.deviceWifiSettings = JSON.parse(deviceWifiSettings);
     }
 
     if (typeof navigator.bluetooth == 'undefined') {
@@ -293,6 +307,13 @@ var main = new function() {
     let $username = $body.find('.username');
     let $mqttPassword = $body.find('.mqttPassword');
 
+    $ssid.val(self.deviceWifiSettings.ssid);
+    $wifiPassword.val(self.deviceWifiSettings.wifiPassword);
+    $host.val(self.deviceWifiSettings.host);
+    $port.val(self.deviceWifiSettings.port);
+    $username.val(self.deviceWifiSettings.username);
+    $mqttPassword.val(self.deviceWifiSettings.mqttPassword);
+
     let $buttons = $(
       '<button type="button" class="cancel btn-light">Cancel</button>' +
       '<button type="button" class="confirm btn-success">Ok</button>'
@@ -304,7 +325,7 @@ var main = new function() {
       $dialog.close();
     });
     $buttons.siblings('.confirm').click(function(){
-      let deviceWifiSettings = {
+      self.deviceWifiSettings = {
         ssid: $ssid.val().trim(),
         wifiPassword: $wifiPassword.val().trim(),
         host: $host.val().trim(),

@@ -5,7 +5,7 @@
     {
       "type": "field_input",
       "name": "server",
-      "text": "a9i.sg"
+      "text": "iot.a9i.sg"
     },
     {
       "type": "field_input",

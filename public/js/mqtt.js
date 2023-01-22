@@ -8,7 +8,7 @@ var mqtt = new function() {
   this.isConnected = false;
 
   this.mqttSettings = {
-    host: 'wss://a9i.sg:8081/mqtt',
+    host: 'wss://iot.a9i.sg:8081/mqtt',
     username: '',
     password: ''
   };
