@@ -75,7 +75,9 @@ var mqtt = new function() {
   this.checkVersion = async function() {
     let $window = main.hiddenButtonDialog('Checking version', 'Retrieving...');
 
-    self.version = await self.getVersion();
+    let response = await self.getVersion();
+    self.version = response.version;
+    self.name = response.name;
     if (self.version == null) {
       $window.$body.text('Connection timed out');
       $window.$buttonsRow.removeClass('hide');
@@ -221,7 +223,7 @@ var mqtt = new function() {
 
     let nonce = await self.sendCmd(constants._MODE_WRITE_FILES, files);
     let response = await self.waitForResponse(nonce);
-    
+
     if (response == null) {
       $updateWindow.$body.text('Connection timed out');
       $updateWindow.$buttonsRow.removeClass('hide');
@@ -315,7 +317,7 @@ var mqtt = new function() {
       $deleteWindow.$buttonsRow.removeClass('hide');
     } else {
       $deleteWindow.$body.text('Delete completed.');
-      $deleteWindow.$buttonsRow.removeClass('hide');  
+      $deleteWindow.$buttonsRow.removeClass('hide');
     }
   };
 
@@ -336,6 +338,7 @@ var mqtt = new function() {
 
   this.changeName = async function(newName) {
     let $changeNameWindow = main.hiddenButtonDialog('Change Device Name', 'Changing Name...');
+    self.name = newName;
 
     let files = {};
     files[constants.NAME_FILE] = newName.slice(0, 8);

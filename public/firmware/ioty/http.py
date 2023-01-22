@@ -3,7 +3,6 @@ import socket
 import json
 import os
 
-from micropython import const
 import ioty.constants as constants
 
 class HTTP_Service:
@@ -40,7 +39,7 @@ class HTTP_Service:
                 headers[type.decode()] = value
         return headers
 
-    def wait_for_connection(self):    
+    def wait_for_connection(self):
         client_connection, _ = self.socket.accept()
 
         buf = bytearray()

@@ -18,7 +18,7 @@ var ap = new function() {
         'Content-Type': 'text/plain'
       },
       body: JSON.stringify(data),
-      signal: controller.signal  
+      signal: controller.signal
     });
 
     return response.json();
@@ -37,7 +37,7 @@ var ap = new function() {
 
   this.connect = async function() {
     let $connectWindow = main.hiddenButtonDialog('Connecting Device', 'Connecting...');
-    
+
     try {
       let result = await self.getVersion();
       if (result.status != constants._STATUS_SUCCESS) {
@@ -47,11 +47,11 @@ var ap = new function() {
       }
       self.version = result.content;
       self.name = result.name;
-  
+
       if (self.version != constants.CURRENT_VERSION) {
         self.updateFirmwareDialog();
       }
-  
+
       $connectWindow.close();
       main.setConnectStatus(main.STATUS_CONNECTED);
       self.isConnected = true;
@@ -169,6 +169,7 @@ var ap = new function() {
 
   this.changeName = async function(newName) {
     let $changeNameWindow = main.hiddenButtonDialog('Change Device Name', 'Changing Name...');
+    self.name = newName;
 
     let files = {}
     files[constants.NAME_FILE] = newName.slice(0, 8);
@@ -183,7 +184,7 @@ var ap = new function() {
 
     let files = {}
     files[constants.NAME_FILE] = content;
-    
+
     await self.sendCmd(constants._MODE_WRITE_FILES, files);
     $changeNameWindow.$body.text('Change completed. Restart your device to connect to the network.');
     $changeNameWindow.$buttonsRow.removeClass('hide');
