@@ -87,6 +87,7 @@ var mqtt = new function() {
     }
     self.version = response.version;
     self.name = response.name;
+    main.setConnectStatus(main.STATUS_CONNECTED);
 
     $window.close();
     if (self.version != constants.CURRENT_VERSION) {
@@ -165,8 +166,6 @@ var mqtt = new function() {
   this.onConnect = function() {
     self.isConnected = true;
     window.clearInterval(self.connectTimeoutID);
-    // self.$connectWindow.close();
-    main.setConnectStatus(main.STATUS_CONNECTED);
     self.client.subscribe(self.mqttSettings.username + '/' + self.RESPONSE_TOPIC);
     self.checkVersion(self.$connectWindow);
   };
