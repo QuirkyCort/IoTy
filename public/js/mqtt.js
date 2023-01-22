@@ -72,17 +72,21 @@ var mqtt = new function() {
     return null;
   };
 
-  this.checkVersion = async function() {
-    let $window = main.hiddenButtonDialog('Checking version', 'Retrieving...');
+  this.checkVersion = async function($window) {
+    if (typeof $window == 'undefined') {
+      $window = main.hiddenButtonDialog('Checking version', 'Retrieving...');
+    } else {
+      $window.$body.text('Checking version...');
+    }
 
     let response = await self.getVersion();
-    self.version = response.version;
-    self.name = response.name;
     if (self.version == null) {
       $window.$body.text('Connection timed out');
       $window.$buttonsRow.removeClass('hide');
       return;
     }
+    self.version = response.version;
+    self.name = response.name;
 
     $window.close();
     if (self.version != constants.CURRENT_VERSION) {
@@ -161,10 +165,10 @@ var mqtt = new function() {
   this.onConnect = function() {
     self.isConnected = true;
     window.clearInterval(self.connectTimeoutID);
-    self.$connectWindow.close();
+    // self.$connectWindow.close();
     main.setConnectStatus(main.STATUS_CONNECTED);
     self.client.subscribe(self.mqttSettings.username + '/' + self.RESPONSE_TOPIC);
-    self.checkVersion();
+    self.checkVersion(self.$connectWindow);
   };
 
   this.connectTimeout = function() {
