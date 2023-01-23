@@ -360,15 +360,15 @@ var main = new function() {
         username: $username.val().trim(),
         mqttPassword: $mqttPassword.val().trim()
       };
-      localStorage.setItem('deviceWifiSettings', JSON.stringify(deviceWifiSettings));
+      localStorage.setItem('deviceWifiSettings', JSON.stringify(self.deviceWifiSettings));
 
       let file = '';
-      file += deviceWifiSettings.ssid + '\n';
-      file += deviceWifiSettings.wifiPassword + '\n';
-      file += deviceWifiSettings.host + '\n';
-      file += deviceWifiSettings.port + '\n';
-      file += deviceWifiSettings.username + '\n';
-      file += deviceWifiSettings.mqttPassword + '\n';
+      file += self.deviceWifiSettings.ssid + '\n';
+      file += self.deviceWifiSettings.wifiPassword + '\n';
+      file += self.deviceWifiSettings.host + '\n';
+      file += self.deviceWifiSettings.port + '\n';
+      file += self.deviceWifiSettings.username + '\n';
+      file += self.deviceWifiSettings.mqttPassword + '\n';
 
       if (self.connectionMode == 'ble') {
         ble.configureDeviceNetwork(file);

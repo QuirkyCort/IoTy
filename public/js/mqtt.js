@@ -47,7 +47,7 @@ var mqtt = new function() {
       if (response == null) {
         return null;
       }
-      if (response.status == _STATUS_SUCCESS) {
+      if (response.status == constants._STATUS_SUCCESS) {
         return response.content;
       }
     }
@@ -80,7 +80,7 @@ var mqtt = new function() {
     }
 
     let response = await self.getVersion();
-    if (self.version == null) {
+    if (response == null) {
       $window.$body.text('Connection timed out');
       $window.$buttonsRow.removeClass('hide');
       return;
@@ -230,7 +230,7 @@ var mqtt = new function() {
     if (response == null) {
       $updateWindow.$body.text('Connection timed out');
       $updateWindow.$buttonsRow.removeClass('hide');
-    } else if (response.status != _STATUS_SUCCESS) {
+    } else if (response.status != constants._STATUS_SUCCESS) {
       $updateWindow.$body.text('Update failed. Please try again.');
       $updateWindow.$buttonsRow.removeClass('hide');
     } else {
@@ -270,7 +270,7 @@ var mqtt = new function() {
       $downloadWindow.$body.text('Connection timed out');
       $downloadWindow.$buttonsRow.removeClass('hide');
       return;
-    } else if (response.status != _STATUS_SUCCESS) {
+    } else if (response.status != constants._STATUS_SUCCESS) {
       $downloadWindow.$body.text('Error erasing files');
       $downloadWindow.$buttonsRow.removeClass('hide');
       return;
@@ -284,7 +284,7 @@ var mqtt = new function() {
       $downloadWindow.$body.text('Connection timed out');
       $downloadWindow.$buttonsRow.removeClass('hide');
       return;
-    } else if (response.status != _STATUS_SUCCESS) {
+    } else if (response.status != constants._STATUS_SUCCESS) {
       $downloadWindow.$body.text('Error downloading files');
       $downloadWindow.$buttonsRow.removeClass('hide');
       return;
@@ -315,7 +315,7 @@ var mqtt = new function() {
     if (response == null) {
       $deleteWindow.$body.text('Connection timed out');
       $deleteWindow.$buttonsRow.removeClass('hide');
-    } else if (response.status != _STATUS_SUCCESS) {
+    } else if (response.status != constants._STATUS_SUCCESS) {
       $deleteWindow.$body.text('Error erasing files');
       $deleteWindow.$buttonsRow.removeClass('hide');
     } else {
@@ -351,7 +351,7 @@ var mqtt = new function() {
     if (response == null) {
       $changeNameWindow.$body.text('Connection timed out');
       $changeNameWindow.$buttonsRow.removeClass('hide');
-    } else if (response.status != _STATUS_SUCCESS) {
+    } else if (response.status != constants._STATUS_SUCCESS) {
       $changeNameWindow.$body.text('Error changing device name');
       $changeNameWindow.$buttonsRow.removeClass('hide');
     } else {
@@ -364,14 +364,14 @@ var mqtt = new function() {
     let $changeNameWindow = main.hiddenButtonDialog('Configure Device Network', 'Downloading Settings...');
 
     let files = {};
-    files[constants.NAME_FILE] = content;
+    files[constants.NETWORK_CONFIGURATION_FILE] = content;
 
     let nonce = await self.sendCmd(constants._MODE_WRITE_FILES, files);
     let response = await self.waitForResponse(nonce);
     if (response == null) {
       $changeNameWindow.$body.text('Connection timed out');
       $changeNameWindow.$buttonsRow.removeClass('hide');
-    } else if (response.status != _STATUS_SUCCESS) {
+    } else if (response.status != constants._STATUS_SUCCESS) {
       $changeNameWindow.$body.text('Error configuring network');
       $changeNameWindow.$buttonsRow.removeClass('hide');
     } else {

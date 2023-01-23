@@ -4,13 +4,14 @@ import os
 from umqtt.robust import MQTTClient
 from machine import unique_id
 from ubinascii import hexlify
+from time import sleep_ms
 
 import ioty.constants as constants
 
 _COMMAND_TOPIC = b'_IOTY_COMMAND'
 _RESPONSE_TOPIC = b'_IOTY_RESPONSE'
 
-class HTTP_Service:
+class MQTT_Service:
     def __init__(self):
         with open('_ioty_name', 'r') as f:
             self.name = f.readline()
@@ -18,12 +19,12 @@ class HTTP_Service:
     def read_config(self):
         try:
             with open('_ioty_network', 'r') as f:
-                self.ssid = f.readline()
-                self.wifi_password = f.readline()
-                self.host = f.readline()
+                self.ssid = f.readline().rstrip('\n')
+                self.wifi_password = f.readline().rstrip('\n')
+                self.host = f.readline().rstrip('\n')
                 self.port = int(f.readline())
-                self.username = f.readline()
-                self.mqtt_password = f.readline()
+                self.username = f.readline().rstrip('\n')
+                self.mqtt_password = f.readline().rstrip('\n')
             return True
         except:
             return False
@@ -31,16 +32,27 @@ class HTTP_Service:
     def connect_wifi(self):
         self.wifi = network.WLAN(network.STA_IF)
         self.wifi.active(True)
-        self.wifi.connect(self.ssid, self.wifi_password)
+        while True:
+            try:
+                self.wifi.connect(self.ssid, self.wifi_password)
+                break
+            except:
+                sleep_ms(1000)
         return self.wifi
 
+    def wifi_isconnected(self):
+        return self.wifi.isconnected()
+
     def connect_mqtt(self):
-        self.mqtt = MQTTClient(hexlify(unique_id()), self.host, port=self.port, user=self.username, password=self.wifi_password, keepalive=60)
+        self.mqtt = MQTTClient(hexlify(unique_id()), self.host, port=self.port, user=self.username, password=self.mqtt_password, keepalive=60)
         self.mqtt.set_callback(self.mqtt_cb)
         self.mqtt.connect()
-        self.mqtt.subscribe(_COMMAND_TOPIC)
+        self.mqtt.subscribe(bytes(self.username, 'utf8') + b'/' + _COMMAND_TOPIC)
 
-    def mqtt_cb(self, msg):
+    def check_msg(self):
+        return self.mqtt.check_msg()
+
+    def mqtt_cb(self, topic, msg):
         try:
             cmd = json.loads(msg)
             if cmd['mode'] == constants._MODE_GET_VERSION:
@@ -59,7 +71,7 @@ class HTTP_Service:
             'content': content
         })
 
-        self.mqtt.publish(_RESPONSE_TOPIC, bytes(msg, 'utf-8'))
+        self.mqtt.publish(bytes(self.username, 'utf8') + b'/' + _RESPONSE_TOPIC, bytes(msg, 'utf-8'))
 
     def delete_all(self, cmd):
         for f in os.listdir():

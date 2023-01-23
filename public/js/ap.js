@@ -215,7 +215,7 @@ var ap = new function() {
     let $changeNameWindow = main.hiddenButtonDialog('Configure Device Network', 'Downloading Settings...');
 
     let files = {}
-    files[constants.NAME_FILE] = content;
+    files[constants.NETWORK_CONFIGURATION_FILE] = content;
 
     await self.sendCmd(constants._MODE_WRITE_FILES, files);
     $changeNameWindow.$body.text('Change completed. Restart your device to connect to the network.');
