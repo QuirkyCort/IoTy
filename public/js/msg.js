@@ -524,7 +524,7 @@ let MSGS = {
     en: 'Connect (Bluetooth)',
   },
   '#main-connectAP#': {
-    en: 'Connect (Access Point)',
+    en: 'Connect (Access Point)...',
   },
   '#main-connectInet#': {
     en: 'Connect (Internet)...',
@@ -546,6 +546,15 @@ let MSGS = {
   },
   '#main-disconnect#': {
     en: 'Disconnect',
+  },
+  '#main-appBuilder_title#': {
+    en: 'MQTT App Builder',
+  },
+  '#main-appBuilder_description#': {
+    en: 'The MQTT App Builder allows you to build a web-based app that can control your IoTy device through the MQTT protocol.',
+  },
+  '#main-appBuilder_go#': {
+    en: 'Go to MQTT App Builder',
   },
   '#blockly-save#': {
     en: 'Save Now',

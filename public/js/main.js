@@ -13,7 +13,7 @@ var main = new function() {
   this.deviceWifiSettings = {
     ssid: '',
     wifiPassword: '',
-    host: 'iot.a9i.sg',
+    host: 'mqtt.a9i.sg',
     port: '1883',
     username: '',
     mqttPassword: ''
@@ -39,6 +39,7 @@ var main = new function() {
     self.$navs = $('nav li');
     self.$panels = $('.panels .panel');
     self.$fileMenu = $('.fileMenu');
+    self.$appMenu = $('.appMenu');
     self.$helpMenu = $('.helpMenu');
     self.$languageMenu = $('.language');
     self.$newsButton = $('.news');
@@ -51,6 +52,7 @@ var main = new function() {
 
     self.$navs.click(self.tabClicked);
     self.$fileMenu.click(self.toggleFileMenu);
+    self.$appMenu.click(self.toggleAppMenu);
     self.$helpMenu.click(self.toggleHelpMenu);
     self.$languageMenu.click(self.toggleLanguageMenu);
     self.$newsButton.click(self.showNews);
@@ -187,6 +189,31 @@ var main = new function() {
     window.open(url, '_blank');
   };
 
+  // Toggle app
+  this.toggleAppMenu = function(e) {
+    if ($('.appMenuDropDown').length == 0) {
+      $('.menuDropDown').remove();
+      e.stopPropagation();
+
+      let menuItems = [
+        {html: 'MQTT App Builder', line: false, callback: self.appBuilderWindow},
+      ];
+
+      menuDropDown(self.$appMenu, menuItems, {className: 'appMenuDropDown'});
+    }
+  };
+
+  this.appBuilderWindow = function() {
+    let options = {
+      title: i18n.get('#main-appBuilder_title#'),
+      message: i18n.get('#main-appBuilder_description#'),
+      confirm: i18n.get('#main-appBuilder_go#')
+    };
+    confirmDialog(options, function(){
+      self.openPage('https://quirkycort.github.io/IoTy-MQTT-Client/public');
+    });
+  };
+
   // Toggle help
   this.toggleHelpMenu = function(e) {
     if ($('.helpMenuDropDown').length == 0) {
@@ -239,7 +266,7 @@ var main = new function() {
   this.apConnectMenu = function(e) {
     let menuItems = [
       {html: i18n.get('#main-connectMode#'), line: false, callback: self.connectModeMenu },
-      {html: i18n.get('#main-connectAP#'), line: false, callback: ap.connect },
+      {html: i18n.get('#main-connectAP#'), line: false, callback: ap.connectDialog },
       {html: i18n.get('#main-download#'), line: false, callback: ap.download },
       {html: i18n.get('#main-erase#'), line: false, callback: ap.eraseDialog },
       {html: i18n.get('#main-changeName#'), line: false, callback: ap.changeNameDialog},
@@ -413,7 +440,11 @@ var main = new function() {
         $description.html(
           '<p>' +
             'In Access Point mode, the IoTy device acts like a WiFi access point that you can connect your computer to. ' +
-            'While connected to the IoTy WiFi access point, you will not have internet access.' +
+            'Use this mode if Bluetooth mode isn\'t working on your computer. ' +
+          '</p>' +
+          '<p>' +
+            'While connected to the IoTy WiFi access point, your computer will not have internet access. ' +
+            'To solve this, use Access Point mode to configure your IoTy device\'s network, then switch to internet mode.' +
           '</p>' +
           '<p>' +
             'This mode should be compatible with all browsers on any OS.' +
@@ -425,7 +456,7 @@ var main = new function() {
             'In Internet mode, the IoTy device connects to an MQTT broker via the internet and receives programs from through the broker. ' +
           '</p>' +
           '<p>' +
-            'To use Internet mode, the IoTy device must first be configured using another mode, and provided with the credentials required to connect to your router and the MQTT broker. ' +
+            'To use Internet mode, you must first use a different mode to configure the IoTy device, providing it with the credentials required to connect to your router and the MQTT broker. ' +
           '</p>' +
           '<p>' +
             'This mode should be compatible with all browsers on any OS.' +

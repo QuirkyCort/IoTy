@@ -35,6 +35,38 @@ var ap = new function() {
     return await self.sendCmd(constants._MODE_GET_VERSION);
   };
 
+  this.connectDialog = function() {
+    let $body = $(
+      '<div>' +
+        '<ol type="1">' +
+          '<li>' +
+            '<h4>Put IoTy device in Acces Point mode</h4>' +
+            '<ol type="a">' +
+              '<li>Press and release the "Reset" button on your IoTy device</li>' +
+              '<li>Before the 3 blinks completes, press and hold the "Boot" button.</li>' +
+              '<li>Keep holding the "Boot" button until the LED start blinking rapidly.</li>' +
+              '<li>Release the "Boot" button. Your device is now in Access point mode.</li>' +
+            '</ol>' +
+          '</li>' +
+          '<li>' +
+            '<h4>Connect to IoTy Access Point</h4>' +
+            '<p><strong>If you are on a device with a wired or mobile network; you may need to disable them first.</strong></p>' +
+            '<ol type="a">' +
+              '<li>On your computer, search for your IoTy WiFi access point. It should have a name like "IoTy-123" (...the numbers should match your device!).</li>' +
+              '<li>Connect to that access point. Don\'t worry if it says that you have no internet; that\'s normal.</li>' +
+              '<li>Click the "Ok" button below.</li>' +
+            '</ol>' +
+          '</li>' +
+        '</ol>' +
+      '</div>'
+    );
+
+    confirmDialog({
+      title: 'Connect',
+      message: $body
+    }, self.connect);
+  };
+
   this.connect = async function() {
     let $connectWindow = main.hiddenButtonDialog('Connecting Device', 'Connecting...');
 
