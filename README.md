@@ -66,9 +66,9 @@ Transfer the IoTy files to the ESP32 using the following command.
 Make sure you are in the "public/firmware" directory first.
 
 ```
-pyboard.py --device /dev/ttyUSB0 -f cp boot.py _ioty_name :
 pyboard.py --device /dev/ttyUSB0 -f cp ioty/* :ioty/
 pyboard.py --device /dev/ttyUSB0 -f cp umqtt/* :umqtt/
+pyboard.py --device /dev/ttyUSB0 -f cp boot.py _ioty_name :
 ```
 
 ### 7) Restart the device and put it into program mode
