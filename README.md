@@ -71,12 +71,12 @@ pyboard.py --device /dev/ttyUSB0 -f cp umqtt/* :umqtt/
 pyboard.py --device /dev/ttyUSB0 -f cp boot.py _ioty_name :
 ```
 
-### 7) Restart the device and put it into program mode
+### 7) Restart the device
 
-Restart your ESP32 (...press the reset button or power-cycle it); the built-in LED should flash 3 times.
-Before the 3 flashes complete, press and hold the boot button until the 3 flashes complete and the LED should stay on.
+Restart your ESP32 (...press the reset button or power-cycle it).
 
-Your device is now ready to be connected and programmed via the IoTy site at https://quirkycort.github.io/IoTy/public/editor.html
+There are 3 different ways to put your device into program mode and connect to it.
+See the next section for details.
 
 ## Connecting to the IoTy device
 
