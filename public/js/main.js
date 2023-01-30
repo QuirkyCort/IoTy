@@ -419,6 +419,8 @@ var main = new function() {
     $select.append('<option value="ap">Access Point</option>');
     $select.append('<option value="mqtt">Internet</option>');
 
+    $select.val(self.connectionMode);
+
     let $description = $body.find('.description');
     $select.change(setDescription);
 
