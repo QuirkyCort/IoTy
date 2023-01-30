@@ -426,7 +426,7 @@ var main = new function() {
       if ($select.val() == 'ble') {
         $description.html(
           '<p>' +
-            'Bluetooth mode only works with Chrome and Chrome based browsers, and on all platforms except iOS. ' +
+            'Bluetooth mode only works with Chrome and Chrome based browsers, and is not available on iOS. ' +
           '</p>' +
           '<p>' +
             'Your computer will need to have Bluetooth hardware compatible with the IoTy device.' +
@@ -453,10 +453,10 @@ var main = new function() {
       } else if ($select.val() == 'mqtt') {
         $description.html(
           '<p>' +
-            'In Internet mode, the IoTy device connects to an MQTT broker via the internet and receives programs from through the broker. ' +
+            'In Internet mode, the IoTy device connects to an MQTT broker via the internet and receives programs through the broker. ' +
           '</p>' +
           '<p>' +
-            'To use Internet mode, you must first use a different mode to configure the IoTy device, providing it with the credentials required to connect to your router and the MQTT broker. ' +
+            'To use Internet mode, you must first use a different mode to configure the IoTy device network, providing it with the credentials required to connect to your router and the MQTT broker. ' +
           '</p>' +
           '<p>' +
             'This mode should be compatible with all browsers on any OS.' +
