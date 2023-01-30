@@ -197,7 +197,7 @@ var ble = new function() {
       title: 'Firmware Update',
       confirm: 'Update Now',
       message:
-        'A new firmware (version ' + self.CURRENT_VERSION + ') is available, your device is using version ' + self.version + '. ' +
+        'A new firmware (version ' + constants.CURRENT_VERSION + ') is available, your device is using version ' + self.version + '. ' +
         'Errors may occur if you do not update your firmware.'
     }, self.updateFirmware);
   };
