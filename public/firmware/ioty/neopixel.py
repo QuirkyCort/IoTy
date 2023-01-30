@@ -7,7 +7,10 @@ def init(pin, pixels, format=3):
     _pins[pin] = NeoPixel(Pin(pin, Pin.OUT), pixels, bpp=format)
 
 def set(pin, pixel, color):
-    _pins[pin][pixel] = color
+    try:
+        _pins[pin][pixel] = color
+    except:
+        pass
 
 def fill(pin, color):
     _pins[pin].fill(color)
