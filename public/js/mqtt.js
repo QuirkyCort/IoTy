@@ -361,6 +361,11 @@ var mqtt = new function() {
   };
 
   this.configureDeviceNetwork = async function(content) {
+    if (! self.isConnected) {
+      toastMsg('Not connected. Please connect to device.');
+      return;
+    }
+
     let $changeNameWindow = main.hiddenButtonDialog('Configure Device Network', 'Downloading Settings...');
 
     let files = {};
