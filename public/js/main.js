@@ -21,7 +21,10 @@ var main = new function() {
 
   // Run on page load
   this.init = async function() {
-    let connectionMode = localStorage.getItem('connectionMode');
+    let connectionMode = readGET('connectionMode');
+    if (connectionMode == null) {
+      connectionMode = localStorage.getItem('connectionMode');
+    }
     if (connectionMode != null) {
       self.connectionMode = connectionMode;
     }
@@ -488,9 +491,9 @@ var main = new function() {
 
   this.autoSwitchHttp = function() {
     if (self.connectionMode == 'ble' && location.protocol == 'http:') {
-      location.assign('https://' + location.host + location.pathname);
+      location.assign('https://' + location.host + location.pathname + '?connectionMode=ap');
     } else if (self.connectionMode == 'ap' && location.protocol == 'https:') {
-      location.assign('http://' + location.host + location.pathname);
+      location.assign('http://' + location.host + location.pathname + '?connectionMode=ap');
     }
   };
 
