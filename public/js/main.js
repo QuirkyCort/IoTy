@@ -25,6 +25,7 @@ var main = new function() {
     if (connectionMode != null) {
       self.connectionMode = connectionMode;
     }
+    self.autoSwitchHttp();
 
     let deviceWifiSettings = localStorage.getItem('deviceWifiSettings');
     if (deviceWifiSettings) {
@@ -413,9 +414,7 @@ var main = new function() {
       '</div>'
     );
     let $select = $body.find('select');
-    if (self.bleAvailable) {
-      $select.append('<option value="ble">Bluetooth</option>');
-    }
+    $select.append('<option value="ble">Bluetooth</option>');
     $select.append('<option value="ap">Access Point</option>');
     $select.append('<option value="mqtt">Internet</option>');
 
@@ -482,8 +481,17 @@ var main = new function() {
       self.connectionMode = $select.val();
       localStorage.setItem('connectionMode', self.connectionMode);
       self.disconnectUnusedMode();
+      self.autoSwitchHttp();
       $dialog.close();
     });
+  };
+
+  this.autoSwitchHttp = function() {
+    if (self.connectionMode == 'ble' && location.protocol == 'http') {
+      location.assign('https://' + location.host + location.pathname);
+    } else if (self.connectionMode == 'ap' && location.protocol == 'https') {
+      location.assign('http://' + location.host + location.pathname);
+    }
   };
 
   this.disconnectUnusedMode = function() {
