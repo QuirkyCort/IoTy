@@ -491,7 +491,7 @@ var main = new function() {
 
   this.autoSwitchHttp = function() {
     if (self.connectionMode == 'ble' && location.protocol == 'http:') {
-      location.assign('https://' + location.host + location.pathname + '?connectionMode=ap');
+      location.assign('https://' + location.host + location.pathname + '?connectionMode=ble');
     } else if (self.connectionMode == 'ap' && location.protocol == 'https:') {
       location.assign('http://' + location.host + location.pathname + '?connectionMode=ap');
     }
