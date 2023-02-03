@@ -36,12 +36,6 @@ var blockly = new function() {
 
   // Run on page load
   this.init = function() {
-    let blocklyXML = readGET('blocklyXML');
-    if (blocklyXML) {
-      blocklyXML = decodeURIComponent(blocklyXML);
-      localStorage.setItem('blocklyXML', blocklyXML)
-    }
-
     const script = document.createElement('script');
     script.src = 'blockly-9.0.0/msg/js/' + LANG + '.js';
     script.addEventListener('load', function() {

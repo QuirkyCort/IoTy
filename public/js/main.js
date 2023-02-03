@@ -491,17 +491,9 @@ var main = new function() {
 
   this.autoSwitchHttp = function() {
     if (self.connectionMode == 'ble' && location.protocol == 'http:') {
-      location.assign(
-        'https://' + location.host + location.pathname +
-        '?connectionMode=ble' +
-        '&blocklyXML=' + encodeURIComponent(blockly.getXmlText())
-      );
+      location.assign('https://' + location.host + location.pathname + '?connectionMode=ble');
     } else if (self.connectionMode == 'ap' && location.protocol == 'https:') {
-      location.assign(
-        'https://' + location.host + location.pathname +
-        '?connectionMode=ap' +
-        '&blocklyXML=' + encodeURIComponent(blockly.getXmlText())
-      );
+      location.assign('https://' + location.host + location.pathname + '?connectionMode=ap');
     }
   };
 
