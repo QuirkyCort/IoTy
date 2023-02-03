@@ -118,6 +118,12 @@ var filesManager = new function() {
     self.select('main.py');
   };
 
+  this.deleteAll = function() {
+    for (let f in self.files) {
+      self.deleteFile(f);
+    }
+  }
+
   this.renameFileDialog = function(event) {
     let $file = $(event.target).parents('.file');
     let filename = $file.find('.filename').text();

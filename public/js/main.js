@@ -591,46 +591,61 @@ var main = new function() {
 
   // save to computer
   this.savePythonToComputer = function() {
-    // let filename = self.$projectName.val();
-    // if (filename.trim() == '') {
-    //   filename = 'gearsBot';
-    // }
+    let filename = self.$projectName.val();
+    if (filename.trim() == '') {
+      filename = 'IoTy';
+    }
 
-    // let code = null;
-    // if (pythonPanel.modified) {
-    //   code = pythonPanel.editor.getValue();
-    // } else {
-    //   code = blockly.generator.genCode();
-    // }
-    // var hiddenElement = document.createElement('a');
-    // hiddenElement.href = 'data:text/x-python;charset=UTF-8,' + encodeURIComponent(code);
-    // hiddenElement.target = '_blank';
-    // hiddenElement.download = filename + '.py';
-    // hiddenElement.dispatchEvent(new MouseEvent('click'));
+    if (filesManager.modified == false) {
+      pythonPanel.loadPythonFromBlockly();
+    }
+    filesManager.updateCurrentFile();
+
+    var zip = new JSZip();
+
+    for (let f in filesManager.files) {
+      zip.file(f, filesManager.files[f]);
+    }
+
+    zip.generateAsync({type:'base64'})
+    .then(function(content) {
+      var hiddenElement = document.createElement('a');
+      hiddenElement.href = 'data:application/xml;base64,' + content;
+      hiddenElement.target = '_blank';
+      hiddenElement.download = filename + '.zip';
+      hiddenElement.dispatchEvent(new MouseEvent('click'));
+    });
   };
 
   // load from computer
   this.loadPythonFromComputer = function() {
-    // var hiddenElement = document.createElement('input');
-    // hiddenElement.type = 'file';
-    // hiddenElement.accept = 'text/x-python,.py';
-    // hiddenElement.dispatchEvent(new MouseEvent('click'));
-    // hiddenElement.addEventListener('change', function(e){
-    //   var reader = new FileReader();
-    //   reader.onload = function() {
-    //     // second arg: 0 select all, -1 start, 1 end
-    //     pythonPanel.editor.setValue(this.result, 1);
-    //     self.tabClicked('navPython');
-    //     pythonPanel.warnModify();
-    //   };
-    //   reader.onerror = function() {
-    //     console.log(reader.error);
-    //   };
-    //   reader.readAsText(e.target.files[0]);
-    //   let filename = e.target.files[0].name.replace(/\.py/, '');
-    //   self.$projectName.val(filename);
-    //   self.saveProjectName();
-    // });
+    var hiddenElement = document.createElement('input');
+    hiddenElement.type = 'file';
+    hiddenElement.accept = 'application/zip,.zip';
+    hiddenElement.dispatchEvent(new MouseEvent('click'));
+    hiddenElement.addEventListener('change', function(e){
+      async function loadFiles(zip) {
+        filesManager.deleteAll();
+
+        let filenames = [];
+        zip.forEach(function(path, file) {
+          filenames.push(path);
+        });
+
+        for (let filename of filenames) {
+          await zip.file(filename).async('string')
+            .then(function(content){
+              filesManager.add(filename, content);
+            });
+        }
+
+        filesManager.unsaved = true;
+        filesManager.saveLocalStorage();
+      }
+
+      JSZip.loadAsync(e.target.files[0])
+        .then(loadFiles);
+    });
   };
 
   // Check for unsaved changes

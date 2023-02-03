@@ -31,7 +31,8 @@
         display: flex;
         background: #515251;
         color: #999b99;
-        border: solid 1px black;
+        border-left: solid 1px #272822;
+        border-right: solid 1px #272822;
         padding: 0.3em;
         cursor: pointer;
         user-select: none;
@@ -43,7 +44,7 @@
       }
 
       .file.selected {
-        background-color: #181818;
+        background-color: #272822;;
         color: rgb(255, 255, 255);
         font-weight: bold;
         .renameFile, .deleteFile {

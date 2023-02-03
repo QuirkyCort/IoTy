@@ -329,7 +329,8 @@ ul.menuDropDownRightAlign {
         display: flex;
         background: #515251;
         color: #999b99;
-        border: solid 1px black;
+        border-left: solid 1px #272822;
+        border-right: solid 1px #272822;
         padding: 0.3em;
         cursor: pointer;
         user-select: none; }
@@ -337,7 +338,7 @@ ul.menuDropDownRightAlign {
           display: none;
           margin-left: 0.5em; }
       .python #filesRow #filesList .file.selected {
-        background-color: #181818;
+        background-color: #272822;
         color: white;
         font-weight: bold; }
         .python #filesRow #filesList .file.selected .renameFile, .python #filesRow #filesList .file.selected .deleteFile {
