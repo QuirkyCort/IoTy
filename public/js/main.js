@@ -643,8 +643,10 @@ var main = new function() {
             });
         }
 
+        filesManager.modified = true;
         filesManager.unsaved = true;
         filesManager.saveLocalStorage();
+        self.tabClicked('navPython');
       }
 
       JSZip.loadAsync(e.target.files[0])
