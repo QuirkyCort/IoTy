@@ -490,10 +490,14 @@ var main = new function() {
   };
 
   this.autoSwitchHttp = function() {
+    if (location.host.slice(0, 9) == 'localhost') {
+      return; // Don't switch for development environment
+    }
+
     if (self.connectionMode == 'ble' && location.protocol == 'http:') {
       location.assign('https://' + location.host + location.pathname + '?connectionMode=ble');
     } else if (self.connectionMode == 'ap' && location.protocol == 'https:') {
-      location.assign('https://' + location.host + location.pathname + '?connectionMode=ap');
+      location.assign('http://' + location.host + location.pathname + '?connectionMode=ap');
     }
   };
 
