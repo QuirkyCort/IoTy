@@ -1,0 +1,52 @@
+{
+  "type": "i2c_writeto",
+  "message0": "#blk-i2c_writeto_addr# %1 #blk-with_value# %2 #blk-of_format# %3 #blk-and# %4",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "address",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "value",
+      "check": "Number"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "format",
+      "options": [
+        ["Int8LE", "<b"],
+        ["UInt8LE", "<B"],
+        ["Int16LE", "<h"],
+        ["UInt16LE", "<H"],
+        ["Int32LE", "<i"],
+        ["UInt32LE", "<I"],
+        ["Float32LE", "<f"],
+        ["Float64LE", "<d"],
+        ["Int8BE", ">b"],
+        ["UInt8BE", ">B"],
+        ["Int16BE", ">h"],
+        ["UInt16BE", ">H"],
+        ["Int32BE", ">i"],
+        ["UInt32BE", ">I"],
+        ["Float32BE", ">f"],
+        ["Float64BE", ">d"]
+      ]
+    },
+    {
+      "type": "field_dropdown",
+      "name": "stop",
+      "options": [
+        ["send STOP", "STOP"],
+        ["allow repeated", "REPEATED"]
+      ]
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 330,
+  "tooltip": "",
+  "helpUrl": ""
+}
