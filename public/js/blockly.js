@@ -107,7 +107,7 @@ var blockly = new function() {
     if (self.workspace && self.unsaved) {
       self.unsaved = false;
       blocklyPanel.hideSave();
-      localStorage.setItem('blocklyXML', self.getXmlText());
+      localStorage.setItem('iotyBlocklyXML', self.getXmlText());
     }
   };
 
@@ -140,7 +140,7 @@ var blockly = new function() {
 
   // Load from local storage
   this.loadLocalStorage = function() {
-    self.loadXmlText(localStorage.getItem('blocklyXML'));
+    self.loadXmlText(localStorage.getItem('iotyBlocklyXML'));
   };
 
   // Clear all blocks from displayed workspace
