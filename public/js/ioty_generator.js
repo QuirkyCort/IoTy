@@ -565,7 +565,7 @@ var ioty_generator = new function() {
     var id = block.getFieldValue('id');
     var freq = block.getFieldValue('freq');
 
-    var code = 'i2c = machine.I2C(' + id + ', ' + freq + ')\n';
+    var code = 'i2c = machine.I2C(' + id + ', freq=' + freq + ')\n';
 
     return code;
   };
