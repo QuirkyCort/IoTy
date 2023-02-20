@@ -609,7 +609,7 @@ var ioty_generator = new function() {
       size = 8;
     }
 
-    var code = 'struct.unpack(\'' + format + '\', i2c.readfrom_mem(' + address + ', ' + register + ', ' + size + '))';
+    var code = 'struct.unpack(\'' + format + '\', i2c.readfrom_mem(' + address + ', ' + register + ', ' + size + '))[0]';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };
@@ -657,7 +657,7 @@ var ioty_generator = new function() {
       size = 8;
     }
 
-    var code = 'struct.unpack(\'' + format + '\', i2c.readfrom(' + address + ', ' + size + stopParam + '))';
+    var code = 'struct.unpack(\'' + format + '\', i2c.readfrom(' + address + ', ' + size + stopParam + '))[0]';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };
