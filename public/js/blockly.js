@@ -50,7 +50,7 @@ var blockly = new function() {
 
   // Load toolbox
   this.loadToolBox = function() {
-    return fetch('toolbox.xml?v=0a791449')
+    return fetch('toolbox.xml?v=cd4a3c2b')
       .then(response => response.text())
       .then(function(response) {
         response = i18n.replace(response);
@@ -80,7 +80,7 @@ var blockly = new function() {
 
   // Load custom blocks
   this.loadCustomBlocks = function() {
-    return fetch('customBlocks.json?v=9b1fdee9')
+    return fetch('customBlocks.json?v=04965ea2')
       .then(response => response.text())
       .then(function(response) {
         let json = JSON.parse(i18n.replace(response));
@@ -107,7 +107,7 @@ var blockly = new function() {
     if (self.workspace && self.unsaved) {
       self.unsaved = false;
       blocklyPanel.hideSave();
-      localStorage.setItem('blocklyXML', self.getXmlText());
+      localStorage.setItem('iotyBlocklyXML', self.getXmlText());
     }
   };
 
@@ -140,7 +140,7 @@ var blockly = new function() {
 
   // Load from local storage
   this.loadLocalStorage = function() {
-    self.loadXmlText(localStorage.getItem('blocklyXML'));
+    self.loadXmlText(localStorage.getItem('iotyBlocklyXML'));
   };
 
   // Clear all blocks from displayed workspace

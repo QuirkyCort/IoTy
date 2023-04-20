@@ -19,11 +19,11 @@ var filesManager = new function() {
 
   // Load from local storage
   this.loadLocalStorage = function() {
-    if (localStorage.getItem('pythonModified') == 'true') {
+    if (localStorage.getItem('iotyPythonModified') == 'true') {
       self.modified = true;
     }
 
-    var json = localStorage.getItem('pythonCode');
+    var json = localStorage.getItem('iotyPythonCode');
     if (json) {
       let files = JSON.parse(json);
       for (let filename in files) {
@@ -40,8 +40,8 @@ var filesManager = new function() {
     if (self.unsaved) {
       self.unsaved = false;
       self.updateCurrentFile();
-      localStorage.setItem('pythonCode', JSON.stringify(self.files));
-      localStorage.setItem('pythonModified', self.modified);
+      localStorage.setItem('iotyPythonCode', JSON.stringify(self.files));
+      localStorage.setItem('iotyPythonModified', self.modified);
     }
   };
 

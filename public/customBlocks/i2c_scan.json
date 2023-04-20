@@ -1,0 +1,9 @@
+{
+  "type": "i2c_scan",
+  "message0": "#blk-i2c_scan#",
+  "args0": [],
+  "output": "Array",
+  "colour": 330,
+  "tooltip": "",
+  "helpUrl": ""
+}

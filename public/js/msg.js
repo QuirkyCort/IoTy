@@ -375,6 +375,30 @@ let MSGS = {
   '#blk-message#': {
     en: 'message',
   },
+  '#blk-i2c_init#': {
+    en: 'init i2c on pins',
+  },
+  '#blk-freq#': {
+    en: 'freq',
+  },
+  '#blk-i2c_scan#': {
+    en: 'scan for i2c devices',
+  },
+  '#blk-i2c_writeto_addr#': {
+    en: 'i2c write to address',
+  },
+  '#blk-with_value#': {
+    en: 'with value',
+  },
+  '#blk-at_register#': {
+    en: 'at register',
+  },
+  '#blk-of_format#': {
+    en: 'of format',
+  },
+  '#blk-i2c_readfrom_addr#': {
+    en: 'i2c read from address',
+  },
   '#main-blocks#': {
     en: 'Blocks',
     tlh: 'Porgh',
