@@ -1,4 +1,4 @@
-def textLarge(oled, text, x=0, y=0, scale=4):
+def text_large(oled, text, x=0, y=0, scale=4):
     def draw(coords):
         for c in coords:
             oled.fill_rect(x+c[0]*scale, y+c[1]*scale, c[2]*scale, c[3]*scale, 1)
