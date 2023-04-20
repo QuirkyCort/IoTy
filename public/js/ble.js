@@ -213,7 +213,7 @@ var ble = new function() {
 
     try {
       // Transfer to device
-      let totalFilesCount = Object.keys(firmwareFiles).length;
+      let totalFilesCount = Object.keys(main.firmwareFiles).length;
       let currentFileCount = 0;
       let progressBar = '';
 
@@ -223,12 +223,12 @@ var ble = new function() {
       }
 
       let status;
-      for (let key in firmwareFiles) {
+      for (let key in main.firmwareFiles) {
         progressBar = '';
         currentFileCount++;
         updateProgress();
 
-        status = await self.writeFile(firmwareFiles[key].tempName, firmwareFiles[key].content, updateProgress);
+        status = await self.writeFile(main.firmwareFiles[key].tempName, main.firmwareFiles[key].content, updateProgress);
         if (status != constants._STATUS_SUCCESS) {
           break;
         }
