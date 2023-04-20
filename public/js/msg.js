@@ -547,9 +547,6 @@ let MSGS = {
   '#main-connectBLE#': {
     en: 'Connect (Bluetooth)',
   },
-  '#main-connectAP#': {
-    en: 'Connect (Access Point)...',
-  },
   '#main-connectInet#': {
     en: 'Connect (Internet)...',
   },

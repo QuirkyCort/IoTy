@@ -28,7 +28,6 @@ var main = new function() {
     if (connectionMode != null) {
       self.connectionMode = connectionMode;
     }
-    self.autoSwitchHttp();
 
     let deviceWifiSettings = localStorage.getItem('deviceWifiSettings');
     if (deviceWifiSettings) {
@@ -37,7 +36,7 @@ var main = new function() {
 
     if (typeof navigator.bluetooth == 'undefined') {
       self.bleAvailable = false;
-      self.connectionMode = 'ap';
+      self.connectionMode = 'mqtt';
     }
 
     self.$navs = $('nav li');
@@ -244,8 +243,6 @@ var main = new function() {
 
       if (self.connectionMode == 'ble') {
         self.bleConnectMenu(e);
-      } else if (self.connectionMode == 'ap') {
-        self.apConnectMenu(e);
       } else if (self.connectionMode == 'mqtt') {
         self.mqttConnectMenu(e);
       }
@@ -262,20 +259,6 @@ var main = new function() {
       {html: i18n.get('#main-updateFirmware#'), line: false, callback: ble.updateFirmwareDialog},
       {html: i18n.get('#main-configureDeviceNetwork#'), line: false, callback: main.configureDeviceNetwork},
       {html: i18n.get('#main-disconnect#'), line: false, callback: ble.disconnect},
-    ];
-
-    menuDropDown(self.$connectMenu, menuItems, {className: 'connectMenuDropDown', align: 'right'});
-  };
-
-  this.apConnectMenu = function(e) {
-    let menuItems = [
-      {html: i18n.get('#main-connectMode#'), line: false, callback: self.connectModeMenu },
-      {html: i18n.get('#main-connectAP#'), line: false, callback: ap.connectDialog },
-      {html: i18n.get('#main-download#'), line: false, callback: ap.download },
-      {html: i18n.get('#main-erase#'), line: false, callback: ap.eraseDialog },
-      {html: i18n.get('#main-changeName#'), line: false, callback: ap.changeNameDialog},
-      {html: i18n.get('#main-configureDeviceNetwork#'), line: false, callback: main.configureDeviceNetwork},
-      {html: i18n.get('#main-updateFirmware#'), line: false, callback: ap.updateFirmwareDialog},
     ];
 
     menuDropDown(self.$connectMenu, menuItems, {className: 'connectMenuDropDown', align: 'right'});
@@ -376,8 +359,6 @@ var main = new function() {
 
       if (self.connectionMode == 'ble') {
         ble.configureDeviceNetwork(file);
-      } else if (self.connectionMode == 'ap') {
-        ap.configureDeviceNetwork(file);
       } else if (self.connectionMode == 'mqtt') {
         mqtt.configureDeviceNetwork(file);
       }
@@ -418,7 +399,6 @@ var main = new function() {
     );
     let $select = $body.find('select');
     $select.append('<option value="ble">Bluetooth</option>');
-    $select.append('<option value="ap">Access Point</option>');
     $select.append('<option value="mqtt">Internet</option>');
 
     $select.val(self.connectionMode);
@@ -438,20 +418,6 @@ var main = new function() {
           '<p>' +
             'Web Bluetooth is an experimental technology and you may encounter compatibility problems. ' +
             'If so, please try a different connection mode.' +
-          '</p>'
-        );
-      } else if ($select.val() == 'ap') {
-        $description.html(
-          '<p>' +
-            'In Access Point mode, the IoTy device acts like a WiFi access point that you can connect your computer to. ' +
-            'Use this mode if Bluetooth mode isn\'t working on your computer. ' +
-          '</p>' +
-          '<p>' +
-            'While connected to the IoTy WiFi access point, your computer will not have internet access. ' +
-            'To solve this, use Access Point mode to configure your IoTy device\'s network, then switch to internet mode.' +
-          '</p>' +
-          '<p>' +
-            'This mode should be compatible with all browsers on any OS.' +
           '</p>'
         );
       } else if ($select.val() == 'mqtt') {
@@ -484,21 +450,8 @@ var main = new function() {
       self.connectionMode = $select.val();
       localStorage.setItem('connectionMode', self.connectionMode);
       self.disconnectUnusedMode();
-      self.autoSwitchHttp();
       $dialog.close();
     });
-  };
-
-  this.autoSwitchHttp = function() {
-    if (location.host.slice(0, 9) == 'localhost') {
-      return; // Don't switch for development environment
-    }
-
-    if (self.connectionMode == 'ble' && location.protocol == 'http:') {
-      location.assign('https://' + location.host + location.pathname + '?connectionMode=ble');
-    } else if (self.connectionMode == 'ap' && location.protocol == 'https:') {
-      location.assign('http://' + location.host + location.pathname + '?connectionMode=ap');
-    }
   };
 
   this.disconnectUnusedMode = function() {

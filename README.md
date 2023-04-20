@@ -80,7 +80,7 @@ See the next section for details.
 
 ## Connecting to the IoTy device
 
-You can connect to and program your IoTy device using 3 different modes.
+You can connect to and program your IoTy device using 2 different modes.
 
 ### Bluetooth Mode
 
@@ -105,27 +105,6 @@ Con
 4. Open the kebab menu (...3 vertical dots next to the word "Disconnect") and switch "Connection Mode" to Bluetooth.
 5. From the kebab menu, select "Connect (Bluetooth)".
 6. Select your device and click "Pair".
-
-### Access Point Mode
-
-In this mode, your IoTy device will act like a WiFi access point that you can connect your computer to.
-
-Pro
-* Works with any browser.
-* Fastest program transfer.
-
-Con
-* Your computer will lose internet access while connected to your IoTy device.
-
-### Access Point Mode (Steps)
-
-1. Restart your ESP32 (...press the reset button); the built-in LED should flash 3 times.
-2. Before the 3 flashes complete, press and hold the boot button until the LED flashes rapidly.
-3. Open https://quirkycort.github.io/IoTy/public/editor.html
-4. On your computer, search for an open WiFi access point with the name of your device and connect to it. You will lose internet access at this point.
-5. If your computer has a mobile network connection, you will need to disable it.
-6. Open the kebab menu (...3 vertical dots next to the word "Disconnect") and switch "Connection Mode" to Access Point.
-7. From the kebab menu, select "Connect (Access Point)".
 
 ### Internet Mode
 
