@@ -242,7 +242,7 @@ var blocklyPanel = new function() {
   this.enableBlocks = function(){
     confirmDialog(i18n.get('#blockly-python_lost_warning#'), function(){
       filesManager.modified = false;
-      localStorage.setItem('pythonModified', false);
+      localStorage.setItem('iotyPythonModified', false);
       self.setDisable(false);
     });
   }
