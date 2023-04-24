@@ -587,6 +587,7 @@ let MSGS = {
       '<li>Restart your ESP32 (...press the reset button); the built-in LED should flash 3 times.</li>' +
       '<li>Before the 3 flashes complete, press and hold the boot button until the LED flashes rapidly.</li>' +
       '<li>On your computer, search for an open WiFi access point with the name of your device and connect to it.</li>' +
+      '<li>Click the "Go to Access Point Page" button.</li>' +
       '</ol>',
   },
   '#main-apPage_go#': {

@@ -121,9 +121,9 @@ Con
 
 1. Restart your ESP32 (...press the reset button); the built-in LED should flash 3 times.
 2. Before the 3 flashes complete, press and hold the boot button until the LED flashes rapidly.
-4. On your computer, search for an open WiFi access point with the name of your device and connect to it. You will lose internet access at this point.
+4. On your computer, search for an open WiFi access point with the name of your device and connect to it.
 5. If your computer has a mobile network connection, you will need to disable it.
-6. From the menu, click "App -> Access Point Page".
+6. From the menu, click "App -> Access Point Page". Alternatively, visit http://192.168.4.1/
 7. Fill in the network configuration info and submit.
 8. Restart your device, and use Internet mode to program your device.
 
