@@ -33,7 +33,10 @@ class HTTP_Service:
         return 0
 
     def get_req_url(self, headers):
-        url, _ = headers['GET'].split(b' ', 1)
+        if 'GET' in headers:
+            url, _ = headers['GET'].split(b' ', 1)
+        elif 'POST' in headers:
+            url, _ = headers['POST'].split(b' ', 1)
         result = url.split(b'?', 1)
         if len(result) > 1:
             return result[0], result[1]
@@ -90,31 +93,14 @@ class HTTP_Service:
             return self._index_req(query, buf)
         elif url == b'/config':
             return self._config_req(query, buf)
+        elif url == b'/upload':
+            return self._upload_req(query, buf)
 
         return ''
 
     def _index_req(self, query, buf):
-        return '''<!DOCTYPE html>
-<html>
-<body>
-<h1>Configure Device Network</h1>
-<form action="/config">
-    <label>WiFi SSID:</label><br>
-    <input type="text" name="ssid"><br>
-    <label>WiFi Password:</label><br>
-    <input type="text" name="wifiPassword"><br>
-    <label>MQTT Host:</label><br>
-    <input type="text" name="host" value="mqtt.a9i.sg"><br>
-    <label>MQTT Port:</label><br>
-    <input type="text" name="port" value="1883"><br>
-    <label>Username:</label><br>
-    <input type="text" name="username"><br>
-    <label>Password:</label><br>
-    <input type="text" name="mqttPassword"><br>
-    <br><input type="submit" value="Submit">
-  </form>
-</body>
-</html>'''
+        with open('ioty/html/index.html') as file:
+            return file.read()
 
     def _config_req(self, query, buf):
         params = self.get_query_dict(query)
@@ -136,3 +122,13 @@ class HTTP_Service:
 <p>Restart your device and enter internet mode to start programming.</p>
 </body>
 </html>'''
+
+    def _upload_req(self, query, buf):
+        files = json.loads(buf)
+        try:
+            for filename in files:
+                with open(filename, 'wb') as file:
+                    file.write(files[filename])
+            return 'success'
+        except:
+            return 'failed'

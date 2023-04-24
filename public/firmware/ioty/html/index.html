@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Configure Device Network</h1>
+<form action="/config">
+<label>WiFi SSID:</label><br>
+<input type="text" name="ssid"><br>
+<label>WiFi Password:</label><br>
+<input type="text" name="wifiPassword"><br>
+<label>MQTT Host:</label><br>
+<input type="text" name="host" value="mqtt.a9i.sg"><br>
+<label>MQTT Port:</label><br>
+<input type="text" name="port" value="1883"><br>
+<label>Username:</label><br>
+<input type="text" name="username"><br>
+<label>Password:</label><br>
+<input type="text" name="mqttPassword"><br>
+<br><input type="submit" value="Submit">
+</form>
+<h1>Upload Code (JSON Package)</h1>
+<input type="file" id="code">
+<button id="upload">Upload</button>
+<h3 id="status"></h3>
+<script>
+function uploadCode() {
+let fileEle = document.getElementById('code');
+if (fileEle.files.length == 1) {
+fileEle.files[0].text().then(function(text){
+fetch('/upload', {
+method: 'POST',
+body: text
+}).then(function(response){
+return response.text();
+}).then(function(text){
+document.getElementById('status').innerText = text;
+});
+});
+}
+}
+document.getElementById('upload').onclick = uploadCode;
+</script>
+</body>
+</html>

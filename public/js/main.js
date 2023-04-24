@@ -485,6 +485,7 @@ var main = new function() {
         {html: i18n.get('#main-save_blocks#'), line: true, callback: self.saveToComputer},
         {html: i18n.get('#main-load_python#'), line: false, callback: self.loadPythonFromComputer},
         {html: i18n.get('#main-save_python#'), line: true, callback: self.savePythonToComputer},
+        {html: i18n.get('#main-save_json#'), line: false, callback: self.saveToJson},
       ];
 
       menuDropDown(self.$fileMenu, menuItems, {className: 'fileMenuDropDown'});
@@ -617,6 +618,31 @@ var main = new function() {
       JSZip.loadAsync(e.target.files[0])
         .then(loadFiles);
     });
+  };
+
+  // save to json package
+  this.saveToJson = function() {
+    let filename = self.$projectName.val();
+    if (filename.trim() == '') {
+      filename = 'IoTy';
+    }
+
+    if (filesManager.modified == false) {
+      pythonPanel.loadPythonFromBlockly();
+    }
+    filesManager.updateCurrentFile();
+
+    let obj = {};
+
+    for (let f in filesManager.files) {
+      obj[f] = filesManager.files[f];
+    }
+
+    var hiddenElement = document.createElement('a');
+    hiddenElement.href = 'data:application/xml;base64,' + btoa(JSON.stringify(obj));
+    hiddenElement.target = '_blank';
+    hiddenElement.download = filename + '.json';
+    hiddenElement.dispatchEvent(new MouseEvent('click'));
   };
 
   // Check for unsaved changes

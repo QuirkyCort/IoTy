@@ -473,6 +473,9 @@ let MSGS = {
     ru: 'Сохранить Python-код на компьютер',
     hu: 'Python kód letöltése',
   },
+  '#main-save_json#': {
+    en: 'Save to JSON package (...for Access Point mode upload)',
+  },
   '#main-load_python_lib#': {
     en: 'Load Python module from your computer',
     nl: 'Laad Python module vanaf de computer',
