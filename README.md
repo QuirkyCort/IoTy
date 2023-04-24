@@ -80,7 +80,7 @@ See the next section for details.
 
 ## Connecting to the IoTy device
 
-You can connect to and program your IoTy device using 2 different modes.
+You can connect to and program your IoTy device using 3 different modes.
 
 ### Bluetooth Mode
 
@@ -97,7 +97,7 @@ Con
 * Tends to have compatibility issues with older computers.
 * Program transfer can be slower than other modes.
 
-### Bluetooth Mode (Steps)
+**Bluetooth Mode (Steps)**
 
 1. Restart your ESP32 (...press the reset button); the built-in LED should flash 3 times.
 2. Before the 3 flashes complete, press and hold the boot button until the 3 flashes complete and the LED should stay on.
@@ -105,6 +105,27 @@ Con
 4. Open the kebab menu (...3 vertical dots next to the word "Disconnect") and switch "Connection Mode" to Bluetooth.
 5. From the kebab menu, select "Connect (Bluetooth)".
 6. Select your device and click "Pair".
+
+### Access Point Mode
+
+This mode is only used for configuring the network connection for your device to enable Internet mode.
+After configuration, you will need to use Internet mode to program your device.
+
+Pro
+* Works with any browser.
+
+Con
+* Can't be used to program device, only for configuring network connection.
+
+**Access Point Mode (Steps)**
+
+1. Restart your ESP32 (...press the reset button); the built-in LED should flash 3 times.
+2. Before the 3 flashes complete, press and hold the boot button until the LED flashes rapidly.
+4. On your computer, search for an open WiFi access point with the name of your device and connect to it. You will lose internet access at this point.
+5. If your computer has a mobile network connection, you will need to disable it.
+6. From the menu, click "App -> Access Point Page".
+7. Fill in the network configuration info and submit.
+8. Restart your device, and use Internet mode to program your device.
 
 ### Internet Mode
 
@@ -119,16 +140,14 @@ Con
 * IoTy device must first be configured to connect to your router and the MQTT broker using another mode.
 * IoTy device needs to be provided with internet access. This may be problematic in places (eg. schools) where WiFi access may be restricted to authorised devices only.
 
-### Internet Mode (Steps)
-
-**Configure network**
+**Internet Mode (Steps): Configure network**
 
 1. Connect to your IoTy device using Bluetooth or Access Point mode.
 2. Open the kebab menu (...3 vertical dots next to the word "Disconnect") and select "Configure Device Network".
 3. Fill in your router SSID and password, as well as the host, port, username, and password for your MQTT broker.
 4. Click "Ok".
 
-**Connect**
+**Internet Mode (Steps): Connect**
 
 1. Restart your ESP32 (...press the reset button); the built-in LED should flash 3 times.
 2. Before the 3 flashes complete, press and hold the boot button until the 3 flashes complete and the LED should stay on.

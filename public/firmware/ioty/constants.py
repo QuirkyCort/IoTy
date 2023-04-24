@@ -1,5 +1,6 @@
-_VERSION = 5
+_VERSION = 6
 _PRESERVE_FILES = ('boot.py', 'ioty', '_ioty_name', '_ioty_network', 'umqtt')
+_NETWORK_CONFIGURATION_FILE = '_ioty_network'
 
 _MODE_OPEN = 1
 _MODE_APPEND = 2

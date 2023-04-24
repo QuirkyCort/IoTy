@@ -200,6 +200,7 @@ var main = new function() {
 
       let menuItems = [
         {html: 'MQTT App Builder', line: false, callback: self.appBuilderWindow},
+        {html: 'Access Point Page', line: false, callback: self.apPageWindow},
       ];
 
       menuDropDown(self.$appMenu, menuItems, {className: 'appMenuDropDown'});
@@ -214,6 +215,17 @@ var main = new function() {
     };
     confirmDialog(options, function(){
       self.openPage('https://quirkycort.github.io/IoTy-MQTT-Client/public');
+    });
+  };
+
+  this.apPageWindow = function() {
+    let options = {
+      title: i18n.get('#main-apPage_title#'),
+      message: i18n.get('#main-apPage_description#'),
+      confirm: i18n.get('#main-apPage_go#')
+    };
+    confirmDialog(options, function(){
+      self.openPage('http://192.168.4.1');
     });
   };
 

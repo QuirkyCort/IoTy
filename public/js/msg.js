@@ -577,6 +577,21 @@ let MSGS = {
   '#main-appBuilder_go#': {
     en: 'Go to MQTT App Builder',
   },
+  '#main-apPage_title#': {
+    en: 'Access Point Page',
+  },
+  '#main-apPage_description#': {
+    en:
+      '<p>You can access this page to configure your device network. Before connecting, please...</p>' +
+      '<ol>' +
+      '<li>Restart your ESP32 (...press the reset button); the built-in LED should flash 3 times.</li>' +
+      '<li>Before the 3 flashes complete, press and hold the boot button until the LED flashes rapidly.</li>' +
+      '<li>On your computer, search for an open WiFi access point with the name of your device and connect to it.</li>' +
+      '</ol>',
+  },
+  '#main-apPage_go#': {
+    en: 'Go to Access Point Page',
+  },
   '#blockly-save#': {
     en: 'Save Now',
     fr: 'Enregistrer maintenant',

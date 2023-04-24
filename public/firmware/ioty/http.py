@@ -15,34 +15,50 @@ class HTTP_Service:
         self.ap.active(True)
 
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.socket.bind(('192.168.4.1', '8000'))
+        self.socket.bind(('192.168.4.1', '80'))
         self.socket.listen(0)
 
-    def _split_bytes(self, bytes, delimiter, max_split=-1):
-        bytes_len = len(bytes)
-        delimiter_len = len(delimiter)
-        for i in range(bytes_len - delimiter_len + 1):
-            if bytes[i:i+delimiter_len] == delimiter:
-                if max_split == 1 or delimiter not in bytes[i+delimiter_len:]:
-                    return bytes[:i], bytes[i+delimiter_len:]
-                else:
-                    result = [bytes[:i]]
-                    result.extend(self._split_bytes(bytes[i+delimiter_len:], delimiter, max_split - 1))
-                    return result
-
     def process_headers(self, headers_b):
-        header_lines = self._split_bytes(headers_b, b'\r\n')
+        header_lines = headers_b.split(b'\r\n')
         headers = {}
         for header_line in header_lines:
             if b' ' in header_line:
-                type, value = self._split_bytes(header_line, b' ', max_split=1)
+                type, value = header_line.split(b' ', 1)
                 headers[type.decode()] = value
         return headers
+
+    def get_content_length(self, headers):
+        if 'Content-Length:' in headers:
+            return int(headers['Content-Length:'].decode('utf-8'))
+        return 0
+
+    def get_req_url(self, headers):
+        url, _ = headers['GET'].split(b' ', 1)
+        result = url.split(b'?', 1)
+        if len(result) > 1:
+            return result[0], result[1]
+        else:
+            return result[0], b''
+
+    def percent_decode(self, value):
+        parts = value.split(b'%')
+        result = [parts[0]]
+        for coded in parts[1:]:
+            result.append(bytes([int(coded[:2], 16)]))
+            result.append(coded[2:].replace(b'+', b' '))
+        return b''.join(result)
+
+    def get_query_dict(self, query):
+        params = {}
+        for pair in query.split(b'&'):
+            key, value = pair.split(b'=', 1)
+            params[key] = self.percent_decode(value)
+        return params
 
     def wait_for_connection(self):
         client_connection, _ = self.socket.accept()
 
-        buf = bytearray()
+        buf = b''
         content_length = None
         response_data = {
             'status': constants._STATUS_ERROR
@@ -53,64 +69,70 @@ class HTTP_Service:
             if len(data) == 0:
                 break
 
-            buf.extend(data)
+            buf += data
             if content_length == None:
                 if b'\r\n\r\n' in buf:
-                    headers_b, buf = self._split_bytes(buf, b'\r\n\r\n', max_split=1)
+                    headers_b, buf = buf.split(b'\r\n\r\n', 1)
                     headers = self.process_headers(headers_b)
-                    if 'Content-Length:' in headers:
-                        content_length = int(headers['Content-Length:'].decode('utf-8'))
-                    else:
-                        content_length = 0
+                    content_length = self.get_content_length(headers)
+                    url, query = self.get_req_url(headers)
 
             if len(buf) >= content_length:
-                response_data = self.process_req(buf)
+                response_data = self.process_req(url, query, buf)
                 break
 
-        response = 'HTTP/1.0 200 OK\r\nAccess-Control-Allow-Origin: *\r\n\r\n' + json.dumps(response_data)
+        response = 'HTTP/1.0 200 OK\r\n\r\n' + response_data
         client_connection.sendall(response.encode())
         client_connection.close()
 
-    def process_req(self, buf):
-        try:
-            req = json.loads(buf)
-            if req['mode'] == constants._MODE_GET_VERSION:
-                return self.get_version(req)
-            elif req['mode'] == constants._MODE_WRITE_FILES:
-                return self.write_files(req)
-            elif req['mode'] == constants._MODE_DELETE_ALL:
-                return self.delete_all(req)
-        except:
-            pass
+    def process_req(self, url, query, buf):
+        if url == b'/':
+            return self._index_req(query, buf)
+        elif url == b'/config':
+            return self._config_req(query, buf)
 
-        return {
-            'status': constants._STATUS_ERROR
-        }
+        return ''
 
-    def delete_all(self, req):
-        for f in os.listdir():
-            if not(f in constants._PRESERVE_FILES):
-                os.remove(f)
-        return {
-            'status': constants._STATUS_SUCCESS
-        }
+    def _index_req(self, query, buf):
+        return '''<!DOCTYPE html>
+<html>
+<body>
+<h1>Configure Device Network</h1>
+<form action="/config">
+    <label>WiFi SSID:</label><br>
+    <input type="text" name="ssid"><br>
+    <label>WiFi Password:</label><br>
+    <input type="text" name="wifiPassword"><br>
+    <label>MQTT Host:</label><br>
+    <input type="text" name="host" value="mqtt.a9i.sg"><br>
+    <label>MQTT Port:</label><br>
+    <input type="text" name="port" value="1883"><br>
+    <label>Username:</label><br>
+    <input type="text" name="username"><br>
+    <label>Password:</label><br>
+    <input type="text" name="mqttPassword"><br>
+    <br><input type="submit" value="Submit">
+  </form>
+</body>
+</html>'''
 
-    def write_files(self, req):
-        try:
-            for filename in req['content']:
-                with open(filename, 'wb') as file:
-                    file.write(req['content'][filename])
-            return {
-                'status': constants._STATUS_SUCCESS
-            }
-        except:
-            return {
-                'status': constants._STATUS_ERROR
-            }
+    def _config_req(self, query, buf):
+        params = self.get_query_dict(query)
+        if b'ssid' not in params:
+            return '<!DOCTYPE html><html><body><h1>Error</h1><p>Invalid settings.</p></body></html>'
 
-    def get_version(self, req):
-        return {
-            'status': constants._STATUS_SUCCESS,
-            'content': constants._VERSION,
-            'name': self.name
-        }
+        with open(constants._NETWORK_CONFIGURATION_FILE, 'w') as file:
+            file.write(params[b'ssid'].decode('utf-8') + '\n')
+            file.write(params[b'wifiPassword'].decode('utf-8') + '\n')
+            file.write(params[b'host'].decode('utf-8') + '\n')
+            file.write(params[b'port'].decode('utf-8') + '\n')
+            file.write(params[b'username'].decode('utf-8') + '\n')
+            file.write(params[b'mqttPassword'].decode('utf-8') + '\n')
+
+        return '''<!DOCTYPE html>
+<html>
+<body>
+<h1>Configuration Uploaded</h1>
+<p>Restart your device and enter internet mode to start programming.</p>
+</body>
+</html>'''
