@@ -108,24 +108,26 @@ Con
 
 ### Access Point Mode
 
-This mode is only used for configuring the network connection for your device to enable Internet mode.
-After configuration, you will need to use Internet mode to program your device.
+In this mode, your IoTy device will act like a WiFi access point that you can connect your computer to.
 
 Pro
 * Works with any browser.
+* Fastest program transfer.
 
 Con
-* Can't be used to program device, only for configuring network connection.
+* Your computer will lose internet access while connected to your IoTy device.
 
 **Access Point Mode (Steps)**
 
-1. Restart your ESP32 (...press the reset button); the built-in LED should flash 3 times.
-2. Before the 3 flashes complete, press and hold the boot button until the LED flashes rapidly.
+1. Save your code to a JSON package (File -> Save to JSON package).
+2. Restart your ESP32 (...press the reset button); the built-in LED should flash 3 times.
+3. Before the 3 flashes complete, press and hold the boot button until the LED flashes rapidly.
 4. On your computer, search for an open WiFi access point with the name of your device and connect to it.
 5. If your computer has a mobile network connection, you will need to disable it.
 6. From the menu, click "App -> Access Point Page". Alternatively, visit http://192.168.4.1/
-7. Fill in the network configuration info and submit.
-8. Restart your device, and use Internet mode to program your device.
+7. Click "Choose file", select your JSON file, then click "Upload".
+8. Optional: Configure your device network to enable Internet mode.
+9. Restart your device.
 
 ### Internet Mode
 

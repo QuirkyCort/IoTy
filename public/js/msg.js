@@ -585,7 +585,7 @@ let MSGS = {
   },
   '#main-apPage_description#': {
     en:
-      '<p>You can access this page to configure your device network. Before connecting, please...</p>' +
+      '<p>You can access this page to program your device or configure your device network. Before connecting, please...</p>' +
       '<ol>' +
       '<li>Restart your ESP32 (...press the reset button); the built-in LED should flash 3 times.</li>' +
       '<li>Before the 3 flashes complete, press and hold the boot button until the LED flashes rapidly.</li>' +
