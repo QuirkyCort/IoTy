@@ -707,7 +707,7 @@ var main = new function() {
         '</p>' +
         '<p>' +
           'Access Point mode is now via "App -> Access Point Page".' +
-          'The new approach of Access Point mode improves compatibility, and should work with all browsers (previously broken on some browsers due to <a href="https://wicg.github.io/private-network-access/">PAN</a> restrictions).' +
+          'The new approach of Access Point mode improves compatibility, and should work with all browsers (previously broken on some browsers due to <a href="https://wicg.github.io/private-network-access/">PNA</a> restrictions).' +
           'You will need to update your IoTy firmware to at least version 6 to use this.' +
         '</p>'
       }
