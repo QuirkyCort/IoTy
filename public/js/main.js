@@ -161,11 +161,12 @@ var main = new function() {
         '<div></div>' +
         '<h3>Credits</h3>' +
         '<p>Created by Cort @ <a href="https://aposteriori.com.sg" target="_blank">A Posteriori</a>.</p>' +
-        '<p>This simulator would not have been possible without the great people behind:</p>' +
+        '<p>This software would not have been possible without the great people behind:</p>' +
         '<ul>' +
           '<li><a href="https://developers.google.com/blockly" target="_blank">Blockly</a></li>' +
           '<li><a href="https://ace.c9.io/" target="_blank">Ace Editor</a></li>' +
           '<li><a href="https://skulpt.org/" target="_blank">Skulpt</a></li>' +
+          '<li><a href="https://micropython.org/" target="_blank">Micropython</a></li>' +
         '</ul>' +
         '<h3>Contact</h3>' +
         '<p>Please direct all complaints or requests to <a href="mailto:cort@aposteriori.com.sg">Cort</a>.</p>' +
@@ -693,15 +694,22 @@ var main = new function() {
 
   // Display what's new if not seen before
   this.showWhatsNew = function(forceShow=false) {
-    let current = 20220821;
+    let current = 20230425;
     let lastShown = localStorage.getItem('whatsNew');
     if (lastShown == null || parseInt(lastShown) < current || forceShow) {
       let options = {
         title: 'What\'s New',
         message:
-        '<h3>31 Dec 2022 (MQTT)</h3>' +
-        '<p>WiFi and MQTT blocks and modules are now available.</p>' +
-        '<p>When using MQTT, be sure to call "Check for message" frequently in a loop to keep the connection alive.</p>'
+        '<h3>25 Apr 2023 (I2C, Access Point Mode)</h3>' +
+        '<p>' +
+          'I2C blocks are now available.' +
+          'This enables IoTy blocks programs to work with pretty much any I2C device (...and there are lots).' +
+        '</p>' +
+        '<p>' +
+          'Access Point mode is now via "App -> Access Point Page".' +
+          'The new approach of Access Point mode improves compatibility, and should work with all browsers (previously broken on some browsers due to <a href="https://wicg.github.io/private-network-access/">PAN</a> restrictions).' +
+          'You will need to update your IoTy firmware to at least version 6 to use this.' +
+        '</p>'
       }
       acknowledgeDialog(options, function(){
         localStorage.setItem('whatsNew', current);
