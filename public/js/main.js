@@ -490,7 +490,8 @@ var main = new function() {
         {html: i18n.get('#main-save_blocks#'), line: true, callback: self.saveToComputer},
         {html: i18n.get('#main-load_python#'), line: false, callback: self.loadPythonFromComputer},
         {html: i18n.get('#main-save_python#'), line: true, callback: self.savePythonToComputer},
-        {html: i18n.get('#main-save_json#'), line: false, callback: self.saveToJson},
+        {html: i18n.get('#main-save_json#'), line: true, callback: self.saveToJson},
+        {html: i18n.get('#main-load_extension#'), line: true, callback: extensions.loadDialog},
       ];
 
       menuDropDown(self.$fileMenu, menuItems, {className: 'fileMenuDropDown'});

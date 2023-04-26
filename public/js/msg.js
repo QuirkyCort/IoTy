@@ -476,6 +476,9 @@ let MSGS = {
   '#main-save_json#': {
     en: 'Save to JSON package (...for Access Point mode upload)',
   },
+  '#main-load_extension#': {
+    en: 'Load extension...',
+  },
   '#main-load_python_lib#': {
     en: 'Load Python module from your computer',
     nl: 'Laad Python module vanaf de computer',
@@ -660,6 +663,12 @@ let MSGS = {
   },
   '#monitor-clear#': {
     en: 'Clear Monitor',
+  },
+  '#extensions-close#': {
+    en: 'Close',
+  },
+  '#extensions-select_extensions#': {
+    en: 'Select Extensions',
   },
 };
 let MSGS_KEYS = Object.keys(MSGS);

@@ -378,6 +378,23 @@ ul.menuDropDownRightAlign {
     overflow-x: auto;
     white-space: pre; }
 
+.extension {
+  border: solid 1px white;
+  padding: 0.5em;
+  margin-bottom: 0.5em;
+  display: flex;
+  flex-direction: column; }
+  .extension .title {
+    font-weight: bold; }
+  .extension .buttons {
+    align-self: end; }
+    .extension .buttons button {
+      font-size: 100%; }
+  .extension .buttons.install button.remove {
+    display: none; }
+  .extension .buttons.remove button.install {
+    display: none; }
+
 @font-face {
   font-family: 'icomoon';
   src: url("../fonts/icomoon.eot?zcpech");
