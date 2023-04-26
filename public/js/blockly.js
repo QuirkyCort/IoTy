@@ -71,11 +71,8 @@ var blockly = new function() {
 
   // Load default workspace
   this.loadDefaultWorkspace = function() {
-    let xmlText =
-      '<xml xmlns="https://developers.google.com/blockly/xml">' +
-        '<block type="when_started" id="Q!^ZqS4/(a/0XL$cIi-~" x="63" y="38" deletable="false"><data>Main</data></block>' +
-      '</xml>';
-    self.loadXmlText(xmlText);
+    let jsonText = '{"blocks":{"languageVersion":0,"blocks":[{"type":"when_started","id":"Q!^ZqS4/(a/0XL$cIi-~","x":63,"y":38,"data":"Main","fields":{"start_type":"RUN"}}]}}';
+    self.loadJsonText(jsonText);
   };
 
   // Load custom blocks
@@ -96,10 +93,10 @@ var blockly = new function() {
     }
   };
 
-  // get xmlText
-  this.getXmlText = function() {
-    var xml = Blockly.Xml.workspaceToDom(self.workspace);
-    return Blockly.Xml.domToText(xml);
+  // get json
+  this.getJsonText = function() {
+    let obj = Blockly.serialization.workspaces.save(self.workspace)
+    return JSON.stringify(obj);
   };
 
   // Save to local storage
@@ -107,9 +104,43 @@ var blockly = new function() {
     if (self.workspace && self.unsaved) {
       self.unsaved = false;
       blocklyPanel.hideSave();
-      localStorage.setItem('iotyBlocklyXML', self.getXmlText());
+      localStorage.setItem('iotyBlocklyJson', self.getJsonText());
     }
   };
+
+  // load jsonText to workspace
+  this.loadJsonText = function(jsonText) {
+    let oldJsonText = self.getJsonText();
+    if (jsonText) {
+      try {
+        let obj = JSON.parse(jsonText);
+        self.workspace.clear();
+        Blockly.serialization.workspaces.load(obj, self.workspace);
+      }
+      catch (err) {
+        console.log(err);
+        if (err.name == 'Error') {
+          toastMsg('Invalid Blocks');
+          self.loadJsonText(oldJsonText);
+        }
+      }
+    }
+  };
+
+  // get xmlText
+  this.getXmlText = function() {
+    var xml = Blockly.Xml.workspaceToDom(self.workspace);
+    return Blockly.Xml.domToText(xml);
+  };
+
+  // // Save to local storage
+  // this.saveLocalStorage = function() {
+  //   if (self.workspace && self.unsaved) {
+  //     self.unsaved = false;
+  //     blocklyPanel.hideSave();
+  //     localStorage.setItem('iotyBlocklyXML', self.getXmlText());
+  //   }
+  // };
 
   // load xmlText to workspace
   this.loadXmlText = function(xmlText) {
@@ -140,7 +171,11 @@ var blockly = new function() {
 
   // Load from local storage
   this.loadLocalStorage = function() {
-    self.loadXmlText(localStorage.getItem('iotyBlocklyXML'));
+    if (localStorage.getItem('iotyBlocklyJson') != null) {
+      self.loadJsonText(localStorage.getItem('iotyBlocklyJson'));
+    } else {
+      self.loadXmlText(localStorage.getItem('iotyBlocklyXML'));
+    }
   };
 
   // Clear all blocks from displayed workspace
