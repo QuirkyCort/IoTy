@@ -1,0 +1,37 @@
+{
+  "type": "ssd1306_line",
+  "message0": "#blk-ssd1306_line# %1 %2 #blk-to_x2y2# %3 %4 #blk-and_color# %5",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "x1",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "y1",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "x2",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "y2",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "color",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-ssd1306_line_tooltip#",
+  "helpUrl": ""
+}

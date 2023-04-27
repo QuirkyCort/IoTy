@@ -96,6 +96,7 @@ var pythonPanel = new function() {
   this.loadPythonFromBlockly = function() {
     self.ignoreChange++;
     filesManager.setToDefault();
+    extensions.processExtensions();
     filesManager.select('main.py');
     let code = blockly.generator.genCode();
     self.editor.setValue(code, 1);

@@ -1,0 +1,32 @@
+{
+  "type": "ssd1306_text",
+  "message0": "#blk-ssd1306_text# %1 #blk-at_xy# %2 %3 #blk-and_color# %4",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "text",
+      "check": "String"
+    },
+    {
+      "type": "input_value",
+      "name": "x",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "y",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "color",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-ssd1306_text_tooltip#",
+  "helpUrl": ""
+}

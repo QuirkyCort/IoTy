@@ -5,7 +5,9 @@ var extensions = new function() {
     {
       id: 'mpu6050',
       name: 'MPU-6050 (Gyro and Accelerometer)',
-      files: ['mpu6050.py'],
+      files: [
+        ['mpu6050.py', 'extensions/mpu6050.py?v=8803b4ba'],
+      ],
       description:
         '<p>' +
           'The MPU-6050 (often sold as a GY-521 module) contains a 3-axis gyroscope and 3-axis accelerometer.' +
@@ -15,7 +17,9 @@ var extensions = new function() {
     {
       id: 'pca9685',
       name: 'PCA-9685 (PWM / Servo Driver)',
-      files: ['pca9685.py'],
+      files: [
+        ['pca9685', 'extensions/pca9685.py?v=3aee7687'],
+      ],
       description:
         '<p>' +
           'The PCA-9685 is a 16-channel 12-bit PWM driver, commonly used to drive RC servos.' +
@@ -25,11 +29,13 @@ var extensions = new function() {
     {
       id: 'ssd1306',
       name: 'SSD-1306 (OLED Screen)',
-      files: ['ssd1306.py'],
+      files: [
+        ['ssd1306', 'extensions/ssd1306.py?v=470f8a8c'],
+      ],
       description:
         '<p>' +
           'The SSD-1306 is an OLED screen that can display text and images.' +
-          'This extension allows you to control the SSD-1306 via I2C.' +
+          'This extension allows you to draw text, lines, and shapes on the SSD-1306 via I2C.' +
         '</p>'
     },
   ]
@@ -60,8 +66,36 @@ var extensions = new function() {
     return $dialog;
   };
 
-  this.processExtensions = function() {
+  this.processExtensions = async function() {
+    if (typeof blockly.workspace == 'undefined') {
+      setTimeout(self.processExtensions, 500);
+      return;
+    }
 
+    for (extension of self.availableExtensions) {
+      if (main.settings.extensions.includes(extension.id)) {
+        await self.processFilesManager(extension);
+      }
+    }
+    filesManager.select('main.py');
+
+    for (extension of self.availableExtensions) {
+      if (main.settings.extensions.includes(extension.id)) {
+        blockly.workspace.getToolbox().getToolboxItemById(extension.id).show()
+      } else {
+        blockly.workspace.getToolbox().getToolboxItemById(extension.id).hide()
+      }
+    }
+  }
+
+  this.processFilesManager = async function(extension) {
+    for (file of extension.files) {
+      if (! (file in filesManager.files)) {
+        let response = await fetch(file[1]);
+        let content = await response.text();
+        filesManager.add(file[0], content);
+      }
+    }
   };
 
   this.drawExtension = function(extension) {

@@ -1,0 +1,27 @@
+{
+  "type": "ssd1306_pixel",
+  "message0": "#blk-ssd1306_pixel# %1 %2 #blk-and_color# %3",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "x",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "y",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "color",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-ssd1306_pixel_tooltip#",
+  "helpUrl": ""
+}

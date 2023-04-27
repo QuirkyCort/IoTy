@@ -10,9 +10,7 @@ var main = new function() {
   this.firmwareFiles = {};
   this.firmwarePreloaded = false;
 
-  this.settings = {
-    extensions: [],
-  };
+  this.settings;
 
   this.deviceWifiSettings = {
     ssid: '',
@@ -36,6 +34,14 @@ var main = new function() {
     let deviceWifiSettings = localStorage.getItem('deviceWifiSettings');
     if (deviceWifiSettings) {
       self.deviceWifiSettings = JSON.parse(deviceWifiSettings);
+    }
+
+    let settings = localStorage.getItem('iotySettings');
+    if (settings) {
+      self.settings = JSON.parse(settings);
+      extensions.processExtensions();
+    } else {
+      self.settings = self.defaultSettings();
     }
 
     if (typeof navigator.bluetooth == 'undefined') {
@@ -74,6 +80,18 @@ var main = new function() {
     $firmwareWindow.close();
 
     self.showWhatsNew();
+
+    setInterval(self.saveSettingsToLocalStorage, 2 * 1000);
+  };
+
+  this.defaultSettings = function() {
+    return {
+      extensions: [],
+    }
+  };
+
+  this.saveSettingsToLocalStorage = function() {
+    localStorage.setItem('iotySettings', JSON.stringify(self.settings));
   };
 
   this.hiddenButtonDialog = function(title, body) {
@@ -518,6 +536,7 @@ var main = new function() {
       blocklyPanel.setDisable(false);
       self.$projectName.val('');
       self.saveProjectName();
+      self.settings = self.defaultSettings();
     });
   };
 

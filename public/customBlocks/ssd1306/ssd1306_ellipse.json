@@ -1,0 +1,45 @@
+{
+  "type": "ssd1306_ellipse",
+  "message0": "#blk-ssd1306_ellipse# %1 %2 #blk-with_xryr# %3 %4 #blk-color# %5 %6",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "x",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "y",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "xr",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "yr",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "color",
+      "check": "Number"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "fill",
+      "options": [
+        ["fill", "True"],
+        ["outline", "False"]
+      ]
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-ssd1306_ellipse_tooltip#",
+  "helpUrl": ""
+}

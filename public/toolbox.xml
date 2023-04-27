@@ -571,4 +571,196 @@
       </value>
     </block>
   </category>
+  <category toolboxitemid="mpu6050" name="MPU-6050" colour="#5b67a5" hidden="true">
+    <block type="mpu6050_init"></block>
+    <block type="mpu6050_calibrate"></block>
+    <block type="mpu6050_reset"></block>
+    <block type="mpu6050_update"></block>
+    <block type="mpu6050_accel"></block>
+    <block type="mpu6050_gyro"></block>
+    <block type="mpu6050_angle"></block>
+  </category>
+  <category toolboxitemid="pca9685" name="PCA-9685" colour="#5b67a5" hidden="true">
+    <block type="pca9685_init"></block>
+    <block type="pca9685_set_freq"></block>
+    <block type="pca9685_analog_write">
+      <value name="channel">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="value">
+        <shadow type="math_number">
+          <field name="NUM">4095</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="pca9685_write_angle">
+      <value name="channel">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="value">
+        <shadow type="math_number">
+          <field name="NUM">180</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="pca9685_write_us">
+      <value name="channel">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="value">
+        <shadow type="math_number">
+          <field name="NUM">1500</field>
+        </shadow>
+      </value>
+    </block>
+  </category>
+  <category toolboxitemid="ssd1306" name="SSD-1306" colour="#5b67a5" hidden="true">
+    <block type="ssd1306_init"></block>
+    <block type="ssd1306_fill">
+      <value name="color">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="ssd1306_show"></block>
+    <block type="ssd1306_text">
+      <value name="text">
+        <shadow type="text">
+          <field name="TEXT">abc</field>
+        </shadow>
+      </value>
+      <value name="x">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="y">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="color">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="ssd1306_pixel">
+      <value name="x">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="y">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="color">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="ssd1306_line">
+      <value name="x1">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="y1">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="x2">
+        <shadow type="math_number">
+          <field name="NUM">32</field>
+        </shadow>
+      </value>
+      <value name="y2">
+        <shadow type="math_number">
+          <field name="NUM">64</field>
+        </shadow>
+      </value>
+      <value name="color">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="ssd1306_rect">
+      <value name="x">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="y">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="w">
+        <shadow type="math_number">
+          <field name="NUM">10</field>
+        </shadow>
+      </value>
+      <value name="h">
+        <shadow type="math_number">
+          <field name="NUM">10</field>
+        </shadow>
+      </value>
+      <value name="color">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="ssd1306_ellipse">
+      <value name="x">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="y">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="xr">
+        <shadow type="math_number">
+          <field name="NUM">10</field>
+        </shadow>
+      </value>
+      <value name="yr">
+        <shadow type="math_number">
+          <field name="NUM">20</field>
+        </shadow>
+      </value>
+      <value name="color">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="ssd1306_scroll">
+      <value name="xstep">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="ystep">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+  </category>
 </xml>

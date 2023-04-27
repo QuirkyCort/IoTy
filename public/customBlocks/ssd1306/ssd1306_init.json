@@ -1,0 +1,27 @@
+{
+  "type": "ssd1306_init",
+  "message0": "#blk-ssd1306_init# %1 #blk-height# %2 #blk-and_addr# %3",
+  "args0": [
+    {
+      "type": "field_input",
+      "name": "width",
+      "text": "128"
+    },
+    {
+      "type": "field_input",
+      "name": "height",
+      "text": "64"
+    },
+    {
+      "type": "field_input",
+      "name": "addr",
+      "text": "60"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-ssd1306_init_tooltip#",
+  "helpUrl": ""
+}

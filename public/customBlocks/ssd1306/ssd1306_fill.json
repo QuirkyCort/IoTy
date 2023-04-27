@@ -1,0 +1,17 @@
+{
+  "type": "ssd1306_fill",
+  "message0": "#blk-ssd1306_fill# %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "color",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-ssd1306_fill_tooltip#",
+  "helpUrl": ""
+}
