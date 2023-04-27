@@ -12,13 +12,8 @@ _OSC_FREQ = const(25000000)
 _SERVO_FREQ = const(50)
 
 class PCA9685:
-    def __init__(self, addr, i2c=None, scl=None, sda=None):
-        if i2c:
-            self.i2c = i2c
-        elif scl and sda:
-            self.i2c = SoftI2C(scl=Pin(scl), sda=Pin(sda), freq=100000)
-        else:
-            raise ValueError('Either i2c, or scl and sda, must be provided')
+    def __init__(self, i2c, addr=64):
+        self.i2c = i2c
         self.addr = addr
         self.autoIncrement(True)
         self.setFrequency(_SERVO_FREQ)
@@ -47,7 +42,7 @@ class PCA9685:
             data |= 1 << _MODE1_RESTART_BIT
             self.i2c.writeto_mem(self.addr, _MODE1, bytes([data]))
 
-    def setFrequency(self, freq):
+    def set_frequency(self, freq):
         if freq < 24 or freq > 1526:
             raise ValueError('Frequency must be between 24Hz to 1526Hz')
 

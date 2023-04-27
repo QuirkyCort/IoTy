@@ -476,6 +476,9 @@ let MSGS = {
   '#main-save_json#': {
     en: 'Save to JSON package (...for Access Point mode upload)',
   },
+  '#main-load_extension#': {
+    en: 'Load extension...',
+  },
   '#main-load_python_lib#': {
     en: 'Load Python module from your computer',
     nl: 'Laad Python module vanaf de computer',
@@ -660,6 +663,156 @@ let MSGS = {
   },
   '#monitor-clear#': {
     en: 'Clear Monitor',
+  },
+  '#extensions-close#': {
+    en: 'Close',
+  },
+  '#extensions-select_extensions#': {
+    en: 'Select Extensions',
+  },
+  '#blk-mpu6050_init#': {
+    en: 'init MPU-6050 with address',
+  },
+  '#blk-mpu6050_init_tooltip#': {
+    en: 'You must have an \\"init i2c\\" block before this',
+  },
+  '#blk-mpu6050_calibrate#': {
+    en: 'calibrate MPU-6050',
+  },
+  '#blk-mpu6050_calibrate_tooltip#': {
+    en: 'Ensure that the MPU-6050 is stationary during calibration',
+  },
+  '#blk-mpu6050_reset#': {
+    en: 'reset MPU-6050 gyro angles',
+  },
+  '#blk-mpu6050_reset_tooltip#': {
+    en: 'Resets all angles to zero',
+  },
+  '#blk-mpu6050_update#': {
+    en: 'update MPU-6050 gyro angles',
+  },
+  '#blk-mpu6050_update_tooltip#': {
+    en: 'Only needed for angle readings. Run this frequently to keep the angles accurate',
+  },
+  '#blk-mpu6050_get_accel#': {
+    en: 'MPU-6050 acceleration',
+  },
+  '#blk-mpu6050_get_gyro#': {
+    en: 'MPU-6050 rotation rate',
+  },
+  '#blk-mpu6050_get_angle#': {
+    en: 'MPU-6050 angle',
+  },
+  '#blk-mpu6050_get_angle_tooltip#': {
+    en: 'You must run \\"update gyro angles\\" frequently to get a valid angle.',
+  },
+  '#blk-pca9685_init#': {
+    en: 'init PCA-9685 with address',
+  },
+  '#blk-pca9685_init_tooltip#': {
+    en: 'You must have an \\"init i2c\\" block before this',
+  },
+  '#blk-pca9685_set_freq#': {
+    en: 'set PCA-9685 freq to',
+  },
+  '#blk-pca9685_set_freq_tooltip#': {
+    en: 'Most servos operates at 50Hz',
+  },
+  '#blk-pca9685_analog_write#': {
+    en: 'analog write PCA-9685 channel',
+  },
+  '#blk-pca9685_analog_write_tooltip#': {
+    en: 'Output value should range from 0 to 4095',
+  },
+  '#blk-pca9685_write_angle#': {
+    en: 'set PCA-9685 channel',
+  },
+  '#blk-pca9685_write_angle_tooltip#': {
+    en: 'Output value should range from 0° to 180°',
+  },
+  '#blk-pca9685_write_us#': {
+    en: 'set PCA-9685 channel',
+  },
+  '#blk-pca9685_write_us_tooltip#': {
+    en: 'Typical values for servos range from 1000 to 2000',
+  },
+  '#blk-ssd1306_init#': {
+    en: 'init SSD-1306 with width',
+  },
+  '#blk-height#': {
+    en: 'height',
+  },
+  '#blk-and_addr#': {
+    en: 'and address',
+  },
+  '#blk-ssd1306_init_tooltip#': {
+    en: 'You must have an \\"init i2c\\" block before this',
+  },
+  '#blk-ssd1306_fill#': {
+    en: 'fill SSD-1306 with color',
+  },
+  '#blk-ssd1306_fill_tooltip#': {
+    en: 'Color should be either 1 or 0. You can use this to erase the screen.',
+  },
+  '#blk-ssd1306_show#': {
+    en: 'SSD-1306 show',
+  },
+  '#blk-ssd1306_show_tooltip#': {
+    en: 'You must run this to show what you have drawn to the screen',
+  },
+  '#blk-ssd1306_text#': {
+    en: 'SSD-1306 draw text',
+  },
+  '#blk-at_xy#': {
+    en: 'at x,y',
+  },
+  '#blk-and_color#': {
+    en: 'and color',
+  },
+  '#blk-ssd1306_text_tooltip#': {
+    en: 'You must run show to display the text on screen',
+  },
+  '#blk-ssd1306_pixel#': {
+    en: 'SSD-1306 draw pixel at x,y',
+  },
+  '#blk-ssd1306_pixel_tooltip#': {
+    en: 'You must run show to display the drawn pixel on screen',
+  },
+  '#blk-ssd1306_line#': {
+    en: 'SSD-1306 draw line from x1,y1',
+  },
+  '#blk-to_x2y2#': {
+    en: 'to x2,y2',
+  },
+  '#blk-ssd1306_line_tooltip#': {
+    en: 'You must run show to display the drawn line on screen',
+  },
+  '#blk-ssd1306_rect#': {
+    en: 'SSD-1306 draw rect at x,y',
+  },
+  '#blk-with_wh#': {
+    en: 'with w,h',
+  },
+  '#blk-color#': {
+    en: 'color',
+  },
+  '#blk-ssd1306_rect_tooltip#': {
+    en: 'You must run show to display the drawn rectangle on screen',
+  },
+  '#blk-ssd1306_ellipse#': {
+    en: 'SSD-1306 draw ellipse at x,y',
+  },
+  '#blk-with_xryr#': {
+    en: 'with xr,yr',
+  },
+  '#blk-ssd1306_ellipse_tooltip#': {
+    en: 'You must run show to display the drawn ellipse on screen',
+  },
+  '#blk-ssd1306_scroll#': {
+    en: 'scroll SSD-1306 display with xstep,ystep',
+  },
+  '#blk-ssd1306_scroll_tooltip#': {
+    en: 'Shift the content of the display.',
   },
 };
 let MSGS_KEYS = Object.keys(MSGS);

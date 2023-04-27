@@ -1,0 +1,11 @@
+{
+  "type": "ssd1306_show",
+  "message0": "#blk-ssd1306_show#",
+  "args0": [],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-ssd1306_show_tooltip#",
+  "helpUrl": ""
+}

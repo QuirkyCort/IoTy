@@ -1,0 +1,20 @@
+{
+  "type": "mpu6050_angle",
+  "message0": "#blk-mpu6050_get_angle# %1",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "axis",
+      "options": [
+        ["X-axis", "X"],
+        ["Y-axis", "Y"],
+        ["Z-axis", "Z"],
+        ["All (List)", "ALL"]
+      ]
+    }
+  ],
+  "output": "Number",
+  "colour": 230,
+  "tooltip": "#blk-mpu6050_get_angle_tooltip#",
+  "helpUrl": ""
+}

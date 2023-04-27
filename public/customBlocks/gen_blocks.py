@@ -8,7 +8,7 @@ blocks_json = []
 
 def read_variables_file(filename):
   with open(filename, 'r') as f:
-    variables[filename[:-5]] = f.read()
+    variables[filename[2:-5]] = f.read()
 
 def read_blocks_file(filename):
   with open(filename, 'r') as f:
@@ -31,12 +31,18 @@ def write_blocks_json():
       print('Error writing json')
 
 blocks_filenames = []
-for filename in os.listdir():
-  if filename[-5:] == '.json':
-    if filename[0:1] == '_':
-      read_variables_file(filename)
-    else:
-      blocks_filenames.append(filename)
+def scanDir(path):
+  for entry in os.scandir(path):
+    if entry.is_dir():
+      scanDir(entry.path)
+    elif entry.name[-5:] == '.json':
+      if entry.name[0] == '_':
+        read_variables_file(entry.path)
+      else:
+        blocks_filenames.append(entry.path)
+
+scanDir('.')
+
 for filename in blocks_filenames:
   read_blocks_file(filename)
 

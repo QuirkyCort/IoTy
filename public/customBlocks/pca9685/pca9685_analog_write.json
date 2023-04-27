@@ -1,0 +1,22 @@
+{
+  "type": "pca9685_analog_write",
+  "message0": "#blk-pca9685_analog_write# %1 #blk-to# %2",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "channel",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "value",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-pca9685_analog_write_tooltip#",
+  "helpUrl": ""
+}

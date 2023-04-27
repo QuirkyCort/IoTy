@@ -6,7 +6,7 @@ var ioty_generator = new function() {
 
   // Load Python generators
   this.load = function() {
-    Blockly.Python.addReservedWords('ioty_wifi,ioty_mqtt,ioty_mqtt_cb,i2c');
+    Blockly.Python.addReservedWords('machine,ioty,ioty_wifi,ioty_mqtt,ioty_mqtt_cb,i2c,mpu6050,MPU6050,pca9685,PCA9685');
 
     Blockly.Python.INDENT = '    ';
 
@@ -49,6 +49,29 @@ var ioty_generator = new function() {
     Blockly.Python['i2c_writeto'] = self.i2c_writeto;
     Blockly.Python['i2c_readfrom'] = self.i2c_readfrom;
 
+    Blockly.Python['mpu6050_init'] = self.mpu6050_init;
+    Blockly.Python['mpu6050_calibrate'] = self.mpu6050_calibrate;
+    Blockly.Python['mpu6050_reset'] = self.mpu6050_reset;
+    Blockly.Python['mpu6050_update'] = self.mpu6050_update;
+    Blockly.Python['mpu6050_accel'] = self.mpu6050_accel;
+    Blockly.Python['mpu6050_gyro'] = self.mpu6050_gyro;
+    Blockly.Python['mpu6050_angle'] = self.mpu6050_angle;
+
+    Blockly.Python['pca9685_init'] = self.pca9685_init;
+    Blockly.Python['pca9685_set_freq'] = self.pca9685_set_freq;
+    Blockly.Python['pca9685_analog_write'] = self.pca9685_analog_write;
+    Blockly.Python['pca9685_write_angle'] = self.pca9685_write_angle;
+    Blockly.Python['pca9685_write_us'] = self.pca9685_write_us;
+
+    Blockly.Python['ssd1306_init'] = self.ssd1306_init;
+    Blockly.Python['ssd1306_fill'] = self.ssd1306_fill;
+    Blockly.Python['ssd1306_show'] = self.ssd1306_show;
+    Blockly.Python['ssd1306_text'] = self.ssd1306_text;
+    Blockly.Python['ssd1306_pixel'] = self.ssd1306_pixel;
+    Blockly.Python['ssd1306_line'] = self.ssd1306_line;
+    Blockly.Python['ssd1306_rect'] = self.ssd1306_rect;
+    Blockly.Python['ssd1306_ellipse'] = self.ssd1306_ellipse;
+    Blockly.Python['ssd1306_scroll'] = self.ssd1306_scroll;
   };
 
   // Generate python code
@@ -662,6 +685,229 @@ var ioty_generator = new function() {
     return [code, Blockly.Python.ORDER_ATOMIC];
   };
 
+  this.mpu6050_init = function(block) {
+    self.imports['mpu6050'] = 'from mpu6050 import MPU6050';
 
+    var addr = block.getFieldValue('addr');
+
+    var code =
+      'mpu6050 = MPU6050(i2c, ' + addr + ')\n' +
+      'mpu6050.init_device()\n';
+
+    return code;
+  };
+
+  this.mpu6050_calibrate = function(block) {
+    var code = 'mpu6050.calibrateGyro()\n';
+
+    return code;
+  };
+
+  this.mpu6050_reset = function(block) {
+    var code = 'mpu6050.reset_gyro()\n';
+
+    return code;
+  };
+
+  this.mpu6050_update = function(block) {
+    var code = 'mpu6050.update_angle()\n';
+
+    return code;
+  };
+
+  this.mpu6050_accel = function(block) {
+    var axis = block.getFieldValue('axis');
+
+    if (axis == 'X') {
+      func = 'accel_x';
+    } else if (axis == 'Y') {
+      func = 'accel_y';
+    } else if (axis == 'Z') {
+      func = 'accel_z';
+    } else if (axis == 'ALL') {
+      func = 'accel_all';
+    }
+
+    var code = 'mpu6050.' + func + '()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.mpu6050_gyro = function(block) {
+    var axis = block.getFieldValue('axis');
+
+    if (axis == 'X') {
+      func = 'rate_x';
+    } else if (axis == 'Y') {
+      func = 'rate_y';
+    } else if (axis == 'Z') {
+      func = 'rate_z';
+    } else if (axis == 'ALL') {
+      func = 'rate_all';
+    }
+
+    var code = 'mpu6050.' + func + '()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.mpu6050_angle = function(block) {
+    var axis = block.getFieldValue('axis');
+
+    if (axis == 'X') {
+      func = 'angle_x';
+    } else if (axis == 'Y') {
+      func = 'angle_y';
+    } else if (axis == 'Z') {
+      func = 'angle_z';
+    } else if (axis == 'ALL') {
+      func = 'angle_all';
+    }
+
+    var code = 'mpu6050.' + func + '()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.pca9685_init = function(block) {
+    self.imports['pca9685'] = 'from pca9685 import PCA9685';
+
+    var addr = block.getFieldValue('addr');
+
+    var code = 'pca9685 = PCA9685(i2c, ' + addr + ')\n';
+
+    return code;
+  };
+
+  this.pca9685_set_freq = function(block) {
+    var freq = block.getFieldValue('freq');
+
+    var code = 'pca9685.set_frequency(' + freq + ')\n';
+
+    return code;
+  };
+
+  this.pca9685_analog_write = function(block) {
+    var channel = Blockly.Python.valueToCode(block, 'channel', Blockly.Python.ORDER_ATOMIC);
+    var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_ATOMIC);
+
+    var code = 'pca9685.pwm(' + channel + ', ' + value + ')\n';
+
+    return code;
+  };
+
+  this.pca9685_write_angle = function(block) {
+    var channel = Blockly.Python.valueToCode(block, 'channel', Blockly.Python.ORDER_ATOMIC);
+    var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_ATOMIC);
+
+    var code = 'pca9685.servo_deg(' + channel + ', ' + value + ')\n';
+
+    return code;
+  };
+
+  this.pca9685_write_us = function(block) {
+    var channel = Blockly.Python.valueToCode(block, 'channel', Blockly.Python.ORDER_ATOMIC);
+    var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_ATOMIC);
+
+    var code = 'pca9685.servo_us(' + channel + ', ' + value + ')\n';
+
+    return code;
+  };
+
+  this.ssd1306_init = function(block) {
+    self.imports['ssd1306'] = 'from ssd1306 import SSD1306_I2C';
+
+    var width = block.getFieldValue('width');
+    var height = block.getFieldValue('height');
+    var addr = block.getFieldValue('addr');
+
+    var code =
+      'ssd1306 = SSD1306_I2C(' + width + ', ' + height + ', i2c, ' + addr + ')\n'+
+      'ssd1306.init_display()\n';
+
+    return code;
+  };
+
+  this.ssd1306_fill = function(block) {
+    var color = Blockly.Python.valueToCode(block, 'color', Blockly.Python.ORDER_ATOMIC);
+
+    var code = 'ssd1306.fill(' + color + ')\n';
+
+    return code;
+  };
+
+  this.ssd1306_show = function(block) {
+    var code = 'ssd1306.show()\n';
+
+    return code;
+  };
+
+  this.ssd1306_text = function(block) {
+    var text = Blockly.Python.valueToCode(block, 'text', Blockly.Python.ORDER_ATOMIC);
+    var x = Blockly.Python.valueToCode(block, 'x', Blockly.Python.ORDER_ATOMIC);
+    var y = Blockly.Python.valueToCode(block, 'y', Blockly.Python.ORDER_ATOMIC);
+    var color = Blockly.Python.valueToCode(block, 'color', Blockly.Python.ORDER_ATOMIC);
+
+    var code = 'ssd1306.text(' + text + ', ' + x + ', ' + y + ', ' + color + ')\n';
+
+    return code;
+  };
+
+  this.ssd1306_pixel = function(block) {
+    var x = Blockly.Python.valueToCode(block, 'x', Blockly.Python.ORDER_ATOMIC);
+    var y = Blockly.Python.valueToCode(block, 'y', Blockly.Python.ORDER_ATOMIC);
+    var color = Blockly.Python.valueToCode(block, 'color', Blockly.Python.ORDER_ATOMIC);
+
+    var code = 'ssd1306.pixel(' + x + ', ' + y + ', ' + color + ')\n';
+
+    return code;
+  };
+
+  this.ssd1306_line = function(block) {
+    var x1 = Blockly.Python.valueToCode(block, 'x1', Blockly.Python.ORDER_ATOMIC);
+    var y1 = Blockly.Python.valueToCode(block, 'y1', Blockly.Python.ORDER_ATOMIC);
+    var x2 = Blockly.Python.valueToCode(block, 'x2', Blockly.Python.ORDER_ATOMIC);
+    var y2 = Blockly.Python.valueToCode(block, 'y2', Blockly.Python.ORDER_ATOMIC);
+    var color = Blockly.Python.valueToCode(block, 'color', Blockly.Python.ORDER_ATOMIC);
+
+    var code = 'ssd1306.line(' + x1 + ', ' + y1 + ', ' + x2 + ', ' + y2 + ', ' + color + ')\n';
+
+    return code;
+  };
+
+  this.ssd1306_rect = function(block) {
+    var x = Blockly.Python.valueToCode(block, 'x', Blockly.Python.ORDER_ATOMIC);
+    var y = Blockly.Python.valueToCode(block, 'y', Blockly.Python.ORDER_ATOMIC);
+    var w = Blockly.Python.valueToCode(block, 'w', Blockly.Python.ORDER_ATOMIC);
+    var h = Blockly.Python.valueToCode(block, 'h', Blockly.Python.ORDER_ATOMIC);
+    var color = Blockly.Python.valueToCode(block, 'color', Blockly.Python.ORDER_ATOMIC);
+    var fill = block.getFieldValue('fill');
+
+    var code = 'ssd1306.rect(' + x + ', ' + y + ', ' + w + ', ' + h + ', ' + color + ', ' + fill + ')\n';
+
+    return code;
+  };
+
+  this.ssd1306_ellipse = function(block) {
+    var x = Blockly.Python.valueToCode(block, 'x', Blockly.Python.ORDER_ATOMIC);
+    var y = Blockly.Python.valueToCode(block, 'y', Blockly.Python.ORDER_ATOMIC);
+    var xr = Blockly.Python.valueToCode(block, 'xr', Blockly.Python.ORDER_ATOMIC);
+    var yr = Blockly.Python.valueToCode(block, 'yr', Blockly.Python.ORDER_ATOMIC);
+    var color = Blockly.Python.valueToCode(block, 'color', Blockly.Python.ORDER_ATOMIC);
+    var fill = block.getFieldValue('fill');
+
+    var code = 'ssd1306.ellipse(' + x + ', ' + y + ', ' + xr + ', ' + yr + ', ' + color + ', ' + fill + ')\n';
+
+    return code;
+  };
+
+  this.ssd1306_scroll = function(block) {
+    var xstep = Blockly.Python.valueToCode(block, 'xstep', Blockly.Python.ORDER_ATOMIC);
+    var ystep = Blockly.Python.valueToCode(block, 'ystep', Blockly.Python.ORDER_ATOMIC);
+
+    var code = 'ssd1306.scroll(' + xstep + ', ' + ystep + ')\n';
+
+    return code;
+  };
 }
 

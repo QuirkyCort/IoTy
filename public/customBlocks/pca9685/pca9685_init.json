@@ -1,0 +1,17 @@
+{
+  "type": "pca9685_init",
+  "message0": "#blk-pca9685_init# %1",
+  "args0": [
+    {
+      "type": "field_input",
+      "name": "addr",
+      "text": "64"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-pca9685_init_tooltip#",
+  "helpUrl": ""
+}

@@ -9,7 +9,7 @@ class MPU6050:
         self.reset_gyro()
 
     def init_device(self):
-        self.i2c.writeto_mem(104, 107, struct.pack('<b', 0))
+        self.i2c.writeto_mem(self.addr, 107, struct.pack('<b', 0))
 
     def reset_gyro(self):
         self.gyro_x = 0
@@ -21,11 +21,11 @@ class MPU6050:
         self.prev_time = time.ticks_us()
 
     def calibrateGyro(self, reps=40, threshold=100):
-        prev_x, prev_y, prev_z = struct.unpack('>hhh', self.i2c.readfrom_mem(104, 67, 6))
+        prev_x, prev_y, prev_z = struct.unpack('>hhh', self.i2c.readfrom_mem(self.addr, 67, 6))
         sum_x, sum_y, sum_z = 0, 0, 0
         while True:
             time.sleep_ms(50)
-            x, y, z =  struct.unpack('>hhh', self.i2c.readfrom_mem(104, 67, 6))
+            x, y, z =  struct.unpack('>hhh', self.i2c.readfrom_mem(self.addr, 67, 6))
             if abs(x - prev_x) > threshold or abs(y - prev_y) > threshold or abs(z - prev_z) > threshold:
                 continue
             prev_x, prev_y, prev_z = x, y, z
@@ -40,33 +40,36 @@ class MPU6050:
         self.error_z = sum_z / reps
 
     def accel_all(self):
-        all = struct.unpack('>hhh', self.i2c.readfrom_mem(104, 59, 6))[0]
+        all = struct.unpack('>hhh', self.i2c.readfrom_mem(self.addr, 59, 6))[0]
         return (all[0]/16.384, all[1]/16.384, all[2]/16.384)
 
     def accel_x(self):
-        return struct.unpack('>h', self.i2c.readfrom_mem(104, 59, 2))[0] / 16.384
+        return struct.unpack('>h', self.i2c.readfrom_mem(self.addr, 59, 2))[0] / 16.384
 
     def accel_y(self):
-        return struct.unpack('>h', self.i2c.readfrom_mem(104, 61, 2))[0] / 16.384
+        return struct.unpack('>h', self.i2c.readfrom_mem(self.addr, 61, 2))[0] / 16.384
 
     def accel_z(self):
-        return struct.unpack('>h', self.i2c.readfrom_mem(104, 63, 2))[0] / 16.384
+        return struct.unpack('>h', self.i2c.readfrom_mem(self.addr, 63, 2))[0] / 16.384
 
     def temp(self):
-        return struct.unpack('>h', self.i2c.readfrom_mem(104, 65, 2))[0] / 340 + 36.53
+        return struct.unpack('>h', self.i2c.readfrom_mem(self.addr, 65, 2))[0] / 340 + 36.53
 
     def rate_all(self):
-        all = struct.unpack('>hhh', self.i2c.readfrom_mem(104, 67, 6))[0]
+        all = struct.unpack('>hhh', self.i2c.readfrom_mem(self.addr, 67, 6))[0]
         return (all[0]/131, all[1]/ 131, all[2]/131)
 
     def rate_x(self):
-        return (struct.unpack('>h', self.i2c.readfrom_mem(104, 67, 2))[0] - self.error_x) / 131
+        return (struct.unpack('>h', self.i2c.readfrom_mem(self.addr, 67, 2))[0] - self.error_x) / 131
 
     def rate_y(self):
-        return (struct.unpack('>h', self.i2c.readfrom_mem(104, 69, 2))[0] - self.error_y) / 131
+        return (struct.unpack('>h', self.i2c.readfrom_mem(self.addr, 69, 2))[0] - self.error_y) / 131
 
     def rate_z(self):
-        return (struct.unpack('>h', self.i2c.readfrom_mem(104, 71, 2))[0] - self.error_z) / 131
+        return (struct.unpack('>h', self.i2c.readfrom_mem(self.addr, 71, 2))[0] - self.error_z) / 131
+
+    def angle_all(self):
+        return (self.gyro_x, self.gyro_y, self.gyro_z)
 
     def angle_x(self):
         return self.gyro_x
@@ -78,7 +81,7 @@ class MPU6050:
         return self.gyro_z
 
     def update_angle(self):
-        x, y, z =  struct.unpack('>hhh', self.i2c.readfrom_mem(104, 67, 6))
+        x, y, z =  struct.unpack('>hhh', self.i2c.readfrom_mem(self.addr, 67, 6))
         x -= self.error_x
         y -= self.error_y
         z -= self.error_z

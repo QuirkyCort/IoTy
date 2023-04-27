@@ -10,6 +10,8 @@ var main = new function() {
   this.firmwareFiles = {};
   this.firmwarePreloaded = false;
 
+  this.settings;
+
   this.deviceWifiSettings = {
     ssid: '',
     wifiPassword: '',
@@ -32,6 +34,14 @@ var main = new function() {
     let deviceWifiSettings = localStorage.getItem('deviceWifiSettings');
     if (deviceWifiSettings) {
       self.deviceWifiSettings = JSON.parse(deviceWifiSettings);
+    }
+
+    let settings = localStorage.getItem('iotySettings');
+    if (settings) {
+      self.settings = JSON.parse(settings);
+      extensions.processExtensions();
+    } else {
+      self.settings = self.defaultSettings();
     }
 
     if (typeof navigator.bluetooth == 'undefined') {
@@ -70,6 +80,18 @@ var main = new function() {
     $firmwareWindow.close();
 
     self.showWhatsNew();
+
+    setInterval(self.saveSettingsToLocalStorage, 2 * 1000);
+  };
+
+  this.defaultSettings = function() {
+    return {
+      extensions: [],
+    }
+  };
+
+  this.saveSettingsToLocalStorage = function() {
+    localStorage.setItem('iotySettings', JSON.stringify(self.settings));
   };
 
   this.hiddenButtonDialog = function(title, body) {
@@ -486,7 +508,8 @@ var main = new function() {
         {html: i18n.get('#main-save_blocks#'), line: true, callback: self.saveToComputer},
         {html: i18n.get('#main-load_python#'), line: false, callback: self.loadPythonFromComputer},
         {html: i18n.get('#main-save_python#'), line: true, callback: self.savePythonToComputer},
-        {html: i18n.get('#main-save_json#'), line: false, callback: self.saveToJson},
+        {html: i18n.get('#main-save_json#'), line: true, callback: self.saveToJson},
+        {html: i18n.get('#main-load_extension#'), line: true, callback: extensions.loadDialog},
       ];
 
       menuDropDown(self.$fileMenu, menuItems, {className: 'fileMenuDropDown'});
@@ -513,6 +536,7 @@ var main = new function() {
       blocklyPanel.setDisable(false);
       self.$projectName.val('');
       self.saveProjectName();
+      self.settings = self.defaultSettings();
     });
   };
 
@@ -535,29 +559,70 @@ var main = new function() {
       filename = 'IoTy';
     }
 
-    var hiddenElement = document.createElement('a');
-    hiddenElement.href = 'data:application/xml;charset=UTF-8,' + encodeURIComponent(blockly.getXmlText());;
-    hiddenElement.target = '_blank';
-    hiddenElement.download = filename + '.xml';
-    hiddenElement.dispatchEvent(new MouseEvent('click'));
+    var zip = new JSZip();
+    zip.file('blocks.json', blockly.getJsonText());
+    zip.file('settings.json', JSON.stringify(self.settings));
+
+    zip.generateAsync({
+      type:'base64',
+      compression: "DEFLATE"
+    })
+    .then(function(content) {
+      var hiddenElement = document.createElement('a');
+      hiddenElement.href = 'data:application/zip;base64,' + content;
+      hiddenElement.target = '_blank';
+      hiddenElement.download = filename + '.zip';
+      hiddenElement.dispatchEvent(new MouseEvent('click'));
+    });
   };
 
   // load from computer
   this.loadFromComputer = function() {
     var hiddenElement = document.createElement('input');
     hiddenElement.type = 'file';
-    hiddenElement.accept = 'application/xml,.xml';
+    hiddenElement.accept = 'application/zip,.zip,application/xml,.xml';
     hiddenElement.dispatchEvent(new MouseEvent('click'));
     hiddenElement.addEventListener('change', function(e){
-      var reader = new FileReader();
-      reader.onload = function() {
-        blockly.loadXmlText(this.result);
-      };
-      reader.readAsText(e.target.files[0]);
-      let filename = e.target.files[0].name.replace(/.xml/, '');
-      self.$projectName.val(filename);
-      self.saveProjectName();
+      if (e.target.files[0].name.slice(-4) == '.zip') {
+        self.loadFromComputerZip(e.target.files[0]);
+      } else {
+        self.loadFromComputerXml(e.target.files[0]);
+      }
     });
+  };
+
+  // load new zip format from computer
+  this.loadFromComputerZip = function(file) {
+    async function loadFiles(zip) {
+      await zip.file('blocks.json').async('string')
+        .then(function(content){
+          blockly.loadJsonText(content);
+        });
+
+      await zip.file('settings.json').async('string')
+        .then(function(content){
+          self.settings = JSON.parse(content);
+        });
+    }
+
+    JSZip.loadAsync(file)
+      .then(loadFiles);
+
+    let filename = file.name.replace(/.zip/, '');
+    self.$projectName.val(filename);
+    self.saveProjectName();
+  };
+
+  // load old xml format from computer
+  this.loadFromComputerXml = function(file) {
+    var reader = new FileReader();
+    reader.onload = function() {
+      blockly.loadXmlText(this.result);
+    };
+    reader.readAsText(file);
+    let filename = file.name.replace(/.xml/, '');
+    self.$projectName.val(filename);
+    self.saveProjectName();
   };
 
   // save to computer
