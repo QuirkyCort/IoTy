@@ -1,9 +1,0 @@
-init
-fill
-show
-text(s,x,y,c)
-set_pixel(x,y,c)
-line(x1,y1,x2,y2,1)
-rect(x,y,w,h,c,fill)
-ellipse(x,y,xr,yr,c,f)
-scroll(xstep,ystep)

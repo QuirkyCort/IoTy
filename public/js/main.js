@@ -759,20 +759,29 @@ var main = new function() {
 
   // Display what's new if not seen before
   this.showWhatsNew = function(forceShow=false) {
-    let current = 20230425;
+    let current = 20230427;
     let lastShown = localStorage.getItem('whatsNew');
     if (lastShown == null || parseInt(lastShown) < current || forceShow) {
       let options = {
         title: 'What\'s New',
         message:
+        '<h3>27 Apr 2023 (Extensions!)</h3>' +
+        '<p>' +
+          'IoTy now supports extensions, with 3 extensions for the MPU-6050 (Gyro, Accelerometer), PCA-9685 (Servo driver), and SSD-1306 (OLED display). ' +
+          'Find it under "File -> Load extension...".' +
+        '</p>' +
+        '<p>' +
+          'The save format for blocks programs has also been changed to zip (...previously xml). ' +
+          'Programs saved in the old xml format will still be loadable, but new saves will be in zip format only.' +
+        '</p>' +
         '<h3>25 Apr 2023 (I2C, Access Point Mode)</h3>' +
         '<p>' +
-          'I2C blocks are now available.' +
+          'I2C blocks are now available. ' +
           'This enables IoTy blocks programs to work with pretty much any I2C device (...and there are lots).' +
         '</p>' +
         '<p>' +
-          'Access Point mode is now via "App -> Access Point Page".' +
-          'The new approach of Access Point mode improves compatibility, and should work with all browsers (previously broken on some browsers due to <a href="https://wicg.github.io/private-network-access/">PNA</a> restrictions).' +
+          'Access Point mode is now via "App -> Access Point Page". ' +
+          'The new approach of Access Point mode improves compatibility, and should work with all browsers (previously broken on some browsers due to <a href="https://wicg.github.io/private-network-access/">PNA</a> restrictions). ' +
           'You will need to update your IoTy firmware to at least version 6 to use this.' +
         '</p>'
       }

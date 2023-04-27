@@ -10,8 +10,8 @@ var extensions = new function() {
       ],
       description:
         '<p>' +
-          'The MPU-6050 (often sold as a GY-521 module) contains a 3-axis gyroscope and 3-axis accelerometer.' +
-          'This extension allows you to read the MPU-6050 via I2C, and additionally provides calibration routines to correct for errors, and integration routines to obtain heading.' +
+          'The MPU-6050 (often sold as a GY-521 module) contains a 3-axis gyroscope and 3-axis accelerometer. ' +
+          'This extension allows you to read the MPU-6050 via I2C, and additionally provides calibration routines to correct for errors, and integration routines to obtain headings.' +
         '</p>'
     },
     {
@@ -22,7 +22,7 @@ var extensions = new function() {
       ],
       description:
         '<p>' +
-          'The PCA-9685 is a 16-channel 12-bit PWM driver, commonly used to drive RC servos.' +
+          'The PCA-9685 is a 16-channel 12-bit PWM driver, commonly used to drive RC servos. ' +
           'This extension allows you to control the PCA-9685 via I2C.' +
         '</p>'
     },
@@ -34,7 +34,7 @@ var extensions = new function() {
       ],
       description:
         '<p>' +
-          'The SSD-1306 is an OLED screen that can display text and images.' +
+          'The SSD-1306 is an OLED screen that can display text and monochrome images. ' +
           'This extension allows you to draw text, lines, and shapes on the SSD-1306 via I2C.' +
         '</p>'
     },
