@@ -1,4 +1,4 @@
-_VERSION = 6
+_VERSION = 7
 _PRESERVE_FILES = ('boot.py', 'ioty', '_ioty_name', '_ioty_network', 'umqtt')
 _NETWORK_CONFIGURATION_FILE = '_ioty_network'
 

@@ -10,9 +10,11 @@ import ioty.constants as constants
 
 _COMMAND_TOPIC = b'_IOTY_COMMAND'
 _RESPONSE_TOPIC = b'_IOTY_RESPONSE'
+_TO_MONITOR_TOPIC = b'_IOTY_TO_MONITOR'
 
 class MQTT_Service:
     def __init__(self):
+        self._connected = False
         with open('_ioty_name', 'r') as f:
             self.name = f.readline()
 
@@ -89,8 +91,15 @@ class MQTT_Service:
             self.send_response(constants._STATUS_ERROR, cmd['nonce'])
 
     def get_version(self, cmd):
+        self._connected = True
         content = {
             'version': constants._VERSION,
             'name': self.name
         }
         self.send_response(constants._STATUS_SUCCESS, cmd['nonce'], content)
+
+    def connected(self):
+        return self._connected
+
+    def monitor_send(self, buf):
+        self.mqtt.publish(bytes(self.username, 'utf8') + b'/' + _TO_MONITOR_TOPIC, buf)

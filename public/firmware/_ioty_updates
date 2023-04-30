@@ -9,3 +9,5 @@ mv ioty_6 ioty/constants.py
 mv ioty_7 ioty/neopixel.py
 mv ioty_8 umqtt/simple.py
 mv ioty_9 umqtt/robust.py
+mv ioty_a ioty/mqtt.py
+mv ioty_b ioty/monitor_mqtt.py
