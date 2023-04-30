@@ -767,9 +767,9 @@ var main = new function() {
         message:
         '<h3>30 Apr 2023 (Monitor in Internet mode)</h3>' +
         '<p>' +
-          'Monitor now partially works in internet mode. ' +
-          'You can now receives "print" and error messages on the monitor when connected in internet mode. ' +
-          'Be sure to set the "When Started" block to "wait for internet connection".' +
+          'Monitor now partially works in internet mode, allowing you to receive "print" and error message. ' +
+          'You will need to update your firmware to at least version 7. ' +
+          'Be sure to set the "When Started" block to "wait for internet connection", restart your device, then click "Connect" when the LED stays on.' +
         '</p>' +
         '<p>' +
           'Sending messages do NOT work. ' +
