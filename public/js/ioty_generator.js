@@ -94,6 +94,8 @@ var ioty_generator = new function() {
       code +=
         'import ioty.monitor\n' +
         'ioty.monitor.wait_for_connection()\n\n';
+    } else if (self.startType == 'WAIT_MQTT') {
+      code += 'import ioty.monitor_mqtt\n';
     }
 
     for (let key in self.imports) {

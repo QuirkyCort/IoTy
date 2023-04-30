@@ -765,6 +765,16 @@ var main = new function() {
       let options = {
         title: 'What\'s New',
         message:
+        '<h3>30 Apr 2023 (Monitor in Internet mode)</h3>' +
+        '<p>' +
+          'Monitor now partially works in internet mode. ' +
+          'You can now receives "print" and error messages on the monitor when connected in internet mode. ' +
+          'Be sure to set the "When Started" block to "wait for internet connection".' +
+        '</p>' +
+        '<p>' +
+          'Sending messages do NOT work. ' +
+          'This is difficult to achieve due to the synchronous nature of the mqtt library and may never be supported. ' +
+        '</p>' +
         '<h3>27 Apr 2023 (Extensions!)</h3>' +
         '<p>' +
           'IoTy now supports extensions, with 3 extensions for the MPU-6050 (Gyro, Accelerometer), PCA-9685 (Servo driver), and SSD-1306 (OLED display). ' +

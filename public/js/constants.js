@@ -1,5 +1,5 @@
 var constants = {
-  CURRENT_VERSION: 6,
+  CURRENT_VERSION: 7,
   FIRMWARE_UPDATE_FILE: '_ioty_updates',
   NETWORK_CONFIGURATION_FILE: '_ioty_network',
   NAME_FILE: '_ioty_name',

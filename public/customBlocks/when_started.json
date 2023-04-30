@@ -11,8 +11,12 @@
           "RUN"
         ],
         [
-          "wait for connection",
+          "wait for Bluetooth connection",
           "WAIT"
+        ],
+        [
+          "wait for Internet connection",
+          "WAIT_MQTT"
         ],
         [
           "disable connection",

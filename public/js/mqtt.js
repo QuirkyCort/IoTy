@@ -4,6 +4,7 @@ var mqtt = new function() {
   this.URL = 'http://192.168.4.1:8000';
   this.COMMAND_TOPIC = '_IOTY_COMMAND';
   this.RESPONSE_TOPIC = '_IOTY_RESPONSE';
+  this.TO_MONITOR_TOPIC = '_IOTY_TO_MONITOR';
 
   this.isConnected = false;
 
@@ -150,6 +151,18 @@ var mqtt = new function() {
   };
 
   this.onMessageArrived = function(message) {
+    if (message.destinationName == self.mqttSettings.username + '/' + self.RESPONSE_TOPIC) {
+      self.onResponseMessageArrived(message);
+    } else if (message.destinationName == self.mqttSettings.username + '/' + self.TO_MONITOR_TOPIC) {
+      self.onMonitorMessageArrived(message);
+    }
+  };
+
+  this.onMonitorMessageArrived = function(message) {
+    monitorPanel.appendText(message.payloadString);
+  };
+
+  this.onResponseMessageArrived = function(message) {
     let response = JSON.parse(message.payloadString);
     self.responseBuffer[response.nonce] = response;
   };
@@ -167,6 +180,7 @@ var mqtt = new function() {
     self.isConnected = true;
     window.clearInterval(self.connectTimeoutID);
     self.client.subscribe(self.mqttSettings.username + '/' + self.RESPONSE_TOPIC);
+    self.client.subscribe(self.mqttSettings.username + '/' + self.TO_MONITOR_TOPIC);
     self.checkVersion(self.$connectWindow);
   };
 
@@ -179,6 +193,12 @@ var mqtt = new function() {
     self.$connectWindow = main.hiddenButtonDialog('Connecting to Server', 'Connecting...');
 
     let clientID = self.genClientID();
+    if (self.client) {
+      try {
+        self.client.disconnect();
+      } catch (e) {}
+
+    }
     self.client = new Paho.MQTT.Client(self.mqttSettings.host, clientID);
     self.client.onConnectionLost = self.onConnectionLost;
     self.client.onMessageArrived = self.onMessageArrived;
