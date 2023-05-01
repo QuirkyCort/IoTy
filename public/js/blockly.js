@@ -73,6 +73,7 @@ var blockly = new function() {
   this.loadDefaultWorkspace = function() {
     let jsonText = '{"blocks":{"languageVersion":0,"blocks":[{"type":"when_started","id":"Q!^ZqS4/(a/0XL$cIi-~","x":63,"y":38,"data":"Main","fields":{"start_type":"RUN"}}]}}';
     self.loadJsonText(jsonText);
+    self.unsaved = true;
   };
 
   // Load custom blocks
