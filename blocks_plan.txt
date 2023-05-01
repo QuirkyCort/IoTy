@@ -1,6 +1,11 @@
 Category
 ===
 
+# mounting of sdcard as filesystem
+
+# Read and write files
+standard stuff. Read and write to built-in filesystem.
+
 # Date and time
 time module
 machine.RTC().datetime()

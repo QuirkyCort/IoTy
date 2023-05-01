@@ -345,6 +345,9 @@ let MSGS = {
   '#blk-with_password#': {
     en: 'with password',
   },
+  '#blk-connect_to_wifi_tooltip#': {
+    en: 'If the \\"When Started\\" block is set to \\"wait for Internet connection\\", your device will connect automatically and you should not use this block.',
+  },
   '#blk-connect_to_mqtt_server#': {
     en: 'MQTT: Connect to server',
   },
@@ -848,7 +851,7 @@ let MSGS = {
     en: 'as',
   },
   '#blk-urequests_simple_tooltip#': {
-    en: 'https requests requires a lot more RAM and may fail especially if Bluetooth is enabled.',
+    en: 'Simple requests. Note that https requests requires more RAM and may fail especially if Bluetooth is enabled.',
   },
   '#blk-in_body#': {
     en: 'in body',
@@ -869,7 +872,7 @@ let MSGS = {
     en: 'Connect to configured WiFi',
   },
   '#blk-connect_to_configured_wifi_tooltip#': {
-    en: 'Connect to the WiFi hotspot that was configured via \\"Configure Device Network...\\".',
+    en: 'Connect to the WiFi hotspot that was configured via \\"Configure Device Network...\\". If the \\"When Started\\" block is set to \\"wait for Internet connection\\", your device will connect automatically and you should not use this block.',
   },
 };
 let MSGS_KEYS = Object.keys(MSGS);
