@@ -1,0 +1,21 @@
+{
+  "type": "dict_set",
+  "message0": "#blk-set# %1 #blk-to# %2",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "variable"
+    },
+    {
+      "type": "input_value",
+      "name": "value"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 260,
+  "tooltip": "#blk-dict_set_tooltip#",
+  "helpUrl": ""
+
+}

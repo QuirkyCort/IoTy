@@ -1,0 +1,19 @@
+{
+  "type": "dict_key_value",
+  "message0": "%1 #blk-open_square# %2 #blk-close_square#",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "variable"
+    },
+    {
+      "type": "input_value",
+      "name": "key"
+    }
+  ],
+  "output": null,
+  "inputsInline": true,
+  "colour": 260,
+  "tooltip": "#blk_dict_key_value_tooltip#",
+  "helpUrl": ""
+}

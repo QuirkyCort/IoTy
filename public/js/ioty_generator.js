@@ -6,7 +6,7 @@ var ioty_generator = new function() {
 
   // Load Python generators
   this.load = function() {
-    Blockly.Python.addReservedWords('machine,ioty,ioty_wifi,ioty_mqtt,ioty_mqtt_cb,i2c,mpu6050,MPU6050,pca9685,PCA9685');
+    Blockly.Python.addReservedWords('machine,ioty,ioty_wifi,ioty_mqtt,ioty_mqtt_cb,i2c,mpu6050,MPU6050,pca9685,PCA9685,req');
 
     Blockly.Python.INDENT = '    ';
 
@@ -24,6 +24,11 @@ var ioty_generator = new function() {
     Blockly.Python['exit'] = self.exit;
     Blockly.Python['read_input'] = self.read_input;
     Blockly.Python['type_cast'] = self.type_cast;
+    Blockly.Python['servo_write_deg'] = self.servo_write_deg;
+    Blockly.Python['servo_write_us'] = self.servo_write_us;
+    Blockly.Python['hc_sr04_ping'] = self.hc_sr04_ping;
+    Blockly.Python['connect_to_wifi'] = self.connect_to_wifi;
+
     Blockly.Python['neopixel_init'] = self.neopixel_init;
     Blockly.Python['neopixel_color'] = self.neopixel_color;
     Blockly.Python['neopixel_rgb'] = self.neopixel_rgb;
@@ -32,16 +37,14 @@ var ioty_generator = new function() {
     Blockly.Python['neopixel_set'] = self.neopixel_set;
     Blockly.Python['neopixel_fill'] = self.neopixel_fill;
     Blockly.Python['neopixel_write'] = self.neopixel_write;
-    Blockly.Python['servo_write_deg'] = self.servo_write_deg;
-    Blockly.Python['servo_write_us'] = self.servo_write_us;
-    Blockly.Python['hc_sr04_ping'] = self.hc_sr04_ping;
-    Blockly.Python['connect_to_wifi'] = self.connect_to_wifi;
+
     Blockly.Python['mqtt_connect_to_server'] = self.mqtt_connect_to_server;
     Blockly.Python['mqtt_wait_msg'] = self.mqtt_wait_msg;
     Blockly.Python['mqtt_check_msg'] = self.mqtt_check_msg;
     Blockly.Python['mqtt_on_receive'] = self.mqtt_on_receive;
     Blockly.Python['mqtt_msg'] = self.mqtt_msg;
     Blockly.Python['mqtt_publish'] = self.mqtt_publish;
+
     Blockly.Python['i2c_init'] = self.i2c_init;
     Blockly.Python['i2c_scan'] = self.i2c_scan;
     Blockly.Python['i2c_writeto_mem'] = self.i2c_writeto_mem;
@@ -72,6 +75,13 @@ var ioty_generator = new function() {
     Blockly.Python['ssd1306_rect'] = self.ssd1306_rect;
     Blockly.Python['ssd1306_ellipse'] = self.ssd1306_ellipse;
     Blockly.Python['ssd1306_scroll'] = self.ssd1306_scroll;
+
+    Blockly.Python['dict_empty'] = self.dict_empty;
+    Blockly.Python['dict_key_value'] = self.dict_key_value;
+    Blockly.Python['dict_set'] = self.dict_set;
+
+    Blockly.Python['urequests_simple'] = self.urequests_simple;
+    Blockly.Python['urequests_advance'] = self.urequests_advance;
   };
 
   // Generate python code
@@ -911,5 +921,97 @@ var ioty_generator = new function() {
 
     return code;
   };
+
+  this.dict_empty = function(block) {
+    var code = '{}';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.dict_key_value = function(block) {
+    var variable = Blockly.Python.valueToCode(block, 'variable', Blockly.Python.ORDER_MEMBER);
+    var key = Blockly.Python.valueToCode(block, 'key', Blockly.Python.ORDER_NONE);
+
+    var code = variable + '[' + key + ']';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.dict_set = function(block) {
+    var variable = Blockly.Python.valueToCode(block, 'variable', Blockly.Python.ORDER_ATOMIC);
+    var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_NONE);
+
+    var code = variable + ' = ' + value + '\n';
+
+    return code;
+  };
+
+  this.urequests_simple = function(block) {
+    self.imports['urequests'] = 'import urequests';
+
+    let method = block.getFieldValue('method');
+    var url = Blockly.Python.valueToCode(block, 'url', Blockly.Python.ORDER_ATOMIC);
+    let variable = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('variable'), 'VARIABLE');
+    let type = block.getFieldValue('type');
+
+    let return_method;
+    if (type == 'JSON') {
+      return_method = '.json()';
+    } else if (type == 'TEXT') {
+      return_method = '.text';
+    } else if (type == 'BYTES') {
+      return_method = '.content';
+    }
+
+    var code =
+      'req = urequests.request(\'' + method + '\', ' + url + ')\n' +
+      variable + ' = req' + return_method + '\n' +
+      'req.close()\n';
+
+    return code;
+  };
+
+  this.urequests_advance = function(block) {
+    self.imports['urequests'] = 'import urequests';
+
+    let method = block.getFieldValue('method');
+    var url = Blockly.Python.valueToCode(block, 'url', Blockly.Python.ORDER_ATOMIC);
+    let body_type = block.getFieldValue('body_type');
+    var body = Blockly.Python.valueToCode(block, 'body', Blockly.Python.ORDER_ATOMIC);
+    var header = Blockly.Python.valueToCode(block, 'header', Blockly.Python.ORDER_ATOMIC);
+    let variable = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('variable'), 'VARIABLE');
+    let type = block.getFieldValue('type');
+
+    let return_method;
+    if (type == 'JSON') {
+      return_method = '.json()';
+    } else if (type == 'TEXT') {
+      return_method = '.text';
+    } else if (type == 'BYTES') {
+      return_method = '.content';
+    }
+
+    let param = '';
+
+    if (body) {
+      if (body_type == 'JSON') {
+        param += ', json=' + body;
+      } else {
+        param += ', data=' + body;
+      }
+    }
+
+    if (header) {
+      param += ', header=' + header;
+    }
+
+    var code =
+      'req = urequests.request(\'' + method + '\', ' + url + param + ')\n' +
+      variable + ' = req' + return_method + '\n' +
+      'req.close()\n';
+
+    return code;
+  };
+
 }
 

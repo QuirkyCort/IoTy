@@ -266,7 +266,7 @@ var mqtt = new function() {
     }
 
     if (filesManager.modified == false) {
-      pythonPanel.loadPythonFromBlockly();
+      await pythonPanel.loadPythonFromBlockly();
     }
     filesManager.updateCurrentFile();
 

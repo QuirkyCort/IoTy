@@ -18,7 +18,7 @@ var extensions = new function() {
       id: 'pca9685',
       name: 'PCA-9685 (PWM / Servo Driver)',
       files: [
-        ['pca9685', 'extensions/pca9685.py?v=3aee7687'],
+        ['pca9685.py', 'extensions/pca9685.py?v=3aee7687'],
       ],
       description:
         '<p>' +
@@ -30,12 +30,24 @@ var extensions = new function() {
       id: 'ssd1306',
       name: 'SSD-1306 (OLED Screen)',
       files: [
-        ['ssd1306', 'extensions/ssd1306.py?v=470f8a8c'],
+        ['ssd1306.py', 'extensions/ssd1306.py?v=470f8a8c'],
       ],
       description:
         '<p>' +
           'The SSD-1306 is an OLED screen that can display text and monochrome images. ' +
           'This extension allows you to draw text, lines, and shapes on the SSD-1306 via I2C.' +
+        '</p>'
+    },
+    {
+      id: 'urequests',
+      name: 'urequests (HTTP Requests)',
+      files: [
+        ['urequests.py', 'extensions/urequests.py?v=470f8a8c'],
+      ],
+      description:
+        '<p>' +
+          'This extension allows you to make http request (ie. retrieve webpages). ' +
+          'You can use this to retrieve normal webpages, as well as useful data (eg. weather) from <a href="https://github.com/public-apis/public-apis">public APIs</a>.' +
         '</p>'
     },
   ]

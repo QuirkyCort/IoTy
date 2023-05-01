@@ -93,10 +93,10 @@ var pythonPanel = new function() {
   };
 
   // Load Python code from blockly
-  this.loadPythonFromBlockly = function() {
+  this.loadPythonFromBlockly = async function() {
     self.ignoreChange++;
     filesManager.setToDefault();
-    extensions.processExtensions();
+    await extensions.processExtensions();
     filesManager.select('main.py');
     let code = blockly.generator.genCode();
     self.editor.setValue(code, 1);

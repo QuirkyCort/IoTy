@@ -1,0 +1,71 @@
+{
+  "type": "urequests_simple",
+  "message0": "http %1 #blk-request_to# %2 #blk-and_put_result_in# %3 #blk-as# %4",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "method",
+      "options": [
+        [
+          "GET",
+          "GET"
+        ],
+        [
+          "POST",
+          "POST"
+        ],
+        [
+          "HEAD",
+          "HEAD"
+        ],
+        [
+          "PUT",
+          "PUT"
+        ],
+        [
+          "PATCH",
+          "PATCH"
+        ],
+        [
+          "DELETE",
+          "DELETE"
+        ]
+      ]
+    },
+    {
+      "type": "input_value",
+      "name": "url",
+      "check": "String"
+    },
+    {
+      "type": "field_variable",
+      "name": "variable",
+      "variable": "item"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "type",
+      "options": [
+        [
+          "JSON",
+          "JSON"
+        ],
+        [
+          "Text",
+          "TEXT"
+        ],
+        [
+          "Bytes",
+          "BYTES"
+        ]
+      ]
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 65,
+  "tooltip": "#blk-urequests_simple_tooltip#",
+  "helpUrl": ""
+
+}

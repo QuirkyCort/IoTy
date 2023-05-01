@@ -416,6 +416,33 @@
       <field name="DIRECTION">1</field>
     </block>
   </category>
+  <category name="#blk-dict#" colour="#745ba5">
+    <block type="dict_empty"></block>
+    <block type="dict_set">
+      <value name="variable">
+        <block type="dict_key_value">
+          <value name="variable">
+            <shadow type="variables_get"></shadow>
+          </value>
+          <value name="key">
+            <shadow type="text">
+              <field name="TEXT">key</field>
+            </shadow>
+          </value>
+        </block>
+      </value>
+    </block>
+    <block type="dict_key_value">
+      <value name="variable">
+        <shadow type="variables_get"></shadow>
+      </value>
+      <value name="key">
+        <shadow type="text">
+          <field name="TEXT">key</field>
+        </shadow>
+      </value>
+    </block>
+  </category>
   <category name="Variables" colour="#a55b80" custom="VARIABLE"></category>
   <category name="Functions" colour="#995ba5" custom="PROCEDURE"></category>
   <category name="#blk-network#" colour="#9fa55b">
@@ -759,6 +786,22 @@
       <value name="ystep">
         <shadow type="math_number">
           <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+  </category>
+  <category toolboxitemid="urequests" name="urequests" colour="#5b67a5" hidden="true">
+    <block type="urequests_simple">
+      <value name="url">
+        <shadow type="text">
+          <field name="TEXT">http://whatever.url</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="urequests_advance">
+      <value name="url">
+        <shadow type="text">
+          <field name="TEXT">http://whatever.url</field>
         </shadow>
       </value>
     </block>

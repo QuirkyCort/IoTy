@@ -814,6 +814,48 @@ let MSGS = {
   '#blk-ssd1306_scroll_tooltip#': {
     en: 'Shift the content of the display.',
   },
+  '#blk-dict#': {
+    en: 'Dictionaries',
+  },
+  '#blk-open_square#': {
+    en: '[',
+  },
+  '#blk-close_square#': {
+    en: ']',
+  },
+  '#blk-dict_key_value_tooltip#': {
+    en: 'Insert either a variable or another copy of this block into the first input',
+  },
+  '#blk-dict_empty#': {
+    en: 'empty dictionary',
+  },
+  '#blk-dict_empty_tooltip#': {
+    en: 'Creates an empty dict. Use the assignment block to set values.',
+  },
+  '#blk-set#': {
+    en: 'set',
+  },
+  '#blk-dict_set_tooltip#': {
+    en: 'Create an empty dictionary and assign it to a variable before setting values',
+  },
+  '#blk-request_to#': {
+    en: 'request to',
+  },
+  '#blk-and_put_result_in#': {
+    en: 'and put result in',
+  },
+  '#blk-as#': {
+    en: 'as',
+  },
+  '#blk-urequests_simple_tooltip#': {
+    en: 'https requests requires a lot more RAM and may fail especially if Bluetooth is enabled.',
+  },
+  '#blk-in_body#': {
+    en: 'in body',
+  },
+  '#blk-and_header#': {
+    en: 'and header',
+  },
 };
 let MSGS_KEYS = Object.keys(MSGS);
 

@@ -1,0 +1,93 @@
+{
+  "type": "urequests_advance",
+  "message0": "http %1 #blk-request_to# %2 #blk-with# %3 #blk-in_body# %4 #blk-and_header# %5 #blk-and_put_result_in# %6 #blk-as# %7",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "method",
+      "options": [
+        [
+          "GET",
+          "GET"
+        ],
+        [
+          "POST",
+          "POST"
+        ],
+        [
+          "HEAD",
+          "HEAD"
+        ],
+        [
+          "PUT",
+          "PUT"
+        ],
+        [
+          "PATCH",
+          "PATCH"
+        ],
+        [
+          "DELETE",
+          "DELETE"
+        ]
+      ]
+    },
+    {
+      "type": "input_value",
+      "name": "url",
+      "check": "String"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "body_type",
+      "options": [
+        [
+          "JSON",
+          "JSON"
+        ],
+        [
+          "Data",
+          "DATA"
+        ]
+      ]
+    },
+    {
+      "type": "input_value",
+      "name": "body"
+    },
+    {
+      "type": "input_value",
+      "name": "header"
+    },
+    {
+      "type": "field_variable",
+      "name": "variable",
+      "variable": "item"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "type",
+      "options": [
+        [
+          "JSON",
+          "JSON"
+        ],
+        [
+          "Text",
+          "TEXT"
+        ],
+        [
+          "Bytes",
+          "BYTES"
+        ]
+      ]
+    }
+  ],
+  "inputsInline": false,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 65,
+  "tooltip": "#blk-urequests_simple_tooltip#",
+  "helpUrl": ""
+
+}
