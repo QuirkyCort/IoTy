@@ -865,6 +865,12 @@ let MSGS = {
   '#blk-urequests_advance_tooltip#': {
     en: 'The advance urequest allows setting of request header and body, as well as detection of error.',
   },
+  '#blk-connect_to_configured_wifi#': {
+    en: 'Connect to configured WiFi',
+  },
+  '#blk-connect_to_configured_wifi_tooltip#': {
+    en: 'Connect to the WiFi hotspot that was configured via \\"Configure Device Network...\\".',
+  },
 };
 let MSGS_KEYS = Object.keys(MSGS);
 

@@ -28,6 +28,7 @@ var ioty_generator = new function() {
     Blockly.Python['servo_write_us'] = self.servo_write_us;
     Blockly.Python['hc_sr04_ping'] = self.hc_sr04_ping;
     Blockly.Python['connect_to_wifi'] = self.connect_to_wifi;
+    Blockly.Python['connect_to_configured_wifi'] = self.connect_to_configured_wifi;
 
     Blockly.Python['neopixel_init'] = self.neopixel_init;
     Blockly.Python['neopixel_color'] = self.neopixel_color;
@@ -492,6 +493,23 @@ var ioty_generator = new function() {
       'while not ioty_wifi.isconnected():\n' +
       '    pass\n' +
       '# Done: Connect to WiFi\n\n';
+
+      return code;
+  };
+
+  this.connect_to_configured_wifi = function(block) {
+    self.imports['MQTT_Service'] = 'from ioty.mqtt import MQTT_Service';
+    self.imports['time'] = 'import time';
+
+    var code =
+      '# Connect to configured WiFi\n' +
+      'mqtt = MQTT_Service()\n' +
+      'if mqtt.read_config():\n' +
+      '    mqtt.connect_wifi()\n' +
+      '    while not mqtt.wifi_isconnected():\n' +
+      '        time.sleep_ms(500)\n' +
+      'else:\n' +
+      '    raise Exception("No WiFi configured")\n\n';
 
       return code;
   };

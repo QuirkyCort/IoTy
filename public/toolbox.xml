@@ -446,6 +446,7 @@
   <category name="Variables" colour="#a55b80" custom="VARIABLE"></category>
   <category name="Functions" colour="#995ba5" custom="PROCEDURE"></category>
   <category name="#blk-network#" colour="#9fa55b">
+    <block type="connect_to_configured_wifi"></block>
     <block type="connect_to_wifi"></block>
     <block type="mqtt_connect_to_server"></block>
     <block type="mqtt_on_receive"></block>
@@ -790,7 +791,7 @@
       </value>
     </block>
   </category>
-  <category toolboxitemid="urequests" name="urequests" colour="#5b67a5" hidden="true">
+  <category toolboxitemid="urequests" name="urequests" colour="#9fa55b" hidden="true">
     <block type="urequests_simple">
       <value name="url">
         <shadow type="text">

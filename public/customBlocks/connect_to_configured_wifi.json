@@ -1,0 +1,11 @@
+{
+  "type": "connect_to_configured_wifi",
+  "message0": "#blk-connect_to_configured_wifi#",
+  "args0": [],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 65,
+  "tooltip": "#blk-connect_to_configured_wifi_tooltip#",
+  "helpUrl": ""
+}
