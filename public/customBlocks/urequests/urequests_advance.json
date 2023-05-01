@@ -1,6 +1,6 @@
 {
   "type": "urequests_advance",
-  "message0": "http %1 #blk-request_to# %2 #blk-with# %3 #blk-in_body# %4 #blk-and_header# %5 #blk-and_put_result_in# %6 #blk-as# %7",
+  "message0": "http %1 #blk-request_to# %2 #blk-with# %3 #blk-in_body# %4 #blk-and_header# %5 #blk-and_put_result_in# %6 #blk-as# %7 %8 #blk-on_success# %9 #blk-on_fail# %10",
   "args0": [
     {
       "type": "field_dropdown",
@@ -81,13 +81,24 @@
           "BYTES"
         ]
       ]
+    },
+    {
+      "type": "input_dummy"
+    },
+    {
+      "type": "input_statement",
+      "name": "on_success"
+    },
+    {
+      "type": "input_statement",
+      "name": "on_fail"
     }
   ],
   "inputsInline": false,
   "previousStatement": null,
   "nextStatement": null,
   "colour": 65,
-  "tooltip": "#blk-urequests_simple_tooltip#",
+  "tooltip": "#blk-urequests_advance_tooltip#",
   "helpUrl": ""
 
 }

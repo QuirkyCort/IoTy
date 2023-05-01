@@ -856,6 +856,15 @@ let MSGS = {
   '#blk-and_header#': {
     en: 'and header',
   },
+  '#blk-on_success#': {
+    en: 'on success',
+  },
+  '#blk-on_fail#': {
+    en: 'on fail',
+  },
+  '#blk-urequests_advance_tooltip#': {
+    en: 'The advance urequest allows setting of request header and body, as well as detection of error.',
+  },
 };
 let MSGS_KEYS = Object.keys(MSGS);
 

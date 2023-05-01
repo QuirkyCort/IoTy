@@ -80,8 +80,8 @@ var ioty_generator = new function() {
     Blockly.Python['dict_key_value'] = self.dict_key_value;
     Blockly.Python['dict_set'] = self.dict_set;
 
-    Blockly.Python['urequests_simple'] = self.urequests_simple;
-    Blockly.Python['urequests_advance'] = self.urequests_advance;
+    Blockly.Python['urequests_simple'] = self.urequests_simple_advance;
+    Blockly.Python['urequests_advance'] = self.urequests_simple_advance;
   };
 
   // Generate python code
@@ -946,7 +946,7 @@ var ioty_generator = new function() {
     return code;
   };
 
-  this.urequests_simple = function(block) {
+  this.urequests_simple_advance = function(block) {
     self.imports['urequests'] = 'import urequests';
 
     let method = block.getFieldValue('method');
@@ -963,33 +963,12 @@ var ioty_generator = new function() {
       return_method = '.content';
     }
 
-    var code =
-      'req = urequests.request(\'' + method + '\', ' + url + ')\n' +
-      variable + ' = req' + return_method + '\n' +
-      'req.close()\n';
-
-    return code;
-  };
-
-  this.urequests_advance = function(block) {
-    self.imports['urequests'] = 'import urequests';
-
-    let method = block.getFieldValue('method');
-    var url = Blockly.Python.valueToCode(block, 'url', Blockly.Python.ORDER_ATOMIC);
+    // Only used by advance
     let body_type = block.getFieldValue('body_type');
-    var body = Blockly.Python.valueToCode(block, 'body', Blockly.Python.ORDER_ATOMIC);
-    var header = Blockly.Python.valueToCode(block, 'header', Blockly.Python.ORDER_ATOMIC);
-    let variable = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('variable'), 'VARIABLE');
-    let type = block.getFieldValue('type');
-
-    let return_method;
-    if (type == 'JSON') {
-      return_method = '.json()';
-    } else if (type == 'TEXT') {
-      return_method = '.text';
-    } else if (type == 'BYTES') {
-      return_method = '.content';
-    }
+    let body = Blockly.Python.valueToCode(block, 'body', Blockly.Python.ORDER_ATOMIC);
+    let header = Blockly.Python.valueToCode(block, 'header', Blockly.Python.ORDER_ATOMIC);
+    var on_success = Blockly.Python.statementToCode(block, 'on_success');
+    var on_fail = Blockly.Python.statementToCode(block, 'on_fail');
 
     let param = '';
 
@@ -1006,9 +985,18 @@ var ioty_generator = new function() {
     }
 
     var code =
-      'req = urequests.request(\'' + method + '\', ' + url + param + ')\n' +
-      variable + ' = req' + return_method + '\n' +
-      'req.close()\n';
+      'try:\n' +
+      '    req = urequests.request(\'' + method + '\', ' + url + param + ')\n' +
+      '    ' + variable + ' = req' + return_method + '\n' +
+      '    req.close()\n' +
+      on_success +
+      'except:\n';
+
+    if (on_fail) {
+      code += on_fail;
+    } else {
+      code += '    pass\n';
+    }
 
     return code;
   };
