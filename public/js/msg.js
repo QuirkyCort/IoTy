@@ -820,12 +820,6 @@ let MSGS = {
   '#blk-dict#': {
     en: 'Dictionaries',
   },
-  '#blk-open_square#': {
-    en: '[',
-  },
-  '#blk-close_square#': {
-    en: ']',
-  },
   '#blk-dict_key_value_tooltip#': {
     en: 'Insert either a variable or another copy of this block into the first input',
   },
