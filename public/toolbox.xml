@@ -424,7 +424,7 @@
           <value name="variable">
             <shadow type="variables_get"></shadow>
           </value>
-          <value name="key">
+          <value name="key0">
             <shadow type="text">
               <field name="TEXT">key</field>
             </shadow>
@@ -436,7 +436,7 @@
       <value name="variable">
         <shadow type="variables_get"></shadow>
       </value>
-      <value name="key">
+      <value name="key0">
         <shadow type="text">
           <field name="TEXT">key</field>
         </shadow>

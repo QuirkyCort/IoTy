@@ -948,9 +948,19 @@ var ioty_generator = new function() {
 
   this.dict_key_value = function(block) {
     var variable = Blockly.Python.valueToCode(block, 'variable', Blockly.Python.ORDER_MEMBER);
-    var key = Blockly.Python.valueToCode(block, 'key', Blockly.Python.ORDER_NONE);
 
-    var code = variable + '[' + key + ']';
+    var code = variable;
+
+    let i=0;
+    while (true) {
+      let key = Blockly.Python.valueToCode(block, 'key' + i, Blockly.Python.ORDER_NONE);
+      if (key) {
+        code += '[' + key + ']';
+      } else {
+        break;
+      }
+      i++;
+    }
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };
@@ -958,6 +968,10 @@ var ioty_generator = new function() {
   this.dict_set = function(block) {
     var variable = Blockly.Python.valueToCode(block, 'variable', Blockly.Python.ORDER_ATOMIC);
     var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_NONE);
+
+    if (! value) {
+      value = '0';
+    }
 
     var code = variable + ' = ' + value + '\n';
 
