@@ -70,8 +70,9 @@ Blockly.defineBlocksWithJsonArray([
     "message0": "%1 [ %2 ]",
     "args0": [
       {
-        "type": "input_value",
-        "name": "variable"
+        "type": "field_variable",
+        "name": "variable",
+        "variable": "item"
       },
       {
         "type": "input_value",

@@ -421,9 +421,6 @@
     <block type="dict_set">
       <value name="variable">
         <block type="dict_key_value">
-          <value name="variable">
-            <shadow type="variables_get"></shadow>
-          </value>
           <value name="key0">
             <shadow type="text">
               <field name="TEXT">key</field>
@@ -433,9 +430,6 @@
       </value>
     </block>
     <block type="dict_key_value">
-      <value name="variable">
-        <shadow type="variables_get"></shadow>
-      </value>
       <value name="key0">
         <shadow type="text">
           <field name="TEXT">key</field>

@@ -947,7 +947,7 @@ var ioty_generator = new function() {
   };
 
   this.dict_key_value = function(block) {
-    var variable = Blockly.Python.valueToCode(block, 'variable', Blockly.Python.ORDER_MEMBER);
+    var variable = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('variable'), 'VARIABLE');
 
     var code = variable;
 

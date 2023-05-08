@@ -50,7 +50,7 @@ var blockly = new function() {
 
   // Load toolbox
   this.loadToolBox = function() {
-    return fetch('toolbox.xml?v=c9789fb0')
+    return fetch('toolbox.xml?v=ec2c8f7c')
       .then(response => response.text())
       .then(function(response) {
         response = i18n.replace(response);
