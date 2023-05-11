@@ -12,6 +12,8 @@ var ble = new function() {
 
   this.isConnected = false;
 
+  this.dataNotificationBuf = new Uint8Array();
+
   // Run on page load
   this.init = function() {
   };
@@ -54,7 +56,13 @@ var ble = new function() {
 
       console.log('Starting notifications...');
       await self.serialCharacteristic.startNotifications();
-      self.serialCharacteristic.addEventListener('characteristicvaluechanged', self.handleNotifications);
+      self.serialCharacteristic.addEventListener('characteristicvaluechanged', self.handleSerialNotifications);
+      try {
+        await self.dataCharacteristic.startNotifications();
+        self.dataCharacteristic.addEventListener('characteristicvaluechanged', self.handleDataNotifications);
+      } catch(error) {
+        console.log(error);
+      }
       $connectWindow.$body.text('Connecting (5/5)...');
 
       console.log('Checking version...');
@@ -180,6 +188,30 @@ var ble = new function() {
     return value.getUint16(0);
   };
 
+  this.getInfo = async function() {
+    self.dataNotificationBuf = new Uint8Array();
+    await self.setCmdMode(constants._MODE_GET_INFO);
+    let status = await self.retrieve_status();
+    if (status == constants._STATUS_SUCCESS) {
+      let utf8decoder = new TextDecoder();
+      let text = utf8decoder.decode(self.dataNotificationBuf);
+      let $info = $(
+        '<table>' +
+          '<tr><td style="padding-right: 2em;">MAC Address: </td><td id="mac"></td></tr>' +
+          '<tr><td>Allocated Mem: </td><td id="allocMem"></td></tr>' +
+          '<tr><td>Free Mem: </td><td id="freeMem"></td></tr>' +
+          '<tr><td>Free Space: </td><td id="freeSpace"></td></tr>' +
+        '</table>'
+      );
+      let result = JSON.parse(text);
+      $info.find('#mac').text(result['network']['mac']);
+      $info.find('#allocMem').text(result['mem']['allocated']);
+      $info.find('#freeMem').text(result['mem']['free']);
+      $info.find('#freeSpace').text(result['fs']['block size'] * result['fs']['free blocks']);
+      acknowledgeDialog({message: $info});
+    }
+  };
+
   this.checkVersion = async function() {
     self.version = await self.getVersion();
     if (self.version != constants.CURRENT_VERSION) {
@@ -272,11 +304,23 @@ var ble = new function() {
     self.isConnected = false;
   };
 
-  this.handleNotifications = function(event) {
+  this.handleSerialNotifications = function(event) {
     let utf8decoder = new TextDecoder();
     let text = utf8decoder.decode(event.target.value);
 
     monitorPanel.appendText(text);
+  };
+
+  this.handleDataNotifications = function(event) {
+    let currentSize = self.dataNotificationBuf.byteLength;
+    let addedSize = event.target.value.byteLength;
+
+    let newBuf = new Uint8Array(currentSize + addedSize);
+
+    newBuf.set(self.dataNotificationBuf, 0);
+    newBuf.set(new Uint8Array(event.target.value.buffer), currentSize);
+
+    self.dataNotificationBuf = newBuf;
   };
 
   this.sendSerial = async function(text) {

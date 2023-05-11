@@ -31,7 +31,7 @@ _CMD_CHAR = (
 )
 _DATA_CHAR = (
     bluetooth.UUID('e4494fc7-fae6-42cf-81c0-8f835a0ace7f'),
-    _FLAG_WRITE_NO_RESPONSE | _FLAG_WRITE | _FLAG_READ,
+    _FLAG_WRITE_NO_RESPONSE | _FLAG_WRITE | _FLAG_READ | _FLAG_NOTIFY,
 )
 _SERIAL_CHAR = (
     bluetooth.UUID('c12fee47-2a93-4138-9505-2a97da04b413'),
@@ -82,6 +82,7 @@ class BLE_Service:
         ((self._handle_cmd, self._handle_data, self._handle_serial),) = self._ble.gatts_register_services((_SERVICE,))
         self._ble.gatts_set_buffer(self._handle_data, data_buf_size)
         self._ble.gatts_set_buffer(self._handle_serial, serial_buf_size)
+        self._data_buf_size = data_buf_size
         self._serial_buf_size = serial_buf_size
         self._connections = set()
         self._payload = advertising_payload(name=name, services=[_SERVICE_UUID])
@@ -118,6 +119,8 @@ class BLE_Service:
         elif cmd == constants._MODE_GET_VERSION:
             value = constants._VERSION.to_bytes(2, 'big')
             self._ble.gatts_write(self._handle_cmd, value)
+        elif cmd == constants._MODE_GET_INFO:
+            self._get_info()
         elif cmd == constants._MODE_UPDATE:
             self._update()
 
@@ -174,6 +177,30 @@ class BLE_Service:
             if not(f in constants._PRESERVE_FILES):
                 os.remove(f)
 
+    def _get_info(self):
+        self.set_status(constants._STATUS_PENDING)
+
+        import gc
+        import network
+        import binascii
+
+        fs_stats = os.statvfs('/')
+        info = {
+            'network': {
+                'mac': binascii.hexlify(network.WLAN().config('mac'))
+            },
+            'mem': {
+                'allocated': gc.mem_alloc(),
+                'free': gc.mem_free()
+            },
+            'fs': {
+                'block size': fs_stats[0],
+                'free blocks': fs_stats[3]
+            }
+        }
+        self.data_send(bytes(json.dumps(info), 'utf-8'))
+        self.set_status(constants._STATUS_SUCCESS)
+
     def on_data_write(self, value):
         if self._mode == constants._MODE_OPEN:
             text = value.decode("utf-8")
@@ -187,6 +214,11 @@ class BLE_Service:
         for conn_handle in self._connections:
             for i in range(0, len(data), self._serial_buf_size):
                 self._ble.gatts_notify(conn_handle, self._handle_serial, data[i : i + self._serial_buf_size])
+
+    def data_send(self, data):
+        for conn_handle in self._connections:
+            for i in range(0, len(data), self._data_buf_size):
+                self._ble.gatts_notify(conn_handle, self._handle_data, data[i : i + self._data_buf_size])
 
     def is_connected(self):
         return len(self._connections) > 0

@@ -571,6 +571,9 @@ let MSGS = {
   '#main-updateFirmware#': {
     en: 'Update Firmware',
   },
+  '#main-getInfo#': {
+    en: 'Get Device Info',
+  },
   '#main-configureDeviceNetwork#': {
     en: 'Configure Device Network...',
   },

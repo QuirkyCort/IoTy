@@ -1,6 +1,67 @@
 Category
 ===
 
+# ESP-NOW
+
+## init
+import network
+import espnow
+
+# A WLAN interface must be active to send()/recv()
+sta = network.WLAN(network.STA_IF)  # Or network.AP_IF
+sta.active(True)
+sta.disconnect()      # For ESP8266
+
+e = espnow.ESPNow()
+e.active(True)
+
+## Register peer
+e.add_peer(b'\xbb\xbb\xbb\xbb\xbb\xbb')
+
+## send
+e.send(b'\xbb\xbb\xbb\xbb\xbb\xbb', "Starting...")
+
+## recv
+host, msg = e.irecv(0) # 0 to return immediately, -1 to wait forever
+# msg == None if timeout
+
+## available
+e.any()
+
+## Remove peer
+e.del_peer(b'\xbb\xbb\xbb\xbb\xbb\xbb')
+
+# Easy ESP-NOW
+## init
+import network
+import espnow
+
+# A WLAN interface must be active to send()/recv()
+sta = network.WLAN(network.STA_IF)  # Or network.AP_IF
+sta.active(True)
+sta.disconnect()      # For ESP8266
+
+e = espnow.ESPNow()
+e.active(True)
+e.add_peer(b'\xff\xff\xff\xff\xff\xff')
+ez_esp_now_group = 0
+
+## set group
+ez_esp_now_group = group
+
+## send
+e.send(b'\xbb\xbb\xbb\xbb\xbb\xbb', json.dumps([ez_esp_now_group, data]))
+
+## recv
+def ez_esp_now_recv():
+  host, msg = e.irecv(0)
+  data = json.loads(msg)
+  if data[0] == ez_esp_now_group:
+    return data[1]
+  return None
+
+
+
 # mounting of sdcard as filesystem
 
 # Read and write files
