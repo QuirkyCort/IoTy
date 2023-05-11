@@ -99,8 +99,19 @@ class HTTP_Service:
         return ''
 
     def _index_req(self, query, buf):
+        import gc
+        import binascii
+
+        fs_stats = os.statvfs('/')
+        free_space = fs_stats[0] * fs_stats[3]
+
         with open('ioty/html/index.html') as file:
-            return file.read()
+            content = file.read()
+            content = content.replace('#mac#', binascii.hexlify(network.WLAN().config('mac')).decode('utf-8'))
+            content = content.replace('#alloc_mem#', str(gc.mem_alloc()))
+            content = content.replace('#free_mem#', str(gc.mem_free()))
+            content = content.replace('#free_space#', str(free_space))
+            return content
 
     def _config_req(self, query, buf):
         params = self.get_query_dict(query)
