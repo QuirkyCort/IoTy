@@ -63,6 +63,8 @@ class MQTT_Service:
                 self.write_files(cmd)
             elif cmd['mode'] == constants._MODE_DELETE_ALL:
                 self.delete_all(cmd)
+            elif cmd['mode'] == constants._MODE_GET_INFO:
+                self.get_info(cmd)
         except:
             self.send_response(constants._STATUS_ERROR, cmd['nonce'])
 
@@ -97,6 +99,27 @@ class MQTT_Service:
             'name': self.name
         }
         self.send_response(constants._STATUS_SUCCESS, cmd['nonce'], content)
+
+    def get_info(self, cmd):
+        import gc
+        import network
+        import binascii
+
+        fs_stats = os.statvfs('/')
+        info = {
+            'network': {
+                'mac': binascii.hexlify(network.WLAN().config('mac'))
+            },
+            'mem': {
+                'allocated': gc.mem_alloc(),
+                'free': gc.mem_free()
+            },
+            'fs': {
+                'block size': fs_stats[0],
+                'free blocks': fs_stats[3]
+            }
+        }
+        self.send_response(constants._STATUS_SUCCESS, cmd['nonce'], info)
 
     def connected(self):
         return self._connected

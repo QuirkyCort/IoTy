@@ -56,6 +56,29 @@ var mqtt = new function() {
     return null;
   };
 
+  this.getInfo = async function() {
+    let nonce = await self.sendCmd(constants._MODE_GET_INFO);
+    if (nonce) {
+      let response = await self.waitForResponse(nonce);
+      if (response.status == constants._STATUS_SUCCESS) {
+        let $info = $(
+          '<table>' +
+            '<tr><td style="padding-right: 2em;">MAC Address: </td><td id="mac"></td></tr>' +
+            '<tr><td>Allocated Mem: </td><td id="allocMem"></td></tr>' +
+            '<tr><td>Free Mem: </td><td id="freeMem"></td></tr>' +
+            '<tr><td>Free Space: </td><td id="freeSpace"></td></tr>' +
+          '</table>'
+        );
+        let result = response.content;
+        $info.find('#mac').text(result['network']['mac']);
+        $info.find('#allocMem').text(result['mem']['allocated']);
+        $info.find('#freeMem').text(result['mem']['free']);
+        $info.find('#freeSpace').text(result['fs']['block size'] * result['fs']['free blocks']);
+        acknowledgeDialog({message: $info});
+      }
+    }
+  };
+
   this.waitForResponse = async function(nonce) {
     async function awaitTimeout(delay) {
       return new Promise(resolve => setTimeout(resolve, delay));
