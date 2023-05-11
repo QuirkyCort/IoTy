@@ -12,3 +12,4 @@ mv ioty_8 umqtt/simple.py
 mv ioty_9 umqtt/robust.py
 mv ioty_a ioty/mqtt.py
 mv ioty_b ioty/monitor_mqtt.py
+mv ioty_c ioty/html/index.html

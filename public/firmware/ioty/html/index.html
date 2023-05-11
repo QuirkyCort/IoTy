@@ -3,7 +3,8 @@
 <body>
 <h1>Device Info</h1>
 <table>
-<tr><tr><td style="padding-right: 2em;">MAC Address:</td><td>#mac#</td></tr>
+<tr><td style="padding-right: 2em;">Firmware Version:</td><td>#version#</td></tr>
+<tr><td>MAC Address:</td><td>#mac#</td></tr>
 <tr><td>Allocated Mem:</td><td>#alloc_mem#</td></tr>
 <tr><td>Free Mem:</td><td>#free_mem#</td></tr>
 <tr><td>Free Space:</td><td>#free_space#</td></tr>
@@ -28,23 +29,45 @@
 <input type="file" id="code">
 <button id="upload">Upload</button>
 <h3 id="status"></h3>
+<h1>Upload Firmware (JSON Package)</h1>
+<input type="file" id="firmware">
+<button id="uploadFirmware">Upload</button>
+<h3 id="statusFirmware"></h3>
 <script>
 function uploadCode() {
-let fileEle = document.getElementById('code');
-if (fileEle.files.length == 1) {
-fileEle.files[0].text().then(function(text){
-fetch('/upload', {
-method: 'POST',
-body: text
-}).then(function(response){
-return response.text();
-}).then(function(text){
-document.getElementById('status').innerText = text;
-});
-});
-}
+  let fileEle = document.getElementById('code');
+  if (fileEle.files.length == 1) {
+    fileEle.files[0].text().then(function(text){
+      fetch('/upload', {
+        method: 'POST',
+        body: text
+      }).then(function(response){
+        return response.text();
+      }).then(function(text){
+        document.getElementById('status').innerText = text;
+      });
+    });
+  }
 }
 document.getElementById('upload').onclick = uploadCode;
+
+function uploadFirmware() {
+  let fileEle = document.getElementById('firmware');
+  if (fileEle.files.length == 1) {
+    fileEle.files[0].text().then(function(text){
+      fetch('/firmware', {
+        method: 'POST',
+        body: text
+      }).then(function(response){
+        return response.text();
+      }).then(function(text){
+        document.getElementById('statusFirmware').innerText = text;
+      });
+    });
+  }
+}
+document.getElementById('uploadFirmware').onclick = uploadFirmware;
+
 </script>
 </body>
 </html>

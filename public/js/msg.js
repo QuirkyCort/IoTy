@@ -477,7 +477,10 @@ let MSGS = {
     hu: 'Python kód letöltése',
   },
   '#main-save_json#': {
-    en: 'Save to JSON package (...for Access Point mode upload)',
+    en: 'Save code to JSON package (...for Access Point mode upload)',
+  },
+  '#main-save_firmware#': {
+    en: 'Save firmware to JSON package (...for Access Point mode update)',
   },
   '#main-load_extension#': {
     en: 'Load extension...',

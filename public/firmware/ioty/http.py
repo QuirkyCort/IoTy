@@ -2,6 +2,7 @@ import network
 import socket
 import json
 import os
+import gc
 
 import ioty.constants as constants
 
@@ -63,24 +64,33 @@ class HTTP_Service:
 
         buf = b''
         content_length = None
-        response_data = {
-            'status': constants._STATUS_ERROR
-        }
+        response_data = '{"status":' + str(constants._STATUS_ERROR) + '}'
+        index = None
 
         while True:
             data = client_connection.recv(1024)
             if len(data) == 0:
                 break
 
-            buf += data
+            if index == None:
+                buf += data
+            else:
+                for i in range(len(data)):
+                    buf[index + i] = data[i]
+                index += len(data)
+
             if content_length == None:
                 if b'\r\n\r\n' in buf:
-                    headers_b, buf = buf.split(b'\r\n\r\n', 1)
+                    headers_b, content = buf.split(b'\r\n\r\n', 1)
                     headers = self.process_headers(headers_b)
                     content_length = self.get_content_length(headers)
                     url, query = self.get_req_url(headers)
+                    buf = bytearray(content_length)
+                    for i in range(len(content)):
+                        buf[i] = content[i]
+                    index = len(content)
 
-            if len(buf) >= content_length:
+            if content_length != None and index >= content_length:
                 response_data = self.process_req(url, query, buf)
                 break
 
@@ -95,6 +105,8 @@ class HTTP_Service:
             return self._config_req(query, buf)
         elif url == b'/upload':
             return self._upload_req(query, buf)
+        elif url == b'/firmware':
+            return self._firmware_req(query, buf)
 
         return ''
 
@@ -107,6 +119,7 @@ class HTTP_Service:
 
         with open('ioty/html/index.html') as file:
             content = file.read()
+            content = content.replace('#version#', str(constants._VERSION))
             content = content.replace('#mac#', binascii.hexlify(network.WLAN().config('mac')).decode('utf-8'))
             content = content.replace('#alloc_mem#', str(gc.mem_alloc()))
             content = content.replace('#free_mem#', str(gc.mem_free()))
@@ -135,11 +148,40 @@ class HTTP_Service:
 </html>'''
 
     def _upload_req(self, query, buf):
-        files = json.loads(buf)
+        try:
+            files = json.loads(buf)
+        except:
+            return 'Failed (JSON Error)'
+
         try:
             for filename in files:
                 with open(filename, 'wb') as file:
                     file.write(files[filename])
-            return 'success'
+            return 'Success'
         except:
-            return 'failed'
+            return 'Failed'
+
+    def _firmware_req(self, query, buf):
+        try:
+            files = json.loads(buf)
+        except:
+            return 'Failed (JSON Error)'
+
+        for line in files['_ioty_updates']['content']:
+            cmd = line.split()
+            if len(cmd) > 1:
+                if cmd[0] == 'mkdir':
+                    try:
+                        os.mkdir(cmd[1])
+                    except:
+                        pass
+
+        try:
+            for filename in files:
+                if filename == '_ioty_updates':
+                    continue
+                with open(filename, 'wb') as file:
+                    file.write(files[filename]['content'])
+            return 'Success'
+        except:
+            return 'Failed'
