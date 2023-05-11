@@ -189,6 +189,11 @@ var ble = new function() {
   };
 
   this.getInfo = async function() {
+    if (! self.isConnected) {
+      toastMsg('Not connected. Please connect to device.');
+      return;
+    }
+
     self.dataNotificationBuf = new Uint8Array();
     await self.setCmdMode(constants._MODE_GET_INFO);
     let status = await self.retrieve_status();

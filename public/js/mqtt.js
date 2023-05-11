@@ -57,6 +57,11 @@ var mqtt = new function() {
   };
 
   this.getInfo = async function() {
+    if (! self.isConnected) {
+      toastMsg('Not connected. Please connect to device.');
+      return;
+    }
+
     let nonce = await self.sendCmd(constants._MODE_GET_INFO);
     if (nonce) {
       let response = await self.waitForResponse(nonce);
