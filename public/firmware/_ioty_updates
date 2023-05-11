@@ -1,5 +1,6 @@
 mkdir ioty
 mkdir umqtt
+mkdir ioty/html
 mv ioty_1 boot.py
 mv ioty_2 ioty/ble.py
 mv ioty_3 ioty/http.py
