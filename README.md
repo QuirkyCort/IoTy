@@ -55,6 +55,7 @@ Create the necessary directories on the ESP32 using the following command...
 
 ```
 pyboard.py --device /dev/ttyUSB0 -f mkdir ioty
+pyboard.py --device /dev/ttyUSB0 -f mkdir ioty/html
 pyboard.py --device /dev/ttyUSB0 -f mkdir umqtt
 ```
 
@@ -67,6 +68,7 @@ Make sure you are in the "public/firmware" directory first.
 
 ```
 pyboard.py --device /dev/ttyUSB0 -f cp ioty/* :ioty/
+pyboard.py --device /dev/ttyUSB0 -f cp ioty/html/* :ioty/html/
 pyboard.py --device /dev/ttyUSB0 -f cp umqtt/* :umqtt/
 pyboard.py --device /dev/ttyUSB0 -f cp boot.py _ioty_name :
 ```
@@ -119,7 +121,7 @@ Con
 
 **Access Point Mode (Steps)**
 
-1. Save your code to a JSON package (File -> Save to JSON package).
+1. Save your code to a JSON package (File -> Save Code to JSON package).
 2. Restart your ESP32 (...press the reset button); the built-in LED should flash 3 times.
 3. Before the 3 flashes complete, press and hold the boot button until the LED flashes rapidly.
 4. On your computer, search for an open WiFi access point with the name of your device and connect to it.
@@ -174,18 +176,23 @@ Connect your device using Bluetooth, Access Point, or Internet mode.
 After connection, open the kebab menu and select "Download to device".
 Restart your device after download completes.
 
-## Monitoring the program (Optional) (Bluetooth Mode only)
+## Monitoring the program (Optional) (Bluetooth and Internet Mode only)
 
 When your program is running, you can connect to your device to view the output of print statements and error messages in the "Monitor" tab.
 
-To prevent missing any messages that were transmitted before connection is completed, you can set the "When Started" block to "wait for connection".
+To prevent missing any messages that were transmitted before connection is completed, you can set the "When Started" block to "wait for Bluetooth connection" (Bluetooth Mode) or "wait for Internet connection" (Internet Mode).
 If you're using Python, add...
 
+### Bluetooth Mode
 ```
+import ioty.monitor
 ioty.monitor.wait_for_connection()
+```
+
+### Internet Mode
+```
+import ioty.monitor_mqtt
 ```
 
 ...to the top of your code.
 This will cause program execution to pause until you have connected to your device.
-
-**WARNING** Do not use "wait for connection" if you are not using Bluetooth mode.
