@@ -7,9 +7,8 @@ mv ioty_3 ioty/http.py
 mv ioty_4 ioty/monitor.py
 mv ioty_5 ioty/pin.py
 mv ioty_6 ioty/constants.py
-mv ioty_7 ioty/neopixel.py
-mv ioty_8 umqtt/simple.py
-mv ioty_9 umqtt/robust.py
-mv ioty_a ioty/mqtt.py
-mv ioty_b ioty/monitor_mqtt.py
-mv ioty_c ioty/html/index.html
+mv ioty_7 umqtt/simple.py
+mv ioty_8 umqtt/robust.py
+mv ioty_9 ioty/mqtt.py
+mv ioty_a ioty/monitor_mqtt.py
+mv ioty_b ioty/html/index.html

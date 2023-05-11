@@ -773,12 +773,24 @@ var main = new function() {
 
   // Display what's new if not seen before
   this.showWhatsNew = function(forceShow=false) {
-    let current = 20230430;
+    let current = 20230511;
     let lastShown = localStorage.getItem('whatsNew');
     if (lastShown == null || parseInt(lastShown) < current || forceShow) {
       let options = {
         title: 'What\'s New',
         message:
+        '<h3>11 May 2023 (Neopixel, Device Info, Access Point Mode)</h3>' +
+        '<p>' +
+          'Neopixel support has been moved to extensions. ' +
+          'If using Python, you will need to change your imports into "import ioty_neopixel as neopixel". ' +
+          'If using Blocks, just add the extension and the code should be updated automatically. ' +
+        '</p>' +
+        '<p>' +
+          'You can now retrieve some info about your device (eg. MAC address, available space) via "Get Device Info" under the connection menu.' +
+        '</p>' +
+        '<p>' +
+          'It is now possible to update firmware via Access Point mode.' +
+        '</p>' +
         '<h3>30 Apr 2023 (Monitor in Internet mode)</h3>' +
         '<p>' +
           'Monitor now partially works in internet mode, allowing you to receive "print" and error message. ' +

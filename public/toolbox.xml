@@ -454,7 +454,59 @@
     </block>
     <block type="mqtt_check_msg"></block>
   </category>
-  <category name="Neopixel" colour="#5b67a5">
+  <category name="I2C" colour="#a55b80">
+    <block type="i2c_init"></block>
+    <block type="i2c_scan"></block>
+    <block type="i2c_writeto_mem">
+      <value name="address">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="register">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="value">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="i2c_readfrom_mem">
+      <value name="address">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="register">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="i2c_writeto">
+      <value name="address">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="value">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="i2c_readfrom">
+      <value name="address">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+  </category>
+  <category toolboxitemid="ioty_neopixel" name="Neopixel" colour="#5b67a5" hidden="true">
     <block type="neopixel_init">
       <field name="pin">13</field>
       <value name="pixels">
@@ -537,58 +589,6 @@
       <value name="value">
         <shadow type="math_number">
           <field name="NUM">1</field>
-        </shadow>
-      </value>
-    </block>
-  </category>
-  <category name="I2C" colour="#a55b80">
-    <block type="i2c_init"></block>
-    <block type="i2c_scan"></block>
-    <block type="i2c_writeto_mem">
-      <value name="address">
-        <shadow type="math_number">
-          <field name="NUM">0</field>
-        </shadow>
-      </value>
-      <value name="register">
-        <shadow type="math_number">
-          <field name="NUM">0</field>
-        </shadow>
-      </value>
-      <value name="value">
-        <shadow type="math_number">
-          <field name="NUM">0</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="i2c_readfrom_mem">
-      <value name="address">
-        <shadow type="math_number">
-          <field name="NUM">0</field>
-        </shadow>
-      </value>
-      <value name="register">
-        <shadow type="math_number">
-          <field name="NUM">0</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="i2c_writeto">
-      <value name="address">
-        <shadow type="math_number">
-          <field name="NUM">0</field>
-        </shadow>
-      </value>
-      <value name="value">
-        <shadow type="math_number">
-          <field name="NUM">0</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="i2c_readfrom">
-      <value name="address">
-        <shadow type="math_number">
-          <field name="NUM">0</field>
         </shadow>
       </value>
     </block>

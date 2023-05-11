@@ -50,6 +50,19 @@ var extensions = new function() {
           'You can use this to retrieve normal webpages, as well as useful data (eg. weather) from <a href="https://github.com/public-apis/public-apis">public APIs</a>.' +
         '</p>'
     },
+    {
+      id: 'ioty_neopixel',
+      name: 'Neopixel (WS2812 LEDs)',
+      files: [
+        ['ioty_neopixel.py', 'extensions/ioty_neopixel.py?v=d1501cc5'],
+      ],
+      description:
+        '<p>' +
+          'NeoPixels (aka WS2812 LEDs), are full-colour LEDs where you can control each individual LED brightness and color. ' +
+          'If using Python, you can use the built-in <a href="https://docs.micropython.org/en/latest/esp32/quickref.html#neopixel-and-apa106-driver">neopixel</a> module without any extensions. ' +
+          'This extensions is a thin wrapper over the built-in neopixel module to allow programming the Neopixel without an object-oriented approach.' +
+        '</p>'
+    },
   ]
 
   this.init = function() {
