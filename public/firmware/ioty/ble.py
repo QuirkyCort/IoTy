@@ -3,12 +3,14 @@ import struct
 import os
 import json
 import hashlib
+from time import sleep_ms
 
 from micropython import const
 import ioty.constants as constants
 
-_SERIAL_BUFFER_SIZE = 20
-_DATA_BUFFER_SIZE = 512
+_SERIAL_BUFFER_SIZE = const(20)
+_DATA_BUFFER_SIZE = const(512)
+_DATA_SEND_SIZE = const(200)
 
 _ADV_TYPE_FLAGS = const(0x01)
 _ADV_TYPE_NAME = const(0x09)
@@ -121,6 +123,12 @@ class BLE_Service:
             self._ble.gatts_write(self._handle_cmd, value)
         elif cmd == constants._MODE_GET_INFO:
             self._get_info()
+        elif cmd == constants._MODE_LIST:
+            self._list_files()
+        elif cmd == constants._MODE_READ:
+            self._read_file()
+        elif cmd == constants._MODE_DELETE:
+            self._delete_file()
         elif cmd == constants._MODE_UPDATE:
             self._update()
 
@@ -201,14 +209,54 @@ class BLE_Service:
         self.data_send(bytes(json.dumps(info), 'utf-8'))
         self.set_status(constants._STATUS_SUCCESS)
 
+    def _list_files(self):
+        self.set_status(constants._STATUS_PENDING)
+
+        def list_files(dir):
+            listing = []
+            for i in os.ilistdir(dir):
+                if i[1] == 0x8000:
+                    listing.append(dir + i[0])
+                elif i[1] == 0x4000:
+                    listing.extend(list_files(dir + i[0] + '/'))
+            return listing
+
+        self.data_send(bytes(json.dumps(list_files('')), 'utf-8'))
+        self.set_status(constants._STATUS_SUCCESS)
+
+    def _read_file(self):
+        self.set_status(constants._STATUS_PENDING)
+
+    def _delete_file(self):
+        self.set_status(constants._STATUS_PENDING)
+
     def on_data_write(self, value):
         if self._mode == constants._MODE_OPEN:
-            text = value.decode("utf-8")
+            text = value.decode('utf-8')
             self._file_name += text
         elif self._mode == constants._MODE_APPEND:
             self._file_data.extend(value)
         elif self._mode == constants._MODE_FILE_HASH:
             self._file_hash.extend(value)
+        elif self._mode == constants._MODE_READ:
+            filename = value.decode('utf-8')
+            file = open(filename, 'rb')
+            data = file.read()
+            h = hashlib.sha256(data)
+            hash = h.digest()
+            self.data_send(hash)
+            self.data_send(data)
+            self.set_status(constants._STATUS_SUCCESS)
+        elif self._mode == constants._MODE_DELETE:
+            filename = value.decode('utf-8')
+            if not(filename in constants._PRESERVE_FILES):
+                try:
+                    os.remove(filename)
+                    self.set_status(constants._STATUS_SUCCESS)
+                except:
+                    self.set_status(constants._STATUS_ERROR)
+            else:
+                self.set_status(constants._STATUS_FAILED)
 
     def serial_send(self, data):
         for conn_handle in self._connections:
@@ -217,8 +265,9 @@ class BLE_Service:
 
     def data_send(self, data):
         for conn_handle in self._connections:
-            for i in range(0, len(data), self._data_buf_size):
-                self._ble.gatts_notify(conn_handle, self._handle_data, data[i : i + self._data_buf_size])
+            for i in range(0, len(data), _DATA_SEND_SIZE):
+                self._ble.gatts_notify(conn_handle, self._handle_data, data[i : i + _DATA_SEND_SIZE])
+                sleep_ms(10)
 
     def is_connected(self):
         return len(self._connections) > 0

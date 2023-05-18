@@ -2,7 +2,6 @@ import network
 import socket
 import json
 import os
-import gc
 
 import ioty.constants as constants
 

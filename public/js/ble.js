@@ -166,7 +166,7 @@ var ble = new function() {
     }
 
     let status;
-    for (let i=0; i<10; i++) {
+    for (let i=0; i<300; i++) {
       await awaitTimeout(100);
       status = await self.readCmdCharacteristic();
       try {
@@ -214,6 +214,132 @@ var ble = new function() {
       $info.find('#freeMem').text(result['mem']['free']);
       $info.find('#freeSpace').text(result['fs']['block size'] * result['fs']['free blocks']);
       acknowledgeDialog({message: $info});
+    }
+  };
+
+  this.listFiles = function() {
+    if (! self.isConnected) {
+      toastMsg('Not connected. Please connect to device.');
+      return;
+    }
+
+    let $filesListing = $('<div>Retrieving files listing...</div>');
+
+    let $buttons = $(
+      '<button type="button" class="delete btn btn-danger">Delete</button>' +
+      '<button type="button" class="download btn btn-success">Download</button>' +
+      '<button type="button" class="close btn btn-light">Close</button>'
+    );
+
+    let $dialog = dialog(
+      'Files on Device',
+      $filesListing,
+      $buttons
+    );
+
+    $buttons.siblings('.download').click(function() { self.downloadFilesFromDevice($filesListing); })
+    $buttons.siblings('.close').click(function() { $dialog.close(); })
+
+    self.updateFilesListing($filesListing);
+  };
+
+  this.downloadFilesFromDevice = async function($filesListing) {
+    let $inputs = $filesListing.find('input.filename');
+    let filesToDownload = [];
+    for (let $input of $inputs) {
+      if ($input.checked) {
+        filesToDownload.push($input.getAttribute('data'));
+      }
+    }
+
+    if (filesToDownload.length == 0) {
+      toastMsg('No files selected');
+    } else {
+      for (let file of filesToDownload) {
+        let a = await self.downloadOneFileFromDevice(file);
+        let utf8decoder = new TextDecoder();
+        let text = utf8decoder.decode(a);
+
+        console.log(text);
+      }
+    }
+  };
+
+  this.downloadOneFileFromDevice = async function(filename) {
+    self.dataNotificationBuf = new Uint8Array();
+    await self.setCmdMode(constants._MODE_READ);
+    await self.writeData(filename);
+    let status = await self.retrieve_status();
+    if (status == constants._STATUS_SUCCESS) {
+      let hash1 = self.dataNotificationBuf.slice(0, 32);
+      let content = self.dataNotificationBuf.slice(32);
+      let hash2 = await crypto.subtle.digest('SHA-256', content);
+      hash2 = new Uint8Array(hash2);
+
+      function hashEqual(a, b) {
+        if (a.length != b.length) {
+          return false;
+        } else {
+          for (let i=0; i < a.byteLength; i++) {
+            if (a[i] != b[i]) {
+              return false;
+            }
+          }
+          return true;
+        }
+      }
+
+      if (hashEqual(hash1, hash2)) {
+        return content;
+      } else {
+        toastMsg('File checksum error');
+        return null;
+      }
+    } else {
+      toastMsg('Error downloading file');
+      return null;
+    }
+  };
+
+  this.updateFilesListing = async function($filesListing) {
+    self.dataNotificationBuf = new Uint8Array();
+    await self.setCmdMode(constants._MODE_LIST);
+    let status = await self.retrieve_status();
+    if (status == constants._STATUS_SUCCESS) {
+      let utf8decoder = new TextDecoder();
+      let text = utf8decoder.decode(self.dataNotificationBuf);
+      let files = JSON.parse(text);
+
+      $filesListing.empty();
+
+      files.sort(function(a, b){
+        let aLen = (a.match(/\//g)||[]).length;
+        let bLen = (b.match(/\//g)||[]).length;
+        if (aLen > bLen) {
+          return 1;
+        } else if (bLen > aLen) {
+          return -1;
+        } else {
+          return a > b;
+        }
+      });
+
+      let checkboxes = [];
+
+      for (let file of files) {
+        let $row = $('<div></div>');
+        let $checkbox = $('<input type="checkbox" class="filename">');
+        $checkbox.attr('data', file);
+        let $span = $('<span></span>');
+        $span.text(file);
+
+        checkboxes.push($checkbox);
+        $row.append($checkbox);
+        $row.append($span);
+        $filesListing.append($row);
+      }
+    } else {
+      toastMsg('Error retrieving file listings');
     }
   };
 

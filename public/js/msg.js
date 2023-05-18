@@ -577,6 +577,9 @@ let MSGS = {
   '#main-getInfo#': {
     en: 'Get Device Info',
   },
+  '#main-listFiles#': {
+    en: 'Files on Device...',
+  },
   '#main-configureDeviceNetwork#': {
     en: 'Configure Device Network...',
   },

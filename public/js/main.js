@@ -293,6 +293,7 @@ var main = new function() {
       {html: i18n.get('#main-changeName#'), line: false, callback: ble.changeNameDialog},
       {html: i18n.get('#main-updateFirmware#'), line: false, callback: ble.updateFirmwareDialog},
       {html: i18n.get('#main-getInfo#'), line: false, callback: ble.getInfo},
+      {html: i18n.get('#main-listFiles#'), line: false, callback: ble.listFiles},
       {html: i18n.get('#main-configureDeviceNetwork#'), line: false, callback: main.configureDeviceNetwork},
       {html: i18n.get('#main-disconnect#'), line: false, callback: ble.disconnect},
     ];
