@@ -244,6 +244,7 @@ var ble = new function() {
   };
 
   this.downloadFilesFromDevice = async function($filesListing) {
+
     let $inputs = $filesListing.find('input.filename');
     let filesToDownload = [];
     for (let $input of $inputs) {
@@ -254,15 +255,35 @@ var ble = new function() {
 
     if (filesToDownload.length == 0) {
       toastMsg('No files selected');
-    } else {
-      for (let file of filesToDownload) {
-        let a = await self.downloadOneFileFromDevice(file);
-        let utf8decoder = new TextDecoder();
-        let text = utf8decoder.decode(a);
-
-        console.log(text);
-      }
+      return
     }
+
+    let $updateWindow = main.hiddenButtonDialog('Downloading', 'Starting Download...');
+
+    let files = {};
+    let count = 1;
+
+    for (let file of filesToDownload) {
+      $updateWindow.$body.text('File (' + count + ' / ' + filesToDownload.length + ')');
+      let content = await self.downloadOneFileFromDevice(file);
+      if (content == null) {
+        $updateWindow.$body.text('Download failed');
+        $updateWindow.$buttonsRow.removeClass('hide');
+        return;
+      }
+
+      files[file] = content;
+      count++;
+    }
+
+    if (filesToDownload.length == 1) {
+      let filename = filesToDownload[0];
+      let content = btoa(String.fromCharCode(...new Uint8Array(files[filename])));
+      main.downloadFile(filename, content, 'application/octet-stream');
+    } else {
+      main.downloadZipFile('deviceFiles', files);
+    }
+    $updateWindow.$buttonsRow.removeClass('hide');
   };
 
   this.downloadOneFileFromDevice = async function(filename) {

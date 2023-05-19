@@ -556,28 +556,45 @@ var main = new function() {
     localStorage.setItem('projectName', filtered);
   };
 
-  // save to computer
-  this.saveToComputer = function() {
-    let filename = self.$projectName.val();
-    if (filename.trim() == '') {
-      filename = 'IoTy';
-    }
+  // Download to single file
+  this.downloadFile = function(filename, content, mimetype) {
+    var hiddenElement = document.createElement('a');
+    hiddenElement.href = 'data:' + mimetype + ';base64,' + content;
+    hiddenElement.target = '_blank';
+    hiddenElement.download = filename;
+    hiddenElement.dispatchEvent(new MouseEvent('click'));
+  }
 
+  // Download to zip  file
+  this.downloadZipFile = function(filename, files) {
     var zip = new JSZip();
-    zip.file('blocks.json', blockly.getJsonText());
-    zip.file('settings.json', JSON.stringify(self.settings));
+    for (let f in files) {
+      zip.file(f, files[f]);
+    }
 
     zip.generateAsync({
       type:'base64',
       compression: "DEFLATE"
     })
     .then(function(content) {
-      var hiddenElement = document.createElement('a');
-      hiddenElement.href = 'data:application/zip;base64,' + content;
-      hiddenElement.target = '_blank';
-      hiddenElement.download = filename + '.zip';
-      hiddenElement.dispatchEvent(new MouseEvent('click'));
+      self.downloadFile(filename + '.zip', content, 'application/zip');
     });
+  }
+
+  // save to computer
+  this.saveToComputer = function() {
+    let filename = self.$projectName.val();
+    if (filename.trim() == '') {
+      filename = 'IoTy_Blocks';
+    }
+
+    self.downloadZipFile(
+      filename,
+      {
+        'blocks.json': blockly.getJsonText(),
+        'settings.json': JSON.stringify(self.settings)
+      }
+    );
   };
 
   // load from computer
@@ -633,7 +650,7 @@ var main = new function() {
   this.savePythonToComputer = function() {
     let filename = self.$projectName.val();
     if (filename.trim() == '') {
-      filename = 'IoTy';
+      filename = 'IoTy_Python';
     }
 
     if (filesManager.modified == false) {
@@ -641,20 +658,7 @@ var main = new function() {
     }
     filesManager.updateCurrentFile();
 
-    var zip = new JSZip();
-
-    for (let f in filesManager.files) {
-      zip.file(f, filesManager.files[f]);
-    }
-
-    zip.generateAsync({type:'base64'})
-    .then(function(content) {
-      var hiddenElement = document.createElement('a');
-      hiddenElement.href = 'data:application/xml;base64,' + content;
-      hiddenElement.target = '_blank';
-      hiddenElement.download = filename + '.zip';
-      hiddenElement.dispatchEvent(new MouseEvent('click'));
-    });
+    self.downloadZipFile(filename, filesManager.files);
   };
 
   // load from computer
@@ -708,22 +712,14 @@ var main = new function() {
       obj[f] = filesManager.files[f];
     }
 
-    var hiddenElement = document.createElement('a');
-    hiddenElement.href = 'data:application/xml;base64,' + btoa(JSON.stringify(obj));
-    hiddenElement.target = '_blank';
-    hiddenElement.download = filename + '.json';
-    hiddenElement.dispatchEvent(new MouseEvent('click'));
+    self.downloadFile(filename + '.json', btoa(JSON.stringify(obj)), 'application/json');
   };
 
   // save to json package
   this.saveFirmwareToJson = function() {
     let filename = 'firmware-v' + constants.CURRENT_VERSION;
 
-    var hiddenElement = document.createElement('a');
-    hiddenElement.href = 'data:application/xml;base64,' + btoa(JSON.stringify(self.firmwareFiles));
-    hiddenElement.target = '_blank';
-    hiddenElement.download = filename + '.json';
-    hiddenElement.dispatchEvent(new MouseEvent('click'));
+    self.downloadFile(filename + '.json', btoa(JSON.stringify(self.firmwareFiles)), 'application/json');
   };
 
   // Check for unsaved changes
