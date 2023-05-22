@@ -129,6 +129,8 @@ class BLE_Service:
             self._read_file()
         elif cmd == constants._MODE_DELETE:
             self._delete_file()
+        elif cmd == constants._MODE_MKDIR:
+            self._mkdir()
         elif cmd == constants._MODE_UPDATE:
             self._update()
 
@@ -167,6 +169,10 @@ class BLE_Service:
         self.set_status(constants._STATUS_PENDING)
 
     def _close_file(self):
+        if self._file_name in constants._PRESERVE_FILES:
+            self.set_status(constants._STATUS_FAILED)
+            return
+
         if self._check_hash():
             file = open(self._file_name, 'wb')
             file.write(self._file_data)
@@ -218,6 +224,7 @@ class BLE_Service:
                 if i[1] == 0x8000:
                     listing.append(dir + i[0])
                 elif i[1] == 0x4000:
+                    listing.append(dir + i[0] + '/')
                     listing.extend(list_files(dir + i[0] + '/'))
             return listing
 
@@ -228,6 +235,9 @@ class BLE_Service:
         self.set_status(constants._STATUS_PENDING)
 
     def _delete_file(self):
+        self.set_status(constants._STATUS_PENDING)
+
+    def _mkdir(self):
         self.set_status(constants._STATUS_PENDING)
 
     def on_data_write(self, value):
@@ -257,6 +267,13 @@ class BLE_Service:
                     self.set_status(constants._STATUS_ERROR)
             else:
                 self.set_status(constants._STATUS_FAILED)
+        elif self._mode == constants._MODE_MKDIR:
+            dirname = value.decode('utf-8')
+            try:
+                os.mkdir(dirname)
+                self.set_status(constants._STATUS_SUCCESS)
+            except:
+                self.set_status(constants._STATUS_ERROR)
 
     def serial_send(self, data):
         for conn_handle in self._connections:

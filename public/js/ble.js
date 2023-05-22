@@ -232,6 +232,7 @@ var ble = new function() {
 
     let $buttons = $(
       '<button type="button" class="delete btn btn-danger">Delete</button>' +
+      '<button type="button" class="mkdir btn btn-warning">Make Directory</button>' +
       '<button type="button" class="upload btn btn-warning">Upload</button>' +
       '<button type="button" class="download btn btn-success">Download</button>' +
       '<button type="button" class="close btn btn-light">Close</button>'
@@ -244,9 +245,37 @@ var ble = new function() {
     );
 
     $buttons.siblings('.delete').click(self.deleteFilesFromDevice);
+    $buttons.siblings('.mkdir').click(self.mkdirSetName);
     $buttons.siblings('.upload').click(self.uploadFileSelect);
     $buttons.siblings('.download').click(self.downloadFilesFromDevice)
     $buttons.siblings('.close').click(function() { $dialog.close(); })
+
+    self.updateFilesListing();
+  };
+
+  this.mkdirSetName = function() {
+    let $mkdirNameWindow = confirmDialog({
+      title: 'Make Directory',
+      message: '<div>Directory Name: <input id="dirname" type="text" value=""></div>'
+    }, function() {
+      let dirname = $mkdirNameWindow.$body.find('#dirname').val();
+      self.mkdirOnDevice(dirname);
+    });
+  };
+
+  this.mkdirOnDevice = async function(dirname) {
+    let $updateWindow = main.hiddenButtonDialog('Make Directory', 'Making Directory...');
+
+    await self.setCmdMode(constants._MODE_MKDIR);
+    await self.writeData(dirname);
+    let status = await self.retrieve_status();
+    if (status == constants._STATUS_SUCCESS) {
+      $updateWindow.$body.text('Completed');
+      $updateWindow.$buttonsRow.removeClass('hide');
+    } else {
+      $updateWindow.$body.text('Error making directory');
+      $updateWindow.$buttonsRow.removeClass('hide');
+    }
 
     self.updateFilesListing();
   };
@@ -280,7 +309,6 @@ var ble = new function() {
   };
 
   this.deleteOneFileFromDevice = async function(filename) {
-    self.dataNotificationBuf = new Uint8Array();
     await self.setCmdMode(constants._MODE_DELETE);
     await self.writeData(filename);
     let status = await self.retrieve_status();
@@ -313,7 +341,7 @@ var ble = new function() {
       let filename = $changeFilenameWindow.$body.find('#filename').val();
       self.uploadFile(filename, content);
     });
-  }
+  };
 
   this.uploadFile = async function(filename, content) {
     let $updateWindow = main.hiddenButtonDialog('Uploading File', 'Uploading');
@@ -332,13 +360,16 @@ var ble = new function() {
         $updateWindow.$body.text('Upload Completed.');
         $updateWindow.$buttonsRow.removeClass('hide');
       } else if (status == constants._STATUS_PENDING) {
-        $updateWindow.$body.text('Error uploading file. Please try again.');
+        $updateWindow.$body.text('Error uploading file (timeout). Please try again.');
         $updateWindow.$buttonsRow.removeClass('hide');
-      } else if (status == -1) {
-        $updateWindow.$body.text('Unable to verify upload. Please try again.');
+      } else if (status == constants._STATUS_CHECKSUM_ERROR) {
+        $updateWindow.$body.text('Error uploading file (hash mismatch). Please try again.');
+        $updateWindow.$buttonsRow.removeClass('hide');
+      } else if (status == constants._STATUS_FAILED) {
+        $updateWindow.$body.text('Error uploading file (write failed). Please try again.');
         $updateWindow.$buttonsRow.removeClass('hide');
       } else {
-        $updateWindow.$body.text('Error uploading file (hash mismatch). Please try again.');
+        $updateWindow.$body.text('Unknown error. Please try again.');
         $updateWindow.$buttonsRow.removeClass('hide');
       }
     } catch (error) {
