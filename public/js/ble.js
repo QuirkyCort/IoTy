@@ -150,7 +150,12 @@ var ble = new function() {
     await self.setCmdMode(constants._MODE_APPEND);
     await self.writeData(value, progressCB);
 
-    let data = new TextEncoder().encode(value);
+    let data;
+    if (typeof value == 'string') {
+      data = new TextEncoder().encode(value);
+    } else {
+      data = value;
+    }
     let hash = await crypto.subtle.digest('SHA-256', data);
     await self.setCmdMode(constants._MODE_FILE_HASH);
     await self.writeData(hash, progressCB);
@@ -223,28 +228,89 @@ var ble = new function() {
       return;
     }
 
-    let $filesListing = $('<div>Retrieving files listing...</div>');
+    self.$filesListing = $('<div>Retrieving files listing...</div>');
 
     let $buttons = $(
       '<button type="button" class="delete btn btn-danger">Delete</button>' +
+      '<button type="button" class="upload btn btn-warning">Upload</button>' +
       '<button type="button" class="download btn btn-success">Download</button>' +
       '<button type="button" class="close btn btn-light">Close</button>'
     );
 
     let $dialog = dialog(
       'Files on Device',
-      $filesListing,
+      self.$filesListing,
       $buttons
     );
 
+    $buttons.siblings('.upload').click(self.uploadFileSelect);
     $buttons.siblings('.download').click(function() { self.downloadFilesFromDevice($filesListing); })
     $buttons.siblings('.close').click(function() { $dialog.close(); })
 
-    self.updateFilesListing($filesListing);
+    self.updateFilesListing();
+  };
+
+  this.uploadFileSelect = function() {
+    let hiddenElement = document.createElement('input');
+    hiddenElement.type = 'file';
+    hiddenElement.dispatchEvent(new MouseEvent('click'));
+    hiddenElement.addEventListener('change', function(e){
+      let filename = e.target.files[0].name;
+      let file = e.target.files[0];
+      let reader = new FileReader();
+      reader.onload = function() {
+        self.uploadFileSetName(filename, this.result);
+      };
+      reader.readAsArrayBuffer(file);
+    });
+  };
+
+  this.uploadFileSetName = function(filename, content) {
+    let $changeFilenameWindow = confirmDialog({
+      title: 'Set filename',
+      message: '<div>Filename: <input id="filename" type="text" value="' + filename + '"></div>'
+    }, function() {
+      let filename = $changeFilenameWindow.$body.find('#filename').val();
+      self.uploadFile(filename, content);
+    });
+  }
+
+  this.uploadFile = async function(filename, content) {
+    let $updateWindow = main.hiddenButtonDialog('Uploading File', 'Uploading');
+
+    try {
+      let progressBar = '';
+
+      function updateProgress() {
+        progressBar += '.';
+        $updateWindow.$body.text('Uploading' + progressBar);
+      }
+
+      let status = await self.writeFile(filename, content, updateProgress);
+
+      if (status == constants._STATUS_SUCCESS) {
+        $updateWindow.$body.text('Upload Completed.');
+        $updateWindow.$buttonsRow.removeClass('hide');
+      } else if (status == constants._STATUS_PENDING) {
+        $updateWindow.$body.text('Error uploading file. Please try again.');
+        $updateWindow.$buttonsRow.removeClass('hide');
+      } else if (status == -1) {
+        $updateWindow.$body.text('Unable to verify upload. Please try again.');
+        $updateWindow.$buttonsRow.removeClass('hide');
+      } else {
+        $updateWindow.$body.text('Error uploading file (hash mismatch). Please try again.');
+        $updateWindow.$buttonsRow.removeClass('hide');
+      }
+    } catch (error) {
+      console.log(error);
+      $updateWindow.$body.text('Error uploading file (See console for details).');
+      $updateWindow.$buttonsRow.removeClass('hide');
+    }
+
+    self.updateFilesListing();
   };
 
   this.downloadFilesFromDevice = async function($filesListing) {
-
     let $inputs = $filesListing.find('input.filename');
     let filesToDownload = [];
     for (let $input of $inputs) {
@@ -322,7 +388,7 @@ var ble = new function() {
     }
   };
 
-  this.updateFilesListing = async function($filesListing) {
+  this.updateFilesListing = async function() {
     self.dataNotificationBuf = new Uint8Array();
     await self.setCmdMode(constants._MODE_LIST);
     let status = await self.retrieve_status();
@@ -331,7 +397,7 @@ var ble = new function() {
       let text = utf8decoder.decode(self.dataNotificationBuf);
       let files = JSON.parse(text);
 
-      $filesListing.empty();
+      self.$filesListing.empty();
 
       files.sort(function(a, b){
         let aLen = (a.match(/\//g)||[]).length;
@@ -357,7 +423,7 @@ var ble = new function() {
         checkboxes.push($checkbox);
         $row.append($checkbox);
         $row.append($span);
-        $filesListing.append($row);
+        self.$filesListing.append($row);
       }
     } else {
       toastMsg('Error retrieving file listings');
