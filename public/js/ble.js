@@ -243,11 +243,51 @@ var ble = new function() {
       $buttons
     );
 
+    $buttons.siblings('.delete').click(self.deleteFilesFromDevice);
     $buttons.siblings('.upload').click(self.uploadFileSelect);
-    $buttons.siblings('.download').click(function() { self.downloadFilesFromDevice($filesListing); })
+    $buttons.siblings('.download').click(self.downloadFilesFromDevice)
     $buttons.siblings('.close').click(function() { $dialog.close(); })
 
     self.updateFilesListing();
+  };
+
+  this.deleteFilesFromDevice = async function() {
+    let $inputs = self.$filesListing.find('input.filename');
+    let filesToDelete = [];
+    for (let $input of $inputs) {
+      if ($input.checked) {
+        filesToDelete.push($input.getAttribute('data'));
+      }
+    }
+
+    if (filesToDelete.length == 0) {
+      toastMsg('No files selected');
+      return
+    }
+
+    let $updateWindow = main.hiddenButtonDialog('Deleting', 'Starting Delete...');
+    let count = 1;
+
+    for (let file of filesToDelete) {
+      $updateWindow.$body.text('File (' + count + ' / ' + filesToDelete.length + ')');
+      await self.deleteOneFileFromDevice(file);
+      count++;
+    }
+    $updateWindow.$body.text('Delete completed');
+    $updateWindow.$buttonsRow.removeClass('hide');
+
+    self.updateFilesListing();
+  };
+
+  this.deleteOneFileFromDevice = async function(filename) {
+    self.dataNotificationBuf = new Uint8Array();
+    await self.setCmdMode(constants._MODE_DELETE);
+    await self.writeData(filename);
+    let status = await self.retrieve_status();
+    if (status != constants._STATUS_SUCCESS) {
+      toastMsg('Error deleting file');
+      return null;
+    }
   };
 
   this.uploadFileSelect = function() {
@@ -310,8 +350,8 @@ var ble = new function() {
     self.updateFilesListing();
   };
 
-  this.downloadFilesFromDevice = async function($filesListing) {
-    let $inputs = $filesListing.find('input.filename');
+  this.downloadFilesFromDevice = async function() {
+    let $inputs = self.$filesListing.find('input.filename');
     let filesToDownload = [];
     for (let $input of $inputs) {
       if ($input.checked) {

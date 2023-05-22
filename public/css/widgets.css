@@ -123,6 +123,8 @@
         background-color: #dc3545; }
       .dialogScreen > .dialogWindow > .dialogButtonsRow .btn-light {
         background-color: #f8f9fa; }
+      .dialogScreen > .dialogWindow > .dialogButtonsRow .btn-warning {
+        background-color: #ffc107; }
     .dialogScreen > .dialogWindow > .dialogButtonsRow.hide {
       display: none; }
     .dialogScreen > .dialogWindow select {

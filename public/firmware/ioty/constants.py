@@ -1,5 +1,23 @@
 _VERSION = 8
-_PRESERVE_FILES = ('boot.py', 'ioty', '_ioty_name', '_ioty_network', 'umqtt')
+_PRESERVE_FILES = (
+'_ioty_name',
+'_ioty_network',
+'boot.py',
+'ioty',
+'ioty/ble.py',
+'ioty/constants.py',
+'ioty/http.py',
+'ioty/monitor.py',
+'ioty/monitor_mqtt.py',
+'ioty/mqtt.py',
+'ioty/neopixel.py',
+'ioty/pin.py',
+'ioty/html',
+'ioty/html/index.html',
+'umqtt',
+'umqtt/robust.py',
+'umqtt/simple.py'
+)
 _NETWORK_CONFIGURATION_FILE = '_ioty_network'
 
 _MODE_OPEN = 1
