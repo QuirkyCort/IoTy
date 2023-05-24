@@ -23,12 +23,15 @@ var main = new function() {
 
   // Run on page load
   this.init = async function() {
-    let connectionMode = readGET('connectionMode');
-    if (connectionMode == null) {
-      connectionMode = localStorage.getItem('connectionMode');
-    }
-    if (connectionMode != null) {
+    connectionMode = localStorage.getItem('connectionMode');
+
+    if (['ble', 'mqtt'].includes(connectionMode)) {
       self.connectionMode = connectionMode;
+    } else if (typeof navigator.bluetooth == 'undefined') {
+      self.bleAvailable = false;
+      self.connectionMode = 'mqtt';
+    } else {
+      self.connectionMode = 'ble';
     }
 
     let deviceWifiSettings = localStorage.getItem('deviceWifiSettings');
@@ -42,11 +45,6 @@ var main = new function() {
       extensions.processExtensions();
     } else {
       self.settings = self.defaultSettings();
-    }
-
-    if (typeof navigator.bluetooth == 'undefined') {
-      self.bleAvailable = false;
-      self.connectionMode = 'mqtt';
     }
 
     self.$navs = $('nav li');
