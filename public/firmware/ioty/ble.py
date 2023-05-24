@@ -169,7 +169,7 @@ class BLE_Service:
         self.set_status(constants._STATUS_PENDING)
 
     def _close_file(self):
-        if self._file_name in constants._PRESERVE_FILES:
+        if self._file_name in constants._PRESERVE_FILES and self._file_name not in constants._ALLOW_WRITE:
             self.set_status(constants._STATUS_FAILED)
             return
 
@@ -259,7 +259,7 @@ class BLE_Service:
             self.set_status(constants._STATUS_SUCCESS)
         elif self._mode == constants._MODE_DELETE:
             filename = value.decode('utf-8')
-            if not(filename in constants._PRESERVE_FILES):
+            if not(filename in constants._PRESERVE_FILES) or filename in constants._ALLOW_DELETE:
                 try:
                     os.remove(filename)
                     self.set_status(constants._STATUS_SUCCESS)

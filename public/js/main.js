@@ -291,7 +291,7 @@ var main = new function() {
       {html: i18n.get('#main-changeName#'), line: false, callback: ble.changeNameDialog},
       {html: i18n.get('#main-updateFirmware#'), line: false, callback: ble.updateFirmwareDialog},
       {html: i18n.get('#main-getInfo#'), line: false, callback: ble.getInfo},
-      {html: i18n.get('#main-listFiles#'), line: false, callback: ble.listFiles},
+      {html: i18n.get('#main-listFiles#'), line: false, callback: self.listFiles},
       {html: i18n.get('#main-configureDeviceNetwork#'), line: false, callback: main.configureDeviceNetwork},
       {html: i18n.get('#main-disconnect#'), line: false, callback: ble.disconnect},
     ];
@@ -308,6 +308,7 @@ var main = new function() {
       {html: i18n.get('#main-changeName#'), line: false, callback: mqtt.changeNameDialog},
       {html: i18n.get('#main-updateFirmware#'), line: false, callback: mqtt.updateFirmwareDialog},
       {html: i18n.get('#main-getInfo#'), line: false, callback: mqtt.getInfo},
+      {html: i18n.get('#main-listFiles#'), line: false, callback: self.listFiles},
       {html: i18n.get('#main-configureDeviceNetwork#'), line: false, callback: main.configureDeviceNetwork},
       {html: i18n.get('#main-disconnect#'), line: false, callback: mqtt.disconnect},
     ];
@@ -725,6 +726,274 @@ var main = new function() {
     if (blockly.unsaved || filesManager.unsaved) {
       event.preventDefault();
       event.returnValue = '';
+    }
+  };
+
+  this.listFiles = function() {
+    let interface = ble;
+    if (self.connectionMode == 'mqtt') {
+      interface = mqtt;
+    }
+
+    if (! interface.isConnected) {
+      toastMsg('Not connected. Please connect to device.');
+      return;
+    }
+
+    self.$filesListing = $('<div>Retrieving files listing...</div>');
+
+    let $buttons = $(
+      '<button type="button" class="delete btn btn-danger">Delete</button>' +
+      '<button type="button" class="mkdir btn btn-warning">Make Directory</button>' +
+      '<button type="button" class="upload btn btn-warning">Upload</button>' +
+      '<button type="button" class="download btn btn-success">Download</button>' +
+      '<button type="button" class="close btn btn-light">Close</button>'
+    );
+
+    let $dialog = dialog(
+      'Files on Device',
+      self.$filesListing,
+      $buttons
+    );
+
+    $buttons.siblings('.delete').click(self.deleteFilesFromDevice);
+    $buttons.siblings('.mkdir').click(self.mkdirSetName);
+    $buttons.siblings('.upload').click(self.uploadFileSelect);
+    $buttons.siblings('.download').click(self.downloadFilesFromDevice);
+    $buttons.siblings('.close').click(function() { $dialog.close(); });
+
+    self.updateFilesListing();
+  };
+
+  this.mkdirSetName = function() {
+    async function mkdir(dirname) {
+      let interface = ble;
+      if (self.connectionMode == 'mqtt') {
+        interface = mqtt;
+      }
+
+      let $updateWindow = main.hiddenButtonDialog('Make Directory', 'Making Directory...');
+      let status = await interface.mkdirOnDevice(dirname);
+
+      if (status == constants._STATUS_SUCCESS) {
+        $updateWindow.$body.text('Completed');
+        $updateWindow.$buttonsRow.removeClass('hide');
+      } else {
+        $updateWindow.$body.text('Error making directory');
+        $updateWindow.$buttonsRow.removeClass('hide');
+      }
+
+      self.updateFilesListing();
+    }
+
+    let $mkdirNameWindow = confirmDialog({
+      title: 'Make Directory',
+      message: '<div>Directory Name: <input id="dirname" type="text" value=""></div>'
+    }, function() {
+      let dirname = $mkdirNameWindow.$body.find('#dirname').val();
+      mkdir(dirname);
+    });
+  };
+
+  this.deleteFilesFromDevice = async function() {
+    let interface = ble;
+    if (self.connectionMode == 'mqtt') {
+      interface = mqtt;
+    }
+
+    let $inputs = self.$filesListing.find('input.filename');
+    let filesToDelete = [];
+    for (let $input of $inputs) {
+      if ($input.checked) {
+        filesToDelete.push($input.getAttribute('data'));
+      }
+    }
+
+    if (filesToDelete.length == 0) {
+      toastMsg('No files selected');
+      return
+    }
+
+    let $updateWindow = main.hiddenButtonDialog('Deleting', 'Starting Delete...');
+    let count = 1;
+
+    for (let file of filesToDelete) {
+      $updateWindow.$body.text('File (' + count + ' / ' + filesToDelete.length + ')');
+      let status = await interface.deleteOneFileFromDevice(file);
+      if (status != constants._STATUS_SUCCESS) {
+        toastMsg('Error deleting "' + file + '"');
+      }
+
+      count++;
+    }
+    $updateWindow.$body.text('Delete completed');
+    $updateWindow.$buttonsRow.removeClass('hide');
+
+    self.updateFilesListing();
+  };
+
+  this.uploadFileSelect = function() {
+    let hiddenElement = document.createElement('input');
+    hiddenElement.type = 'file';
+    hiddenElement.dispatchEvent(new MouseEvent('click'));
+    hiddenElement.addEventListener('change', function(e){
+      let filename = e.target.files[0].name;
+      let file = e.target.files[0];
+      let reader = new FileReader();
+      reader.onload = function() {
+        self.uploadFileSetName(filename, this.result);
+      };
+      reader.readAsArrayBuffer(file);
+    });
+  };
+
+  this.uploadFileSetName = function(filename, content) {
+    let $changeFilenameWindow = confirmDialog({
+      title: 'Set filename',
+      message: '<div>Filename: <input id="filename" type="text" value="' + filename + '"></div>'
+    }, function() {
+      let filename = $changeFilenameWindow.$body.find('#filename').val();
+      self.uploadFile(filename, content);
+    });
+  };
+
+  this.uploadFile = async function(filename, content) {
+    let interface = ble;
+    if (self.connectionMode == 'mqtt') {
+      interface = mqtt;
+    }
+
+    let $updateWindow = main.hiddenButtonDialog('Uploading File', 'Uploading');
+
+    try {
+      let progressBar = '';
+
+      function updateProgress() {
+        progressBar += '.';
+        $updateWindow.$body.text('Uploading' + progressBar);
+      }
+
+      let status = await interface.writeFile(filename, content, updateProgress);
+
+      if (status == constants._STATUS_SUCCESS) {
+        $updateWindow.$body.text('Upload Completed.');
+        $updateWindow.$buttonsRow.removeClass('hide');
+      } else if (status == constants._STATUS_PENDING) {
+        $updateWindow.$body.text('Error uploading file (timeout). Please try again.');
+        $updateWindow.$buttonsRow.removeClass('hide');
+      } else if (status == constants._STATUS_CHECKSUM_ERROR) {
+        $updateWindow.$body.text('Error uploading file (hash mismatch). Please try again.');
+        $updateWindow.$buttonsRow.removeClass('hide');
+      } else if (status == constants._STATUS_FAILED) {
+        $updateWindow.$body.text('Error uploading file (write failed). Please try again.');
+        $updateWindow.$buttonsRow.removeClass('hide');
+      } else if (status == null) {
+        $updateWindow.$body.text('Connection timed out');
+        $updateWindow.$buttonsRow.removeClass('hide');
+      } else {
+        $updateWindow.$body.text('Unknown error. Please try again.');
+        $updateWindow.$buttonsRow.removeClass('hide');
+      }
+    } catch (error) {
+      console.log(error);
+      $updateWindow.$body.text('Error uploading file (See console for details).');
+      $updateWindow.$buttonsRow.removeClass('hide');
+    }
+
+    self.updateFilesListing();
+  };
+
+  this.downloadFilesFromDevice = async function() {
+    let interface = ble;
+    if (self.connectionMode == 'mqtt') {
+      interface = mqtt;
+    }
+
+    let $inputs = self.$filesListing.find('input.filename');
+    let filesToDownload = [];
+    for (let $input of $inputs) {
+      if ($input.checked) {
+        filesToDownload.push($input.getAttribute('data'));
+      }
+    }
+
+    if (filesToDownload.length == 0) {
+      toastMsg('No files selected');
+      return
+    }
+
+    let $updateWindow = main.hiddenButtonDialog('Downloading', 'Starting Download...');
+
+    let files = {};
+    let count = 1;
+
+    for (let file of filesToDownload) {
+      $updateWindow.$body.text('File (' + count + ' / ' + filesToDownload.length + ')');
+      let content = await interface.downloadOneFileFromDevice(file);
+      if (content == null) {
+        $updateWindow.$body.text('Download failed');
+        $updateWindow.$buttonsRow.removeClass('hide');
+        return;
+      }
+
+      files[file] = content;
+      count++;
+    }
+
+    if (filesToDownload.length == 1) {
+      let filename = filesToDownload[0];
+      let content = files[filename];
+      if (content instanceof Uint8Array) {
+        content = String.fromCharCode(...content);
+      }
+      content = btoa(content);
+      main.downloadFile(filename, content, 'application/octet-stream');
+    } else {
+      main.downloadZipFile('deviceFiles', files);
+    }
+    $updateWindow.$buttonsRow.removeClass('hide');
+  };
+
+  this.updateFilesListing = async function() {
+    let interface = ble;
+    if (self.connectionMode == 'mqtt') {
+      interface = mqtt;
+    }
+
+    let result = await interface.getFilesListing();
+    if (result.status == constants._STATUS_SUCCESS) {
+      let files = result.content;
+
+      self.$filesListing.empty();
+
+      files.sort(function(a, b){
+        let aLen = (a.match(/\//g)||[]).length;
+        let bLen = (b.match(/\//g)||[]).length;
+        if (aLen > bLen) {
+          return 1;
+        } else if (bLen > aLen) {
+          return -1;
+        } else {
+          return a > b;
+        }
+      });
+
+      let checkboxes = [];
+
+      for (let file of files) {
+        let $row = $('<div></div>');
+        let $checkbox = $('<input type="checkbox" class="filename">');
+        $checkbox.attr('data', file);
+        let $span = $('<span></span>');
+        $span.text(file);
+
+        checkboxes.push($checkbox);
+        $row.append($checkbox);
+        $row.append($span);
+        self.$filesListing.append($row);
+      }
+    } else {
+      toastMsg('Error retrieving file listings');
     }
   };
 

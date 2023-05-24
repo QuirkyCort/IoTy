@@ -18,6 +18,13 @@ _PRESERVE_FILES = (
 'umqtt/robust.py',
 'umqtt/simple.py'
 )
+_ALLOW_WRITE = (
+'_ioty_name',
+'_ioty_network'
+)
+_ALLOW_DELETE = (
+'_ioty_network'
+)
 _NETWORK_CONFIGURATION_FILE = '_ioty_network'
 
 _MODE_OPEN = 1

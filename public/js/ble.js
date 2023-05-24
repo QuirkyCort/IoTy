@@ -253,174 +253,16 @@ var ble = new function() {
     self.updateFilesListing();
   };
 
-  this.mkdirSetName = function() {
-    let $mkdirNameWindow = confirmDialog({
-      title: 'Make Directory',
-      message: '<div>Directory Name: <input id="dirname" type="text" value=""></div>'
-    }, function() {
-      let dirname = $mkdirNameWindow.$body.find('#dirname').val();
-      self.mkdirOnDevice(dirname);
-    });
-  };
-
   this.mkdirOnDevice = async function(dirname) {
-    let $updateWindow = main.hiddenButtonDialog('Make Directory', 'Making Directory...');
-
     await self.setCmdMode(constants._MODE_MKDIR);
     await self.writeData(dirname);
-    let status = await self.retrieve_status();
-    if (status == constants._STATUS_SUCCESS) {
-      $updateWindow.$body.text('Completed');
-      $updateWindow.$buttonsRow.removeClass('hide');
-    } else {
-      $updateWindow.$body.text('Error making directory');
-      $updateWindow.$buttonsRow.removeClass('hide');
-    }
-
-    self.updateFilesListing();
-  };
-
-  this.deleteFilesFromDevice = async function() {
-    let $inputs = self.$filesListing.find('input.filename');
-    let filesToDelete = [];
-    for (let $input of $inputs) {
-      if ($input.checked) {
-        filesToDelete.push($input.getAttribute('data'));
-      }
-    }
-
-    if (filesToDelete.length == 0) {
-      toastMsg('No files selected');
-      return
-    }
-
-    let $updateWindow = main.hiddenButtonDialog('Deleting', 'Starting Delete...');
-    let count = 1;
-
-    for (let file of filesToDelete) {
-      $updateWindow.$body.text('File (' + count + ' / ' + filesToDelete.length + ')');
-      await self.deleteOneFileFromDevice(file);
-      count++;
-    }
-    $updateWindow.$body.text('Delete completed');
-    $updateWindow.$buttonsRow.removeClass('hide');
-
-    self.updateFilesListing();
+    return await self.retrieve_status();
   };
 
   this.deleteOneFileFromDevice = async function(filename) {
     await self.setCmdMode(constants._MODE_DELETE);
     await self.writeData(filename);
-    let status = await self.retrieve_status();
-    if (status != constants._STATUS_SUCCESS) {
-      toastMsg('Error deleting file');
-      return null;
-    }
-  };
-
-  this.uploadFileSelect = function() {
-    let hiddenElement = document.createElement('input');
-    hiddenElement.type = 'file';
-    hiddenElement.dispatchEvent(new MouseEvent('click'));
-    hiddenElement.addEventListener('change', function(e){
-      let filename = e.target.files[0].name;
-      let file = e.target.files[0];
-      let reader = new FileReader();
-      reader.onload = function() {
-        self.uploadFileSetName(filename, this.result);
-      };
-      reader.readAsArrayBuffer(file);
-    });
-  };
-
-  this.uploadFileSetName = function(filename, content) {
-    let $changeFilenameWindow = confirmDialog({
-      title: 'Set filename',
-      message: '<div>Filename: <input id="filename" type="text" value="' + filename + '"></div>'
-    }, function() {
-      let filename = $changeFilenameWindow.$body.find('#filename').val();
-      self.uploadFile(filename, content);
-    });
-  };
-
-  this.uploadFile = async function(filename, content) {
-    let $updateWindow = main.hiddenButtonDialog('Uploading File', 'Uploading');
-
-    try {
-      let progressBar = '';
-
-      function updateProgress() {
-        progressBar += '.';
-        $updateWindow.$body.text('Uploading' + progressBar);
-      }
-
-      let status = await self.writeFile(filename, content, updateProgress);
-
-      if (status == constants._STATUS_SUCCESS) {
-        $updateWindow.$body.text('Upload Completed.');
-        $updateWindow.$buttonsRow.removeClass('hide');
-      } else if (status == constants._STATUS_PENDING) {
-        $updateWindow.$body.text('Error uploading file (timeout). Please try again.');
-        $updateWindow.$buttonsRow.removeClass('hide');
-      } else if (status == constants._STATUS_CHECKSUM_ERROR) {
-        $updateWindow.$body.text('Error uploading file (hash mismatch). Please try again.');
-        $updateWindow.$buttonsRow.removeClass('hide');
-      } else if (status == constants._STATUS_FAILED) {
-        $updateWindow.$body.text('Error uploading file (write failed). Please try again.');
-        $updateWindow.$buttonsRow.removeClass('hide');
-      } else {
-        $updateWindow.$body.text('Unknown error. Please try again.');
-        $updateWindow.$buttonsRow.removeClass('hide');
-      }
-    } catch (error) {
-      console.log(error);
-      $updateWindow.$body.text('Error uploading file (See console for details).');
-      $updateWindow.$buttonsRow.removeClass('hide');
-    }
-
-    self.updateFilesListing();
-  };
-
-  this.downloadFilesFromDevice = async function() {
-    let $inputs = self.$filesListing.find('input.filename');
-    let filesToDownload = [];
-    for (let $input of $inputs) {
-      if ($input.checked) {
-        filesToDownload.push($input.getAttribute('data'));
-      }
-    }
-
-    if (filesToDownload.length == 0) {
-      toastMsg('No files selected');
-      return
-    }
-
-    let $updateWindow = main.hiddenButtonDialog('Downloading', 'Starting Download...');
-
-    let files = {};
-    let count = 1;
-
-    for (let file of filesToDownload) {
-      $updateWindow.$body.text('File (' + count + ' / ' + filesToDownload.length + ')');
-      let content = await self.downloadOneFileFromDevice(file);
-      if (content == null) {
-        $updateWindow.$body.text('Download failed');
-        $updateWindow.$buttonsRow.removeClass('hide');
-        return;
-      }
-
-      files[file] = content;
-      count++;
-    }
-
-    if (filesToDownload.length == 1) {
-      let filename = filesToDownload[0];
-      let content = btoa(String.fromCharCode(...new Uint8Array(files[filename])));
-      main.downloadFile(filename, content, 'application/octet-stream');
-    } else {
-      main.downloadZipFile('deviceFiles', files);
-    }
-    $updateWindow.$buttonsRow.removeClass('hide');
+    return await self.retrieve_status();
   };
 
   this.downloadOneFileFromDevice = async function(filename) {
@@ -459,45 +301,20 @@ var ble = new function() {
     }
   };
 
-  this.updateFilesListing = async function() {
+  this.getFilesListing = async function() {
     self.dataNotificationBuf = new Uint8Array();
     await self.setCmdMode(constants._MODE_LIST);
     let status = await self.retrieve_status();
+    let content = null;
     if (status == constants._STATUS_SUCCESS) {
       let utf8decoder = new TextDecoder();
       let text = utf8decoder.decode(self.dataNotificationBuf);
-      let files = JSON.parse(text);
+      content = JSON.parse(text);
+    }
 
-      self.$filesListing.empty();
-
-      files.sort(function(a, b){
-        let aLen = (a.match(/\//g)||[]).length;
-        let bLen = (b.match(/\//g)||[]).length;
-        if (aLen > bLen) {
-          return 1;
-        } else if (bLen > aLen) {
-          return -1;
-        } else {
-          return a > b;
-        }
-      });
-
-      let checkboxes = [];
-
-      for (let file of files) {
-        let $row = $('<div></div>');
-        let $checkbox = $('<input type="checkbox" class="filename">');
-        $checkbox.attr('data', file);
-        let $span = $('<span></span>');
-        $span.text(file);
-
-        checkboxes.push($checkbox);
-        $row.append($checkbox);
-        $row.append($span);
-        self.$filesListing.append($row);
-      }
-    } else {
-      toastMsg('Error retrieving file listings');
+    return {
+      status: status,
+      content: content
     }
   };
 
@@ -744,28 +561,33 @@ var ble = new function() {
       return;
     }
 
-    let $changeNameWindow = confirmDialog({
+    let $changeWindow = confirmDialog({
       title: 'Change device name',
       message: '<div>New name: <input id="newName" type="text" maxlength="8" value="' + self.device.name + '"></div>'
     }, function() {
-      let newName = $changeNameWindow.$body.find('#newName').val();
+      let newName = $changeWindow.$body.find('#newName').val();
       self.changeName(newName);
     })
   };
 
   this.changeName = async function(newName) {
-    let $changeNameWindow = main.hiddenButtonDialog('Change Device Name', 'Changing Name...');
+    let $changeWindow = main.hiddenButtonDialog('Change Device Name', 'Changing Name...');
 
     try {
       let filename = constants.NAME_FILE;
       let content = newName.slice(0, 8);
-      await self.writeFile(filename, content);
-      $changeNameWindow.$body.text('Change completed. Restart your device to see the new name.');
-      $changeNameWindow.$buttonsRow.removeClass('hide');
+      let status = await self.writeFile(filename, content);
+      if (status == constants._STATUS_SUCCESS) {
+        $changeWindow.$body.text('Change completed. Restart your device to see the new name.');
+        $changeWindow.$buttonsRow.removeClass('hide');
+      } else {
+        $changeWindow.$body.text('Change failed.');
+        $changeWindow.$buttonsRow.removeClass('hide');
+      }
     } catch (error) {
       console.log(error);
-      $changeNameWindow.$body.text('Error changing name.');
-      $changeNameWindow.$buttonsRow.removeClass('hide');
+      $changeWindow.$body.text('Error changing name.');
+      $changeWindow.$buttonsRow.removeClass('hide');
     }
   };
 
@@ -775,17 +597,22 @@ var ble = new function() {
       return;
     }
 
-    let $changeNameWindow = main.hiddenButtonDialog('Configure Device Network', 'Downloading Settings...');
+    let $changeWindow = main.hiddenButtonDialog('Configure Device Network', 'Downloading Settings...');
 
     try {
       let filename = constants.NETWORK_CONFIGURATION_FILE;
-      await self.writeFile(filename, content);
-      $changeNameWindow.$body.text('Change completed. Restart your device to connect to the network.');
-      $changeNameWindow.$buttonsRow.removeClass('hide');
+      let status = await self.writeFile(filename, content);
+      if (status == constants._STATUS_SUCCESS) {
+        $changeWindow.$body.text('Change completed. Restart your device to connect to the network.');
+        $changeWindow.$buttonsRow.removeClass('hide');
+      } else {
+        $changeWindow.$body.text('Change failed.');
+        $changeWindow.$buttonsRow.removeClass('hide');
+      }
     } catch (error) {
       console.log(error);
-      $changeNameWindow.$body.text('Error configuring network.');
-      $changeNameWindow.$buttonsRow.removeClass('hide');
+      $changeWindow.$body.text('Error configuring network.');
+      $changeWindow.$buttonsRow.removeClass('hide');
     }
   };
 }
