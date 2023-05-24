@@ -55,8 +55,8 @@ class MQTT_Service:
         return self.mqtt.check_msg()
 
     def mqtt_cb(self, topic, msg):
+        cmd = json.loads(msg)
         try:
-            cmd = json.loads(msg)
             if cmd['mode'] == constants._MODE_GET_VERSION:
                 self.get_version(cmd)
             elif cmd['mode'] == constants._MODE_WRITE_FILES:

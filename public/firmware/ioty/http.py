@@ -93,8 +93,9 @@ class HTTP_Service:
                 response_data = self.process_req(url, query, buf)
                 break
 
-        response = 'HTTP/1.0 200 OK\r\n\r\n' + response_data
-        client_connection.sendall(response.encode())
+        header = b'HTTP/1.0 200 OK\r\n\r\n'
+        response = header + response_data
+        client_connection.sendall(response)
         client_connection.close()
 
     def process_req(self, url, query, buf):
@@ -106,8 +107,14 @@ class HTTP_Service:
             return self._upload_req(query, buf)
         elif url == b'/firmware':
             return self._firmware_req(query, buf)
+        elif url == b'/files':
+            return self._files_req(query, buf)
+        elif url == b'/download':
+            return self._download_req(query, buf)
+        elif url == b'/delete':
+            return self._delete_req(query, buf)
 
-        return ''
+        return 'Invalid path'
 
     def _index_req(self, query, buf):
         import gc
@@ -123,12 +130,60 @@ class HTTP_Service:
             content = content.replace('#alloc_mem#', str(gc.mem_alloc()))
             content = content.replace('#free_mem#', str(gc.mem_free()))
             content = content.replace('#free_space#', str(free_space))
-            return content
+            return content.encode()
+
+    def wrap_body(self, content):
+        return b'<!DOCTYPE html><html><body>' + content + b'</body></html>'
+
+    def error_html(self, content):
+        return self.wrap_body(b'<h1>Error</h1><p>' + content + b'</p>')
+
+    def _files_req(self, query, buf):
+        def list_files(dir):
+            listing = []
+            for i in os.ilistdir(dir):
+                if i[1] == 0x8000:
+                    listing.append(dir + i[0])
+                elif i[1] == 0x4000:
+                    listing.append(dir + i[0] + '/')
+                    listing.extend(list_files(dir + i[0] + '/'))
+            return listing
+
+        li = ''
+        for f in list_files(''):
+            li += '<li><a href="download?n=' + f + '" download="' + f + '">' + f + '</a> (<a href="delete?n=' + f +'">Delete</a>)</li>'
+
+        return self.wrap_body(b'<h1>Files</h1><ul>' + li.encode() + b'</ul>')
+
+    def _download_req(self, query, buf):
+        params = self.get_query_dict(query)
+        if b'n' not in params:
+            return self.error_html(b'No file specified')
+
+        try:
+            with open(params[b'n'].decode('utf-8'), 'rb') as file:
+                return file.read()
+        except:
+            return self.error_html(b'Unable to read file')
+
+    def _delete_req(self, query, buf):
+        params = self.get_query_dict(query)
+        if b'n' not in params:
+            return self.error_html(b'No file specified')
+        filename = params[b'n'].decode('utf-8')
+
+        if not(filename in constants._PRESERVE_FILES):
+            try:
+                os.remove(filename)
+                return self.wrap_body(b'<h1>File deleted</h1>')
+            except:
+                return self.error_html(b'Unable to delete file')
+        return self.error_html(b'Firmware files cannot be deleted')
 
     def _config_req(self, query, buf):
         params = self.get_query_dict(query)
         if b'ssid' not in params:
-            return '<!DOCTYPE html><html><body><h1>Error</h1><p>Invalid settings.</p></body></html>'
+            return self.error_html(b'Invalid settings')
 
         with open(constants._NETWORK_CONFIGURATION_FILE, 'w') as file:
             file.write(params[b'ssid'].decode('utf-8') + '\n')
@@ -138,33 +193,27 @@ class HTTP_Service:
             file.write(params[b'username'].decode('utf-8') + '\n')
             file.write(params[b'mqttPassword'].decode('utf-8') + '\n')
 
-        return '''<!DOCTYPE html>
-<html>
-<body>
-<h1>Configuration Uploaded</h1>
-<p>Restart your device and enter internet mode to start programming.</p>
-</body>
-</html>'''
+        return self.wrap_body(b'<h1>Configuration Uploaded</h1><p>Restart your device and enter internet mode to start programming.</p>')
 
     def _upload_req(self, query, buf):
         try:
             files = json.loads(buf)
         except:
-            return 'Failed (JSON Error)'
+            return b'Failed (JSON Error)'
 
         try:
             for filename in files:
                 with open(filename, 'wb') as file:
                     file.write(files[filename])
-            return 'Success'
+            return b'Success'
         except:
-            return 'Failed'
+            return b'Failed'
 
     def _firmware_req(self, query, buf):
         try:
             files = json.loads(buf)
         except:
-            return 'Failed (JSON Error)'
+            return b'Failed (JSON Error)'
 
         for line in files['_ioty_updates']['content']:
             cmd = line.split()
@@ -181,6 +230,6 @@ class HTTP_Service:
                     continue
                 with open(filename, 'wb') as file:
                     file.write(files[filename]['content'])
-            return 'Success'
+            return b'Success'
         except:
-            return 'Failed'
+            return b'Failed'
