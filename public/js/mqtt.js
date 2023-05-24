@@ -265,25 +265,44 @@ var mqtt = new function() {
     let $updateWindow = main.hiddenButtonDialog('Firmware Update', 'Updating Firmware...');
 
     let files = {};
+    let size = 0;
     for (let filename in main.firmwareFiles) {
       if (filename == constants.FIRMWARE_UPDATE_FILE) {
         continue;
       }
       files[filename] = main.firmwareFiles[filename].content;
+      size += files[filename].length;
+
+      if (size > 10000) {
+        let nonce = await self.sendCmd(constants._MODE_WRITE_FILES, files);
+        let response = await self.waitForResponse(nonce);
+
+        if (response == null) {
+          $updateWindow.$body.text('Connection timed out');
+          $updateWindow.$buttonsRow.removeClass('hide');
+        } else if (response.status != constants._STATUS_SUCCESS) {
+          $updateWindow.$body.text('Update failed. Please try again.');
+          $updateWindow.$buttonsRow.removeClass('hide');
+        }
+        files = {};
+        size = 0;
+      }
     }
 
-    let nonce = await self.sendCmd(constants._MODE_WRITE_FILES, files);
-    let response = await self.waitForResponse(nonce);
+    if (size > 0) {
+      let nonce = await self.sendCmd(constants._MODE_WRITE_FILES, files);
+      let response = await self.waitForResponse(nonce);
 
-    if (response == null) {
-      $updateWindow.$body.text('Connection timed out');
-      $updateWindow.$buttonsRow.removeClass('hide');
-    } else if (response.status != constants._STATUS_SUCCESS) {
-      $updateWindow.$body.text('Update failed. Please try again.');
-      $updateWindow.$buttonsRow.removeClass('hide');
-    } else {
-      $updateWindow.$body.text('Update Completed. Please restart your device.');
-      $updateWindow.$buttonsRow.removeClass('hide');
+      if (response == null) {
+        $updateWindow.$body.text('Connection timed out');
+        $updateWindow.$buttonsRow.removeClass('hide');
+      } else if (response.status != constants._STATUS_SUCCESS) {
+        $updateWindow.$body.text('Update failed. Please try again.');
+        $updateWindow.$buttonsRow.removeClass('hide');
+      } else {
+        $updateWindow.$body.text('Update Completed. Please restart your device.');
+        $updateWindow.$buttonsRow.removeClass('hide');
+      }
     }
   };
 
