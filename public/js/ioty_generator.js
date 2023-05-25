@@ -6,7 +6,7 @@ var ioty_generator = new function() {
 
   // Load Python generators
   this.load = function() {
-    Blockly.Python.addReservedWords('machine,ioty,ioty_wifi,ioty_mqtt,ioty_mqtt_cb,i2c,mpu6050,MPU6050,pca9685,PCA9685,req');
+    Blockly.Python.addReservedWords('machine,ioty,ioty_wifi,ioty_mqtt,ioty_mqtt_cb,i2c,mpu6050,MPU6050,pca9685,PCA9685,req,dateTime,ntptime');
 
     Blockly.Python.INDENT = '    ';
 
@@ -52,6 +52,10 @@ var ioty_generator = new function() {
     Blockly.Python['i2c_readfrom_mem'] = self.i2c_readfrom_mem;
     Blockly.Python['i2c_writeto'] = self.i2c_writeto;
     Blockly.Python['i2c_readfrom'] = self.i2c_readfrom;
+
+    Blockly.Python['dateTimeGet'] = self.dateTimeGet;
+    Blockly.Python['dateTimeSet'] = self.dateTimeSet;
+    Blockly.Python['dateTimeSetNtp'] = self.dateTimeSetNtp;
 
     Blockly.Python['mpu6050_init'] = self.mpu6050_init;
     Blockly.Python['mpu6050_calibrate'] = self.mpu6050_calibrate;
@@ -713,6 +717,38 @@ var ioty_generator = new function() {
     var code = 'struct.unpack(\'' + format + '\', i2c.readfrom(' + address + ', ' + size + stopParam + '))[0]';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.dateTimeGet = function(block) {
+    self.imports['machine'] = 'import machine';
+
+    var code = 'list(machine.RTC().datetime())';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.dateTimeSet = function(block) {
+    self.imports['machine'] = 'import machine';
+
+    var dateTime = Blockly.Python.valueToCode(block, 'dateTime', Blockly.Python.ORDER_NONE);
+
+    var code = 'machine.RTC().datetime(' + dateTime + ')\n';
+
+    return code;
+  };
+
+  this.dateTimeSetNtp = function(block) {
+    self.imports['ntptime'] = 'import ntptime';
+
+    var tz = Blockly.Python.valueToCode(block, 'tz', Blockly.Python.ORDER_NONE);
+
+    var code =
+      'ntptime.settime()\n' +
+      'dateTime = list(machine.RTC().datetime())\n' +
+      'dateTime[4] += ' + tz + '\n' +
+      'machine.RTC().datetime(dateTime)\n';
+
+    return code;
   };
 
   this.mpu6050_init = function(block) {

@@ -1,0 +1,16 @@
+{
+  "type": "dateTimeSetNtp",
+  "message0": "#blk-dateTimeSetNtp# %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "tz",
+      "check": "Number"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 65,
+  "tooltip": "#blk-dateTimeSetNtp_tooltip#",
+  "helpUrl": ""
+}

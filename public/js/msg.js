@@ -877,6 +877,24 @@ let MSGS = {
   '#blk-connect_to_configured_wifi_tooltip#': {
     en: 'Connect to the WiFi hotspot that was configured via \\"Configure Device Network...\\". If the \\"When Started\\" block is set to \\"wait for Internet connection\\", your device will connect automatically and you should not use this block.',
   },
+  '#blk-dateTimeGet#': {
+    en: 'date and time',
+  },
+  '#blk-dateTimeGet_tooltip#': {
+    en: 'Returns a list containing year, month, day, weekday, hours, minutes, seconds, subseconds.',
+  },
+  '#blk-dateTimeSet#': {
+    en: 'set date and time to',
+  },
+  '#blk-dateTimeSet_tooltip#': {
+    en: 'Input should be a list containing year, month, day, weekday, hours, minutes, seconds, subseconds.',
+  },
+  '#blk-dateTimeSetNtp#': {
+    en: 'set date/time automatically with timezone UTC+',
+  },
+  '#blk-dateTimeSetNtp_tooltip#': {
+    en: 'Device must have an internet connection to run this. ',
+  },
 };
 let MSGS_KEYS = Object.keys(MSGS);
 

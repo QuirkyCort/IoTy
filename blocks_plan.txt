@@ -67,12 +67,6 @@ def ez_esp_now_recv():
 # Read and write files
 standard stuff. Read and write to built-in filesystem.
 
-# Date and time
-time module
-machine.RTC().datetime()
-ntptime.settime() # contrary to docs, there are no parameters accepted
-  Adjust timezone by getting machine.RTC().datetime() and setting it back after adjust hours/mins
-
 # SPI
 # Software SPI (using bit-banging) works on all pins,
 
