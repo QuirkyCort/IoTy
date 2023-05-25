@@ -210,6 +210,7 @@ class HTTP_Service:
             return b'Failed'
 
     def _firmware_req(self, query, buf):
+        import ubinascii
         try:
             files = json.loads(buf)
         except:
@@ -229,7 +230,7 @@ class HTTP_Service:
                 if filename == '_ioty_updates':
                     continue
                 with open(filename, 'wb') as file:
-                    file.write(files[filename]['content'])
+                    file.write(ubinascii.a2b_base64(files[filename]['content']))
             return b'Success'
         except:
             return b'Failed'

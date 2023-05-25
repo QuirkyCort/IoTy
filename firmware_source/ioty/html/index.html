@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Device Info</h1>
+<table>
+<tr><td style="padding-right: 2em;">Firmware Version:</td><td>#version#</td></tr>
+<tr><td>MAC Address:</td><td>#mac#</td></tr>
+<tr><td>Allocated Mem:</td><td>#alloc_mem#</td></tr>
+<tr><td>Free Mem:</td><td>#free_mem#</td></tr>
+<tr><td>Free Space:</td><td>#free_space#</td></tr>
+</table>
+<h1><a href="/files">Files</a></h1>
+<h1>Configure Device Network</h1>
+<form action="/config">
+<label>WiFi SSID:</label><br>
+<input type="text" name="ssid"><br>
+<label>WiFi Password:</label><br>
+<input type="text" name="wifiPassword"><br>
+<label>MQTT Host:</label><br>
+<input type="text" name="host" value="mqtt.a9i.sg"><br>
+<label>MQTT Port:</label><br>
+<input type="text" name="port" value="1883"><br>
+<label>Username:</label><br>
+<input type="text" name="username"><br>
+<label>Password:</label><br>
+<input type="text" name="mqttPassword"><br>
+<br><input type="submit" value="Submit">
+</form>
+<h1>Upload Code (JSON Package)</h1>
+<input type="file" id="code">
+<button id="upload">Upload</button>
+<h3 id="status"></h3>
+<h1>Upload Firmware (JSON Package)</h1>
+<input type="file" id="firmware">
+<button id="uploadFirmware">Upload</button>
+<h3 id="statusFirmware"></h3>
+<script>
+function uploadCode() {
+  let fileEle = document.getElementById('code');
+  if (fileEle.files.length == 1) {
+    fileEle.files[0].text().then(function(text){
+      fetch('/upload', {
+        method: 'POST',
+        body: text
+      }).then(function(response){
+        return response.text();
+      }).then(function(text){
+        document.getElementById('status').innerText = text;
+      });
+    });
+  }
+}
+document.getElementById('upload').onclick = uploadCode;
+
+function uploadFirmware() {
+  let fileEle = document.getElementById('firmware');
+  if (fileEle.files.length == 1) {
+    fileEle.files[0].text().then(function(text){
+      fetch('/firmware', {
+        method: 'POST',
+        body: text
+      }).then(function(response){
+        return response.text();
+      }).then(function(text){
+        document.getElementById('statusFirmware').innerText = text;
+      });
+    });
+  }
+}
+document.getElementById('uploadFirmware').onclick = uploadFirmware;
+
+</script>
+</body>
+</html>

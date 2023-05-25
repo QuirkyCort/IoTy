@@ -126,9 +126,11 @@ var main = new function() {
 
     async function retrieveFiles() {
       for (let file in self.firmwareFiles) {
-        let response = await fetch('firmware/' + file);
-        let text = await response.text();
-        self.firmwareFiles[file].content = text;
+        if (file != constants.FIRMWARE_UPDATE_FILE) {
+          let response = await fetch('firmware/' + file);
+          let buf = await response.arrayBuffer();
+          self.firmwareFiles[file].content = buf;
+        }
       }
     }
 
@@ -717,8 +719,23 @@ var main = new function() {
   // save to json package
   this.saveFirmwareToJson = function() {
     let filename = 'firmware-v' + constants.CURRENT_VERSION;
+    let firmwareFiles = {};
 
-    self.downloadFile(filename + '.json', btoa(JSON.stringify(self.firmwareFiles)), 'application/json');
+    for (let name in self.firmwareFiles) {
+      if (name == constants.FIRMWARE_UPDATE_FILE) {
+        firmwareFiles[name] = {
+          tempName: self.firmwareFiles[name].tempName,
+          content: self.firmwareFiles[name].content
+        };
+      } else {
+        firmwareFiles[name] = {
+          tempName: self.firmwareFiles[name].tempName,
+          content: base64EncArr(new Uint8Array(self.firmwareFiles[name].content))
+        };
+      }
+    }
+
+    self.downloadFile(filename + '.json', btoa(JSON.stringify(firmwareFiles)), 'application/json');
   };
 
   // Check for unsaved changes
