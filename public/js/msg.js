@@ -877,26 +877,50 @@ let MSGS = {
   '#blk-connect_to_configured_wifi_tooltip#': {
     en: 'Connect to the WiFi hotspot that was configured via \\"Configure Device Network...\\". If the \\"When Started\\" block is set to \\"wait for Internet connection\\", your device will connect automatically and you should not use this block.',
   },
-  '#blk-dateTimeGet#': {
+  '#blk-date_time_get#': {
     en: 'date and time',
   },
-  '#blk-dateTimeGet_tooltip#': {
+  '#blk-date_time_get_tooltip#': {
     en: 'Returns a list containing year, month, day, weekday, hours, minutes, seconds, subseconds.',
   },
-  '#blk-dateTimeSet#': {
+  '#blk-date_time_set#': {
     en: 'set date and time to',
   },
-  '#blk-dateTimeSet_tooltip#': {
+  '#blk-date_time_set_tooltip#': {
     en: 'Input should be a list containing year, month, day, weekday, hours, minutes, seconds, subseconds.',
   },
-  '#blk-dateTimeSetNtp#': {
+  '#blk-date_time_set_ntp#': {
     en: 'set date/time automatically with timezone UTC+',
   },
-  '#blk-dateTimeSetNtp_tooltip#': {
+  '#blk-date_time_set_ntp_tooltip#': {
     en: 'Device must have an internet connection to run this. ',
   },
   '#blk-file#': {
     en: 'File',
+  },
+  '#blk-to_open#': {
+    en: 'to open',
+  },
+  '#blk-with_mode#': {
+    en: 'with mode',
+  },
+  '#blk-and_type#': {
+    en: 'and type',
+  },
+  '#blk-file_open_tooltip#': {
+    en: 'Open a file for reading or writing',
+  },
+  '#blk-close_file#': {
+    en: 'close file',
+  },
+  '#blk-file_close_tooltip#': {
+    en: 'Close a previously opened file. You cannot read/write to the file after closing.',
+  },
+  '#blk-flush_file#': {
+    en: 'flush file',
+  },
+  '#blk-file_flush_tooltip#': {
+    en: 'Flush a file to storage. This ensures that written data will not be lost if the device loses power.',
   },
 };
 let MSGS_KEYS = Object.keys(MSGS);

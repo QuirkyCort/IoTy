@@ -69,9 +69,9 @@
       <field name="units">MILLI</field>
     </block>
     <block type="exit"></block>
-    <block type="dateTimeGet"></block>
-    <block type="dateTimeSet"></block>
-    <block type="dateTimeSetNtp">
+    <block type="date_time_get"></block>
+    <block type="date_time_set"></block>
+    <block type="date_time_set_ntp">
       <value name="tz">
         <shadow type="math_number">
           <field name="NUM">0</field>
@@ -464,6 +464,15 @@
     <block type="mqtt_check_msg"></block>
   </category>
   <category name="#blk-file#" colour="#5b67a5">
+    <block type="file_open">
+      <value name="filename">
+        <shadow type="text">
+          <field name="TEXT">data.txt</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="file_flush"></block>
+    <block type="file_close"></block>
   </category>
   <category name="I2C" colour="#a55b80">
     <block type="i2c_init"></block>

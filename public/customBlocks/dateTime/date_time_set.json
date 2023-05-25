@@ -1,6 +1,6 @@
 {
-  "type": "dateTimeSet",
-  "message0": "#blk-dateTimeSet# %1",
+  "type": "date_time_set",
+  "message0": "#blk-date_time_set# %1",
   "args0": [
     {
       "type": "input_value",
@@ -11,6 +11,6 @@
   "previousStatement": null,
   "nextStatement": null,
   "colour": 65,
-  "tooltip": "#blk-dateTimeSet_tooltip#",
+  "tooltip": "#blk-date_time_set_tooltip#",
   "helpUrl": ""
 }

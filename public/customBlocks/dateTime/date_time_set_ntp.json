@@ -1,6 +1,6 @@
 {
-  "type": "dateTimeSetNtp",
-  "message0": "#blk-dateTimeSetNtp# %1",
+  "type": "date_time_set_ntp",
+  "message0": "#blk-date_time_set_ntp# %1",
   "args0": [
     {
       "type": "input_value",
@@ -11,6 +11,6 @@
   "previousStatement": null,
   "nextStatement": null,
   "colour": 65,
-  "tooltip": "#blk-dateTimeSetNtp_tooltip#",
+  "tooltip": "#blk-date_time_set_ntp_tooltip#",
   "helpUrl": ""
 }

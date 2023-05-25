@@ -53,9 +53,13 @@ var ioty_generator = new function() {
     Blockly.Python['i2c_writeto'] = self.i2c_writeto;
     Blockly.Python['i2c_readfrom'] = self.i2c_readfrom;
 
-    Blockly.Python['dateTimeGet'] = self.dateTimeGet;
-    Blockly.Python['dateTimeSet'] = self.dateTimeSet;
-    Blockly.Python['dateTimeSetNtp'] = self.dateTimeSetNtp;
+    Blockly.Python['date_time_get'] = self.date_time_get;
+    Blockly.Python['date_time_set'] = self.date_time_set;
+    Blockly.Python['date_time_set_ntp'] = self.date_time_set_ntp;
+
+    Blockly.Python['file_open'] = self.file_open;
+    Blockly.Python['file_close'] = self.file_close;
+    Blockly.Python['file_flush'] = self.file_flush;
 
     Blockly.Python['mpu6050_init'] = self.mpu6050_init;
     Blockly.Python['mpu6050_calibrate'] = self.mpu6050_calibrate;
@@ -719,7 +723,7 @@ var ioty_generator = new function() {
     return [code, Blockly.Python.ORDER_ATOMIC];
   };
 
-  this.dateTimeGet = function(block) {
+  this.date_time_get = function(block) {
     self.imports['machine'] = 'import machine';
 
     var code = 'list(machine.RTC().datetime())';
@@ -727,7 +731,7 @@ var ioty_generator = new function() {
     return [code, Blockly.Python.ORDER_ATOMIC];
   };
 
-  this.dateTimeSet = function(block) {
+  this.date_time_set = function(block) {
     self.imports['machine'] = 'import machine';
 
     var dateTime = Blockly.Python.valueToCode(block, 'dateTime', Blockly.Python.ORDER_NONE);
@@ -737,7 +741,7 @@ var ioty_generator = new function() {
     return code;
   };
 
-  this.dateTimeSetNtp = function(block) {
+  this.date_time_set_ntp = function(block) {
     self.imports['ntptime'] = 'import ntptime';
 
     var tz = Blockly.Python.valueToCode(block, 'tz', Blockly.Python.ORDER_NONE);
@@ -747,6 +751,33 @@ var ioty_generator = new function() {
       'dateTime = list(machine.RTC().datetime())\n' +
       'dateTime[4] += ' + tz + '\n' +
       'machine.RTC().datetime(dateTime)\n';
+
+    return code;
+  };
+
+  this.file_open = function(block) {
+    var variable = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('variable'), 'VARIABLE');
+    var filename = Blockly.Python.valueToCode(block, 'filename', Blockly.Python.ORDER_NONE);
+    var mode = block.getFieldValue('mode');
+    var type = block.getFieldValue('type');
+
+    var code = variable + ' = open(' + filename + ', \'' + mode + type + '\')\n';
+
+    return code;
+  };
+
+  this.file_close = function(block) {
+    var variable = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('variable'), 'VARIABLE');
+
+    var code = variable + '.close()\n';
+
+    return code;
+  };
+
+  this.file_flush = function(block) {
+    var variable = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('variable'), 'VARIABLE');
+
+    var code = variable + '.flush()\n';
 
     return code;
   };

@@ -1,0 +1,38 @@
+{
+  "type": "file_open",
+  "message0": "#blk-set# %1 #blk-to_open# %2 #blk-with_mode# %3 #blk-and_type# %4",
+  "args0": [
+    {
+      "type": "field_variable",
+      "name": "variable",
+      "variable": "file1"
+    },
+    {
+      "type": "input_value",
+      "name": "filename",
+      "check": "String"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "mode",
+      "options": [
+        ["read", "r"],
+        ["write", "w"],
+        ["append", "a"]
+      ]
+    },
+    {
+      "type": "field_dropdown",
+      "name": "type",
+      "options": [
+        ["text", "t"],
+        ["binary", "b"]
+      ]
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-file_open_tooltip#",
+  "helpUrl": ""
+}

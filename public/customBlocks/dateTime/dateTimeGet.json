@@ -1,9 +1,0 @@
-{
-  "type": "dateTimeGet",
-  "message0": "#blk-dateTimeGet#",
-  "args0": [],
-  "output": "Number",
-  "colour": 65,
-  "tooltip": "#blk-dateTimeGet_tooltip#",
-  "helpUrl": ""
-}

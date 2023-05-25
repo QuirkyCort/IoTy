@@ -1,0 +1,9 @@
+{
+  "type": "date_time_get",
+  "message0": "#blk-date_time_get#",
+  "args0": [],
+  "output": "Number",
+  "colour": 65,
+  "tooltip": "#blk-date_time_get_tooltip#",
+  "helpUrl": ""
+}
