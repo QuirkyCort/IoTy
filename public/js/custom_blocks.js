@@ -82,7 +82,7 @@ Blockly.defineBlocksWithJsonArray([
     "output": null,
     "inputsInline": true,
     "colour": 260,
-    "tooltip": "#blk_dict_key_value_tooltip#",
+    "tooltip": i18n.get('#blk-dict_key_value_tooltip#'),
     "helpUrl": "",
     "mutator": "dict_create_with_mutator",
   },

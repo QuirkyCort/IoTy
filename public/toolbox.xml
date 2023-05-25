@@ -463,6 +463,8 @@
     </block>
     <block type="mqtt_check_msg"></block>
   </category>
+  <category name="#blk-file#" colour="#5b67a5">
+  </category>
   <category name="I2C" colour="#a55b80">
     <block type="i2c_init"></block>
     <block type="i2c_scan"></block>

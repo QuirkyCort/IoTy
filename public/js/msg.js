@@ -895,6 +895,9 @@ let MSGS = {
   '#blk-dateTimeSetNtp_tooltip#': {
     en: 'Device must have an internet connection to run this. ',
   },
+  '#blk-file#': {
+    en: 'File',
+  },
 };
 let MSGS_KEYS = Object.keys(MSGS);
 

@@ -66,6 +66,12 @@ def ez_esp_now_recv():
 
 # Read and write files
 standard stuff. Read and write to built-in filesystem.
+Set <file> to open <filename> with mode <mode> and <type>
+Close <file>
+Flush <file>
+write to <file> with <value> and <newline>
+<= read one line from <file>
+<= read entire file <file>
 
 # SPI
 # Software SPI (using bit-banging) works on all pins,

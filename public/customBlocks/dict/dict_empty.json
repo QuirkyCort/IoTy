@@ -5,6 +5,6 @@
   "output": null,
   "inputsInline": true,
   "colour": 260,
-  "tooltip": "#blk-dict_empty",
+  "tooltip": "#blk-dict_empty_tooltip#",
   "helpUrl": ""
 }
