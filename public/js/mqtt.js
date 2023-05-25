@@ -119,8 +119,12 @@ var mqtt = new function() {
     main.setConnectStatus(main.STATUS_CONNECTED);
 
     $window.close();
-    if (self.version != constants.CURRENT_VERSION) {
-      self.updateFirmwareDialog();
+    if (self.version < constants.CURRENT_VERSION) {
+      if (self.version < constants.MINIMUM_VERSION_TO_UPGRADE) {
+        main.unableToUpdateFirmwareDialog();
+      } else {
+        main.updateFirmwareDialog();
+      }
     }
   };
 
@@ -246,21 +250,6 @@ var mqtt = new function() {
     }
   };
 
-  this.updateFirmwareDialog = function() {
-    if (! self.isConnected) {
-      toastMsg('Not connected. Please connect to device.');
-      return;
-    }
-
-    confirmDialog({
-      title: 'Firmware Update',
-      confirm: 'Update Now',
-      message:
-        'A new firmware (version ' + constants.CURRENT_VERSION + ') is available, your device is using version ' + self.version + '. ' +
-        'Errors may occur if you do not update your firmware.'
-    }, self.updateFirmware);
-  };
-
   this.updateFirmware = async function() {
     let $updateWindow = main.hiddenButtonDialog('Firmware Update', 'Updating Firmware...');
 
@@ -269,7 +258,10 @@ var mqtt = new function() {
       if (filename == constants.FIRMWARE_UPDATE_FILE) {
         continue;
       }
-      files[filename] = main.firmwareFiles[filename].content;
+      files[filename] = {
+        encoding: 'base64',
+        data: base64EncArr(new Uint8Array(main.firmwareFiles[filename].content))
+      };
     }
 
     let nonce = await self.sendCmd(constants._MODE_WRITE_FILES, files);
@@ -311,18 +303,18 @@ var mqtt = new function() {
     }
 
     // Erase all
-    $downloadWindow.$body.text('Erasing...');
-    let nonce = await self.sendCmd(constants._MODE_DELETE_ALL);
-    let response = await self.waitForResponse(nonce);
-    if (response == null) {
-      $downloadWindow.$body.text('Connection timed out');
-      $downloadWindow.$buttonsRow.removeClass('hide');
-      return;
-    } else if (response.status != constants._STATUS_SUCCESS) {
-      $downloadWindow.$body.text('Error erasing files');
-      $downloadWindow.$buttonsRow.removeClass('hide');
-      return;
-    }
+    // $downloadWindow.$body.text('Erasing...');
+    // let nonce = await self.sendCmd(constants._MODE_DELETE_ALL);
+    // let response = await self.waitForResponse(nonce);
+    // if (response == null) {
+    //   $downloadWindow.$body.text('Connection timed out');
+    //   $downloadWindow.$buttonsRow.removeClass('hide');
+    //   return;
+    // } else if (response.status != constants._STATUS_SUCCESS) {
+    //   $downloadWindow.$body.text('Error erasing files');
+    //   $downloadWindow.$buttonsRow.removeClass('hide');
+    //   return;
+    // }
 
     // Download
     $downloadWindow.$body.text('Downloading...');
@@ -431,6 +423,71 @@ var mqtt = new function() {
       $changeNameWindow.$body.text('Change completed. Restart your device to connect to the network.');
       $changeNameWindow.$buttonsRow.removeClass('hide');
     }
+  };
+
+  this.getFilesListing = async function() {
+    let nonce = await self.sendCmd(constants._MODE_LIST);
+    let status = constants._STATUS_ERROR;
+    let content = null;
+    if (nonce) {
+      let response = await self.waitForResponse(nonce);
+      if (response != null) {
+        status = response.status;
+      }
+      if (status == constants._STATUS_SUCCESS) {
+        content = response.content.listing;
+      }
+    }
+
+    return {
+      status: status,
+      content: content
+    }
+  };
+
+  this.downloadOneFileFromDevice = async function(filename) {
+    let nonce = await self.sendCmd(constants._MODE_READ, {filename: filename});
+    if (nonce) {
+      let response = await self.waitForResponse(nonce);
+      if (response.status == constants._STATUS_SUCCESS) {
+        return base64DecToArr(response.content.data);
+      }
+    }
+
+    return null;
+  };
+
+  this.writeFile = async function(name, value, progressCB) {
+    let files = {}
+    files[name] = {
+      encoding: 'base64',
+      data: base64EncArr(new Uint8Array(value))
+    };
+
+    let nonce = await self.sendCmd(constants._MODE_WRITE_FILES, files);
+    if (typeof progressCB == 'function') {
+      progressCB();
+    }
+    let response = await self.waitForResponse(nonce);
+    return response.status;
+  };
+
+  this.deleteOneFileFromDevice = async function(filename) {
+    let content = {
+      filename: filename
+    };
+    let nonce = await self.sendCmd(constants._MODE_DELETE, content);
+    let response = await self.waitForResponse(nonce);
+    return response.status;
+  };
+
+  this.mkdirOnDevice = async function(dirname) {
+    let content = {
+      dirname: dirname
+    };
+    let nonce = await self.sendCmd(constants._MODE_MKDIR, content);
+    let response = await self.waitForResponse(nonce);
+    return response.status;
   };
 }
 

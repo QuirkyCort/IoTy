@@ -118,8 +118,13 @@
       .dialogScreen > .dialogWindow > .dialogButtonsRow .btn-success {
         color: white;
         background-color: #28a745; }
+      .dialogScreen > .dialogWindow > .dialogButtonsRow .btn-danger {
+        color: white;
+        background-color: #dc3545; }
       .dialogScreen > .dialogWindow > .dialogButtonsRow .btn-light {
         background-color: #f8f9fa; }
+      .dialogScreen > .dialogWindow > .dialogButtonsRow .btn-warning {
+        background-color: #ffc107; }
     .dialogScreen > .dialogWindow > .dialogButtonsRow.hide {
       display: none; }
     .dialogScreen > .dialogWindow select {

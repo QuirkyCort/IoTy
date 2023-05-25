@@ -150,7 +150,12 @@ var ble = new function() {
     await self.setCmdMode(constants._MODE_APPEND);
     await self.writeData(value, progressCB);
 
-    let data = new TextEncoder().encode(value);
+    let data;
+    if (typeof value == 'string') {
+      data = new TextEncoder().encode(value);
+    } else {
+      data = value;
+    }
     let hash = await crypto.subtle.digest('SHA-256', data);
     await self.setCmdMode(constants._MODE_FILE_HASH);
     await self.writeData(hash, progressCB);
@@ -166,7 +171,7 @@ var ble = new function() {
     }
 
     let status;
-    for (let i=0; i<10; i++) {
+    for (let i=0; i<300; i++) {
       await awaitTimeout(100);
       status = await self.readCmdCharacteristic();
       try {
@@ -217,26 +222,111 @@ var ble = new function() {
     }
   };
 
-  this.checkVersion = async function() {
-    self.version = await self.getVersion();
-    if (self.version != constants.CURRENT_VERSION) {
-      self.updateFirmwareDialog();
-    }
-  };
-
-  this.updateFirmwareDialog = function() {
+  this.listFiles = function() {
     if (! self.isConnected) {
       toastMsg('Not connected. Please connect to device.');
       return;
     }
 
-    confirmDialog({
-      title: 'Firmware Update',
-      confirm: 'Update Now',
-      message:
-        'A new firmware (version ' + constants.CURRENT_VERSION + ') is available, your device is using version ' + self.version + '. ' +
-        'Errors may occur if you do not update your firmware.'
-    }, self.updateFirmware);
+    self.$filesListing = $('<div>Retrieving files listing...</div>');
+
+    let $buttons = $(
+      '<button type="button" class="delete btn btn-danger">Delete</button>' +
+      '<button type="button" class="mkdir btn btn-warning">Make Directory</button>' +
+      '<button type="button" class="upload btn btn-warning">Upload</button>' +
+      '<button type="button" class="download btn btn-success">Download</button>' +
+      '<button type="button" class="close btn btn-light">Close</button>'
+    );
+
+    let $dialog = dialog(
+      'Files on Device',
+      self.$filesListing,
+      $buttons
+    );
+
+    $buttons.siblings('.delete').click(self.deleteFilesFromDevice);
+    $buttons.siblings('.mkdir').click(self.mkdirSetName);
+    $buttons.siblings('.upload').click(self.uploadFileSelect);
+    $buttons.siblings('.download').click(self.downloadFilesFromDevice)
+    $buttons.siblings('.close').click(function() { $dialog.close(); })
+
+    self.updateFilesListing();
+  };
+
+  this.mkdirOnDevice = async function(dirname) {
+    await self.setCmdMode(constants._MODE_MKDIR);
+    await self.writeData(dirname);
+    return await self.retrieve_status();
+  };
+
+  this.deleteOneFileFromDevice = async function(filename) {
+    await self.setCmdMode(constants._MODE_DELETE);
+    await self.writeData(filename);
+    return await self.retrieve_status();
+  };
+
+  this.downloadOneFileFromDevice = async function(filename) {
+    self.dataNotificationBuf = new Uint8Array();
+    await self.setCmdMode(constants._MODE_READ);
+    await self.writeData(filename);
+    let status = await self.retrieve_status();
+    if (status == constants._STATUS_SUCCESS) {
+      let hash1 = self.dataNotificationBuf.slice(0, 32);
+      let content = self.dataNotificationBuf.slice(32);
+      let hash2 = await crypto.subtle.digest('SHA-256', content);
+      hash2 = new Uint8Array(hash2);
+
+      function hashEqual(a, b) {
+        if (a.length != b.length) {
+          return false;
+        } else {
+          for (let i=0; i < a.byteLength; i++) {
+            if (a[i] != b[i]) {
+              return false;
+            }
+          }
+          return true;
+        }
+      }
+
+      if (hashEqual(hash1, hash2)) {
+        return content;
+      } else {
+        toastMsg('File checksum error');
+        return null;
+      }
+    } else {
+      toastMsg('Error downloading file');
+      return null;
+    }
+  };
+
+  this.getFilesListing = async function() {
+    self.dataNotificationBuf = new Uint8Array();
+    await self.setCmdMode(constants._MODE_LIST);
+    let status = await self.retrieve_status();
+    let content = null;
+    if (status == constants._STATUS_SUCCESS) {
+      let utf8decoder = new TextDecoder();
+      let text = utf8decoder.decode(self.dataNotificationBuf);
+      content = JSON.parse(text);
+    }
+
+    return {
+      status: status,
+      content: content
+    }
+  };
+
+  this.checkVersion = async function() {
+    self.version = await self.getVersion();
+    if (self.version < constants.CURRENT_VERSION) {
+      if (self.version < constants.MINIMUM_VERSION_TO_UPGRADE) {
+        main.unableToUpdateFirmwareDialog();
+      } else {
+        main.updateFirmwareDialog();
+      }
+    }
   };
 
   this.updateFirmware = async function() {
@@ -387,10 +477,10 @@ var ble = new function() {
       return;
     }
 
-    $downloadWindow.$body.text('Erasing...');
+    // $downloadWindow.$body.text('Erasing...');
 
     try {
-      await self.setCmdMode(constants._MODE_DELETE_ALL);
+      // await self.setCmdMode(constants._MODE_DELETE_ALL);
 
       function updateProgress() {
         progressBar += '.';
@@ -460,28 +550,33 @@ var ble = new function() {
       return;
     }
 
-    let $changeNameWindow = confirmDialog({
+    let $changeWindow = confirmDialog({
       title: 'Change device name',
       message: '<div>New name: <input id="newName" type="text" maxlength="8" value="' + self.device.name + '"></div>'
     }, function() {
-      let newName = $changeNameWindow.$body.find('#newName').val();
+      let newName = $changeWindow.$body.find('#newName').val();
       self.changeName(newName);
     })
   };
 
   this.changeName = async function(newName) {
-    let $changeNameWindow = main.hiddenButtonDialog('Change Device Name', 'Changing Name...');
+    let $changeWindow = main.hiddenButtonDialog('Change Device Name', 'Changing Name...');
 
     try {
       let filename = constants.NAME_FILE;
       let content = newName.slice(0, 8);
-      await self.writeFile(filename, content);
-      $changeNameWindow.$body.text('Change completed. Restart your device to see the new name.');
-      $changeNameWindow.$buttonsRow.removeClass('hide');
+      let status = await self.writeFile(filename, content);
+      if (status == constants._STATUS_SUCCESS) {
+        $changeWindow.$body.text('Change completed. Restart your device to see the new name.');
+        $changeWindow.$buttonsRow.removeClass('hide');
+      } else {
+        $changeWindow.$body.text('Change failed.');
+        $changeWindow.$buttonsRow.removeClass('hide');
+      }
     } catch (error) {
       console.log(error);
-      $changeNameWindow.$body.text('Error changing name.');
-      $changeNameWindow.$buttonsRow.removeClass('hide');
+      $changeWindow.$body.text('Error changing name.');
+      $changeWindow.$buttonsRow.removeClass('hide');
     }
   };
 
@@ -491,17 +586,22 @@ var ble = new function() {
       return;
     }
 
-    let $changeNameWindow = main.hiddenButtonDialog('Configure Device Network', 'Downloading Settings...');
+    let $changeWindow = main.hiddenButtonDialog('Configure Device Network', 'Downloading Settings...');
 
     try {
       let filename = constants.NETWORK_CONFIGURATION_FILE;
-      await self.writeFile(filename, content);
-      $changeNameWindow.$body.text('Change completed. Restart your device to connect to the network.');
-      $changeNameWindow.$buttonsRow.removeClass('hide');
+      let status = await self.writeFile(filename, content);
+      if (status == constants._STATUS_SUCCESS) {
+        $changeWindow.$body.text('Change completed. Restart your device to connect to the network.');
+        $changeWindow.$buttonsRow.removeClass('hide');
+      } else {
+        $changeWindow.$body.text('Change failed.');
+        $changeWindow.$buttonsRow.removeClass('hide');
+      }
     } catch (error) {
       console.log(error);
-      $changeNameWindow.$body.text('Error configuring network.');
-      $changeNameWindow.$buttonsRow.removeClass('hide');
+      $changeWindow.$body.text('Error configuring network.');
+      $changeWindow.$buttonsRow.removeClass('hide');
     }
   };
 }

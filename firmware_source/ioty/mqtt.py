@@ -55,8 +55,8 @@ class MQTT_Service:
         return self.mqtt.check_msg()
 
     def mqtt_cb(self, topic, msg):
+        cmd = json.loads(msg)
         try:
-            cmd = json.loads(msg)
             if cmd['mode'] == constants._MODE_GET_VERSION:
                 self.get_version(cmd)
             elif cmd['mode'] == constants._MODE_WRITE_FILES:
@@ -65,6 +65,14 @@ class MQTT_Service:
                 self.delete_all(cmd)
             elif cmd['mode'] == constants._MODE_GET_INFO:
                 self.get_info(cmd)
+            elif cmd['mode'] == constants._MODE_LIST:
+                self.list_files(cmd)
+            elif cmd['mode'] == constants._MODE_READ:
+                self.read_file(cmd)
+            elif cmd['mode'] == constants._MODE_DELETE:
+                self.delete_file(cmd)
+            elif cmd['mode'] == constants._MODE_MKDIR:
+                self.mkdir(cmd)
         except:
             self.send_response(constants._STATUS_ERROR, cmd['nonce'])
 
@@ -77,6 +85,56 @@ class MQTT_Service:
 
         self.mqtt.publish(bytes(self.username, 'utf8') + b'/' + _RESPONSE_TOPIC, bytes(msg, 'utf-8'))
 
+    def list_files(self, cmd):
+        def list_files(dir):
+            listing = []
+            for i in os.ilistdir(dir):
+                if i[1] == 0x8000:
+                    listing.append(dir + i[0])
+                elif i[1] == 0x4000:
+                    listing.append(dir + i[0] + '/')
+                    listing.extend(list_files(dir + i[0] + '/'))
+            return listing
+
+        content = {
+            'listing': list_files('')
+        }
+        self.send_response(constants._STATUS_SUCCESS, cmd['nonce'], content)
+
+    def read_file(self, cmd):
+        import ubinascii
+
+        file = open(cmd['content']['filename'], 'rb')
+        data = file.read()
+        content = {
+            'data': ubinascii.b2a_base64(data)
+        }
+        self.send_response(constants._STATUS_SUCCESS, cmd['nonce'], content)
+
+    def delete_file(self, cmd):
+        filename = cmd['content']['filename']
+        status = constants._STATUS_FAILED
+
+        if not(filename in constants._PRESERVE_FILES):
+            try:
+                os.remove(filename)
+                status = constants._STATUS_SUCCESS
+            except:
+                status = constants._STATUS_ERROR
+
+        self.send_response(status, cmd['nonce'])
+
+    def mkdir(self, cmd):
+        dirname = cmd['content']['dirname']
+
+        try:
+            os.mkdir(dirname)
+            status = constants._STATUS_SUCCESS
+        except:
+            status = constants._STATUS_ERROR
+
+        self.send_response(status, cmd['nonce'])
+
     def delete_all(self, cmd):
         for f in os.listdir():
             if not(f in constants._PRESERVE_FILES):
@@ -84,10 +142,15 @@ class MQTT_Service:
         self.send_response(constants._STATUS_SUCCESS, cmd['nonce'])
 
     def write_files(self, cmd):
+        import ubinascii
         try:
             for filename in cmd['content']:
                 with open(filename, 'wb') as file:
-                    file.write(cmd['content'][filename])
+                    content = cmd['content'][filename]
+                    if (isinstance(content, dict)):
+                        file.write(ubinascii.a2b_base64(content['data']))
+                    else:
+                        file.write(content)
             self.send_response(constants._STATUS_SUCCESS, cmd['nonce'])
         except:
             self.send_response(constants._STATUS_ERROR, cmd['nonce'])

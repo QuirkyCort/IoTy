@@ -23,12 +23,15 @@ var main = new function() {
 
   // Run on page load
   this.init = async function() {
-    let connectionMode = readGET('connectionMode');
-    if (connectionMode == null) {
-      connectionMode = localStorage.getItem('connectionMode');
-    }
-    if (connectionMode != null) {
+    connectionMode = localStorage.getItem('connectionMode');
+
+    if (['ble', 'mqtt'].includes(connectionMode)) {
       self.connectionMode = connectionMode;
+    } else if (typeof navigator.bluetooth == 'undefined') {
+      self.bleAvailable = false;
+      self.connectionMode = 'mqtt';
+    } else {
+      self.connectionMode = 'ble';
     }
 
     let deviceWifiSettings = localStorage.getItem('deviceWifiSettings');
@@ -42,11 +45,6 @@ var main = new function() {
       extensions.processExtensions();
     } else {
       self.settings = self.defaultSettings();
-    }
-
-    if (typeof navigator.bluetooth == 'undefined') {
-      self.bleAvailable = false;
-      self.connectionMode = 'mqtt';
     }
 
     self.$navs = $('nav li');
@@ -128,9 +126,11 @@ var main = new function() {
 
     async function retrieveFiles() {
       for (let file in self.firmwareFiles) {
-        let response = await fetch('firmware/' + file);
-        let text = await response.text();
-        self.firmwareFiles[file].content = text;
+        if (file != constants.FIRMWARE_UPDATE_FILE) {
+          let response = await fetch('firmware/' + file);
+          let buf = await response.arrayBuffer();
+          self.firmwareFiles[file].content = buf;
+        }
       }
     }
 
@@ -291,8 +291,9 @@ var main = new function() {
       {html: i18n.get('#main-download#'), line: false, callback: ble.download },
       {html: i18n.get('#main-erase#'), line: false, callback: ble.eraseDialog },
       {html: i18n.get('#main-changeName#'), line: false, callback: ble.changeNameDialog},
-      {html: i18n.get('#main-updateFirmware#'), line: false, callback: ble.updateFirmwareDialog},
+      {html: i18n.get('#main-updateFirmware#'), line: false, callback: main.updateFirmwareDialog},
       {html: i18n.get('#main-getInfo#'), line: false, callback: ble.getInfo},
+      {html: i18n.get('#main-listFiles#'), line: false, callback: self.listFiles},
       {html: i18n.get('#main-configureDeviceNetwork#'), line: false, callback: main.configureDeviceNetwork},
       {html: i18n.get('#main-disconnect#'), line: false, callback: ble.disconnect},
     ];
@@ -307,8 +308,9 @@ var main = new function() {
       {html: i18n.get('#main-download#'), line: false, callback: mqtt.download },
       {html: i18n.get('#main-erase#'), line: false, callback: mqtt.eraseDialog },
       {html: i18n.get('#main-changeName#'), line: false, callback: mqtt.changeNameDialog},
-      {html: i18n.get('#main-updateFirmware#'), line: false, callback: mqtt.updateFirmwareDialog},
+      {html: i18n.get('#main-updateFirmware#'), line: false, callback: main.updateFirmwareDialog},
       {html: i18n.get('#main-getInfo#'), line: false, callback: mqtt.getInfo},
+      {html: i18n.get('#main-listFiles#'), line: false, callback: self.listFiles},
       {html: i18n.get('#main-configureDeviceNetwork#'), line: false, callback: main.configureDeviceNetwork},
       {html: i18n.get('#main-disconnect#'), line: false, callback: mqtt.disconnect},
     ];
@@ -555,28 +557,45 @@ var main = new function() {
     localStorage.setItem('projectName', filtered);
   };
 
-  // save to computer
-  this.saveToComputer = function() {
-    let filename = self.$projectName.val();
-    if (filename.trim() == '') {
-      filename = 'IoTy';
-    }
+  // Download to single file
+  this.downloadFile = function(filename, content, mimetype) {
+    var hiddenElement = document.createElement('a');
+    hiddenElement.href = 'data:' + mimetype + ';base64,' + content;
+    hiddenElement.target = '_blank';
+    hiddenElement.download = filename;
+    hiddenElement.dispatchEvent(new MouseEvent('click'));
+  }
 
+  // Download to zip  file
+  this.downloadZipFile = function(filename, files) {
     var zip = new JSZip();
-    zip.file('blocks.json', blockly.getJsonText());
-    zip.file('settings.json', JSON.stringify(self.settings));
+    for (let f in files) {
+      zip.file(f, files[f]);
+    }
 
     zip.generateAsync({
       type:'base64',
       compression: "DEFLATE"
     })
     .then(function(content) {
-      var hiddenElement = document.createElement('a');
-      hiddenElement.href = 'data:application/zip;base64,' + content;
-      hiddenElement.target = '_blank';
-      hiddenElement.download = filename + '.zip';
-      hiddenElement.dispatchEvent(new MouseEvent('click'));
+      self.downloadFile(filename + '.zip', content, 'application/zip');
     });
+  }
+
+  // save to computer
+  this.saveToComputer = function() {
+    let filename = self.$projectName.val();
+    if (filename.trim() == '') {
+      filename = 'IoTy_Blocks';
+    }
+
+    self.downloadZipFile(
+      filename,
+      {
+        'blocks.json': blockly.getJsonText(),
+        'settings.json': JSON.stringify(self.settings)
+      }
+    );
   };
 
   // load from computer
@@ -632,7 +651,7 @@ var main = new function() {
   this.savePythonToComputer = function() {
     let filename = self.$projectName.val();
     if (filename.trim() == '') {
-      filename = 'IoTy';
+      filename = 'IoTy_Python';
     }
 
     if (filesManager.modified == false) {
@@ -640,20 +659,7 @@ var main = new function() {
     }
     filesManager.updateCurrentFile();
 
-    var zip = new JSZip();
-
-    for (let f in filesManager.files) {
-      zip.file(f, filesManager.files[f]);
-    }
-
-    zip.generateAsync({type:'base64'})
-    .then(function(content) {
-      var hiddenElement = document.createElement('a');
-      hiddenElement.href = 'data:application/xml;base64,' + content;
-      hiddenElement.target = '_blank';
-      hiddenElement.download = filename + '.zip';
-      hiddenElement.dispatchEvent(new MouseEvent('click'));
-    });
+    self.downloadZipFile(filename, filesManager.files);
   };
 
   // load from computer
@@ -707,22 +713,29 @@ var main = new function() {
       obj[f] = filesManager.files[f];
     }
 
-    var hiddenElement = document.createElement('a');
-    hiddenElement.href = 'data:application/xml;base64,' + btoa(JSON.stringify(obj));
-    hiddenElement.target = '_blank';
-    hiddenElement.download = filename + '.json';
-    hiddenElement.dispatchEvent(new MouseEvent('click'));
+    self.downloadFile(filename + '.json', btoa(JSON.stringify(obj)), 'application/json');
   };
 
   // save to json package
   this.saveFirmwareToJson = function() {
     let filename = 'firmware-v' + constants.CURRENT_VERSION;
+    let firmwareFiles = {};
 
-    var hiddenElement = document.createElement('a');
-    hiddenElement.href = 'data:application/xml;base64,' + btoa(JSON.stringify(self.firmwareFiles));
-    hiddenElement.target = '_blank';
-    hiddenElement.download = filename + '.json';
-    hiddenElement.dispatchEvent(new MouseEvent('click'));
+    for (let name in self.firmwareFiles) {
+      if (name == constants.FIRMWARE_UPDATE_FILE) {
+        firmwareFiles[name] = {
+          tempName: self.firmwareFiles[name].tempName,
+          content: self.firmwareFiles[name].content
+        };
+      } else {
+        firmwareFiles[name] = {
+          tempName: self.firmwareFiles[name].tempName,
+          content: base64EncArr(new Uint8Array(self.firmwareFiles[name].content))
+        };
+      }
+    }
+
+    self.downloadFile(filename + '.json', btoa(JSON.stringify(firmwareFiles)), 'application/json');
   };
 
   // Check for unsaved changes
@@ -730,6 +743,274 @@ var main = new function() {
     if (blockly.unsaved || filesManager.unsaved) {
       event.preventDefault();
       event.returnValue = '';
+    }
+  };
+
+  this.listFiles = function() {
+    let interface = ble;
+    if (self.connectionMode == 'mqtt') {
+      interface = mqtt;
+    }
+
+    if (! interface.isConnected) {
+      toastMsg('Not connected. Please connect to device.');
+      return;
+    }
+
+    self.$filesListing = $('<div>Retrieving files listing...</div>');
+
+    let $buttons = $(
+      '<button type="button" class="delete btn btn-danger">Delete</button>' +
+      '<button type="button" class="mkdir btn btn-warning">Make Directory</button>' +
+      '<button type="button" class="upload btn btn-warning">Upload</button>' +
+      '<button type="button" class="download btn btn-success">Download</button>' +
+      '<button type="button" class="close btn btn-light">Close</button>'
+    );
+
+    let $dialog = dialog(
+      'Files on Device',
+      self.$filesListing,
+      $buttons
+    );
+
+    $buttons.siblings('.delete').click(self.deleteFilesFromDevice);
+    $buttons.siblings('.mkdir').click(self.mkdirSetName);
+    $buttons.siblings('.upload').click(self.uploadFileSelect);
+    $buttons.siblings('.download').click(self.downloadFilesFromDevice);
+    $buttons.siblings('.close').click(function() { $dialog.close(); });
+
+    self.updateFilesListing();
+  };
+
+  this.mkdirSetName = function() {
+    async function mkdir(dirname) {
+      let interface = ble;
+      if (self.connectionMode == 'mqtt') {
+        interface = mqtt;
+      }
+
+      let $updateWindow = main.hiddenButtonDialog('Make Directory', 'Making Directory...');
+      let status = await interface.mkdirOnDevice(dirname);
+
+      if (status == constants._STATUS_SUCCESS) {
+        $updateWindow.$body.text('Completed');
+        $updateWindow.$buttonsRow.removeClass('hide');
+      } else {
+        $updateWindow.$body.text('Error making directory');
+        $updateWindow.$buttonsRow.removeClass('hide');
+      }
+
+      self.updateFilesListing();
+    }
+
+    let $mkdirNameWindow = confirmDialog({
+      title: 'Make Directory',
+      message: '<div>Directory Name: <input id="dirname" type="text" value=""></div>'
+    }, function() {
+      let dirname = $mkdirNameWindow.$body.find('#dirname').val();
+      mkdir(dirname);
+    });
+  };
+
+  this.deleteFilesFromDevice = async function() {
+    let interface = ble;
+    if (self.connectionMode == 'mqtt') {
+      interface = mqtt;
+    }
+
+    let $inputs = self.$filesListing.find('input.filename');
+    let filesToDelete = [];
+    for (let $input of $inputs) {
+      if ($input.checked) {
+        filesToDelete.push($input.getAttribute('data'));
+      }
+    }
+
+    if (filesToDelete.length == 0) {
+      toastMsg('No files selected');
+      return
+    }
+
+    let $updateWindow = main.hiddenButtonDialog('Deleting', 'Starting Delete...');
+    let count = 1;
+
+    for (let file of filesToDelete) {
+      $updateWindow.$body.text('File (' + count + ' / ' + filesToDelete.length + ')');
+      let status = await interface.deleteOneFileFromDevice(file);
+      if (status != constants._STATUS_SUCCESS) {
+        toastMsg('Error deleting "' + file + '"');
+      }
+
+      count++;
+    }
+    $updateWindow.$body.text('Delete completed');
+    $updateWindow.$buttonsRow.removeClass('hide');
+
+    self.updateFilesListing();
+  };
+
+  this.uploadFileSelect = function() {
+    let hiddenElement = document.createElement('input');
+    hiddenElement.type = 'file';
+    hiddenElement.dispatchEvent(new MouseEvent('click'));
+    hiddenElement.addEventListener('change', function(e){
+      let filename = e.target.files[0].name;
+      let file = e.target.files[0];
+      let reader = new FileReader();
+      reader.onload = function() {
+        self.uploadFileSetName(filename, this.result);
+      };
+      reader.readAsArrayBuffer(file);
+    });
+  };
+
+  this.uploadFileSetName = function(filename, content) {
+    let $changeFilenameWindow = confirmDialog({
+      title: 'Set filename',
+      message: '<div>Filename: <input id="filename" type="text" value="' + filename + '"></div>'
+    }, function() {
+      let filename = $changeFilenameWindow.$body.find('#filename').val();
+      self.uploadFile(filename, content);
+    });
+  };
+
+  this.uploadFile = async function(filename, content) {
+    let interface = ble;
+    if (self.connectionMode == 'mqtt') {
+      interface = mqtt;
+    }
+
+    let $updateWindow = main.hiddenButtonDialog('Uploading File', 'Uploading');
+
+    try {
+      let progressBar = '';
+
+      function updateProgress() {
+        progressBar += '.';
+        $updateWindow.$body.text('Uploading' + progressBar);
+      }
+
+      let status = await interface.writeFile(filename, content, updateProgress);
+
+      if (status == constants._STATUS_SUCCESS) {
+        $updateWindow.$body.text('Upload Completed.');
+        $updateWindow.$buttonsRow.removeClass('hide');
+      } else if (status == constants._STATUS_PENDING) {
+        $updateWindow.$body.text('Error uploading file (timeout). Please try again.');
+        $updateWindow.$buttonsRow.removeClass('hide');
+      } else if (status == constants._STATUS_CHECKSUM_ERROR) {
+        $updateWindow.$body.text('Error uploading file (hash mismatch). Please try again.');
+        $updateWindow.$buttonsRow.removeClass('hide');
+      } else if (status == constants._STATUS_FAILED) {
+        $updateWindow.$body.text('Error uploading file (write failed). Please try again.');
+        $updateWindow.$buttonsRow.removeClass('hide');
+      } else if (status == null) {
+        $updateWindow.$body.text('Connection timed out');
+        $updateWindow.$buttonsRow.removeClass('hide');
+      } else {
+        $updateWindow.$body.text('Unknown error. Please try again.');
+        $updateWindow.$buttonsRow.removeClass('hide');
+      }
+    } catch (error) {
+      console.log(error);
+      $updateWindow.$body.text('Error uploading file (See console for details).');
+      $updateWindow.$buttonsRow.removeClass('hide');
+    }
+
+    self.updateFilesListing();
+  };
+
+  this.downloadFilesFromDevice = async function() {
+    let interface = ble;
+    if (self.connectionMode == 'mqtt') {
+      interface = mqtt;
+    }
+
+    let $inputs = self.$filesListing.find('input.filename');
+    let filesToDownload = [];
+    for (let $input of $inputs) {
+      if ($input.checked) {
+        filesToDownload.push($input.getAttribute('data'));
+      }
+    }
+
+    if (filesToDownload.length == 0) {
+      toastMsg('No files selected');
+      return
+    }
+
+    let $updateWindow = main.hiddenButtonDialog('Downloading', 'Starting Download...');
+
+    let files = {};
+    let count = 1;
+
+    for (let file of filesToDownload) {
+      $updateWindow.$body.text('File (' + count + ' / ' + filesToDownload.length + ')');
+      let content = await interface.downloadOneFileFromDevice(file);
+      if (content == null) {
+        $updateWindow.$body.text('Download failed');
+        $updateWindow.$buttonsRow.removeClass('hide');
+        return;
+      }
+
+      files[file] = content;
+      count++;
+    }
+
+    if (filesToDownload.length == 1) {
+      let filename = filesToDownload[0];
+      let content = files[filename];
+      if (content instanceof Uint8Array) {
+        content = String.fromCharCode(...content);
+      }
+      content = btoa(content);
+      main.downloadFile(filename, content, 'application/octet-stream');
+    } else {
+      main.downloadZipFile('deviceFiles', files);
+    }
+    $updateWindow.$buttonsRow.removeClass('hide');
+  };
+
+  this.updateFilesListing = async function() {
+    let interface = ble;
+    if (self.connectionMode == 'mqtt') {
+      interface = mqtt;
+    }
+
+    let result = await interface.getFilesListing();
+    if (result.status == constants._STATUS_SUCCESS) {
+      let files = result.content;
+
+      self.$filesListing.empty();
+
+      files.sort(function(a, b){
+        let aLen = (a.match(/\//g)||[]).length;
+        let bLen = (b.match(/\//g)||[]).length;
+        if (aLen > bLen) {
+          return 1;
+        } else if (bLen > aLen) {
+          return -1;
+        } else {
+          return a > b;
+        }
+      });
+
+      let checkboxes = [];
+
+      for (let file of files) {
+        let $row = $('<div></div>');
+        let $checkbox = $('<input type="checkbox" class="filename">');
+        $checkbox.attr('data', file);
+        let $span = $('<span></span>');
+        $span.text(file);
+
+        checkboxes.push($checkbox);
+        $row.append($checkbox);
+        $row.append($span);
+        self.$filesListing.append($row);
+      }
+    } else {
+      toastMsg('Error retrieving file listings');
     }
   };
 
@@ -771,14 +1052,63 @@ var main = new function() {
     }
   };
 
+  this.unableToUpdateFirmwareDialog = function() {
+    acknowledgeDialog({
+      title: 'Firmware Update',
+      message:
+        'A new firmware (version ' + constants.CURRENT_VERSION + ') is available, but your device version is too old to upgrade through this page. ' +
+        'Please follow steps 4 to 7 from <a href="https://github.com/QuirkyCort/IoTy/blob/main/README.md">here</a> to update your firmware. '
+    });
+  };
+
+  this.updateFirmwareDialog = function() {
+    let interface = ble;
+    if (self.connectionMode == 'mqtt') {
+      interface = mqtt;
+    }
+
+    if (! interface.isConnected) {
+      toastMsg('Not connected. Please connect to device.');
+      return;
+    }
+
+    if (interface.version < constants.CURRENT_VERSION) {
+      confirmDialog({
+        title: 'Firmware Update',
+        confirm: 'Update Now',
+        message:
+          'A new firmware (version ' + constants.CURRENT_VERSION + ') is available, your device is using version ' + interface.version + '. ' +
+          'Errors may occur if you do not update your firmware.'
+      }, interface.updateFirmware);
+    } else {
+      confirmDialog({
+        title: 'Firmware Update',
+        confirm: 'Update Anyway',
+        message:
+          'The latest firmware version is ' + constants.CURRENT_VERSION + ', your device is using version ' + interface.version + '. ' +
+          'No updates are required.'
+      }, interface.updateFirmware);
+    }
+  };
+
   // Display what's new if not seen before
   this.showWhatsNew = function(forceShow=false) {
-    let current = 20230511;
+    let current = 20230525;
     let lastShown = localStorage.getItem('whatsNew');
     if (lastShown == null || parseInt(lastShown) < current || forceShow) {
       let options = {
         title: 'What\'s New',
         message:
+        '<h3>25 May 2023 (Filesystem, Firmware)</h3>' +
+        '<p>' +
+          'You can now access the IoTy device filesystem (eg. read, write, delete files). ' +
+          'This can be useful when logging data to file, or when you need to upload an audio or image file to the device. ' +
+          'Bluetooth and Internet mode are full featured, while Access Point mode only support reading and deleting files.' +
+        '</p>' +
+        '<p>' +
+          'The firmware is now in mpy format, which reduce size and improve performance. ' +
+          'Unfortunately, the new firmware cannot be updated through this page, and you will need to follow steps 4 to 7 from <a href="https://github.com/QuirkyCort/IoTy/blob/main/README.md">here</a> ' +
+        '</p>' +
         '<h3>11 May 2023 (Neopixel, Device Info, Access Point Mode)</h3>' +
         '<p>' +
           'Neopixel support has been moved to extensions. ' +
@@ -808,16 +1138,6 @@ var main = new function() {
         '<p>' +
           'The save format for blocks programs has also been changed to zip (...previously xml). ' +
           'Programs saved in the old xml format will still be loadable, but new saves will be in zip format only.' +
-        '</p>' +
-        '<h3>25 Apr 2023 (I2C, Access Point Mode)</h3>' +
-        '<p>' +
-          'I2C blocks are now available. ' +
-          'This enables IoTy blocks programs to work with pretty much any I2C device (...and there are lots).' +
-        '</p>' +
-        '<p>' +
-          'Access Point mode is now via "App -> Access Point Page". ' +
-          'The new approach of Access Point mode improves compatibility, and should work with all browsers (previously broken on some browsers due to <a href="https://wicg.github.io/private-network-access/">PNA</a> restrictions). ' +
-          'You will need to update your IoTy firmware to at least version 6 to use this.' +
         '</p>'
       }
       acknowledgeDialog(options, function(){

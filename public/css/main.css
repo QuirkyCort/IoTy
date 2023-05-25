@@ -183,6 +183,9 @@ ul.menuDropDown {
   ul.menuDropDown .tick {
     color: green; }
 
+.filename {
+  margin-right: 0.5em; }
+
 ul.menuDropDownRightAlign {
   top: 100%; }
 
