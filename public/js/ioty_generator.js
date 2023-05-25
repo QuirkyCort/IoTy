@@ -58,8 +58,14 @@ var ioty_generator = new function() {
     Blockly.Python['date_time_set_ntp'] = self.date_time_set_ntp;
 
     Blockly.Python['file_open'] = self.file_open;
+    Blockly.Python['file_readline'] = self.file_readline;
+    Blockly.Python['file_read'] = self.file_read;
+    Blockly.Python['file_write'] = self.file_write;
     Blockly.Python['file_close'] = self.file_close;
     Blockly.Python['file_flush'] = self.file_flush;
+
+    Blockly.Python['esp32_temperature'] = self.esp32_temperature;
+    Blockly.Python['esp32_hall_sensor'] = self.esp32_hall_sensor;
 
     Blockly.Python['mpu6050_init'] = self.mpu6050_init;
     Blockly.Python['mpu6050_calibrate'] = self.mpu6050_calibrate;
@@ -766,6 +772,38 @@ var ioty_generator = new function() {
     return code;
   };
 
+  this.file_readline = function(block) {
+    var variable = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('variable'), 'VARIABLE');
+
+    var code = variable + '.readline()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.file_read = function(block) {
+    var variable = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('variable'), 'VARIABLE');
+    var size = Blockly.Python.valueToCode(block, 'size', Blockly.Python.ORDER_NONE);
+
+    var code = variable + '.read(' + size + ')';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.file_write = function(block) {
+    var variable = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('variable'), 'VARIABLE');
+    var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_NONE);
+    var newline = block.getFieldValue('newline');
+
+    let ending = '';
+    if (newline == 'TRUE') {
+      ending = ' + \'\\n\'';
+    }
+
+    var code = variable + '.write(' + value + ending + ')\n';
+
+    return code;
+  };
+
   this.file_close = function(block) {
     var variable = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('variable'), 'VARIABLE');
 
@@ -780,6 +818,30 @@ var ioty_generator = new function() {
     var code = variable + '.flush()\n';
 
     return code;
+  };
+
+  this.esp32_temperature = function(block) {
+    self.imports['esp32'] = 'import esp32';
+
+    var units = block.getFieldValue('units');
+
+    var code = '(esp32.raw_temperature() - 32) * 5 / 9';
+    var binding = Blockly.Python.ORDER_MULTIPLICATIVE
+    if (units == 'FAHRENHEIT') {
+      code = 'esp32.raw_temperature()';
+      binding = Blockly.Python.ORDER_ATOMIC;
+    }
+
+    return [code, binding];
+  };
+
+  this.esp32_hall_sensor = function(block) {
+    self.imports['esp32'] = 'import esp32';
+
+
+    var code = 'esp32.hall_sensor()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
   };
 
   this.mpu6050_init = function(block) {

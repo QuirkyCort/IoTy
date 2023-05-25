@@ -1,0 +1,18 @@
+{
+  "type": "esp32_temperature",
+  "message0": "#blk-microcontroller_temperature_in# %1",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "units",
+      "options": [
+        ["Celsius", "CELSIUS"],
+        ["Fahrenheit", "FAHRENHEIT"]
+      ]
+    }
+  ],
+  "output": "Number",
+  "colour": 65,
+  "tooltip": "#blk-esp32_temperature_tooltip#",
+  "helpUrl": ""
+}

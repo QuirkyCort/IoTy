@@ -60,18 +60,7 @@ def ez_esp_now_recv():
     return data[1]
   return None
 
-
-
 # mounting of sdcard as filesystem
-
-# Read and write files
-standard stuff. Read and write to built-in filesystem.
-Set <file> to open <filename> with mode <mode> and <type>
-Close <file>
-Flush <file>
-write to <file> with <value> and <newline>
-<= read one line from <file>
-<= read entire file <file>
 
 # SPI
 # Software SPI (using bit-banging) works on all pins,
@@ -97,15 +86,3 @@ spi.write(b'12345')     # write 5 bytes on MOSI
 buf = bytearray(4)      # create a buffer
 spi.write_readinto(b'1234', buf) # write to MOSI and read from MISO into the buffer
 spi.write_readinto(buf, buf) # write buf to MOSI and read MISO back into buf
-
-
-# ESP32 specific
-esp32.raw_temperature()¶
-Read the raw value of the internal temperature sensor, returning an integer.
-
-esp32.hall_sensor()¶
-Read the raw value of the internal Hall sensor, returning an integer.
-
-
-# Others
-constrain

@@ -1,0 +1,9 @@
+{
+  "type": "esp32_hall_sensor",
+  "message0": "#blk-microcontroller_hall_sensor#",
+  "args0": [],
+  "output": "Number",
+  "colour": 65,
+  "tooltip": "#blk-esp32_hall_sensor_tooltip#",
+  "helpUrl": ""
+}

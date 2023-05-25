@@ -1,0 +1,15 @@
+{
+  "type": "file_readline",
+  "message0": "#blk-read_one_line_from# %1",
+  "args0": [
+    {
+      "type": "field_variable",
+      "name": "variable",
+      "variable": "file1"
+    }
+  ],
+  "output": "String",
+  "colour": 230,
+  "tooltip": "#blk-file_readline_tooltip#",
+  "helpUrl": ""
+}

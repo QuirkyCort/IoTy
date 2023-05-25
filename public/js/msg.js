@@ -922,6 +922,39 @@ let MSGS = {
   '#blk-file_flush_tooltip#': {
     en: 'Flush a file to storage. This ensures that written data will not be lost if the device loses power.',
   },
+  '#blk-write_to#': {
+    en: 'write to',
+  },
+  '#blk-file_write_tooltip#': {
+    en: 'Write a String to file. If \\"New line\\" is enabled, each write will be on its own line.',
+  },
+  '#blk-read_one_line_from#': {
+    en: 'read one line from',
+  },
+  '#blk-file_readline_tooltip#': {
+    en: 'Read a single line of string. If all lines have been read, it will return an empty string.',
+  },
+  '#blk-read#': {
+    en: 'read',
+  },
+  '#blk-characters_from#': {
+    en: 'characters from',
+  },
+  '#blk-file_read_tooltip#': {
+    en: 'Read the specified number of bytes. If set to -1, the entire file will be read.',
+  },
+  '#blk-microcontroller_temperature_in#': {
+    en: 'microcontroller temperature in',
+  },
+  '#blk-esp32_temperature_tooltip#': {
+    en: 'Internal temperature of the ESP32',
+  },
+  '#blk-microcontroller_hall_sensor#': {
+    en: 'microcontroller hall sensor value',
+  },
+  '#blk-esp32_hall_sensor_tooltip#': {
+    en: 'This measures the strength of the magnetic field near the microcontroller.',
+  },
 };
 let MSGS_KEYS = Object.keys(MSGS);
 
