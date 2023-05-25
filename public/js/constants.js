@@ -1,5 +1,6 @@
 var constants = {
-  CURRENT_VERSION: 8,
+  CURRENT_VERSION: 9,
+  MINIMUM_VERSION_TO_UPGRADE: 9,
   FIRMWARE_UPDATE_FILE: '_ioty_updates',
   NETWORK_CONFIGURATION_FILE: '_ioty_network',
   NAME_FILE: '_ioty_name',

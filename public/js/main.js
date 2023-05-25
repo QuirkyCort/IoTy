@@ -291,7 +291,7 @@ var main = new function() {
       {html: i18n.get('#main-download#'), line: false, callback: ble.download },
       {html: i18n.get('#main-erase#'), line: false, callback: ble.eraseDialog },
       {html: i18n.get('#main-changeName#'), line: false, callback: ble.changeNameDialog},
-      {html: i18n.get('#main-updateFirmware#'), line: false, callback: ble.updateFirmwareDialog},
+      {html: i18n.get('#main-updateFirmware#'), line: false, callback: main.updateFirmwareDialog},
       {html: i18n.get('#main-getInfo#'), line: false, callback: ble.getInfo},
       {html: i18n.get('#main-listFiles#'), line: false, callback: self.listFiles},
       {html: i18n.get('#main-configureDeviceNetwork#'), line: false, callback: main.configureDeviceNetwork},
@@ -308,7 +308,7 @@ var main = new function() {
       {html: i18n.get('#main-download#'), line: false, callback: mqtt.download },
       {html: i18n.get('#main-erase#'), line: false, callback: mqtt.eraseDialog },
       {html: i18n.get('#main-changeName#'), line: false, callback: mqtt.changeNameDialog},
-      {html: i18n.get('#main-updateFirmware#'), line: false, callback: mqtt.updateFirmwareDialog},
+      {html: i18n.get('#main-updateFirmware#'), line: false, callback: main.updateFirmwareDialog},
       {html: i18n.get('#main-getInfo#'), line: false, callback: mqtt.getInfo},
       {html: i18n.get('#main-listFiles#'), line: false, callback: self.listFiles},
       {html: i18n.get('#main-configureDeviceNetwork#'), line: false, callback: main.configureDeviceNetwork},
@@ -1052,6 +1052,45 @@ var main = new function() {
     }
   };
 
+  this.unableToUpdateFirmwareDialog = function() {
+    acknowledgeDialog({
+      title: 'Firmware Update',
+      message:
+        'A new firmware (version ' + constants.CURRENT_VERSION + ') is available, but your device version is too old to upgrade through this page. ' +
+        'Please follow steps 4 to 7 from <a href="https://github.com/QuirkyCort/IoTy/blob/main/README.md">here</a> to update your firmware. '
+    });
+  };
+
+  this.updateFirmwareDialog = function() {
+    let interface = ble;
+    if (self.connectionMode == 'mqtt') {
+      interface = mqtt;
+    }
+
+    if (! interface.isConnected) {
+      toastMsg('Not connected. Please connect to device.');
+      return;
+    }
+
+    if (interface.version < constants.CURRENT_VERSION) {
+      confirmDialog({
+        title: 'Firmware Update',
+        confirm: 'Update Now',
+        message:
+          'A new firmware (version ' + constants.CURRENT_VERSION + ') is available, your device is using version ' + interface.version + '. ' +
+          'Errors may occur if you do not update your firmware.'
+      }, interface.updateFirmware);
+    } else {
+      confirmDialog({
+        title: 'Firmware Update',
+        confirm: 'Update Anyway',
+        message:
+          'The latest firmware version is ' + constants.CURRENT_VERSION + ', your device is using version ' + interface.version + '. ' +
+          'No updates are required.'
+      }, interface.updateFirmware);
+    }
+  };
+
   // Display what's new if not seen before
   this.showWhatsNew = function(forceShow=false) {
     let current = 20230525;
@@ -1099,16 +1138,6 @@ var main = new function() {
         '<p>' +
           'The save format for blocks programs has also been changed to zip (...previously xml). ' +
           'Programs saved in the old xml format will still be loadable, but new saves will be in zip format only.' +
-        '</p>' +
-        '<h3>25 Apr 2023 (I2C, Access Point Mode)</h3>' +
-        '<p>' +
-          'I2C blocks are now available. ' +
-          'This enables IoTy blocks programs to work with pretty much any I2C device (...and there are lots).' +
-        '</p>' +
-        '<p>' +
-          'Access Point mode is now via "App -> Access Point Page". ' +
-          'The new approach of Access Point mode improves compatibility, and should work with all browsers (previously broken on some browsers due to <a href="https://wicg.github.io/private-network-access/">PNA</a> restrictions). ' +
-          'You will need to update your IoTy firmware to at least version 6 to use this.' +
         '</p>'
       }
       acknowledgeDialog(options, function(){

@@ -320,24 +320,13 @@ var ble = new function() {
 
   this.checkVersion = async function() {
     self.version = await self.getVersion();
-    if (self.version != constants.CURRENT_VERSION) {
-      self.updateFirmwareDialog();
+    if (self.version < constants.CURRENT_VERSION) {
+      if (self.version < constants.MINIMUM_VERSION_TO_UPGRADE) {
+        main.unableToUpdateFirmwareDialog();
+      } else {
+        main.updateFirmwareDialog();
+      }
     }
-  };
-
-  this.updateFirmwareDialog = function() {
-    if (! self.isConnected) {
-      toastMsg('Not connected. Please connect to device.');
-      return;
-    }
-
-    confirmDialog({
-      title: 'Firmware Update',
-      confirm: 'Update Now',
-      message:
-        'A new firmware (version ' + constants.CURRENT_VERSION + ') is available, your device is using version ' + self.version + '. ' +
-        'Errors may occur if you do not update your firmware.'
-    }, self.updateFirmware);
   };
 
   this.updateFirmware = async function() {
