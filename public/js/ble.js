@@ -488,10 +488,10 @@ var ble = new function() {
       return;
     }
 
-    $downloadWindow.$body.text('Erasing...');
+    // $downloadWindow.$body.text('Erasing...');
 
     try {
-      await self.setCmdMode(constants._MODE_DELETE_ALL);
+      // await self.setCmdMode(constants._MODE_DELETE_ALL);
 
       function updateProgress() {
         progressBar += '.';

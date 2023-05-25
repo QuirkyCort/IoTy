@@ -1054,12 +1054,22 @@ var main = new function() {
 
   // Display what's new if not seen before
   this.showWhatsNew = function(forceShow=false) {
-    let current = 20230511;
+    let current = 20230525;
     let lastShown = localStorage.getItem('whatsNew');
     if (lastShown == null || parseInt(lastShown) < current || forceShow) {
       let options = {
         title: 'What\'s New',
         message:
+        '<h3>25 May 2023 (Filesystem, Firmware)</h3>' +
+        '<p>' +
+          'You can now access the IoTy device filesystem (eg. read, write, delete files). ' +
+          'This can be useful when logging data to file, or when you need to upload an audio or image file to the device. ' +
+          'Bluetooth and Internet mode are full featured, while Access Point mode only support reading and deleting files.' +
+        '</p>' +
+        '<p>' +
+          'The firmware is now in mpy format, which reduce size and improve performance. ' +
+          'Unfortunately, the new firmware cannot be updated through this page, and you will need to follow steps 4 to 7 from <a href="https://github.com/QuirkyCort/IoTy/blob/main/README.md">here</a> ' +
+        '</p>' +
         '<h3>11 May 2023 (Neopixel, Device Info, Access Point Mode)</h3>' +
         '<p>' +
           'Neopixel support has been moved to extensions. ' +

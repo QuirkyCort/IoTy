@@ -314,18 +314,18 @@ var mqtt = new function() {
     }
 
     // Erase all
-    $downloadWindow.$body.text('Erasing...');
-    let nonce = await self.sendCmd(constants._MODE_DELETE_ALL);
-    let response = await self.waitForResponse(nonce);
-    if (response == null) {
-      $downloadWindow.$body.text('Connection timed out');
-      $downloadWindow.$buttonsRow.removeClass('hide');
-      return;
-    } else if (response.status != constants._STATUS_SUCCESS) {
-      $downloadWindow.$body.text('Error erasing files');
-      $downloadWindow.$buttonsRow.removeClass('hide');
-      return;
-    }
+    // $downloadWindow.$body.text('Erasing...');
+    // let nonce = await self.sendCmd(constants._MODE_DELETE_ALL);
+    // let response = await self.waitForResponse(nonce);
+    // if (response == null) {
+    //   $downloadWindow.$body.text('Connection timed out');
+    //   $downloadWindow.$buttonsRow.removeClass('hide');
+    //   return;
+    // } else if (response.status != constants._STATUS_SUCCESS) {
+    //   $downloadWindow.$body.text('Error erasing files');
+    //   $downloadWindow.$buttonsRow.removeClass('hide');
+    //   return;
+    // }
 
     // Download
     $downloadWindow.$body.text('Downloading...');
