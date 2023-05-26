@@ -34,6 +34,8 @@ def ez_esp_now_recv():
 
 # mounting of sdcard as filesystem
 
+# Serial
+
 # SPI
 # Software SPI (using bit-banging) works on all pins,
 

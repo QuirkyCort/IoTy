@@ -838,7 +838,7 @@
       </value>
     </block>
   </category>
-  <category name="#blk-esp_now#" colour="#9fa55b" hidden="true">
+  <category toolboxitemid="espnow" name="ESP-NOW" colour="#9fa55b" hidden="true">
     <block type="esp_now_init"></block>
     <block type="esp_now_add_peer">
       <value name="mac">
@@ -874,5 +874,23 @@
       </value>
     </block>
     <block type="esp_now_msg_available"></block>
+  </category>
+  <category toolboxitemid="ez_espnow" name="EZ ESP-NOW" colour="#9fa55b" hidden="true">
+    <block type="ez_esp_now_init"></block>
+    <block type="ez_esp_now_set_group">
+      <value name="group">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="ez_esp_now_send">
+      <value name="value">
+        <shadow type="text">
+          <field name="TEXT">Hello</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="ez_esp_now_get_msg"></block>
   </category>
 </xml>

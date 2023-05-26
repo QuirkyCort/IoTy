@@ -6,7 +6,7 @@ var ioty_generator = new function() {
 
   // Load Python generators
   this.load = function() {
-    Blockly.Python.addReservedWords('machine,ioty,ioty_wifi,ioty_mqtt,ioty_mqtt_cb,i2c,mpu6050,MPU6050,pca9685,PCA9685,req,dateTime,ntptime,esp_now');
+    Blockly.Python.addReservedWords('machine,ioty,ioty_wifi,ioty_mqtt,ioty_mqtt_cb,i2c,mpu6050,MPU6050,pca9685,PCA9685,req,dateTime,ntptime,esp_now,ez_espnow');
 
     Blockly.Python.INDENT = '    ';
 
@@ -104,6 +104,11 @@ var ioty_generator = new function() {
     Blockly.Python['esp_now_send'] = self.esp_now_send;
     Blockly.Python['esp_now_get_msg'] = self.esp_now_get_msg;
     Blockly.Python['esp_now_msg_available'] = self.esp_now_msg_available;
+
+    Blockly.Python['ez_esp_now_init'] = self.ez_esp_now_init;
+    Blockly.Python['ez_esp_now_set_group'] = self.ez_esp_now_set_group
+    Blockly.Python['ez_esp_now_send'] = self.ez_esp_now_send;
+    Blockly.Python['ez_esp_now_get_msg'] = self.ez_esp_now_get_msg;
   };
 
   // Generate python code
@@ -1238,6 +1243,38 @@ var ioty_generator = new function() {
 
   this.esp_now_msg_available = function(block) {
     let code = 'esp_now.any()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.ez_esp_now_init = function(block) {
+    self.imports['ez_espnow'] = 'import ez_espnow';
+
+    var code = 'ez_espnow.init()\n'
+
+    return code;
+  };
+
+  this.ez_esp_now_set_group = function(block) {
+    let group = Blockly.Python.valueToCode(block, 'group', Blockly.Python.ORDER_ATOMIC);
+
+    var code = 'ez_espnow.set_group(' + group + ')\n';
+
+    return code;
+  };
+
+  this.ez_esp_now_send = function(block) {
+    let value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_ATOMIC);
+
+    var code = 'ez_espnow.send(' + value + ')\n';
+
+    return code;
+  };
+
+  this.ez_esp_now_get_msg = function(block) {
+    let wait = block.getFieldValue('wait');
+
+    let code = 'ez_espnow.recv(' + wait + ')';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };

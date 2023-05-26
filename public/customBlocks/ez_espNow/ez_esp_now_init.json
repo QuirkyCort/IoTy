@@ -1,0 +1,10 @@
+{
+  "type": "ez_esp_now_init",
+  "message0": "#blk-init_ez_esp_now#",
+  "args0": [],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 65,
+  "tooltip": "#blk-ez_esp_now_init_tooltip#",
+  "helpUrl": ""
+}

@@ -955,9 +955,6 @@ let MSGS = {
   '#blk-esp32_hall_sensor_tooltip#': {
     en: 'This measures the strength of the magnetic field near the microcontroller.',
   },
-  '#blk-esp_now#': {
-    en: 'ESP-NOW',
-  },
   '#blk-init_esp_now#': {
     en: 'Init ESP-NOW',
   },
@@ -993,6 +990,30 @@ let MSGS = {
   },
   '#blk-esp_now_msg_available_tooltip#': {
     en: 'Returns a list containing sender\'s MAC address and message. Set wait time to -1 to wait forever.',
+  },
+  '#blk-init_ez_esp_now#': {
+    en: 'Init EZ ESP-NOW',
+  },
+  '#blk-ez_esp_now_init_tooltip#': {
+    en: 'Run this before any other EZ ESP NOW blocks.',
+  },
+  '#blk-ez_esp_now_set_group#': {
+    en: 'EZ ESP-NOW set group',
+  },
+  '#blk-ez_esp_now_set_group_tooltip#': {
+    en: 'You can only exchange messages with devices in the same group.',
+  },
+  '#blk-ez_esp_now_send_message#': {
+    en: 'EZ_ESP-NOW send message',
+  },
+  '#blk-ez_esp_now_send_tooltip#': {
+    en: 'Max of around 200 bytes long.',
+  },
+  '#blk-ez_esp_now_get_msg#': {
+    en: 'EZ ESP-NOW get message',
+  },
+  '#blk-ez_esp_now_get_msg_tooltip#': {
+    en: 'Returns the received message.',
   },
 };
 let MSGS_KEYS = Object.keys(MSGS);

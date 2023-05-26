@@ -1,0 +1,17 @@
+{
+  "type": "ez_esp_now_set_group",
+  "message0": "#blk-ez_esp_now_set_group# %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "group",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 65,
+  "tooltip": "#blk-ez_esp_now_set_group_tooltip#",
+  "helpUrl": ""
+}

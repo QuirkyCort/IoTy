@@ -63,6 +63,31 @@ var extensions = new function() {
           'This extensions is a thin wrapper over the built-in neopixel module to allow programming the Neopixel without an object-oriented approach.' +
         '</p>'
     },
+    {
+      id: 'espnow',
+      name: 'ESP-NOW',
+      files: [],
+      description:
+        '<p>' +
+          'The ESP-NOW protocol allows direct communication between up to 20 registered peers, without requiring a WiFi access point. ' +
+          'To use this extension, your device must be loaded with a <a href="https://github.com/glenn20/micropython-espnow-images">firmware supporting ESP-NOW</a>. ' +
+          'Note that the default micropython firmware for the ESP32 do not currently support ESP-NOW.' +
+        '</p>'
+    },
+    {
+      id: 'ez_espnow',
+      name: 'EZ ESP-NOW',
+      files: [
+        ['ez_espnow.py', 'extensions/ez_espnow.py?v=270742f4'],
+      ],
+      description:
+        '<p>' +
+          'This is an easy to use version of ESP-NOW that doesn\'t require the peer\'s MAC address. ' +
+          'Instead, each device will set a group, and messages are broadcast to all devices within the same group (similar to the microbit "radio"). ' +
+          'To use this extension, your device must be loaded with a <a href="https://github.com/glenn20/micropython-espnow-images">firmware supporting ESP-NOW</a>. ' +
+          'Note that the default micropython firmware for the ESP32 do not currently support ESP-NOW.' +
+        '</p>'
+    },
   ]
 
   this.init = function() {

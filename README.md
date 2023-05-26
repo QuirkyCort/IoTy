@@ -29,7 +29,7 @@ If you are an educator, you may want to pre-setup your ESP32 for your students s
 
 ### 1) Install MicroPython
 
-Follow the instructions to here : https://docs.micropython.org/en/latest/esp32/tutorial/intro.html
+Follow the instructions here : https://docs.micropython.org/en/latest/esp32/tutorial/intro.html
 
 ### 2) Select a name
 

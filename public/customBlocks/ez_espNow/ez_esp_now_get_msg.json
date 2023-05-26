@@ -1,0 +1,19 @@
+{
+  "type": "ez_esp_now_get_msg",
+  "message0": "#blk-ez_esp_now_get_msg# %1",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "wait",
+      "options": [
+        ["Wait", "True"],
+        ["Don't Wait", "False"]
+      ]
+    }
+  ],
+  "inputsInline": true,
+  "output": null,
+  "colour": 65,
+  "tooltip": "#blk-ez_esp_now_get_msg_tooltip#",
+  "helpUrl": ""
+}
