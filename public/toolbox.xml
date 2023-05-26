@@ -838,4 +838,41 @@
       </value>
     </block>
   </category>
+  <category name="#blk-esp_now#" colour="#9fa55b" hidden="true">
+    <block type="esp_now_init"></block>
+    <block type="esp_now_add_peer">
+      <value name="mac">
+        <shadow type="text">
+          <field name="TEXT">MAC Address</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="esp_now_remove_peer">
+      <value name="mac">
+        <shadow type="text">
+          <field name="TEXT">MAC Address</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="esp_now_send">
+      <value name="value">
+        <shadow type="text">
+          <field name="TEXT">Hello</field>
+        </shadow>
+      </value>
+      <value name="mac">
+        <shadow type="text">
+          <field name="TEXT">MAC Address</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="esp_now_get_msg">
+      <value name="timeout">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="esp_now_msg_available"></block>
+  </category>
 </xml>

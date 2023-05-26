@@ -1,0 +1,17 @@
+{
+  "type": "esp_now_add_peer",
+  "message0": "#blk-esp_now_add_peer# %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "mac",
+      "check": "String"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 65,
+  "tooltip": "#blk-esp_now_add_peer_tooltip#",
+  "helpUrl": ""
+}

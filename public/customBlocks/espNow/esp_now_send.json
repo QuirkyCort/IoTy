@@ -1,0 +1,22 @@
+{
+  "type": "esp_now_send",
+  "message0": "#blk-esp_now_send_message# %1 #blk-to# %2",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "value",
+      "check": "String"
+    },
+    {
+      "type": "input_value",
+      "name": "mac",
+      "check": "String"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 65,
+  "tooltip": "#blk-esp_now_send_tooltip#",
+  "helpUrl": ""
+}

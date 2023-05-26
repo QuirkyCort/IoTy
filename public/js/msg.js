@@ -955,6 +955,45 @@ let MSGS = {
   '#blk-esp32_hall_sensor_tooltip#': {
     en: 'This measures the strength of the magnetic field near the microcontroller.',
   },
+  '#blk-esp_now#': {
+    en: 'ESP-NOW',
+  },
+  '#blk-init_esp_now#': {
+    en: 'Init ESP-NOW',
+  },
+  '#blk-esp_now_init_tooltip#': {
+    en: 'Run this before any other ESP NOW blocks.',
+  },
+  '#blk-esp_now_add_peer#': {
+    en: 'ESP-NOW add peer',
+  },
+  '#blk-esp_now_add_peer_tooltip#': {
+    en: 'You can use \\"Get Device Info\\" on the peer to find its MAC address.',
+  },
+  '#blk-esp_now_remove_peer#': {
+    en: 'ESP-NOW remove peer',
+  },
+  '#blk-esp_now_remove_peer_tooltip#': {
+    en: 'You cannot send messages to a removed peer.',
+  },
+  '#blk-esp_now_send_message#': {
+    en: 'ESP-NOW send message',
+  },
+  '#blk-esp_now_send_tooltip#': {
+    en: 'Max of 250 bytes long.',
+  },
+  '#blk-esp_now_get_msg_wait_for#': {
+    en: 'ESP-NOW get message, wait for',
+  },
+  '#blk-esp_now_get_msg_tooltip#': {
+    en: 'Returns a list containing sender\'s MAC address and message. Set wait time to -1 to wait forever.',
+  },
+  '#blk-esp_now_msg_available#': {
+    en: 'ESP-NOW message is available',
+  },
+  '#blk-esp_now_msg_available_tooltip#': {
+    en: 'Returns a list containing sender\'s MAC address and message. Set wait time to -1 to wait forever.',
+  },
 };
 let MSGS_KEYS = Object.keys(MSGS);
 

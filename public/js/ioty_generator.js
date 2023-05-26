@@ -6,7 +6,7 @@ var ioty_generator = new function() {
 
   // Load Python generators
   this.load = function() {
-    Blockly.Python.addReservedWords('machine,ioty,ioty_wifi,ioty_mqtt,ioty_mqtt_cb,i2c,mpu6050,MPU6050,pca9685,PCA9685,req,dateTime,ntptime');
+    Blockly.Python.addReservedWords('machine,ioty,ioty_wifi,ioty_mqtt,ioty_mqtt_cb,i2c,mpu6050,MPU6050,pca9685,PCA9685,req,dateTime,ntptime,esp_now');
 
     Blockly.Python.INDENT = '    ';
 
@@ -97,6 +97,13 @@ var ioty_generator = new function() {
 
     Blockly.Python['urequests_simple'] = self.urequests_simple_advance;
     Blockly.Python['urequests_advance'] = self.urequests_simple_advance;
+
+    Blockly.Python['esp_now_init'] = self.esp_now_init;
+    Blockly.Python['esp_now_add_peer'] = self.esp_now_add_peer;
+    Blockly.Python['esp_now_remove_peer'] = self.esp_now_remove_peer;
+    Blockly.Python['esp_now_send'] = self.esp_now_send;
+    Blockly.Python['esp_now_get_msg'] = self.esp_now_get_msg;
+    Blockly.Python['esp_now_msg_available'] = self.esp_now_msg_available;
   };
 
   // Generate python code
@@ -1160,6 +1167,79 @@ var ioty_generator = new function() {
     }
 
     return code;
+  };
+
+  this.esp_now_init = function(block) {
+    self.imports['network'] = 'import network';
+    self.imports['espnow'] = 'import espnow';
+
+    var code =
+      'ioty_wifi = network.WLAN(network.STA_IF)\n' +
+      'ioty_wifi.active(True)\n' +
+      'esp_now = espnow.ESPNow()\n' +
+      'esp_now.active(True)\n';
+
+    return code;
+  };
+
+  this.esp_now_add_peer = function(block) {
+    let mac = Blockly.Python.valueToCode(block, 'mac', Blockly.Python.ORDER_ATOMIC);
+    mac = mac.substring(1,mac.length-1);
+
+    let macParts = mac.split(/(..)/g).filter(s => s);
+    mac = '';
+    for (let part of macParts) {
+      mac += '\\x' + part;
+    }
+
+    var code = 'esp_now.add_peer(b\'' + mac + '\')\n';
+
+    return code;
+  };
+
+  this.esp_now_remove_peer = function(block) {
+    let mac = Blockly.Python.valueToCode(block, 'mac', Blockly.Python.ORDER_ATOMIC);
+    mac = mac.substring(1,mac.length-1);
+
+    let macParts = mac.split(/(..)/g).filter(s => s);
+    mac = '';
+    for (let part of macParts) {
+      mac += '\\x' + part;
+    }
+
+    var code = 'esp_now.del_peer(b\'' + mac + '\')\n';
+
+    return code;
+  };
+
+  this.esp_now_send = function(block) {
+    let value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_ATOMIC);
+    let mac = Blockly.Python.valueToCode(block, 'mac', Blockly.Python.ORDER_ATOMIC);
+    mac = mac.substring(1,mac.length-1);
+
+    let macParts = mac.split(/(..)/g).filter(s => s);
+    mac = '';
+    for (let part of macParts) {
+      mac += '\\x' + part;
+    }
+
+    var code = 'esp_now.send(b\'' + mac + '\', ' + value + ')\n';
+
+    return code;
+  };
+
+  this.esp_now_get_msg = function(block) {
+    let timeout = Blockly.Python.valueToCode(block, 'timeout', Blockly.Python.ORDER_NONE);
+
+    let code = 'esp_now.irecv(' + timeout + ')';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.esp_now_msg_available = function(block) {
+    let code = 'esp_now.any()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
   };
 
 }

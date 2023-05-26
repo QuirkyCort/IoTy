@@ -1,0 +1,10 @@
+{
+  "type": "esp_now_msg_available",
+  "message0": "#blk-esp_now_msg_available#",
+  "args0": [],
+  "inputsInline": true,
+  "output": "Boolean",
+  "colour": 65,
+  "tooltip": "#blk-esp_now_msg_available_tooltip#",
+  "helpUrl": ""
+}

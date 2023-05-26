@@ -1,0 +1,16 @@
+{
+  "type": "esp_now_get_msg",
+  "message0": "#blk-esp_now_get_msg_wait_for# %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "timeout",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "output": "Array",
+  "colour": 65,
+  "tooltip": "#blk-esp_now_get_msg_tooltip#",
+  "helpUrl": ""
+}
