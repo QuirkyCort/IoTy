@@ -1015,6 +1015,30 @@ let MSGS = {
   '#blk-ez_esp_now_get_msg_tooltip#': {
     en: 'Returns the received message.',
   },
+  '#blk-ez_httpd_init_with_name#': {
+    en: 'init with name set to.',
+  },
+  '#blk-ez_httpd_init_tooltip#': {
+    en: 'Initialize the IoTy device as an Access Point running a web server',
+  },
+  '#blk-ez_httpd_wait_for_connection_and_put_url_in#': {
+    en: 'wait for connection and put URL in',
+  },
+  '#blk-query_in#': {
+    en: 'query in',
+  },
+  '#blk-content_in#': {
+    en: 'content in',
+  },
+  '#blk-ez_httpd_wait_for_connection_tooltip#': {
+    en: 'Wait for client connection. URL contains the request URL. Query contains a dictionary of the query string. Content contains the body of the request.',
+  },
+  '#blk-ez_httpd_send_response#': {
+    en: 'send response',
+  },
+  '#blk-ez_httpd_send_response_tooltip#': {
+    en: 'Send a response to the client. This must be after a wait_for_connection.',
+  },
 };
 let MSGS_KEYS = Object.keys(MSGS);
 

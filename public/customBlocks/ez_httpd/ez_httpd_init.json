@@ -1,0 +1,18 @@
+{
+  "type": "ez_httpd_init",
+  "message0": "ez_httpd #blk-ez_httpd_init_with_name# %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "name",
+      "check": "String"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 65,
+  "tooltip": "#blk-ez_httpd_init_tooltip#",
+  "helpUrl": ""
+
+}

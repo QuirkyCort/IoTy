@@ -1,0 +1,18 @@
+{
+  "type": "ez_httpd_send_response",
+  "message0": "ez_httpd #blk-ez_httpd_send_response# %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "response",
+      "check": "String"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 65,
+  "tooltip": "#blk-ez_httpd_send_response_tooltip#",
+  "helpUrl": ""
+
+}

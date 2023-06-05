@@ -893,4 +893,21 @@
     </block>
     <block type="ez_esp_now_get_msg"></block>
   </category>
+  <category toolboxitemid="ez_httpd" name="EZ HTTP Server" colour="#9fa55b" hidden="true">
+    <block type="ez_httpd_init">
+      <value name="name">
+        <shadow type="text">
+          <field name="TEXT">IoTy_Device</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="ez_httpd_wait_for_connection"></block>
+    <block type="ez_httpd_send_response">
+      <value name="response">
+        <shadow type="text">
+          <field name="TEXT">Hello</field>
+        </shadow>
+      </value>
+    </block>
+  </category>
 </xml>
