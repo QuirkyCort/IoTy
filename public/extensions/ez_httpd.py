@@ -92,3 +92,13 @@ class HTTPD:
         response = header + response_data.encode()
         self.client_connection.sendall(response)
         self.client_connection.close()
+
+    def send_file(self, filename):
+        self.client_connection.sendall(b'HTTP/1.0 200 OK\r\n\r\n')
+        with open(filename, 'rb') as f:
+            while True:
+                d = f.read(1024)
+                if d == b'':
+                    break
+                self.client_connection.sendall(d)
+        self.client_connection.close()

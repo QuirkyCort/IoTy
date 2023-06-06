@@ -6,7 +6,7 @@ var ioty_generator = new function() {
 
   // Load Python generators
   this.load = function() {
-    Blockly.Python.addReservedWords('machine,ioty,ioty_wifi,ioty_mqtt,ioty_mqtt_cb,i2c,mpu6050,MPU6050,pca9685,PCA9685,req,dateTime,ntptime,esp_now,ez_espnow,ez_httpd,ezhttpd');
+    Blockly.Python.addReservedWords('machine,ioty,ioty_wifi,ioty_mqtt,ioty_mqtt_cb,req');
 
     Blockly.Python.INDENT = '    ';
 
@@ -52,10 +52,12 @@ var ioty_generator = new function() {
     Blockly.Python['i2c_readfrom_mem'] = self.i2c_readfrom_mem;
     Blockly.Python['i2c_writeto'] = self.i2c_writeto;
     Blockly.Python['i2c_readfrom'] = self.i2c_readfrom;
+    Blockly.Python.addReservedWords('i2c');
 
     Blockly.Python['date_time_get'] = self.date_time_get;
     Blockly.Python['date_time_set'] = self.date_time_set;
     Blockly.Python['date_time_set_ntp'] = self.date_time_set_ntp;
+    Blockly.Python.addReservedWords('dateTime,ntptime');
 
     Blockly.Python['file_open'] = self.file_open;
     Blockly.Python['file_readline'] = self.file_readline;
@@ -63,6 +65,9 @@ var ioty_generator = new function() {
     Blockly.Python['file_write'] = self.file_write;
     Blockly.Python['file_close'] = self.file_close;
     Blockly.Python['file_flush'] = self.file_flush;
+    Blockly.Python['file_is_file'] = self.file_is_file;
+    Blockly.Python['file_is_dir'] = self.file_is_dir;
+    Blockly.Python.addReservedWords('is_file,is_dir');
 
     Blockly.Python['esp32_temperature'] = self.esp32_temperature;
     Blockly.Python['esp32_hall_sensor'] = self.esp32_hall_sensor;
@@ -74,12 +79,14 @@ var ioty_generator = new function() {
     Blockly.Python['mpu6050_accel'] = self.mpu6050_accel;
     Blockly.Python['mpu6050_gyro'] = self.mpu6050_gyro;
     Blockly.Python['mpu6050_angle'] = self.mpu6050_angle;
+    Blockly.Python.addReservedWords('mpu6050,MPU6050');
 
     Blockly.Python['pca9685_init'] = self.pca9685_init;
     Blockly.Python['pca9685_set_freq'] = self.pca9685_set_freq;
     Blockly.Python['pca9685_analog_write'] = self.pca9685_analog_write;
     Blockly.Python['pca9685_write_angle'] = self.pca9685_write_angle;
     Blockly.Python['pca9685_write_us'] = self.pca9685_write_us;
+    Blockly.Python.addReservedWords('pca9685,PCA9685');
 
     Blockly.Python['ssd1306_init'] = self.ssd1306_init;
     Blockly.Python['ssd1306_fill'] = self.ssd1306_fill;
@@ -90,6 +97,7 @@ var ioty_generator = new function() {
     Blockly.Python['ssd1306_rect'] = self.ssd1306_rect;
     Blockly.Python['ssd1306_ellipse'] = self.ssd1306_ellipse;
     Blockly.Python['ssd1306_scroll'] = self.ssd1306_scroll;
+    Blockly.Python.addReservedWords('ssd1306,ssd1306_i2c,SSD1306_I2C');
 
     Blockly.Python['dict_empty'] = self.dict_empty;
     Blockly.Python['dict_key_value'] = self.dict_key_value;
@@ -104,15 +112,20 @@ var ioty_generator = new function() {
     Blockly.Python['esp_now_send'] = self.esp_now_send;
     Blockly.Python['esp_now_get_msg'] = self.esp_now_get_msg;
     Blockly.Python['esp_now_msg_available'] = self.esp_now_msg_available;
+    Blockly.Python.addReservedWords('esp_now');
 
     Blockly.Python['ez_esp_now_init'] = self.ez_esp_now_init;
     Blockly.Python['ez_esp_now_set_group'] = self.ez_esp_now_set_group
     Blockly.Python['ez_esp_now_send'] = self.ez_esp_now_send;
     Blockly.Python['ez_esp_now_get_msg'] = self.ez_esp_now_get_msg;
+    Blockly.Python.addReservedWords('ez_espnow');
 
     Blockly.Python['ez_httpd_init'] = self.ez_httpd_init;
     Blockly.Python['ez_httpd_wait_for_connection'] = self.ez_httpd_wait_for_connection;
     Blockly.Python['ez_httpd_send_response'] = self.ez_httpd_send_response;
+    Blockly.Python['ez_httpd_send_file'] = self.ez_httpd_send_file;
+    Blockly.Python['ez_httpd_send_404'] = self.ez_httpd_send_404;
+    Blockly.Python.addReservedWords('ez_httpd,ezhttpd');
   };
 
   // Generate python code
@@ -836,6 +849,44 @@ var ioty_generator = new function() {
     return code;
   };
 
+  this.file_is_file = function(block) {
+    self.imports['os'] = 'import os';
+
+    var path = Blockly.Python.valueToCode(block, 'path', Blockly.Python.ORDER_NONE);
+
+    var functionCode =
+      '\ndef is_file(path):\n' +
+      '    try:\n' +
+      '        return (os.stat(path)[0] & 0x4000) == 0\n' +
+      '    except:\n' +
+      '        return False\n';
+
+    Blockly.Python.definitions_['is_file'] = functionCode;
+
+    var code = 'is_file(' + path + ')';
+
+    return [code, Blockly.Python.ORDER_FUNCTION_CALL];
+  };
+
+  this.file_is_dir = function(block) {
+    self.imports['os'] = 'import os';
+
+    var path = Blockly.Python.valueToCode(block, 'path', Blockly.Python.ORDER_NONE);
+
+    var functionCode =
+      '\ndef is_dir(path):\n' +
+      '    try:\n' +
+      '        return (os.stat(path)[0] & 0x8000) == 0\n' +
+      '    except:\n' +
+      '        return False\n';
+
+    Blockly.Python.definitions_['is_dir'] = functionCode;
+
+    var code = 'is_dir(' + path + ')';
+
+    return [code, Blockly.Python.ORDER_FUNCTION_CALL];
+  };
+
   this.esp32_temperature = function(block) {
     self.imports['esp32'] = 'import esp32';
 
@@ -997,8 +1048,8 @@ var ioty_generator = new function() {
     var addr = block.getFieldValue('addr');
 
     var code =
-      'ssd1306 = SSD1306_I2C(' + width + ', ' + height + ', i2c, ' + addr + ')\n'+
-      'ssd1306.init_display()\n';
+      'ssd1306_i2c = SSD1306_I2C(' + width + ', ' + height + ', i2c, ' + addr + ')\n'+
+      'ssd1306_i2c.init_display()\n';
 
     return code;
   };
@@ -1006,13 +1057,13 @@ var ioty_generator = new function() {
   this.ssd1306_fill = function(block) {
     var color = Blockly.Python.valueToCode(block, 'color', Blockly.Python.ORDER_ATOMIC);
 
-    var code = 'ssd1306.fill(' + color + ')\n';
+    var code = 'ssd1306_i2c.fill(' + color + ')\n';
 
     return code;
   };
 
   this.ssd1306_show = function(block) {
-    var code = 'ssd1306.show()\n';
+    var code = 'ssd1306_i2c.show()\n';
 
     return code;
   };
@@ -1023,7 +1074,7 @@ var ioty_generator = new function() {
     var y = Blockly.Python.valueToCode(block, 'y', Blockly.Python.ORDER_ATOMIC);
     var color = Blockly.Python.valueToCode(block, 'color', Blockly.Python.ORDER_ATOMIC);
 
-    var code = 'ssd1306.text(' + text + ', ' + x + ', ' + y + ', ' + color + ')\n';
+    var code = 'ssd1306_i2c.text(' + text + ', ' + x + ', ' + y + ', ' + color + ')\n';
 
     return code;
   };
@@ -1033,7 +1084,7 @@ var ioty_generator = new function() {
     var y = Blockly.Python.valueToCode(block, 'y', Blockly.Python.ORDER_ATOMIC);
     var color = Blockly.Python.valueToCode(block, 'color', Blockly.Python.ORDER_ATOMIC);
 
-    var code = 'ssd1306.pixel(' + x + ', ' + y + ', ' + color + ')\n';
+    var code = 'ssd1306_i2c.pixel(' + x + ', ' + y + ', ' + color + ')\n';
 
     return code;
   };
@@ -1045,7 +1096,7 @@ var ioty_generator = new function() {
     var y2 = Blockly.Python.valueToCode(block, 'y2', Blockly.Python.ORDER_ATOMIC);
     var color = Blockly.Python.valueToCode(block, 'color', Blockly.Python.ORDER_ATOMIC);
 
-    var code = 'ssd1306.line(' + x1 + ', ' + y1 + ', ' + x2 + ', ' + y2 + ', ' + color + ')\n';
+    var code = 'ssd1306_i2c.line(' + x1 + ', ' + y1 + ', ' + x2 + ', ' + y2 + ', ' + color + ')\n';
 
     return code;
   };
@@ -1058,7 +1109,7 @@ var ioty_generator = new function() {
     var color = Blockly.Python.valueToCode(block, 'color', Blockly.Python.ORDER_ATOMIC);
     var fill = block.getFieldValue('fill');
 
-    var code = 'ssd1306.rect(' + x + ', ' + y + ', ' + w + ', ' + h + ', ' + color + ', ' + fill + ')\n';
+    var code = 'ssd1306_i2c.rect(' + x + ', ' + y + ', ' + w + ', ' + h + ', ' + color + ', ' + fill + ')\n';
 
     return code;
   };
@@ -1071,7 +1122,7 @@ var ioty_generator = new function() {
     var color = Blockly.Python.valueToCode(block, 'color', Blockly.Python.ORDER_ATOMIC);
     var fill = block.getFieldValue('fill');
 
-    var code = 'ssd1306.ellipse(' + x + ', ' + y + ', ' + xr + ', ' + yr + ', ' + color + ', ' + fill + ')\n';
+    var code = 'ssd1306_i2c.ellipse(' + x + ', ' + y + ', ' + xr + ', ' + yr + ', ' + color + ', ' + fill + ')\n';
 
     return code;
   };
@@ -1080,7 +1131,7 @@ var ioty_generator = new function() {
     var xstep = Blockly.Python.valueToCode(block, 'xstep', Blockly.Python.ORDER_ATOMIC);
     var ystep = Blockly.Python.valueToCode(block, 'ystep', Blockly.Python.ORDER_ATOMIC);
 
-    var code = 'ssd1306.scroll(' + xstep + ', ' + ystep + ')\n';
+    var code = 'ssd1306_i2c.scroll(' + xstep + ', ' + ystep + ')\n';
 
     return code;
   };
@@ -1307,6 +1358,20 @@ var ioty_generator = new function() {
     let response = Blockly.Python.valueToCode(block, 'response', Blockly.Python.ORDER_ATOMIC);
 
     var code = 'ezhttpd.send_response(' + response + ')\n';
+
+    return code;
+  };
+
+  this.ez_httpd_send_file = function(block) {
+    let filename = Blockly.Python.valueToCode(block, 'filename', Blockly.Python.ORDER_ATOMIC);
+
+    var code = 'ezhttpd.send_file(' + filename + ')\n';
+
+    return code;
+  };
+
+  this.ez_httpd_send_404 = function(block) {
+    var code = 'ezhttpd.send_response(\'Page Not Found\', status=\'404 Not Found\')\n';
 
     return code;
   };

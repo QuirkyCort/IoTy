@@ -1,0 +1,12 @@
+{
+  "type": "ez_httpd_send_404",
+  "message0": "ez_httpd #blk-ez_httpd_send_404#",
+  "args0": [],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 65,
+  "tooltip": "#blk-ez_httpd_send_404_tooltip#",
+  "helpUrl": ""
+
+}

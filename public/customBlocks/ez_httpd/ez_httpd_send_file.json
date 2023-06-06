@@ -1,0 +1,18 @@
+{
+  "type": "ez_httpd_send_file",
+  "message0": "ez_httpd #blk-ez_httpd_send_file# %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "filename",
+      "check": "String"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 65,
+  "tooltip": "#blk-ez_httpd_send_file_tooltip#",
+  "helpUrl": ""
+
+}

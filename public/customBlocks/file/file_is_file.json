@@ -1,0 +1,15 @@
+{
+  "type": "file_is_file",
+  "message0": "#blk-is_file# %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "path",
+      "check": "String"
+    }
+  ],
+  "output": "Boolean",
+  "colour": 230,
+  "tooltip": "#blk-file_is_file_tooltip#",
+  "helpUrl": ""
+}

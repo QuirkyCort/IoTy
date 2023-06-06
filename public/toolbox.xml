@@ -490,6 +490,20 @@
     </block>
     <block type="file_flush"></block>
     <block type="file_close"></block>
+    <block type="file_is_file">
+      <value name="path">
+        <shadow type="text">
+          <field name="TEXT">data.txt</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="file_is_dir">
+      <value name="path">
+        <shadow type="text">
+          <field name="TEXT">directory_path</field>
+        </shadow>
+      </value>
+    </block>
   </category>
   <category name="I2C" colour="#a55b80">
     <block type="i2c_init"></block>
@@ -909,5 +923,13 @@
         </shadow>
       </value>
     </block>
+    <block type="ez_httpd_send_file">
+      <value name="filename">
+        <shadow type="text">
+          <field name="TEXT">file.html</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="ez_httpd_send_404"></block>
   </category>
 </xml>

@@ -943,6 +943,18 @@ let MSGS = {
   '#blk-file_read_tooltip#': {
     en: 'Read the specified number of bytes. If set to -1, the entire file will be read.',
   },
+  '#blk-is_file#': {
+    en: 'is file',
+  },
+  '#blk-file_is_file_tooltip#': {
+    en: 'Returns True if the specified path is a file',
+  },
+  '#blk-is_dir#': {
+    en: 'is dir',
+  },
+  '#blk-file_is_dir_tooltip#': {
+    en: 'Returns True if the specified path is a directory',
+  },
   '#blk-microcontroller_temperature_in#': {
     en: 'microcontroller temperature in',
   },
@@ -1038,6 +1050,18 @@ let MSGS = {
   },
   '#blk-ez_httpd_send_response_tooltip#': {
     en: 'Send a response to the client. This must be after a wait_for_connection.',
+  },
+  '#blk-ez_httpd_send_file#': {
+    en: 'send file',
+  },
+  '#blk-ez_httpd_send_file_tooltip#': {
+    en: 'Send the content of the specified file to the client. This must be after a wait_for_connection. Make sure the file exists on the device.',
+  },
+  '#blk-ez_httpd_send_404#': {
+    en: 'send 404 Not Found',
+  },
+  '#blk-ez_httpd_send_404_tooltip#': {
+    en: 'Use this to indicate to the client that the requested URL is not available.',
   },
 };
 let MSGS_KEYS = Object.keys(MSGS);
