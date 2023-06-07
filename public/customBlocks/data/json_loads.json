@@ -1,0 +1,15 @@
+{
+  "type": "json_loads",
+  "message0": "#blk-json_loads# %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "value",
+      "check": "String"
+    }
+  ],
+  "output": null,
+  "colour": 230,
+  "tooltip": "#blk-json_loads_tooltip#",
+  "helpUrl": ""
+}

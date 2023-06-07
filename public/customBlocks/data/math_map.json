@@ -1,0 +1,36 @@
+{
+  "type": "math_map",
+  "message0": "#blk-map# %1 #blk-from_low# %2 #blk-high# %3 #blk-to_low# %4 #blk-high# %5",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "x",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "in_min",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "in_max",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "out_min",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "out_max",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "output": "Number",
+  "colour": 230,
+  "tooltip": "#blk-map_tooltip#",
+  "helpUrl": ""
+}

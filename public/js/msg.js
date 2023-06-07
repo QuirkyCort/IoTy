@@ -844,6 +844,36 @@ let MSGS = {
   '#blk-dict_set_tooltip#': {
     en: 'Create an empty dictionary and assign it to a variable before setting values',
   },
+  '#blk-data#': {
+    en: 'Data',
+  },
+  '#blk-map#': {
+    en: 'map',
+  },
+  '#blk-from_low#': {
+    en: 'from low',
+  },
+  '#blk-high#': {
+    en: 'high',
+  },
+  '#blk-to_low#': {
+    en: 'to low',
+  },
+  '#blk-map_tooltip#': {
+    en: 'Convert a value in the first range to a value in the second range.',
+  },
+  '#blk-json_dumps#': {
+    en: 'json dump string',
+  },
+  '#blk-json_dumps_tooltip#': {
+    en: 'Converts the provided data obj into a JSON string',
+  },
+  '#blk-json_loads#': {
+    en: 'json load string',
+  },
+  '#blk-json_loads_tooltip#': {
+    en: 'Converts the JSON string into a data obj',
+  },
   '#blk-request_to#': {
     en: 'request to',
   },

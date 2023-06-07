@@ -23,12 +23,16 @@ var ioty_generator = new function() {
     Blockly.Python['time'] = self.time;
     Blockly.Python['exit'] = self.exit;
     Blockly.Python['read_input'] = self.read_input;
-    Blockly.Python['type_cast'] = self.type_cast;
     Blockly.Python['servo_write_deg'] = self.servo_write_deg;
     Blockly.Python['servo_write_us'] = self.servo_write_us;
     Blockly.Python['hc_sr04_ping'] = self.hc_sr04_ping;
     Blockly.Python['connect_to_wifi'] = self.connect_to_wifi;
     Blockly.Python['connect_to_configured_wifi'] = self.connect_to_configured_wifi;
+
+    Blockly.Python['type_cast'] = self.type_cast;
+    Blockly.Python['math_map'] = self.math_map;
+    Blockly.Python['json_dumps'] = self.json_dumps;
+    Blockly.Python['json_loads'] = self.json_loads;
 
     Blockly.Python['neopixel_init'] = self.neopixel_init;
     Blockly.Python['neopixel_color'] = self.neopixel_color;
@@ -391,6 +395,44 @@ var ioty_generator = new function() {
     }
 
     var code = type + value + ')';
+
+    return [code, Blockly.Python.ORDER_FUNCTION_CALL];
+  };
+
+  this.math_map = function(block) {
+    var functionCode =
+      '\ndef math_map(x, in_min, in_max, out_min, out_max):\n' +
+      '    return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min\n';
+
+    Blockly.Python.definitions_['math_map'] = functionCode;
+
+    var x = Blockly.Python.valueToCode(block, 'x', Blockly.Python.ORDER_ATOMIC);
+    var in_min = Blockly.Python.valueToCode(block, 'in_min', Blockly.Python.ORDER_ATOMIC);
+    var in_max = Blockly.Python.valueToCode(block, 'in_max', Blockly.Python.ORDER_ATOMIC);
+    var out_min = Blockly.Python.valueToCode(block, 'out_min', Blockly.Python.ORDER_ATOMIC);
+    var out_max = Blockly.Python.valueToCode(block, 'out_max', Blockly.Python.ORDER_ATOMIC);
+
+    var code = 'math_map(' + x + ', ' + in_min + ', ' + in_max + ', ' + out_min + ', ' + out_max + ')';
+
+    return [code, Blockly.Python.ORDER_FUNCTION_CALL];
+  };
+
+  this.json_dumps = function(block) {
+    self.imports['json'] = 'import json';
+
+    var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_ATOMIC);
+
+    var code = 'json.dumps(' + value + ')';
+
+    return [code, Blockly.Python.ORDER_FUNCTION_CALL];
+  };
+
+  this.json_loads = function(block) {
+    self.imports['json'] = 'import json';
+
+    var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_ATOMIC);
+
+    var code = 'json.loads(' + value + ')';
 
     return [code, Blockly.Python.ORDER_FUNCTION_CALL];
   };

@@ -1,0 +1,14 @@
+{
+  "type": "json_dumps",
+  "message0": "#blk-json_dumps# %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "value"
+    }
+  ],
+  "output": null,
+  "colour": 230,
+  "tooltip": "#blk-json_dumps_tooltip#",
+  "helpUrl": ""
+}

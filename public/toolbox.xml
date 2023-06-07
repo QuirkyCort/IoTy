@@ -183,7 +183,6 @@
         </shadow>
       </value>
     </block>
-    <block type="type_cast"></block>
     <block type="math_single">
       <field name="OP">ROOT</field>
       <value name="NUM">
@@ -447,6 +446,38 @@
         </shadow>
       </value>
     </block>
+  </category>
+  <category name="#blk-data#" colour="#5b67a5">
+    <block type="type_cast"></block>
+    <block type="math_map">
+      <value name="x">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="in_min">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="in_max">
+        <shadow type="math_number">
+          <field name="NUM">65535</field>
+        </shadow>
+      </value>
+      <value name="out_min">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="out_max">
+        <shadow type="math_number">
+          <field name="NUM">1023</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="json_dumps"></block>
+    <block type="json_loads"></block>
   </category>
   <category name="Variables" colour="#a55b80" custom="VARIABLE"></category>
   <category name="Functions" colour="#995ba5" custom="PROCEDURE"></category>
