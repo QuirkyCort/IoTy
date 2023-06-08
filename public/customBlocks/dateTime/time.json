@@ -6,6 +6,7 @@
       "type": "field_dropdown",
       "name": "units",
       "options": [
+        ["#blk-seconds#", "SECONDS"],
         ["#blk-milliseconds#", "MILLI"],
         ["#blk-microseconds#", "MICRO"]
       ]

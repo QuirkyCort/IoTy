@@ -353,15 +353,16 @@ var ioty_generator = new function() {
   this.time = function(block) {
     self.imports['time'] = 'import time';
 
-    var units = block.getFieldValue('units');
+    let units = block.getFieldValue('units');
+    let code;
 
-    if (units == 'MILLI') {
-      units = 'ticks_ms()';
+    if (units == 'SECONDS') {
+      code = 'int(time.ticks_ms() / 1000)';
+    } else if (units == 'MILLI') {
+      code = 'time.ticks_ms()';
     } else if (units == 'MICRO') {
-      units = 'ticks_us()';
+      code = 'time.ticks_us()';
     }
-
-    var code = 'time.' + units;
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };
