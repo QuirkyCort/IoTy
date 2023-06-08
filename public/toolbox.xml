@@ -963,4 +963,30 @@
     </block>
     <block type="ez_httpd_send_404"></block>
   </category>
+  <category toolboxitemid="ucsv" name="uCSV" colour="#5b67a5" hidden="true">
+    <block type="ucsv_reader">
+      <value name="filename">
+        <shadow type="text">
+          <field name="TEXT">data.csv</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="ucsv_writer">
+      <value name="filename">
+        <shadow type="text">
+          <field name="TEXT">data.csv</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="ucsv_readrow"></block>
+    <block type="ucsv_writerow">
+      <value name="value">
+        <block type="lists_create_with">
+          <mutation items="2"></mutation>
+        </block>
+      </value>
+    </block>
+    <block type="ucsv_flush"></block>
+    <block type="ucsv_close"></block>
+  </category>
 </xml>

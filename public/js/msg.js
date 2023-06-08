@@ -1093,6 +1093,39 @@ let MSGS = {
   '#blk-ez_httpd_send_404_tooltip#': {
     en: 'Use this to indicate to the client that the requested URL is not available.',
   },
+  '#blk-for_reading#': {
+    en: 'for reading',
+  },
+  '#blk-ucsv_reader_tooltip#': {
+    en: 'Opens a CSV file for reading. Read each row using either the read block, or by putting the CSV object into a \\"for each item in list\\" loop.',
+  },
+  '#blk-for_writing#': {
+    en: 'for writing',
+  },
+  '#blk-ucsv_writer_tooltip#': {
+    en: 'Opens a CSV file for writing. Use append mode to add to an existing file without destroying existing data.',
+  },
+  '#blk-read_one_row_from#': {
+    en: 'read one row from',
+  },
+  '#blk-ucsv_readrow_tooltip#': {
+    en: 'read a single rom from the CSV file and return a list',
+  },
+  '#blk-ucsv_writerow_tooltip#': {
+    en: 'Write a row to the CSV file. The input must be a list',
+  },
+  '#blk-flush#': {
+    en: 'flush',
+  },
+  '#blk-ucsv_flush_tooltip#': {
+    en: 'Flush data to storage. This ensures that written data will not be lost if the device loses power. This can only be used with writer objects.',
+  },
+  '#blk-close#': {
+    en: 'close',
+  },
+  '#blk-ucsv_close_tooltip#': {
+    en: 'Close a previously opened CSV file. You cannot read/write to the file after closing.',
+  },
 };
 let MSGS_KEYS = Object.keys(MSGS);
 

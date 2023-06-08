@@ -101,6 +101,18 @@ var extensions = new function() {
           'The address of the IoTy device will be http://194.168.4.1 ' +
         '</p>'
     },
+    {
+      id: 'ucsv',
+      name: 'uCSV',
+      files: [
+        ['ucsv.py', 'extensions/ucsv.py?v=574bc69e'],
+      ],
+      description:
+        '<p>' +
+          'This extensions allows your IoTy device to read and write CSV files. ' +
+          'The extension largely complies with <a href="https://datatracker.ietf.org/doc/html/rfc4180.html">RFC 4180</a>, and expects fields to be separated by commas and the use of double quotes. ' +
+        '</p>'
+    },
   ]
 
   this.init = function() {

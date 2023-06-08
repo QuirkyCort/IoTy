@@ -130,6 +130,14 @@ var ioty_generator = new function() {
     Blockly.Python['ez_httpd_send_file'] = self.ez_httpd_send_file;
     Blockly.Python['ez_httpd_send_404'] = self.ez_httpd_send_404;
     Blockly.Python.addReservedWords('ez_httpd,ezhttpd');
+
+    Blockly.Python['ucsv_reader'] = self.ucsv_reader;
+    Blockly.Python['ucsv_writer'] = self.ucsv_writer;
+    Blockly.Python['ucsv_readrow'] = self.ucsv_readrow;
+    Blockly.Python['ucsv_writerow'] = self.ucsv_writerow;
+    Blockly.Python['ucsv_flush'] = self.ucsv_flush;
+    Blockly.Python['ucsv_close'] = self.ucsv_close;
+    Blockly.Python.addReservedWords('ucsv');
   };
 
   // Generate python code
@@ -1415,6 +1423,67 @@ var ioty_generator = new function() {
 
   this.ez_httpd_send_404 = function(block) {
     var code = 'ezhttpd.send_response(\'Page Not Found\', status=\'404 Not Found\')\n';
+
+    return code;
+  };
+
+  this.ucsv_reader = function(block) {
+    self.imports['ucsv'] = 'import ucsv';
+
+    var variable = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('variable'), 'VARIABLE');
+    var filename = Blockly.Python.valueToCode(block, 'filename', Blockly.Python.ORDER_NONE);
+
+    var code = variable + ' = ucsv.reader(' + filename + ')\n';
+
+    return code;
+  };
+
+  this.ucsv_writer = function(block) {
+    self.imports['ucsv'] = 'import ucsv';
+
+    var variable = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('variable'), 'VARIABLE');
+    var filename = Blockly.Python.valueToCode(block, 'filename', Blockly.Python.ORDER_NONE);
+    var mode = block.getFieldValue('mode');
+
+    let append = '';
+    if (mode == 'a') {
+      append = ', append=True';
+    }
+
+    var code = variable + ' = ucsv.writer(' + filename + append + ')\n';
+
+    return code;
+  };
+
+  this.ucsv_readrow = function(block) {
+    var variable = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('variable'), 'VARIABLE');
+
+    var code = 'next(' + variable + ')';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.ucsv_writerow = function(block) {
+    var variable = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('variable'), 'VARIABLE');
+    var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_NONE);
+
+    var code = variable + '.writerow(' + value + ')\n';
+
+    return code;
+  };
+
+  this.ucsv_close = function(block) {
+    var variable = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('variable'), 'VARIABLE');
+
+    var code = variable + '.close()\n';
+
+    return code;
+  };
+
+  this.ucsv_flush = function(block) {
+    var variable = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('variable'), 'VARIABLE');
+
+    var code = variable + '.flush()\n';
 
     return code;
   };

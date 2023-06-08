@@ -1,0 +1,15 @@
+{
+  "type": "ucsv_readrow",
+  "message0": "ucsv: #blk-read_one_row_from# %1",
+  "args0": [
+    {
+      "type": "field_variable",
+      "name": "variable",
+      "variable": "csv1"
+    }
+  ],
+  "output": "Array",
+  "colour": 230,
+  "tooltip": "#blk-ucsv_readrow_tooltip#",
+  "helpUrl": ""
+}
