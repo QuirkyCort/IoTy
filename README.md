@@ -32,7 +32,7 @@ If you are an educator, you may want to pre-setup your ESP32 for your students s
 Follow the instructions here : https://docs.micropython.org/en/latest/esp32/tutorial/intro.html, but use the firmware from https://github.com/glenn20/micropython-espnow-images/tree/main/20220709_espnow-g20-v1.19.1-espnow-6-g44f65965b instead.
 
 **Note**
-* If you use the default micropython firmware, you will not be able to use ESPNow.
+* If you use the default micropython firmware, you will not be able to use ESP-NOW.
 * Version 1.20 hasn't been tested with IoTy and is currently not recommended for use.
 
 ### 2) Select a name

@@ -96,7 +96,7 @@ var extensions = new function() {
       ],
       description:
         '<p>' +
-          'This extensions allows your IoTy device to act as a HTTP server and handle requests. ' +
+          'This extensions allows your IoTy device to act as a HTTP (Web) server and handle requests. ' +
           'To use it, 1) Init a HTTPD object, 2) wait_for_connection, 3) send_response. ' +
           'The address of the IoTy device will be http://194.168.4.1 ' +
         '</p>'
