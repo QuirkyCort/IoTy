@@ -1,3 +1,10 @@
+.extensions {
+  max-height: 30em;
+  overflow-y: auto;
+  border: solid 1px white;
+  padding: 0.5em
+}
+
 .extension {
   border: solid 1px white;
   padding: 0.5em;
@@ -26,5 +33,24 @@
     button.install {
       display: none;
     }
+  }
+}
+
+.extension.hide {
+  display: none;
+}
+
+.search {
+  display: flex;
+  margin-bottom: 0.5em;
+
+  input {
+    font-size: 100%;
+    width: 100%;
+    background: none;
+    color: white;
+    border: solid 1px white;
+    padding: 0 0.2em;
+    margin-left: 0.5em;
   }
 }

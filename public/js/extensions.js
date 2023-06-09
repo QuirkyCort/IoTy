@@ -120,12 +120,27 @@ var extensions = new function() {
 
   this.loadDialog = function() {
     let $body = $('<div class="selectExtensions"></div>');
+    let $search = $('<div class="search">Search: <input type="text"></div>')
     let $extensions = $('<div class="extensions"></div>');
+    let $searchInput = $search.find('input');
 
     for (let extension of self.availableExtensions) {
       $extensions.append(self.drawExtension(extension));
     }
 
+    $searchInput.on('input', function(){
+      let searchTerm = $searchInput.val().toLowerCase();
+      $extensions[0].childNodes.forEach(function(item){
+        let itemText = item.innerText.toLowerCase();
+        if (itemText.includes(searchTerm)) {
+          item.classList.remove('hide');
+        } else {
+          item.classList.add('hide');
+        }
+      });
+    });
+
+    $body.append($search);
     $body.append($extensions);
 
     let $buttons = $(

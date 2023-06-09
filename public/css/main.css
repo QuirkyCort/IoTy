@@ -381,6 +381,12 @@ ul.menuDropDownRightAlign {
     overflow-x: auto;
     white-space: pre; }
 
+.extensions {
+  max-height: 30em;
+  overflow-y: auto;
+  border: solid 1px white;
+  padding: 0.5em; }
+
 .extension {
   border: solid 1px white;
   padding: 0.5em;
@@ -397,6 +403,21 @@ ul.menuDropDownRightAlign {
     display: none; }
   .extension .buttons.remove button.install {
     display: none; }
+
+.extension.hide {
+  display: none; }
+
+.search {
+  display: flex;
+  margin-bottom: 0.5em; }
+  .search input {
+    font-size: 100%;
+    width: 100%;
+    background: none;
+    color: white;
+    border: solid 1px white;
+    padding: 0 0.2em;
+    margin-left: 0.5em; }
 
 @font-face {
   font-family: 'icomoon';
