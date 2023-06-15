@@ -648,14 +648,14 @@ var main = new function() {
   };
 
   // save to computer
-  this.savePythonToComputer = function() {
+  this.savePythonToComputer = async function() {
     let filename = self.$projectName.val();
     if (filename.trim() == '') {
       filename = 'IoTy_Python';
     }
 
     if (filesManager.modified == false) {
-      pythonPanel.loadPythonFromBlockly();
+      await pythonPanel.loadPythonFromBlockly();
     }
     filesManager.updateCurrentFile();
 
@@ -696,14 +696,14 @@ var main = new function() {
   };
 
   // save to json package
-  this.saveToJson = function() {
+  this.saveToJson = async function() {
     let filename = self.$projectName.val();
     if (filename.trim() == '') {
       filename = 'IoTy';
     }
 
     if (filesManager.modified == false) {
-      pythonPanel.loadPythonFromBlockly();
+      await pythonPanel.loadPythonFromBlockly();
     }
     filesManager.updateCurrentFile();
 
