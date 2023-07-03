@@ -54,13 +54,7 @@ var pythonPanel = new function() {
 
     var staticWordCompleter = {
       getCompletions: function(editor, session, pos, prefix, callback) {
-        var wordList = [
-          'reflected_light_intensity', 'color', 'color_name', 'rgb', 'hsv', 'red', 'green', 'blue',
-          'angle', 'rate', 'reset',
-          'distance_centimeters',
-          'position', 'x', 'y', 'altitude',
-          'on_for_degrees', 'on_for_rotations', 'on_for_seconds', 'on', 'off'
-        ];
+        var wordList = [];
         var list = wordList.map(function(word) {
           return {
             caption: word,
