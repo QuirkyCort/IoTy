@@ -1,0 +1,20 @@
+{
+  "type": "i2c_lcd_backlight",
+  "message0": "#blk-i2c_lcd_backlight# %1",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "value",
+      "options": [
+        ["on", "ON"],
+        ["off", "OFF"]
+      ]
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-i2c_lcd_backlight_tooltip#",
+  "helpUrl": ""
+}

@@ -1126,6 +1126,57 @@ let MSGS = {
   '#blk-ucsv_close_tooltip#': {
     en: 'Close a previously opened CSV file. You cannot read/write to the file after closing.',
   },
+  '#blk-i2c_lcd_init#': {
+    en: 'init I2C LCD with lines',
+  },
+  '#blk-columns#': {
+    en: 'columns',
+  },
+  '#blk-i2c_lcd_init_tooltip#': {
+    en: 'You must have an \\"init i2c\\" block before this',
+  },
+  '#blk-i2c_lcd_putstr#': {
+    en: 'i2c lcd draw text',
+  },
+  '#blk-i2c_lcd_putstr_tooltip#': {
+    en: 'Draw the text at the current cursor position.',
+  },
+  '#blk-i2c_lcd_clear#': {
+    en: 'i2c lcd clear screen',
+  },
+  '#blk-i2c_lcd_clear_tooltip#': {
+    en: 'Clears the screen and move cursor to the top left.',
+  },
+  '#blk-i2c_lcd_move_to#': {
+    en: 'i2c lcd move to x,y',
+  },
+  '#blk-i2c_lcd_move_to_tooltip#': {
+    en: 'Move cursor to the specified x,y position.',
+  },
+  '#blk-i2c_lcd_cursor#': {
+    en: 'i2c lcd cursor',
+  },
+  '#blk-i2c_lcd_cursor_tooltip#': {
+    en: 'Switch the cursor on or off.',
+  },
+  '#blk-i2c_lcd_blink#': {
+    en: 'i2c lcd blink cursor',
+  },
+  '#blk-i2c_lcd_blink_tooltip#': {
+    en: 'Blinks the cursor.',
+  },
+  '#blk-i2c_lcd_display#': {
+    en: 'i2c lcd display',
+  },
+  '#blk-i2c_lcd_display_tooltip#': {
+    en: 'Switch the display on or off.',
+  },
+  '#blk-i2c_lcd_backlight#': {
+    en: 'i2c lcd backlight',
+  },
+  '#blk-i2c_lcd_backlight_tooltip#': {
+    en: 'Switch the backlight on or off.',
+  },
 };
 let MSGS_KEYS = Object.keys(MSGS);
 

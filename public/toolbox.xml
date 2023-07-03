@@ -989,4 +989,31 @@
     <block type="ucsv_flush"></block>
     <block type="ucsv_close"></block>
   </category>
+  <category toolboxitemid="i2c_lcd" name="I2C LCD" colour="#5b67a5" hidden="true">
+    <block type="i2c_lcd_init"></block>
+    <block type="i2c_lcd_putstr">
+      <value name="text">
+        <shadow type="text">
+          <field name="TEXT">abc</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="i2c_lcd_clear"></block>
+    <block type="i2c_lcd_move_to">
+      <value name="x">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="y">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="i2c_lcd_cursor"></block>
+    <block type="i2c_lcd_blink"></block>
+    <block type="i2c_lcd_display"></block>
+    <block type="i2c_lcd_backlight"></block>
+  </category>
 </xml>

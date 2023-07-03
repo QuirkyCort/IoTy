@@ -138,6 +138,16 @@ var ioty_generator = new function() {
     Blockly.Python['ucsv_flush'] = self.ucsv_flush;
     Blockly.Python['ucsv_close'] = self.ucsv_close;
     Blockly.Python.addReservedWords('ucsv');
+
+    Blockly.Python['i2c_lcd_init'] = self.i2c_lcd_init;
+    Blockly.Python['i2c_lcd_putstr'] = self.i2c_lcd_putstr;
+    Blockly.Python['i2c_lcd_clear'] = self.i2c_lcd_clear;
+    Blockly.Python['i2c_lcd_move_to'] = self.i2c_lcd_move_to;
+    Blockly.Python['i2c_lcd_cursor'] = self.i2c_lcd_cursor;
+    Blockly.Python['i2c_lcd_blink'] = self.i2c_lcd_blink;
+    Blockly.Python['i2c_lcd_display'] = self.i2c_lcd_display;
+    Blockly.Python['i2c_lcd_backlight'] = self.i2c_lcd_backlight;
+    Blockly.Python.addReservedWords('i2c_lcd, lcd');
   };
 
   // Generate python code
@@ -1487,5 +1497,98 @@ var ioty_generator = new function() {
 
     return code;
   };
+
+  this.i2c_lcd_init = function(block) {
+    self.imports['i2c_lcd'] = 'import i2c_lcd';
+
+    var lines = block.getFieldValue('lines');
+    var columns = block.getFieldValue('columns');
+    var addr = block.getFieldValue('addr');
+
+    var code =
+      'lcd = i2c_lcd.LCD(i2c, ' + addr + ', ' + lines + ', ' + columns + ')\n';
+
+    return code;
+  };
+
+  this.i2c_lcd_putstr = function(block) {
+    var text = Blockly.Python.valueToCode(block, 'text', Blockly.Python.ORDER_ATOMIC);
+
+    var code = 'lcd.putstr(' + text + ')\n';
+
+    return code;
+  };
+
+  this.i2c_lcd_clear = function(block) {
+    var code = 'lcd.clear()\n';
+
+    return code;
+  };
+
+  this.i2c_lcd_move_to = function(block) {
+    var x = Blockly.Python.valueToCode(block, 'x', Blockly.Python.ORDER_NONE);
+    var y = Blockly.Python.valueToCode(block, 'y', Blockly.Python.ORDER_NONE);
+
+    var code = 'lcd.move_to(' + x + ', ' + y + ')\n';
+
+    return code;
+  };
+
+  this.i2c_lcd_cursor = function(block) {
+    var value = block.getFieldValue('value');
+
+    var code;
+
+    if (value == 'ON') {
+      code = 'lcd.show_cursor()\n';
+    } else {
+      code = 'lcd.hide_cursor()\n';
+    }
+
+    return code;
+  };
+
+  this.i2c_lcd_blink = function(block) {
+    var value = block.getFieldValue('value');
+
+    var code;
+
+    if (value == 'ON') {
+      code = 'lcd.blink_cursor_on()\n';
+    } else {
+      code = 'lcd.blink_cursor_off()\n';
+    }
+
+    return code;
+  };
+
+  this.i2c_lcd_display = function(block) {
+    var value = block.getFieldValue('value');
+
+    var code;
+
+    if (value == 'ON') {
+      code = 'lcd.display_on()\n';
+    } else {
+      code = 'lcd.display_off()\n';
+    }
+
+    return code;
+  };
+
+  this.i2c_lcd_backlight = function(block) {
+    var value = block.getFieldValue('value');
+
+    var code;
+
+    if (value == 'ON') {
+      code = 'lcd.backlight_on()\n';
+    } else {
+      code = 'lcd.backlight_off()\n';
+    }
+
+    return code;
+  };
+
 }
 

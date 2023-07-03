@@ -1,0 +1,11 @@
+{
+  "type": "i2c_lcd_clear",
+  "message0": "#blk-i2c_lcd_clear#",
+  "args0": [],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-i2c_lcd_clear_tooltip#",
+  "helpUrl": ""
+}

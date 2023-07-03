@@ -113,6 +113,18 @@ var extensions = new function() {
           'The extension largely complies with <a href="https://datatracker.ietf.org/doc/html/rfc4180.html">RFC 4180</a>, and expects fields to be separated by commas and the use of double quotes. ' +
         '</p>'
     },
+    {
+      id: 'i2c_lcd',
+      name: 'I2C LCD (HD44780 + PCF8574)',
+      files: [
+        ['i2c_lcd.py', 'extensions/i2c_lcd.py?v=83e3ff60'],
+      ],
+      description:
+        '<p>' +
+          'The HD44780 is a popular LCD screen, often paired with a PCF8574 IO expander for I2C control. ' +
+          'This extensions allows you to write text to such a screen. ' +
+        '</p>'
+    },
   ]
 
   this.init = function() {
