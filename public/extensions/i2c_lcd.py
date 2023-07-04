@@ -135,6 +135,7 @@ class LCD:
         self.move_to(self.cursor_x, self.cursor_y)
 
     def putstr(self, string):
+        string = str(string)
         for char in string:
             self.putchar(char)
 
