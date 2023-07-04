@@ -1,0 +1,9 @@
+{
+  "type": "dht_temperature",
+  "message0": "#blk-dht_temperature#",
+  "args0": [],
+  "output": "Number",
+  "colour": 230,
+  "tooltip": "#blk-dht_temperature_tooltip#",
+  "helpUrl": ""
+}

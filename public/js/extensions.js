@@ -72,6 +72,9 @@ var extensions = new function() {
           'The ESP-NOW protocol allows direct communication between up to 20 registered peers, without requiring a WiFi access point. ' +
           'To use this extension, your device must be loaded with a <a href="https://github.com/glenn20/micropython-espnow-images">firmware supporting ESP-NOW</a>. ' +
           'Note that the default micropython firmware for the ESP32 do not currently support ESP-NOW.' +
+        '</p>' +
+        '<p>' +
+          'This extensions only add blocks; no additional Python files are added or required.' +
         '</p>'
     },
     {
@@ -117,12 +120,38 @@ var extensions = new function() {
       id: 'i2c_lcd',
       name: 'I2C LCD (HD44780 + PCF8574)',
       files: [
-        ['i2c_lcd.py', 'extensions/i2c_lcd.py?v=83e3ff60'],
+        ['i2c_lcd.py', 'extensions/i2c_lcd.py?v=4484d19e'],
       ],
       description:
         '<p>' +
           'The HD44780 is a popular LCD screen, often paired with a PCF8574 IO expander for I2C control. ' +
           'This extensions allows you to write text to such a screen. ' +
+        '</p>'
+    },
+    {
+      id: 'dht',
+      name: 'Temperature and Humidity Sensors (DHT11, DHT22, AM2302)',
+      files: [],
+      description:
+        '<p>' +
+          'The DHT series of sensors provides both temperature and humidity readings. ' +
+          'When using this extension, be sure to run the "measure" command before reading the temperature or humidity.' +
+        '</p>' +
+        '<p>' +
+          'This extensions only add blocks; no additional Python files are added or required.' +
+        '</p>'
+    },
+    {
+      id: 'ez_ds18x20',
+      name: 'Temperature Sensors (DS18S20, DS18B20)',
+      files: [
+        ['ez_ds18x20.py', 'extensions/ez_ds18x20.py?v=150465f7'],
+      ],
+      description:
+        '<p>' +
+          'The DS18X20 series of sensors provides temperature readings via the OneWire protocol. ' +
+          'This extension provides a thin wrapper around the ds18x20 module built into micropython, allowing you to read multiple sensors using their index number instead of their serial code. ' +
+          'When using this extension, be sure to run the "convert temp" command before reading the temperature.' +
         '</p>'
     },
   ]

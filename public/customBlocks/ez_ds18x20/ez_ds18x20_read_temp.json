@@ -1,0 +1,16 @@
+{
+  "type": "ez_ds18x20_read_temp",
+  "message0": "#blk-ez_ds18x20_read_temp# %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "index",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "output": "Number",
+  "colour": 230,
+  "tooltip": "#blk-ez_ds18x20_read_temp_tooltip#",
+  "helpUrl": ""
+}

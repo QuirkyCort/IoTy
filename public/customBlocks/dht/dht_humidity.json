@@ -1,0 +1,9 @@
+{
+  "type": "dht_humidity",
+  "message0": "#blk-dht_humidity#",
+  "args0": [],
+  "output": "Number",
+  "colour": 230,
+  "tooltip": "#blk-dht_humidity_tooltip#",
+  "helpUrl": ""
+}

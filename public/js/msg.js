@@ -1177,6 +1177,57 @@ let MSGS = {
   '#blk-i2c_lcd_backlight_tooltip#': {
     en: 'Switch the backlight on or off.',
   },
+  '#blk-dht_init#': {
+    en: 'init DHT sensor type',
+  },
+  '#blk-dht_init_tooltip#': {
+    en: 'Initialize the DHT sensor.',
+  },
+  '#blk-on_pin#': {
+    en: 'on pin',
+  },
+  '#blk-dht_measure#': {
+    en: 'dht measure',
+  },
+  '#blk-dht_measure_tooltip#': {
+    en: 'Performs a measurement. You must run this before reading the temperature or humidity.',
+  },
+  '#blk-dht_temperature#': {
+    en: 'dht temperature',
+  },
+  '#blk-dht_temperature_tooltip#': {
+    en: 'Retrieve the temperature in Celsius from the last measurement. You must run a \\"measure\\" command first.',
+  },
+  '#blk-dht_humidity#': {
+    en: 'dht humidity',
+  },
+  '#blk-dht_humidity_tooltip#': {
+    en: 'Retrieve the humidity in percentage from the last measurement. You must run a \\"measure\\" command first.',
+  },
+  '#blk-ez_ds18x20_init#': {
+    en: 'init DS18X20 sensor on pin',
+  },
+  '#blk-ez_ds18x20_init_tooltip#': {
+    en: 'Initialize the DS18X20 sensor. Multiple sensors can be connected to the same pin.',
+  },
+  '#blk-ez_ds18x20_device_count#': {
+    en: 'number of detected ds18x20 devices',
+  },
+  '#blk-ez_ds18x20_device_count_tooltip#': {
+    en: 'Returns the number of detected devices.',
+  },
+  '#blk-ez_ds18x20_convert_temp#': {
+    en: 'convert readings for all ds18x20 devices',
+  },
+  '#blk-ez_ds18x20_convert_temp_tooltip#': {
+    en: 'Performs a temperature measurement. You must run this before reading the temperature.',
+  },
+  '#blk-ez_ds18x20_read_temp#': {
+    en: 'ds18x20 temperature for sensor number',
+  },
+  '#blk-ez_ds18x20_read_temp_tooltip#': {
+    en: 'Retrieve the temperature in Celsius for the specified sensor. You must run a \\"convert\\" command first.',
+  },
 };
 let MSGS_KEYS = Object.keys(MSGS);
 

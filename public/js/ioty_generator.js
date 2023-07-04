@@ -148,6 +148,18 @@ var ioty_generator = new function() {
     Blockly.Python['i2c_lcd_display'] = self.i2c_lcd_display;
     Blockly.Python['i2c_lcd_backlight'] = self.i2c_lcd_backlight;
     Blockly.Python.addReservedWords('i2c_lcd, lcd');
+
+    Blockly.Python['dht_init'] = self.dht_init;
+    Blockly.Python['dht_measure'] = self.dht_measure;
+    Blockly.Python['dht_temperature'] = self.dht_temperature;
+    Blockly.Python['dht_humidity'] = self.dht_humidity;
+    Blockly.Python.addReservedWords('dht, dht_device');
+
+    Blockly.Python['ez_ds18x20_init'] = self.ez_ds18x20_init;
+    Blockly.Python['ez_ds18x20_device_count'] = self.ez_ds18x20_device_count;
+    Blockly.Python['ez_ds18x20_convert_temp'] = self.ez_ds18x20_convert_temp;
+    Blockly.Python['ez_ds18x20_read_temp'] = self.ez_ds18x20_read_temp;
+    Blockly.Python.addReservedWords('ez_ds18x20, ds_device');
   };
 
   // Generate python code
@@ -1590,5 +1602,71 @@ var ioty_generator = new function() {
     return code;
   };
 
+  this.dht_init = function(block) {
+    self.imports['dht'] = 'import dht';
+    self.imports['machine'] = 'import machine';
+
+    var type = block.getFieldValue('type');
+    var pin = block.getFieldValue('pin');
+
+    var code =
+      'dht_device = dht.' + type + '(machine.Pin(' + pin + '))\n';
+
+    return code;
+  };
+
+  this.dht_measure = function(block) {
+    var code =
+      'try:\n' +
+      '    dht_device.measure()\n' +
+      'except:\n' +
+      '    pass\n';
+
+    return code;
+  };
+
+  this.dht_temperature = function(block) {
+    var code = 'dht_device.temperature()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.dht_humidity = function(block) {
+    var code = 'dht_device.humidity()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.ez_ds18x20_init = function(block) {
+    self.imports['ez_ds18x20'] = 'import ez_ds18x20';
+
+    var pin = block.getFieldValue('pin');
+
+    var code =
+      'ds_device = ez_ds18x20.DS18X20(' + pin + ')\n';
+
+    return code;
+  };
+
+  this.ez_ds18x20_device_count = function(block) {
+    var code = 'ds_device.device_count()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.ez_ds18x20_convert_temp = function(block) {
+    var code =
+      'ds_device.convert_temp()\n';
+
+    return code;
+  };
+
+  this.ez_ds18x20_read_temp = function(block) {
+    var index = Blockly.Python.valueToCode(block, 'index', Blockly.Python.ORDER_NONE);
+
+    var code = 'ds_device.read_temp(' + index + ')';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
 }
 

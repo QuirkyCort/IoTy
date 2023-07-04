@@ -1,0 +1,9 @@
+{
+  "type": "ez_ds18x20_device_count",
+  "message0": "#blk-ez_ds18x20_device_count#",
+  "args0": [],
+  "output": "Number",
+  "colour": 230,
+  "tooltip": "#blk-ez_ds18x20_device_count_tooltip#",
+  "helpUrl": ""
+}

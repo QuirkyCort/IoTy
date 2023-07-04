@@ -1016,4 +1016,22 @@
     <block type="i2c_lcd_display"></block>
     <block type="i2c_lcd_backlight"></block>
   </category>
+  <category toolboxitemid="dht" name="DHT" colour="#5b67a5" hidden="true">
+    <block type="dht_init"></block>
+    <block type="dht_measure"></block>
+    <block type="dht_temperature"></block>
+    <block type="dht_humidity"></block>
+  </category>
+  <category toolboxitemid="ez_ds18x20" name="EZ DS18X20" colour="#5b67a5" hidden="true">
+    <block type="ez_ds18x20_init"></block>
+    <block type="ez_ds18x20_device_count"></block>
+    <block type="ez_ds18x20_convert_temp"></block>
+    <block type="ez_ds18x20_read_temp">
+      <value name="index">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+  </category>
 </xml>
