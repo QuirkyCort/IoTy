@@ -160,7 +160,7 @@ var extensions = new function() {
   };
 
   this.loadDialog = function() {
-    let $body = $('<div class="selectExtensions"></div>');
+    let $body = $('<div></div>');
     let $search = $('<div class="search">Search: <input type="text"></div>')
     let $extensions = $('<div class="extensions"></div>');
     let $searchInput = $search.find('input');
@@ -188,7 +188,7 @@ var extensions = new function() {
       '<button type="button" class="close btn-light">' + i18n.get('#extensions-close#') + '</button>'
     );
 
-    let $dialog = dialog(i18n.get('#extensions-select_extensions#'), $body, $buttons);
+    let $dialog = dialog(i18n.get('#extensions-select_extensions#'), $body, $buttons, 'selectExtensions');
     $buttons.click(function() {
       self.processExtensions();
       $dialog.close();

@@ -1,3 +1,17 @@
+.selectExtensions > .dialogWindow {
+  height: 80%;
+
+  .dialogBody {
+    height: 100%;
+
+    > div {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
+
 .extensions {
   max-height: 30em;
   overflow-y: auto;
