@@ -1228,6 +1228,9 @@ let MSGS = {
   '#blk-ez_ds18x20_read_temp_tooltip#': {
     en: 'Retrieve the temperature in Celsius for the specified sensor. You must run a \\"convert\\" command first.',
   },
+  '#blk-math_atan2_tooltip#': {
+    en: '2 argument arctangent. First argument is y, second is x.',
+  },
 };
 let MSGS_KEYS = Object.keys(MSGS);
 
