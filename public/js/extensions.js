@@ -154,6 +154,19 @@ var extensions = new function() {
           'When using this extension, be sure to run the "convert temp" command before reading the temperature.' +
         '</p>'
     },
+    {
+      id: 'non_block',
+      name: 'Non-Blocking Read',
+      files: [
+        ['non_block.py', 'extensions/non_block.py?v=b9351bc5'],
+      ],
+      description:
+        '<p>' +
+          'This module allows you to perform non-blocking read from the terminal/stdin. It provides two functions...' +
+          '"read" for reading a specified number of characters (if -1, it will return whatever is available).' +
+          '"readline" for reading an entire line (will return an empty string if a full line isn\'t available). ' +
+        '</p>'
+    },
   ]
 
   this.init = function() {

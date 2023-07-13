@@ -1,0 +1,9 @@
+{
+  "type": "non_block_readline",
+  "message0": "#blk-non_block_readline#",
+  "args0": [],
+  "output": "String",
+  "colour": 160,
+  "tooltip": "#blk-non_block_readline_tooltip#",
+  "helpUrl": ""
+}

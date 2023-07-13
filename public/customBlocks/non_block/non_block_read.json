@@ -1,0 +1,15 @@
+{
+  "type": "non_block_read",
+  "message0": "#blk-non_block_read# %1 #blk-characters#",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "size",
+      "check": "Number"
+    }
+  ],
+  "output": "String",
+  "colour": 160,
+  "tooltip": "#blk-non_block_read_tooltip#",
+  "helpUrl": ""
+}

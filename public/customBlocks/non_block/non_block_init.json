@@ -1,0 +1,10 @@
+{
+  "type": "non_block_init",
+  "message0": "#blk-non_block_init#",
+  "args0": [],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 160,
+  "tooltip": "#blk-non_block_init_tooltip#",
+  "helpUrl": ""
+}

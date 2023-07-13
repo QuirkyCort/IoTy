@@ -1046,4 +1046,15 @@
       </value>
     </block>
   </category>
+  <category toolboxitemid="non_block" name="Non-Blocking" colour="#5ba58c" hidden="true">
+    <block type="non_block_init"></block>
+    <block type="non_block_read">
+      <value name="size">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="non_block_readline"></block>
+  </category>
 </xml>

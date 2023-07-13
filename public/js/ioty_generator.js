@@ -160,6 +160,11 @@ var ioty_generator = new function() {
     Blockly.Python['ez_ds18x20_convert_temp'] = self.ez_ds18x20_convert_temp;
     Blockly.Python['ez_ds18x20_read_temp'] = self.ez_ds18x20_read_temp;
     Blockly.Python.addReservedWords('ez_ds18x20, ds_device');
+
+    Blockly.Python['non_block_init'] = self.non_block_init;
+    Blockly.Python['non_block_read'] = self.non_block_read;
+    Blockly.Python['non_block_readline'] = self.non_block_readline;
+    Blockly.Python.addReservedWords('non_block, nblock');
   };
 
   // Generate python code
@@ -1668,5 +1673,29 @@ var ioty_generator = new function() {
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };
+
+  this.non_block_init = function(block) {
+    self.imports['non_block'] = 'import non_block';
+
+    var code =
+      'nblock = non_block.Non_Block()\n';
+
+    return code;
+  };
+
+  this.non_block_read = function(block) {
+    var size = Blockly.Python.valueToCode(block, 'size', Blockly.Python.ORDER_NONE);
+
+    var code = 'nblock.read(' + size + ')';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.non_block_readline = function(block) {
+    var code = 'nblock.readline()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
 }
 

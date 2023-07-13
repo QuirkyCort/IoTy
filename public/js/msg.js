@@ -1231,6 +1231,27 @@ let MSGS = {
   '#blk-math_atan2_tooltip#': {
     en: '2 argument arctangent. First argument is y, second is x.',
   },
+  '#blk-non_block_init#': {
+    en: 'init non-blocking read',
+  },
+  '#blk-non_block_init_tooltip#': {
+    en: 'Initialize non-blocking read from stdin. You must run this before performing any non-blocking reads.',
+  },
+  '#blk-non_block_readline#': {
+    en: 'non-blocking: read one line',
+  },
+  '#blk-non_block_readline_tooltip#': {
+    en: 'Read one line in a non-blocking manner. The ending LF will be included in the returned line.',
+  },
+  '#blk-non_block_read#': {
+    en: 'non-blocking: read',
+  },
+  '#blk-characters#': {
+    en: 'characters',
+  },
+  '#blk-non_block_read_tooltip#': {
+    en: 'The specified number of characters. Use -1 to read all available characters.',
+  }
 };
 let MSGS_KEYS = Object.keys(MSGS);
 
