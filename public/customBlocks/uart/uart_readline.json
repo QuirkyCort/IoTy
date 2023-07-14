@@ -1,0 +1,18 @@
+{
+  "type": "uart_readline",
+  "message0": "#blk-from# %1 #blk-read_one_line#",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "id",
+      "options": [
+        ["UART1", "1"],
+        ["UART2", "2"]
+      ]
+    }
+  ],
+  "output": "Bytes",
+  "colour": 330,
+  "tooltip": "#blk-uart_readline_tooltip#",
+  "helpUrl": ""
+}

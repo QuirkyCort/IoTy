@@ -1,0 +1,23 @@
+{
+  "type": "uart_read",
+  "message0": "#blk-from# %1 #blk-read# %2 #blk-characters#",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "id",
+      "options": [
+        ["UART1", "1"],
+        ["UART2", "2"]
+      ]
+    },
+    {
+      "type": "input_value",
+      "name": "size",
+      "check": "Number"
+    }
+  ],
+  "output": "Bytes",
+  "colour": 330,
+  "tooltip": "#blk-uart_read_tooltip#",
+  "helpUrl": ""
+}

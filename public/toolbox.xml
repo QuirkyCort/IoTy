@@ -461,6 +461,7 @@
   </category>
   <category name="#blk-data#" colour="#5b67a5">
     <block type="type_cast"></block>
+    <block type="decode"></block>
     <block type="math_map">
       <value name="x">
         <shadow type="math_number">
@@ -599,6 +600,28 @@
         </shadow>
       </value>
     </block>
+  </category>
+  <category name="UART" colour="#a55b80">
+    <block type="uart_init">
+      <field name="rx">5</field>
+    </block>
+    <block type="uart_any"></block>
+    <block type="uart_read">
+      <value name="size">
+        <shadow type="math_number">
+          <field name="NUM">-1</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="uart_readline"></block>
+    <block type="uart_write">
+      <value name="value">
+        <shadow type="text">
+          <field name="TEXT">abc</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="uart_flush"></block>
   </category>
   <category toolboxitemid="ioty_neopixel" name="Neopixel" colour="#5b67a5" hidden="true">
     <block type="neopixel_init">

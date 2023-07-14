@@ -1251,6 +1251,57 @@ let MSGS = {
   },
   '#blk-non_block_read_tooltip#': {
     en: 'The specified number of characters. Use -1 to read all available characters.',
+  },
+  '#blk-init#': {
+    en: 'init',
+  },
+  '#blk-uart_init_tooltip#': {
+    en: 'Initialize the hardware UART device with the specified baudrate and pins.',
+  },
+  '#blk-at_baudrate#': {
+    en: 'at baudrate',
+  },
+  '#blk-with_tx_pin#': {
+    en: 'with tx pin',
+  },
+  '#blk-and_rx_pin#': {
+    en: 'and rx pin',
+  },
+  '#blk-available_characters_to_read#': {
+    en: 'available characters to read',
+  },
+  '#blk-from#': {
+    en: 'from',
+  },
+  '#blk-any_tooltip#': {
+    en: 'Returns the available characters to read without blocking.',
+  },
+  '#blk-uart_read_tooltip#': {
+    en: 'Read the specified number of bytes.  If you need a string, use a decode block. If set to -1, read as much data as possible. Returns None on timeout.'
+  },
+  '#blk-uart_readline_tooltip#': {
+    en: 'Read one line in bytes. If you need a string, use a decode block. Returns None on timeout.'
+  },
+  '#blk-read_one_line#': {
+    en: 'read one line',
+  },
+  '#blk-write#': {
+    en: 'write',
+  },
+  '#blk-uart_write_tooltip#': {
+    en: 'Write a String to file. If \\"New line\\" is enabled, each write will be on its own line.',
+  },
+  '#blk-uart_flush_tooltip#': {
+    en: 'Waits until all data has been sent.',
+  },
+  '#blk-decode#': {
+    en: 'decode',
+  },
+  '#blk-as_utf8#': {
+    en: 'as utf-8',
+  },
+  '#blk-decode_tooltip#': {
+    en: 'Decode a bytes object into a string using the utf-8 encoding.'
   }
 };
 let MSGS_KEYS = Object.keys(MSGS);

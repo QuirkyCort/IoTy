@@ -1,0 +1,18 @@
+{
+  "type": "uart_any",
+  "message0": "#blk-from# %1 #blk-available_characters_to_read#",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "id",
+      "options": [
+        ["UART1", "1"],
+        ["UART2", "2"]
+      ]
+    }
+  ],
+  "output": "Number",
+  "colour": 330,
+  "tooltip": "#blk-any_tooltip#",
+  "helpUrl": ""
+}

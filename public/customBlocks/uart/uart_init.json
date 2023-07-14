@@ -1,0 +1,34 @@
+{
+  "type": "uart_init",
+  "message0": "#blk-init# %1 #blk-at_baudrate# %2 #blk-with_tx_pin# %3 #blk-and_rx_pin# %4",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "id",
+      "options": [
+        ["UART1", "1"],
+        ["UART2", "2"]
+      ]
+    },
+    {
+      "type": "field_input",
+      "name": "baudrate",
+      "text": "9600"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "tx",
+      "options": $_UnusedIoPins
+    },
+    {
+      "type": "field_dropdown",
+      "name": "rx",
+      "options": $_InputOnlyUnusedIoPins
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 330,
+  "tooltip": "#blk-uart_init_tooltip#",
+  "helpUrl": ""
+}

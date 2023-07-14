@@ -30,6 +30,7 @@ var ioty_generator = new function() {
     Blockly.Python['connect_to_configured_wifi'] = self.connect_to_configured_wifi;
 
     Blockly.Python['type_cast'] = self.type_cast;
+    Blockly.Python['decode'] = self.decode;
     Blockly.Python['math_map'] = self.math_map;
     Blockly.Python['json_dumps'] = self.json_dumps;
     Blockly.Python['json_loads'] = self.json_loads;
@@ -165,6 +166,14 @@ var ioty_generator = new function() {
     Blockly.Python['non_block_read'] = self.non_block_read;
     Blockly.Python['non_block_readline'] = self.non_block_readline;
     Blockly.Python.addReservedWords('non_block, nblock');
+
+    Blockly.Python['uart_init'] = self.uart_init;
+    Blockly.Python['uart_any'] = self.uart_any;
+    Blockly.Python['uart_read'] = self.uart_read;
+    Blockly.Python['uart_readline'] = self.uart_readline;
+    Blockly.Python['uart_write'] = self.uart_write;
+    Blockly.Python['uart_flush'] = self.uart_flush;
+    Blockly.Python.addReservedWords('uart1, uart2');
   };
 
   // Generate python code
@@ -431,6 +440,14 @@ var ioty_generator = new function() {
     }
 
     var code = type + value + ')';
+
+    return [code, Blockly.Python.ORDER_FUNCTION_CALL];
+  };
+
+  this.decode = function(block) {
+    var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_ATOMIC);
+
+    var code = value + '.decode(\'utf-8\')';
 
     return [code, Blockly.Python.ORDER_FUNCTION_CALL];
   };
@@ -1695,6 +1712,69 @@ var ioty_generator = new function() {
     var code = 'nblock.readline()';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.uart_init = function(block) {
+    self.imports['machine'] = 'import machine';
+
+    var id = block.getFieldValue('id');
+    var baudrate = block.getFieldValue('baudrate');
+    var tx = block.getFieldValue('tx');
+    var rx = block.getFieldValue('rx');
+
+    var code =
+      'uart' + id + ' = machine.UART(' + id + ', baudrate=' + baudrate + ', tx=' + tx + ', rx=' + rx + ')\n';
+
+    return code;
+  };
+
+  this.uart_any = function(block) {
+    var id = block.getFieldValue('id');
+
+    var code = 'uart' + id + '.any()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.uart_read = function(block) {
+    var id = block.getFieldValue('id');
+
+    var size = Blockly.Python.valueToCode(block, 'size', Blockly.Python.ORDER_NONE);
+
+    var code = 'uart' + id + '.read(' + size + ')';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.uart_readline = function(block) {
+    var id = block.getFieldValue('id');
+
+    var code = 'uart' + id + '.readline()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.uart_write = function(block) {
+    var id = block.getFieldValue('id');
+    var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_NONE);
+    var newline = block.getFieldValue('newline');
+
+    let ending = '';
+    if (newline == 'TRUE') {
+      ending = ' + \'\\n\'';
+    }
+
+    var code = 'uart' + id + '.write(' + value + ending + ')\n';
+
+    return code;
+  };
+
+  this.uart_flush = function(block) {
+    var id = block.getFieldValue('id');
+
+    var code = 'uart' + id + '.flush()\n';
+
+    return code;
   };
 
 }
