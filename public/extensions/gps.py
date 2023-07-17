@@ -31,11 +31,11 @@ class GPS:
         return hex(crc)[-2:]
 
     def convert2m(self, v, u):
-        if u == 'M':
+        if u == b'M':
             return v
-        elif u == 'N':
+        elif u == b'N':
             return v * .5144444444
-        elif u == 'K':
+        elif u == b'K':
             return v * .2777777777
 
     def parse_hhmmss(self, msg):
@@ -81,7 +81,7 @@ class GPS:
         msg = msg.split(b',')
         if len(msg) < 6:
             return
-        if msg[6] == 'V':
+        if msg[6] == b'V':
             return
         self.parse_lat(msg[1], msg[2])
         self.parse_lng(msg[3], msg[4])
@@ -91,35 +91,39 @@ class GPS:
         msg = msg.split(b',')
         if len(msg) < 10:
             return
-        if msg[2] == 'V':
+        if msg[2] == b'V':
             return
         self.parse_hhmmss(msg[1])
         self.parse_lat(msg[3], msg[4])
         self.parse_lng(msg[5], msg[6])
-        self.sog = self.convert2m(float(msg[7]), 'N')
-        self.cog = float(msg[8])
+        try:
+            self.sog = self.convert2m(float(msg[7]), b'N')
+        except:
+            pass
+        try:
+            self.cog = float(msg[8])
+        except:
+            pass
         self.parse_ddmmyy(msg[9])
 
     def parse_msg(self, msg):
-        if msg[0] != b'$':
+        if msg[0] != ord(b'$'):
             return
 
         crc_pos = msg.find(b'*')
         if crc_pos > -1:
-            crc = msg[crc_pos+1:]
+            crc = msg[crc_pos+1:].decode().lower()
             msg = msg[1:crc_pos]
             if self.crc(msg) != crc:
-                print('crc failed')
                 return
 
         if len(msg) < 10:
             return
-
-        if msg[2:5] == 'GGA':
+        if msg[2:5] == b'GGA':
             self.parse_GGA(msg)
-        elif msg[2:5] == 'GLL':
+        elif msg[2:5] == b'GLL':
             self.parse_GLL(msg)
-        elif msg[2:5] == 'RMC':
+        elif msg[2:5] == b'RMC':
             self.parse_RMC(msg)
 
     def get_lat_ddm(self):
@@ -132,7 +136,7 @@ class GPS:
         if self.lat is None:
             return None
         deg = self.lat[0] + self.lat[1] / 60
-        if self.lat[2] == 'S':
+        if self.lat[2] == b'S':
             return -deg
         return deg
 
@@ -140,7 +144,7 @@ class GPS:
         if self.lng is None:
             return None
         deg = self.lng[0] + self.lng[1] / 60
-        if self.lng[2] == 'W':
+        if self.lng[2] == b'W':
             return -deg
         return deg
 
