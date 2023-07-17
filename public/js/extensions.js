@@ -167,6 +167,19 @@ var extensions = new function() {
           '"readline" for reading an entire line (will return an empty string if a full line isn\'t available). ' +
         '</p>'
     },
+    {
+      id: 'gps',
+      name: 'GPS (NMEA over serial)',
+      files: [
+        ['gps.py', 'extensions/gps.py?v=093b0c01'],
+      ],
+      description:
+        '<p>' +
+          'This module allows you read GPS modules that returns NMEA data over serial. ' +
+          'Most common GPS modules are of this type and should work. ' +
+          'To keep things simple, only Latitude, Longitude, Altitude, Date, and Time are parsed. ' +
+        '</p>'
+    },
   ]
 
   this.init = function() {

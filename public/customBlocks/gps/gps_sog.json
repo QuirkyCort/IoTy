@@ -1,0 +1,9 @@
+{
+  "type": "gps_sog",
+  "message0": "#blk-gps_sog#",
+  "args0": [],
+  "output": "Number",
+  "colour": 230,
+  "tooltip": "#blk-gps_sog_tooltip#",
+  "helpUrl": ""
+}

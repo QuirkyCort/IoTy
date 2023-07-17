@@ -1,0 +1,9 @@
+{
+  "type": "gps_time",
+  "message0": "#blk-gps_time#",
+  "args0": [],
+  "output": "Array",
+  "colour": 230,
+  "tooltip": "#blk-gps_time_tooltip#",
+  "helpUrl": ""
+}

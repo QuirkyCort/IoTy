@@ -1,6 +1,7 @@
 class GPS:
     def __init__(self, uart):
         self.uart = uart
+        self.buf = b''
 
         self.date = None
         self.time = None
@@ -12,7 +13,7 @@ class GPS:
 
     def update(self):
         while self.uart.any():
-            self.buf += self.read(1)
+            self.buf += self.uart.read(1)
 
         end = self.buf.find(b'\n')
         if end > -1:
@@ -38,19 +39,34 @@ class GPS:
             return v * .2777777777
 
     def parse_hhmmss(self, msg):
-        self.time = (int(msg[:2]), int(msg[2:4]), float(msg[4:]))
+        try:
+            self.time = (int(msg[:2]), int(msg[2:4]), float(msg[4:]))
+        except:
+            pass
 
     def parse_ddmmyy(self, msg):
-        self.date = (int(msg[:2]), int(msg[2:4]), 2000 + int(msg[4:6]))
+        try:
+            self.date = (int(msg[:2]), int(msg[2:4]), 2000 + int(msg[4:6]))
+        except:
+            pass
 
     def parse_lat(self, msg1, msg2):
-        self.lat = [int(msg1[:2]), float(msg1[2:]), msg2]
+        try:
+            self.lat = [int(msg1[:2]), float(msg1[2:]), msg2]
+        except:
+            pass
 
     def parse_lng(self, msg1, msg2):
-        self.lng = [int(msg1[:3]), float(msg1[3:]), msg2]
+        try:
+            self.lng = [int(msg1[:3]), float(msg1[3:]), msg2]
+        except:
+            pass
 
     def parse_alt(self, msg1, msg2):
-        self.alt = self.convert2m(float(msg1), msg2)
+        try:
+            self.alt = self.convert2m(float(msg1), msg2)
+        except:
+            pass
 
     def parse_GGA(self, msg):
         msg = msg.split(b',')
@@ -91,18 +107,19 @@ class GPS:
         crc_pos = msg.find(b'*')
         if crc_pos > -1:
             crc = msg[crc_pos+1:]
-            msg = msg[:crc_pos]
+            msg = msg[1:crc_pos]
             if self.crc(msg) != crc:
+                print('crc failed')
                 return
 
         if len(msg) < 10:
             return
 
-        if msg[3:6] == 'GGA':
+        if msg[2:5] == 'GGA':
             self.parse_GGA(msg)
-        elif msg[3:6] == 'GLL':
+        elif msg[2:5] == 'GLL':
             self.parse_GLL(msg)
-        elif msg[3:6] == 'RMC':
+        elif msg[2:5] == 'RMC':
             self.parse_RMC(msg)
 
     def get_lat_ddm(self):

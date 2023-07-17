@@ -1,0 +1,9 @@
+{
+  "type": "gps_alt",
+  "message0": "#blk-gps_alt#",
+  "args0": [],
+  "output": "Number",
+  "colour": 230,
+  "tooltip": "#blk-gps_alt_tooltip#",
+  "helpUrl": ""
+}

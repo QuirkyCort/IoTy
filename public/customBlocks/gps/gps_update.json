@@ -1,0 +1,10 @@
+{
+  "type": "gps_update",
+  "message0": "#blk-gps_update#",
+  "args0": [],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-gps_update_tooltip#",
+  "helpUrl": ""
+}

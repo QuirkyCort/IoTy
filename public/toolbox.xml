@@ -1080,4 +1080,16 @@
     </block>
     <block type="non_block_readline"></block>
   </category>
+  <category toolboxitemid="gps" name="GPS" colour="#5b67a5" hidden="true">
+    <block type="gps_init"></block>
+    <block type="gps_update"></block>
+    <block type="gps_lat"></block>
+    <block type="gps_lng"></block>
+    <block type="gps_alt"></block>
+    <block type="gps_date"></block>
+    <block type="gps_time"></block>
+    <block type="gps_datetime"></block>
+    <block type="gps_sog"></block>
+    <block type="gps_cog"></block>
+  </category>
 </xml>

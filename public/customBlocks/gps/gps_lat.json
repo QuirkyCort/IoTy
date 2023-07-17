@@ -1,0 +1,18 @@
+{
+  "type": "gps_lat",
+  "message0": "#blk-gps_lat_as# %1",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "type",
+      "options": [
+        ["Decimal Degrees", "dd"],
+        ["Degrees, Decimal Minutes", "ddm"]
+      ]
+    }
+  ],
+  "output": ["Number", "Array"],
+  "colour": 230,
+  "tooltip": "#blk-gps_lat_tooltip#",
+  "helpUrl": ""
+}

@@ -174,6 +174,18 @@ var ioty_generator = new function() {
     Blockly.Python['uart_write'] = self.uart_write;
     Blockly.Python['uart_flush'] = self.uart_flush;
     Blockly.Python.addReservedWords('uart1, uart2');
+
+    Blockly.Python['gps_init'] = self.gps_init;
+    Blockly.Python['gps_update'] = self.gps_update;
+    Blockly.Python['gps_lat'] = self.gps_lat;
+    Blockly.Python['gps_lng'] = self.gps_lng;
+    Blockly.Python['gps_alt'] = self.gps_alt;
+    Blockly.Python['gps_date'] = self.gps_date;
+    Blockly.Python['gps_time'] = self.gps_time;
+    Blockly.Python['gps_datetime'] = self.gps_datetime;
+    Blockly.Python['gps_sog'] = self.gps_sog;
+    Blockly.Python['gps_cog'] = self.gps_cog;
+    Blockly.Python.addReservedWords('gps, gps_device');
   };
 
   // Generate python code
@@ -1775,6 +1787,84 @@ var ioty_generator = new function() {
     var code = 'uart' + id + '.flush()\n';
 
     return code;
+  };
+
+  this.gps_init = function(block) {
+    self.imports['gps'] = 'import gps';
+
+    var uart = block.getFieldValue('uart');
+
+    var code = 'gps_device = gps.GPS(uart' + uart + ')\n';
+
+    return code;
+  };
+
+  this.gps_update = function(block) {
+    var code = 'gps_device.update()\n';
+
+    return code;
+  };
+
+  this.gps_lat = function(block) {
+    var type = block.getFieldValue('type');
+
+    let code;
+    if (type == 'dd') {
+      code = 'gps_device.get_lat()';
+    } else {
+      code = 'gps_device.get_lat_ddm()';
+    }
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.gps_lng = function(block) {
+    var type = block.getFieldValue('type');
+
+    let code;
+    if (type == 'dd') {
+      code = 'gps_device.get_lng()';
+    } else {
+      code = 'gps_device.get_lng_ddm()';
+    }
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.gps_alt = function(block) {
+    let code = 'gps_device.get_alt()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.gps_date = function(block) {
+    let code = 'gps_device.get_date()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.gps_time = function(block) {
+    let code = 'gps_device.get_time()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.gps_datetime = function(block) {
+    let code = 'gps_device.get_datetime()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.gps_sog = function(block) {
+    let code = 'gps_device.get_sog()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.gps_cog = function(block) {
+    let code = 'gps_device.get_cog()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
   };
 
 }

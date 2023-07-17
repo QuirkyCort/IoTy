@@ -1301,8 +1301,68 @@ let MSGS = {
     en: 'as utf-8',
   },
   '#blk-decode_tooltip#': {
-    en: 'Decode a bytes object into a string using the utf-8 encoding.'
-  }
+    en: 'Decode a bytes object into a string using the utf-8 encoding.',
+  },
+  '#blk-gps_init#': {
+    en: 'init GPS on',
+  },
+  '#blk-gps_init_tooltip#': {
+    en: 'You must have an \\"init UART\\" block with the appropriate pins and baudrate set before this.',
+  },
+  '#blk-gps_update#': {
+    en: 'gps: update',
+  },
+  '#blk-gps_update_tooltip#': {
+    en: 'Run this frequently to read the GPS data from the module. The lat/lng/etc will not change if you do not run this.',
+  },
+  '#blk-gps_lat_as#': {
+    en: 'gps: get latitude as',
+  },
+  '#blk-gps_lat_tooltip#': {
+    en: 'Get the latitude in the specified format. Decimal Degree will return a float, while Degree Decimal Minute will return a list. \\"None\\" will be returned if GPS data is\'t available yet.',
+  },
+  '#blk-gps_lng_as#': {
+    en: 'gps: get longitude as',
+  },
+  '#blk-gps_lng_tooltip#': {
+    en: 'Get the longitude in the specified format. Decimal Degree will return a float, while Degree Decimal Minute will return a list. \\"None\\" will be returned if GPS data is\'t available yet.',
+  },
+  '#blk-gps_alt#': {
+    en: 'gps: get altitude',
+  },
+  '#blk-gps_alt_tooltip#': {
+    en: 'Get the longitude in meters. \\"None\\" will be returned if GPS data is\'t available yet.',
+  },
+  '#blk-gps_date#': {
+    en: 'gps: get date',
+  },
+  '#blk-gps_date_tooltip#': {
+    en: 'Get the date as a list containing day, month, year. \\"None\\" will be returned if GPS data is\'t available yet.',
+  },
+  '#blk-gps_time#': {
+    en: 'gps: get time',
+  },
+  '#blk-gps_time_tooltip#': {
+    en: 'Get the time as a list containing hour, minute, second. \\"None\\" will be returned if GPS data is\'t available yet.',
+  },
+  '#blk-gps_datetime#': {
+    en: 'gps: get date and time',
+  },
+  '#blk-gps_datetime_tooltip#': {
+    en: 'Get the date and time as a list. The format is compatible with the \\"set date and time\\" block. \\"None\\" will be returned if GPS data is\'t available yet.',
+  },
+  '#blk-gps_sog#': {
+    en: 'gps: get speed over ground',
+  },
+  '#blk-gps_sog_tooltip#': {
+    en: 'Get the speed over ground in m/s. \\"None\\" will be returned if GPS data is\'t available yet.',
+  },
+  '#blk-gps_cog#': {
+    en: 'gps: get course over ground',
+  },
+  '#blk-gps_cog_tooltip#': {
+    en: 'Get the course over ground in degrees. \\"None\\" will be returned if GPS data is\'t available yet.',
+  },
 };
 let MSGS_KEYS = Object.keys(MSGS);
 
