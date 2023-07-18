@@ -1363,6 +1363,21 @@ let MSGS = {
   '#blk-gps_cog_tooltip#': {
     en: 'Get the course over ground in degrees. \\"None\\" will be returned if GPS data is\'t available yet.',
   },
+  '#blk-hx711_init_with_dt_pin#': {
+    en: 'init hx711 with dt pin',
+  },
+  '#blk-and_sck_pin#': {
+    en: 'and sck pin',
+  },
+  '#blk-hx711_init_tooltip#': {
+    en: 'Initialize the HX711 on the specified pin. You must run this before performing any reads.',
+  },
+  '#blk-hx711_read#': {
+    en: 'hx711: read value',
+  },
+  '#blk-hx711_read_tooltip#': {
+    en: 'Read from the HX711. The return value is unitless; you must calibrate it yourself. ',
+  },
 };
 let MSGS_KEYS = Object.keys(MSGS);
 

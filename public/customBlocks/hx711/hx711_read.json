@@ -1,0 +1,10 @@
+{
+  "type": "hx711_read",
+  "message0": "#blk-hx711_read#",
+  "args0": [],
+  "inputsInline": true,
+  "output": "Number",
+  "colour": 230,
+  "tooltip": "#blk-hx711_read_tooltip#",
+  "helpUrl": ""
+}

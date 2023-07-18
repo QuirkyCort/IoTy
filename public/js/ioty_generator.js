@@ -186,6 +186,10 @@ var ioty_generator = new function() {
     Blockly.Python['gps_sog'] = self.gps_sog;
     Blockly.Python['gps_cog'] = self.gps_cog;
     Blockly.Python.addReservedWords('gps, gps_device');
+
+    Blockly.Python['hx711_init'] = self.hx711_init;
+    Blockly.Python['hx711_read'] = self.hx711_read;
+    Blockly.Python.addReservedWords('hx711, hx711_device');
   };
 
   // Generate python code
@@ -1863,6 +1867,23 @@ var ioty_generator = new function() {
 
   this.gps_cog = function(block) {
     let code = 'gps_device.get_cog()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.hx711_init = function(block) {
+    self.imports['hx711'] = 'import hx711';
+
+    var dt = block.getFieldValue('dt');
+    var sck = block.getFieldValue('sck');
+
+    var code = 'hx711_device = hx711.HX711(' + dt + ', ' + sck + ')\n';
+
+    return code;
+  };
+
+  this.hx711_read = function(block) {
+    let code = 'hx711_device.read()';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };

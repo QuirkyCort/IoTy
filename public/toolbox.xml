@@ -1092,4 +1092,11 @@
     <block type="gps_sog"></block>
     <block type="gps_cog"></block>
   </category>
+  <category toolboxitemid="hx711" name="HX711" colour="#5b67a5" hidden="true">
+    <block type="hx711_init">
+      <field name="dt">5</field>
+      <field name="sck">4</field>
+    </block>
+    <block type="hx711_read"></block>
+  </category>
 </xml>

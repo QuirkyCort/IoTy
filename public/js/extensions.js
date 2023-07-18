@@ -180,6 +180,19 @@ var extensions = new function() {
           'To keep things simple, only Latitude, Longitude, Altitude, Date, and Time are parsed. ' +
         '</p>'
     },
+    {
+      id: 'hx711',
+      name: 'HX711 (Analog-to-Digital, Load Cell)',
+      files: [
+        ['hx711.py', 'extensions/hx711.py?v=b25c59f5'],
+      ],
+      description:
+        '<p>' +
+          'This module allows you read the HX711 Analog-to-Digital converter. ' +
+          'This device is commonly used with load cells for weight / force measurement. ' +
+          'It return a unitless value, so calibration is required if you want to measure weight. ' +
+        '</p>'
+    },
   ]
 
   this.init = function() {
