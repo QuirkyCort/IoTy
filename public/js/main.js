@@ -542,6 +542,7 @@ var main = new function() {
       self.$projectName.val('');
       self.saveProjectName();
       self.settings = self.defaultSettings();
+      extensions.processExtensions();
     });
   };
 
@@ -625,6 +626,8 @@ var main = new function() {
         .then(function(content){
           self.settings = JSON.parse(content);
         });
+
+      extensions.processExtensions();
     }
 
     JSZip.loadAsync(file)
