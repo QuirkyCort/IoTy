@@ -29,6 +29,6 @@
   ],
   "output": "Number",
   "colour": 230,
-  "tooltip": "#blk-analog_read_pin_tooltip#",
+  "tooltip": "#blk-hc_sr04_ping_tooltip#",
   "helpUrl": ""
 }

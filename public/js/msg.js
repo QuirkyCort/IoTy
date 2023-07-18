@@ -330,6 +330,9 @@ let MSGS = {
   '#blk-hc_sr04_ping_trig#': {
     en: 'HC-SR04 ping trig',
   },
+  '#blk-hc_sr04_ping_tooltip#': {
+    en: 'Returns distance in cm. Max of around 412cm.',
+  },
   '#blk-echo#': {
     en: 'echo',
   },
