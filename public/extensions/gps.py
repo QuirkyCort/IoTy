@@ -28,7 +28,7 @@ class GPS:
         crc = 0
         for c in msg:
             crc ^= c
-        return hex(crc)[-2:]
+        return crc
 
     def convert2m(self, v, u):
         if u == b'M':
@@ -112,7 +112,10 @@ class GPS:
 
         crc_pos = msg.find(b'*')
         if crc_pos > -1:
-            crc = msg[crc_pos+1:].decode().lower()
+            try:
+                crc = int(msg[crc_pos+1:], 16)
+            except:
+                return
             msg = msg[1:crc_pos]
             if self.crc(msg) != crc:
                 return
