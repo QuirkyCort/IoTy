@@ -46,7 +46,7 @@ def digital_write(pin, value):
 
 def analog_read(pin):
     if _pins[pin][1] != _ADC:
-        _pins[pin][0] = ADC(Pin(pin))
+        _pins[pin][0] = ADC(Pin(pin), atten=ADC.ATTN_11DB)
         _pins[pin][1] = _ADC
 
     return _pins[pin][0].read_u16()

@@ -5,6 +5,13 @@ def main():
     led = Pin(2, Pin.OUT)
     btn = Pin(0, Pin.IN, Pin.PULL_UP)
 
+    def blink(ms,count=1):
+        for _ in range(count):
+            led.on()
+            sleep_ms(ms)
+            led.off()
+            sleep_ms(ms)
+
     def start_mqtt():
         from ioty.mqtt import MQTT_Service
 
@@ -15,11 +22,7 @@ def main():
         led.off()
         mqtt.connect_wifi()
         while not mqtt.wifi_isconnected():
-            for _ in range(2):
-                led.on()
-                sleep_ms(50)
-                led.off()
-                sleep_ms(50)
+            blink(50, 2)
             sleep_ms(500)
         led.off()
 
@@ -42,26 +45,15 @@ def main():
         from ioty.http import HTTP_Service
 
         while True:
-            led.off()
-            sleep_ms(50)
-            led.on()
-            sleep_ms(50)
+            blink(50)
             if btn.value() == 1:
                 break
         http = HTTP_Service()
         while True:
             http.wait_for_connection()
-            for _ in range(2):
-                led.off()
-                sleep_ms(50)
-                led.on()
-                sleep_ms(50)
+            blink(50)
 
-    for _ in range(3):
-        led.on()
-        sleep_ms(200)
-        led.off()
-        sleep_ms(200)
+    blink(200, 3)
 
     if btn.value() == 0:
         led.on()

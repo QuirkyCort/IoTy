@@ -146,7 +146,7 @@ let MSGS = {
     en: 'analog read pin',
   },
   '#blk-analog_read_pin_tooltip#': {
-    en: 'Range from 0 to 65535',
+    en: 'Range from 0 to 65535, corresponding to approximately 0 to 3.3V.',
   },
   '#blk-set_analog_write_freq#': {
     en: 'Set analog write frequency on pin',
