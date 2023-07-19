@@ -408,6 +408,8 @@ ul.menuDropDownRightAlign {
     align-self: end; }
     .extension .buttons button {
       font-size: 100%; }
+    .extension .buttons button.remove {
+      background: #f66; }
   .extension .buttons.install button.remove {
     display: none; }
   .extension .buttons.remove button.install {
