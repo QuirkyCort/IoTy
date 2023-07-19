@@ -18,8 +18,8 @@ class HX711:
 
     def _set_channel(self):
         # Channel A with gain 128
-        self.pd_sck_pin.value(1)
-        self.pd_sck_pin.value(0)
+        self.sck_pin.value(1)
+        self.sck_pin.value(0)
 
     def _wait(self):
         start = time.time()
@@ -31,12 +31,12 @@ class HX711:
     def read(self):
         data = 0
         self._wait()
-        for _ in range(self.DATA_BITS):
+        for _ in range(DATA_BITS):
             self.sck_pin.value(1)
             self.sck_pin.value(0)
             data = data << 1 | self.dt_pin.value()
         self._set_channel()
 
-        if data & (1 << (self.DATA_BITS - 1)):
-            data -= 1 << self.DATA_BITS
+        if data & (1 << (DATA_BITS - 1)):
+            data -= 1 << DATA_BITS
         return data

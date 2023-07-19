@@ -184,7 +184,7 @@ var extensions = new function() {
       id: 'hx711',
       name: 'HX711 (Analog-to-Digital, Load Cell)',
       files: [
-        ['hx711.py', 'extensions/hx711.py?v=b25c59f5'],
+        ['hx711.py', 'extensions/hx711.py?v=74ec13a3'],
       ],
       description:
         '<p>' +
