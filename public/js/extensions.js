@@ -158,7 +158,7 @@ var extensions = new function() {
       id: 'non_block',
       name: 'Non-Blocking Read',
       files: [
-        ['non_block.py', 'extensions/non_block.py?v=b9351bc5'],
+        ['non_block.py', 'extensions/non_block.py?v=9268c687'],
       ],
       description:
         '<p>' +
@@ -191,6 +191,19 @@ var extensions = new function() {
           'This module allows you read the HX711 Analog-to-Digital converter. ' +
           'This device is commonly used with load cells for weight / force measurement. ' +
           'It return a unitless value, so calibration is required if you want to measure weight. ' +
+        '</p>'
+    },
+    {
+      id: 'ez_timer',
+      name: 'EZ Timer',
+      files: [
+        ['ez_timer.py', 'extensions/ez_timer.py?v=84eef081'],
+      ],
+      description:
+        '<p>' +
+          'This module allows you easily create a function that runs at a fixed interval. ' +
+          'It has 1ms resolution and uses polling, so there are no guarantees for the exact time that the timer runs. ' +
+          'As long as you run update frequently, it should be fairly accurate (...within a few ms).' +
         '</p>'
     },
   ]

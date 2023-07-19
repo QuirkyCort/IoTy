@@ -1,6 +1,6 @@
 import sys, uselect
 
-class Non_Block:
+class NonBlock:
     def __init__(self):
         self.poll = uselect.poll()
         self.poll.register(sys.stdin, uselect.POLLIN)

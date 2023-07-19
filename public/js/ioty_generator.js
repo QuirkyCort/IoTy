@@ -3,6 +3,7 @@ var ioty_generator = new function() {
 
   this.MQTT_CALLBACK_PLACEHOLDER = '# MQTT Callback Placeholder; you should not see this! #\n';
   this.MQTT_SUBSCRIPTION_PLACEHOLDER = '# MQTT Subscription Placeholder; you should not see this! #\n';
+  this.EZ_TIMER_CALLBACK_PLACEHOLDER = '# EZ Timer Callback Placeholder; you should not see this! #\n';
 
   // Load Python generators
   this.load = function() {
@@ -190,6 +191,11 @@ var ioty_generator = new function() {
     Blockly.Python['hx711_init'] = self.hx711_init;
     Blockly.Python['hx711_read'] = self.hx711_read;
     Blockly.Python.addReservedWords('hx711, hx711_device');
+
+    Blockly.Python['ez_timer_init'] = self.ez_timer_init;
+    Blockly.Python['ez_timer_update'] = self.ez_timer_update;
+    Blockly.Python['ez_timer_cb'] = self.ez_timer_cb;
+    Blockly.Python.addReservedWords('ez_timer, ez_timer_obj');
   };
 
   // Generate python code
@@ -197,12 +203,14 @@ var ioty_generator = new function() {
     self.imports = {};
     self.iotyImports = {};
     self.mqttSubscriptions = {};
+    self.ezTimerCb = [];
     self.startType = 'RUN';
 
     let workspaceCode = Blockly.Python.workspaceToCode(blockly.workspace);
 
     workspaceCode = self._mqttCBSubstitution(workspaceCode);
     workspaceCode = self._mqttSubscriptionSubstitution(workspaceCode);
+    workspaceCode = self._ezTimerCBSubstitution(workspaceCode);
 
     let code = '';
 
@@ -282,6 +290,24 @@ var ioty_generator = new function() {
       for (let key in self.mqttSubscriptions) {
         let topic = self.mqttSubscriptions[key];
         replacementCode += 'ioty_mqtt.subscribe(b\'' + topic + '\')\n';
+      }
+      code = code.replace(placeholderRegex, replacementCode);
+    }
+
+    return code;
+  }
+
+  this._ezTimerCBSubstitution = function(code) {
+    let placeholderRegexStr = '([^\S\r\n]*)' + self.EZ_TIMER_CALLBACK_PLACEHOLDER;
+    let placeholderRegexG = new RegExp(placeholderRegexStr, 'g');
+    let placeholderRegex = new RegExp(placeholderRegexStr);
+
+    let matches = code.matchAll(placeholderRegexG);
+    for (let _ of matches) {
+      let replacementCode = '';
+
+      for (let cb of self.ezTimerCb) {
+        replacementCode += 'ez_timer_obj.set_interval(' + cb.function + ', ' + cb.interval + ', offset=' + cb.offset + ')\n';
       }
       code = code.replace(placeholderRegex, replacementCode);
     }
@@ -1711,7 +1737,7 @@ var ioty_generator = new function() {
     self.imports['non_block'] = 'import non_block';
 
     var code =
-      'nblock = non_block.Non_Block()\n';
+      'nblock = non_block.NonBlock()\n';
 
     return code;
   };
@@ -1886,6 +1912,68 @@ var ioty_generator = new function() {
     let code = 'hx711_device.read()';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.ez_timer_init = function(block) {
+    self.imports['ez_timer'] = 'import ez_timer';
+
+    var code =
+      'ez_timer_obj = ez_timer.Timer()\n' +
+      self.EZ_TIMER_CALLBACK_PLACEHOLDER;
+
+      return code;
+  };
+
+  this.ez_timer_update = function(block) {
+    var code = 'ez_timer_obj.update()\n';
+
+    return code;
+  };
+
+  this.ez_timer_cb = function(block) {
+    // First, add a 'global' statement for every variable that is not shadowed by
+    // a local parameter.
+    const globals = [];
+    const workspace = blockly.workspace;
+    const usedVariables = Blockly.Variables.allUsedVarModels(workspace) || [];
+    for (let i = 0, variable; (variable = usedVariables[i]); i++) {
+      const varName = variable.name;
+      if (block.getVars().indexOf(varName) === -1) {
+        globals.push(Blockly.Python.nameDB_.getName(varName, Blockly.Names.NameType.VARIABLE));
+      }
+    }
+    // Add developer variables.
+    const devVarList = Blockly.Variables.allDeveloperVariables(workspace);
+    for (let i = 0; i < devVarList.length; i++) {
+      globals.push(
+          Blockly.Python.nameDB_.getName(devVarList[i], Blockly.Names.NameType.DEVELOPER_VARIABLE));
+    }
+    const globalString = globals.length ?
+      Blockly.Python.INDENT + 'global ' + globals.join(', ') + '\n' :
+      '';
+
+    // Usual stuff
+    var interval = block.getFieldValue('interval');
+    var offset = block.getFieldValue('offset');
+    var statements = Blockly.Python.statementToCode(block, 'statements');
+
+    let functionName = 'ez_timer_cb_' + self.ezTimerCb.length;
+
+    self.ezTimerCb.push({
+      function: functionName,
+      interval: interval,
+      offset: offset
+    });
+
+    var code =
+      'def ' + functionName + '():\n'
+      + globalString;
+
+    code += statements;
+
+    Blockly.Python.definitions_[functionName] = code;
+
+    return null;
   };
 
 }

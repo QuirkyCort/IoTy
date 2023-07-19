@@ -1,0 +1,29 @@
+{
+  "type": "ez_timer_cb",
+  "message0": "#blk-ez_timer_run_every# %1 #blk-seconds# #blk-with_starting_offset_of# %2 #blk-seconds# %3 %4",
+  "args0": [
+    {
+      "type": "field_number",
+      "name": "interval",
+      "value": 1,
+      "min": 0
+    },
+    {
+      "type": "field_number",
+      "name": "offset",
+      "value": 0
+    },
+    {
+      "type": "input_dummy"
+    },
+    {
+      "type": "input_statement",
+      "name": "statements"
+    }
+  ],
+  "inputsInline": true,
+  "nextStatement": null,
+  "colour": 65,
+  "tooltip": "#blk-ez_timer_cb_tooltip#",
+  "helpUrl": ""
+}

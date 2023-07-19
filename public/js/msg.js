@@ -1381,6 +1381,27 @@ let MSGS = {
   '#blk-hx711_read_tooltip#': {
     en: 'Read from the HX711. The return value is unitless; you must calibrate it yourself. ',
   },
+  '#blk-ez_timer_init#': {
+    en: 'init EZ Timer',
+  },
+  '#blk-ez_timer_init_tooltip#': {
+    en: 'Timer starts upon initialization. You must run this before updating any timers.',
+  },
+  '#blk-ez_timer_update#': {
+    en: 'ez_timer: Update',
+  },
+  '#blk-ez_timer_update_tooltip#': {
+    en: 'Updates the timer. You must run this frequently.',
+  },
+  '#blk-ez_timer_run_every#': {
+    en: 'ez_timer: Run every',
+  },
+  '#blk-with_starting_offset_of#': {
+    en: 'with starting offset of',
+  },
+  '#blk-ez_timer_cb_tooltip#': {
+    en: 'You must init the timer first, and run update frequently. Offset applies an delay to the first call of this function.',
+  }
 };
 let MSGS_KEYS = Object.keys(MSGS);
 
