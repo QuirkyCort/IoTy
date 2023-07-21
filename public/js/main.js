@@ -1096,12 +1096,32 @@ var main = new function() {
 
   // Display what's new if not seen before
   this.showWhatsNew = function(forceShow=false) {
-    let current = 20230525;
+    let current = 20230721;
     let lastShown = localStorage.getItem('whatsNew');
     if (lastShown == null || parseInt(lastShown) < current || forceShow) {
       let options = {
         title: 'What\'s New',
         message:
+        '<h3>21 Jul 2023 (UART, SPI, More extensions)</h3>' +
+        '<p>' +
+          'Blocks for SPI and UART communications are now available. ' +
+          'These are useful when communicating with devices for which no extensions are available yet. ' +
+        '</p>' +
+        '<p>' +
+          'Many new extensions have been added; ' +
+          '<ul>' +
+            '<li>Wireless Comms (ESP-Now, EZ ESP-Now)</li>' +
+            '<li>EZ HTTP Server</li>' +
+            '<li>uCSV (Read/Write CSV files)</li>' +
+            '<li>I2C LCD Screen</li>' +
+            '<li>Temperature / Humidity sensors (DHT11, DHT22, AM2302, DS18x20)</li>' +
+            '<li>Non-Blocking Read</li>' +
+            '<li>GPS (NMEA)</li>' +
+            '<li>Load Cell (Force / Weight) (HX711)</li>' +
+            '<li>EZ Timer (Scheduling)</li>' +
+            '<li>RFID Reader (MFRC522)</li>' +
+          '</ul>' +
+        '</p>' +
         '<h3>25 May 2023 (Filesystem, Firmware)</h3>' +
         '<p>' +
           'You can now access the IoTy device filesystem (eg. read, write, delete files). ' +
@@ -1123,24 +1143,6 @@ var main = new function() {
         '</p>' +
         '<p>' +
           'It is now possible to update firmware via Access Point mode.' +
-        '</p>' +
-        '<h3>30 Apr 2023 (Monitor in Internet mode)</h3>' +
-        '<p>' +
-          'Monitor now partially works in internet mode, allowing you to receive "print" and error message. ' +
-          'Update your firmware to at least version 7, set the "When Started" block to "wait for internet connection", restart your device, then click "Connect" when the LED stays on.' +
-        '</p>' +
-        '<p>' +
-          'Sending messages do NOT work. ' +
-          'This is difficult to achieve due to the synchronous nature of the mqtt library and may never be supported. ' +
-        '</p>' +
-        '<h3>27 Apr 2023 (Extensions!)</h3>' +
-        '<p>' +
-          'IoTy now supports extensions, with 3 extensions for the MPU-6050 (Gyro, Accelerometer), PCA-9685 (Servo driver), and SSD-1306 (OLED display). ' +
-          'Find it under "File -> Load extension...".' +
-        '</p>' +
-        '<p>' +
-          'The save format for blocks programs has also been changed to zip (...previously xml). ' +
-          'Programs saved in the old xml format will still be loadable, but new saves will be in zip format only.' +
         '</p>'
       }
       acknowledgeDialog(options, function(){
