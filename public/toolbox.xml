@@ -776,6 +776,7 @@
   </category>
   <category toolboxitemid="ssd1306" name="SSD-1306" colour="#5b67a5" hidden="true">
     <block type="ssd1306_init"></block>
+    <block type="ssd1306_init_sh1106"></block>
     <block type="ssd1306_fill">
       <value name="color">
         <shadow type="math_number">

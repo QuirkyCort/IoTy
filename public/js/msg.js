@@ -763,6 +763,12 @@ let MSGS = {
   '#blk-ssd1306_init_tooltip#': {
     en: 'You must have an \\"init i2c\\" block before this',
   },
+  '#blk-ssd1306_init_sh1106#': {
+    en: 'init SH-1106 with width',
+  },
+  '#blk-ssd1306_init_sh1106_tooltip#': {
+    en: 'Use this to init a SH1106 display. You must have an \\"init i2c\\" block before this',
+  },
   '#blk-ssd1306_fill#': {
     en: 'fill SSD-1306 with color',
   },

@@ -28,14 +28,15 @@ var extensions = new function() {
     },
     {
       id: 'ssd1306',
-      name: 'SSD-1306 (OLED Screen)',
+      name: 'SSD-1306 and SH-1106 (OLED Screen)',
       files: [
-        ['ssd1306.py', 'extensions/ssd1306.py?v=470f8a8c'],
+        ['ssd1306.py', 'extensions/ssd1306.py?v=24e9577f'],
       ],
       description:
         '<p>' +
           'The SSD-1306 is an OLED screen that can display text and monochrome images. ' +
           'This extension allows you to draw text, lines, and shapes on the SSD-1306 via I2C.' +
+          'It also supports the SH-1106 OLED screen.' +
         '</p>'
     },
     {

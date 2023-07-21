@@ -95,6 +95,7 @@ var ioty_generator = new function() {
     Blockly.Python.addReservedWords('pca9685,PCA9685');
 
     Blockly.Python['ssd1306_init'] = self.ssd1306_init;
+    Blockly.Python['ssd1306_init_sh1106'] = self.ssd1306_init_sh1106;
     Blockly.Python['ssd1306_fill'] = self.ssd1306_fill;
     Blockly.Python['ssd1306_show'] = self.ssd1306_show;
     Blockly.Python['ssd1306_text'] = self.ssd1306_text;
@@ -103,7 +104,7 @@ var ioty_generator = new function() {
     Blockly.Python['ssd1306_rect'] = self.ssd1306_rect;
     Blockly.Python['ssd1306_ellipse'] = self.ssd1306_ellipse;
     Blockly.Python['ssd1306_scroll'] = self.ssd1306_scroll;
-    Blockly.Python.addReservedWords('ssd1306,ssd1306_i2c,SSD1306_I2C');
+    Blockly.Python.addReservedWords('ssd1306,ssd1306_i2c');
 
     Blockly.Python['dict_empty'] = self.dict_empty;
     Blockly.Python['dict_key_value'] = self.dict_key_value;
@@ -1188,14 +1189,28 @@ var ioty_generator = new function() {
   };
 
   this.ssd1306_init = function(block) {
-    self.imports['ssd1306'] = 'from ssd1306 import SSD1306_I2C';
+    self.imports['ssd1306'] = 'import ssd1306';
 
     var width = block.getFieldValue('width');
     var height = block.getFieldValue('height');
     var addr = block.getFieldValue('addr');
 
     var code =
-      'ssd1306_i2c = SSD1306_I2C(' + width + ', ' + height + ', i2c, ' + addr + ')\n'+
+      'ssd1306_i2c = ssd1306.SSD1306_I2C(' + width + ', ' + height + ', i2c, ' + addr + ')\n'+
+      'ssd1306_i2c.init_display()\n';
+
+    return code;
+  };
+
+  this.ssd1306_init_sh1106 = function(block) {
+    self.imports['ssd1306'] = 'import ssd1306';
+
+    var width = block.getFieldValue('width');
+    var height = block.getFieldValue('height');
+    var addr = block.getFieldValue('addr');
+
+    var code =
+      'ssd1306_i2c = ssd1306.SSD1306_I2C(' + width + ', ' + height + ', i2c, ' + addr + ', driver=ssd1306.TYPE_SH1106)\n'+
       'ssd1306_i2c.init_display()\n';
 
     return code;
