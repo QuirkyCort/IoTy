@@ -1,0 +1,47 @@
+{
+  "type": "spi_write",
+  "message0": "#blk-to# %1 #blk-write# %2 #blk-of_format# %3",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "id",
+      "options": [
+        ["SPI1", "1"],
+        ["SPI2", "2"]
+      ]
+    },
+    {
+      "type": "input_value",
+      "name": "value",
+      "check": "Number"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "format",
+      "options": [
+        ["Int8LE", "<b"],
+        ["UInt8LE", "<B"],
+        ["Int16LE", "<h"],
+        ["UInt16LE", "<H"],
+        ["Int32LE", "<i"],
+        ["UInt32LE", "<I"],
+        ["Float32LE", "<f"],
+        ["Float64LE", "<d"],
+        ["Int8BE", ">b"],
+        ["UInt8BE", ">B"],
+        ["Int16BE", ">h"],
+        ["UInt16BE", ">H"],
+        ["Int32BE", ">i"],
+        ["UInt32BE", ">I"],
+        ["Float32BE", ">f"],
+        ["Float64BE", ">d"]
+      ]
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 330,
+  "tooltip": "#blk-spi_write_tooltip#",
+  "helpUrl": ""
+}

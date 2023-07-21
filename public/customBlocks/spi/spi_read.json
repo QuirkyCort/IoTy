@@ -1,0 +1,40 @@
+{
+  "type": "spi_read",
+  "message0": "#blk-read_from# %1 #blk-of_format# %2",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "id",
+      "options": [
+        ["SPI1", "1"],
+        ["SPI2", "2"]
+      ]
+    },
+    {
+      "type": "field_dropdown",
+      "name": "format",
+      "options": [
+        ["Int8LE", "<b"],
+        ["UInt8LE", "<B"],
+        ["Int16LE", "<h"],
+        ["UInt16LE", "<H"],
+        ["Int32LE", "<i"],
+        ["UInt32LE", "<I"],
+        ["Float32LE", "<f"],
+        ["Float64LE", "<d"],
+        ["Int8BE", ">b"],
+        ["UInt8BE", ">B"],
+        ["Int16BE", ">h"],
+        ["UInt16BE", ">H"],
+        ["Int32BE", ">i"],
+        ["UInt32BE", ">I"],
+        ["Float32BE", ">f"],
+        ["Float64BE", ">d"]
+      ]
+    }
+  ],
+  "output": "Number",
+  "colour": 330,
+  "tooltip": "#blk-spi_read_tooltip#",
+  "helpUrl": ""
+}

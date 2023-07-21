@@ -1,0 +1,40 @@
+{
+  "type": "spi_init",
+  "message0": "#blk-init# %1 #blk-at_baudrate# %2 #blk-with_sck# %3 #blk-mosi# %4 #blk-and_miso# %5",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "id",
+      "options": [
+        ["SPI1", "1"],
+        ["SPI2", "2"]
+      ]
+    },
+    {
+      "type": "field_input",
+      "name": "baudrate",
+      "text": "1000000"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "sck",
+      "options": $_UnusedIoPins
+    },
+    {
+      "type": "field_dropdown",
+      "name": "mosi",
+      "options": $_UnusedIoPins
+    },
+    {
+      "type": "field_dropdown",
+      "name": "miso",
+      "options": $_UnusedIoPins
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 330,
+  "tooltip": "#blk-spi_init_tooltip#",
+  "helpUrl": ""
+}

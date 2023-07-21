@@ -1401,7 +1401,31 @@ let MSGS = {
   },
   '#blk-ez_timer_cb_tooltip#': {
     en: 'You must init the timer first, and run update frequently. Offset applies an delay to the first call of this function.',
-  }
+  },
+  '#blk-spi_init_with_baudrate#': {
+    en: 'init spi with baudrate',
+  },
+  '#blk-with_sck#': {
+    en: 'with sck',
+  },
+  '#blk-mosi#': {
+    en: 'mosi',
+  },
+  '#blk-and_miso#': {
+    en: 'and miso',
+  },
+  '#blk-spi_init_tooltip#': {
+    en: 'Initialize the hardware SPI device with the specified baudrate and pins.',
+  },
+  '#blk-spi_write_tooltip#': {
+    en: 'Write the specified value to the SPI device.',
+  },
+  '#blk-read_from#': {
+    en: 'read from',
+  },
+  '#blk-spi_read_tooltip#': {
+    en: 'Read from the SPI device. Number of bytes read is dependent on the format selected.',
+  },
 };
 let MSGS_KEYS = Object.keys(MSGS);
 

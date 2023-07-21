@@ -196,6 +196,11 @@ var ioty_generator = new function() {
     Blockly.Python['ez_timer_update'] = self.ez_timer_update;
     Blockly.Python['ez_timer_cb'] = self.ez_timer_cb;
     Blockly.Python.addReservedWords('ez_timer, ez_timer_obj');
+
+    Blockly.Python['spi_init'] = self.spi_init;
+    Blockly.Python['spi_read'] = self.spi_read;
+    Blockly.Python['spi_write'] = self.spi_write;
+    Blockly.Python.addReservedWords('spi1, spi2');
   };
 
   // Generate python code
@@ -1974,6 +1979,57 @@ var ioty_generator = new function() {
     Blockly.Python.definitions_[functionName] = code;
 
     return null;
+  };
+
+  this.spi_init = function(block) {
+    self.imports['machine'] = 'import machine';
+
+    var id = block.getFieldValue('id');
+    var baudrate = block.getFieldValue('baudrate');
+    var sck = block.getFieldValue('sck');
+    var mosi = block.getFieldValue('mosi');
+    var miso = block.getFieldValue('miso');
+
+    var code =
+      'spi' + id + ' = machine.SPI(' + id + ', baudrate=' + baudrate + ', sck=Pin(' + sck + '), mosi=Pin(' + mosi + '), miso=Pin(' + miso + '))\n';
+
+    return code;
+  };
+
+  this.spi_read = function(block) {
+    self.imports['struct'] = 'import struct';
+
+    var id = block.getFieldValue('id');
+    var format = block.getFieldValue('format');
+
+    let formatLower = format.toLowerCase();
+
+    let size = 1;
+    if (formatLower.includes('b')) {
+      size = 1;
+    } else if (formatLower.includes('h')) {
+      size = 2;
+    } else if (formatLower.includes('i') || formatLower.includes('f')) {
+      size = 4;
+    } else if (formatLower.includes('d')) {
+      size = 8;
+    }
+
+    var code = 'struct.unpack(\'' + format + '\', spi' + id + '.read(' + size + '))[0]';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.spi_write = function(block) {
+    self.imports['struct'] = 'import struct';
+
+    var id = block.getFieldValue('id');
+    var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_NONE);
+    var format = block.getFieldValue('format');
+
+    var code = 'spi' + id + '.write(struct.pack(\'' + format + '\', ' + value + '))\n';
+
+    return code;
   };
 
 }
