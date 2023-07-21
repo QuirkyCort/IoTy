@@ -201,6 +201,11 @@ var ioty_generator = new function() {
     Blockly.Python['spi_read'] = self.spi_read;
     Blockly.Python['spi_write'] = self.spi_write;
     Blockly.Python.addReservedWords('spi1, spi2');
+
+    Blockly.Python['mfrc522_init'] = self.mfrc522_init;
+    Blockly.Python['mfrc522_card_present'] = self.mfrc522_card_present;
+    Blockly.Python['mfrc522_get_uid'] = self.mfrc522_get_uid;
+    Blockly.Python.addReservedWords('mfrc522, mfrc522_device');
   };
 
   // Generate python code
@@ -2030,6 +2035,31 @@ var ioty_generator = new function() {
     var code = 'spi' + id + '.write(struct.pack(\'' + format + '\', ' + value + '))\n';
 
     return code;
+  };
+
+  this.mfrc522_init = function(block) {
+    self.imports['mfrc522'] = 'import mfrc522';
+
+    var spi = block.getFieldValue('spi');
+    var rst = block.getFieldValue('rst');
+    var cs = block.getFieldValue('cs');
+
+    var code =
+      'mfrc522_device = mfrc522.MFRC522(spi' + spi + ', ' + rst + ', ' + cs + ')\n';
+
+    return code;
+  };
+
+  this.mfrc522_card_present = function(block) {
+    var code = 'mfrc522_device.card_present()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.mfrc522_get_uid = function(block) {
+    var code = 'mfrc522_device.get_uid()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
   };
 
 }

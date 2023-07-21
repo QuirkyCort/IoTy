@@ -1,0 +1,29 @@
+{
+  "type": "mfrc522_init",
+  "message0": "#blk-mfrc522_init# %1 #blk-with_rst# %2 #blk-and_cs# %3",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "spi",
+      "options": [
+        ["SPI1", "1"],
+        ["SPI2", "2"]
+      ]
+    },
+    {
+      "type": "field_dropdown",
+      "name": "rst",
+      "options": $_UnusedIoPins
+    },
+    {
+      "type": "field_dropdown",
+      "name": "cs",
+      "options": $_UnusedIoPins
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-mfrc522_init_tooltip#",
+  "helpUrl": ""
+}

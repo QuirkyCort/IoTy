@@ -1130,4 +1130,12 @@
       </value>
     </block>
   </category>
+  <category toolboxitemid="mfrc522" name="MFRC522" colour="#5b67a5" hidden="true">
+    <block type="mfrc522_init">
+      <field name="rst">27</field>
+      <field name="cs">26</field>
+    </block>
+    <block type="mfrc522_card_present"></block>
+    <block type="mfrc522_get_uid"></block>
+  </category>
 </xml>

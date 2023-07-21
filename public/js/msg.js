@@ -1426,6 +1426,30 @@ let MSGS = {
   '#blk-spi_read_tooltip#': {
     en: 'Read from the SPI device. Number of bytes read is dependent on the format selected.',
   },
+  '#blk-mfrc522_init#': {
+    en: 'init MFRC522 on',
+  },
+  '#blk-with_rst#': {
+    en: 'with rst',
+  },
+  '#blk-and_cs#': {
+    en: 'and cs',
+  },
+  '#blk-mfrc522_init_tooltip#': {
+    en: 'You must have an \\"init SPI\\" block with the appropriate pins and baudrate set before this.',
+  },
+  '#blk-mfrc522_card_present#': {
+    en: 'mfrc522: card is present',
+  },
+  '#blk-mfrc522_card_present_tooltip#': {
+    en: 'Returns True is a card is detected at the reader.',
+  },
+  '#blk-mfrc522_get_uid#': {
+    en: 'mfrc522: get uid',
+  },
+  '#blk-mfrc522_get_uid_tooltip#': {
+    en: 'Returns the card UID as a hex string. Use the \\"card is present\\" block first to ensure a card is present before running this block.',
+  },
 };
 let MSGS_KEYS = Object.keys(MSGS);
 

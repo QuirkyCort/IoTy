@@ -1,0 +1,9 @@
+{
+  "type": "mfrc522_card_present",
+  "message0": "#blk-mfrc522_card_present#",
+  "args0": [],
+  "output": "Boolean",
+  "colour": 230,
+  "tooltip": "#blk-mfrc522_card_present_tooltip#",
+  "helpUrl": ""
+}

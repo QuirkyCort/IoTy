@@ -206,6 +206,17 @@ var extensions = new function() {
           'As long as you run update frequently, it should be fairly accurate (...within a few ms).' +
         '</p>'
     },
+    {
+      id: 'mfrc522',
+      name: 'MFRC522 (RFID Reader)',
+      files: [
+        ['mfrc522.py', 'extensions/mfrc522.py?v=b599c157'],
+      ],
+      description:
+        '<p>' +
+          'This module allows you read the ID from an RFID card using an MFRC522 based RFID reader. ' +
+        '</p>'
+    },
   ]
 
   this.init = function() {
