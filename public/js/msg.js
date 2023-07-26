@@ -614,6 +614,15 @@ let MSGS = {
   '#main-apPage_go#': {
     en: 'Go to Access Point Page',
   },
+  '#main-flashFirmware_title#': {
+    en: 'Flash Firmware',
+  },
+  '#main-flashFirmware_description#': {
+    en: 'Use this to flash a new ESP-32 with the IoTy firmware. You can also use this to upgrade the firmware on an existing IoTy device.',
+  },
+  '#main-flashFirmware_go#': {
+    en: 'Go to Firmware Flash Tool',
+  },
   '#blockly-save#': {
     en: 'Save Now',
     fr: 'Enregistrer maintenant',

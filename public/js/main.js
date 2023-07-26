@@ -224,6 +224,7 @@ var main = new function() {
       let menuItems = [
         {html: 'MQTT App Builder', line: false, callback: self.appBuilderWindow},
         {html: 'Access Point Page', line: false, callback: self.apPageWindow},
+        {html: 'Flash Firmware', line: false, callback: self.flashFirmwareWindow},
       ];
 
       menuDropDown(self.$appMenu, menuItems, {className: 'appMenuDropDown'});
@@ -249,6 +250,17 @@ var main = new function() {
     };
     confirmDialog(options, function(){
       self.openPage('http://192.168.4.1');
+    });
+  };
+
+  this.flashFirmwareWindow = function() {
+    let options = {
+      title: i18n.get('#main-flashFirmware_title#'),
+      message: i18n.get('#main-flashFirmware_description#'),
+      confirm: i18n.get('#main-flashFirmware_go#')
+    };
+    confirmDialog(options, function(){
+      self.openPage('https://quirkycort.github.io/IoTy-Flash/public/index.html');
     });
   };
 
@@ -1096,12 +1108,17 @@ var main = new function() {
 
   // Display what's new if not seen before
   this.showWhatsNew = function(forceShow=false) {
-    let current = 20230721;
+    let current = 20230726;
     let lastShown = localStorage.getItem('whatsNew');
     if (lastShown == null || parseInt(lastShown) < current || forceShow) {
       let options = {
         title: 'What\'s New',
         message:
+        '<h3>26 Jul 2023 (Firmware Flash Tool)</h3>' +
+        '<p>' +
+          'You can now flash a new ESP-32 with the IoTy firmware via a web interface. ' +
+          'Find it under "App -> Flash Firmware".' +
+        '</p>' +
         '<h3>21 Jul 2023 (UART, SPI, More extensions)</h3>' +
         '<p>' +
           'Blocks for SPI and UART communications are now available. ' +
@@ -1131,18 +1148,6 @@ var main = new function() {
         '<p>' +
           'The firmware is now in mpy format, which reduce size and improve performance. ' +
           'Unfortunately, the new firmware cannot be updated through this page, and you will need to follow steps 4 to 7 from <a href="https://github.com/QuirkyCort/IoTy/blob/main/README.md">here</a> ' +
-        '</p>' +
-        '<h3>11 May 2023 (Neopixel, Device Info, Access Point Mode)</h3>' +
-        '<p>' +
-          'Neopixel support has been moved to extensions. ' +
-          'If using Python, you will need to change your imports into "import ioty_neopixel as neopixel". ' +
-          'If using Blocks, just add the extension and the code should be updated automatically. ' +
-        '</p>' +
-        '<p>' +
-          'You can now retrieve some info about your device (eg. MAC address, available space) via "Get Device Info" under the connection menu.' +
-        '</p>' +
-        '<p>' +
-          'It is now possible to update firmware via Access Point mode.' +
         '</p>'
       }
       acknowledgeDialog(options, function(){
