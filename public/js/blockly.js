@@ -71,8 +71,13 @@ var blockly = new function() {
 
   // Load default workspace
   this.loadDefaultWorkspace = function() {
-    let jsonText = '{"blocks":{"languageVersion":0,"blocks":[{"type":"when_started","id":"Q!^ZqS4/(a/0XL$cIi-~","x":63,"y":38,"data":"Main","fields":{"start_type":"RUN"}}]}}';
-    self.loadJsonText(jsonText);
+    // let jsonText = '{"blocks":{"languageVersion":0,"blocks":[{"type":"when_started","id":"Q!^ZqS4/(a/0XL$cIi-~","x":63,"y":38,"fields":{"start_type":"RUN"}}]}}';
+    // self.loadJsonText(jsonText);
+    let xmlText =
+      '<xml xmlns="https://developers.google.com/blockly/xml">' +
+        '<block type="when_started" id="Q!^ZqS4/(a/0XL$cIi-~" x="63" y="38" deletable="false"></block>' +
+      '</xml>';
+    self.loadXmlText(xmlText);
     self.unsaved = true;
   };
 
