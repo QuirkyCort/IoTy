@@ -1,3 +1,5 @@
+# Based on https://github.com/dhylands/python_lcd/tree/master
+
 import time
 
 CLR = 0x01

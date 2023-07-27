@@ -1,3 +1,5 @@
+# Based on https://github.com/adafruit/Adafruit_CircuitPython_SSD1306/tree/main
+
 from micropython import const
 import framebuf
 

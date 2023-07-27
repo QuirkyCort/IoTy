@@ -1,3 +1,5 @@
+# Based on https://github.com/wendlers/micropython-mfrc522
+
 from machine import Pin, SPI
 import time
 
