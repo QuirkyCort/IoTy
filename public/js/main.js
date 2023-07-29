@@ -25,11 +25,11 @@ var main = new function() {
   this.init = async function() {
     connectionMode = localStorage.getItem('connectionMode');
 
-    if (['ble', 'mqtt'].includes(connectionMode)) {
+    if (['ble', 'mqtt', 'serial'].includes(connectionMode)) {
       self.connectionMode = connectionMode;
     } else if (typeof navigator.bluetooth == 'undefined') {
       self.bleAvailable = false;
-      self.connectionMode = 'mqtt';
+      self.connectionMode = 'serial';
     } else {
       self.connectionMode = 'ble';
     }
@@ -292,6 +292,8 @@ var main = new function() {
         self.bleConnectMenu(e);
       } else if (self.connectionMode == 'mqtt') {
         self.mqttConnectMenu(e);
+      } else if (self.connectionMode == 'serial') {
+        self.serialConnectMenu(e);
       }
     }
   };
@@ -325,6 +327,24 @@ var main = new function() {
       {html: i18n.get('#main-listFiles#'), line: false, callback: self.listFiles},
       {html: i18n.get('#main-configureDeviceNetwork#'), line: false, callback: main.configureDeviceNetwork},
       {html: i18n.get('#main-disconnect#'), line: false, callback: mqtt.disconnect},
+    ];
+
+    menuDropDown(self.$connectMenu, menuItems, {className: 'connectMenuDropDown', align: 'right'});
+  };
+
+  this.serialConnectMenu = function(e) {
+    let menuItems = [
+      {html: i18n.get('#main-connectMode#'), line: false, callback: self.connectModeMenu },
+      {html: i18n.get('#main-connectSerial#'), line: false, callback: serial.connectDialog },
+      {html: i18n.get('#main-download#'), line: false, callback: serial.download },
+      {html: i18n.get('#main-erase#'), line: false, callback: serial.eraseDialog },
+      {html: i18n.get('#main-changeName#'), line: false, callback: serial.changeNameDialog},
+      {html: i18n.get('#main-checkVersion#'), line: false, callback: serial.checkVersion},
+      {html: i18n.get('#main-updateFirmware#'), line: false, callback: serial.updateFirmwareDialog},
+      {html: i18n.get('#main-getInfo#'), line: false, callback: serial.getInfo},
+      // {html: i18n.get('#main-listFiles#'), line: false, callback: self.listFiles},
+      {html: i18n.get('#main-configureDeviceNetwork#'), line: false, callback: main.configureDeviceNetwork},
+      {html: i18n.get('#main-disconnect#'), line: false, callback: serial.disconnect},
     ];
 
     menuDropDown(self.$connectMenu, menuItems, {className: 'connectMenuDropDown', align: 'right'});
@@ -412,6 +432,8 @@ var main = new function() {
         ble.configureDeviceNetwork(file);
       } else if (self.connectionMode == 'mqtt') {
         mqtt.configureDeviceNetwork(file);
+      } else if (self.connectionMode == 'serial') {
+        serial.configureDeviceNetwork(file);
       }
 
       $dialog.close();
@@ -451,6 +473,7 @@ var main = new function() {
     let $select = $body.find('select');
     $select.append('<option value="ble">Bluetooth</option>');
     $select.append('<option value="mqtt">Internet</option>');
+    $select.append('<option value="serial">Serial</option>');
 
     $select.val(self.connectionMode);
 
@@ -481,6 +504,19 @@ var main = new function() {
           '</p>' +
           '<p>' +
             'This mode should be compatible with all browsers on any OS.' +
+          '</p>'
+        );
+      } else if ($select.val() == 'serial') {
+        $description.html(
+          '<p>' +
+            'To use Serial mode, you must connect your computer to the IoTy device with a USB cable, and your browser must support Web Serial (Chrome and Chrome based browsers). ' +
+          '</p>' +
+          '<p>' +
+            'Your device does NOT need to be in programming mode for serial mode to work. ' +
+          '</p>' +
+          '<p>' +
+            'Serial mode will not check your firmware version on connect as it will cause running programs on your device to terminate. ' +
+            'You will need to manually trigger a version check if desired. ' +
           '</p>'
         );
       }
@@ -761,11 +797,18 @@ var main = new function() {
     }
   };
 
-  this.listFiles = function() {
-    let interface = ble;
+  this.getInterface = function() {
     if (self.connectionMode == 'mqtt') {
-      interface = mqtt;
+      return mqtt;
+    } else if (self.connectionMode == 'serial') {
+      return serial;
+    } else {
+      return ble;
     }
+  }
+
+  this.listFiles = function() {
+    let interface = self.getInterface();
 
     if (! interface.isConnected) {
       toastMsg('Not connected. Please connect to device.');
@@ -799,10 +842,7 @@ var main = new function() {
 
   this.mkdirSetName = function() {
     async function mkdir(dirname) {
-      let interface = ble;
-      if (self.connectionMode == 'mqtt') {
-        interface = mqtt;
-      }
+      let interface = self.getInterface();
 
       let $updateWindow = main.hiddenButtonDialog('Make Directory', 'Making Directory...');
       let status = await interface.mkdirOnDevice(dirname);
@@ -828,10 +868,7 @@ var main = new function() {
   };
 
   this.deleteFilesFromDevice = async function() {
-    let interface = ble;
-    if (self.connectionMode == 'mqtt') {
-      interface = mqtt;
-    }
+    let interface = self.getInterface();
 
     let $inputs = self.$filesListing.find('input.filename');
     let filesToDelete = [];
@@ -890,10 +927,7 @@ var main = new function() {
   };
 
   this.uploadFile = async function(filename, content) {
-    let interface = ble;
-    if (self.connectionMode == 'mqtt') {
-      interface = mqtt;
-    }
+    let interface = self.getInterface();
 
     let $updateWindow = main.hiddenButtonDialog('Uploading File', 'Uploading');
 
@@ -936,10 +970,7 @@ var main = new function() {
   };
 
   this.downloadFilesFromDevice = async function() {
-    let interface = ble;
-    if (self.connectionMode == 'mqtt') {
-      interface = mqtt;
-    }
+    let interface = self.getInterface();
 
     let $inputs = self.$filesListing.find('input.filename');
     let filesToDownload = [];
@@ -987,10 +1018,7 @@ var main = new function() {
   };
 
   this.updateFilesListing = async function() {
-    let interface = ble;
-    if (self.connectionMode == 'mqtt') {
-      interface = mqtt;
-    }
+    let interface = self.getInterface();
 
     let result = await interface.getFilesListing();
     if (result.status == constants._STATUS_SUCCESS) {
@@ -1072,15 +1100,12 @@ var main = new function() {
       title: 'Firmware Update',
       message:
         'A new firmware (version ' + constants.CURRENT_VERSION + ') is available, but your device version is too old to upgrade through this page. ' +
-        'Please follow steps 4 to 7 from <a href="https://github.com/QuirkyCort/IoTy/blob/main/README.md">here</a> to update your firmware. '
+        'Please use Serial mode or the <a href="https://quirkycort.github.io/IoTy-Flash/public/index.html">Firmware Flash Tool</a> to update your firmware. '
     });
   };
 
   this.updateFirmwareDialog = function() {
-    let interface = ble;
-    if (self.connectionMode == 'mqtt') {
-      interface = mqtt;
-    }
+    let interface = self.getInterface();
 
     if (! interface.isConnected) {
       toastMsg('Not connected. Please connect to device.');
@@ -1114,6 +1139,11 @@ var main = new function() {
       let options = {
         title: 'What\'s New',
         message:
+        '<h3>29 Jul 2023 (Serial Mode)</h3>' +
+        '<p>' +
+          'You can now connect to your device using Serial mode. ' +
+          'Connect your device to your computer using a USB cable, then change "Connection Mode..." to "Serial". ' +
+        '</p>' +
         '<h3>26 Jul 2023 (Firmware Flash Tool)</h3>' +
         '<p>' +
           'You can now flash a new ESP-32 with the IoTy firmware via a web interface. ' +
@@ -1138,16 +1168,6 @@ var main = new function() {
             '<li>EZ Timer (Scheduling)</li>' +
             '<li>RFID Reader (MFRC522)</li>' +
           '</ul>' +
-        '</p>' +
-        '<h3>25 May 2023 (Filesystem, Firmware)</h3>' +
-        '<p>' +
-          'You can now access the IoTy device filesystem (eg. read, write, delete files). ' +
-          'This can be useful when logging data to file, or when you need to upload an audio or image file to the device. ' +
-          'Bluetooth and Internet mode are full featured, while Access Point mode only support reading and deleting files.' +
-        '</p>' +
-        '<p>' +
-          'The firmware is now in mpy format, which reduce size and improve performance. ' +
-          'Unfortunately, the new firmware cannot be updated through this page, and you will need to follow steps 4 to 7 from <a href="https://github.com/QuirkyCort/IoTy/blob/main/README.md">here</a> ' +
         '</p>'
       }
       acknowledgeDialog(options, function(){

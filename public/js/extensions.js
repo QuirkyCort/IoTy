@@ -30,7 +30,7 @@ var extensions = new function() {
       id: 'ssd1306',
       name: 'SSD-1306 and SH-1106 (OLED Screen)',
       files: [
-        ['ssd1306.py', 'extensions/ssd1306.py?v=24e9577f'],
+        ['ssd1306.py', 'extensions/ssd1306.py?v=783dd801'],
       ],
       description:
         '<p>' +
@@ -121,7 +121,7 @@ var extensions = new function() {
       id: 'i2c_lcd',
       name: 'I2C LCD (HD44780 + PCF8574)',
       files: [
-        ['i2c_lcd.py', 'extensions/i2c_lcd.py?v=4484d19e'],
+        ['i2c_lcd.py', 'extensions/i2c_lcd.py?v=41df1d70'],
       ],
       description:
         '<p>' +
@@ -211,7 +211,7 @@ var extensions = new function() {
       id: 'mfrc522',
       name: 'MFRC522 (RFID Reader)',
       files: [
-        ['mfrc522.py', 'extensions/mfrc522.py?v=b599c157'],
+        ['mfrc522.py', 'extensions/mfrc522.py?v=b2856cc4'],
       ],
       description:
         '<p>' +
