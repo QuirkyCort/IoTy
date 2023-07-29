@@ -374,7 +374,11 @@ var mqtt = new function() {
       title: 'Change device name',
       message: '<div>New name: <input id="newName" type="text" maxlength="8" value="' + self.name + '"></div>'
     }, function() {
-      let newName = $changeNameWindow.$body.find('#newName').val();
+      let newName = $changeNameWindow.$body.find('#newName').val().trim();
+      if (newName.length < 1) {
+        toastMsg('Name cannot be empty');
+        return;
+      }
       self.changeName(newName);
     })
   };
