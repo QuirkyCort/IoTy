@@ -565,6 +565,9 @@ let MSGS = {
   '#main-connectInet#': {
     en: 'Connect (Internet)...',
   },
+  '#main-connectSerial#': {
+    en: 'Connect (Serial)...',
+  },
   '#main-download#': {
     en: 'Download to device',
   },
@@ -576,6 +579,9 @@ let MSGS = {
   },
   '#main-updateFirmware#': {
     en: 'Update Firmware',
+  },
+  '#main-checkVersion#': {
+    en: 'Check Version',
   },
   '#main-getInfo#': {
     en: 'Get Device Info',
