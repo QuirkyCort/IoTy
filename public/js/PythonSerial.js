@@ -198,11 +198,58 @@ class PythonSerial {
   }
 
   async copyFileToDevice(filename, content) {
-    let cmd = 'f = open("' + filename + '", "wb")\n';
-    cmd += 'f.write(b\'' + toPythonBytesLiteral(content) + '\')\n';
-    cmd += 'f.close()\n';
+    let cmd =
+      'f = open("' + filename + '", "wb")\n' +
+      'f.write(b\'' + toPythonBytesLiteral(content) + '\')\n' +
+      'f.close()\n';
 
     return (await this.sendPythonCmdAndRun(cmd))[0];
   }
+
+  async copyFileFromDevice(filename) {
+    let cmd =
+      'import ubinascii\n' +
+      'f = open("' + filename + '", "rb")\n' +
+      'print(ubinascii.b2a_base64(f.read()).decode(), end="")\n';
+
+    return (await this.sendPythonCmdAndRun(cmd));
+  }
+
+  async deleteFile(filename) {
+    let cmd =
+      'import os\n' +
+      'try:\n' +
+      '  os.remove("' + filename + '")\n' +
+      '  print("success", end="")\n' +
+      'except:\n' +
+      '  print("fail", end="")\n'
+
+    let result = await this.sendPythonCmdAndRun(cmd);
+    if (result[0] == 'timeout') {
+      return 'timeout';
+    } else if (result[1] == 'success') {
+      return 'success';
+    }
+    return 'fail';
+  }
+
+  async mkdir(dirname) {
+    let cmd =
+      'import os\n' +
+      'try:\n' +
+      '  os.mkdir("' + dirname + '")\n' +
+      '  print("success", end="")\n' +
+      'except:\n' +
+      '  print("fail", end="")\n'
+
+    let result = await this.sendPythonCmdAndRun(cmd);
+    if (result[0] == 'timeout') {
+      return 'timeout';
+    } else if (result[1] == 'success') {
+      return 'success';
+    }
+    return 'fail';
+  }
+
 
 }

@@ -5,6 +5,26 @@ var constants = {
   NETWORK_CONFIGURATION_FILE: '_ioty_network',
   NAME_FILE: '_ioty_name',
 
+  PRESERVE_FILES: [
+    '_ioty_name',
+    '_ioty_network',
+    'boot.py',
+    'ioty',
+    'ioty/ble.mpy',
+    'ioty/constants.mpy',
+    'ioty/http.mpy',
+    'ioty/monitor.mpy',
+    'ioty/monitor_mqtt.mpy',
+    'ioty/mqtt.mpy',
+    'ioty/neopixel.mpy',
+    'ioty/pin.mpy',
+    'ioty/html',
+    'ioty/html/index.html',
+    'umqtt',
+    'umqtt/robust.mpy',
+    'umqtt/simple.mpy'
+  ],
+
   _MODE_OPEN: 1,
   _MODE_APPEND: 2,
   _MODE_CLOSE: 3,

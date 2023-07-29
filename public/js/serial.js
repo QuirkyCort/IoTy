@@ -331,8 +331,8 @@ var serial = new function() {
     let $changeNameWindow = main.hiddenButtonDialog('Change Device Name', 'Changing Name...');
 
     if (await self.pythonSerial.enterRawMode() != 'success') {
-      $deleteWindow.$body.text('Connection timed out. Press the reset button on your device and try again.');
-      $deleteWindow.$buttonsRow.removeClass('hide');
+      $changeNameWindow.$body.text('Connection timed out. Press the reset button on your device and try again.');
+      $changeNameWindow.$buttonsRow.removeClass('hide');
       return
     }
 
@@ -342,8 +342,8 @@ var serial = new function() {
     await self.pythonSerial.exitRawMode();
 
     if (result != 'success') {
-      $downloadWindow.$body.text('Error changing device name');
-      $downloadWindow.$buttonsRow.removeClass('hide');
+      $changeNameWindow.$body.text('Error changing device name');
+      $changeNameWindow.$buttonsRow.removeClass('hide');
       return;
     }
     $changeNameWindow.$body.text('Change completed. Restart your device to see the new name.');
@@ -359,8 +359,8 @@ var serial = new function() {
     let $configureDeviceNetworkWindow = main.hiddenButtonDialog('Configure Device Network', 'Downloading Settings...');
 
     if (await self.pythonSerial.enterRawMode() != 'success') {
-      $deleteWindow.$body.text('Connection timed out. Press the reset button on your device and try again.');
-      $deleteWindow.$buttonsRow.removeClass('hide');
+      $configureDeviceNetworkWindow.$body.text('Connection timed out. Press the reset button on your device and try again.');
+      $configureDeviceNetworkWindow.$buttonsRow.removeClass('hide');
       return
     }
 
@@ -379,68 +379,96 @@ var serial = new function() {
   };
 
   this.getFilesListing = async function() {
-    // let nonce = await self.sendCmd(constants._MODE_LIST);
-    // let status = constants._STATUS_ERROR;
-    // let content = null;
-    // if (nonce) {
-    //   let response = await self.waitForResponse(nonce);
-    //   if (response != null) {
-    //     status = response.status;
-    //   }
-    //   if (status == constants._STATUS_SUCCESS) {
-    //     content = response.content.listing;
-    //   }
-    // }
+    if (await self.pythonSerial.enterRawMode() != 'success') {
+      return {
+        status: constants._STATUS_FAILED,
+        content: null
+      }
+    }
 
-    // return {
-    //   status: status,
-    //   content: content
-    // }
+    let result = await self.pythonSerial.sendPythonCmdAndRun(
+      'import os\n' +
+      'def list_files(dir):\n' +
+      '  for i in os.ilistdir(dir):\n' +
+      '    if i[1] == 0x8000:\n' +
+      '      print(dir + i[0])\n' +
+      '    elif i[1] == 0x4000:\n' +
+      '      print(dir + i[0] + "/")\n' +
+      '      list_files(dir + i[0] + "/")\n' +
+      'list_files("")\n'
+    );
+    await self.pythonSerial.exitRawMode();
+
+    if (result[0] != 'success') {
+      return {
+        status: constants._STATUS_FAILED,
+        content: null
+      }
+    }
+    return {
+      status: constants._STATUS_SUCCESS,
+      content: result[1].split('\r\n').slice(0, -1)
+    }
   };
 
   this.downloadOneFileFromDevice = async function(filename) {
-    // let nonce = await self.sendCmd(constants._MODE_READ, {filename: filename});
-    // if (nonce) {
-    //   let response = await self.waitForResponse(nonce);
-    //   if (response.status == constants._STATUS_SUCCESS) {
-    //     return base64DecToArr(response.content.data);
-    //   }
-    // }
+    if (await self.pythonSerial.enterRawMode() != 'success') {
+      return null;
+    }
 
-    // return null;
+    let result = await self.pythonSerial.copyFileFromDevice(filename);
+    await self.pythonSerial.exitRawMode();
+
+    if (result[0] != 'success') {
+      return null;
+    }
+    return base64DecToArr(result[1]);
   };
 
   this.writeFile = async function(name, value, progressCB) {
-    // let files = {}
-    // files[name] = {
-    //   encoding: 'base64',
-    //   data: base64EncArr(new Uint8Array(value))
-    // };
+    if (await self.pythonSerial.enterRawMode() != 'success') {
+      return constants._STATUS_FAILED;
+    }
 
-    // let nonce = await self.sendCmd(constants._MODE_WRITE_FILES, files);
-    // if (typeof progressCB == 'function') {
-    //   progressCB();
-    // }
-    // let response = await self.waitForResponse(nonce);
-    // return response.status;
+    let result = await self.pythonSerial.copyFileToDevice(name, new Uint8Array(value));
+    await self.pythonSerial.exitRawMode();
+
+    if (result != 'success') {
+      return constants._STATUS_FAILED;
+    }
+    return constants._STATUS_SUCCESS;
   };
 
   this.deleteOneFileFromDevice = async function(filename) {
-    // let content = {
-    //   filename: filename
-    // };
-    // let nonce = await self.sendCmd(constants._MODE_DELETE, content);
-    // let response = await self.waitForResponse(nonce);
-    // return response.status;
+    if (constants.PRESERVE_FILES.includes(filename)) {
+      return constants._STATUS_FAILED;
+    }
+
+    if (await self.pythonSerial.enterRawMode() != 'success') {
+      return constants._STATUS_FAILED;
+    }
+
+    let result = await self.pythonSerial.deleteFile(filename);
+    await self.pythonSerial.exitRawMode();
+
+    if (result != 'success') {
+      return constants._STATUS_FAILED;
+    }
+    return constants._STATUS_SUCCESS;
   };
 
   this.mkdirOnDevice = async function(dirname) {
-    // let content = {
-    //   dirname: dirname
-    // };
-    // let nonce = await self.sendCmd(constants._MODE_MKDIR, content);
-    // let response = await self.waitForResponse(nonce);
-    // return response.status;
+    if (await self.pythonSerial.enterRawMode() != 'success') {
+      return constants._STATUS_FAILED;
+    }
+
+    let result = await self.pythonSerial.mkdir(dirname);
+    await self.pythonSerial.exitRawMode();
+
+    if (result != 'success') {
+      return constants._STATUS_FAILED;
+    }
+    return constants._STATUS_SUCCESS;
   };
 }
 

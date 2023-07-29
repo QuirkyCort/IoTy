@@ -342,7 +342,7 @@ var main = new function() {
       {html: i18n.get('#main-checkVersion#'), line: false, callback: serial.checkVersion},
       {html: i18n.get('#main-updateFirmware#'), line: false, callback: serial.updateFirmwareDialog},
       {html: i18n.get('#main-getInfo#'), line: false, callback: serial.getInfo},
-      // {html: i18n.get('#main-listFiles#'), line: false, callback: self.listFiles},
+      {html: i18n.get('#main-listFiles#'), line: false, callback: self.listFiles},
       {html: i18n.get('#main-configureDeviceNetwork#'), line: false, callback: main.configureDeviceNetwork},
       {html: i18n.get('#main-disconnect#'), line: false, callback: serial.disconnect},
     ];
