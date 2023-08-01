@@ -21,6 +21,8 @@ var serial = new function() {
     },
   ];
 
+  this.writeEnable = false;
+
   // Run on page load
   this.init = function() {
     self.port = null;
@@ -84,9 +86,38 @@ var serial = new function() {
       self.isConnected = true;
       self.pythonSerial = new PythonSerial(self.port, 115200);
       await self.pythonSerial.init();
+      self.setupReadLoop();
+      self.writeEnable = true;
     } catch (error) {
       toastMsg(error);
     }
+  };
+
+  this.setupReadLoop = function() {
+    self.pythonSerial.readLoop(function(text){
+      monitorPanel.appendText(text);
+    });
+  };
+
+  this.sendSerial = async function(text) {
+    if (! self.isConnected) {
+      toastMsg('Not connected. Please connect to device.');
+      return;
+    }
+
+    if (self.writeEnable) {
+      const value = new TextEncoder('utf-8').encode(text + '\r\n');
+      try {
+        self.pythonSerial.writeString(text + '\r\n');
+      } catch (error) {
+        console.log(error);
+        toastMsg('Error sending');
+      }
+    }
+  };
+
+  this.sendAbort = function() {
+    this.pythonSerial.sendCtrlC();
   };
 
   this.disconnect = async function() {
@@ -106,6 +137,8 @@ var serial = new function() {
       return;
     }
 
+    await self.pythonSerial.cyclePort();
+    self.writeEnable = false;
     if (await self.pythonSerial.enterRawMode() != 'success') {
       return null;
     }
@@ -115,6 +148,8 @@ var serial = new function() {
       'with open("_ioty_name") as f: print(f.readline())\n'
     );
     await self.pythonSerial.exitRawMode();
+    self.setupReadLoop();
+    self.writeEnable = true;
 
     if (result[0] != 'success') {
       return null;
@@ -157,6 +192,8 @@ var serial = new function() {
       return;
     }
 
+    await self.pythonSerial.cyclePort();
+    self.writeEnable = false;
     if (await self.pythonSerial.enterRawMode() != 'success') {
       toastMsg('Connection timed out. Press the reset button on your device and try again.');
       return;
@@ -171,6 +208,8 @@ var serial = new function() {
       'print(fs_stats[3])\n'
     );
     await self.pythonSerial.exitRawMode();
+    self.setupReadLoop();
+    self.writeEnable = true;
 
     if (result[0] != 'success') {
       toastMsg('Connection timed out. Press the reset button on your device and try again.');
@@ -229,6 +268,8 @@ var serial = new function() {
 
     // Enter raw mode
     $downloadWindow.$body.text('Entering raw mode');
+    await self.pythonSerial.cyclePort();
+    self.writeEnable = false;
     if (await self.pythonSerial.enterRawMode() != 'success') {
       $downloadWindow.$body.text('Connection timed out. Press the reset button on your device and try again.');
       $downloadWindow.$buttonsRow.removeClass('hide');
@@ -260,6 +301,8 @@ var serial = new function() {
     }
 
     await self.pythonSerial.exitRawMode();
+    self.setupReadLoop();
+    self.writeEnable = true;
 
     $downloadWindow.$body.text('Download Completed. Please restart your device.');
     $downloadWindow.$buttonsRow.removeClass('hide');
@@ -278,6 +321,8 @@ var serial = new function() {
     }, async function(){
       let $deleteWindow = main.hiddenButtonDialog('Erase Device', 'Deleting all programs from device...');
 
+      await self.pythonSerial.cyclePort();
+      self.writeEnable = false;
       if (await self.pythonSerial.enterRawMode() != 'success') {
         $deleteWindow.$body.text('Connection timed out. Press the reset button on your device and try again.');
         $deleteWindow.$buttonsRow.removeClass('hide');
@@ -286,6 +331,8 @@ var serial = new function() {
 
       let response = await self.erase();
       await self.pythonSerial.exitRawMode();
+      self.setupReadLoop();
+      self.writeEnable = true;
 
       if (response[0] != 'success') {
         $deleteWindow.$body.text('Error erasing files.');
@@ -330,6 +377,8 @@ var serial = new function() {
   this.changeName = async function(newName) {
     let $changeNameWindow = main.hiddenButtonDialog('Change Device Name', 'Changing Name...');
 
+    await self.pythonSerial.cyclePort();
+    self.writeEnable = false;
     if (await self.pythonSerial.enterRawMode() != 'success') {
       $changeNameWindow.$body.text('Connection timed out. Press the reset button on your device and try again.');
       $changeNameWindow.$buttonsRow.removeClass('hide');
@@ -340,6 +389,8 @@ var serial = new function() {
     let fileBuf = e.encode(newName);
     let result = await self.pythonSerial.copyFileToDevice(constants.NAME_FILE, fileBuf);
     await self.pythonSerial.exitRawMode();
+    self.setupReadLoop();
+    self.writeEnable = true;
 
     if (result != 'success') {
       $changeNameWindow.$body.text('Error changing device name');
@@ -358,6 +409,8 @@ var serial = new function() {
 
     let $configureDeviceNetworkWindow = main.hiddenButtonDialog('Configure Device Network', 'Downloading Settings...');
 
+    await self.pythonSerial.cyclePort();
+    self.writeEnable = false;
     if (await self.pythonSerial.enterRawMode() != 'success') {
       $configureDeviceNetworkWindow.$body.text('Connection timed out. Press the reset button on your device and try again.');
       $configureDeviceNetworkWindow.$buttonsRow.removeClass('hide');
@@ -368,6 +421,8 @@ var serial = new function() {
     let fileBuf = e.encode(content);
     let result = await self.pythonSerial.copyFileToDevice(constants.NETWORK_CONFIGURATION_FILE, fileBuf);
     await self.pythonSerial.exitRawMode();
+    self.setupReadLoop();
+    self.writeEnable = true;
 
     if (result != 'success') {
       $configureDeviceNetworkWindow.$body.text('Error configuring network');
@@ -379,6 +434,8 @@ var serial = new function() {
   };
 
   this.getFilesListing = async function() {
+    await self.pythonSerial.cyclePort();
+    self.writeEnable = false;
     if (await self.pythonSerial.enterRawMode() != 'success') {
       return {
         status: constants._STATUS_FAILED,
@@ -398,6 +455,8 @@ var serial = new function() {
       'list_files("")\n'
     );
     await self.pythonSerial.exitRawMode();
+    self.setupReadLoop();
+    self.writeEnable = true;
 
     if (result[0] != 'success') {
       return {
@@ -412,12 +471,16 @@ var serial = new function() {
   };
 
   this.downloadOneFileFromDevice = async function(filename) {
+    await self.pythonSerial.cyclePort();
+    self.writeEnable = false;
     if (await self.pythonSerial.enterRawMode() != 'success') {
       return null;
     }
 
     let result = await self.pythonSerial.copyFileFromDevice(filename);
     await self.pythonSerial.exitRawMode();
+    self.setupReadLoop();
+    self.writeEnable = true;
 
     if (result[0] != 'success') {
       return null;
@@ -426,12 +489,16 @@ var serial = new function() {
   };
 
   this.writeFile = async function(name, value, progressCB) {
+    await self.pythonSerial.cyclePort();
+    self.writeEnable = false;
     if (await self.pythonSerial.enterRawMode() != 'success') {
       return constants._STATUS_FAILED;
     }
 
     let result = await self.pythonSerial.copyFileToDevice(name, new Uint8Array(value));
     await self.pythonSerial.exitRawMode();
+    self.setupReadLoop();
+    self.writeEnable = true;
 
     if (result != 'success') {
       return constants._STATUS_FAILED;
@@ -444,12 +511,16 @@ var serial = new function() {
       return constants._STATUS_FAILED;
     }
 
+    await self.pythonSerial.cyclePort();
+    self.writeEnable = false;
     if (await self.pythonSerial.enterRawMode() != 'success') {
       return constants._STATUS_FAILED;
     }
 
     let result = await self.pythonSerial.deleteFile(filename);
     await self.pythonSerial.exitRawMode();
+    self.setupReadLoop();
+    self.writeEnable = true;
 
     if (result != 'success') {
       return constants._STATUS_FAILED;
@@ -458,12 +529,16 @@ var serial = new function() {
   };
 
   this.mkdirOnDevice = async function(dirname) {
+    await self.pythonSerial.cyclePort();
+    self.writeEnable = false;
     if (await self.pythonSerial.enterRawMode() != 'success') {
       return constants._STATUS_FAILED;
     }
 
     let result = await self.pythonSerial.mkdir(dirname);
     await self.pythonSerial.exitRawMode();
+    self.setupReadLoop();
+    self.writeEnable = true;
 
     if (result != 'success') {
       return constants._STATUS_FAILED;

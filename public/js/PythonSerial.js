@@ -77,14 +77,34 @@ class PythonSerial {
   async closePort() {
     await this.reader.cancel();
     await this.writer.close();
-    await this.port.forget();
+    await this.port.close();
+  }
+
+  async cyclePort() {
+    await this.closePort();
+    await awaitTimeout(100);
+    await this.openPort();
   }
 
   clearBuf() {
     this.readBuf = new Uint8Array();
   }
 
-  async readSerial() {
+  async readLoop(handler) {
+    let utf8decoder = new TextDecoder();
+
+    while (true) {
+      const { value, done } = await this.reader.read();
+      if (done) {
+        break;
+      }
+      let text = utf8decoder.decode(value);
+      handler(text);
+    }
+    console.log('readLoop terminated');
+  }
+
+  async readSerialToBuf() {
     const { value, done } = await this.reader.read();
     if (value) {
       this.readBuf = concatArray(this.readBuf, value);
@@ -93,6 +113,12 @@ class PythonSerial {
       console.log('read done');
     }
     return value;
+  }
+
+  async writeString(string) {
+    let e = new TextEncoder();
+    let cmd = e.encode(string);
+    this.writer.write(cmd);
   }
 
   async waitForString(s, timeout=2000) {
@@ -109,7 +135,7 @@ class PythonSerial {
 
   async waitForBytes(b, timeout=2000) {
     while (true) {
-      let result = await Promise.race([this.readSerial(), awaitTimeout(timeout)]);
+      let result = await Promise.race([this.readSerialToBuf(), awaitTimeout(timeout)]);
       if (result == undefined) {
         return null;
       }

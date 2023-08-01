@@ -365,7 +365,7 @@ ul.menuDropDownRightAlign {
   .monitor .monitorRow {
     margin: 0.2em;
     display: flex; }
-  .monitor #monitorInput, .monitor #monitorSend, .monitor #monitorClear {
+  .monitor #monitorInput, .monitor #monitorSend, .monitor #monitorClear, .monitor #monitorAbort {
     font-size: 100%;
     font-family: inherit; }
   .monitor #monitorInput {
