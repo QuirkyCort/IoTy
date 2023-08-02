@@ -1471,6 +1471,12 @@ let MSGS = {
   '#blk-mfrc522_get_uid_tooltip#': {
     en: 'Returns the card UID as a hex string. Use the \\"card is present\\" block first to ensure a card is present before running this block.',
   },
+  '#blk-setBluetoothCmds#': {
+    en: 'receving of commands via bluetooth is',
+  },
+  '#blk-setBluetoothCmds_tooltip#': {
+    en: 'Normally, the IoTy device will continue to receive commands (eg. Download programs) over bluetooth when running a program. If disabled, you must switch to programming mode to program your device.',
+  },
 };
 let MSGS_KEYS = Object.keys(MSGS);
 

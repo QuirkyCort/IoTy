@@ -190,7 +190,11 @@ var ble = new function() {
   this.getVersion = async function() {
     await self.setCmdMode(constants._MODE_GET_VERSION);
     let value = await self.readCmdCharacteristic();
-    return value.getUint16(0);
+    try {
+      return value.getUint16(0);
+    } catch (error) {
+      return null;
+    }
   };
 
   this.getInfo = async function() {
@@ -219,6 +223,8 @@ var ble = new function() {
       $info.find('#freeMem').text(result['mem']['free']);
       $info.find('#freeSpace').text(result['fs']['block size'] * result['fs']['free blocks']);
       acknowledgeDialog({message: $info});
+    } else {
+      toastMsg('Error retrieving info.');
     }
   };
 
@@ -319,7 +325,11 @@ var ble = new function() {
   };
 
   this.checkVersion = async function() {
-    self.version = await self.getVersion();
+    let version = await self.getVersion();
+    if (version == null) {
+      return;
+    }
+    self.version = version;
     if (self.version < constants.CURRENT_VERSION) {
       if (self.version < constants.MINIMUM_VERSION_TO_UPGRADE) {
         main.unableToUpdateFirmwareDialog();
@@ -550,7 +560,7 @@ var ble = new function() {
       return;
     }
 
-    let $changeWindow = confirmDialog({
+    let $changeNameWindow = confirmDialog({
       title: 'Change device name',
       message: '<div>New name: <input id="newName" type="text" maxlength="8" value="' + self.device.name + '"></div>'
     }, function() {

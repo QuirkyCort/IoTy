@@ -29,6 +29,7 @@ var ioty_generator = new function() {
     Blockly.Python['hc_sr04_ping'] = self.hc_sr04_ping;
     Blockly.Python['connect_to_wifi'] = self.connect_to_wifi;
     Blockly.Python['connect_to_configured_wifi'] = self.connect_to_configured_wifi;
+    Blockly.Python['setBluetoothCmds'] = self.setBluetoothCmds;
 
     Blockly.Python['type_cast'] = self.type_cast;
     Blockly.Python['decode'] = self.decode;
@@ -703,6 +704,24 @@ var ioty_generator = new function() {
       '    raise Exception("No WiFi configured")\n\n';
 
       return code;
+  };
+
+  this.setBluetoothCmds = function(block) {
+    let value = block.getFieldValue('value');
+
+    if (self.startType != 'RUN' && self.startType != 'WAIT') {
+      return '';
+    }
+
+    if (value == 'DISABLED') {
+      value = 'False';
+    } else {
+      value = 'True';
+    }
+
+    let code = 'ioty.monitor.ble_service.allowProgramming = ' + value + '\n';
+
+    return code;
   };
 
   this.mqtt_connect_to_server = function(block) {

@@ -4,6 +4,7 @@ import os
 import json
 import hashlib
 from time import sleep_ms
+import ioty.services
 
 from micropython import const
 import ioty.constants as constants
@@ -74,6 +75,7 @@ class BLE_Service:
         with open('_ioty_name', 'r') as f:
             name = f.readline()
         self._ble = bluetooth.BLE()
+        self.allowCmds = True
         self._file_name = ''
         self._file_data = bytearray()
         self._file_hash = bytearray()
@@ -110,6 +112,9 @@ class BLE_Service:
                     self.on_serial_write(value)
 
     def on_cmd_write(self, value):
+        if not self.allowCmds:
+            return
+
         cmd = int.from_bytes(value, 'big')
         self._mode = cmd
         if cmd == constants._MODE_OPEN:
@@ -141,26 +146,11 @@ class BLE_Service:
     def _update(self):
         self.set_status(constants._STATUS_PENDING)
 
-        commands = []
         try:
-            with open('_ioty_updates', 'r') as f:
-                for line in f.readlines():
-                    commands.append(line.split())
-
-            for command in commands:
-                if command[0] == 'mkdir':
-                    try:
-                        os.mkdir(command[1])
-                    except:
-                        pass
-                elif command[0] == 'mv':
-                    os.rename(command[1], command[2])
-
-            os.remove('_ioty_updates')
-
+            ioty.services.update()
             self.set_status(constants._STATUS_SUCCESS)
         except:
-            pass
+            self.set_status(constants._STATUS_ERROR)
 
     def _open_file(self):
         self._file_name = ''
@@ -187,48 +177,16 @@ class BLE_Service:
         return local_hash == self._file_hash
 
     def _erase_files(self):
-        for f in os.listdir():
-            if not(f in constants._PRESERVE_FILES):
-                os.remove(f)
+        ioty.services.delete_all_files()
 
     def _get_info(self):
         self.set_status(constants._STATUS_PENDING)
-
-        import gc
-        import network
-        import binascii
-
-        fs_stats = os.statvfs('/')
-        info = {
-            'network': {
-                'mac': binascii.hexlify(network.WLAN().config('mac'))
-            },
-            'mem': {
-                'allocated': gc.mem_alloc(),
-                'free': gc.mem_free()
-            },
-            'fs': {
-                'block size': fs_stats[0],
-                'free blocks': fs_stats[3]
-            }
-        }
-        self.data_send(bytes(json.dumps(info), 'utf-8'))
+        self.data_send(bytes(json.dumps(ioty.services.get_info()), 'utf-8'))
         self.set_status(constants._STATUS_SUCCESS)
 
     def _list_files(self):
         self.set_status(constants._STATUS_PENDING)
-
-        def list_files(dir):
-            listing = []
-            for i in os.ilistdir(dir):
-                if i[1] == 0x8000:
-                    listing.append(dir + i[0])
-                elif i[1] == 0x4000:
-                    listing.append(dir + i[0] + '/')
-                    listing.extend(list_files(dir + i[0] + '/'))
-            return listing
-
-        self.data_send(bytes(json.dumps(list_files('')), 'utf-8'))
+        self.data_send(bytes(json.dumps(ioty.services.list_files('')), 'utf-8'))
         self.set_status(constants._STATUS_SUCCESS)
 
     def _read_file(self):
@@ -241,6 +199,9 @@ class BLE_Service:
         self.set_status(constants._STATUS_PENDING)
 
     def on_data_write(self, value):
+        if not self.allowCmds:
+            return
+
         if self._mode == constants._MODE_OPEN:
             text = value.decode('utf-8')
             self._file_name += text
@@ -259,14 +220,13 @@ class BLE_Service:
             self.set_status(constants._STATUS_SUCCESS)
         elif self._mode == constants._MODE_DELETE:
             filename = value.decode('utf-8')
-            if not(filename in constants._PRESERVE_FILES) or filename in constants._ALLOW_DELETE:
-                try:
-                    os.remove(filename)
+            try:
+                if ioty.services.delete_file(filename):
                     self.set_status(constants._STATUS_SUCCESS)
-                except:
-                    self.set_status(constants._STATUS_ERROR)
-            else:
-                self.set_status(constants._STATUS_FAILED)
+                else:
+                    self.set_status(constants._STATUS_FAILED)
+            except:
+                self.set_status(constants._STATUS_ERROR)
         elif self._mode == constants._MODE_MKDIR:
             dirname = value.decode('utf-8')
             try:
