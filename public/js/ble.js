@@ -550,7 +550,7 @@ var ble = new function() {
       return;
     }
 
-    let $changeWindow = confirmDialog({
+    let $changeNameWindow = confirmDialog({
       title: 'Change device name',
       message: '<div>New name: <input id="newName" type="text" maxlength="8" value="' + self.device.name + '"></div>'
     }, function() {
