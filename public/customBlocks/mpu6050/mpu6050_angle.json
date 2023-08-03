@@ -13,7 +13,7 @@
       ]
     }
   ],
-  "output": "Number",
+  "output": ["Number", "Array"],
   "colour": 230,
   "tooltip": "#blk-mpu6050_get_angle_tooltip#",
   "helpUrl": ""

@@ -207,6 +207,11 @@ var ioty_generator = new function() {
     Blockly.Python['mfrc522_card_present'] = self.mfrc522_card_present;
     Blockly.Python['mfrc522_get_uid'] = self.mfrc522_get_uid;
     Blockly.Python.addReservedWords('mfrc522, mfrc522_device');
+
+    Blockly.Python['qmc5883l_init'] = self.qmc5883l_init;
+    Blockly.Python['qmc5883l_read'] = self.qmc5883l_read;
+    Blockly.Python['qmc5883l_value'] = self.qmc5883l_value;
+    Blockly.Python.addReservedWords('qmc5883l, qmc5883l_device');
   };
 
   // Generate python code
@@ -2073,6 +2078,32 @@ var ioty_generator = new function() {
 
   this.mfrc522_get_uid = function(block) {
     var code = 'mfrc522_device.get_uid()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.qmc5883l_init = function(block) {
+    self.imports['qmc5883l'] = 'import qmc5883l';
+
+    let addr = block.getFieldValue('addr');
+    let scale = block.getFieldValue('scale');
+
+    let code =
+      'qmc5883l_device = qmc5883l.QMC5883L(i2c, addr=' + addr + ', scale=qmc5883l.SCALE_' + scale + ')\n';
+
+    return code;
+  };
+
+  this.qmc5883l_read = function(block) {
+    let code = 'qmc5883l_device.read()\n';
+
+    return code;
+  };
+
+  this.qmc5883l_value = function(block) {
+    let axis = block.getFieldValue('axis');
+
+    let code = 'qmc5883l_device.get_' + axis + '()';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };

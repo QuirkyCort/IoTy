@@ -1471,6 +1471,27 @@ let MSGS = {
   '#blk-mfrc522_get_uid_tooltip#': {
     en: 'Returns the card UID as a hex string. Use the \\"card is present\\" block first to ensure a card is present before running this block.',
   },
+  '#blk-qmc5883l_init#': {
+    en: 'init QMC5883L with address',
+  },
+  '#blk-and_scale#': {
+    en: 'and scale',
+  },
+  '#blk-qmc5883l_init_tooltip#': {
+    en: 'You must have an \\"init I2C\\" block before this',
+  },
+  '#blk-qmc5883l_read#': {
+    en: 'qmc5883l: read the sensor',
+  },
+  '#blk-qmc5883l_read_tooltip#': {
+    en: 'You must perform a read before using the sensor value.',
+  },
+  '#blk-qmc5883l_value#': {
+    en: 'qmc5883l: magnetic value in ',
+  },
+  '#blk-qmc5883l_value_tooltip#': {
+    en: 'You must perform a read each time before using this block.',
+  },
 };
 let MSGS_KEYS = Object.keys(MSGS);
 

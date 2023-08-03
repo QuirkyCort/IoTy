@@ -218,6 +218,21 @@ var extensions = new function() {
           'This module allows you read the ID from an RFID card using an MFRC522 based RFID reader. ' +
         '</p>'
     },
+    {
+      id: 'qmc5883l',
+      name: 'QMC5883L (Magnetic Sensor)',
+      files: [
+        ['qmc5883l.py', 'extensions/qmc5883l.py?v=44a8a561'],
+      ],
+      description:
+        '<p>' +
+          'The QMC5883L is often used as a magnetic compass for navigation purposes. ' +
+        '</p>' +
+        '<p>' +
+          'It is often found in the form of a GY-271 module, but note that the GY-271 may also be equipped with a HMC5883L instead. ' +
+          'You can check by doing an I2C scan; the QMC5883L will have an address of 0x0D (13), while the HMC5883L uses address 0x1E (30).' +
+        '</p>'
+    },
   ]
 
   this.init = function() {
