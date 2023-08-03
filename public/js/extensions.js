@@ -222,7 +222,7 @@ var extensions = new function() {
       id: 'qmc5883l',
       name: 'QMC5883L (Magnetic Sensor)',
       files: [
-        ['qmc5883l.py', 'extensions/qmc5883l.py?v=44a8a561'],
+        ['qmc5883l.py', 'extensions/qmc5883l.py?v=5c554f09'],
       ],
       description:
         '<p>' +

@@ -23,9 +23,6 @@ class QMC5883L:
     def read(self):
         data = self.i2c.readfrom_mem(self.addr, 0x00, 6)
         self.x, self.y, self.z = struct.unpack('<hhh', data)
-        # self.x = data[0] | (data[1] << 8)
-        # self.y = data[2] | (data[3] << 8)
-        # self.z = data[4] | (data[5] << 8)
 
         return (self.x, self.y, self.z)
 
