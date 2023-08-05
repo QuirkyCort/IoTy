@@ -681,6 +681,9 @@ var ioty_generator = new function() {
     var ssid = block.getFieldValue('ssid');
     var password = block.getFieldValue('password');
 
+    ssid = escapeSingeQuotes(ssid);
+    password = escapeSingeQuotes(password);
+
     var code =
       '\n# Connect to WiFi\n' +
       'ioty_wifi = network.WLAN(network.STA_IF)\n' +
@@ -719,6 +722,9 @@ var ioty_generator = new function() {
     var port = block.getFieldValue('port');
     var name = block.getFieldValue('name');
     var password = block.getFieldValue('password');
+
+    name = escapeSingeQuotes(name);
+    password = escapeSingeQuotes(password);
 
     var code =
       '\n# MQTT callback\n' +
@@ -777,6 +783,8 @@ var ioty_generator = new function() {
     var topic = block.getFieldValue('topic');
     var statements = Blockly.Python.statementToCode(block, 'statements');
 
+    topic = escapeSingeQuotes(topic);
+
     self.mqttSubscriptions[topic] = topic;
 
     let functionName = 'ioty_mqtt_cb_' + topic.replaceAll(/\W*/g, '');
@@ -802,6 +810,8 @@ var ioty_generator = new function() {
   this.mqtt_publish = function(block) {
     var topic = block.getFieldValue('topic');
     var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_NONE);
+
+    topic = escapeSingeQuotes(topic);
 
     var code = 'ioty_mqtt.publish(b\'' + topic + '\', bytes(' + value + ', \'utf-8\'))\n'
 
