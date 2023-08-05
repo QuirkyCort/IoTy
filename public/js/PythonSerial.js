@@ -75,9 +75,13 @@ class PythonSerial {
   }
 
   async closePort() {
-    await this.reader.cancel();
-    await this.writer.close();
-    await this.port.close();
+    try {
+      await this.reader.cancel();
+      await this.writer.close();
+      await this.port.close();
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async cyclePort() {

@@ -82,11 +82,12 @@ var serial = new function() {
         self.name = '';
       }
 
-      main.setConnectStatus(main.STATUS_CONNECTED);
-      self.isConnected = true;
       self.pythonSerial = new PythonSerial(self.port, 115200);
       await self.pythonSerial.init();
       self.setupReadLoop();
+
+      main.setConnectStatus(main.STATUS_CONNECTED);
+      self.isConnected = true;
       self.writeEnable = true;
     } catch (error) {
       toastMsg(error);
