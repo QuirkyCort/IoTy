@@ -2130,7 +2130,6 @@ var ioty_generator = new function() {
     self.imports['bmp280'] = 'import bmp280';
 
     let addr = block.getFieldValue('addr');
-    let scale = block.getFieldValue('scale');
 
     let code =
       'bmp280_device = bmp280.BMP280(i2c, addr=' + addr + ')\n';

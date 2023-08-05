@@ -237,7 +237,7 @@ var extensions = new function() {
       id: 'bmp280',
       name: 'BMP280 (Barometric Pressure Sensor)',
       files: [
-        ['bmp280.py', 'extensions/bmp280.py?v=00673aa1'],
+        ['bmp280.py', 'extensions/bmp280.py?v=1d5a86a4'],
       ],
       description:
         '<p>' +

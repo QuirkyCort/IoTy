@@ -26,11 +26,9 @@ class BMP280:
         time.sleep_ms(40)
 
     def read(self):
-        data = self.i2c.readfrom_mem(self.addr, 0xF7, 3)
+        data = self.i2c.readfrom_mem(self.addr, 0xF7, 6)
         self.raw_p = data[0] << 12 | data[1] << 4 | data[2] >> 4
-
-        data = self.i2c.readfrom_mem(self.addr, 0xFA, 3)
-        self.raw_t = data[0] << 12 | data[1] << 4 | data[2] >> 4
+        self.raw_t = data[3] << 12 | data[4] << 4 | data[5] >> 4
 
         self.calc_t()
         self.calc_p()
