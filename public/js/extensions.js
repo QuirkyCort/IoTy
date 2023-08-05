@@ -233,6 +233,18 @@ var extensions = new function() {
           'You can check by doing an I2C scan; the QMC5883L will have an address of 0x0D (13), while the HMC5883L uses address 0x1E (30).' +
         '</p>'
     },
+    {
+      id: 'bmp280',
+      name: 'BMP280 (Barometric Pressure Sensor)',
+      files: [
+        ['bmp280.py', 'extensions/bmp280.py?v=00673aa1'],
+      ],
+      description:
+        '<p>' +
+          'The QMC5883L is a barometric pressure sensor often used for calculating altitude from pressure. ' +
+          'This extension allows you to read temperature, pressure, and the calculated altitude. ' +
+        '</p>'
+    },
   ]
 
   this.init = function() {
@@ -290,10 +302,14 @@ var extensions = new function() {
     filesManager.select('main.py');
 
     for (extension of self.availableExtensions) {
+      let item = blockly.workspace.getToolbox().getToolboxItemById(extension.id);
+      if (item == null) {
+        continue;
+      }
       if (main.settings.extensions.includes(extension.id)) {
-        blockly.workspace.getToolbox().getToolboxItemById(extension.id).show()
+        item.show();
       } else {
-        blockly.workspace.getToolbox().getToolboxItemById(extension.id).hide()
+        item.hide();
       }
     }
   }

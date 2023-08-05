@@ -1490,7 +1490,37 @@ let MSGS = {
     en: 'qmc5883l: magnetic value in ',
   },
   '#blk-qmc5883l_value_tooltip#': {
-    en: 'You must perform a read each time before using this block.',
+    en: 'You must perform a read before using this block.',
+  },
+  '#blk-bmp280_init#': {
+    en: 'init BMP280 with address',
+  },
+  '#blk-bmp280_init_tooltip#': {
+    en: 'You must have an \\"init I2C\\" block before this',
+  },
+  '#blk-bmp280_read#': {
+    en: 'bmp280: read the sensor',
+  },
+  '#blk-bmp280_read_tooltip#': {
+    en: 'You must perform a read before using the sensor value.',
+  },
+  '#blk-bmp280_temperature#': {
+    en: 'bmp280: temperature',
+  },
+  '#blk-bmp280_temperature_tooltip#': {
+    en: 'You must perform a read before using this block. Value is in Celsius.',
+  },
+  '#blk-bmp280_pressure#': {
+    en: 'bmp280: pressure',
+  },
+  '#blk-bmp280_pressure_tooltip#': {
+    en: 'You must perform a read before using this block. Value is in pascal.',
+  },
+  '#blk-bmp280_altitude#': {
+    en: 'bmp280: altitude',
+  },
+  '#blk-bmp280_altitude_tooltip#': {
+    en: 'You must perform a read before using this block. Value is calculated from the pressure, and is in meters above sea level.',
   },
 };
 let MSGS_KEYS = Object.keys(MSGS);

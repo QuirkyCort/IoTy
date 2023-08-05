@@ -212,6 +212,14 @@ var ioty_generator = new function() {
     Blockly.Python['qmc5883l_read'] = self.qmc5883l_read;
     Blockly.Python['qmc5883l_value'] = self.qmc5883l_value;
     Blockly.Python.addReservedWords('qmc5883l, qmc5883l_device');
+
+    Blockly.Python['bmp280_init'] = self.bmp280_init;
+    Blockly.Python['bmp280_read'] = self.bmp280_read;
+    Blockly.Python['bmp280_temperature'] = self.bmp280_temperature;
+    Blockly.Python['bmp280_pressure'] = self.bmp280_pressure;
+    Blockly.Python['bmp280_altitude'] = self.bmp280_altitude;
+    Blockly.Python.addReservedWords('bmp280, bmp280_device');
+
   };
 
   // Generate python code
@@ -2114,6 +2122,42 @@ var ioty_generator = new function() {
     let axis = block.getFieldValue('axis');
 
     let code = 'qmc5883l_device.get_' + axis + '()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.bmp280_init = function(block) {
+    self.imports['bmp280'] = 'import bmp280';
+
+    let addr = block.getFieldValue('addr');
+    let scale = block.getFieldValue('scale');
+
+    let code =
+      'bmp280_device = bmp280.BMP280(i2c, addr=' + addr + ')\n';
+
+    return code;
+  };
+
+  this.bmp280_read = function(block) {
+    let code = 'bmp280_device.read()\n';
+
+    return code;
+  };
+
+  this.bmp280_temperature = function(block) {
+    let code = 'bmp280_device.get_temperature()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.bmp280_pressure = function(block) {
+    let code = 'bmp280_device.get_pressure()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.bmp280_altitude = function(block) {
+    let code = 'bmp280_device.get_altitude()';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };
