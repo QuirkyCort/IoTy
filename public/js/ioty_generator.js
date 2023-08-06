@@ -208,6 +208,19 @@ var ioty_generator = new function() {
     Blockly.Python['mfrc522_card_present'] = self.mfrc522_card_present;
     Blockly.Python['mfrc522_get_uid'] = self.mfrc522_get_uid;
     Blockly.Python.addReservedWords('mfrc522, mfrc522_device');
+
+    Blockly.Python['qmc5883l_init'] = self.qmc5883l_init;
+    Blockly.Python['qmc5883l_read'] = self.qmc5883l_read;
+    Blockly.Python['qmc5883l_value'] = self.qmc5883l_value;
+    Blockly.Python.addReservedWords('qmc5883l, qmc5883l_device');
+
+    Blockly.Python['bmp280_init'] = self.bmp280_init;
+    Blockly.Python['bmp280_read'] = self.bmp280_read;
+    Blockly.Python['bmp280_temperature'] = self.bmp280_temperature;
+    Blockly.Python['bmp280_pressure'] = self.bmp280_pressure;
+    Blockly.Python['bmp280_altitude'] = self.bmp280_altitude;
+    Blockly.Python.addReservedWords('bmp280, bmp280_device');
+
   };
 
   // Generate python code
@@ -677,6 +690,9 @@ var ioty_generator = new function() {
     var ssid = block.getFieldValue('ssid');
     var password = block.getFieldValue('password');
 
+    ssid = escapeSingeQuotes(ssid);
+    password = escapeSingeQuotes(password);
+
     var code =
       '\n# Connect to WiFi\n' +
       'ioty_wifi = network.WLAN(network.STA_IF)\n' +
@@ -733,6 +749,9 @@ var ioty_generator = new function() {
     var port = block.getFieldValue('port');
     var name = block.getFieldValue('name');
     var password = block.getFieldValue('password');
+
+    name = escapeSingeQuotes(name);
+    password = escapeSingeQuotes(password);
 
     var code =
       '\n# MQTT callback\n' +
@@ -791,6 +810,8 @@ var ioty_generator = new function() {
     var topic = block.getFieldValue('topic');
     var statements = Blockly.Python.statementToCode(block, 'statements');
 
+    topic = escapeSingeQuotes(topic);
+
     self.mqttSubscriptions[topic] = topic;
 
     let functionName = 'ioty_mqtt_cb_' + topic.replaceAll(/\W*/g, '');
@@ -816,6 +837,8 @@ var ioty_generator = new function() {
   this.mqtt_publish = function(block) {
     var topic = block.getFieldValue('topic');
     var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_NONE);
+
+    topic = escapeSingeQuotes(topic);
 
     var code = 'ioty_mqtt.publish(b\'' + topic + '\', bytes(' + value + ', \'utf-8\'))\n'
 
@@ -2092,6 +2115,67 @@ var ioty_generator = new function() {
 
   this.mfrc522_get_uid = function(block) {
     var code = 'mfrc522_device.get_uid()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.qmc5883l_init = function(block) {
+    self.imports['qmc5883l'] = 'import qmc5883l';
+
+    let addr = block.getFieldValue('addr');
+    let scale = block.getFieldValue('scale');
+
+    let code =
+      'qmc5883l_device = qmc5883l.QMC5883L(i2c, addr=' + addr + ', scale=qmc5883l.SCALE_' + scale + ')\n';
+
+    return code;
+  };
+
+  this.qmc5883l_read = function(block) {
+    let code = 'qmc5883l_device.read()\n';
+
+    return code;
+  };
+
+  this.qmc5883l_value = function(block) {
+    let axis = block.getFieldValue('axis');
+
+    let code = 'qmc5883l_device.get_' + axis + '()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.bmp280_init = function(block) {
+    self.imports['bmp280'] = 'import bmp280';
+
+    let addr = block.getFieldValue('addr');
+
+    let code =
+      'bmp280_device = bmp280.BMP280(i2c, addr=' + addr + ')\n';
+
+    return code;
+  };
+
+  this.bmp280_read = function(block) {
+    let code = 'bmp280_device.read()\n';
+
+    return code;
+  };
+
+  this.bmp280_temperature = function(block) {
+    let code = 'bmp280_device.get_temperature()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.bmp280_pressure = function(block) {
+    let code = 'bmp280_device.get_pressure()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.bmp280_altitude = function(block) {
+    let code = 'bmp280_device.get_altitude()';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };

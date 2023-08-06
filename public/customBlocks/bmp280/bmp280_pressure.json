@@ -1,0 +1,9 @@
+{
+  "type": "bmp280_pressure",
+  "message0": "#blk-bmp280_pressure#",
+  "args0": [],
+  "output": "Number",
+  "colour": 230,
+  "tooltip": "#blk-bmp280_pressure_tooltip#",
+  "helpUrl": ""
+}

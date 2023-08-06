@@ -1,3 +1,19 @@
+function escapeSingeQuotes(inString) {
+  let outString = '';
+
+  for (let c of inString) {
+    if (c == '\'') {
+      outString += '\\\'';
+    } else if (c == '\\') {
+      outString += '\\\\';
+    } else {
+      outString += c;
+    }
+  }
+
+  return outString;
+}
+
 function base64DecToArr(sBase64, nBlocksSize) {
   function b64ToUint6(nChr) {
     return nChr > 64 && nChr < 91

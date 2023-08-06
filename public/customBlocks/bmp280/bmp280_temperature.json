@@ -1,0 +1,9 @@
+{
+  "type": "bmp280_temperature",
+  "message0": "#blk-bmp280_temperature#",
+  "args0": [],
+  "output": "Number",
+  "colour": 230,
+  "tooltip": "#blk-bmp280_temperature_tooltip#",
+  "helpUrl": ""
+}

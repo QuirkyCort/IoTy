@@ -1140,4 +1140,16 @@
     <block type="mfrc522_card_present"></block>
     <block type="mfrc522_get_uid"></block>
   </category>
+  <category toolboxitemid="qmc5883l" name="QMC5883L" colour="#5b67a5" hidden="true">
+    <block type="qmc5883l_init"></block>
+    <block type="qmc5883l_read"></block>
+    <block type="qmc5883l_value"></block>
+  </category>
+  <category toolboxitemid="bmp280" name="BMP280" colour="#5b67a5" hidden="true">
+    <block type="bmp280_init"></block>
+    <block type="bmp280_read"></block>
+    <block type="bmp280_temperature"></block>
+    <block type="bmp280_pressure"></block>
+    <block type="bmp280_altitude"></block>
+  </category>
 </xml>

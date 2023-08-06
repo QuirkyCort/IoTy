@@ -19,6 +19,9 @@ var blockly = new function() {
     comments : true,
     disable : true,
     maxBlocks : Infinity,
+    maxInstances: {
+      'when_started': 1
+    },
     trashcan : false,
     horizontalLayout : false,
     toolboxPosition : 'start',
@@ -50,7 +53,7 @@ var blockly = new function() {
 
   // Load toolbox
   this.loadToolBox = function() {
-    return fetch('toolbox.xml?v=9c29f6b0')
+    return fetch('toolbox.xml?v=7f58a5e6')
       .then(response => response.text())
       .then(function(response) {
         response = i18n.replace(response);
@@ -69,21 +72,24 @@ var blockly = new function() {
       });
   };
 
+  // Prevent deletion of when_started block
+  this.preventWhenStartedDelete = function() {
+    let whenStarted = blockly.workspace.getBlocksByType('when_started');
+    if (whenStarted.length > 0) {
+      whenStarted[0].setDeletable(false);
+    }
+  };
+
   // Load default workspace
   this.loadDefaultWorkspace = function() {
-    // let jsonText = '{"blocks":{"languageVersion":0,"blocks":[{"type":"when_started","id":"Q!^ZqS4/(a/0XL$cIi-~","x":63,"y":38,"fields":{"start_type":"RUN"}}]}}';
-    // self.loadJsonText(jsonText);
-    let xmlText =
-      '<xml xmlns="https://developers.google.com/blockly/xml">' +
-        '<block type="when_started" id="Q!^ZqS4/(a/0XL$cIi-~" x="63" y="38" deletable="false"></block>' +
-      '</xml>';
-    self.loadXmlText(xmlText);
+    let jsonText = '{"blocks":{"languageVersion":0,"blocks":[{"type":"when_started","id":"Q!^ZqS4/(a/0XL$cIi-~","x":63,"y":38,"fields":{"start_type":"RUN"}}]}}';
+    self.loadJsonText(jsonText);
     self.unsaved = true;
   };
 
   // Load custom blocks
   this.loadCustomBlocks = function() {
-    return fetch('customBlocks.json?v=6d47568b')
+    return fetch('customBlocks.json?v=ea149fbb')
       .then(response => response.text())
       .then(function(response) {
         let json = JSON.parse(i18n.replace(response));
@@ -130,6 +136,7 @@ var blockly = new function() {
           self.loadJsonText(oldJsonText);
         }
       }
+      self.preventWhenStartedDelete();
     }
   };
 

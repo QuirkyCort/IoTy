@@ -1,0 +1,31 @@
+{
+  "type": "qmc5883l_init",
+  "message0": "#blk-qmc5883l_init# %1 #blk-and_scale# %2",
+  "args0": [
+    {
+      "type": "field_input",
+      "name": "addr",
+      "text": "13"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "scale",
+      "options": [
+        [
+          "2G",
+          "2G"
+        ],
+        [
+          "8G",
+          "8G"
+        ]
+      ]
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-qmc5883l_init_tooltip#",
+  "helpUrl": ""
+}
