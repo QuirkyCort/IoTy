@@ -5,6 +5,8 @@ from umqtt.robust import MQTTClient
 from machine import unique_id
 from ubinascii import hexlify
 from time import sleep_ms
+import ioty.services
+
 
 import ioty.constants as constants
 
@@ -73,6 +75,8 @@ class MQTT_Service:
                 self.delete_file(cmd)
             elif cmd['mode'] == constants._MODE_MKDIR:
                 self.mkdir(cmd)
+            elif cmd['mode'] == constants._MODE_UPDATE:
+                self.update(cmd)
         except:
             self.send_response(constants._STATUS_ERROR, cmd['nonce'])
 
@@ -85,19 +89,17 @@ class MQTT_Service:
 
         self.mqtt.publish(bytes(self.username, 'utf8') + b'/' + _RESPONSE_TOPIC, bytes(msg, 'utf-8'))
 
-    def list_files(self, cmd):
-        def list_files(dir):
-            listing = []
-            for i in os.ilistdir(dir):
-                if i[1] == 0x8000:
-                    listing.append(dir + i[0])
-                elif i[1] == 0x4000:
-                    listing.append(dir + i[0] + '/')
-                    listing.extend(list_files(dir + i[0] + '/'))
-            return listing
+    def update(self, cmd):
+        try:
+            ioty.services.update()
 
+            self.send_response(constants._STATUS_SUCCESS, cmd['nonce'])
+        except:
+            self.send_response(constants._STATUS_ERROR, cmd['nonce'])
+
+    def list_files(self, cmd):
         content = {
-            'listing': list_files('')
+            'listing': ioty.services.list_files('')
         }
         self.send_response(constants._STATUS_SUCCESS, cmd['nonce'], content)
 
@@ -115,12 +117,11 @@ class MQTT_Service:
         filename = cmd['content']['filename']
         status = constants._STATUS_FAILED
 
-        if not(filename in constants._PRESERVE_FILES):
-            try:
-                os.remove(filename)
+        try:
+            if ioty.services.delete_file(filename):
                 status = constants._STATUS_SUCCESS
-            except:
-                status = constants._STATUS_ERROR
+        except:
+            status = constants._STATUS_ERROR
 
         self.send_response(status, cmd['nonce'])
 
@@ -136,9 +137,7 @@ class MQTT_Service:
         self.send_response(status, cmd['nonce'])
 
     def delete_all(self, cmd):
-        for f in os.listdir():
-            if not(f in constants._PRESERVE_FILES):
-                os.remove(f)
+        ioty.services.delete_all_files()
         self.send_response(constants._STATUS_SUCCESS, cmd['nonce'])
 
     def write_files(self, cmd):
@@ -164,25 +163,7 @@ class MQTT_Service:
         self.send_response(constants._STATUS_SUCCESS, cmd['nonce'], content)
 
     def get_info(self, cmd):
-        import gc
-        import network
-        import binascii
-
-        fs_stats = os.statvfs('/')
-        info = {
-            'network': {
-                'mac': binascii.hexlify(network.WLAN().config('mac'))
-            },
-            'mem': {
-                'allocated': gc.mem_alloc(),
-                'free': gc.mem_free()
-            },
-            'fs': {
-                'block size': fs_stats[0],
-                'free blocks': fs_stats[3]
-            }
-        }
-        self.send_response(constants._STATUS_SUCCESS, cmd['nonce'], info)
+        self.send_response(constants._STATUS_SUCCESS, cmd['nonce'], ioty.services.get_info())
 
     def connected(self):
         return self._connected

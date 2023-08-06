@@ -4,6 +4,7 @@ import json
 import os
 
 import ioty.constants as constants
+import ioty.services
 
 class HTTP_Service:
     def __init__(self):
@@ -139,18 +140,8 @@ class HTTP_Service:
         return self.wrap_body(b'<h1>Error</h1><p>' + content + b'</p>')
 
     def _files_req(self, query, buf):
-        def list_files(dir):
-            listing = []
-            for i in os.ilistdir(dir):
-                if i[1] == 0x8000:
-                    listing.append(dir + i[0])
-                elif i[1] == 0x4000:
-                    listing.append(dir + i[0] + '/')
-                    listing.extend(list_files(dir + i[0] + '/'))
-            return listing
-
         li = ''
-        for f in list_files(''):
+        for f in ioty.services.list_files(''):
             li += '<li><a href="download?n=' + f + '" download="' + f + '">' + f + '</a> (<a href="delete?n=' + f +'">Delete</a>)</li>'
 
         return self.wrap_body(b'<h1>Files</h1><ul>' + li.encode() + b'</ul>')
