@@ -1,0 +1,11 @@
+{
+  "type": "bmp280_read",
+  "message0": "#blk-bmp280_read#",
+  "args0": [],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-bmp280_read_tooltip#",
+  "helpUrl": ""
+}

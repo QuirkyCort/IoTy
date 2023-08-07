@@ -218,6 +218,33 @@ var extensions = new function() {
           'This module allows you read the ID from an RFID card using an MFRC522 based RFID reader. ' +
         '</p>'
     },
+    {
+      id: 'qmc5883l',
+      name: 'QMC5883L (Magnetic Sensor)',
+      files: [
+        ['qmc5883l.py', 'extensions/qmc5883l.py?v=5c554f09'],
+      ],
+      description:
+        '<p>' +
+          'The QMC5883L is often used as a magnetic compass for navigation purposes. ' +
+        '</p>' +
+        '<p>' +
+          'It is often found in the form of a GY-271 module, but note that the GY-271 may also be equipped with a HMC5883L instead. ' +
+          'You can check by doing an I2C scan; the QMC5883L will have an address of 0x0D (13), while the HMC5883L uses address 0x1E (30).' +
+        '</p>'
+    },
+    {
+      id: 'bmp280',
+      name: 'BMP280 (Barometric Pressure Sensor)',
+      files: [
+        ['bmp280.py', 'extensions/bmp280.py?v=1d5a86a4'],
+      ],
+      description:
+        '<p>' +
+          'The QMC5883L is a barometric pressure sensor often used for calculating altitude from pressure. ' +
+          'This extension allows you to read temperature, pressure, and the calculated altitude. ' +
+        '</p>'
+    },
   ]
 
   this.init = function() {
@@ -275,10 +302,14 @@ var extensions = new function() {
     filesManager.select('main.py');
 
     for (extension of self.availableExtensions) {
+      let item = blockly.workspace.getToolbox().getToolboxItemById(extension.id);
+      if (item == null) {
+        continue;
+      }
       if (main.settings.extensions.includes(extension.id)) {
-        blockly.workspace.getToolbox().getToolboxItemById(extension.id).show()
+        item.show();
       } else {
-        blockly.workspace.getToolbox().getToolboxItemById(extension.id).hide()
+        item.hide();
       }
     }
   }

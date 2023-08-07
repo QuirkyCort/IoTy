@@ -1,0 +1,9 @@
+{
+  "type": "bmp280_altitude",
+  "message0": "#blk-bmp280_altitude#",
+  "args0": [],
+  "output": "Number",
+  "colour": 230,
+  "tooltip": "#blk-bmp280_altitude_tooltip#",
+  "helpUrl": ""
+}
