@@ -758,10 +758,14 @@ var main = new function() {
     }
     filesManager.updateCurrentFile();
 
-    let obj = {};
+    let obj = {
+      version: 11,
+      type: 'code',
+      files: {}
+    };
 
-    for (let f in filesManager.files) {
-      obj[f] = filesManager.files[f];
+    for (let name in filesManager.files) {
+      obj.files[name] = base64EncArr(new Uint8Array(filesManager.files[name]));
     }
 
     self.downloadFile(filename + '.json', btoa(JSON.stringify(obj)), 'application/json');
@@ -770,20 +774,16 @@ var main = new function() {
   // save to json package
   this.saveFirmwareToJson = function() {
     let filename = 'firmware-v' + constants.CURRENT_VERSION;
-    let firmwareFiles = {};
+
+    let obj = {
+      version: 11,
+      type: 'firmware',
+      files: {}
+    };
 
     for (let name in self.firmwareFiles) {
-      if (name == constants.FIRMWARE_UPDATE_FILE) {
-        firmwareFiles[name] = {
-          tempName: self.firmwareFiles[name].tempName,
-          content: self.firmwareFiles[name].content
-        };
-      } else {
-        firmwareFiles[name] = {
-          tempName: self.firmwareFiles[name].tempName,
-          content: base64EncArr(new Uint8Array(self.firmwareFiles[name].content))
-        };
-      }
+      let tempName = self.firmwareFiles[name].tempName
+      obj.files[tempName] = base64EncArr(new Uint8Array(self.firmwareFiles[name].content));
     }
 
     self.downloadFile(filename + '.json', btoa(JSON.stringify(firmwareFiles)), 'application/json');
