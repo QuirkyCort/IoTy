@@ -106,8 +106,8 @@ class HTTP_Service:
             return self._config_req(query, buf)
         elif url == b'/upload':
             return self._upload_req(query, buf)
-        elif url == b'/firmware':
-            return self._firmware_req(query, buf)
+        elif url == b'/update':
+            return self._update_req(query, buf)
         elif url == b'/files':
             return self._files_req(query, buf)
         elif url == b'/download':
@@ -187,41 +187,23 @@ class HTTP_Service:
         return self.wrap_body(b'<h1>Configuration Uploaded</h1><p>Restart your device and enter internet mode to start programming.</p>')
 
     def _upload_req(self, query, buf):
-        try:
-            files = json.loads(buf)
-        except:
-            return b'Failed (JSON Error)'
-
-        try:
-            for filename in files:
-                with open(filename, 'wb') as file:
-                    file.write(files[filename])
-            return b'Success'
-        except:
-            return b'Failed'
-
-    def _firmware_req(self, query, buf):
         import ubinascii
         try:
             files = json.loads(buf)
         except:
             return b'Failed (JSON Error)'
 
-        for line in files['_ioty_updates']['content']:
-            cmd = line.split()
-            if len(cmd) > 1:
-                if cmd[0] == 'mkdir':
-                    try:
-                        os.mkdir(cmd[1])
-                    except:
-                        pass
-
         try:
             for filename in files:
-                if filename == '_ioty_updates':
-                    continue
                 with open(filename, 'wb') as file:
                     file.write(ubinascii.a2b_base64(files[filename]['content']))
+            return b'Success'
+        except:
+            return b'Failed'
+
+    def _update_req(self, query, buf):
+        try:
+            ioty.services.update()
             return b'Success'
         except:
             return b'Failed'

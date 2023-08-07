@@ -35,36 +35,48 @@
 <button id="uploadFirmware">Upload</button>
 <h3 id="statusFirmware"></h3>
 <script>
-function uploadCode() {
+async function uploadFiles(jsonText) {
+  let json = JSON.parse(text);
+  if (json.version != '11') {
+    return 'Code version incompatible with this device.';
+  }
+  let status;
+  for (let filename in json.files) {
+    let response = await fetch('/upload', {
+      method: 'POST',
+      body: JSON.stringify(json.files[filename])
+    });
+    status = await response.text();
+
+    if (status != 'Success') {
+      return status;
+    }
+  }
+  return status;
+}
+
+async function uploadCode() {
   let fileEle = document.getElementById('code');
   if (fileEle.files.length == 1) {
-    fileEle.files[0].text().then(function(text){
-      fetch('/upload', {
-        method: 'POST',
-        body: text
-      }).then(function(response){
-        return response.text();
-      }).then(function(text){
-        document.getElementById('status').innerText = text;
-      });
-    });
+    let text = await fileEle.files[0].text();
+    document.getElementById('status').innerText = await uploadFiles(text);
   }
 }
 document.getElementById('upload').onclick = uploadCode;
 
-function uploadFirmware() {
+async function uploadFirmware() {
   let fileEle = document.getElementById('firmware');
   if (fileEle.files.length == 1) {
-    fileEle.files[0].text().then(function(text){
-      fetch('/firmware', {
-        method: 'POST',
-        body: text
-      }).then(function(response){
-        return response.text();
-      }).then(function(text){
-        document.getElementById('statusFirmware').innerText = text;
+    let text = await fileEle.files[0].text();
+    let status = await uploadFiles(text);
+
+    if (status == 'Success') {
+      let response = await fetch('/update', {
+        method: 'POST'
       });
-    });
+      status = response.text();
+    }
+    document.getElementById('statusFirmware').innerText = status;
   }
 }
 document.getElementById('uploadFirmware').onclick = uploadFirmware;
