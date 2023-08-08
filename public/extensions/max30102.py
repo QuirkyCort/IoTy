@@ -159,6 +159,7 @@ class MAX30102:
 
         if ticks_diff(ticks_ms(), self.last_beat) > 3000:
             self.bpm = 0
+            self.last_beat = 0
 
         if read_ptr != write_ptr:
             n = write_ptr - read_ptr
@@ -195,7 +196,7 @@ class MAX30102:
         if self.bpm == 0:
             self.bpm = bpm
         else:
-            self.bpm = self.bpm * 0.8 + bpm * 0.2
+            self.bpm = self.bpm * 0.6 + bpm * 0.4
 
     def get_red(self):
         return self.red

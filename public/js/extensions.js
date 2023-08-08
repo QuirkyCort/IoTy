@@ -249,7 +249,7 @@ var extensions = new function() {
       id: 'max30102',
       name: 'MAX30102 (Heart Rate Sensor and Pulse Oximeter)',
       files: [
-        ['max30102.py', 'extensions/max30102.py?v=5d2b5e0a'],
+        ['max30102.py', 'extensions/max30102.py?v=07b08871'],
       ],
       description:
         '<p>' +
