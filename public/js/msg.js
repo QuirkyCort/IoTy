@@ -1528,6 +1528,60 @@ let MSGS = {
   '#blk-setBluetoothCmds_tooltip#': {
     en: 'Normally, the IoTy device will continue to receive commands (eg. Download programs) over bluetooth when running a program. If disabled, you must switch to programming mode to program your device.',
   },
+  '#blk-max30102_init#': {
+    en: 'init MAX30102 with address',
+  },
+  '#blk-max30102_init_tooltip#': {
+    en: 'You must have an \\"init I2C\\" block before this',
+  },
+  '#blk-red_pwr#': {
+    en: 'Red Power',
+  },
+  '#blk-ir_pwr#': {
+    en: 'IR Power',
+  },
+  '#blk-max30102_read#': {
+    en: 'max30102: read the sensor',
+  },
+  '#blk-max30102_read_tooltip#': {
+    en: 'You must run this block frequently to check for new readings.',
+  },
+  '#blk-max30102_read_succeeded#': {
+    en: 'max30102: read succeeded',
+  },
+  '#blk-max30102_read_succeeded_tooltip#': {
+    en: 'Returns True when a previous read has successfully obtained data from the sensor. Returns False if there were no new data during the previous read.',
+  },
+  '#blk-max30102_beat#': {
+    en: 'max30102: heartbeat detected',
+  },
+  '#blk-max30102_beat_tooltip#': {
+    en: 'Returns True when a previous read has detected a heartbeat. You should only check this if the previous read succeeded.',
+  },
+  '#blk-max30102_bpm#': {
+    en: 'max30102: heart rate',
+  },
+  '#blk-max30102_bpm_tooltip#': {
+    en: 'Returns the heart rate in beats per minute.',
+  },
+  '#blk-max30102_spo2#': {
+    en: 'max30102: SpO2',
+  },
+  '#blk-max30102_spo2_tooltip#': {
+    en: 'Returns the Oxygen Saturation level (SpO2) in percentage.',
+  },
+  '#blk-max30102_value#': {
+    en: 'max30102: raw value of ',
+  },
+  '#blk-max30102_value_tooltip#': {
+    en: 'Returns the raw sensor value of the Red or IR LED.',
+  },
+  '#blk-max30102_read_temperature#': {
+    en: 'max30102: temperature',
+  },
+  '#blk-max30102_read_temperature_tooltip#': {
+    en: 'Returns the temperature of the max30102 chip.',
+  },
 };
 let MSGS_KEYS = Object.keys(MSGS);
 

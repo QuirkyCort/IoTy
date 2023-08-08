@@ -245,6 +245,19 @@ var extensions = new function() {
           'This extension allows you to read temperature, pressure, and the calculated altitude. ' +
         '</p>'
     },
+    {
+      id: 'max30102',
+      name: 'MAX30102 (Heart Rate Sensor and Pulse Oximeter)',
+      files: [
+        ['max30102.py', 'extensions/max30102.py?v=5d2b5e0a'],
+      ],
+      description:
+        '<p>' +
+          'The MAX30102 is an integrated pulse oximetry and heart-rate monitor module. ' +
+          'This extension allows you to detect heart beats, read heart rate (bpm), and get the raw readings (IR and Red). ' +
+          'Calculation of SpO2 is currently not provided by this extension. ' +
+        '</p>'
+    },
   ]
 
   this.init = function() {

@@ -1,0 +1,18 @@
+{
+  "type": "max30102_value",
+  "message0": "#blk-max30102_value# %1",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "led",
+      "options": [
+        ["Red", "red"],
+        ["IR", "ir"]
+      ]
+    }
+  ],
+  "output": "Number",
+  "colour": 230,
+  "tooltip": "#blk-max30102_value_tooltip#",
+  "helpUrl": ""
+}

@@ -1,0 +1,9 @@
+{
+  "type": "max30102_spo2",
+  "message0": "#blk-max30102_spo2#",
+  "args0": [],
+  "output": "Number",
+  "colour": 230,
+  "tooltip": "#blk-max30102_spo2_tooltip#",
+  "helpUrl": ""
+}

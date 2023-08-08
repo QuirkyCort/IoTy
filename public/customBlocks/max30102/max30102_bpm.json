@@ -1,0 +1,9 @@
+{
+  "type": "max30102_bpm",
+  "message0": "#blk-max30102_bpm#",
+  "args0": [],
+  "output": "Number",
+  "colour": 230,
+  "tooltip": "#blk-max30102_bpm_tooltip#",
+  "helpUrl": ""
+}

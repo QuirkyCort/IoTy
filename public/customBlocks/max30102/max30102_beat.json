@@ -1,0 +1,9 @@
+{
+  "type": "max30102_beat",
+  "message0": "#blk-max30102_beat#",
+  "args0": [],
+  "output": "Boolean",
+  "colour": 230,
+  "tooltip": "#blk-max30102_beat_tooltip#",
+  "helpUrl": ""
+}

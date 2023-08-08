@@ -1,0 +1,9 @@
+{
+  "type": "max30102_read_succeeded",
+  "message0": "#blk-max30102_read_succeeded#",
+  "args0": [],
+  "output": "Boolean",
+  "colour": 230,
+  "tooltip": "#blk-max30102_read_succeeded_tooltip#",
+  "helpUrl": ""
+}

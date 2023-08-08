@@ -221,6 +221,16 @@ var ioty_generator = new function() {
     Blockly.Python['bmp280_altitude'] = self.bmp280_altitude;
     Blockly.Python.addReservedWords('bmp280, bmp280_device');
 
+    Blockly.Python['max30102_init'] = self.max30102_init;
+    Blockly.Python['max30102_read'] = self.max30102_read;
+    Blockly.Python['max30102_read_succeeded'] = self.max30102_read_succeeded;
+    Blockly.Python['max30102_read_temperature'] = self.max30102_read_temperature;
+    Blockly.Python['max30102_value'] = self.max30102_value;
+    Blockly.Python['max30102_beat'] = self.max30102_beat;
+    Blockly.Python['max30102_bpm'] = self.max30102_bpm;
+    Blockly.Python['max30102_spo2'] = self.max30102_spo2;
+    Blockly.Python.addReservedWords('max30102, max30102_device');
+
   };
 
   // Generate python code
@@ -2176,6 +2186,63 @@ var ioty_generator = new function() {
 
   this.bmp280_altitude = function(block) {
     let code = 'bmp280_device.get_altitude()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.max30102_init = function(block) {
+    self.imports['max30102'] = 'import max30102';
+
+    let addr = block.getFieldValue('addr');
+    let red = block.getFieldValue('red');
+    let ir = block.getFieldValue('ir');
+
+    let code =
+      'max30102_device = max30102.MAX30102(i2c, addr=' + addr + ', red_led=' + red + ', ir_led=' + ir + ')\n';
+
+    return code;
+  };
+
+  this.max30102_read = function(block) {
+    let code = 'max30102_device.read()\n';
+
+    return code;
+  };
+
+  this.max30102_read_succeeded = function(block) {
+    let code = 'max30102_device.read_succeeded';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.max30102_read_temperature = function(block) {
+    let code = 'max30102_device.read_temperature()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.max30102_beat = function(block) {
+    let code = 'max30102_device.get_beat()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.max30102_bpm = function(block) {
+    let code = 'max30102_device.get_bpm()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.max30102_spo2 = function(block) {
+    let code = 'max30102_device.get_spo2()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.max30102_value = function(block) {
+    let led = block.getFieldValue('led');
+
+    let code = 'max30102_device.get_' + led + '()';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };

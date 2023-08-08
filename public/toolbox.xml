@@ -1152,4 +1152,17 @@
     <block type="bmp280_pressure"></block>
     <block type="bmp280_altitude"></block>
   </category>
+  <category toolboxitemid="max30102" name="MAX30102" colour="#5b67a5" hidden="true">
+    <block type="max30102_init">
+      <field name="red">0x7F</field>
+      <field name="ir">0x7F</field>
+    </block>
+    <block type="max30102_read"></block>
+    <block type="max30102_read_succeeded"></block>
+    <block type="max30102_beat"></block>
+    <block type="max30102_bpm"></block>
+    <block type="max30102_spo2"></block>
+    <block type="max30102_value"></block>
+    <block type="max30102_read_temperature"></block>
+  </category>
 </xml>
