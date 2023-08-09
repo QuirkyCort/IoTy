@@ -932,7 +932,7 @@ let MSGS = {
     en: 'Connect to the WiFi hotspot that was configured via \\"Configure Device Network...\\". If the \\"When Started\\" block is set to \\"wait for Internet connection\\", your device will connect automatically and you should not use this block.',
   },
   '#blk-wlan_get_ip#': {
-    en: 'ip address',
+    en: 'IP address',
   },
   '#blk-wlan_get_ip_tooltip#': {
     en: 'After connecting to WiFi, you can use this to get your IP address.',

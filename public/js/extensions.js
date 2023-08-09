@@ -99,8 +99,11 @@ var extensions = new function() {
       description:
         '<p>' +
           'This extensions allows your IoTy device to act as a HTTP (Web) server and handle requests. ' +
-          'To use it, 1) Init a HTTPD object, 2) wait_for_connection, 3) send_response. ' +
-          'The address of the IoTy device will be http://194.168.4.1 ' +
+          'To use it, 1) Start AP mode or connect to WiFi, 2) Init a HTTPD object, 3) wait_for_connection, 4) send_response. ' +
+        '</p>' +
+        '<p>' +
+          'In AP mode, the address of the IoTy device will be http://194.168.4.1. ' +
+          'If connected to WiFi, use the "IP address" block to retrieve your address.' +
         '</p>'
     },
     {
