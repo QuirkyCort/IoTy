@@ -68,7 +68,9 @@ var monitorPanel = new function() {
   };
 
   this.sendAndClear = function() {
-    self.history.push(self.$input.val());
+    if (self.$input.val() != self.history[self.history.length - 1]) {
+      self.history.push(self.$input.val());
+    }
     self.historyPos = -1;
     self.sendInput();
     self.clearInput();

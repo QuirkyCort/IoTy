@@ -1609,6 +1609,18 @@ let MSGS = {
   '#blk-run_python_and_return_tooltip#': {
     en: 'Run python code and return the result.',
   },
+  '#blk-vl53l0x_init#': {
+    en: 'init VL53L0X with address',
+  },
+  '#blk-vl53l0x_init_tooltip#': {
+    en: 'You must have an \\"init I2C\\" block before this',
+  },
+  '#blk-vl53l0x_read#': {
+    en: 'vl53l0x: distance in mm',
+  },
+  '#blk-vl53l0x_read_tooltip#': {
+    en: 'Returns -1 if the distance is too far.',
+  }
 };
 let MSGS_KEYS = Object.keys(MSGS);
 

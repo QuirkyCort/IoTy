@@ -235,6 +235,10 @@ var ioty_generator = new function() {
     Blockly.Python['max30102_spo2'] = self.max30102_spo2;
     Blockly.Python.addReservedWords('max30102,max30102_device');
 
+    Blockly.Python['vl53l0x_init'] = self.vl53l0x_init;
+    Blockly.Python['vl53l0x_read'] = self.vl53l0x_read;
+    Blockly.Python.addReservedWords('vl53l0x,vl53l0x_device');
+
   };
 
   // Generate python code
@@ -2333,6 +2337,24 @@ var ioty_generator = new function() {
     let led = block.getFieldValue('led');
 
     let code = 'max30102_device.get_' + led + '()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.vl53l0x_init = function(block) {
+    self.imports['vl53l0x'] = 'import vl53l0x';
+
+    let addr = block.getFieldValue('addr');
+
+    let code =
+      'vl53l0x_device = vl53l0x.VL53L0X(i2c, addr=' + addr + ')\n' +
+      'vl53l0x_device.start()\n';
+
+    return code;
+  };
+
+  this.vl53l0x_read = function(block) {
+    let code = 'vl53l0x_device.read()';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };

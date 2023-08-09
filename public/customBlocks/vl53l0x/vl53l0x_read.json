@@ -1,0 +1,9 @@
+{
+  "type": "vl53l0x_read",
+  "message0": "#blk-vl53l0x_read#",
+  "args0": [],
+  "output": "Number",
+  "colour": 230,
+  "tooltip": "#blk-vl53l0x_read_tooltip#",
+  "helpUrl": ""
+}

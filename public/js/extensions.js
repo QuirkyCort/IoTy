@@ -263,6 +263,18 @@ var extensions = new function() {
           'Calculation of SpO2 is currently not provided by this extension. ' +
         '</p>'
     },
+    {
+      id: 'vl53l0x',
+      name: 'VL53L0x (Heart Rate Sensor and Pulse Oximeter)',
+      files: [
+        ['vl53l0x.py', 'extensions/vl53l0x.py?v=2f4f655e'],
+      ],
+      description:
+        '<p>' +
+          'The VL53L0X is a Time-of-Flight (ToF) laser ranging module. ' +
+          'This extension allows you to read the distance in millimeters (mm).' +
+        '</p>'
+    },
   ]
 
   this.init = function() {
