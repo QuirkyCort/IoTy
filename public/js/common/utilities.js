@@ -1,4 +1,4 @@
-function escapeSingeQuotes(inString) {
+function escapeSingleQuotes(inString) {
   let outString = '';
 
   for (let c of inString) {

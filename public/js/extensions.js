@@ -72,7 +72,6 @@ var extensions = new function() {
         '<p>' +
           'The ESP-NOW protocol allows direct communication between up to 20 registered peers, without requiring a WiFi access point. ' +
           'To use this extension, your device must be loaded with a <a href="https://github.com/glenn20/micropython-espnow-images">firmware supporting ESP-NOW</a>. ' +
-          'Note that the default micropython firmware for the ESP32 do not currently support ESP-NOW.' +
         '</p>' +
         '<p>' +
           'This extensions only add blocks; no additional Python files are added or required.' +
@@ -89,14 +88,13 @@ var extensions = new function() {
           'This is an easy to use version of ESP-NOW that doesn\'t require the peer\'s MAC address. ' +
           'Instead, each device will set a group, and messages are broadcast to all devices within the same group (similar to the microbit "radio"). ' +
           'To use this extension, your device must be loaded with a <a href="https://github.com/glenn20/micropython-espnow-images">firmware supporting ESP-NOW</a>. ' +
-          'Note that the default micropython firmware for the ESP32 do not currently support ESP-NOW.' +
         '</p>'
     },
     {
       id: 'ez_httpd',
       name: 'EZ HTTP Server',
       files: [
-        ['ez_httpd.py', 'extensions/ez_httpd.py?v=7f2290c8'],
+        ['ez_httpd.py', 'extensions/ez_httpd.py?v=d86791a2'],
       ],
       description:
         '<p>' +

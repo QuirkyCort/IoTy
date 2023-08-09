@@ -7,7 +7,7 @@ var ioty_generator = new function() {
 
   // Load Python generators
   this.load = function() {
-    Blockly.Python.addReservedWords('machine,ioty,ioty_wifi,ioty_mqtt,ioty_mqtt_cb,req');
+    Blockly.Python.addReservedWords('machine,ioty,ioty_wifi,ioty_mqtt,ioty_mqtt_cb,req,ap');
 
     Blockly.Python.INDENT = '    ';
 
@@ -29,6 +29,8 @@ var ioty_generator = new function() {
     Blockly.Python['hc_sr04_ping'] = self.hc_sr04_ping;
     Blockly.Python['connect_to_wifi'] = self.connect_to_wifi;
     Blockly.Python['connect_to_configured_wifi'] = self.connect_to_configured_wifi;
+    Blockly.Python['wlan_get_ip'] = self.wlan_get_ip;
+    Blockly.Python['start_as_ap'] = self.start_as_ap;
     Blockly.Python['setBluetoothCmds'] = self.setBluetoothCmds;
     Blockly.Python['try_except'] = self.try_except;
     Blockly.Python['run_python'] = self.run_python;
@@ -132,6 +134,7 @@ var ioty_generator = new function() {
     Blockly.Python.addReservedWords('ez_espnow');
 
     Blockly.Python['ez_httpd_init'] = self.ez_httpd_init;
+    Blockly.Python['ez_httpd_available'] = self.ez_httpd_available;
     Blockly.Python['ez_httpd_wait_for_connection'] = self.ez_httpd_wait_for_connection;
     Blockly.Python['ez_httpd_send_response'] = self.ez_httpd_send_response;
     Blockly.Python['ez_httpd_send_file'] = self.ez_httpd_send_file;
@@ -708,8 +711,8 @@ var ioty_generator = new function() {
     var ssid = block.getFieldValue('ssid');
     var password = block.getFieldValue('password');
 
-    ssid = escapeSingeQuotes(ssid);
-    password = escapeSingeQuotes(password);
+    ssid = escapeSingleQuotes(ssid);
+    password = escapeSingleQuotes(password);
 
     var code =
       '\n# Connect to WiFi\n' +
@@ -731,11 +734,45 @@ var ioty_generator = new function() {
       '# Connect to configured WiFi\n' +
       'mqtt = MQTT_Service()\n' +
       'if mqtt.read_config():\n' +
-      '    mqtt.connect_wifi()\n' +
+      '    ioty_wifi = mqtt.connect_wifi()\n' +
       '    while not mqtt.wifi_isconnected():\n' +
       '        time.sleep_ms(500)\n' +
       'else:\n' +
       '    raise Exception("No WiFi configured")\n\n';
+
+      return code;
+  };
+
+  this.wlan_get_ip = function(block) {
+    var code = 'ioty_wifi.ifconfig()[0]';
+
+      return [code, Blockly.Python.ORDER_NONE];
+  };
+
+  this.start_as_ap = function(block) {
+    self.imports['network'] = 'import network';
+
+    var ssid = block.getFieldValue('ssid');
+    var password = block.getFieldValue('password');
+
+    ssid = escapeSingleQuotes(ssid);
+    password = escapeSingleQuotes(password);
+
+    var code =
+      '\n# Start as Access Point\n' +
+      'ap = network.WLAN(network.AP_IF)\n';
+
+    if (password.length >= 8) {
+      code +=
+        'ap.config(essid="' + ssid + '", password="' + password + '")\n' +
+        'ap.config(authmode=3)\n';
+    } else {
+      code += 'ap.config(essid="' + ssid + '")\n';
+    }
+
+    code +=
+      'ap.config(max_clients=10)\n' +
+      'ap.active(True)\n';
 
       return code;
   };
@@ -806,7 +843,7 @@ var ioty_generator = new function() {
 
     let code = value;
 
-    return [code, Blockly.Python.ORDER_NONE];;
+    return [code, Blockly.Python.ORDER_NONE];
   };
 
   this.mqtt_connect_to_server = function(block) {
@@ -819,8 +856,8 @@ var ioty_generator = new function() {
     var name = block.getFieldValue('name');
     var password = block.getFieldValue('password');
 
-    name = escapeSingeQuotes(name);
-    password = escapeSingeQuotes(password);
+    name = escapeSingleQuotes(name);
+    password = escapeSingleQuotes(password);
 
     var code =
       '\n# MQTT callback\n' +
@@ -879,7 +916,7 @@ var ioty_generator = new function() {
     var topic = block.getFieldValue('topic');
     var statements = Blockly.Python.statementToCode(block, 'statements');
 
-    topic = escapeSingeQuotes(topic);
+    topic = escapeSingleQuotes(topic);
 
     self.mqttSubscriptions[topic] = topic;
 
@@ -907,7 +944,7 @@ var ioty_generator = new function() {
     var topic = block.getFieldValue('topic');
     var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_NONE);
 
-    topic = escapeSingeQuotes(topic);
+    topic = escapeSingleQuotes(topic);
 
     var code = 'ioty_mqtt.publish(b\'' + topic + '\', bytes(' + value + ', \'utf-8\'))\n'
 
@@ -1610,11 +1647,18 @@ var ioty_generator = new function() {
   this.ez_httpd_init = function(block) {
     self.imports['ez_httpd'] = 'import ez_httpd';
 
-    let name = Blockly.Python.valueToCode(block, 'name', Blockly.Python.ORDER_ATOMIC);
+    let addr = Blockly.Python.valueToCode(block, 'addr', Blockly.Python.ORDER_ATOMIC);
+    let port = Blockly.Python.valueToCode(block, 'port', Blockly.Python.ORDER_ATOMIC);
 
-    var code = 'ezhttpd = ez_httpd.HTTPD(' + name + ')\n';
+    var code = 'ezhttpd = ez_httpd.HTTPD(address=' + addr + ', port=' + port + ')\n';
 
     return code;
+  };
+
+  this.ez_httpd_available = function(block) {
+    var code = 'ezhttpd.available()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
   };
 
   this.ez_httpd_wait_for_connection = function(block) {

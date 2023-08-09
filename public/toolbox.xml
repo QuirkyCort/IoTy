@@ -501,6 +501,8 @@
   <category name="#blk-network#" colour="#9fa55b">
     <block type="connect_to_configured_wifi"></block>
     <block type="connect_to_wifi"></block>
+    <block type="wlan_get_ip"></block>
+    <block type="start_as_ap"></block>
     <block type="mqtt_connect_to_server"></block>
     <block type="mqtt_on_receive"></block>
     <block type="mqtt_msg"></block>
@@ -995,12 +997,18 @@
   </category>
   <category toolboxitemid="ez_httpd" name="EZ HTTP Server" colour="#9fa55b" hidden="true">
     <block type="ez_httpd_init">
-      <value name="name">
+      <value name="addr">
         <shadow type="text">
-          <field name="TEXT">IoTy_Device</field>
+          <field name="TEXT">192.168.4.1</field>
+        </shadow>
+      </value>
+      <value name="port">
+        <shadow type="text">
+          <field name="TEXT">80</field>
         </shadow>
       </value>
     </block>
+    <block type="ez_httpd_available"></block>
     <block type="ez_httpd_wait_for_connection"></block>
     <block type="ez_httpd_send_response">
       <value name="response">

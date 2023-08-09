@@ -931,6 +931,18 @@ let MSGS = {
   '#blk-connect_to_configured_wifi_tooltip#': {
     en: 'Connect to the WiFi hotspot that was configured via \\"Configure Device Network...\\". If the \\"When Started\\" block is set to \\"wait for Internet connection\\", your device will connect automatically and you should not use this block.',
   },
+  '#blk-wlan_get_ip#': {
+    en: 'ip address',
+  },
+  '#blk-wlan_get_ip_tooltip#': {
+    en: 'After connecting to WiFi, you can use this to get your IP address.',
+  },
+  '#blk-start_as_ap#': {
+    en: 'start as Access Point',
+  },
+  '#blk-start_as_ap_tooltip#': {
+    en: 'If password is less than 8 characters long, an open AP (no password) will be created.',
+  },
   '#blk-date_time_get#': {
     en: 'date and time',
   },
@@ -1081,11 +1093,20 @@ let MSGS = {
   '#blk-ez_esp_now_get_msg_tooltip#': {
     en: 'Returns the received message.',
   },
-  '#blk-ez_httpd_init_with_name#': {
-    en: 'init with name set to.',
+  '#blk-ez_httpd_init_with_addr#': {
+    en: 'init with address set to',
+  },
+  '#blk-and_port#': {
+    en: 'and port',
   },
   '#blk-ez_httpd_init_tooltip#': {
-    en: 'Initialize the IoTy device as an Access Point running a web server',
+    en: 'Start a web server on your IoTy device. In Access Point mode, your IP address will be 192.168.4.1',
+  },
+  '#blk-ez_httpd_available#': {
+    en: 'ez_httpd: connection available',
+  },
+  '#blk-ez_httpd_available_tooltip#': {
+    en: 'If True, you can run \\"wait for connection\\" and expect it to complete without blocking',
   },
   '#blk-ez_httpd_wait_for_connection_and_put_url_in#': {
     en: 'wait for connection and put URL in',

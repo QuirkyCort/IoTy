@@ -1,0 +1,9 @@
+{
+  "type": "ez_httpd_available",
+  "message0": "#blk-ez_httpd_available#",
+  "args0": [],
+  "output": "Boolean",
+  "colour": 65,
+  "tooltip": "#blk-ez_httpd_available_tooltip#",
+  "helpUrl": ""
+}

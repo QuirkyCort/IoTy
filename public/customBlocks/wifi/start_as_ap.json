@@ -1,0 +1,22 @@
+{
+  "type": "start_as_ap",
+  "message0": "#blk-start_as_ap# %1 #blk-with_password# %2",
+  "args0": [
+    {
+      "type": "field_input",
+      "name": "ssid",
+      "text": "IoTy_Device"
+    },
+    {
+      "type": "field_input",
+      "name": "password",
+      "text": ""
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 65,
+  "tooltip": "#blk-start_as_ap_tooltip#",
+  "helpUrl": ""
+}

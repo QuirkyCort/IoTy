@@ -1,10 +1,15 @@
 {
   "type": "ez_httpd_init",
-  "message0": "ez_httpd #blk-ez_httpd_init_with_name# %1",
+  "message0": "ez_httpd #blk-ez_httpd_init_with_addr# %1 #blk-and_port# %2",
   "args0": [
     {
       "type": "input_value",
-      "name": "name",
+      "name": "addr",
+      "check": "String"
+    },
+    {
+      "type": "input_value",
+      "name": "port",
       "check": "String"
     }
   ],

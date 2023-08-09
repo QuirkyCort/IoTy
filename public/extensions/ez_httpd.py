@@ -1,16 +1,14 @@
-import network
+import select
 import socket
 
 class HTTPD:
-    def __init__(self, name):
-        self.ap = network.WLAN(network.AP_IF)
-        self.ap.config(essid=name)
-        self.ap.config(max_clients=10)
-        self.ap.active(True)
-
+    def __init__(self, address='192.168.4.1', port= '80'):
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.socket.bind(('192.168.4.1', '80'))
+        self.socket.bind((address, port))
         self.socket.listen(0)
+
+        self.poll = select.poll()
+        self.poll.register(self.socket, select.POLLIN)
 
     def process_headers(self, headers_b):
         header_lines = headers_b.split(b'\r\n')
@@ -53,6 +51,13 @@ class HTTPD:
                 key, value = pair.split(b'=', 1)
                 params[key.decode('utf-8')] = self.percent_decode(value).decode('utf-8')
         return params
+
+    def available(self):
+        available = self.poll.poll(0)
+        for a in available:
+            if a[1] == select.POLLIN:
+                return True
+        return False
 
     def wait_for_connection(self):
         self.client_connection, _ = self.socket.accept()

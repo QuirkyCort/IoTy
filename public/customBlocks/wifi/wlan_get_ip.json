@@ -1,0 +1,9 @@
+{
+  "type": "wlan_get_ip",
+  "message0": "#blk-wlan_get_ip#",
+  "args0": [],
+  "output": "String",
+  "colour": 65,
+  "tooltip": "#blk-wlan_get_ip_tooltip#",
+  "helpUrl": ""
+}
