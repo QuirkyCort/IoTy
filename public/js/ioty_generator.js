@@ -30,6 +30,7 @@ var ioty_generator = new function() {
     Blockly.Python['connect_to_wifi'] = self.connect_to_wifi;
     Blockly.Python['connect_to_configured_wifi'] = self.connect_to_configured_wifi;
     Blockly.Python['setBluetoothCmds'] = self.setBluetoothCmds;
+    Blockly.Python['try_except'] = self.try_except;
 
     Blockly.Python['type_cast'] = self.type_cast;
     Blockly.Python['decode'] = self.decode;
@@ -750,6 +751,41 @@ var ioty_generator = new function() {
     return code;
   };
 
+  this.try_except = function(block) {
+    // First, add a 'global' statement for every variable that is not shadowed by
+    // a local parameter.
+    const globals = [];
+    const workspace = blockly.workspace;
+    const usedVariables = Blockly.Variables.allUsedVarModels(workspace) || [];
+    for (let i = 0, variable; (variable = usedVariables[i]); i++) {
+      const varName = variable.name;
+      if (block.getVars().indexOf(varName) === -1) {
+        globals.push(Blockly.Python.nameDB_.getName(varName, Blockly.Names.NameType.VARIABLE));
+      }
+    }
+    // Add developer variables.
+    const devVarList = Blockly.Variables.allDeveloperVariables(workspace);
+    for (let i = 0; i < devVarList.length; i++) {
+      globals.push(
+          Blockly.Python.nameDB_.getName(devVarList[i], Blockly.Names.NameType.DEVELOPER_VARIABLE));
+    }
+    const globalString = globals.length ?
+      Blockly.Python.INDENT + 'global ' + globals.join(', ') + '\n' :
+      '';
+
+    // Usual stuff
+    var tryStatements = Blockly.Python.statementToCode(block, 'try');
+    var exceptStatements = Blockly.Python.statementToCode(block, 'except');
+
+    var code =
+      'try:\n' +
+      (tryStatements ? tryStatements : '    pass\n') +
+      'except:\n' +
+      (exceptStatements ? exceptStatements : '    pass\n');
+
+    return code;
+  };
+
   this.mqtt_connect_to_server = function(block) {
     self.imports['umqtt'] = 'from umqtt.robust import MQTTClient';
     self.imports['machine'] = 'import machine';
@@ -831,7 +867,7 @@ var ioty_generator = new function() {
       'def ' + functionName + '(mqtt_msg):\n'
       + globalString;
 
-    code += statements;
+    code += statements ? statements : '    pass\n';
 
     Blockly.Python.definitions_[functionName] = code;
 

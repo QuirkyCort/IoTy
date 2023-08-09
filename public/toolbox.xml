@@ -81,6 +81,7 @@
     <block type="esp32_temperature"></block>
     <block type="esp32_hall_sensor"></block>
     <block type="setBluetoothCmds"></block>
+    <block type="try_except"></block>
   </category>
   <category name="#blk-logic#" colour="#5b80a5">
     <block type="controls_if">

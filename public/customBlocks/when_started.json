@@ -19,7 +19,7 @@
           "WAIT_MQTT"
         ],
         [
-          "disable connection",
+          "disable Bluetooth connection",
           "DISABLE"
         ]
       ]

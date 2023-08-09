@@ -1582,6 +1582,15 @@ let MSGS = {
   '#blk-max30102_read_temperature_tooltip#': {
     en: 'Returns the temperature of the max30102 chip.',
   },
+  '#blk-try#': {
+    en: 'try',
+  },
+  '#blk-except#': {
+    en: 'except',
+  },
+  '#blk-try_except_tooltip#': {
+    en: 'Test some code in \\"try\\", and run the code in \\"except\\" if an error occurs.',
+  },
 };
 let MSGS_KEYS = Object.keys(MSGS);
 
