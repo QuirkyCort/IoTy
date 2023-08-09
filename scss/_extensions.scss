@@ -61,7 +61,7 @@
   display: flex;
   margin-bottom: 0.5em;
 
-  input {
+  #extensionsSearch {
     font-size: 100%;
     width: 100%;
     background: none;
@@ -69,5 +69,9 @@
     border: solid 1px white;
     padding: 0 0.2em;
     margin-left: 0.5em;
+  }
+
+  #extensionsInstalled {
+    width: 3em;
   }
 }

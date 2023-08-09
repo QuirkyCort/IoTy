@@ -278,29 +278,43 @@ var extensions = new function() {
   ]
 
   this.init = function() {
+
   };
 
   this.loadDialog = function() {
     let $body = $('<div></div>');
-    let $search = $('<div class="search">Search: <input type="text"></div>')
+    let $search = $('<div class="search">Search: <input type="text" id="extensionsSearch"><input type="checkbox" id="extensionsInstalled"> Installed</div>')
     let $extensions = $('<div class="extensions"></div>');
-    let $searchInput = $search.find('input');
+    let $searchInput = $search.find('#extensionsSearch');
+    let $installedInput = $search.find('#extensionsInstalled');
 
     for (let extension of self.availableExtensions) {
       $extensions.append(self.drawExtension(extension));
     }
 
-    $searchInput.on('input', function(){
+    function filterExtensions() {
       let searchTerm = $searchInput.val().toLowerCase();
+      let installed = $installedInput[0].checked;
       $extensions[0].childNodes.forEach(function(item){
         let itemText = item.innerText.toLowerCase();
         if (itemText.includes(searchTerm)) {
-          item.classList.remove('hide');
+          if (installed) {
+            if (item.getElementsByClassName('buttons')[0].classList.contains('remove')) {
+              item.classList.remove('hide');
+            } else {
+              item.classList.add('hide');
+            }
+          } else {
+            item.classList.remove('hide');
+          }
         } else {
           item.classList.add('hide');
         }
       });
-    });
+    }
+
+    $searchInput.on('input', filterExtensions);
+    $installedInput.on('change', filterExtensions);
 
     $body.append($search);
     $body.append($extensions);

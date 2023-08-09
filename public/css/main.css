@@ -421,7 +421,7 @@ ul.menuDropDownRightAlign {
 .search {
   display: flex;
   margin-bottom: 0.5em; }
-  .search input {
+  .search #extensionsSearch {
     font-size: 100%;
     width: 100%;
     background: none;
@@ -429,6 +429,8 @@ ul.menuDropDownRightAlign {
     border: solid 1px white;
     padding: 0 0.2em;
     margin-left: 0.5em; }
+  .search #extensionsInstalled {
+    width: 3em; }
 
 @font-face {
   font-family: 'icomoon';
