@@ -1,0 +1,15 @@
+{
+  "type": "run_python_and_return",
+  "message0": "#blk-run_python_and_return# %1",
+  "args0": [
+    {
+      "type": "field_input",
+      "name": "value",
+      "text": "int(1.1)"
+    }
+  ],
+  "output": null,
+  "colour": 65,
+  "tooltip": "#blk-run_python_and_return_tooltip#",
+  "helpUrl": ""
+}

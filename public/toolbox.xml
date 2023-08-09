@@ -82,6 +82,8 @@
     <block type="esp32_hall_sensor"></block>
     <block type="setBluetoothCmds"></block>
     <block type="try_except"></block>
+    <block type="run_python"></block>
+    <block type="run_python_and_return"></block>
   </category>
   <category name="#blk-logic#" colour="#5b80a5">
     <block type="controls_if">

@@ -1,0 +1,16 @@
+{
+  "type": "run_python",
+  "message0": "#blk-run_python# %1",
+  "args0": [
+    {
+      "type": "field_input",
+      "name": "value",
+      "text": "pass"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 65,
+  "tooltip": "#blk-run_python_tooltip#",
+  "helpUrl": ""
+}

@@ -31,6 +31,8 @@ var ioty_generator = new function() {
     Blockly.Python['connect_to_configured_wifi'] = self.connect_to_configured_wifi;
     Blockly.Python['setBluetoothCmds'] = self.setBluetoothCmds;
     Blockly.Python['try_except'] = self.try_except;
+    Blockly.Python['run_python'] = self.run_python;
+    Blockly.Python['run_python_and_return'] = self.run_python_and_return;
 
     Blockly.Python['type_cast'] = self.type_cast;
     Blockly.Python['decode'] = self.decode;
@@ -784,6 +786,22 @@ var ioty_generator = new function() {
       (exceptStatements ? exceptStatements : '    pass\n');
 
     return code;
+  };
+
+  this.run_python = function(block) {
+    let value = block.getFieldValue('value');
+
+    let code = value + '\n';
+
+    return code;
+  };
+
+  this.run_python_and_return = function(block) {
+    let value = block.getFieldValue('value');
+
+    let code = value;
+
+    return [code, Blockly.Python.ORDER_NONE];;
   };
 
   this.mqtt_connect_to_server = function(block) {

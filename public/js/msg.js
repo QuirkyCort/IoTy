@@ -1591,6 +1591,18 @@ let MSGS = {
   '#blk-try_except_tooltip#': {
     en: 'Test some code in \\"try\\", and run the code in \\"except\\" if an error occurs.',
   },
+  '#blk-run_python#': {
+    en: 'run python code',
+  },
+  '#blk-run_python_tooltip#': {
+    en: 'You can provide any valid python code here, but it must be a single line.',
+  },
+  '#blk-run_python_and_return#': {
+    en: 'run python code',
+  },
+  '#blk-run_python_and_return_tooltip#': {
+    en: 'Run python code and return the result.',
+  },
 };
 let MSGS_KEYS = Object.keys(MSGS);
 
