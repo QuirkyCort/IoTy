@@ -154,24 +154,24 @@ var ioty_generator = new function() {
     Blockly.Python['i2c_lcd_blink'] = self.i2c_lcd_blink;
     Blockly.Python['i2c_lcd_display'] = self.i2c_lcd_display;
     Blockly.Python['i2c_lcd_backlight'] = self.i2c_lcd_backlight;
-    Blockly.Python.addReservedWords('i2c_lcd, lcd');
+    Blockly.Python.addReservedWords('i2c_lcd,lcd');
 
     Blockly.Python['dht_init'] = self.dht_init;
     Blockly.Python['dht_measure'] = self.dht_measure;
     Blockly.Python['dht_temperature'] = self.dht_temperature;
     Blockly.Python['dht_humidity'] = self.dht_humidity;
-    Blockly.Python.addReservedWords('dht, dht_device');
+    Blockly.Python.addReservedWords('dht,dht_device');
 
     Blockly.Python['ez_ds18x20_init'] = self.ez_ds18x20_init;
     Blockly.Python['ez_ds18x20_device_count'] = self.ez_ds18x20_device_count;
     Blockly.Python['ez_ds18x20_convert_temp'] = self.ez_ds18x20_convert_temp;
     Blockly.Python['ez_ds18x20_read_temp'] = self.ez_ds18x20_read_temp;
-    Blockly.Python.addReservedWords('ez_ds18x20, ds_device');
+    Blockly.Python.addReservedWords('ez_ds18x20,ds_device');
 
     Blockly.Python['non_block_init'] = self.non_block_init;
     Blockly.Python['non_block_read'] = self.non_block_read;
     Blockly.Python['non_block_readline'] = self.non_block_readline;
-    Blockly.Python.addReservedWords('non_block, nblock');
+    Blockly.Python.addReservedWords('non_block,nblock');
 
     Blockly.Python['uart_init'] = self.uart_init;
     Blockly.Python['uart_any'] = self.uart_any;
@@ -179,7 +179,7 @@ var ioty_generator = new function() {
     Blockly.Python['uart_readline'] = self.uart_readline;
     Blockly.Python['uart_write'] = self.uart_write;
     Blockly.Python['uart_flush'] = self.uart_flush;
-    Blockly.Python.addReservedWords('uart1, uart2');
+    Blockly.Python.addReservedWords('uart1,uart2');
 
     Blockly.Python['gps_init'] = self.gps_init;
     Blockly.Python['gps_update'] = self.gps_update;
@@ -191,38 +191,39 @@ var ioty_generator = new function() {
     Blockly.Python['gps_datetime'] = self.gps_datetime;
     Blockly.Python['gps_sog'] = self.gps_sog;
     Blockly.Python['gps_cog'] = self.gps_cog;
-    Blockly.Python.addReservedWords('gps, gps_device');
+    Blockly.Python.addReservedWords('gps,gps_device');
 
     Blockly.Python['hx711_init'] = self.hx711_init;
     Blockly.Python['hx711_read'] = self.hx711_read;
-    Blockly.Python.addReservedWords('hx711, hx711_device');
+    Blockly.Python.addReservedWords('hx711,hx711_device');
 
     Blockly.Python['ez_timer_init'] = self.ez_timer_init;
     Blockly.Python['ez_timer_update'] = self.ez_timer_update;
     Blockly.Python['ez_timer_cb'] = self.ez_timer_cb;
-    Blockly.Python.addReservedWords('ez_timer, ez_timer_obj');
+    Blockly.Python['ez_timer_set_timeout'] = self.ez_timer_set_timeout;
+    Blockly.Python.addReservedWords('ez_timer,ez_timer_obj,ez_timer_timeout_fn');
 
     Blockly.Python['spi_init'] = self.spi_init;
     Blockly.Python['spi_read'] = self.spi_read;
     Blockly.Python['spi_write'] = self.spi_write;
-    Blockly.Python.addReservedWords('spi1, spi2');
+    Blockly.Python.addReservedWords('spi1,spi2');
 
     Blockly.Python['mfrc522_init'] = self.mfrc522_init;
     Blockly.Python['mfrc522_card_present'] = self.mfrc522_card_present;
     Blockly.Python['mfrc522_get_uid'] = self.mfrc522_get_uid;
-    Blockly.Python.addReservedWords('mfrc522, mfrc522_device');
+    Blockly.Python.addReservedWords('mfrc522,mfrc522_device');
 
     Blockly.Python['qmc5883l_init'] = self.qmc5883l_init;
     Blockly.Python['qmc5883l_read'] = self.qmc5883l_read;
     Blockly.Python['qmc5883l_value'] = self.qmc5883l_value;
-    Blockly.Python.addReservedWords('qmc5883l, qmc5883l_device');
+    Blockly.Python.addReservedWords('qmc5883l,qmc5883l_device');
 
     Blockly.Python['bmp280_init'] = self.bmp280_init;
     Blockly.Python['bmp280_read'] = self.bmp280_read;
     Blockly.Python['bmp280_temperature'] = self.bmp280_temperature;
     Blockly.Python['bmp280_pressure'] = self.bmp280_pressure;
     Blockly.Python['bmp280_altitude'] = self.bmp280_altitude;
-    Blockly.Python.addReservedWords('bmp280, bmp280_device');
+    Blockly.Python.addReservedWords('bmp280,bmp280_device');
 
     Blockly.Python['max30102_init'] = self.max30102_init;
     Blockly.Python['max30102_read'] = self.max30102_read;
@@ -232,7 +233,7 @@ var ioty_generator = new function() {
     Blockly.Python['max30102_beat'] = self.max30102_beat;
     Blockly.Python['max30102_bpm'] = self.max30102_bpm;
     Blockly.Python['max30102_spo2'] = self.max30102_spo2;
-    Blockly.Python.addReservedWords('max30102, max30102_device');
+    Blockly.Python.addReservedWords('max30102,max30102_device');
 
   };
 
@@ -2105,6 +2106,41 @@ var ioty_generator = new function() {
     Blockly.Python.definitions_[functionName] = code;
 
     return null;
+  };
+
+  this.ez_timer_set_timeout = function(block) {
+    // First, add a 'global' statement for every variable that is not shadowed by
+    // a local parameter.
+    const globals = [];
+    const workspace = blockly.workspace;
+    const usedVariables = Blockly.Variables.allUsedVarModels(workspace) || [];
+    for (let i = 0, variable; (variable = usedVariables[i]); i++) {
+      const varName = variable.name;
+      if (block.getVars().indexOf(varName) === -1) {
+        globals.push(Blockly.Python.nameDB_.getName(varName, Blockly.Names.NameType.VARIABLE));
+      }
+    }
+    // Add developer variables.
+    const devVarList = Blockly.Variables.allDeveloperVariables(workspace);
+    for (let i = 0; i < devVarList.length; i++) {
+      globals.push(
+          Blockly.Python.nameDB_.getName(devVarList[i], Blockly.Names.NameType.DEVELOPER_VARIABLE));
+    }
+    const globalString = globals.length ?
+      Blockly.Python.INDENT + 'global ' + globals.join(', ') + '\n' :
+      '';
+
+    // Usual stuff
+    var interval = block.getFieldValue('timeout');
+    var statements = Blockly.Python.statementToCode(block, 'statements');
+
+    var code =
+      'def ez_timer_timeout_fn():\n'
+      + globalString
+      + statements
+      + 'ez_timer_obj.set_timeout(ez_timer_timeout_fn, ' + interval + ')\n';
+
+    return code;
   };
 
   this.spi_init = function(block) {

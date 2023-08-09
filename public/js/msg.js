@@ -1423,6 +1423,12 @@ let MSGS = {
   '#blk-ez_timer_cb_tooltip#': {
     en: 'You must init the timer first, and run update frequently. Offset applies an delay to the first call of this function.',
   },
+  '#blk-ez_timer_set_timeout#': {
+    en: 'ez_timer: Run code after',
+  },
+  '#blk-ez_timer_set_timeout_tooltip#': {
+    en: 'Runs the provide code after the specified duration. You must init the timer first, and run update frequently.',
+  },
   '#blk-spi_init_with_baudrate#': {
     en: 'init spi with baudrate',
   },

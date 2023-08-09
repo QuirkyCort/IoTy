@@ -163,9 +163,11 @@ var extensions = new function() {
       ],
       description:
         '<p>' +
-          'This module allows you to perform non-blocking read from the terminal/stdin. It provides two functions...' +
-          '"read" for reading a specified number of characters (if -1, it will return whatever is available).' +
-          '"readline" for reading an entire line (will return an empty string if a full line isn\'t available). ' +
+          'This module allows you to perform non-blocking read from the terminal/stdin.' +
+          'Unlike the "input" block, this module will not wait for input and will always return immediately. ' +
+        '</p>' +
+        '<p>' +
+          'If available data is less than what is requested, the "read" function will return whatever is available, while "readline" will return an empty string. ' +
         '</p>'
     },
     {
@@ -198,11 +200,14 @@ var extensions = new function() {
       id: 'ez_timer',
       name: 'EZ Timer',
       files: [
-        ['ez_timer.py', 'extensions/ez_timer.py?v=84eef081'],
+        ['ez_timer.py', 'extensions/ez_timer.py?v=396da716'],
       ],
       description:
         '<p>' +
           'This module allows you easily create a function that runs at a fixed interval. ' +
+          'It can also let you run code after a timeout without blocking. ' +
+        '</p>' +
+        '<p>' +
           'It has 1ms resolution and uses polling, so there are no guarantees for the exact time that the timer runs. ' +
           'As long as you run update frequently, it should be fairly accurate (...within a few ms).' +
         '</p>'

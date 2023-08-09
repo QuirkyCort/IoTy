@@ -1122,18 +1122,8 @@
   <category toolboxitemid="ez_timer" name="EZ Timer" colour="#9fa55b" hidden="true">
     <block type="ez_timer_init"></block>
     <block type="ez_timer_update"></block>
-    <block type="ez_timer_cb">
-      <value name="interval">
-        <shadow type="math_number">
-          <field name="NUM">1</field>
-        </shadow>
-      </value>
-      <value name="offset">
-        <shadow type="math_number">
-          <field name="NUM">1</field>
-        </shadow>
-      </value>
-    </block>
+    <block type="ez_timer_cb"></block>
+    <block type="ez_timer_set_timeout"></block>
   </category>
   <category toolboxitemid="mfrc522" name="MFRC522" colour="#5b67a5" hidden="true">
     <block type="mfrc522_init">
