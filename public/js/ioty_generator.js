@@ -242,6 +242,10 @@ var ioty_generator = new function() {
     Blockly.Python['vl53l0x_read'] = self.vl53l0x_read;
     Blockly.Python.addReservedWords('vl53l0x,vl53l0x_device');
 
+    Blockly.Python['mqtt_logger_init'] = self.mqtt_logger_init;
+    Blockly.Python['mqtt_logger_log_with_time'] = self.mqtt_logger_log_with_time;
+    Blockly.Python['mqtt_logger_log'] = self.mqtt_logger_log;
+    Blockly.Python.addReservedWords('mqtt_logger');
   };
 
   // Generate python code
@@ -303,9 +307,8 @@ var ioty_generator = new function() {
       if (Object.keys(self.mqttSubscriptions).length == 0) {
         replacementCode = spaces + 'pass\n';
       }
-      for (let key in self.mqttSubscriptions) {
-        let cb = self.mqttSubscriptions[key];
-        let functionName = 'ioty_mqtt_cb_' + cb.replaceAll(/\W*/g, '');
+      for (let topic in self.mqttSubscriptions) {
+        let cb = self.mqttSubscriptions[topic];
         if (first) {
           first = false;
           replacementCode += spaces + 'if ';
@@ -313,8 +316,8 @@ var ioty_generator = new function() {
           replacementCode += spaces + 'elif ';
         }
 
-        replacementCode += 'topic == b\'' + cb + '\':\n';
-        replacementCode += spaces + '    ' + functionName + '(msg.decode())\n';
+        replacementCode += 'topic == b\'' + topic + '\':\n';
+        replacementCode += spaces + '    ' + cb;
       }
       code = code.replace(placeholderRegex, replacementCode);
     }
@@ -328,13 +331,10 @@ var ioty_generator = new function() {
     let placeholderRegex = new RegExp(placeholderRegexStr);
 
     let matches = code.matchAll(placeholderRegexG);
-    for (let match of matches) {
-      let spaces = match[1];
-      let first = true;
+    for (let _ of matches) {
       let replacementCode = '';
 
-      for (let key in self.mqttSubscriptions) {
-        let topic = self.mqttSubscriptions[key];
+      for (let topic in self.mqttSubscriptions) {
         replacementCode += 'ioty_mqtt.subscribe(b\'' + topic + '\')\n';
       }
       code = code.replace(placeholderRegex, replacementCode);
@@ -918,9 +918,9 @@ var ioty_generator = new function() {
 
     topic = escapeSingleQuotes(topic);
 
-    self.mqttSubscriptions[topic] = topic;
-
     let functionName = 'ioty_mqtt_cb_' + topic.replaceAll(/\W*/g, '');
+
+    self.mqttSubscriptions[topic] = functionName + '(msg.decode())\n';
 
     var code =
       '\n# MQTT callback for topic ' + topic + '\n' +
@@ -2403,5 +2403,43 @@ var ioty_generator = new function() {
     return [code, Blockly.Python.ORDER_ATOMIC];
   };
 
+  this.mqtt_logger_init = function(block) {
+    self.imports['mqtt_logger'] = 'import mqtt_logger';
+
+    let topic = block.getFieldValue('topic');
+    let size = block.getFieldValue('size');
+
+    topic = escapeSingleQuotes(topic);
+    let dev_topic = topic + '_dev';
+
+    self.mqttSubscriptions[dev_topic] = 'mqtt_logger.handle_request(ioty_mqtt, \'' + topic + '\', msg)\n';
+
+    let code =
+      'mqtt_logger.init(\'' + topic + '\', ' + size + ')\n';
+
+    return code;
+  };
+
+  this.mqtt_logger_log_with_time = function(block) {
+    var topic = block.getFieldValue('topic');
+    var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_NONE);
+
+    topic = escapeSingleQuotes(topic);
+
+    var code = 'mqtt_logger.log_with_time(ioty_mqtt, \'' + topic + '\', ' + value + ')\n';
+
+    return code;
+  };
+
+  this.mqtt_logger_log = function(block) {
+    var topic = block.getFieldValue('topic');
+    var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_NONE);
+
+    topic = escapeSingleQuotes(topic);
+
+    var code = 'mqtt_logger.log(ioty_mqtt, \'' + topic + '\', ' + value + ')\n';
+
+    return code;
+  };
 }
 

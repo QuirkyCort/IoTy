@@ -1170,4 +1170,9 @@
     <block type="vl53l0x_init"></block>
     <block type="vl53l0x_read"></block>
   </category>
+  <category toolboxitemid="mqtt_logger" name="MQTT Logger" colour="#9fa55b" hidden="true">
+    <block type="mqtt_logger_init"></block>
+    <block type="mqtt_logger_log_with_time"></block>
+    <block type="mqtt_logger_log"></block>
+  </category>
 </xml>

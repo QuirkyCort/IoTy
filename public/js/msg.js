@@ -1641,7 +1641,31 @@ let MSGS = {
   },
   '#blk-vl53l0x_read_tooltip#': {
     en: 'Returns -1 if the distance is too far.',
-  }
+  },
+  '#blk-mqtt_logger_init#': {
+    en: 'init mqtt logger with topic',
+  },
+  '#blk-and_size#': {
+    en: 'and size',
+  },
+  '#blk-mqtt_logger_init_tooltip#': {
+    en: 'Create a new data logger that will contain no more than the specified number of entries.',
+  },
+  '#blk-mqtt_logger_log_with_time#': {
+    en: 'mqtt logger: log with current time to topic',
+  },
+  '#blk-and_data#': {
+    en: 'and data',
+  },
+  '#blk-mqtt_logger_log_with_time_tooltip#': {
+    en: 'Log the provided data (y-axis) together with the current time in seconds (x-axis).',
+  },
+  '#blk-mqtt_logger_log#': {
+    en: 'mqtt logger: log data',
+  },
+  '#blk-mqtt_logger_log_tooltip#': {
+    en: 'Log the provided data. Data must be a list with two items, the first is the x-axis and the second is the y-axis.',
+  },
 };
 let MSGS_KEYS = Object.keys(MSGS);
 

@@ -276,6 +276,18 @@ var extensions = new function() {
           'This extension allows you to read the distance in millimeters (mm).' +
         '</p>'
     },
+    {
+      id: 'mqtt_logger',
+      name: 'MQTT Logger',
+      files: [
+        ['mqtt_logger.py', 'extensions/mqtt_logger.py?v=5923ca89'],
+      ],
+      description:
+        '<p>' +
+          'This extension allows you to log data to an internal circular buffer, and send it out via MQTT when it receives a request for it. ' +
+          'It should be used together with the "Chart" widget in the MQTT App Builder.' +
+        '</p>'
+    },
   ]
 
   this.init = function() {
