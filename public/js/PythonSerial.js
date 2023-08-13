@@ -97,15 +97,18 @@ class PythonSerial {
   async readLoop(handler) {
     let utf8decoder = new TextDecoder();
 
-    while (true) {
-      const { value, done } = await this.reader.read();
-      if (done) {
-        break;
+    try {
+      while (true) {
+        const { value, done } = await this.reader.read();
+        if (done) {
+          break;
+        }
+        let text = utf8decoder.decode(value);
+        handler(text);
       }
-      let text = utf8decoder.decode(value);
-      handler(text);
+    } catch (error) {
+      console.log(error);
     }
-    console.log('readLoop terminated');
   }
 
   async readSerialToBuf() {
