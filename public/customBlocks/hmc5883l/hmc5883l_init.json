@@ -1,0 +1,55 @@
+{
+  "type": "hmc5883l_init",
+  "message0": "#blk-hmc5883l_init# %1 #blk-and_scale# %2",
+  "args0": [
+    {
+      "type": "field_input",
+      "name": "addr",
+      "text": "30"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "scale",
+      "options": [
+        [
+          "0.88G",
+          "880G"
+        ],
+        [
+          "1.3G",
+          "1300G"
+        ],
+        [
+          "1.9G",
+          "1900G"
+        ],
+        [
+          "2.5G",
+          "2500G"
+        ],
+        [
+          "4.0G",
+          "4000G"
+        ],
+        [
+          "4.7G",
+          "4700G"
+        ],
+        [
+          "5.6G",
+          "5600G"
+        ],
+        [
+          "8.1G",
+          "8100G"
+        ]
+      ]
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-hmc5883l_init_tooltip#",
+  "helpUrl": ""
+}

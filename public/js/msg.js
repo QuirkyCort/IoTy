@@ -1519,6 +1519,24 @@ let MSGS = {
   '#blk-qmc5883l_value_tooltip#': {
     en: 'You must perform a read before using this block.',
   },
+  '#blk-hmc5883l_init#': {
+    en: 'init HMC5883L with address',
+  },
+  '#blk-hmc5883l_init_tooltip#': {
+    en: 'You must have an \\"init I2C\\" block before this',
+  },
+  '#blk-hmc5883l_read#': {
+    en: 'hmc5883l: read the sensor',
+  },
+  '#blk-hmc5883l_read_tooltip#': {
+    en: 'You must perform a read before using the sensor value.',
+  },
+  '#blk-hmc5883l_value#': {
+    en: 'hmc5883l: magnetic value in ',
+  },
+  '#blk-hmc5883l_value_tooltip#': {
+    en: 'You must perform a read before using this block.',
+  },
   '#blk-bmp280_init#': {
     en: 'init BMP280 with address',
   },

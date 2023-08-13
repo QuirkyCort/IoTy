@@ -1,0 +1,11 @@
+{
+  "type": "hmc5883l_read",
+  "message0": "#blk-hmc5883l_read#",
+  "args0": [],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-hmc5883l_read_tooltip#",
+  "helpUrl": ""
+}

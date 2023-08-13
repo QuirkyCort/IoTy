@@ -240,6 +240,21 @@ var extensions = new function() {
         '</p>'
     },
     {
+      id: 'hmc5883l',
+      name: 'HMC5883L (Magnetic Sensor)',
+      files: [
+        ['hmc5883l.py', 'extensions/hmc5883l.py?v=55220922'],
+      ],
+      description:
+        '<p>' +
+          'The HMC5883L is often used as a magnetic compass for navigation purposes. ' +
+        '</p>' +
+        '<p>' +
+          'It is often found in the form of a GY-271 module, but note that the GY-271 may also be equipped with a GMC5883L instead. ' +
+          'You can check by doing an I2C scan; the QMC5883L will have an address of 0x0D (13), while the HMC5883L uses address 0x1E (30).' +
+        '</p>'
+    },
+    {
       id: 'bmp280',
       name: 'BMP280 (Barometric Pressure Sensor)',
       files: [

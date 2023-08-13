@@ -221,6 +221,11 @@ var ioty_generator = new function() {
     Blockly.Python['qmc5883l_value'] = self.qmc5883l_value;
     Blockly.Python.addReservedWords('qmc5883l,qmc5883l_device');
 
+    Blockly.Python['hmc5883l_init'] = self.hmc5883l_init;
+    Blockly.Python['hmc5883l_read'] = self.hmc5883l_read;
+    Blockly.Python['hmc5883l_value'] = self.hmc5883l_value;
+    Blockly.Python.addReservedWords('hmc5883l,hmc5883l_device');
+
     Blockly.Python['bmp280_init'] = self.bmp280_init;
     Blockly.Python['bmp280_read'] = self.bmp280_read;
     Blockly.Python['bmp280_temperature'] = self.bmp280_temperature;
@@ -2289,6 +2294,32 @@ var ioty_generator = new function() {
     let axis = block.getFieldValue('axis');
 
     let code = 'qmc5883l_device.get_' + axis + '()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.hmc5883l_init = function(block) {
+    self.imports['hmc5883l'] = 'import hmc5883l';
+
+    let addr = block.getFieldValue('addr');
+    let scale = block.getFieldValue('scale');
+
+    let code =
+      'hmc5883l_device = hmc5883l.HMC5883L(i2c, addr=' + addr + ', scale=hmc5883l.SCALE_' + scale + ')\n';
+
+    return code;
+  };
+
+  this.hmc5883l_read = function(block) {
+    let code = 'hmc5883l_device.read()\n';
+
+    return code;
+  };
+
+  this.hmc5883l_value = function(block) {
+    let axis = block.getFieldValue('axis');
+
+    let code = 'hmc5883l_device.get_' + axis + '()';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };
