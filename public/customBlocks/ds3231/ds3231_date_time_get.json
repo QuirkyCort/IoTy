@@ -1,0 +1,9 @@
+{
+  "type": "ds3231_date_time_get",
+  "message0": "#blk-ds3231_date_time_get#",
+  "args0": [],
+  "output": "Array",
+  "colour": 65,
+  "tooltip": "#blk-ds3231_date_time_get_tooltip#",
+  "helpUrl": ""
+}

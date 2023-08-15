@@ -251,6 +251,11 @@ var ioty_generator = new function() {
     Blockly.Python['mqtt_logger_log_with_time'] = self.mqtt_logger_log_with_time;
     Blockly.Python['mqtt_logger_log'] = self.mqtt_logger_log;
     Blockly.Python.addReservedWords('mqtt_logger');
+
+    Blockly.Python['ds3231_init'] = self.ds3231_init;
+    Blockly.Python['ds3231_date_time_get'] = self.ds3231_date_time_get;
+    Blockly.Python['ds3231_date_time_set'] = self.ds3231_date_time_set;
+    Blockly.Python.addReservedWords('ds3231,ds3231_device');
   };
 
   // Generate python code
@@ -2472,5 +2477,30 @@ var ioty_generator = new function() {
 
     return code;
   };
+
+  this.ds3231_init = function(block) {
+    self.imports['ds3231'] = 'import ds3231';
+
+    var addr = block.getFieldValue('addr');
+
+    var code = 'ds3231_device = ds3231.DS3231(i2c, ' + addr + ')\n';
+
+    return code;
+  };
+
+  this.ds3231_date_time_get = function(block) {
+    var code = 'ds3231_device.datetime()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.ds3231_date_time_set = function(block) {
+    var dateTime = Blockly.Python.valueToCode(block, 'dateTime', Blockly.Python.ORDER_NONE);
+
+    var code = 'ds3231_device.datetime(' + dateTime + ')\n';
+
+    return code;
+  };
+
 }
 

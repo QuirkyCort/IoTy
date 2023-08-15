@@ -1,0 +1,16 @@
+{
+  "type": "ds3231_date_time_set",
+  "message0": "#blk-ds3231_date_time_set# %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "dateTime",
+      "check": "Array"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 65,
+  "tooltip": "#blk-ds3231_date_time_set_tooltip#",
+  "helpUrl": ""
+}

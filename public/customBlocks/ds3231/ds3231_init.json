@@ -1,0 +1,16 @@
+{
+  "type": "ds3231_init",
+  "message0": "#blk-ds3231_init# %1",
+  "args0": [
+    {
+      "type": "field_input",
+      "name": "addr",
+      "text": "104"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 65,
+  "tooltip": "#blk-ds3231_init_tooltip#",
+  "helpUrl": ""
+}

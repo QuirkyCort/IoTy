@@ -303,6 +303,20 @@ var extensions = new function() {
           'It should be used together with the "Chart" widget in the MQTT App Builder.' +
         '</p>'
     },
+    {
+      id: 'ds3231',
+      name: 'DS3231 (Real-Time Clock)',
+      files: [
+        ['ds3231.py', 'extensions/ds3231.py?v=ad5ebfc9'],
+      ],
+      description:
+        '<p>' +
+          'The DS3231 is a real-time clock, often found as a module with a backup battery that allows it to keep the time when your device is otherwise powered off. ' +
+        '</p>' +
+        '<p>' +
+          'This extension allows you read and write to the DS3231 in a format that is compatible with "machine.RTC", allowing you to easily set or save your device time. ' +
+        '</p>'
+    },
   ]
 
   this.init = function() {

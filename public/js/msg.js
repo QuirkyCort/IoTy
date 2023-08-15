@@ -1684,6 +1684,24 @@ let MSGS = {
   '#blk-mqtt_logger_log_tooltip#': {
     en: 'Log the provided data. Data must be a list with two items, the first is the x-axis and the second is the y-axis.',
   },
+  '#blk-ds3231_init#': {
+    en: 'init DS3231 with address',
+  },
+  '#blk-ds3231_init_tooltip#': {
+    en: 'You must have an \\"init I2C\\" block before this',
+  },
+  '#blk-ds3231_date_time_get#': {
+    en: 'ds3231: date and time',
+  },
+  '#blk-ds3231_date_time_get_tooltip#': {
+    en: 'Returns a list containing year, month, day, weekday, hours, minutes, seconds, subseconds. Subseconds is always 0 and is only present for compatibility with machine.RTC.',
+  },
+  '#blk-ds3231_date_time_set#': {
+    en: 'ds3231: set date and time to',
+  },
+  '#blk-ds3231_date_time_set_tooltip#': {
+    en: 'Input should be a list containing year, month, day, weekday, hours, minutes, seconds, subseconds. Subseconds is ignored and is only present for compatibility with machine.RTC.',
+  },
 };
 let MSGS_KEYS = Object.keys(MSGS);
 

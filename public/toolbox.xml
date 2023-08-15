@@ -1182,4 +1182,9 @@
     <block type="mqtt_logger_log_with_time"></block>
     <block type="mqtt_logger_log"></block>
   </category>
+  <category toolboxitemid="ds3231" name="DS3231" colour="#9fa55b" hidden="true">
+    <block type="ds3231_init"></block>
+    <block type="ds3231_date_time_get"></block>
+    <block type="ds3231_date_time_set"></block>
+  </category>
 </xml>
