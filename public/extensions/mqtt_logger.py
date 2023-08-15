@@ -66,4 +66,4 @@ def log(ioty_mqtt, topic, data):
     ioty_mqtt.publish(bytes(topic + '_app', 'utf-8'), data)
 
 def log_with_time(ioty_mqtt, topic, data):
-    log(ioty_mqtt, topic, (time.time(), data))
+    log(ioty_mqtt, topic, (time.time() + 946684800, data))

@@ -295,7 +295,7 @@ var extensions = new function() {
       id: 'mqtt_logger',
       name: 'MQTT Logger',
       files: [
-        ['mqtt_logger.py', 'extensions/mqtt_logger.py?v=5923ca89'],
+        ['mqtt_logger.py', 'extensions/mqtt_logger.py?v=744ceec1'],
       ],
       description:
         '<p>' +
