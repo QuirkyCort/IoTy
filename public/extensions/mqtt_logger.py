@@ -1,5 +1,6 @@
 import json
 import time
+import gc
 
 logs = {}
 
@@ -8,10 +9,13 @@ class CircularBuffer:
         self.max_size = max_size
         self.length = 0
         self.ptr = 0
-        self.buf = [0] * max_size
+        self.buf = []
+        for _ in range(max_size):
+            self.buf.append([0,0])
 
-    def append(self, val):
-        self.buf[self.ptr] = val
+    def append(self, val0, val1):
+        self.buf[self.ptr][0] = val0
+        self.buf[self.ptr][1] = val1
         self.ptr += 1
         if self.ptr == self.max_size:
             self.ptr = 0
@@ -45,6 +49,7 @@ def handle_request(ioty_mqtt, topic, msg):
         send_all(ioty_mqtt, topic)
 
 def send_all(ioty_mqtt, topic):
+    gc.collect()
     data = {
         'type': 'data_all',
         'data': tuple(logs[topic])
@@ -56,7 +61,7 @@ def send_all(ioty_mqtt, topic):
 def log(ioty_mqtt, topic, data):
     if topic not in logs:
         return
-    logs[topic].append(data)
+    logs[topic].append(data[0], data[1])
     data = {
         'type': 'data_some',
         'data': [data]
