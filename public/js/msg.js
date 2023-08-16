@@ -1702,6 +1702,42 @@ let MSGS = {
   '#blk-ds3231_date_time_set_tooltip#': {
     en: 'Input should be a list containing year, month, day, weekday, hours, minutes, seconds, subseconds. Subseconds is ignored and is only present for compatibility with machine.RTC.',
   },
+  '#blk-bme280_init#': {
+    en: 'init BME280 with address',
+  },
+  '#blk-bme280_init_tooltip#': {
+    en: 'You must have an \\"init I2C\\" block before this',
+  },
+  '#blk-bme280_read#': {
+    en: 'bmp280: read the sensor',
+  },
+  '#blk-bme280_read_tooltip#': {
+    en: 'You must perform a read before using the sensor value.',
+  },
+  '#blk-bme280_temperature#': {
+    en: 'bme280: temperature',
+  },
+  '#blk-bme280_temperature_tooltip#': {
+    en: 'You must perform a read before using this block. Value is in Celsius.',
+  },
+  '#blk-bme280_pressure#': {
+    en: 'bme280: pressure',
+  },
+  '#blk-bme280_pressure_tooltip#': {
+    en: 'You must perform a read before using this block. Value is in pascal.',
+  },
+  '#blk-bme280_altitude#': {
+    en: 'bme280: altitude',
+  },
+  '#blk-bme280_altitude_tooltip#': {
+    en: 'You must perform a read before using this block. Value is calculated from the pressure, and is in meters above sea level.',
+  },
+  '#blk-bme280_humidity#': {
+    en: 'bme280: humidity',
+  },
+  '#blk-bme280_humidity_tooltip#': {
+    en: 'You must perform a read before using this block. Value is in relative humidity percentage.',
+  },
 };
 let MSGS_KEYS = Object.keys(MSGS);
 

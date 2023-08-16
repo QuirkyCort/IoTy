@@ -262,7 +262,7 @@ var extensions = new function() {
       ],
       description:
         '<p>' +
-          'The QMC5883L is a barometric pressure sensor often used for calculating altitude from pressure. ' +
+          'The BMP280 is a barometric pressure sensor often used for calculating altitude from pressure. ' +
           'This extension allows you to read temperature, pressure, and the calculated altitude. ' +
         '</p>'
     },
@@ -315,6 +315,19 @@ var extensions = new function() {
         '</p>' +
         '<p>' +
           'This extension allows you read and write to the DS3231 in a format that is compatible with "machine.RTC", allowing you to easily set or save your device time. ' +
+        '</p>'
+    },
+    {
+      id: 'bme280',
+      name: 'BME280 ( humidity,Barometric Pressure Sensor)',
+      files: [
+        ['bme280.py', 'extensions/bme280.py?v=9819f9d5'],
+      ],
+      description:
+        '<p>' +
+          'The BME280 is a barometric pressure sensor often used for calculating altitude from pressure. ' +
+          'It is similar to the BMP280, but provides an additional humidity value. ' +
+          'This extension allows you to read temperature, humidity, pressure, and the calculated altitude. ' +
         '</p>'
     },
   ]

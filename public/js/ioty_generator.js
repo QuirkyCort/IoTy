@@ -256,6 +256,15 @@ var ioty_generator = new function() {
     Blockly.Python['ds3231_date_time_get'] = self.ds3231_date_time_get;
     Blockly.Python['ds3231_date_time_set'] = self.ds3231_date_time_set;
     Blockly.Python.addReservedWords('ds3231,ds3231_device');
+
+    Blockly.Python['bme280_init'] = self.bme280_init;
+    Blockly.Python['bme280_read'] = self.bme280_read;
+    Blockly.Python['bme280_temperature'] = self.bme280_temperature;
+    Blockly.Python['bme280_pressure'] = self.bme280_pressure;
+    Blockly.Python['bme280_altitude'] = self.bme280_altitude;
+    Blockly.Python['bme280_humidity'] = self.bme280_humidity;
+    Blockly.Python.addReservedWords('bme280,bme280_device');
+
   };
 
   // Generate python code
@@ -2502,5 +2511,45 @@ var ioty_generator = new function() {
     return code;
   };
 
+  this.bme280_init = function(block) {
+    self.imports['bme280'] = 'import bme280';
+
+    let addr = block.getFieldValue('addr');
+
+    let code =
+      'bme280_device = bme280.BME280(i2c, addr=' + addr + ')\n';
+
+    return code;
+  };
+
+  this.bme280_read = function(block) {
+    let code = 'bme280_device.read()\n';
+
+    return code;
+  };
+
+  this.bme280_temperature = function(block) {
+    let code = 'bme280_device.get_temperature()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.bme280_pressure = function(block) {
+    let code = 'bme280_device.get_pressure()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.bme280_altitude = function(block) {
+    let code = 'bme280_device.get_altitude()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.bme280_humidity = function(block) {
+    let code = 'bme280_device.get_humidity()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
 }
 

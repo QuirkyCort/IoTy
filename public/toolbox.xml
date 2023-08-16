@@ -1187,4 +1187,12 @@
     <block type="ds3231_date_time_get"></block>
     <block type="ds3231_date_time_set"></block>
   </category>
+  <category toolboxitemid="bme280" name="BME280" colour="#5b67a5" hidden="true">
+    <block type="bme280_init"></block>
+    <block type="bme280_read"></block>
+    <block type="bme280_temperature"></block>
+    <block type="bme280_humidity"></block>
+    <block type="bme280_pressure"></block>
+    <block type="bme280_altitude"></block>
+  </category>
 </xml>
