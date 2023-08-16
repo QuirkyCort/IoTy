@@ -19,13 +19,24 @@ var monitorPanel = new function() {
     self.$input[0].onkeydown = self.handleKeyEvents;
 
     self.updateTextLanguage();
+
+    self.needScrolling = false;
+    setInterval(self.scrollText, 100);
   };
 
   this.appendText = function(text) {
     let display = self.$display[0];
-    display.innerText += text;
-    display.scrollTop = display.scrollHeight - display.clientHeight
+    display.textContent += text;
+    self.needScrolling = true;
   };
+
+  this.scrollText = function() {
+    if (self.needScrolling) {
+      let display = self.$display[0];
+      display.scrollTop = display.scrollHeight - display.clientHeight
+      self.needScrolling = false;
+  }
+  }
 
   this.setText = function(text) {
     let display = self.$display[0];
