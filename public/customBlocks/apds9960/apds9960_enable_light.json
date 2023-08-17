@@ -1,0 +1,39 @@
+{
+  "type": "apds9960_enable_light",
+  "message0": "#blk-apds9960_enable_light# %1 #blk-and_sensitivity# %2",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "gain",
+      "options": [
+        [
+          "1x",
+          "AGAIN_1"
+        ],
+        [
+          "4x",
+          "AGAIN_4"
+        ],
+        [
+          "16x",
+          "AGAIN_16"
+        ],
+        [
+          "64x",
+          "AGAIN_64"
+        ]
+      ]
+    },
+    {
+      "type": "field_input",
+      "name": "sensitivity",
+      "text": "219"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-apds9960_enable_light_tooltip#",
+  "helpUrl": ""
+}

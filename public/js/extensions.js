@@ -256,7 +256,7 @@ var extensions = new function() {
     },
     {
       id: 'bmp280',
-      name: 'BMP280 (Barometric Pressure Sensor)',
+      name: 'BMP280 (Temperature, Barometric Pressure Sensor)',
       files: [
         ['bmp280.py', 'extensions/bmp280.py?v=1d5a86a4'],
       ],
@@ -319,7 +319,7 @@ var extensions = new function() {
     },
     {
       id: 'bme280',
-      name: 'BME280 ( humidity,Barometric Pressure Sensor)',
+      name: 'BME280 (Temperature, Humidity, Barometric Pressure Sensor)',
       files: [
         ['bme280.py', 'extensions/bme280.py?v=9819f9d5'],
       ],
@@ -328,6 +328,17 @@ var extensions = new function() {
           'The BME280 is a barometric pressure sensor often used for calculating altitude from pressure. ' +
           'It is similar to the BMP280, but provides an additional humidity value. ' +
           'This extension allows you to read temperature, humidity, pressure, and the calculated altitude. ' +
+        '</p>'
+    },
+    {
+      id: 'apds9960',
+      name: 'APDS9960 (Proximity, Ambient Light (RGB), Gesture Sensor)',
+      files: [
+        ['apds9960.py', 'extensions/apds9960.py?v=9819f9d5'],
+      ],
+      description:
+        '<p>' +
+          'The APDS9960 can detect proximity (up to a few cm), ambient light level and color, and gestures (...move your hand left/right/up/down near the sensor). ' +
         '</p>'
     },
   ]

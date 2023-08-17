@@ -265,6 +265,19 @@ var ioty_generator = new function() {
     Blockly.Python['bme280_humidity'] = self.bme280_humidity;
     Blockly.Python.addReservedWords('bme280,bme280_device');
 
+    Blockly.Python['apds9960_init'] = self.apds9960_init;
+    Blockly.Python['apds9960_enable_light'] = self.apds9960_enable_light;
+    Blockly.Python['apds9960_disable_light'] = self.apds9960_disable_light;
+    Blockly.Python['apds9960_read_light'] = self.apds9960_read_light;
+    Blockly.Python['apds9960_enable_prox'] = self.apds9960_enable_prox;
+    Blockly.Python['apds9960_disable_prox'] = self.apds9960_disable_prox;
+    Blockly.Python['apds9960_read_prox'] = self.apds9960_read_prox;
+    Blockly.Python['apds9960_enable_gesture'] = self.apds9960_enable_gesture;
+    Blockly.Python['apds9960_disable_gesture'] = self.apds9960_disable_gesture;
+    Blockly.Python['apds9960_read_gesture'] = self.apds9960_read_gesture;
+    Blockly.Python['apds9960_get_gesture'] = self.apds9960_get_gesture;
+    Blockly.Python.addReservedWords('apds9960,apds9960_device');
+
   };
 
   // Generate python code
@@ -2548,6 +2561,100 @@ var ioty_generator = new function() {
 
   this.bme280_humidity = function(block) {
     let code = 'bme280_device.get_humidity()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.apds9960_init = function(block) {
+    self.imports['apds9960'] = 'import apds9960';
+
+    let addr = block.getFieldValue('addr');
+
+    let code =
+      'apds9960_device = apds9960.APDS9960(i2c, addr=' + addr + ')\n';
+
+    return code;
+  };
+
+  this.apds9960_enable_light = function(block) {
+    let gain = block.getFieldValue('gain');
+    let sensitivity = block.getFieldValue('sensitivity');
+
+    let code = 'apds9960_device.enable_light_sensor(apds9960.' + gain + ', ' + sensitivity +')\n';
+
+    return code;
+  };
+
+  this.apds9960_disable_light = function(block) {
+    let code = 'apds9960_device.disable_light_sensor()\n';
+
+    return code;
+  };
+
+  this.apds9960_read_light = function(block) {
+    let type = block.getFieldValue('type');
+
+    if (type == 'c') {
+      type = '[0]';
+    } else if (type == 'r') {
+      type = '[1]';
+    } else if (type == 'g') {
+      type = '[2]';
+    } else if (type == 'b') {
+      type = '[3]';
+    } else if (type == 'all') {
+      type = '';
+    }
+
+    let code = 'apds9960_device.read_light()' + type;
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.apds9960_enable_prox = function(block) {
+    let gain = block.getFieldValue('gain');
+    let led = block.getFieldValue('led');
+
+    let code = 'apds9960_device.enable_prox_sensor(apds9960.' + gain + ', apds9960.' + led +')\n';
+
+    return code;
+  };
+
+  this.apds9960_disable_prox = function(block) {
+    let code = 'apds9960_device.disable_prox_sensor()\n';
+
+    return code;
+  };
+
+  this.apds9960_read_prox = function(block) {
+    let code = 'apds9960_device.read_prox()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.apds9960_enable_gesture = function(block) {
+    let gain = block.getFieldValue('gain');
+    let led = block.getFieldValue('led');
+
+    let code = 'apds9960_device.enable_gesture_sensor(apds9960.' + gain + ', apds9960.' + led +')\n';
+
+    return code;
+  };
+
+  this.apds9960_disable_gesture = function(block) {
+    let code = 'apds9960_device.disable_gesture_sensor()\n';
+
+    return code;
+  };
+
+  this.apds9960_read_gesture = function(block) {
+    let code = 'apds9960_device.read_gesture()\n';
+
+    return code;
+  };
+
+  this.apds9960_get_gesture = function(block) {
+    let code = 'apds9960_device.get_gesture()';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };

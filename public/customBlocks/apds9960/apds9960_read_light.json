@@ -1,0 +1,21 @@
+{
+  "type": "apds9960_read_light",
+  "message0": "#blk-apds9960_read_light# %1",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "type",
+      "options": [
+        ["Clear", "c"],
+        ["Red", "r"],
+        ["Green", "g"],
+        ["Blue", "b"],
+        ["All (List)", "all"]
+      ]
+    }
+  ],
+  "output": ["Number", "Array"],
+  "colour": 230,
+  "tooltip": "#blk-apds9960_read_light_tooltip#",
+  "helpUrl": ""
+}

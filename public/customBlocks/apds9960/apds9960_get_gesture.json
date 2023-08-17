@@ -1,0 +1,9 @@
+{
+  "type": "apds9960_get_gesture",
+  "message0": "#blk-apds9960_get_gesture#",
+  "args0": [],
+  "output": "String",
+  "colour": 230,
+  "tooltip": "#blk-apds9960_get_gesture_tooltip#",
+  "helpUrl": ""
+}

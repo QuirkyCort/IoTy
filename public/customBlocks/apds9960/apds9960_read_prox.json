@@ -1,0 +1,9 @@
+{
+  "type": "apds9960_read_prox",
+  "message0": "#blk-apds9960_read_prox#",
+  "args0": [],
+  "output": "Number",
+  "colour": 230,
+  "tooltip": "#blk-apds9960_read_prox_tooltip#",
+  "helpUrl": ""
+}

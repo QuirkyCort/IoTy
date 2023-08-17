@@ -1195,4 +1195,19 @@
     <block type="bme280_pressure"></block>
     <block type="bme280_altitude"></block>
   </category>
+  <category toolboxitemid="apds9960" name="APDS9960" colour="#5b67a5" hidden="true">
+    <block type="apds9960_init"></block>
+    <block type="apds9960_enable_light"></block>
+    <block type="apds9960_disable_light"></block>
+    <block type="apds9960_read_light"></block>
+    <block type="apds9960_enable_prox"></block>
+    <block type="apds9960_disable_prox"></block>
+    <block type="apds9960_read_prox"></block>
+    <block type="apds9960_enable_gesture">
+      <field name="gain">GAIN_4</field>
+    </block>
+    <block type="apds9960_disable_gesture"></block>
+    <block type="apds9960_read_gesture"></block>
+    <block type="apds9960_get_gesture"></block>
+  </category>
 </xml>

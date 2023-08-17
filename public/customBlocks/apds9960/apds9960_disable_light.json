@@ -1,0 +1,11 @@
+{
+  "type": "apds9960_disable_light",
+  "message0": "#blk-apds9960_disable_light#",
+  "args0": [],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-apds9960_disable_light_tooltip#",
+  "helpUrl": ""
+}
