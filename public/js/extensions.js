@@ -334,7 +334,7 @@ var extensions = new function() {
       id: 'apds9960',
       name: 'APDS9960 (Proximity, Ambient Light (RGB), Gesture Sensor)',
       files: [
-        ['apds9960.py', 'extensions/apds9960.py?v=9819f9d5'],
+        ['apds9960.py', 'extensions/apds9960.py?v=6682cbe3'],
       ],
       description:
         '<p>' +

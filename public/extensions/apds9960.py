@@ -106,7 +106,7 @@ class APDS9960:
     def read_gesture(self):
         if not self._gesture_available():
             self.gesture = ''
-            return False
+            return ''
 
         first = None
         last = None
@@ -121,7 +121,7 @@ class APDS9960:
 
         if last == None:
             self.gesture = ''
-            return False
+            return ''
 
         ud_ratio_first = ((first[0] - first[1]) * 100) // (first[0] + first[1])
         lr_ratio_first = ((first[2] - first[3]) * 100) // (first[2] + first[3])
@@ -133,7 +133,7 @@ class APDS9960:
 
         if abs(ud_delta) < G_SENSITIVITY and abs(lr_delta) < G_SENSITIVITY:
             self.gesture = ''
-            return False
+            return ''
 
         if abs(ud_delta) > abs(lr_delta):
             if ud_delta > 0:
@@ -146,7 +146,7 @@ class APDS9960:
             else:
                 self.gesture = 'r'
 
-        return True
+        return self.gesture
 
     def get_gesture(self):
         return self.gesture

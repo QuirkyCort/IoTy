@@ -1738,6 +1738,81 @@ let MSGS = {
   '#blk-bme280_humidity_tooltip#': {
     en: 'You must perform a read before using this block. Value is in relative humidity percentage.',
   },
+  '#blk-apds9960_init#': {
+    en: 'init APDS9960 with addres',
+  },
+  '#blk-apds9960_init_tooltip#': {
+    en: 'You must have an \\"init I2C\\" block before this',
+  },
+  '#blk-apds9960_enable_light#': {
+    en: 'apds9960: enable ambient light sensor with gain',
+  },
+  '#blk-and_speed#': {
+    en: 'and speed',
+  },
+  '#blk-apds9960_enable_light_tooltip#': {
+    en: 'Increasing speed will reduce sensitivity. At 0, each read will take 712ms, while at the max of 255, each read will take 2.78ms.',
+  },
+  '#blk-apds9960_disable_light#': {
+    en: 'apds9960: disable ambient light sensor',
+  },
+  '#blk-apds9960_disable_light_tooltip#': {
+    en: 'Disable the sensor to save power when not needed.',
+  },
+  '#blk-apds9960_read_light#': {
+    en: 'apds9960: read ambient light of type',
+  },
+  '#blk-apds9960_read_light_tooltip#': {
+    en: '\\"Clear\\" means light of any color. \\"Red, Green, Blue\\" refers to light of that color. \\"All\\" will return a list containing the clear, red, green, and blue values.',
+  },
+  '#blk-apds9960_enable_prox#': {
+    en: 'apds9960: enable proximity sensor with gain',
+  },
+  '#blk-and_led#': {
+    en: 'and led',
+  },
+  '#blk-apds9960_enable_prox_tooltip#': {
+    en: 'Increasing gain and led power will increase detection range at the cost of more power.',
+  },
+  '#blk-apds9960_disable_prox#': {
+    en: 'apds9960: disable proximity sensor',
+  },
+  '#blk-apds9960_disable_prox_tooltip#': {
+    en: 'Disable the sensor to save power when not needed.',
+  },
+  '#blk-apds9960_read_prox#': {
+    en: 'apds9960: read proximity',
+  },
+  '#blk-apds9960_read_prox_tooltip#': {
+    en: 'WARNING! Proximity sensor will not work when gesture sensor is enabled.',
+  },
+  '#blk-apds9960_enable_gesture#': {
+    en: 'apds9960: enable gesture sensor with gain',
+  },
+  '#blk-and_led#': {
+    en: 'and led',
+  },
+  '#blk-apds9960_enable_gesture_tooltip#': {
+    en: 'Enabling gesture will disable proximity. Increasing gain and led power will increase detection range at the cost of more power.',
+  },
+  '#blk-apds9960_disable_gesture#': {
+    en: 'apds9960: disable gesture sensor',
+  },
+  '#blk-apds9960_disable_gesture_tooltip#': {
+    en: 'Disable the sensor to save power when not needed.',
+  },
+  '#blk-apds9960_read_gesture#': {
+    en: 'apds9960: read gesture',
+  },
+  '#blk-apds9960_read_gesture_tooltip#': {
+    en: 'You need to perform a read first, then retrieve the value using \\"get gesture\\". Run frequently, as new gestures cannot be detected until old gestures are read.',
+  },
+  '#blk-apds9960_get_gesture#': {
+    en: 'apds9960: get gesture',
+  },
+  '#blk-apds9960_get_gesture_tooltip#': {
+    en: 'Possible values are \\"u\\" (up), \\"d\\" (down), \\"l\\" (left), \\"r\\" (right), \\"\\" (no gesture). You must perform a \\"read gesture\\" first to retrieve the gesture from the sensor.',
+  },
 };
 let MSGS_KEYS = Object.keys(MSGS);
 

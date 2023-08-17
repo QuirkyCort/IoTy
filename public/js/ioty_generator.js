@@ -2578,9 +2578,9 @@ var ioty_generator = new function() {
 
   this.apds9960_enable_light = function(block) {
     let gain = block.getFieldValue('gain');
-    let sensitivity = block.getFieldValue('sensitivity');
+    let speed = block.getFieldValue('speed');
 
-    let code = 'apds9960_device.enable_light_sensor(apds9960.' + gain + ', ' + sensitivity +')\n';
+    let code = 'apds9960_device.enable_light_sensor(apds9960.' + gain + ', ' + speed +')\n';
 
     return code;
   };
