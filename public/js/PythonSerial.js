@@ -69,6 +69,12 @@ class PythonSerial {
 
   async openPort() {
     await this.port.open({ baudRate: this.baudRate });
+
+    this.port.setSignals({
+      dataTerminalReady: false,
+      requestToSend: false
+    });
+
     this.reader = this.port.readable.getReader();
     this.writer = this.port.writable.getWriter();
     this.clearBuf();
