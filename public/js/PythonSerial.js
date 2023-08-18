@@ -189,7 +189,7 @@ class PythonSerial {
   async enterRawMode() {
     this.clearBuf();
     this.sendCtrlC();
-    let r = await this.waitForString('>>> ');
+    let r = await this.waitForString('>>> ', 5000);
     if (r == null) {
       return 'timeout';
     }
