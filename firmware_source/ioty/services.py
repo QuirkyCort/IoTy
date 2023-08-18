@@ -1,5 +1,5 @@
 import os
-import constants
+import ioty.constants as constants
 
 def get_info():
     import gc
