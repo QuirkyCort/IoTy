@@ -1,0 +1,21 @@
+{
+  "type": "gy33_read_raw",
+  "message0": "#blk-gy33_read_raw# %1",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "type",
+      "options": [
+        ["Clear", "c"],
+        ["Red", "r"],
+        ["Green", "g"],
+        ["Blue", "b"],
+        ["All (List)", "all"]
+      ]
+    }
+  ],
+  "output": ["Number", "Array"],
+  "colour": 230,
+  "tooltip": "#blk-gy33_read_raw_tooltip#",
+  "helpUrl": ""
+}

@@ -278,6 +278,14 @@ var ioty_generator = new function() {
     Blockly.Python['apds9960_get_gesture'] = self.apds9960_get_gesture;
     Blockly.Python.addReservedWords('apds9960,apds9960_device');
 
+    Blockly.Python['gy33_init'] = self.gy33_init;
+    Blockly.Python['gy33_read_raw'] = self.gy33_read_raw;
+    Blockly.Python['gy33_read'] = self.gy33_read;
+    Blockly.Python['gy33_set_led_power'] = self.gy33_set_led_power;
+    Blockly.Python['gy33_calibrate_white'] = self.gy33_calibrate_white;
+    Blockly.Python['gy33_calibrate_black'] = self.gy33_calibrate_black;
+    Blockly.Python.addReservedWords('gy33,gy33_device');
+
   };
 
   // Generate python code
@@ -2658,5 +2666,77 @@ var ioty_generator = new function() {
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };
+
+  this.gy33_init = function(block) {
+    self.imports['gy33'] = 'import gy33';
+
+    let addr = block.getFieldValue('addr');
+
+    let code =
+      'gy33_device = gy33.GY33(i2c, addr=' + addr + ')\n';
+
+    return code;
+  };
+
+  this.gy33_read_raw = function(block) {
+    let type = block.getFieldValue('type');
+
+    if (type == 'c') {
+      type = '[3]';
+    } else if (type == 'r') {
+      type = '[0]';
+    } else if (type == 'g') {
+      type = '[1]';
+    } else if (type == 'b') {
+      type = '[2]';
+    } else if (type == 'all') {
+      type = '';
+    }
+
+    let code = 'gy33_device.read_raw()' + type;
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.gy33_read = function(block) {
+    let type = block.getFieldValue('type');
+
+    if (type == 'c') {
+      type = '[3]';
+    } else if (type == 'r') {
+      type = '[0]';
+    } else if (type == 'g') {
+      type = '[1]';
+    } else if (type == 'b') {
+      type = '[2]';
+    } else if (type == 'all') {
+      type = '';
+    }
+
+    let code = 'gy33_device.read()' + type;
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.gy33_set_led_power = function(block) {
+    let power = block.getFieldValue('power');
+
+    let code = 'gy33_device.set_led_power(' + power + ')\n';
+
+    return code;
+  };
+
+  this.gy33_calibrate_white = function(block) {
+    let code = 'gy33_device.calibrate_white()\n';
+
+    return code;
+  };
+
+  this.gy33_calibrate_black = function(block) {
+    let code = 'gy33_device.calibrate_black()\n';
+
+    return code;
+  };
+
 }
 

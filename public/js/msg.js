@@ -1813,6 +1813,42 @@ let MSGS = {
   '#blk-apds9960_get_gesture_tooltip#': {
     en: 'Possible values are \\"u\\" (up), \\"d\\" (down), \\"l\\" (left), \\"r\\" (right), \\"\\" (no gesture). You must perform a \\"read gesture\\" first to retrieve the gesture from the sensor.',
   },
+  '#blk-gy33_init#': {
+    en: 'init GY33 with address',
+  },
+  '#blk-gy33_init_tooltip#': {
+    en: 'You must have an \\"init I2C\\" block before this',
+  },
+  '#blk-gy33_set_led_power#': {
+    en: 'gy33: set LED power',
+  },
+  '#blk-gy33_set_led_power_tooltip#': {
+    en: 'If you change the LED power, the default calibration will likely be very off, and you must perform your own calibration.',
+  },
+  '#blk-gy33_read#': {
+    en: 'gy33: read value of type',
+  },
+  '#blk-gy33_read_tooltip#': {
+    en: 'These values are calibrated to be approximately within the range of 0 (black) to 255 (white), but it is possible to exceed these.',
+  },
+  '#blk-gy33_read_raw#': {
+    en: 'gy33: read raw value of type',
+  },
+  '#blk-gy33_read_raw_tooltip#': {
+    en: 'These are uncalibrated values; useful if you wish to use your own calibration algorithm.',
+  },
+  '#blk-gy33_calibrate_white#': {
+    en: 'gy33: calibrate white',
+  },
+  '#blk-gy33_calibrate_white_tooltip#': {
+    en: 'Calibrate the white value. The sensor should be on a white surface when you run this.',
+  },
+  '#blk-gy33_calibrate_black#': {
+    en: 'gy33: calibrate black',
+  },
+  '#blk-gy33_calibrate_black_tooltip#': {
+    en: 'Calibrate the black value. The sensor should be on a black surface when you run this.',
+  },
 };
 let MSGS_KEYS = Object.keys(MSGS);
 

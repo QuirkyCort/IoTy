@@ -1,0 +1,62 @@
+{
+  "type": "gy33_set_led_power",
+  "message0": "#blk-gy33_set_led_power# %1",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "power",
+      "options": [
+        [
+          "10 (Max)",
+          "10"
+        ],
+        [
+          "9",
+          "9"
+        ],
+        [
+          "8",
+          "8"
+        ],
+        [
+          "7",
+          "7"
+        ],
+        [
+          "6",
+          "6"
+        ],
+        [
+          "5",
+          "5"
+        ],
+        [
+          "4",
+          "4"
+        ],
+        [
+          "3",
+          "3"
+        ],
+        [
+          "2",
+          "2"
+        ],
+        [
+          "1",
+          "1"
+        ],
+        [
+          "0 (Off)",
+          "0"
+        ]
+      ]
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-gy33_set_led_power_tooltip#",
+  "helpUrl": ""
+}

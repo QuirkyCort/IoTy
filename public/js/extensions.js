@@ -341,6 +341,24 @@ var extensions = new function() {
           'The APDS9960 can detect proximity (up to a few cm), ambient light level and color, and gestures (...move your hand left/right/up/down near the sensor). ' +
         '</p>'
     },
+    {
+      id: 'gy33',
+      name: 'GY33 (Light and Color sensor)',
+      files: [
+        ['gy33.py', 'extensions/gy33.py?v=db7dcd81'],
+      ],
+      description:
+        '<p>' +
+          'The GY33 contains a TCS3472 light and color sensor, but has an additional micro-controller and cannot use a normal TCS3472 driver. ' +
+          'It also provides a pair of controllable white LED to illuminate the target surface. ' +
+        '</p>' +
+        '<p>' +
+          'This extension allows you to read the raw and calibrated values, perform calibration if required, and control the LED.' +
+        '</p>' +
+        '<p>' +
+          'NOTE: The wiring for this device is rather peculiar. CT => SCL, DR => SDA, SO => GND (<a href="http://wiki.sunfounder.cc/index.php?title=GY-33_Color_Recognition_Sensor_Module">Sunfounder Wiki GY-33</a>)' +
+        '</p>'
+    },
   ]
 
   this.init = function() {

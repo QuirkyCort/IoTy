@@ -1210,4 +1210,12 @@
     <block type="apds9960_read_gesture"></block>
     <block type="apds9960_get_gesture"></block>
   </category>
+  <category toolboxitemid="gy33" name="GY33" colour="#5b67a5" hidden="true">
+    <block type="gy33_init"></block>
+    <block type="gy33_read"></block>
+    <block type="gy33_read_raw"></block>
+    <block type="gy33_set_led_power"></block>
+    <block type="gy33_calibrate_white"></block>
+    <block type="gy33_calibrate_black"></block>
+  </category>
 </xml>
