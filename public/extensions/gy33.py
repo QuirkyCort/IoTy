@@ -1,5 +1,18 @@
 import struct
 
+# The wiring for this device is rather peculiar...
+#
+# GY33  ESP32
+# ====  =====
+# CT    SCL
+# DR    SDA
+# SO    GND (seems to select I2C mode)
+#
+# It's not clear what the pins labeled SCL and SDA on the GY33 are for.
+# Device may support UART, but I didn't test it.
+# Sampling time is around 100ms; if you try to read more often than that,
+# you'll start to get repeated results.
+
 class GY33:
     def __init__(self, i2c, addr=90):
         self.i2c = i2c
