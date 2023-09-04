@@ -1235,4 +1235,13 @@
     <block type="gy33_uart_calibrate_white"></block>
     <block type="gy33_uart_calibrate_black"></block>
   </category>
+  <category toolboxitemid="tcs3472" name="TCS3472" colour="#5b67a5" hidden="true">
+    <block type="tcs3472_init"></block>
+    <block type="tcs3472_read_calibrated"></block>
+    <block type="tcs3472_read_raw"></block>
+    <block type="tcs3472_set_gain"></block>
+    <block type="tcs3472_set_integration_time"></block>
+    <block type="tcs3472_calibrate_white"></block>
+    <block type="tcs3472_calibrate_black"></block>
+  </category>
 </xml>

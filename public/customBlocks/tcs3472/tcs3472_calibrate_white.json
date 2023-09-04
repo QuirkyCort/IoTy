@@ -1,0 +1,11 @@
+{
+  "type": "tcs3472_calibrate_white",
+  "message0": "#blk-tcs3472_calibrate_white#",
+  "args0": [],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-tcs3472_calibrate_white_tooltip#",
+  "helpUrl": ""
+}

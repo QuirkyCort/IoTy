@@ -1914,7 +1914,53 @@ let MSGS = {
   },
   '#blk-gy33_uart_calibrate_black_tooltip#': {
     en: 'Calibrate the black value. The sensor should be on a black surface when you run this. You must run update first.',
-  },};
+  },
+  '#blk-tcs3472_init#': {
+    en: 'init TCS3472 with address',
+  },
+  '#blk-tcs3472_init_tooltip#': {
+    en: 'You must have an \\"init I2C\\" block before this',
+  },
+  '#blk-tcs3472_set_gain#': {
+    en: 'tcs3472: set gain to',
+  },
+  '#blk-tcs3472_set_gain_tooltip#': {
+    en: 'Sets the analog gain to scale the output value. If you change this, the default calibration will likely be very off, and you must perform your own calibration.',
+  },
+  '#blk-tcs3472_set_integration_time#': {
+    en: 'tcs3472: set integration time to',
+  },
+  '#blk-tcs3472_set_integration_time_tooltip#': {
+    en: 'Sets the integration time in milliseconds. A higher integration time will provide a higher resolution for the raw values, but at the expense of a lower update rate. If you change this, the default calibration will likely be very off, and you must perform your own calibration.',
+  },
+  '#blk-tcs3472_read_calibrated#': {
+    en: 'tcs3472: read value of type',
+  },
+  '#blk-tcs3472_read_calibrated_tooltip#': {
+    en: 'These values are calibrated to be approximately within the range of 0 (black) to 255 (white), but it is possible to exceed these.',
+  },
+  '#blk-tcs3472_read_raw#': {
+    en: 'tcs3472: read raw value of type',
+  },
+  '#blk-tcs3472_read_raw_tooltip#': {
+    en: 'These are uncalibrated values; useful if you wish to use your own calibration algorithm.',
+  },
+  '#blk-tcs3472_calibrate_white#': {
+    en: 'tcs3472: calibrate white',
+  },
+  '#blk-tcs3472_calibrate_white_tooltip#': {
+    en: 'Calibrate the white value. The sensor should be on a white surface when you run this.',
+  },
+  '#blk-tcs3472_calibrate_black#': {
+    en: 'tcs3472: calibrate black',
+  },
+  '#blk-tcs3472_calibrate_black_tooltip#': {
+    en: 'Calibrate the black value. The sensor should be on a black surface when you run this.',
+  },
+  '#blk-ms#': {
+    en: 'ms',
+  },
+};
 let MSGS_KEYS = Object.keys(MSGS);
 
 let LANG = localStorage.getItem('LANG');

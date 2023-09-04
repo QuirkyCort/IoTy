@@ -1,0 +1,21 @@
+{
+  "type": "tcs3472_read_calibrated",
+  "message0": "#blk-tcs3472_read_calibrated# %1",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "type",
+      "options": [
+        ["Clear", "c"],
+        ["Red", "r"],
+        ["Green", "g"],
+        ["Blue", "b"],
+        ["All (List)", "all"]
+      ]
+    }
+  ],
+  "output": ["Number", "Array"],
+  "colour": 230,
+  "tooltip": "#blk-tcs3472_read_calibrated_tooltip#",
+  "helpUrl": ""
+}

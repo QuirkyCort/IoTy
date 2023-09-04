@@ -395,6 +395,21 @@ var extensions = new function() {
           'For wiring details, please see <a href="https://github.com/QuirkyCort/micropython-gy33">this page</a>.' +
         '</p>'
     },
+    {
+      id: 'tcs3472',
+      name: 'TCS3472 (Light and Color sensor)',
+      files: [
+        ['tcs3472.py', 'extensions/tcs3472.py?v=17df07e0'],
+      ],
+      description:
+        '<p>' +
+          'The TCS3472 is a light and color sensor. ' +
+          'It is capable of reading red, green, blue, and clear light values. ' +
+        '</p>' +
+        '<p>' +
+          'This extension allows you to read the raw and calibrated values, and perform calibration if required.' +
+        '</p>'
+    },
   ]
 
   this.init = function() {

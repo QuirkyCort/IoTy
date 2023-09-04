@@ -301,6 +301,15 @@ var ioty_generator = new function() {
     Blockly.Python['gy33_uart_calibrate_black'] = self.gy33_uart_calibrate_black;
     Blockly.Python.addReservedWords('gy33_uart,gy33_uart_device');
 
+    Blockly.Python['tcs3472_init'] = self.tcs3472_init;
+    Blockly.Python['tcs3472_read_raw'] = self.tcs3472_read_raw;
+    Blockly.Python['tcs3472_read_calibrated'] = self.tcs3472_read_calibrated;
+    Blockly.Python['tcs3472_set_gain'] = self.tcs3472_set_gain;
+    Blockly.Python['tcs3472_set_integration_time'] = self.tcs3472_set_integration_time;
+    Blockly.Python['tcs3472_calibrate_white'] = self.tcs3472_calibrate_white;
+    Blockly.Python['tcs3472_calibrate_black'] = self.tcs3472_calibrate_black;
+    Blockly.Python.addReservedWords('tcs3472,tcs3472_device');
+
   };
 
   // Generate python code
@@ -2710,7 +2719,7 @@ var ioty_generator = new function() {
   };
 
   this.gy33_i2c_init = function(block) {
-    self.imports['gy33'] = 'import gy33_i2c';
+    self.imports['gy33_i2c'] = 'import gy33_i2c';
 
     let addr = block.getFieldValue('addr');
 
@@ -2781,7 +2790,7 @@ var ioty_generator = new function() {
   };
 
   this.gy33_uart_init = function(block) {
-    self.imports['gy33'] = 'import gy33_uart';
+    self.imports['gy33_uart'] = 'import gy33_uart';
 
     let uart = block.getFieldValue('uart');
 
@@ -2862,6 +2871,85 @@ var ioty_generator = new function() {
 
   this.gy33_uart_calibrate_black = function(block) {
     let code = 'gy33_uart_device.calibrate_black()\n';
+
+    return code;
+  };
+
+  this.tcs3472_init = function(block) {
+    self.imports['tcs3472'] = 'import tcs3472';
+
+    let addr = block.getFieldValue('addr');
+
+    let code =
+      'tcs3472_device = tcs3472.TCS3472(i2c, addr=' + addr + ')\n';
+
+    return code;
+  };
+
+  this.tcs3472_read_raw = function(block) {
+    let type = block.getFieldValue('type');
+
+    if (type == 'c') {
+      type = '[0]';
+    } else if (type == 'r') {
+      type = '[1]';
+    } else if (type == 'g') {
+      type = '[2]';
+    } else if (type == 'b') {
+      type = '[3]';
+    } else if (type == 'all') {
+      type = '';
+    }
+
+    let code = 'tcs3472_device.read()' + type;
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.tcs3472_read_calibrated = function(block) {
+    let type = block.getFieldValue('type');
+
+    if (type == 'c') {
+      type = '[0]';
+    } else if (type == 'r') {
+      type = '[1]';
+    } else if (type == 'g') {
+      type = '[2]';
+    } else if (type == 'b') {
+      type = '[3]';
+    } else if (type == 'all') {
+      type = '';
+    }
+
+    let code = 'tcs3472_device.read_calibrated()' + type;
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.tcs3472_set_gain = function(block) {
+    let gain = block.getFieldValue('gain');
+
+    let code = 'tcs3472_device.set_gain(' + gain + ')\n';
+
+    return code;
+  };
+
+  this.tcs3472_set_integration_time = function(block) {
+    let ms = block.getFieldValue('ms');
+
+    let code = 'tcs3472_device.set_integration_time(' + ms + ')\n';
+
+    return code;
+  };
+
+  this.tcs3472_calibrate_white = function(block) {
+    let code = 'tcs3472_device.calibrate_white()\n';
+
+    return code;
+  };
+
+  this.tcs3472_calibrate_black = function(block) {
+    let code = 'tcs3472_device.calibrate_black()\n';
 
     return code;
   };
