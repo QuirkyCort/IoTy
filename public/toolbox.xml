@@ -1210,12 +1210,24 @@
     <block type="apds9960_read_gesture"></block>
     <block type="apds9960_get_gesture"></block>
   </category>
-  <category toolboxitemid="gy33" name="GY33" colour="#5b67a5" hidden="true">
-    <block type="gy33_init"></block>
-    <block type="gy33_read"></block>
-    <block type="gy33_read_raw"></block>
-    <block type="gy33_set_led_power"></block>
-    <block type="gy33_calibrate_white"></block>
-    <block type="gy33_calibrate_black"></block>
+  <category toolboxitemid="gy33_i2c" name="GY33 (I2C)" colour="#5b67a5" hidden="true">
+    <block type="gy33_i2c_init"></block>
+    <block type="gy33_i2c_read_calibrated"></block>
+    <block type="gy33_i2c_read_raw"></block>
+    <block type="gy33_i2c_set_led"></block>
+    <block type="gy33_i2c_calibrate_white"></block>
+    <block type="gy33_i2c_calibrate_black"></block>
+  </category>
+  <category toolboxitemid="gy33_uart" name="GY33 (UART)" colour="#5b67a5" hidden="true">
+    <block type="gy33_uart_init"></block>
+    <block type="gy33_uart_update"></block>
+    <block type="gy33_uart_get_calibrated"></block>
+    <block type="gy33_uart_get_raw"></block>
+    <block type="gy33_uart_set_led"></block>
+    <block type="gy33_uart_set_integration_time">
+      <field name="time">100</field>
+    </block>
+    <block type="gy33_uart_calibrate_white"></block>
+    <block type="gy33_uart_calibrate_black"></block>
   </category>
 </xml>

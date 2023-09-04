@@ -1,6 +1,6 @@
 {
-  "type": "gy33_read_raw",
-  "message0": "#blk-gy33_read_raw# %1",
+  "type": "gy33_uart_get_raw",
+  "message0": "#blk-gy33_uart_get_raw# %1",
   "args0": [
     {
       "type": "field_dropdown",
@@ -16,6 +16,6 @@
   ],
   "output": ["Number", "Array"],
   "colour": 230,
-  "tooltip": "#blk-gy33_read_raw_tooltip#",
+  "tooltip": "#blk-gy33_uart_get_raw_tooltip#",
   "helpUrl": ""
 }

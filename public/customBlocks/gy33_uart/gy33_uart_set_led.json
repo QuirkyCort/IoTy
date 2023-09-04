@@ -1,6 +1,6 @@
 {
-  "type": "gy33_set_led_power",
-  "message0": "#blk-gy33_set_led_power# %1",
+  "type": "gy33_uart_set_led",
+  "message0": "#blk-gy33_uart_set_led# %1",
   "args0": [
     {
       "type": "field_dropdown",
@@ -57,6 +57,6 @@
   "previousStatement": null,
   "nextStatement": null,
   "colour": 230,
-  "tooltip": "#blk-gy33_set_led_power_tooltip#",
+  "tooltip": "#blk-gy33_uart_set_led_tooltip#",
   "helpUrl": ""
 }

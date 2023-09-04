@@ -1,11 +1,11 @@
 {
-  "type": "gy33_calibrate_white",
-  "message0": "#blk-gy33_calibrate_white#",
+  "type": "gy33_uart_update",
+  "message0": "#blk-gy33_uart_update#",
   "args0": [],
   "inputsInline": true,
   "previousStatement": null,
   "nextStatement": null,
   "colour": 230,
-  "tooltip": "#blk-gy33_calibrate_white_tooltip#",
+  "tooltip": "#blk-gy33_uart_update_tooltip#",
   "helpUrl": ""
 }

@@ -1,19 +1,6 @@
 import struct
 
-# The wiring for this device is rather peculiar...
-#
-# GY33  ESP32
-# ====  =====
-# CT    SCL
-# DR    SDA
-# SO    GND (seems to select I2C mode)
-#
-# It's not clear what the pins labeled SCL and SDA on the GY33 are for.
-# Device may support UART, but I didn't test it.
-# Sampling time is around 100ms; if you try to read more often than that,
-# you'll start to get repeated results.
-
-class GY33:
+class GY33_I2C:
     def __init__(self, i2c, addr=90):
         self.i2c = i2c
         self.addr = addr
@@ -27,9 +14,14 @@ class GY33:
         ]
 
     # From 0 (off) to 10 (max)
-    def set_led_power(self, pwr=00):
+    def set_led(self, pwr=0):
         cfg = 0xA0 - pwr * 16
         self.i2c.writeto_mem(self.addr, 0x10, bytes([cfg]))
+
+    def calibrate_white_balance(self):
+        cfg = self.i2c.readfrom_mem(self.addr, 0x10, 1)
+        cfg = bytes([cfg[0] | 1])
+        self.i2c.writeto_mem(self.addr, 0x10, cfg)
 
     # Returns [Raw Red, Raw Green, Raw Blue, Clear, Lux, Color Temperature, Red, Green, Blue, Color]
     def read_all(self):
@@ -41,7 +33,8 @@ class GY33:
         data = self.i2c.readfrom_mem(self.addr, 0x00, 8)
         return struct.unpack('>HHHH', data)
 
-    def read(self):
+    # Returns calibrated Red, Green, Blue, Clear
+    def read_calibrated(self):
         data = self.i2c.readfrom_mem(self.addr, 0x00, 8)
         color = struct.unpack('>HHHH', data)
         result = [0,0,0,0]

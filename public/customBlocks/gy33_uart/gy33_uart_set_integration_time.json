@@ -1,0 +1,38 @@
+{
+  "type": "gy33_uart_set_integration_time",
+  "message0": "#blk-gy33_uart_set_integration_time# %1",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "time",
+      "options": [
+        [
+          "700 ms",
+          "700"
+        ],
+        [
+          "154 ms",
+          "154"
+        ],
+        [
+          "100 ms (default)",
+          "100"
+        ],
+        [
+          "24 ms",
+          "25"
+        ],
+        [
+          "2.4 ms",
+          "2.4"
+        ]
+      ]
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-gy33_uart_set_integration_time_tooltip#",
+  "helpUrl": ""
+}

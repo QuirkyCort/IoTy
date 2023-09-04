@@ -278,13 +278,23 @@ var ioty_generator = new function() {
     Blockly.Python['apds9960_get_gesture'] = self.apds9960_get_gesture;
     Blockly.Python.addReservedWords('apds9960,apds9960_device');
 
-    Blockly.Python['gy33_init'] = self.gy33_init;
-    Blockly.Python['gy33_read_raw'] = self.gy33_read_raw;
-    Blockly.Python['gy33_read'] = self.gy33_read;
-    Blockly.Python['gy33_set_led_power'] = self.gy33_set_led_power;
-    Blockly.Python['gy33_calibrate_white'] = self.gy33_calibrate_white;
-    Blockly.Python['gy33_calibrate_black'] = self.gy33_calibrate_black;
-    Blockly.Python.addReservedWords('gy33,gy33_device');
+    Blockly.Python['gy33_i2c_init'] = self.gy33_i2c_init;
+    Blockly.Python['gy33_i2c_read_raw'] = self.gy33_i2c_read_raw;
+    Blockly.Python['gy33_i2c_read_calibrated'] = self.gy33_i2c_read_calibrated;
+    Blockly.Python['gy33_i2c_set_led'] = self.gy33_i2c_set_led;
+    Blockly.Python['gy33_i2c_calibrate_white'] = self.gy33_i2c_calibrate_white;
+    Blockly.Python['gy33_i2c_calibrate_black'] = self.gy33_i2c_calibrate_black;
+    Blockly.Python.addReservedWords('gy33_i2c,gy33_i2c_device');
+
+    Blockly.Python['gy33_uart_init'] = self.gy33_uart_init;
+    Blockly.Python['gy33_uart_update'] = self.gy33_uart_update;
+    Blockly.Python['gy33_uart_get_raw'] = self.gy33_uart_get_raw;
+    Blockly.Python['gy33_uart_get_calibrated'] = self.gy33_uart_get_calibrated;
+    Blockly.Python['gy33_uart_set_led'] = self.gy33_uart_set_led;
+    Blockly.Python['gy33_uart_set_integration_time'] = self.gy33_uart_set_integration_time;
+    Blockly.Python['gy33_uart_calibrate_white'] = self.gy33_uart_calibrate_white;
+    Blockly.Python['gy33_uart_calibrate_black'] = self.gy33_uart_calibrate_black;
+    Blockly.Python.addReservedWords('gy33_uart,gy33_uart_device');
 
   };
 
@@ -2667,18 +2677,18 @@ var ioty_generator = new function() {
     return [code, Blockly.Python.ORDER_ATOMIC];
   };
 
-  this.gy33_init = function(block) {
-    self.imports['gy33'] = 'import gy33';
+  this.gy33_i2c_init = function(block) {
+    self.imports['gy33'] = 'import gy33_i2c';
 
     let addr = block.getFieldValue('addr');
 
     let code =
-      'gy33_device = gy33.GY33(i2c, addr=' + addr + ')\n';
+      'gy33_i2c_device = gy33_i2c.GY33_I2C(i2c, addr=' + addr + ')\n';
 
     return code;
   };
 
-  this.gy33_read_raw = function(block) {
+  this.gy33_i2c_read_raw = function(block) {
     let type = block.getFieldValue('type');
 
     if (type == 'c') {
@@ -2693,12 +2703,12 @@ var ioty_generator = new function() {
       type = '';
     }
 
-    let code = 'gy33_device.read_raw()' + type;
+    let code = 'gy33_i2c_device.read_raw()' + type;
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };
 
-  this.gy33_read = function(block) {
+  this.gy33_i2c_read_calibrated = function(block) {
     let type = block.getFieldValue('type');
 
     if (type == 'c') {
@@ -2713,27 +2723,113 @@ var ioty_generator = new function() {
       type = '';
     }
 
-    let code = 'gy33_device.read()' + type;
+    let code = 'gy33_i2c_device.read_calibrated()' + type;
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };
 
-  this.gy33_set_led_power = function(block) {
+  this.gy33_i2c_set_led = function(block) {
     let power = block.getFieldValue('power');
 
-    let code = 'gy33_device.set_led_power(' + power + ')\n';
+    let code = 'gy33_i2c_device.set_led(' + power + ')\n';
 
     return code;
   };
 
-  this.gy33_calibrate_white = function(block) {
-    let code = 'gy33_device.calibrate_white()\n';
+  this.gy33_i2c_calibrate_white = function(block) {
+    let code = 'gy33_i2c_device.calibrate_white()\n';
 
     return code;
   };
 
-  this.gy33_calibrate_black = function(block) {
-    let code = 'gy33_device.calibrate_black()\n';
+  this.gy33_i2c_calibrate_black = function(block) {
+    let code = 'gy33_i2c_device.calibrate_black()\n';
+
+    return code;
+  };
+
+  this.gy33_uart_init = function(block) {
+    self.imports['gy33'] = 'import gy33_uart';
+
+    let uart = block.getFieldValue('uart');
+
+    let code =
+      'gy33_uart_device = gy33_uart.GY33_UART(uart' + uart + ')\n' +
+      'gy33_uart_device.set_output(True, False, False)\n';
+
+    return code;
+  };
+
+  this.gy33_uart_update = function(block) {
+    let code = 'gy33_uart_device.update()\n';
+
+    return code;
+  };
+
+  this.gy33_uart_get_raw = function(block) {
+    let type = block.getFieldValue('type');
+
+    if (type == 'c') {
+      type = '[3]';
+    } else if (type == 'r') {
+      type = '[0]';
+    } else if (type == 'g') {
+      type = '[1]';
+    } else if (type == 'b') {
+      type = '[2]';
+    } else if (type == 'all') {
+      type = '';
+    }
+
+    let code = 'gy33_uart_device.get_raw()' + type;
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.gy33_uart_get_calibrated = function(block) {
+    let type = block.getFieldValue('type');
+
+    if (type == 'c') {
+      type = '[3]';
+    } else if (type == 'r') {
+      type = '[0]';
+    } else if (type == 'g') {
+      type = '[1]';
+    } else if (type == 'b') {
+      type = '[2]';
+    } else if (type == 'all') {
+      type = '';
+    }
+
+    let code = 'gy33_uart_device.get_calibrated()' + type;
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.gy33_uart_set_led = function(block) {
+    let power = block.getFieldValue('power');
+
+    let code = 'gy33_uart_device.set_led(' + power + ')\n';
+
+    return code;
+  };
+
+  this.gy33_uart_set_integration_time = function(block) {
+    let time = block.getFieldValue('time');
+
+    let code = 'gy33_uart_device.set_integration_time(' + time + ')\n';
+
+    return code;
+  };
+
+  this.gy33_uart_calibrate_white = function(block) {
+    let code = 'gy33_uart_device.calibrate_white()\n';
+
+    return code;
+  };
+
+  this.gy33_uart_calibrate_black = function(block) {
+    let code = 'gy33_uart_device.calibrate_black()\n';
 
     return code;
   };

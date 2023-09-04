@@ -342,10 +342,10 @@ var extensions = new function() {
         '</p>'
     },
     {
-      id: 'gy33',
-      name: 'GY33 (Light and Color sensor)',
+      id: 'gy33_i2c',
+      name: 'GY33 I2C (Light and Color sensor)',
       files: [
-        ['gy33.py', 'extensions/gy33.py?v=db7dcd81'],
+        ['gy33_i2c.py', 'extensions/gy33_i2c.py?v=4119fa1d'],
       ],
       description:
         '<p>' +
@@ -356,7 +356,29 @@ var extensions = new function() {
           'This extension allows you to read the raw and calibrated values, perform calibration if required, and control the LED.' +
         '</p>' +
         '<p>' +
-          'NOTE: The wiring for this device is rather peculiar. CT => SCL, DR => SDA, SO => GND (<a href="http://wiki.sunfounder.cc/index.php?title=GY-33_Color_Recognition_Sensor_Module">Sunfounder Wiki GY-33</a>)' +
+          'The GY33 supports both UART and I2C. ' +
+          'This extension is for the I2C interface (S0 needs to be grounded). ' +
+          'For wiring details, please see <a href="https://github.com/QuirkyCort/micropython-gy33">this page</a>.' +
+        '</p>'
+    },
+    {
+      id: 'gy33_uart',
+      name: 'GY33 UART (Light and Color sensor)',
+      files: [
+        ['gy33_uart.py', 'extensions/gy33_uart.py?v=5f8cfc5a'],
+      ],
+      description:
+        '<p>' +
+          'The GY33 contains a TCS3472 light and color sensor, but has an additional micro-controller and cannot use a normal TCS3472 driver. ' +
+          'It also provides a pair of controllable white LED to illuminate the target surface. ' +
+        '</p>' +
+        '<p>' +
+          'This extension allows you to read the raw and calibrated values, perform calibration if required, and control the LED.' +
+        '</p>' +
+        '<p>' +
+          'The GY33 supports both UART and I2C. ' +
+          'This extension is for the UART interface (S0 needs to be unconnected). ' +
+          'For wiring details, please see <a href="https://github.com/QuirkyCort/micropython-gy33">this page</a>.' +
         '</p>'
     },
   ]
