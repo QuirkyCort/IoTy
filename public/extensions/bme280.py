@@ -25,13 +25,16 @@ class BME280:
 
         data = self.i2c.readfrom_mem(self.addr, 0xE4, 3)
         self.cal.append((data[0] << 4) | (data[1] & 0b1111))
-        self.cal.append((data[1] << 4) | ((data[1] >> 4) & 0b1111))
+        self.cal.append((data[2] << 4) | ((data[1] >> 4) & 0b1111))
 
         data = self.i2c.readfrom_mem(self.addr, 0xE7, 1)
         self.cal.append(struct.unpack('b', data)[0])
 
         config = 0 # 0.5ms standby (shortest), no filter, SPI disabled
         self.i2c.writeto_mem(self.addr, 0xF5, struct.pack('B', config))
+
+        data_options = 0b011 # 4x oversampling humidity
+        self.i2c.writeto_mem(self.addr, 0xF2, struct.pack('B', data_options))
 
         data_options = 0
         data_options |= 0b01000000 # 17bit temperature

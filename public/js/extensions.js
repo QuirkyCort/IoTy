@@ -321,7 +321,7 @@ var extensions = new function() {
       id: 'bme280',
       name: 'BME280 (Temperature, Humidity, Barometric Pressure Sensor)',
       files: [
-        ['bme280.py', 'extensions/bme280.py?v=9819f9d5'],
+        ['bme280.py', 'extensions/bme280.py?v=9991299f'],
       ],
       description:
         '<p>' +
