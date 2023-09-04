@@ -247,6 +247,11 @@ var ioty_generator = new function() {
     Blockly.Python['vl53l0x_read'] = self.vl53l0x_read;
     Blockly.Python.addReservedWords('vl53l0x,vl53l0x_device');
 
+    Blockly.Python['vl53l1x_init'] = self.vl53l1x_init;
+    Blockly.Python['vl53l1x_read'] = self.vl53l1x_read;
+    Blockly.Python['vl53l1x_set_distance_mode'] = self.vl53l1x_set_distance_mode;
+    Blockly.Python.addReservedWords('vl53l1x,vl53l1x_device');
+
     Blockly.Python['mqtt_logger_init'] = self.mqtt_logger_init;
     Blockly.Python['mqtt_logger_log_with_time'] = self.mqtt_logger_log_with_time;
     Blockly.Python['mqtt_logger_log'] = self.mqtt_logger_log;
@@ -2477,6 +2482,33 @@ var ioty_generator = new function() {
     let code = 'vl53l0x_device.read()';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.vl53l1x_init = function(block) {
+    self.imports['vl53l1x'] = 'import vl53l1x';
+
+    let addr = block.getFieldValue('addr');
+
+    let code =
+      'vl53l1x_device = vl53l1x.VL53L1X(i2c, addr=' + addr + ')\n' +
+      'vl53l1x_device.start()\n';
+
+    return code;
+  };
+
+  this.vl53l1x_read = function(block) {
+    let code = 'vl53l1x_device.read()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.vl53l1x_set_distance_mode = function(block) {
+    let mode = block.getFieldValue('mode');
+
+    let code =
+      'vl53l1x_device.set_distance_mode_' + mode + '()\n';
+
+    return code;
   };
 
   this.mqtt_logger_init = function(block) {

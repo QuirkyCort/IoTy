@@ -281,13 +281,27 @@ var extensions = new function() {
     },
     {
       id: 'vl53l0x',
-      name: 'VL53L0x (Heart Rate Sensor and Pulse Oximeter)',
+      name: 'VL53L0x (Time-of-Flight laser ranging)',
       files: [
         ['vl53l0x.py', 'extensions/vl53l0x.py?v=2f4f655e'],
       ],
       description:
         '<p>' +
           'The VL53L0X is a Time-of-Flight (ToF) laser ranging module. ' +
+          'It is similar to the VL53L1X, but with a shorter range of 2 meters.' +
+          'This extension allows you to read the distance in millimeters (mm).' +
+        '</p>'
+    },
+    {
+      id: 'vl53l1x',
+      name: 'VL53L1x (Time-of-Flight laser ranging)',
+      files: [
+        ['vl53l1x.py', 'extensions/vl53l1x.py?v=de29e581'],
+      ],
+      description:
+        '<p>' +
+          'The VL53L1X is a Time-of-Flight (ToF) laser ranging module. ' +
+          'It is similar to the VL53L0X, but with a longer range of 4 meters.' +
           'This extension allows you to read the distance in millimeters (mm).' +
         '</p>'
     },

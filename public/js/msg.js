@@ -1660,6 +1660,24 @@ let MSGS = {
   '#blk-vl53l0x_read_tooltip#': {
     en: 'Returns -1 if the distance is too far.',
   },
+  '#blk-vl53l1x_init#': {
+    en: 'init VL53L1X with address',
+  },
+  '#blk-vl53l1x_init_tooltip#': {
+    en: 'You must have an \\"init I2C\\" block before this',
+  },
+  '#blk-vl53l1x_read#': {
+    en: 'vl53l1x: distance in mm',
+  },
+  '#blk-vl53l1x_read_tooltip#': {
+    en: 'If working poorly, try setting the distance mode and make sure the tape has been removed from the sensor.',
+  },
+  '#blk-vl53l1x_set_distance_mode#': {
+    en: 'vl53l1x: set distance mode to',
+  },
+  '#blk-vl53l1x_set_distance_mode_tooltip#': {
+    en: 'The sensor can work at all ranges in any mode, but will work better if the appropriate mode is set.',
+  },
   '#blk-mqtt_logger_init#': {
     en: 'init mqtt logger with topic',
   },
