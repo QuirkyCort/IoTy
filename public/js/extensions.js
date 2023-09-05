@@ -410,6 +410,21 @@ var extensions = new function() {
           'This extension allows you to read the raw and calibrated values, and perform calibration if required.' +
         '</p>'
     },
+    {
+      id: 'tween',
+      name: 'Tween (Inbetweening, Animation)',
+      files: [
+        ['tween.py', 'extensions/tween.py?v=0dd8e83c'],
+      ],
+      description:
+        '<p>' +
+          'It is often undesirable to start and stop something instantly. ' +
+          'For example, when moving a servo arm, you might want it to start slow, gradually speed up, then slow down when it approaches its destination. ' +
+        '</p>' +
+        '<p>' +
+          'With this extension, you can provide the start, stop, and duration (or speed), and it will generate the intermediate steps for you with the appropriate <a href="https://easings.net/">easing</a> function. ' +
+        '</p>'
+    },
   ]
 
   this.init = function() {

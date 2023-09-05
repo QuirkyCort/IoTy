@@ -311,6 +311,12 @@ var ioty_generator = new function() {
     Blockly.Python['tcs3472_calibrate_black'] = self.tcs3472_calibrate_black;
     Blockly.Python.addReservedWords('tcs3472,tcs3472_device');
 
+    Blockly.Python['tween_start'] = self.tween_start;
+    Blockly.Python['tween_get'] = self.tween_get;
+    Blockly.Python['tween_is_ended'] = self.tween_is_ended;
+    Blockly.Python['tween_remove'] = self.tween_remove;
+    Blockly.Python.addReservedWords('tween');
+
   };
 
   // Generate python code
@@ -554,7 +560,7 @@ var ioty_generator = new function() {
     let code;
 
     if (units == 'SECONDS') {
-      code = 'int(time.ticks_ms() / 1000)';
+      code = '(time.ticks_ms() / 1000)';
     } else if (units == 'MILLI') {
       code = 'time.ticks_ms()';
     } else if (units == 'MICRO') {
@@ -2959,6 +2965,57 @@ var ioty_generator = new function() {
 
   this.tcs3472_calibrate_black = function(block) {
     let code = 'tcs3472_device.calibrate_black()\n';
+
+    return code;
+  };
+
+  this.tween_start = function(block) {
+    self.imports['tween'] = 'import tween';
+
+    let id = Blockly.Python.valueToCode(block, 'id', Blockly.Python.ORDER_NONE);
+    let type = block.getFieldValue('type');
+    let y0 = Blockly.Python.valueToCode(block, 'y0', Blockly.Python.ORDER_NONE);
+    let y1 = Blockly.Python.valueToCode(block, 'y1', Blockly.Python.ORDER_NONE);
+    let x0 = Blockly.Python.valueToCode(block, 'x0', Blockly.Python.ORDER_NONE);
+    let durationOrSpeedSelection = block.getFieldValue('durationOrSpeedSelection');
+    let durationOrSpeedValue = Blockly.Python.valueToCode(block, 'durationOrSpeedValue', Blockly.Python.ORDER_NONE);
+
+    let durationOrSpeed;
+    if (durationOrSpeedSelection == 'DURATION') {
+      durationOrSpeed = ', duration=' + durationOrSpeedValue;
+    } else {
+      durationOrSpeed = ', speed=' + durationOrSpeedValue;
+    }
+
+    let code =
+      'tween.start(' + id + ', tween.' + type + ', ' + y0 + ', ' + y1 + ', ' + x0 + durationOrSpeed + ')\n';
+
+    return code;
+  };
+
+  this.tween_get = function(block) {
+    let id = Blockly.Python.valueToCode(block, 'id', Blockly.Python.ORDER_NONE);
+    let x = Blockly.Python.valueToCode(block, 'x', Blockly.Python.ORDER_NONE);
+
+    let code = 'tween.get(' + id + ', ' + x + ')';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.tween_is_ended = function(block) {
+    let id = Blockly.Python.valueToCode(block, 'id', Blockly.Python.ORDER_NONE);
+    let x = Blockly.Python.valueToCode(block, 'x', Blockly.Python.ORDER_NONE);
+
+    let code = 'tween.is_ended(' + id + ', ' + x + ')';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.tween_remove = function(block) {
+    let id = Blockly.Python.valueToCode(block, 'id', Blockly.Python.ORDER_NONE);
+
+    let code =
+      'tween.remove(' + id + ')\n';
 
     return code;
   };

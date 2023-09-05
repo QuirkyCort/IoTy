@@ -1,0 +1,20 @@
+{
+  "type": "tween_is_ended",
+  "message0": "#blk-tween_is_ended# %1 #blk-is_ended_at_time# %2",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "id"
+    },
+    {
+      "type": "input_value",
+      "name": "x",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "output": "Boolean",
+  "colour": 160,
+  "tooltip": "#blk-tween_is_ended_tooltip#",
+  "helpUrl": ""
+}

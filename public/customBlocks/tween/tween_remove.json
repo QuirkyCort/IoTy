@@ -1,0 +1,16 @@
+{
+  "type": "tween_remove",
+  "message0": "#blk-tween_remove# %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "id"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 160,
+  "tooltip": "#blk-tween_remove_tooltip#",
+  "helpUrl": ""
+}

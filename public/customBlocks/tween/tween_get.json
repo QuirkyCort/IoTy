@@ -1,0 +1,20 @@
+{
+  "type": "tween_get",
+  "message0": "#blk-tween_get# %1 #blk-at_time# %2",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "id"
+    },
+    {
+      "type": "input_value",
+      "name": "x",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "output": "Number",
+  "colour": 160,
+  "tooltip": "#blk-tween_get_tooltip#",
+  "helpUrl": ""
+}

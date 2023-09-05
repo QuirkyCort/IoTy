@@ -1963,6 +1963,48 @@ let MSGS = {
   '#blk-ms#': {
     en: 'ms',
   },
+  '#blk-tween_start#': {
+    en: 'start tween ID',
+  },
+  '#blk-tween_start_tooltip#': {
+    en: 'ID is used to identify a tween and can be any value. \\"Start Time\\" is usually the time, but can be any numeric value.',
+  },
+  '#blk-type#': {
+    en: 'type',
+  },
+  '#blk-start_value#': {
+    en: 'start value',
+  },
+  '#blk-end_value#': {
+    en: 'end value',
+  },
+  '#blk-start_time#': {
+    en: 'start time',
+  },
+  '#blk-tween_remove#': {
+    en: 'remove tween of ID',
+  },
+  '#blk-tween_remove_tooltip#': {
+    en: 'It is not necessary to remove a tween; you can reuse the tween ID or just ignore it. But removing it may free up a bit of memory.',
+  },
+  '#blk-tween_get#': {
+    en: 'get value of tween ID',
+  },
+  '#blk-tween_get_tooltip#': {
+    en: 'ID should match the ID used when starting the tween. \\"Time\\" is usually the time, but can be any numeric value.',
+  },
+  '#blk-at_time#': {
+    en: 'at time',
+  },
+  '#blk-tween_is_ended#': {
+    en: 'tween of ID',
+  },
+  '#blk-tween_is_ended_tooltip#': {
+    en: 'Returns true if the tween is ended at the given time. ID should match the ID used when starting the tween. \\"Time\\" is usually the time, but can be any numeric value.',
+  },
+  '#blk-is_ended_at_time#': {
+    en: 'is ended at time',
+  },
 };
 let MSGS_KEYS = Object.keys(MSGS);
 
