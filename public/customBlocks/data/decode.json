@@ -8,7 +8,7 @@
       "check": "Bytes"
     }
   ],
-  "output": null,
+  "output": "String",
   "colour": 230,
   "tooltip": "#blk-decode_tooltip#",
   "helpUrl": ""

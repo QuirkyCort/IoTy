@@ -1,0 +1,15 @@
+{
+  "type": "encode",
+  "message0": "#blk-encode# %1 #blk-as_utf8#",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "value",
+      "check": "String"
+    }
+  ],
+  "output": "Bytes",
+  "colour": 230,
+  "tooltip": "#blk-encode_tooltip#",
+  "helpUrl": ""
+}

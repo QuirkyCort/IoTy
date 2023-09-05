@@ -38,6 +38,7 @@ var ioty_generator = new function() {
 
     Blockly.Python['type_cast'] = self.type_cast;
     Blockly.Python['decode'] = self.decode;
+    Blockly.Python['encode'] = self.encode;
     Blockly.Python['math_map'] = self.math_map;
     Blockly.Python['json_dumps'] = self.json_dumps;
     Blockly.Python['json_loads'] = self.json_loads;
@@ -600,6 +601,14 @@ var ioty_generator = new function() {
     var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_ATOMIC);
 
     var code = value + '.decode(\'utf-8\')';
+
+    return [code, Blockly.Python.ORDER_FUNCTION_CALL];
+  };
+
+  this.encode = function(block) {
+    var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_ATOMIC);
+
+    var code = value + '.encode(\'utf-8\')';
 
     return [code, Blockly.Python.ORDER_FUNCTION_CALL];
   };

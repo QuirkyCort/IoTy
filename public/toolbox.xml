@@ -466,6 +466,7 @@
   <category name="#blk-data#" colour="#5b67a5">
     <block type="type_cast"></block>
     <block type="decode"></block>
+    <block type="encode"></block>
     <block type="math_map">
       <value name="x">
         <shadow type="math_number">

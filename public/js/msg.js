@@ -1342,6 +1342,9 @@ let MSGS = {
   '#blk-decode#': {
     en: 'decode',
   },
+  '#blk-encode#': {
+    en: 'encode',
+  },
   '#blk-as_utf8#': {
     en: 'as utf-8',
   },
