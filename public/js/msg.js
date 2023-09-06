@@ -2005,6 +2005,21 @@ let MSGS = {
   '#blk-is_ended_at_time#': {
     en: 'is ended at time',
   },
+  '#blk-max6675_init#': {
+    en: 'init max6675 on',
+  },
+  '#blk-max6675_init_tooltip#': {
+    en: 'You must have an \\"init spi\\" block before this. The CS should be connected to any pin that supports digital write, and the MOSI pin need not be connected.',
+  },
+  '#blk-and_cs_pin#': {
+    en: 'and CS pin',
+  },
+  '#blk-max6675_read#': {
+    en: 'max6675: read temperature in',
+  },
+  '#blk-max6675_read_tooltip#': {
+    en: 'This will return -1 if the reading is invalid.',
+  },
 };
 let MSGS_KEYS = Object.keys(MSGS);
 

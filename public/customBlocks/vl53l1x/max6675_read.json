@@ -1,0 +1,19 @@
+{
+  "type": "max6675_read",
+  "message0": "#blk-max6675_read# %1",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "unit",
+      "options": [
+        ["Celsius", "celsius"],
+        ["Fahrenheit", "fahrenheit"],
+        ["Kelvin", "kelvin"]
+      ]
+    }
+  ],
+  "output": "Number",
+  "colour": 230,
+  "tooltip": "#blk-max6675_read_tooltip#",
+  "helpUrl": ""
+}

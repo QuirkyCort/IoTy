@@ -317,6 +317,10 @@ var ioty_generator = new function() {
     Blockly.Python['tween_remove'] = self.tween_remove;
     Blockly.Python.addReservedWords('tween');
 
+    Blockly.Python['max6675_init'] = self.max6675_init;
+    Blockly.Python['max6675_read'] = self.max6675_read;
+    Blockly.Python.addReservedWords('max6675,max6675_device');
+
   };
 
   // Generate python code
@@ -3018,6 +3022,26 @@ var ioty_generator = new function() {
       'tween.remove(' + id + ')\n';
 
     return code;
+  };
+
+  this.max6675_init = function(block) {
+    self.imports['max6675'] = 'import max6675';
+
+    let cs = block.getFieldValue('cs');
+    let spi = block.getFieldValue('spi');
+
+    let code =
+      'max6675_device = max6675.MAX6675(spi' + spi + ', ' + cs + ')\n';
+
+    return code;
+  };
+
+  this.max6675_read = function(block) {
+    let unit = block.getFieldValue('unit');
+
+    let code = 'max6675_device.read_' + unit + '()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
   };
 
 }

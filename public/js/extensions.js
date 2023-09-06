@@ -425,6 +425,22 @@ var extensions = new function() {
           'With this extension, you can provide the start, stop, and duration (or speed), and it will generate the intermediate steps for you with the appropriate <a href="https://easings.net/">easing</a> function. ' +
         '</p>'
     },
+    {
+      id: 'max6675',
+      name: 'MAX6675 (Thermocouple board)',
+      files: [
+        ['max6675.py', 'extensions/max6675.py?v=e4feccac'],
+      ],
+      description:
+        '<p>' +
+          'The MAX6675 digitize and returns the readings from a type-K thermocouple using the SPI interface. ' +
+          'Temperature resolution is 0.25C and readings can be as high as 1024C (...provided a suitable thermocouple is used). ' +
+        '</p>' +
+        '<p>' +
+          'When wiring this device, SO should be connected to the MISO pin, and there are no connections for the MOSI pin. ' +
+          'CS should be connected to any pin that supports digital write.' +
+        '</p>'
+    },
   ]
 
   this.init = function() {

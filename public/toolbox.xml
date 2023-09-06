@@ -1299,4 +1299,10 @@
       </value>
     </block>
   </category>
+  <category toolboxitemid="max6675" name="MAX6675" colour="#5b67a5" hidden="true">
+    <block type="max6675_init">
+      <field name="cs">4</field>
+    </block>
+    <block type="max6675_read"></block>
+  </category>
 </xml>
