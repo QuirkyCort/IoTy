@@ -439,8 +439,8 @@ var extensions = new function() {
         '<p>' +
           'Note that the MAX6675 performs a measurement and stores the result after every read. ' +
           'On the next read, it returns the stored result. ' +
-          'This means that the reading may be very outdated if reading is infrequent.' +
-          'To get the latest reading, perform a read, wait 0.22secs, then read again.' +
+          'This means that the result may be very outdated if reading is infrequent.' +
+          'To get the latest measurement, perform a read, wait 0.22secs, then read again.' +
         '</p>' +
         '<p>' +
           'When wiring this device, SO should be connected to the MISO pin, and there are no connections for the MOSI pin. ' +
