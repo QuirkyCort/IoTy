@@ -1,0 +1,39 @@
+{
+  "type": "binary_op",
+  "message0": "%1 %2 %3",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "value1",
+      "check": "Number"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "op",
+      "options": [
+        [
+          "| (OR)",
+          "|"
+        ],
+        [
+          "& (AND)",
+          "&"
+        ],
+        [
+          "^ (XOR)",
+          "^"
+        ]
+      ]
+    },
+    {
+      "type": "input_value",
+      "name": "value2",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "output": "Number",
+  "colour": 230,
+  "tooltip": "#blk-binary_op_tooltip#",
+  "helpUrl": ""
+}

@@ -2020,6 +2020,21 @@ let MSGS = {
   '#blk-max6675_read_tooltip#': {
     en: 'This will return -1 if the reading is invalid.',
   },
+  '#blk-binary_op_tooltip#': {
+    en: 'This performs a binary operation. Both inputs must be integers.',
+  },
+  '#blk-binary_not#': {
+    en: '~ (NOT)',
+  },
+  '#blk-binary_not_tooltip#': {
+    en: 'This performs a binary not operation. The input must be an integer.',
+  },
+  '#blk-times#': {
+    en: 'times',
+  },
+  '#blk-binary_shift_tooltip#': {
+    en: 'This shifts the bits to the left or right by the specified number of times.',
+  },
 };
 let MSGS_KEYS = Object.keys(MSGS);
 

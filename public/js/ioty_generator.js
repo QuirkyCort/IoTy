@@ -42,6 +42,9 @@ var ioty_generator = new function() {
     Blockly.Python['math_map'] = self.math_map;
     Blockly.Python['json_dumps'] = self.json_dumps;
     Blockly.Python['json_loads'] = self.json_loads;
+    Blockly.Python['binary_op'] = self.binary_op;
+    Blockly.Python['binary_not'] = self.binary_not;
+    Blockly.Python['binary_shift'] = self.binary_shift;
 
     Blockly.Python['neopixel_init'] = self.neopixel_init;
     Blockly.Python['neopixel_color'] = self.neopixel_color;
@@ -659,6 +662,34 @@ var ioty_generator = new function() {
     var code = 'json.loads(' + value + ')';
 
     return [code, Blockly.Python.ORDER_FUNCTION_CALL];
+  };
+
+  this.binary_op = function(block) {
+    var value1 = Blockly.Python.valueToCode(block, 'value1', Blockly.Python.ORDER_ATOMIC);
+    var op = block.getFieldValue('op');
+    var value2 = Blockly.Python.valueToCode(block, 'value2', Blockly.Python.ORDER_ATOMIC);
+
+    var code = value1 + ' ' + op + ' ' + value2;
+
+    return [code, Blockly.Python.ORDER_RELATIONAL];
+  };
+
+  this.binary_not = function(block) {
+    var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_ATOMIC);
+
+    var code = `~` + value;
+
+    return [code, Blockly.Python.ORDER_RELATIONAL];
+  };
+
+  this.binary_shift = function(block) {
+    var value1 = Blockly.Python.valueToCode(block, 'value1', Blockly.Python.ORDER_ATOMIC);
+    var op = block.getFieldValue('op');
+    var value2 = Blockly.Python.valueToCode(block, 'value2', Blockly.Python.ORDER_ATOMIC);
+
+    var code = value1 + ' ' + op + ' ' + value2;
+
+    return [code, Blockly.Python.ORDER_RELATIONAL];
   };
 
   this.neopixel_init = function(block) {

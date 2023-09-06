@@ -1,0 +1,16 @@
+{
+  "type": "binary_not",
+  "message0": "#blk-binary_not# %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "value",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "output": "Number",
+  "colour": 230,
+  "tooltip": "#blk-binary_not_tooltip#",
+  "helpUrl": ""
+}

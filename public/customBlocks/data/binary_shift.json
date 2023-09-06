@@ -1,0 +1,35 @@
+{
+  "type": "binary_shift",
+  "message0": "%1 %2 %3 #blk-times#",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "value1",
+      "check": "Number"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "op",
+      "options": [
+        [
+          "<< (Shift bits left)",
+          "<<"
+        ],
+        [
+          ">> (Shift bits right)",
+          ">>"
+        ]
+      ]
+    },
+    {
+      "type": "input_value",
+      "name": "value2",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "output": "Number",
+  "colour": 230,
+  "tooltip": "#blk-binary_shift_tooltip#",
+  "helpUrl": ""
+}
