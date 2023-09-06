@@ -1351,6 +1351,9 @@ let MSGS = {
   '#blk-decode_tooltip#': {
     en: 'Decode a bytes object into a string using the utf-8 encoding.',
   },
+  '#blk-encode_tooltip#': {
+    en: 'Encode a string into a bytes object using the utf-8 encoding.',
+  },
   '#blk-gps_init#': {
     en: 'init GPS on',
   },
