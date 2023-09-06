@@ -429,12 +429,18 @@ var extensions = new function() {
       id: 'max6675',
       name: 'MAX6675 (Thermocouple board)',
       files: [
-        ['max6675.py', 'extensions/max6675.py?v=e4feccac'],
+        ['max6675.py', 'extensions/max6675.py?v=e34287d1'],
       ],
       description:
         '<p>' +
           'The MAX6675 digitize and returns the readings from a type-K thermocouple using the SPI interface. ' +
           'Temperature resolution is 0.25C and readings can be as high as 1024C (...provided a suitable thermocouple is used). ' +
+        '</p>' +
+        '<p>' +
+          'Note that the MAX6675 performs a measurement and stores the result after every read. ' +
+          'On the next read, it returns the stored result. ' +
+          'This means that the reading may be very outdated if reading is infrequent.' +
+          'To get the latest reading, perform a read, wait 0.22secs, then read again.' +
         '</p>' +
         '<p>' +
           'When wiring this device, SO should be connected to the MISO pin, and there are no connections for the MOSI pin. ' +

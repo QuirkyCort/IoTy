@@ -1,3 +1,4 @@
+import time
 import struct
 from machine import Pin
 
@@ -8,6 +9,7 @@ class MAX6675:
 
     def read_celsius(self):
         self.cs.value(0)
+        time.sleep_us(100)
         val = struct.unpack('>H', self.spi.read(2))[0]
         self.cs.value(1)
 

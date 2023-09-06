@@ -2018,7 +2018,7 @@ let MSGS = {
     en: 'max6675: read temperature in',
   },
   '#blk-max6675_read_tooltip#': {
-    en: 'This will return -1 if the reading is invalid.',
+    en: 'This will return the measurement from the last read (...which could be very long ago). To get the latest measurement, perform a read, wait 0.22secs, then read again. Returns -1 if thermocouple is not connected.',
   },
   '#blk-binary_op_tooltip#': {
     en: 'This performs a binary operation. Both inputs must be integers.',
