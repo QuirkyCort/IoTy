@@ -96,21 +96,41 @@ class PythonSerial {
     await this.openPort();
   }
 
+  setReadToBuf() {
+    this.readToBuf = true;
+  }
+
+  setReadToHandler() {
+    this.readToBuf = false;
+  }
+
   clearBuf() {
     this.readBuf = new Uint8Array();
+    this.readDone = false;
   }
 
   async readLoop(handler) {
+    this.readToBuf = false;
+    this.readDone = false;
     let utf8decoder = new TextDecoder();
 
     try {
       while (true) {
         const { value, done } = await this.reader.read();
         if (done) {
+          console.log('read done');
           break;
         }
-        let text = utf8decoder.decode(value);
-        handler(text);
+
+        if (this.readToBuf) {
+          if (value) {
+            this.readBuf = concatArray(this.readBuf, value);
+          }
+          this.readDone = true;
+        } else {
+          let text = utf8decoder.decode(value);
+          handler(text);
+        }
       }
     } catch (error) {
       console.log(error);
@@ -118,14 +138,11 @@ class PythonSerial {
   }
 
   async readSerialToBuf() {
-    const { value, done } = await this.reader.read();
-    if (value) {
-      this.readBuf = concatArray(this.readBuf, value);
+    while (! this.readDone) {
+      await awaitTimeout(10);
     }
-    if (done) {
-      console.log('read done');
-    }
-    return value;
+    this.readDone = false;
+    return true;
   }
 
   async writeString(string) {
