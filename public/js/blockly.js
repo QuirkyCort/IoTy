@@ -89,7 +89,7 @@ var blockly = new function() {
 
   // Load custom blocks
   this.loadCustomBlocks = function() {
-    return fetch('customBlocks.json?v=8ca898f4')
+    return fetch('customBlocks.json?v=82992f0d')
       .then(response => response.text())
       .then(function(response) {
         let json = JSON.parse(i18n.replace(response));
