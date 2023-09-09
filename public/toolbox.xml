@@ -1189,11 +1189,11 @@
     <block type="max30102_value"></block>
     <block type="max30102_read_temperature"></block>
   </category>
-  <category toolboxitemid="vl53l0x" name="VL53L0x" colour="#5b67a5" hidden="true">
+  <category toolboxitemid="vl53l0x" name="VL53L0X" colour="#5b67a5" hidden="true">
     <block type="vl53l0x_init"></block>
     <block type="vl53l0x_read"></block>
   </category>
-  <category toolboxitemid="vl53l1x" name="VL53L1x" colour="#5b67a5" hidden="true">
+  <category toolboxitemid="vl53l1x" name="VL53L1X" colour="#5b67a5" hidden="true">
     <block type="vl53l1x_init"></block>
     <block type="vl53l1x_read"></block>
     <block type="vl53l1x_set_distance_mode"></block>
