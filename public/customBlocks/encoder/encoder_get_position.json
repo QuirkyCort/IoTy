@@ -1,0 +1,9 @@
+{
+  "type": "encoder_get_position",
+  "message0": "#blk-encoder_get_position#",
+  "args0": [],
+  "output": "Number",
+  "colour": 230,
+  "tooltip": "#blk-encoder_get_position_tooltip#",
+  "helpUrl": ""
+}

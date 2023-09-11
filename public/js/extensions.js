@@ -447,6 +447,18 @@ var extensions = new function() {
           'CS should be connected to any pin that supports digital write.' +
         '</p>'
     },
+    {
+      id: 'encoder',
+      name: 'Encoder (Incremental, Quadrature)',
+      files: [
+        ['encoder.py', 'extensions/encoder.py?v=810de3d7'],
+      ],
+      description:
+        '<p>' +
+          'Incremental encoders are used to detect motor movements as well as some knobs. ' +
+          'It can detect direction, relative position, and speed. ' +
+        '</p>'
+    },
   ]
 
   this.init = function() {

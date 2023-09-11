@@ -324,6 +324,12 @@ var ioty_generator = new function() {
     Blockly.Python['max6675_read'] = self.max6675_read;
     Blockly.Python.addReservedWords('max6675,max6675_device');
 
+    Blockly.Python['encoder_init'] = self.encoder_init;
+    Blockly.Python['encoder_get_position'] = self.encoder_get_position;
+    Blockly.Python['encoder_set_position'] = self.encoder_set_position;
+    Blockly.Python['encoder_get_speed'] = self.encoder_get_speed;
+    Blockly.Python.addReservedWords('encoder,encoder_device');
+
   };
 
   // Generate python code
@@ -3071,6 +3077,38 @@ var ioty_generator = new function() {
     let unit = block.getFieldValue('unit');
 
     let code = 'max6675_device.read_' + unit + '()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.encoder_init = function(block) {
+    self.imports['encoder'] = 'import encoder';
+
+    let pin1 = block.getFieldValue('pin1');
+    let pin2 = block.getFieldValue('pin2');
+
+    let code =
+      'encoder_device = encoder.Encoder(' + pin1 + ', ' + pin2 + ')\n';
+
+    return code;
+  };
+
+  this.encoder_get_position = function(block) {
+    let code = 'encoder_device.position()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.encoder_set_position = function(block) {
+    let value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_NONE);
+
+    let code = 'encoder_device.position(' + value + ')\n';
+
+    return code;
+  };
+
+  this.encoder_get_speed = function(block) {
+    let code = 'encoder_device.speed()';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };

@@ -1,0 +1,9 @@
+{
+  "type": "encoder_get_speed",
+  "message0": "#blk-encoder_get_speed#",
+  "args0": [],
+  "output": "Number",
+  "colour": 230,
+  "tooltip": "#blk-encoder_get_speed_tooltip#",
+  "helpUrl": ""
+}

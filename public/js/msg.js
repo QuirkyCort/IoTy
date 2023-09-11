@@ -2038,6 +2038,30 @@ let MSGS = {
   '#blk-binary_shift_tooltip#': {
     en: 'This shifts the bits to the left or right by the specified number of times.',
   },
+  '#blk-encoder_init#': {
+    en: 'init encoder on pin',
+  },
+  '#blk-encoder_init_tooltip#': {
+    en: 'init encoder. If the direction is incorrect, reverse the pins settings.',
+  },
+  '#blk-encoder_get_position#': {
+    en: 'encoder: get position',
+  },
+  '#blk-encoder_get_position_tooltip#': {
+    en: 'Note that encoder knobs will often produce 2 steps for every one \\"click\\".',
+  },
+  '#blk-encoder_get_speed#': {
+    en: 'encoder: get speed',
+  },
+  '#blk-encoder_get_speed_tooltip#': {
+    en: 'Returns the average speed (pulse per sec) between the last two signals, or the last signal and the current time (...if it has been some time since the last pulse). Speed below 5 will be reported as 0.',
+  },
+  '#blk-encoder_set_position#': {
+    en: 'encoder: set position',
+  },
+  '#blk-encoder_set_position_tooltip#': {
+    en: 'Set the current encoder position readings to the specified value.',
+  },
 };
 let MSGS_KEYS = Object.keys(MSGS);
 

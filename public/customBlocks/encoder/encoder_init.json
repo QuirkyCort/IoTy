@@ -1,0 +1,22 @@
+{
+  "type": "encoder_init",
+  "message0": "#blk-encoder_init# %1 #blk-and# %2",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "pin1",
+      "options": $_UnusedIoPins
+    },
+    {
+      "type": "field_dropdown",
+      "name": "pin2",
+      "options": $_UnusedIoPins
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-encoder_init_tooltip#",
+  "helpUrl": ""
+}
