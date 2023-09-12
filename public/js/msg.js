@@ -1429,6 +1429,18 @@ let MSGS = {
   '#blk-hx711_read_tooltip#': {
     en: 'Read from the HX711. The return value is unitless; you must calibrate it yourself. ',
   },
+  '#blk-hx710_init_with_dt_pin#': {
+    en: 'init hx710 with dt pin',
+  },
+  '#blk-hx710_init_tooltip#': {
+    en: 'Initialize the HX710 on the specified pin. You must run this before performing any reads.',
+  },
+  '#blk-hx710_read#': {
+    en: 'hx710: read value and set next read to',
+  },
+  '#blk-hx710_read_tooltip#': {
+    en: 'Read from the HX710 and set the type of the next read. Note that this setting does not affect the current read. The return value is unitless; you must calibrate it yourself. ',
+  },
   '#blk-ez_timer_init#': {
     en: 'init EZ Timer',
   },

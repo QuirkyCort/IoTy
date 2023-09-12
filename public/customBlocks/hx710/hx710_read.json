@@ -1,0 +1,20 @@
+{
+  "type": "hx710_read",
+  "message0": "#blk-hx710_read# %1",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "next",
+      "options": [
+        ["Diffential Input (10Hz)", "DIFF_10HZ"],
+        ["Temperature / Analog Voltage", "TEMPERATURE_AVOLTAGE"],
+        ["Diffential Input (40Hz)", "DIFF_40HZ"]
+      ]
+    }
+  ],
+  "inputsInline": true,
+  "output": "Number",
+  "colour": 230,
+  "tooltip": "#blk-hx710_read_tooltip#",
+  "helpUrl": ""
+}

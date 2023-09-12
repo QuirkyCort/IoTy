@@ -1143,6 +1143,13 @@
     </block>
     <block type="hx711_read"></block>
   </category>
+  <category toolboxitemid="hx710" name="HX710" colour="#5b67a5" hidden="true">
+    <block type="hx710_init">
+      <field name="dt">5</field>
+      <field name="sck">4</field>
+    </block>
+    <block type="hx710_read"></block>
+  </category>
   <category toolboxitemid="ez_timer" name="EZ Timer" colour="#9fa55b" hidden="true">
     <block type="ez_timer_init"></block>
     <block type="ez_timer_update"></block>

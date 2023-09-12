@@ -204,6 +204,10 @@ var ioty_generator = new function() {
     Blockly.Python['hx711_read'] = self.hx711_read;
     Blockly.Python.addReservedWords('hx711,hx711_device');
 
+    Blockly.Python['hx710_init'] = self.hx710_init;
+    Blockly.Python['hx710_read'] = self.hx710_read;
+    Blockly.Python.addReservedWords('hx710,hx710_device');
+
     Blockly.Python['ez_timer_init'] = self.ez_timer_init;
     Blockly.Python['ez_timer_update'] = self.ez_timer_update;
     Blockly.Python['ez_timer_cb'] = self.ez_timer_cb;
@@ -2210,6 +2214,25 @@ var ioty_generator = new function() {
 
   this.hx711_read = function(block) {
     let code = 'hx711_device.read()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.hx710_init = function(block) {
+    self.imports['hx710'] = 'import hx710';
+
+    var dt = block.getFieldValue('dt');
+    var sck = block.getFieldValue('sck');
+
+    var code = 'hx710_device = hx710.HX710(' + dt + ', ' + sck + ')\n';
+
+    return code;
+  };
+
+  this.hx710_read = function(block) {
+    var next = block.getFieldValue('next');
+
+    let code = 'hx710_device.read(hx710.' + next + ')';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };

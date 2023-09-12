@@ -198,6 +198,25 @@ var extensions = new function() {
         '</p>'
     },
     {
+      id: 'hx710',
+      name: 'HX710 (Analog-to-Digital)',
+      files: [
+        ['hx710.py', 'extensions/hx710.py?v=f4ebbc89'],
+      ],
+      description:
+        '<p>' +
+          'This module allows you read the HX710 Analog-to-Digital converter. ' +
+          'The HX710A contains a temperature sensor, while the HX710B contains an analog voltage sensor. ' +
+        '</p>' +
+        '<p>' +
+          'This device is may be found in load cells for weight / force measurement or in pressure sensors. ' +
+          'It return a unitless value, so calibration is required if you want to measure weight. ' +
+        '</p>' +
+        '<p>' +
+          'When taking a reading, you can specify the type of the next reading.' +
+        '</p>'
+    },
+    {
       id: 'ez_timer',
       name: 'EZ Timer',
       files: [
@@ -281,7 +300,7 @@ var extensions = new function() {
     },
     {
       id: 'vl53l0x',
-      name: 'VL53L0x (Time-of-Flight laser ranging)',
+      name: 'VL53L0X (Time-of-Flight laser ranging)',
       files: [
         ['vl53l0x.py', 'extensions/vl53l0x.py?v=2f4f655e'],
       ],
@@ -294,7 +313,7 @@ var extensions = new function() {
     },
     {
       id: 'vl53l1x',
-      name: 'VL53L1x (Time-of-Flight laser ranging)',
+      name: 'VL53L1X (Time-of-Flight laser ranging)',
       files: [
         ['vl53l1x.py', 'extensions/vl53l1x.py?v=de29e581'],
       ],
