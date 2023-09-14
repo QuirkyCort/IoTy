@@ -95,14 +95,15 @@ var ioty_generator = new function() {
     Blockly.Python['mpu6050_accel'] = self.mpu6050_accel;
     Blockly.Python['mpu6050_gyro'] = self.mpu6050_gyro;
     Blockly.Python['mpu6050_angle'] = self.mpu6050_angle;
-    Blockly.Python.addReservedWords('mpu6050,MPU6050');
+    Blockly.Python['mpu6050_temperature'] = self.mpu6050_temperature;
+    Blockly.Python.addReservedWords('mpu6050,mpu6050_device');
 
     Blockly.Python['pca9685_init'] = self.pca9685_init;
     Blockly.Python['pca9685_set_freq'] = self.pca9685_set_freq;
     Blockly.Python['pca9685_analog_write'] = self.pca9685_analog_write;
     Blockly.Python['pca9685_write_angle'] = self.pca9685_write_angle;
     Blockly.Python['pca9685_write_us'] = self.pca9685_write_us;
-    Blockly.Python.addReservedWords('pca9685,PCA9685');
+    Blockly.Python.addReservedWords('pca9685,pca9685_device');
 
     Blockly.Python['ssd1306_init'] = self.ssd1306_init;
     Blockly.Python['ssd1306_init_sh1106'] = self.ssd1306_init_sh1106;
@@ -1332,31 +1333,29 @@ var ioty_generator = new function() {
   };
 
   this.mpu6050_init = function(block) {
-    self.imports['mpu6050'] = 'from mpu6050 import MPU6050';
+    self.imports['mpu6050'] = 'import mpu6050';
 
     var addr = block.getFieldValue('addr');
 
     var code =
-      'mpu6050 = MPU6050(i2c, ' + addr + ')\n' +
-      'mpu6050.init_device()\n';
-
+      'mpu6050_device = mpu6050.MPU6050(i2c, ' + addr + ')\n';
     return code;
   };
 
   this.mpu6050_calibrate = function(block) {
-    var code = 'mpu6050.calibrateGyro()\n';
+    var code = 'mpu6050_device.calibrateGyro()\n';
 
     return code;
   };
 
   this.mpu6050_reset = function(block) {
-    var code = 'mpu6050.reset_gyro()\n';
+    var code = 'mpu6050_device.reset_gyro()\n';
 
     return code;
   };
 
   this.mpu6050_update = function(block) {
-    var code = 'mpu6050.update_angle()\n';
+    var code = 'mpu6050_device.update_angle()\n';
 
     return code;
   };
@@ -1374,7 +1373,7 @@ var ioty_generator = new function() {
       func = 'accel_all';
     }
 
-    var code = 'mpu6050.' + func + '()';
+    var code = 'mpu6050_device.' + func + '()';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };
@@ -1392,7 +1391,7 @@ var ioty_generator = new function() {
       func = 'rate_all';
     }
 
-    var code = 'mpu6050.' + func + '()';
+    var code = 'mpu6050_device.' + func + '()';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };
@@ -1410,17 +1409,23 @@ var ioty_generator = new function() {
       func = 'angle_all';
     }
 
-    var code = 'mpu6050.' + func + '()';
+    var code = 'mpu6050_device.' + func + '()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.mpu6050_temperature = function(block) {
+    var code = 'mpu6050_device.temperature()';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };
 
   this.pca9685_init = function(block) {
-    self.imports['pca9685'] = 'from pca9685 import PCA9685';
+    self.imports['pca9685'] = 'import pca9685';
 
     var addr = block.getFieldValue('addr');
 
-    var code = 'pca9685 = PCA9685(i2c, ' + addr + ')\n';
+    var code = 'pca9685_device = pca9685.PCA9685(i2c, ' + addr + ')\n';
 
     return code;
   };
@@ -1428,7 +1433,7 @@ var ioty_generator = new function() {
   this.pca9685_set_freq = function(block) {
     var freq = block.getFieldValue('freq');
 
-    var code = 'pca9685.set_frequency(' + freq + ')\n';
+    var code = 'pca9685_device.set_frequency(' + freq + ')\n';
 
     return code;
   };
@@ -1437,7 +1442,7 @@ var ioty_generator = new function() {
     var channel = Blockly.Python.valueToCode(block, 'channel', Blockly.Python.ORDER_ATOMIC);
     var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_ATOMIC);
 
-    var code = 'pca9685.pwm(' + channel + ', ' + value + ')\n';
+    var code = 'pca9685_device.pwm(' + channel + ', ' + value + ')\n';
 
     return code;
   };
@@ -1446,7 +1451,7 @@ var ioty_generator = new function() {
     var channel = Blockly.Python.valueToCode(block, 'channel', Blockly.Python.ORDER_ATOMIC);
     var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_ATOMIC);
 
-    var code = 'pca9685.servo_deg(' + channel + ', ' + value + ')\n';
+    var code = 'pca9685_device.servo_deg(' + channel + ', ' + value + ')\n';
 
     return code;
   };
@@ -1455,7 +1460,7 @@ var ioty_generator = new function() {
     var channel = Blockly.Python.valueToCode(block, 'channel', Blockly.Python.ORDER_ATOMIC);
     var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_ATOMIC);
 
-    var code = 'pca9685.servo_us(' + channel + ', ' + value + ')\n';
+    var code = 'pca9685_device.servo_us(' + channel + ', ' + value + ')\n';
 
     return code;
   };

@@ -13,8 +13,8 @@
       ]
     }
   ],
-  "output": "Number",
+  "output": ["Number", "Array"],
   "colour": 230,
-  "tooltip": "",
+  "tooltip": "#blk-mpu6050_gyro_tooltip#",
   "helpUrl": ""
 }

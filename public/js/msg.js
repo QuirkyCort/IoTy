@@ -727,8 +727,20 @@ let MSGS = {
   '#blk-mpu6050_get_accel#': {
     en: 'MPU-6050 acceleration',
   },
+  '#blk-mpu6050_accl_tooltip#': {
+    en: 'Returns the acceleration in milligravity.',
+  },
   '#blk-mpu6050_get_gyro#': {
     en: 'MPU-6050 rotation rate',
+  },
+  '#blk-mpu6050_gyro_tooltip#': {
+    en: 'Returns the gyro rotation rate in degrees per second.',
+  },
+  '#blk-mpu6050_temperature#': {
+    en: 'MPU-6050 temperature',
+  },
+  '#blk-mpu6050_temperature_tooltip#': {
+    en: 'Returns the temperature in degrees C.',
   },
   '#blk-mpu6050_get_angle#': {
     en: 'MPU-6050 angle',

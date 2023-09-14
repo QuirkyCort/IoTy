@@ -755,6 +755,7 @@
     <block type="mpu6050_accel"></block>
     <block type="mpu6050_gyro"></block>
     <block type="mpu6050_angle"></block>
+    <block type="mpu6050_temperature"></block>
   </category>
   <category toolboxitemid="pca9685" name="PCA-9685" colour="#5b67a5" hidden="true">
     <block type="pca9685_init"></block>

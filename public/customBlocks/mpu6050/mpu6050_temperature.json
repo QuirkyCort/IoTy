@@ -1,0 +1,9 @@
+{
+  "type": "mpu6050_temperature",
+  "message0": "#blk-mpu6050_temperature#",
+  "args0": [],
+  "output": "Number",
+  "colour": 230,
+  "tooltip": "#blk-mpu6050_temperature_tooltip#",
+  "helpUrl": ""
+}

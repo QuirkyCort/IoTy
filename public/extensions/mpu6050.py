@@ -52,12 +52,12 @@ class MPU6050:
     def accel_z(self):
         return struct.unpack('>h', self.i2c.readfrom_mem(self.addr, 63, 2))[0] / 16.384
 
-    def temp(self):
+    def temperature(self):
         return struct.unpack('>h', self.i2c.readfrom_mem(self.addr, 65, 2))[0] / 340 + 36.53
 
     def rate_all(self):
         all = struct.unpack('>hhh', self.i2c.readfrom_mem(self.addr, 67, 6))[0]
-        return (all[0]/131, all[1]/ 131, all[2]/131)
+        return ((all[0] - self.error_x) / 131, (all[1] - self.error_y) / 131, (all[2] - self.error_z) / 131)
 
     def rate_x(self):
         return (struct.unpack('>h', self.i2c.readfrom_mem(self.addr, 67, 2))[0] - self.error_x) / 131

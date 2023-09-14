@@ -15,6 +15,6 @@
   ],
   "output": ["Number", "Array"],
   "colour": 230,
-  "tooltip": "",
+  "tooltip": "#blk-mpu6050_accel_tooltip#",
   "helpUrl": ""
 }
