@@ -1415,7 +1415,9 @@ var ioty_generator = new function() {
   };
 
   this.mpu6050_temperature = function(block) {
-    var code = 'mpu6050_device.temperature()';
+    var devType = block.getFieldValue('type');
+
+    var code = 'mpu6050_device.temperature_' + devType + '()';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };

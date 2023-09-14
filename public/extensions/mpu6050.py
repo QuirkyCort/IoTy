@@ -5,11 +5,14 @@ class MPU6050:
     def __init__(self, i2c, addr=104):
         self.i2c = i2c
         self.addr = addr
+        self.error_x = 0
+        self.error_y = 0
+        self.error_z = 0
         self.init_device()
         self.reset_gyro()
 
     def init_device(self):
-        self.i2c.writeto_mem(self.addr, 107, struct.pack('<b', 0))
+        self.i2c.writeto_mem(self.addr, 107, bytes([0x80]))
 
     def reset_gyro(self):
         self.gyro_x = 0
@@ -40,7 +43,7 @@ class MPU6050:
         self.error_z = sum_z / reps
 
     def accel_all(self):
-        all = struct.unpack('>hhh', self.i2c.readfrom_mem(self.addr, 59, 6))[0]
+        all = struct.unpack('>hhh', self.i2c.readfrom_mem(self.addr, 59, 6))
         return (all[0]/16.384, all[1]/16.384, all[2]/16.384)
 
     def accel_x(self):
@@ -52,11 +55,14 @@ class MPU6050:
     def accel_z(self):
         return struct.unpack('>h', self.i2c.readfrom_mem(self.addr, 63, 2))[0] / 16.384
 
-    def temperature(self):
+    def temperature_6050(self):
         return struct.unpack('>h', self.i2c.readfrom_mem(self.addr, 65, 2))[0] / 340 + 36.53
 
+    def temperature_6500(self):
+        return (struct.unpack('>h', self.i2c.readfrom_mem(self.addr, 65, 2))[0] - 21) / 333.87 + 21
+
     def rate_all(self):
-        all = struct.unpack('>hhh', self.i2c.readfrom_mem(self.addr, 67, 6))[0]
+        all = struct.unpack('>hhh', self.i2c.readfrom_mem(self.addr, 67, 6))
         return ((all[0] - self.error_x) / 131, (all[1] - self.error_y) / 131, (all[2] - self.error_z) / 131)
 
     def rate_x(self):

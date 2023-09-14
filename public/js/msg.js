@@ -737,10 +737,10 @@ let MSGS = {
     en: 'Returns the gyro rotation rate in degrees per second.',
   },
   '#blk-mpu6050_temperature#': {
-    en: 'MPU-6050 temperature',
+    en: 'MPU-6050 temperature for type',
   },
   '#blk-mpu6050_temperature_tooltip#': {
-    en: 'Returns the temperature in degrees C.',
+    en: 'Returns the temperature in degrees C. Make sure to select the correct device type.',
   },
   '#blk-mpu6050_get_angle#': {
     en: 'MPU-6050 angle',

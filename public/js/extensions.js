@@ -4,14 +4,21 @@ var extensions = new function() {
   this.availableExtensions = [
     {
       id: 'mpu6050',
-      name: 'MPU-6050 (Gyro and Accelerometer)',
+      name: 'MPU-6050 / MPU-6500 (Gyro and Accelerometer)',
       files: [
-        ['mpu6050.py', 'extensions/mpu6050.py?v=8803b4ba'],
+        ['mpu6050.py', 'extensions/mpu6050.py?v=afb00a92'],
       ],
       description:
         '<p>' +
-          'The MPU-6050 (often sold as a GY-521 module) contains a 3-axis gyroscope and 3-axis accelerometer. ' +
-          'This extension allows you to read the MPU-6050 via I2C, and additionally provides calibration routines to correct for errors, and integration routines to obtain headings.' +
+          'This extension is for the MPU-6050 and MPU-6500. ' +
+          'Both devices contains a 3-axis gyroscope, 3-axis accelerometer, and a temperature sensor. ' +
+          'Most functions are the same, but note that you will need to specify the device type when reading temperature. ' +
+        '</p>' +
+        '<p>' +
+          'The MPU-6050 is often sold as a GY-521 module, while the MPU-6500 may be sold on its own or as a MPU-9250 (...which integrates the MPU-6500 with an AK8963). ' +
+        '</p>' +
+        '<p>' +
+          'This extension allows you to read the device via I2C, and additionally provides calibration routines to correct for errors, and integration routines to obtain headings.' +
         '</p>'
     },
     {
