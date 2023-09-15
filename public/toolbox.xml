@@ -407,6 +407,11 @@
           <field name="VAR" id="+UwTmtg43A,{wt)k$X{?">list</field>
         </block>
       </value>
+      <value name="AT">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
     </block>
     <block type="lists_setIndex">
       <mutation at="true"></mutation>
@@ -417,6 +422,11 @@
           <field name="VAR" id="+UwTmtg43A,{wt)k$X{?">list</field>
         </block>
       </value>
+      <value name="AT">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
     </block>
     <block type="lists_getSublist">
       <mutation at1="true" at2="true"></mutation>
@@ -426,6 +436,16 @@
         <block type="variables_get">
           <field name="VAR" id="+UwTmtg43A,{wt)k$X{?">list</field>
         </block>
+      </value>
+      <value name="AT1">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="AT2">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
       </value>
     </block>
     <block type="lists_split">
