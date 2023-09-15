@@ -335,6 +335,24 @@ var ioty_generator = new function() {
     Blockly.Python['encoder_get_speed'] = self.encoder_get_speed;
     Blockly.Python.addReservedWords('encoder,encoder_device');
 
+    Blockly.Python['huskylens_init_i2c'] = self.huskylens_init_i2c;
+    Blockly.Python['huskylens_init_uart'] = self.huskylens_init_uart;
+    Blockly.Python['huskylens_change_mode'] = self.huskylens_change_mode;
+    Blockly.Python['huskylens_request'] = self.huskylens_request;
+    Blockly.Python['huskylens_requestByID'] = self.huskylens_requestByID;
+    Blockly.Python['huskylens_results'] = self.huskylens_results;
+    Blockly.Python['huskylens_idInResults'] = self.huskylens_idInResults;
+    Blockly.Python['huskylens_get'] = self.huskylens_get;
+    Blockly.Python['huskylens_closestBlockToCenter'] = self.huskylens_closestBlockToCenter;
+    Blockly.Python['huskylens_closestArrowToCenter'] = self.huskylens_closestArrowToCenter;
+    Blockly.Python['huskylens_forget'] = self.huskylens_forget;
+    Blockly.Python['huskylens_learn'] = self.huskylens_learn;
+    Blockly.Python['huskylens_customText'] = self.huskylens_customText;
+    Blockly.Python['huskylens_clearText'] = self.huskylens_clearText;
+    Blockly.Python['huskylens_saveLoadModel'] = self.huskylens_saveLoadModel;
+    Blockly.Python['huskylens_saveImage'] = self.huskylens_saveImage;
+    Blockly.Python.addReservedWords('huskylens,huskylib');
+
   };
 
   // Generate python code
@@ -3142,6 +3160,156 @@ var ioty_generator = new function() {
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };
+
+  this.huskylens_init_i2c = function(block) {
+    self.imports['huskylib'] = 'import huskylib';
+
+    let addr = block.getFieldValue('addr');
+
+    let code =
+      'huskylens = huskylib.HuskyLensI2C(i2c, ' + addr + ')\n';
+
+    return code;
+  };
+
+  this.huskylens_init_uart = function(block) {
+    self.imports['huskylib'] = 'import huskylib';
+
+    let uart = block.getFieldValue('uart');
+
+    let code =
+      'huskylens = huskylib.HuskyLensUART(uart' + uart + ')\n';
+
+    return code;
+  };
+
+  this.huskylens_change_mode = function(block) {
+    let mode = block.getFieldValue('mode');
+
+    let code =
+      'huskylens.algorithm(huskylib.' + mode + ')\n';
+
+    return code;
+  };
+
+  this.huskylens_request = function(block) {
+    let type = block.getFieldValue('type');
+
+    let code =
+      'huskylens.' + type + '()\n';
+
+    return code;
+  };
+
+  this.huskylens_requestByID = function(block) {
+    let type = block.getFieldValue('type');
+    let ID = Blockly.Python.valueToCode(block, 'ID', Blockly.Python.ORDER_NONE);
+
+    let code =
+      'huskylens.' + type + '(' + ID + ')\n';
+
+    return code;
+  };
+
+  this.huskylens_results = function(block) {
+    let code = 'huskylens.results';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.huskylens_idInResults = function(block) {
+    let ID = Blockly.Python.valueToCode(block, 'ID', Blockly.Python.ORDER_NONE);
+
+    let code = 'huskylens.idInResults(' + ID + ')';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.huskylens_get = function(block) {
+    let type = block.getFieldValue('type');
+
+    let code = 'huskylens.' + type + '()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.huskylens_closestBlockToCenter = function(block) {
+    let type = block.getFieldValue('type');
+
+    let code = 'huskylens.closestBlockToCenterInResults()';
+
+    if (type != 'ALL') {
+      code += '[\'' + type + '\']';
+    }
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.huskylens_closestArrowToCenter = function(block) {
+    let type = block.getFieldValue('type');
+
+    let code = 'huskylens.closestArrowToCenterInResults()';
+
+    if (type != 'ALL') {
+      code += '[\'' + type + '\']';
+    }
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.huskylens_forget = function(block) {
+    let code =
+      'huskylens.forget()\n';
+
+    return code;
+  };
+
+  this.huskylens_learn = function(block) {
+    let ID = Blockly.Python.valueToCode(block, 'ID', Blockly.Python.ORDER_NONE);
+
+    let code =
+      'huskylens.learn(' + ID + ')\n';
+
+    return code;
+  };
+
+  this.huskylens_customText = function(block) {
+    let text = Blockly.Python.valueToCode(block, 'text', Blockly.Python.ORDER_NONE);
+    let x = Blockly.Python.valueToCode(block, 'x', Blockly.Python.ORDER_NONE);
+    let y = Blockly.Python.valueToCode(block, 'y', Blockly.Python.ORDER_NONE);
+
+    let code =
+      'huskylens.customText(' + text + ', ' + x + ', ' + y + ')\n';
+
+    return code;
+  };
+
+  this.huskylens_clearText = function(block) {
+    let code =
+      'huskylens.clearText()\n';
+
+    return code;
+  };
+
+  this.huskylens_saveLoadModel = function(block) {
+    let type = block.getFieldValue('type');
+    let slot = Blockly.Python.valueToCode(block, 'slot', Blockly.Python.ORDER_NONE);
+
+    let code =
+      'huskylens.' + type + 'ModelToSDCard(' + slot + ')\n';
+
+    return code;
+  };
+
+  this.huskylens_saveImage = function(block) {
+    let type = block.getFieldValue('type');
+
+    let code =
+      'huskylens.save' + type + 'ToSDCard()\n';
+
+    return code;
+  };
+
 
 }
 

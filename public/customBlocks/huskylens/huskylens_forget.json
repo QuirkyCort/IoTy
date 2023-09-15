@@ -1,0 +1,11 @@
+{
+  "type": "huskylens_forget",
+  "message0": "#blk-huskylens_forget#",
+  "args0": [],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-huskylens_forget_tooltip#",
+  "helpUrl": ""
+}

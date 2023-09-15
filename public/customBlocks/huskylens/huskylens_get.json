@@ -1,0 +1,19 @@
+{
+  "type": "huskylens_get",
+  "message0": "#blk-huskylens_get# %1",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "type",
+      "options": [
+        ["Count of all objects on screen", "count"],
+        ["Number of learned objects", "learnedObjCount"],
+        ["Frame number", "frameNumber"]
+      ]
+    }
+  ],
+  "output": "Number",
+  "colour": 230,
+  "tooltip": "#blk-huskylens_get_tooltip#",
+  "helpUrl": ""
+}

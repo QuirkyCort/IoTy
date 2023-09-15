@@ -1,0 +1,27 @@
+{
+  "type": "huskylens_customText",
+  "message0": "#blk-huskylens_customText# %1 #blk-at_position_x# %2 #blk-and_y# %3",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "text",
+      "check": "String"
+    },
+    {
+      "type": "input_value",
+      "name": "x",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "y",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-huskylens_customText_tooltip#",
+  "helpUrl": ""
+}

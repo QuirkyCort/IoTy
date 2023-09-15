@@ -1,0 +1,25 @@
+{
+  "type": "huskylens_saveLoadModel",
+  "message0": "#blk-huskylens# %1 #blk-learned_models_on_slot# %2 #blk-of_sdcard#",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "type",
+      "options": [
+        ["Save", "save"],
+        ["Load", "load"]
+      ]
+    },
+    {
+      "type": "input_value",
+      "name": "slot",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-huskylens_saveLoadModel_tooltip#",
+  "helpUrl": ""
+}

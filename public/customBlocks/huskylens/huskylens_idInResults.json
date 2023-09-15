@@ -1,0 +1,16 @@
+{
+  "type": "huskylens_idInResults",
+  "message0": "#blk-huskylens_idInResults# %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "ID",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "output": "Boolean",
+  "colour": 230,
+  "tooltip": "#blk-huskylens_idInResults_tooltip#",
+  "helpUrl": ""
+}

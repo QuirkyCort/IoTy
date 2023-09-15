@@ -485,6 +485,21 @@ var extensions = new function() {
           'It can detect direction, relative position, and speed. ' +
         '</p>'
     },
+    {
+      id: 'huskylens',
+      name: 'Husky Lens (AI Camera)',
+      files: [
+        ['huskylib.py', 'extensions/huskylib.py?v=41abe07e'],
+      ],
+      description:
+        '<p>' +
+          'The Husky Lens is a camera with onboard machine vision features. ' +
+          'It can perform object tracking, face recognition, object recognition, line tracking, color recognition, and tag recognition (April tags). ' +
+        '</p>' +
+        '<p>' +
+          'This device can be wired in I2C mode (T -> SDA, R -> SCL), or UART mode (T -> Rx, R -> Tx). ' +
+        '</p>'
+    },
   ]
 
   this.init = function() {

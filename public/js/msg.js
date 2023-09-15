@@ -2086,6 +2086,117 @@ let MSGS = {
   '#blk-encoder_set_position_tooltip#': {
     en: 'Set the current encoder position readings to the specified value.',
   },
+  '#blk-huskylens_init_i2c#': {
+    en: 'init Husky Lens in I2C mode with address',
+  },
+  '#blk-huskylens_init_i2c_tooltip#': {
+    en: 'You must have an \\"init I2C\\" block before this',
+  },
+  '#blk-huskylens_init_uart#': {
+    en: 'init Husky Lens in UART mode on ',
+  },
+  '#blk-huskylens_init_uart_tooltip#': {
+    en: 'You must have an \\"init UART\\" block with the appropriate pins and baudrate set before this.',
+  },
+  '#blk-huskylens_request#': {
+    en: 'huskylens: request data of type',
+  },
+  '#blk-huskylens_request_tooltip#': {
+    en: 'You must run a request block before reading results',
+  },
+  '#blk-and_ID#': {
+    en: 'and ID',
+  },
+  '#blk-huskylens_requestByID_tooltip#': {
+    en: 'You must run a request block before reading results. Only the specified ID will appear in the result.',
+  },
+  '#blk-huskylens_results#': {
+    en: 'huskylens: results',
+  },
+  '#blk-huskylens_results_tooltip#': {
+    en: 'The results of an earlier request. The return value is always a list of dictionaries.',
+  },
+  '#blk-huskylens_idInResults#': {
+    en: 'huskylens: check if results contains ID',
+  },
+  '#blk-huskylens_idInResults_tooltip#': {
+    en: 'Returns a True if the results contains the specified ID, else returns False.',
+  },
+  '#blk-huskylens_get#': {
+    en: 'huskylens: get',
+  },
+  '#blk-huskylens_get_tooltip#': {
+    en: 'You do not need to perform a request before this block; it will generate its own request.',
+  },
+  '#blk-of_block_closest_to_center_of_screen_from_results#': {
+    en: 'of block closest to center of screen from results',
+  },
+  '#blk-huskylens_closestBlockToCenter_tooltip#': {
+    en: 'Be sure to check if the Full Result is not None first, before reading the keys, else you might get an error.',
+  },
+  '#blk-of_arrow_closest_to_center_of_screen_from_results#': {
+    en: 'of arrow closest to center of screen from results',
+  },
+  '#blk-huskylens_closestArrowToCenter_tooltip#': {
+    en: 'Be sure to check if the Full Result is not None first, before reading the keys, else you might get an error.',
+  },
+  '#blk-huskylens_forget#': {
+    en: 'huskylens: forget all learning data',
+  },
+  '#blk-huskylens_forget_tooltip#': {
+    en: 'Forgets all learning data. If you have already save the learning data to SD card, you can restore it even after a forget.',
+  },
+  '#blk-huskylens_learn#': {
+    en: 'huskylens: learn and save to ID',
+  },
+  '#blk-huskylens_learn_tooltip#': {
+    en: 'Perform a learn based on the current mode and save the result to the specified ID',
+  },
+  '#blk-huskylens_change_mode#': {
+    en: 'huskylens: change mode to',
+  },
+  '#blk-huskylens_change_mode_tooltip#': {
+    en: 'You must perform a new request after changing mode for the results to change',
+  },
+  '#blk-huskylens_customText#': {
+    en: 'huskylens: draw text',
+  },
+  '#blk-at_position_x#': {
+    en: 'at position x',
+  },
+  '#blk-and_y#': {
+    en: 'and y',
+  },
+  '#blk-huskylens_customText_tooltip#': {
+    en: 'Draw the specified text on screen. Note that xy specifies the top left corner of the text, and that the screen is 320 by 240.',
+  },
+  '#blk-huskylens_clearText#': {
+    en: 'huskylens: clear text',
+  },
+  '#blk-huskylens_clearText_tooltip#': {
+    en: 'Clears all text from screen',
+  },
+  '#blk-huskylens#': {
+    en: 'huskylens:',
+  },
+  '#blk-learned_models_on_slot#': {
+    en: 'learned models on slot',
+  },
+  '#blk-of_sdcard#': {
+    en: 'of SD card',
+  },
+  '#blk-huskylens_saveLoadModel_tooltip#': {
+    en: 'Save or load all the learned models to the specified slot on the SD card',
+  },
+  '#blk-huskylens_saveImage#': {
+    en: 'huskylens: take',
+  },
+  '#blk-and_save_to_sdcard#': {
+    en: 'and save to SD card',
+  },
+  '#blk-huskylens_saveImage_tooltip#': {
+    en: 'Capture a photo or screenshot and save to the SD card',
+  },
 };
 let MSGS_KEYS = Object.keys(MSGS);
 

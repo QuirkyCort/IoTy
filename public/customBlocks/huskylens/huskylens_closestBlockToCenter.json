@@ -1,0 +1,22 @@
+{
+  "type": "huskylens_closestBlockToCenter",
+  "message0": "#blk-huskylens_get# %1 #blk-of_block_closest_to_center_of_screen_from_results#",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "type",
+      "options": [
+        ["Full result (as dictionary)", "ALL"],
+        ["ID", "ID"],
+        ["X center", "x"],
+        ["Y center", "y"],
+        ["Width", "width"],
+        ["Height", "height"]
+      ]
+    }
+  ],
+  "output": null,
+  "colour": 230,
+  "tooltip": "#blk-huskylens_closestBlockToCenter_tooltip#",
+  "helpUrl": ""
+}

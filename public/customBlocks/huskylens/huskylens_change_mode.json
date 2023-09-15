@@ -1,0 +1,25 @@
+{
+  "type": "huskylens_change_mode",
+  "message0": "#blk-huskylens_change_mode# %1",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "mode",
+      "options": [
+        ["Object Tracking", "OBJECT_TRACKING"],
+        ["Face Recognition", "FACE_RECOGNITION"],
+        ["Object Recognition", "OBJECT_RECOGNITION"],
+        ["Line Tracking", "LINE_TRACKING"],
+        ["Color Recognition", "COLOR_RECOGNITION"],
+        ["Tag Recognition", "TAG_RECOGNITION"],
+        ["Object Classification", "OBJECT_CLASSIFICATION"]
+      ]
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-huskylens_change_mode_tooltip#",
+  "helpUrl": ""
+}

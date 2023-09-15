@@ -1,0 +1,11 @@
+{
+  "type": "huskylens_clearText",
+  "message0": "#blk-huskylens_clearText#",
+  "args0": [],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-huskylens_clearText_tooltip#",
+  "helpUrl": ""
+}

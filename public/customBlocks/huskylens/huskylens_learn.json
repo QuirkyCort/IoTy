@@ -1,0 +1,17 @@
+{
+  "type": "huskylens_learn",
+  "message0": "#blk-huskylens_learn# %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "ID",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-huskylens_learn_tooltip#",
+  "helpUrl": ""
+}

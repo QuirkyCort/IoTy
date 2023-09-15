@@ -1,0 +1,22 @@
+{
+  "type": "huskylens_closestArrowToCenter",
+  "message0": "#blk-huskylens_get# %1 #blk-of_arrow_closest_to_center_of_screen_from_results#",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "type",
+      "options": [
+        ["Full result (as dictionary)", "ALL"],
+        ["ID", "ID"],
+        ["X start", "xTail"],
+        ["Y start", "yTail"],
+        ["X end", "xHead"],
+        ["Y end", "yHead"]
+      ]
+    }
+  ],
+  "output": null,
+  "colour": 230,
+  "tooltip": "#blk-huskylens_closestArrowToCenter_tooltip#",
+  "helpUrl": ""
+}

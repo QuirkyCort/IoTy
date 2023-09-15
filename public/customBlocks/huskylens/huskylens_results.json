@@ -1,0 +1,9 @@
+{
+  "type": "huskylens_results",
+  "message0": "#blk-huskylens_results#",
+  "args0": [],
+  "output": "Array",
+  "colour": 230,
+  "tooltip": "#blk-huskylens_results_tooltip#",
+  "helpUrl": ""
+}

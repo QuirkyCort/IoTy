@@ -1360,4 +1360,62 @@
     </block>
     <block type="encoder_get_speed"></block>
   </category>
+  <category toolboxitemid="huskylens" name="Husky Lens" colour="#5b67a5" hidden="true">
+    <block type="huskylens_init_i2c"></block>
+    <block type="huskylens_init_uart"></block>
+    <block type="huskylens_change_mode"></block>
+    <block type="huskylens_request"></block>
+    <block type="huskylens_requestByID">
+      <value name="ID">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="huskylens_results"></block>
+    <block type="huskylens_idInResults">
+      <value name="ID">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="huskylens_get"></block>
+    <block type="huskylens_closestBlockToCenter"></block>
+    <block type="huskylens_closestArrowToCenter"></block>
+    <block type="huskylens_forget"></block>
+    <block type="huskylens_learn">
+      <value name="ID">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="huskylens_customText">
+      <value name="text">
+        <shadow type="text">
+          <field name="TEXT">abc</field>
+        </shadow>
+      </value>
+      <value name="x">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="y">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="huskylens_clearText"></block>
+    <block type="huskylens_saveLoadModel">
+      <value name="slot">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="huskylens_saveImage"></block>
+  </category>
 </xml>
