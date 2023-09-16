@@ -1,0 +1,25 @@
+{
+  "type": "tca9548a_set_port",
+  "message0": "#blk-tca9548a_set_port# %1 #blk-and# %2",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "port",
+      "check": "Number"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "others",
+      "options": [
+        ["deactivate other ports", "DEACTIVATE"],
+        ["leave other ports unchanged", "UNCHANGED"]
+      ]
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 330,
+  "tooltip": "#blk-tca9548a_set_port_tooltip#",
+  "helpUrl": ""
+}

@@ -2197,6 +2197,25 @@ let MSGS = {
   '#blk-huskylens_saveImage_tooltip#': {
     en: 'Capture a photo or screenshot and save to the SD card',
   },
+  '#blk-tca9548a_init#': {
+    en: 'init TCA9548A with address',
+  },
+  '#blk-tca9548a_init_tooltip#': {
+    en: 'You must have an \\"init I2C\\" block before this',
+  },
+  '#blk-tca9548a_set_port#': {
+    en: 'tca9548a: set port to',
+  },
+  '#blk-tca9548a_set_port_tooltip#': {
+    en: 'Activate the specified port number and deactivates the rest or leave them unchanged. Port number can range from 0 to 7. Set -1 to deactive all ports.',
+  },
+  '#blk-tca9548a_get_port#': {
+    en: 'tca9548a: get port',
+  },
+  '#blk-tca9548a_get_port_tooltip#': {
+    en: 'Get the currently active port. If multiple ports are active, this will return only the lowest active port.',
+  },
+
 };
 let MSGS_KEYS = Object.keys(MSGS);
 

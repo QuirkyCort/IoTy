@@ -500,6 +500,18 @@ var extensions = new function() {
           'This device can be wired in I2C mode (T -> SDA, R -> SCL), or UART mode (T -> Rx, R -> Tx). ' +
         '</p>'
     },
+    {
+      id: 'tca9548a',
+      name: 'TCA9548A (I2C Multiplexer)',
+      files: [
+        ['tca9548a.py', 'extensions/tca9548a.py?v=25f001e2'],
+      ],
+      description:
+        '<p>' +
+          'Normally, you cannot have multiple I2C devices with the same address on the same I2C pins. ' +
+          'The TCA9548A allows you to overcome this limitation by multiplexing one pair of I2C pins (SCL/SDA) into 8 separate ports, allowing you to use up to 8 devices with the same address. ' +
+        '</p>'
+    },
   ]
 
   this.init = function() {

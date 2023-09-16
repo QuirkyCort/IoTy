@@ -353,6 +353,10 @@ var ioty_generator = new function() {
     Blockly.Python['huskylens_saveImage'] = self.huskylens_saveImage;
     Blockly.Python.addReservedWords('huskylens,huskylib');
 
+    Blockly.Python['tca9548a_init'] = self.tca9548a_init;
+    Blockly.Python['tca9548a_get_port'] = self.tca9548a_get_port;
+    Blockly.Python['tca9548a_set_port'] = self.tca9548a_set_port;
+    Blockly.Python.addReservedWords('tca9548a,tca9548a_device');
   };
 
   // Generate python code
@@ -3310,6 +3314,36 @@ var ioty_generator = new function() {
     return code;
   };
 
+  this.tca9548a_init = function(block) {
+    self.imports['tca9548a'] = 'import tca9548a';
 
+    let addr = block.getFieldValue('addr');
+
+    let code =
+      'tca9548a = tca9548a.TCA9548A(i2c, ' + addr + ')\n';
+
+    return code;
+  };
+
+  this.tca9548a_get_port = function(block) {
+    let code = 'tca9548a.get_port()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.tca9548a_set_port = function(block) {
+    let port = Blockly.Python.valueToCode(block, 'port', Blockly.Python.ORDER_NONE);
+    let others = block.getFieldValue('others');
+
+    if (others == 'DEACTIVATE') {
+      others = '';
+    } else {
+      others = ', deactivate_others=False';
+    }
+
+    let code = 'tca9548a.set_port(' + port + others + ')\n';
+
+    return code;
+  };
 }
 

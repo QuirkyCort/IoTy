@@ -1418,4 +1418,15 @@
     </block>
     <block type="huskylens_saveImage"></block>
   </category>
+  <category toolboxitemid="tca9548a" name="TCA9548A" colour="#a55b80" hidden="true">
+    <block type="tca9548a_init"></block>
+    <block type="tca9548a_set_port">
+      <value name="port">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="tca9548a_get_port"></block>
+  </category>
 </xml>
