@@ -2213,7 +2213,7 @@ let MSGS = {
     en: 'tca9548a: get port',
   },
   '#blk-tca9548a_get_port_tooltip#': {
-    en: 'Get the currently active port. If multiple ports are active, this will return only the lowest active port.',
+    en: 'Returns the currently active port. If multiple ports are active, this will return only the lowest active port. Returns -1 if all ports are deactivated.',
   },
 
 };

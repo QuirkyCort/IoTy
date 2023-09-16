@@ -504,7 +504,7 @@ var extensions = new function() {
       id: 'tca9548a',
       name: 'TCA9548A (I2C Multiplexer)',
       files: [
-        ['tca9548a.py', 'extensions/tca9548a.py?v=25f001e2'],
+        ['tca9548a.py', 'extensions/tca9548a.py?v=02f7ffce'],
       ],
       description:
         '<p>' +
