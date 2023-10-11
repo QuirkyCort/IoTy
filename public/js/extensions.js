@@ -512,6 +512,17 @@ var extensions = new function() {
           'The TCA9548A allows you to overcome this limitation by multiplexing one pair of I2C pins (SCL/SDA) into 8 separate ports, allowing you to use up to 8 devices with the same address. ' +
         '</p>'
     },
+    {
+      id: 'music',
+      name: 'Music (Tone)',
+      files: [
+        ['music.py', 'extensions/music.py?v=89544506'],
+      ],
+      description:
+        '<p>' +
+          'Plays tones, musical notes, and songs in Ring Tone Text Transfer Language (RTTTL) format. ' +
+        '</p>'
+    },
   ]
 
   this.init = function() {

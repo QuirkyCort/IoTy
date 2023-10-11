@@ -1,0 +1,30 @@
+{
+  "type": "music_play_tone",
+  "message0": "#blk-music_play_tone# %1 #blk-hz# #blk-for# %2 #blk-ms# #blk-and# %3",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "freq",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "ms",
+      "check": "Number"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "wait",
+      "options": [
+        ["wait", "True"],
+        ["don't wait", "False"]
+      ]
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-music_play_tone_tooltip#",
+  "helpUrl": ""
+}

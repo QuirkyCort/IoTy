@@ -1,0 +1,10 @@
+{
+  "type": "music_is_playing",
+  "message0": "#blk-music_is_playing#",
+  "args0": [],
+  "inputsInline": true,
+  "output": "Boolean",
+  "colour": 230,
+  "tooltip": "#blk-music_is_playing_tooltip#",
+  "helpUrl": ""
+}

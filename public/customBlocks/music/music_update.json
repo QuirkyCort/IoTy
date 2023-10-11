@@ -1,0 +1,11 @@
+{
+  "type": "music_update",
+  "message0": "#blk-music_update#",
+  "args0": [],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-music_update_tooltip#",
+  "helpUrl": ""
+}

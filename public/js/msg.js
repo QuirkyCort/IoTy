@@ -2215,6 +2215,51 @@ let MSGS = {
   '#blk-tca9548a_get_port_tooltip#': {
     en: 'Returns the currently active port. If multiple ports are active, this will return only the lowest active port. Returns -1 if all ports are deactivated.',
   },
+  '#blk-music_init#': {
+    en: 'init music device on pin',
+  },
+  '#blk-music_init_tooltip#': {
+    en: 'The specified pin should be connected to a passive piezoelectric speaker, headphones, or audio amplifier',
+  },
+  '#blk-music_play_tone#': {
+    en: 'music: play tone of',
+  },
+  '#blk-music_play_tone_tooltip#': {
+    en: 'If set to \\"don\'t wait\\", you must run update frequently to play the tone.',
+  },
+  '#blk-music_play_notes#': {
+    en: 'music: play notes',
+  },
+  '#blk-music_play_notes_tooltip#': {
+    en: 'Notes should be in the RTTTL format, but exclude the title and settings (ie. notes only). If set to \\"don\'t wait\\", you must run update frequently to play the song.',
+  },
+  '#blk-repeat#': {
+    en: 'repeat',
+  },
+  '#blk-music_play_rtttl#': {
+    en: 'music: play RTTTL',
+  },
+  '#blk-music_play_rtttl_tooltip#': {
+    en: 'Songs should be in the RTTTL format (including title and settings). If set to \\"don\'t wait\\", you must run update frequently to play the song.',
+  },
+  '#blk-music_is_playing#': {
+    en: 'music: is playing',
+  },
+  '#blk-music_is_playing_tooltip#': {
+    en: 'Returns True if the music is still playing. Only meaningful when set to \\"don\'t wait\\".',
+  },
+  '#blk-music_update#': {
+    en: 'music: update',
+  },
+  '#blk-music_update_tooltip#': {
+    en: 'When \\"don\'t wait\\" is set, you must run this frequently to play the music.',
+  },
+  '#blk-music_stop#': {
+    en: 'music: stop',
+  },
+  '#blk-music_stop_tooltip#': {
+    en: 'Stops the music. Only meaningful when set to \\"don\'t wait\\".',
+  },
 
 };
 let MSGS_KEYS = Object.keys(MSGS);

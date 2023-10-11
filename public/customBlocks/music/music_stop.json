@@ -1,0 +1,11 @@
+{
+  "type": "music_stop",
+  "message0": "#blk-music_stop#",
+  "args0": [],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-music_stop_tooltip#",
+  "helpUrl": ""
+}

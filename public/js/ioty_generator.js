@@ -357,6 +357,15 @@ var ioty_generator = new function() {
     Blockly.Python['tca9548a_get_port'] = self.tca9548a_get_port;
     Blockly.Python['tca9548a_set_port'] = self.tca9548a_set_port;
     Blockly.Python.addReservedWords('tca9548a,tca9548a_device');
+
+    Blockly.Python['music_init'] = self.music_init;
+    Blockly.Python['music_play_tone'] = self.music_play_tone;
+    Blockly.Python['music_play_notes'] = self.music_play_notes;
+    Blockly.Python['music_play_rtttl'] = self.music_play_rtttl;
+    Blockly.Python['music_is_playing'] = self.music_is_playing;
+    Blockly.Python['music_update'] = self.music_update;
+    Blockly.Python['music_stop'] = self.music_stop;
+    Blockly.Python.addReservedWords('music,music_device');
   };
 
   // Generate python code
@@ -3320,13 +3329,13 @@ var ioty_generator = new function() {
     let addr = block.getFieldValue('addr');
 
     let code =
-      'tca9548a = tca9548a.TCA9548A(i2c, ' + addr + ')\n';
+      'tca9548a_device = tca9548a.TCA9548A(i2c, ' + addr + ')\n';
 
     return code;
   };
 
   this.tca9548a_get_port = function(block) {
-    let code = 'tca9548a.get_port()';
+    let code = 'tca9548a_device.get_port()';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };
@@ -3341,7 +3350,71 @@ var ioty_generator = new function() {
       others = ', deactivate_others=False';
     }
 
-    let code = 'tca9548a.set_port(' + port + others + ')\n';
+    let code = 'tca9548a_device.set_port(' + port + others + ')\n';
+
+    return code;
+  };
+
+  this.music_init = function(block) {
+    self.imports['music'] = 'import music';
+
+    let pin = block.getFieldValue('pin');
+
+    let code =
+      'music_device = music.Music(' + pin + ')\n';
+
+    return code;
+  };
+
+  this.music_play_tone = function(block) {
+    let freq = Blockly.Python.valueToCode(block, 'freq', Blockly.Python.ORDER_NONE);
+    let ms = Blockly.Python.valueToCode(block, 'ms', Blockly.Python.ORDER_NONE);
+    let wait = block.getFieldValue('wait');
+
+    let code =
+      'music_device.play_tone(' + freq + ', ' + ms + ', wait=' + wait + ')\n';
+
+    return code;
+  };
+
+  this.music_play_notes = function(block) {
+    let notes = Blockly.Python.valueToCode(block, 'notes', Blockly.Python.ORDER_NONE);
+    let loops = Blockly.Python.valueToCode(block, 'loops', Blockly.Python.ORDER_NONE);
+    let wait = block.getFieldValue('wait');
+
+    let code =
+      'music_device.play_notes(' + notes + ', wait=' + wait + ', loops=' + loops + ')\n';
+
+    return code;
+  };
+
+  this.music_play_rtttl = function(block) {
+    let rtttl = Blockly.Python.valueToCode(block, 'rtttl', Blockly.Python.ORDER_NONE);
+    let loops = Blockly.Python.valueToCode(block, 'loops', Blockly.Python.ORDER_NONE);
+    let wait = block.getFieldValue('wait');
+
+    let code =
+      'music_device.play_rtttl(' + rtttl + ', wait=' + wait + ', loops=' + loops + ')\n';
+
+    return code;
+  };
+
+  this.music_is_playing = function(block) {
+    let code = 'music_device.is_playing()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.music_update = function(block) {
+    let code =
+      'music_device.update()\n';
+
+    return code;
+  };
+
+  this.music_stop = function(block) {
+    let code =
+      'music_device.stop()\n';
 
     return code;
   };

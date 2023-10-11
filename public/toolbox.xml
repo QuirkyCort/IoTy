@@ -1349,7 +1349,10 @@
     <block type="max6675_read"></block>
   </category>
   <category toolboxitemid="encoder" name="Encoder" colour="#5b67a5" hidden="true">
-    <block type="encoder_init"></block>
+    <block type="encoder_init">
+      <field name="pin1">4</field>
+      <field name="pin2">5</field>
+    </block>
     <block type="encoder_get_position"></block>
     <block type="encoder_set_position">
       <value name="value">
@@ -1428,5 +1431,73 @@
       </value>
     </block>
     <block type="tca9548a_get_port"></block>
+  </category>
+  <category toolboxitemid="music" name="Music" colour="#5b67a5" hidden="true">
+    <block type="music_init">
+      <field name="pin">2</field>
+    </block>
+    <block type="music_play_tone">
+      <value name="freq">
+        <shadow type="math_number">
+          <field name="NUM">440</field>
+        </shadow>
+      </value>
+      <value name="ms">
+        <shadow type="math_number">
+          <field name="NUM">1000</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="music_play_notes">
+      <value name="notes">
+        <shadow type="text">
+          <field name="TEXT">4c4,8d4,16e4</field>
+        </shadow>
+      </value>
+      <value name="loops">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="music_play_rtttl">
+      <value name="rtttl">
+        <shadow type="text">
+          <field name="TEXT">Short:d=4,o=4,b=240:c5,8g,8g,a,g.,b,c5</field>
+        </shadow>
+      </value>
+      <value name="loops">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="music_is_playing"></block>
+    <block type="music_update"></block>
+    <block type="music_stop"></block>
+    <block type="text">
+      <field name="TEXT">Entertainer:d=4,o=5,b=140:8d,8d#,8e,c6,8e,c6,8e,2c.6,8c6,8d6,8d#6,8e6,8c6,8d6,e6,8b,d6,2c6,p,8d,8d#,8e,c6,8e,c6,8e,2c.6,8p,8a,8g,8f#,8a,8c6,e6,8d6,8c6,8a,2d6</field>
+    </block>
+    <block type="text">
+      <field name="TEXT">Mario:d=4,o=5,b=100:16e6,16e6,32p,8e6,16c6,8e6,8g6,8p,8g,8p,8c6,16p,8g,16p,8e,16p,8a,8b,16a#,8a,16g.,16e6,16g6,8a6,16f6,8g6,8e6,16c6,16d6,8b,16p,8c6,16p,8g,16p,8e,16p,8a,8b,16a#,8a,16g.,16e6,16g6,8a6,16f6,8g6,8e6,16c6,16d6,8b,8p,16g6,16f#6,16f6,16d#6,16p,16e6,16p,16g#,16a,16c6,16p,16a,16c6,16d6,8p,16g6,16f#6,16f6,16d#6,16p,16e6,16p,16c7,16p,16c7,16c7,p,16g6,16f#6,16f6,16d#6,16p,16e6,16p,16g#,16a,16c6,16p,16a,16c6,16d6,8p,16d#6,8p,16d6,8p,16c6</field>
+    </block>
+    <block type="text">
+      <field name="TEXT">Mario - Water:d=8,o=6,b=225:4d5,4e5,4f#5,4g5,4a5,4a#5,b5,b5,b5,p,b5,p,2b5,p,g5,2e.,2d#.,2e.,p,g5,a5,b5,c,d,2e.,2d#,4f,2e.,2p,p,g5,2d.,2c#.,2d.,p,g5,a5,b5,c,c#,2d.,2g5,4f,2e.,2p,p,g5,2g.,2g.,2g.,4g,4a,p,g,2f.,2f.,2f.,4f,4g,p,f,2e.,4a5,4b5,4f,e,e,4e.,b5,2c.</field>
+    </block>
+    <block type="text">
+      <field name="TEXT">Star Wars:d=4,o=5,b=45:32p,32f#,32f#,32f#,8b.,8f#.6,32e6,32d#6,32c#6,8b.6,16f#.6,32e6,32d#6,32c#6,8b.6,16f#.6,32e6,32d#6,32e6,8c#.6,32f#,32f#,32f#,8b.,8f#.6,32e6,32d#6,32c#6,8b.6,16f#.6,32e6,32d#6,32c#6,8b.6,16f#.6,32e6,32d#6,32e6,8c#6</field>
+    </block>
+    <block type="text">
+      <field name="TEXT">Star Wars - Imperial March:d=4,o=5,b=112:8d.,16p,8d.,16p,8d.,16p,8a#4,16p,16f,8d.,16p,8a#4,16p,16f,d.,8p,8a.,16p,8a.,16p,8a.,16p,8a#,16p,16f,8c#.,16p,8a#4,16p,16f,d.,8p,8d.6,16p,8d,16p,16d,8d6,8p,8c#6,16p,16c6,16b,16a#,8b,8p,16d#,16p,8g#,8p,8g,16p,16f#,16f,16e,8f,8p,16a#4,16p,8c#,8p,8a#4,16p,16c#,8f.,16p,8d,16p,16f,a.,8p,8d.6,16p,8d,16p,16d,8d6,8p,8c#6,16p,16c6,16b,16a#,8b,8p,16d#,16p,8g#,8p,8g,16p,16f#,16f,16e,8f,8p,16a#4,16p,8c#,8p,8a#4,16p,16f,8d.,16p,8a#4,16p,16f,4d</field>
+    </block>
+    <block type="text">
+      <field name="TEXT">Mission Impossible:d=16,o=6,b=95:32d,32d#,32d,32d#,32d,32d#,32d,32d#,32d,32d,32d#,32e,32f,32f#,32g,g,8p,g,8p,a#,p,c7,p,g,8p,g,8p,f,p,f#,p,g,8p,g,8p,a#,p,c7,p,g,8p,g,8p,f,p,f#,p,a#,g,2d,32p,a#,g,2c#,32p,a#,g,2c,a#5,8c,2p,32p,a#5,g5,2f#,32p,a#5,g5,2f,32p,a#5,g5,2e,d#,8d</field>
+    </block>
+    <block type="text">
+      <field name="TEXT">Doraemon: d=4,o=5,b=200:g,8c6,c6,8e6,a6,8e6,g6,8p,g6,8a6,g6,8e6,f6,8e6,d6,8p,a,8d6,d6,8f6,b6,8b6,a6,8g6,f6,8p,f6,8e6,a,b,8p,8c6,d6</field>
+    </block>
+    <block type="text">
+      <field name="TEXT">Tetris:d=4,o=5,b=160:e6,8b,8c6,8d6,16e6,16d6,8c6,8b,a,8a,8c6,e6,8d6,8c6,b.,8c6,d6,e6,c6,a,2a,8p,d6,8f6,a6,8g6,8f6,e.6,8c6,e6,8d6,8c6,b,8b,8c6,d6,e6,c6,a,2a</field>
+    </block>
   </category>
 </xml>
