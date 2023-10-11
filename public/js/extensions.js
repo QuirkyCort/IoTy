@@ -521,6 +521,7 @@ var extensions = new function() {
       description:
         '<p>' +
           'Plays tones, musical notes, and songs in Ring Tone Text Transfer Language (RTTTL) format. ' +
+          'Find more RTTTL songs <a href="https://picaxe.com/rtttl-ringtones-for-tune-command/">here</a>, or <a href="https://eddmann.com/nokia-composer-web/">compose</a> your own.' +
         '</p>'
     },
   ]
