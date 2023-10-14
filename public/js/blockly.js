@@ -53,7 +53,7 @@ var blockly = new function() {
 
   // Load toolbox
   this.loadToolBox = function() {
-    return fetch('toolbox.xml?v=2d78e6ce')
+    return fetch('toolbox.xml?v=bbc65a3c')
       .then(response => response.text())
       .then(function(response) {
         response = i18n.replace(response);
@@ -89,7 +89,7 @@ var blockly = new function() {
 
   // Load custom blocks
   this.loadCustomBlocks = function() {
-    return fetch('customBlocks.json?v=8db69580')
+    return fetch('customBlocks.json?v=9762368e')
       .then(response => response.text())
       .then(function(response) {
         let json = JSON.parse(i18n.replace(response));

@@ -1,0 +1,45 @@
+{
+  "type": "scaled_text_text",
+  "message0": "#blk-scaled_text_text# %1 #blk-at_xy# %2 %3 #blk-and_color# %4 #blk-and_scale# %5",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "text",
+      "check": "String"
+    },
+    {
+      "type": "input_value",
+      "name": "x",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "y",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "color",
+      "check": "Number"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "scale",
+      "options": [
+        ["2x", "2"],
+        ["3x", "3"],
+        ["4x", "4"],
+        ["5x", "5"],
+        ["6x", "6"],
+        ["7x", "7"],
+        ["8x", "8"]
+      ]
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-scaled_text_text_tooltip#",
+  "helpUrl": ""
+}

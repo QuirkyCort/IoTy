@@ -366,6 +366,10 @@ var ioty_generator = new function() {
     Blockly.Python['music_update'] = self.music_update;
     Blockly.Python['music_stop'] = self.music_stop;
     Blockly.Python.addReservedWords('music,music_device');
+
+    Blockly.Python['scaled_text_init'] = self.scaled_text_init;
+    Blockly.Python['scaled_text_text'] = self.scaled_text_text;
+    Blockly.Python.addReservedWords('scaled_text,text_scaler');
   };
 
   // Generate python code
@@ -3415,6 +3419,33 @@ var ioty_generator = new function() {
   this.music_stop = function(block) {
     let code =
       'music_device.stop()\n';
+
+    return code;
+  };
+
+  this.scaled_text_init = function(block) {
+    self.imports['scaled_text'] = 'import scaled_text';
+
+    let type = block.getFieldValue('type');
+
+    if (type == 'SSD1306') {
+      type = 'ssd1306_i2c';
+    }
+
+    let code =
+      'text_scaler = scaled_text.ScaledText(' + type + ')\n';
+
+    return code;
+  };
+
+  this.scaled_text_text = function(block) {
+    let text = Blockly.Python.valueToCode(block, 'text', Blockly.Python.ORDER_ATOMIC);
+    let x = Blockly.Python.valueToCode(block, 'x', Blockly.Python.ORDER_ATOMIC);
+    let y = Blockly.Python.valueToCode(block, 'y', Blockly.Python.ORDER_ATOMIC);
+    let color = Blockly.Python.valueToCode(block, 'color', Blockly.Python.ORDER_ATOMIC);
+    let scale = block.getFieldValue('scale');
+
+    let code = 'text_scaler.text(' + text + ', ' + x + ', ' + y + ', ' + color + ', scale=' + scale + ')\n';
 
     return code;
   };

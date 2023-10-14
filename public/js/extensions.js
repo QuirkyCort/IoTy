@@ -524,6 +524,22 @@ var extensions = new function() {
           'Find more RTTTL songs <a href="https://picaxe.com/rtttl-ringtones-for-tune-command/">here</a>, or <a href="https://eddmann.com/nokia-composer-web/">compose</a> your own.' +
         '</p>'
     },
+    {
+      id: 'scaled_text',
+      name: 'Scaled Text',
+      files: [
+        ['scaled_text.py', 'extensions/scaled_text.py?v=fd8996d0'],
+      ],
+      description:
+        '<p>' +
+          'This extension works with other extensions using the frame buffer (eg. SSD-1306), and provides drawing of larger text. ' +
+          'The built-in micropython frame buffer only provides an 8x8 pixels font, which can be too small to read for some. ' +
+          'This extension overcomes this by scaling the built-in font (eg. 2 times, 3 times) before drawing it. ' +
+        '</p>' +
+        '<p>' +
+          'When using this extension, you should continue to use the original "fill" and "show" functions; this extension only replaces the "text" function. ' +
+        '</p>'
+    },
   ]
 
   this.init = function() {

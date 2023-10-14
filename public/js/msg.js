@@ -2260,6 +2260,18 @@ let MSGS = {
   '#blk-music_stop_tooltip#': {
     en: 'Stops the music. Only meaningful when set to \\"don\'t wait\\".',
   },
+  '#blk-scaled_text_init#': {
+    en: 'init scaled text for device',
+  },
+  '#blk-scaled_text_init_tooltip#': {
+    en: 'The device must be initialized before this block.',
+  },
+  '#blk-scaled_text_text#': {
+    en: 'draw scaled text',
+  },
+  '#blk-scaled_text_text_tooltip#': {
+    en: 'Works the same as the normal text function, but with an additional scale option. Be sure to use \\"fill\\" to clear the screen, and \\"show\\" to display the frame buffer after writing.',
+  }
 
 };
 let MSGS_KEYS = Object.keys(MSGS);
