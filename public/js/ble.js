@@ -463,25 +463,11 @@ var ble = new function() {
     let progressBar = '';
 
     // Check syntax
-    Sk.configure({
-      __future__: Sk.python3
-    });
-    let syntaxError = false;
-    let errorText = '';
-    for (let filename in filesManager.files) {
-      try {
-        Sk.compile(filesManager.files[filename], filename);
-      } catch (error) {
-        console.log(error);
-        errorText += 'File "' + error.traceback[0].filename + '", line ' + error.traceback[0].lineno + '\n';
-        errorText += '  ' + error.args.v[0].v + '\n';
-        syntaxError = true;
-      }
-    }
+    let result = main.checkPythonSyntax();
 
-    if (syntaxError) {
+    if (result.error) {
       $downloadWindow.$body.text('Syntax Error');
-      let $error = $('<pre>' + errorText + '</pre>');
+      let $error = $('<pre>' + result.text + '</pre>');
       $downloadWindow.$body.append($error);
       $downloadWindow.$buttonsRow.removeClass('hide');
       return;

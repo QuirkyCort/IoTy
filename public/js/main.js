@@ -450,6 +450,11 @@ var main = new function() {
       try {
         Sk.compile(filesManager.files[filename], filename);
       } catch (error) {
+        // Skip some errors which occurs in Skulpt but not micropython
+        if (error.args.v[0].v == 'Not implemented: nonlocal') {
+          continue;
+        }
+
         console.log(error);
         errorText += 'File "' + error.traceback[0].filename + '", line ' + error.traceback[0].lineno + '\n';
         errorText += '  ' + error.args.v[0].v + '\n';

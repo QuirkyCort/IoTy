@@ -293,7 +293,7 @@ var mqtt = new function() {
     let $downloadWindow = main.hiddenButtonDialog('Download to Device', 'Checking syntax...');
 
     // Check syntax
-    result = main.checkPythonSyntax();
+    let result = main.checkPythonSyntax();
     if (result.error) {
       $downloadWindow.$body.text('Syntax Error');
       let $error = $('<pre>' + result.text + '</pre>');
