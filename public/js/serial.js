@@ -226,7 +226,7 @@ var serial = new function() {
         '<tr><td>Free Space: </td><td id="freeSpace"></td></tr>' +
       '</table>'
     );
-    $info.find('#mac').text(result[0]);
+    $info.find('#mac').text(result[0].slice(2,-1));
     $info.find('#allocMem').text(result[1]);
     $info.find('#freeMem').text(result[2]);
     $info.find('#freeSpace').text(result[3] * result[4]);
