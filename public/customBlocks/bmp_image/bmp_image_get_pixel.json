@@ -1,0 +1,10 @@
+{
+  "type": "bmp_image_get_pixel",
+  "message0": "#blk-bmp_image_get_pixel#",
+  "args0": [],
+  "output": "Array",
+  "inputsInline": true,
+  "colour": 230,
+  "tooltip": "#blk-bmp_image_get_pixel_tooltip#",
+  "helpUrl": ""
+}

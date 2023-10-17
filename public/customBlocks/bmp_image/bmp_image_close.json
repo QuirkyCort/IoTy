@@ -1,0 +1,11 @@
+{
+  "type": "bmp_image_close",
+  "message0": "#blk-bmp_image_close#",
+  "args0": [],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-bmp_image_close_tooltip#",
+  "helpUrl": ""
+}

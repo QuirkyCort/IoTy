@@ -1,0 +1,10 @@
+{
+  "type": "bmp_image_width",
+  "message0": "#blk-bmp_image_width#",
+  "args0": [],
+  "output": "Number",
+  "inputsInline": true,
+  "colour": 230,
+  "tooltip": "#blk-bmp_image_width_tooltip#",
+  "helpUrl": ""
+}

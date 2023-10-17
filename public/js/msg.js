@@ -2271,7 +2271,73 @@ let MSGS = {
   },
   '#blk-scaled_text_text_tooltip#': {
     en: 'Works the same as the normal text function, but with an additional scale option. Be sure to use \\"fill\\" to clear the screen, and \\"show\\" to display the frame buffer after writing.',
-  }
+  },
+  '#blk-png_decoder_render#': {
+    en: 'render PNG image',
+  },
+  '#blk-png_decoder_render_tooltip#': {
+    en: 'Set the offset if you do not want the image to appear at the top left corner. Run \\"show\\" after render to display the image on screen.',
+  },
+  '#blk-to_display#': {
+    en: 'to display',
+  },
+  '#blk-with_offset_x#': {
+    en: 'with offset x',
+  },
+  '#blk-bmp_image_open#': {
+    en: 'bmp image: open file',
+  },
+  '#blk-bmp_image_open_tooltip#': {
+    en: 'Opens a BMP file for later use',
+  },
+  '#blk-bmp_image_render#': {
+    en: 'bmp image: render image',
+  },
+  '#blk-bmp_image_render_tooltip#': {
+    en: 'Renders the image to screen using the RGB values as a tuple. For many types of screen (eg. monochromic), you will need to use \\"render raw\\" instead.',
+  },
+  '#blk-bmp_image_render_raw#': {
+    en: 'bmp image: render image (raw)',
+  },
+  '#blk-bmp_image_render_raw_tooltip#': {
+    en: 'Renders the image to screen using the raw value. The raw value is... (8bits or less: palette index), (16bits: 16bits bytes object), (24bits or more: RGB tuple)',
+  },
+  '#blk-bmp_image_close#': {
+    en: 'bmp image: close file',
+  },
+  '#blk-bmp_image_close_tooltip#': {
+    en: 'Close the BMP file. You will need to open it again if you want to use it.',
+  },
+  '#blk-bmp_image_get_pixel#': {
+    en: 'bmp image: get pixel',
+  },
+  '#blk-bmp_image_get_pixel_tooltip#': {
+    en: 'Returns the next pixel value (RGB tuple) on each call. Starts from bottom left corner.',
+  },
+  '#blk-bmp_image_get_pixel_raw#': {
+    en: 'bmp image: get pixel (raw)',
+  },
+  '#blk-bmp_image_get_pixel_raw_tooltip#': {
+    en: 'Same as \\"get pixel\\", but returns raw value. The raw value is... (8bits or less: palette index), (16bits: 16bits bytes object), (24bits or more: RGB tuple)',
+  },
+  '#blk-bmp_image_width#': {
+    en: 'bmp image: width',
+  },
+  '#blk-bmp_image_width_tooltip#': {
+    en: 'Gets the width of the image in pixels',
+  },
+  '#blk-bmp_image_height#': {
+    en: 'bmp image: height',
+  },
+  '#blk-bmp_image_height_tooltip#': {
+    en: 'Gets the height of the image in pixels',
+  },
+  '#blk-bmp_image_depth#': {
+    en: 'bmp image: depth',
+  },
+  '#blk-bmp_image_depth_tooltip#': {
+    en: 'Gets the depth (bits per pixel) of the image',
+  },
 
 };
 let MSGS_KEYS = Object.keys(MSGS);

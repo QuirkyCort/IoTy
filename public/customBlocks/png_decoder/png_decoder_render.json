@@ -1,0 +1,34 @@
+{
+  "type": "png_decoder_render",
+  "message0": "#blk-png_decoder_render# %1 #blk-to_display# %2 #blk-with_offset_x# %3 #blk-and_y# %4",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "filename",
+      "check": "String"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "type",
+      "options": [
+        ["SSD-1306", "SSD1306"]
+      ]
+    },
+    {
+      "type": "input_value",
+      "name": "x",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "y",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-png_decoder_render_tooltip#",
+  "helpUrl": ""
+}

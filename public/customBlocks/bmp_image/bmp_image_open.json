@@ -1,0 +1,17 @@
+{
+  "type": "bmp_image_open",
+  "message0": "#blk-bmp_image_open# %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "filename",
+      "check": "String"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-bmp_image_open_tooltip#",
+  "helpUrl": ""
+}

@@ -540,6 +540,39 @@ var extensions = new function() {
           'When using this extension, you should continue to use the original "fill" and "show" functions; this extension only replaces the "text" function. ' +
         '</p>'
     },
+    {
+      id: 'png_decoder',
+      name: 'PNG Decoder',
+      files: [
+        ['PNGdecoder.py', 'extensions/PNGdecoder.py?v=98b17ad5'],
+      ],
+      description:
+        '<p>' +
+          'This extension allows you to decoder and render a PNG image on screen. ' +
+          'In blocks mode, you can only render the image to a supported display type (...currently SSD-1306 and the SH-1106 which uses the same extension). ' +
+          'In Python, you can render to any type of display by providing a suitable callback. ' +
+        '</p>' +
+        '<p>' +
+          'Images can be uploaded using the "Files on Device..." option in the 3-dots menu. ' +
+        '</p>'
+    },
+    {
+      id: 'bmp_image',
+      name: 'BMP Image',
+      files: [
+        ['bmp_image.py', 'extensions/bmp_image.py?v=a0313b3f'],
+      ],
+      description:
+        '<p>' +
+          'This extension allows you to decoder and render a BMP image on screen. ' +
+          'You can directly render the image to a supported display type (...currently SSD-1306 and the SH-1106 which uses the same extension), ' +
+          'or extract out each pixel value one at a time. ' +
+        '</p>' +
+        '<p>' +
+          'Images can be uploaded using the "Files on Device..." option in the 3-dots menu. ' +
+          'Image must be uncompressed, and of 1/4/8/16/24/32 bits depth. ' +
+        '</p>'
+    },
   ]
 
   this.init = function() {

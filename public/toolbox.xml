@@ -1528,5 +1528,63 @@
       </value>
     </block>
   </category>
+  <category toolboxitemid="png_decoder" name="PNG Decoder" colour="#5b67a5" hidden="true">
+    <block type="png_decoder_render">
+      <value name="filename">
+        <shadow type="text">
+          <field name="TEXT">image.png</field>
+        </shadow>
+      </value>
+      <value name="x">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="y">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+  </category>
+  <category toolboxitemid="bmp_image" name="BMP Image" colour="#5b67a5" hidden="true">
+    <block type="bmp_image_open">
+      <value name="filename">
+        <shadow type="text">
+          <field name="TEXT">image.bmp</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="bmp_image_close"></block>
+    <block type="bmp_image_width"></block>
+    <block type="bmp_image_height"></block>
+    <block type="bmp_image_depth"></block>
+    <block type="bmp_image_render">
+      <value name="x">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="y">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="bmp_image_render_raw">
+      <value name="x">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="y">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="bmp_image_get_pixel"></block>
+    <block type="bmp_image_get_pixel_raw"></block>
+  </category>
 
 </xml>

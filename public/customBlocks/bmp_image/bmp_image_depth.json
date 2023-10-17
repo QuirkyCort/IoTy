@@ -1,0 +1,10 @@
+{
+  "type": "bmp_image_depth",
+  "message0": "#blk-bmp_image_depth#",
+  "args0": [],
+  "output": "Number",
+  "inputsInline": true,
+  "colour": 230,
+  "tooltip": "#blk-bmp_image_depth_tooltip#",
+  "helpUrl": ""
+}
