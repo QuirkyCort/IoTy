@@ -2294,13 +2294,7 @@ let MSGS = {
     en: 'bmp image: render image',
   },
   '#blk-bmp_image_render_tooltip#': {
-    en: 'Renders the image to screen using the RGB values as a tuple. For many types of screen (eg. monochromic), you will need to use \\"render raw\\" instead.',
-  },
-  '#blk-bmp_image_render_raw#': {
-    en: 'bmp image: render image (raw)',
-  },
-  '#blk-bmp_image_render_raw_tooltip#': {
-    en: 'Renders the image to screen using the raw value. The raw value is... (8bits or less: palette index), (16bits: 16bits bytes object), (24bits or more: RGB tuple)',
+    en: 'Renders the image to screen. The exact value used for rendering depends on the screen type.',
   },
   '#blk-bmp_image_close#': {
     en: 'bmp image: close file',

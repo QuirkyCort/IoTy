@@ -380,7 +380,6 @@ var ioty_generator = new function() {
     Blockly.Python['bmp_image_height'] = self.bmp_image_height;
     Blockly.Python['bmp_image_depth'] = self.bmp_image_depth;
     Blockly.Python['bmp_image_render'] = self.bmp_image_render;
-    Blockly.Python['bmp_image_render_raw'] = self.bmp_image_render_raw;
     Blockly.Python['bmp_image_get_pixel'] = self.bmp_image_get_pixel;
     Blockly.Python['bmp_image_get_pixel_raw'] = self.bmp_image_get_pixel_raw;
     Blockly.Python.addReservedWords('bmp_image,bmp_image_file');
@@ -3501,21 +3500,6 @@ var ioty_generator = new function() {
   };
 
   this.bmp_image_render = function(block) {
-    let type = block.getFieldValue('type');
-    let x = Blockly.Python.valueToCode(block, 'x', Blockly.Python.ORDER_ATOMIC);
-    let y = Blockly.Python.valueToCode(block, 'y', Blockly.Python.ORDER_ATOMIC);
-
-    if (type == 'SSD1306') {
-      type = 'ssd1306_i2c';
-    }
-
-    let code =
-      'bmp_image_file.render(' + type + '.pixel, ' + x + ', ' + y + ')\n';
-
-    return code;
-  };
-
-  this.bmp_image_render_raw = function(block) {
     let type = block.getFieldValue('type');
     let x = Blockly.Python.valueToCode(block, 'x', Blockly.Python.ORDER_ATOMIC);
     let y = Blockly.Python.valueToCode(block, 'y', Blockly.Python.ORDER_ATOMIC);
