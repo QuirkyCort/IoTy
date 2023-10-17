@@ -65,6 +65,9 @@ var filesManager = new function() {
   };
 
   this.add = function(filename, content) {
+    if (filename in self.files) {
+      return;
+    }
     self.updateCurrentFile();
     self.files[filename] = content;
     let $file = $(
