@@ -45,7 +45,10 @@ class BMP:
             self.palette.append((r, g, b))
 
     def _open_file(self):
-        self.file = open(self.filename, 'br')
+        try:
+            self.file = open(self.filename, 'br')
+        except:
+            raise OSError('Unable to open BMP file')
         self._read_file_header()
         if self.depth <= 8:
             self._read_palette()
