@@ -7,7 +7,7 @@ var ioty_generator = new function() {
 
   // Load Python generators
   this.load = function() {
-    Blockly.Python.addReservedWords('machine,ioty,ioty_wifi,ioty_mqtt,ioty_mqtt_cb,req,ap');
+    Blockly.Python.addReservedWords('machine,ioty,ioty_wifi,ioty_mqtt,ioty_mqtt_cb,req,ap,mqtt_msg');
 
     Blockly.Python.INDENT = '    ';
 

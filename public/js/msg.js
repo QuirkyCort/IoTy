@@ -2294,7 +2294,7 @@ let MSGS = {
     en: 'bmp image: render image',
   },
   '#blk-bmp_image_render_tooltip#': {
-    en: 'Renders the image to screen. The exact value used for rendering depends on the screen type.',
+    en: 'Renders the image to screen.',
   },
   '#blk-bmp_image_close#': {
     en: 'bmp image: close file',
