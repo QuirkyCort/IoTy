@@ -248,7 +248,7 @@ class PythonSerial {
     string += '\nprint("' + terminator + '")\n';
     await this.sendPythonCmd(string);
     this.sendCtrlD();
-    await this.waitForString('OK', timeout);
+    // await this.waitForString('OK', timeout);
     let result = await this.waitForString(terminator, timeout);
     if (result == null) {
       return ['timeout', null];
