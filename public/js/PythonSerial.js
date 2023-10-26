@@ -54,13 +54,14 @@ function toPythonBytesLiteral(bytes) {
 }
 
 class PythonSerial {
-  constructor(port, baudRate) {
+  constructor(port, baudRate, dtrRts=0) {
     this.chunkDelay = 10;
     this.chunkSize = 256;
 
     this.port = port;
     this.baudRate = baudRate;
     this.readBuf = new Uint8Array();
+    this.dtrRts = dtrRts;
   }
 
   async init() {
@@ -70,10 +71,12 @@ class PythonSerial {
   async openPort() {
     await this.port.open({ baudRate: this.baudRate });
 
-    this.port.setSignals({
-      dataTerminalReady: false,
-      requestToSend: false
-    });
+    if (self.dtrRts == 1) {
+      this.port.setSignals({
+        dataTerminalReady: false,
+        requestToSend: false
+      });
+    }
 
     this.reader = this.port.readable.getReader();
     this.writer = this.port.writable.getWriter();

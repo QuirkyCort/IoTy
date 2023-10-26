@@ -19,6 +19,10 @@ var serial = new function() {
       usbVendorId: 0x1a86,
       usbProductId: 0x7523
     },
+    { // RPI Pico
+      usbProductId: 5,
+      usbVendorId: 11914
+    }
   ];
 
   this.writeEnable = false;
