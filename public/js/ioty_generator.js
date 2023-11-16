@@ -1698,7 +1698,7 @@ var ioty_generator = new function() {
     }
 
     if (header) {
-      param += ', header=' + header;
+      param += ', headers=' + header;
     }
 
     var code =
