@@ -1189,7 +1189,7 @@ var ioty_generator = new function() {
 
     let stopParam = '';
     if (stop != 'STOP') {
-      stopParam = ', stop=False';
+      stopParam = ', False';
     }
 
     var code = 'i2c.writeto(' + address + ', struct.pack(\'' + format + '\', ' + value + ')' + stopParam + ')\n';
@@ -1206,7 +1206,7 @@ var ioty_generator = new function() {
 
     let stopParam = '';
     if (stop != 'STOP') {
-      stopParam = ', stop=False';
+      stopParam = ', False';
     }
 
     let formatLower = format.toLowerCase();
