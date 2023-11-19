@@ -384,6 +384,9 @@ let MSGS = {
   '#blk-i2c_init#': {
     en: 'init i2c on pins',
   },
+  '#blk-i2c_init_with_pins_tooltip#': {
+    en: 'A more advanced version of init i2c that allows setting of SCL and SDA pins',
+  },
   '#blk-freq#': {
     en: 'freq',
   },
@@ -404,6 +407,12 @@ let MSGS = {
   },
   '#blk-i2c_readfrom_addr#': {
     en: 'i2c read from address',
+  },
+  '#blk-number_of_bytes#': {
+    en: '# bytes',
+  },
+  '#blk-i2c_readfrom_bytes_tooltip#': {
+    en: 'read the specified number of bytes and return a bytes object',
   },
   '#main-blocks#': {
     en: 'Blocks',
@@ -1365,6 +1374,15 @@ let MSGS = {
   },
   '#blk-encode_tooltip#': {
     en: 'Encode a string into a bytes object using the utf-8 encoding.',
+  },
+  '#blk-unpack#': {
+    en: 'unpack data',
+  },
+  '#blk-using_format#': {
+    en: 'using format',
+  },
+  '#blk-unpack_tooltip#': {
+    en: 'Unpack a bytes object using the provided format. Returns a tuple containing the results. See the help URL for details of the format string.',
   },
   '#blk-gps_init#': {
     en: 'init GPS on',

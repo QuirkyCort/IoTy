@@ -1,0 +1,27 @@
+{
+  "type": "i2c_init_with_pins",
+  "message0": "#blk-i2c_init# SCL %1 SDA %2 #blk-freq# %3",
+  "args0": [
+    {
+      "type": "field_number",
+      "name": "scl",
+      "value": "18"
+    },
+    {
+      "type": "field_number",
+      "name": "sda",
+      "value": "19"
+    },
+    {
+      "type": "field_number",
+      "name": "freq",
+      "value": "100000"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 330,
+  "tooltip": "#blk-i2c_init_with_pins_tooltip#",
+  "helpUrl": ""
+}

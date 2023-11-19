@@ -1,0 +1,28 @@
+{
+  "type": "i2c_readfrom_bytes",
+  "message0": "#blk-i2c_readfrom_addr# %1 #blk-number_of_bytes# %2 #blk-and# %3",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "address",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "bytes",
+      "check": "Number"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "stop",
+      "options": [
+        ["send STOP", "STOP"],
+        ["allow repeated", "REPEATED"]
+      ]
+    }
+  ],
+  "output": "Number",
+  "colour": 330,
+  "tooltip": "#blk-i2c_readfrom_bytes_tooltip#",
+  "helpUrl": ""
+}

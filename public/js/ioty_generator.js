@@ -39,6 +39,7 @@ var ioty_generator = new function() {
     Blockly.Python['type_cast'] = self.type_cast;
     Blockly.Python['decode'] = self.decode;
     Blockly.Python['encode'] = self.encode;
+    Blockly.Python['unpack'] = self.unpack;
     Blockly.Python['math_map'] = self.math_map;
     Blockly.Python['json_dumps'] = self.json_dumps;
     Blockly.Python['json_loads'] = self.json_loads;
@@ -63,11 +64,13 @@ var ioty_generator = new function() {
     Blockly.Python['mqtt_publish'] = self.mqtt_publish;
 
     Blockly.Python['i2c_init'] = self.i2c_init;
+    Blockly.Python['i2c_init_with_pins'] = self.i2c_init_with_pins;
     Blockly.Python['i2c_scan'] = self.i2c_scan;
     Blockly.Python['i2c_writeto_mem'] = self.i2c_writeto_mem;
     Blockly.Python['i2c_readfrom_mem'] = self.i2c_readfrom_mem;
     Blockly.Python['i2c_writeto'] = self.i2c_writeto;
     Blockly.Python['i2c_readfrom'] = self.i2c_readfrom;
+    Blockly.Python['i2c_readfrom_bytes'] = self.i2c_readfrom_bytes;
     Blockly.Python.addReservedWords('i2c');
 
     Blockly.Python['date_time_get'] = self.date_time_get;
@@ -685,6 +688,17 @@ var ioty_generator = new function() {
     return [code, Blockly.Python.ORDER_FUNCTION_CALL];
   };
 
+  this.unpack = function(block) {
+    self.imports['struct'] = 'import struct';
+
+    var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_ATOMIC);
+    var format = block.getFieldValue('format');
+
+    var code = 'struct.unpack(\'' + format + '\', ' + value + ')';
+
+    return [code, Blockly.Python.ORDER_FUNCTION_CALL];
+  };
+
   this.math_map = function(block) {
     var functionCode =
       '\ndef math_map(x, in_min, in_max, out_min, out_max):\n' +
@@ -1135,6 +1149,18 @@ var ioty_generator = new function() {
     return code;
   };
 
+  this.i2c_init_with_pins = function(block) {
+    self.imports['machine'] = 'import machine';
+
+    var scl = block.getFieldValue('scl');
+    var sda = block.getFieldValue('sda');
+    var freq = block.getFieldValue('freq');
+
+    var code = 'i2c = machine.I2C(0, scl=machine.Pin(' + scl + '), sda=machine.Pin(' + sda + '), freq=' + freq + ')\n';
+
+    return code;
+  };
+
   this.i2c_scan = function(block) {
     var code = 'i2c.scan()';
 
@@ -1223,6 +1249,21 @@ var ioty_generator = new function() {
     }
 
     var code = 'struct.unpack(\'' + format + '\', i2c.readfrom(' + address + ', ' + size + stopParam + '))[0]';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.i2c_readfrom_bytes = function(block) {
+    var address = Blockly.Python.valueToCode(block, 'address', Blockly.Python.ORDER_NONE);
+    var bytes = Blockly.Python.valueToCode(block, 'bytes', Blockly.Python.ORDER_NONE);
+    var stop = block.getFieldValue('stop');
+
+    let stopParam = '';
+    if (stop != 'STOP') {
+      stopParam = ', False';
+    }
+
+    var code = 'i2c.readfrom(' + address + ', ' + bytes + stopParam + ')';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };

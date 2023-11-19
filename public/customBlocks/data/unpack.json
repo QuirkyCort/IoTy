@@ -1,0 +1,19 @@
+{
+  "type": "unpack",
+  "message0": "#blk-unpack# %1 #blk-using_format# %2",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "value"
+    },
+    {
+      "type": "field_input",
+      "name": "format",
+      "text": ">h"
+    }
+  ],
+  "output": "Array",
+  "colour": 230,
+  "tooltip": "#blk-unpack_tooltip#",
+  "helpUrl": "https://docs.micropython.org/en/latest/library/struct.html#module-struct"
+}

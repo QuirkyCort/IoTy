@@ -17,9 +17,9 @@
       ]
     },
     {
-      "type": "field_input",
+      "type": "field_number",
       "name": "freq",
-      "text": "100000"
+      "value": "100000"
     }
   ],
   "inputsInline": true,
