@@ -89,7 +89,6 @@ var ioty_generator = new function() {
     Blockly.Python.addReservedWords('is_file,is_dir');
 
     Blockly.Python['esp32_temperature'] = self.esp32_temperature;
-    Blockly.Python['esp32_hall_sensor'] = self.esp32_hall_sensor;
 
     Blockly.Python['mpu6050_init'] = self.mpu6050_init;
     Blockly.Python['mpu6050_calibrate'] = self.mpu6050_calibrate;
@@ -1410,15 +1409,6 @@ var ioty_generator = new function() {
     }
 
     return [code, binding];
-  };
-
-  this.esp32_hall_sensor = function(block) {
-    self.imports['esp32'] = 'import esp32';
-
-
-    var code = 'esp32.hall_sensor()';
-
-    return [code, Blockly.Python.ORDER_ATOMIC];
   };
 
   this.mpu6050_init = function(block) {
