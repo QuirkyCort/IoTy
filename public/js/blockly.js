@@ -53,13 +53,14 @@ var blockly = new function() {
 
   // Load toolbox
   this.loadToolBox = function() {
-    return fetch('toolbox.xml?v=2b94ef25')
+    return fetch('toolbox.xml?v=80f4d77e')
       .then(response => response.text())
       .then(function(response) {
         response = i18n.replace(response);
         self.toolboxXml = (new DOMParser()).parseFromString(response, "text/xml");
         options.toolbox = self.toolboxXml.getElementById('toolbox');
         self.workspace = Blockly.inject('blocklyDiv', options);
+        self.registerCustomToolbox();
 
         self.loadDefaultWorkspace();
 
@@ -198,6 +199,27 @@ var blockly = new function() {
     });
     self.unsaved = true;
     blocklyPanel.showSave();
+  };
+
+  // Register custom toolbox to modify procedures blocks
+  this.registerCustomToolbox = function() {
+    self.workspace.registerToolboxCategoryCallback('PROCEDURE2', function(workspace){
+      let blocks = self.workspace.toolboxCategoryCallbacks.get('PROCEDURE')(self.workspace);
+
+      for (let block of blocks) {
+        let blockType = block.getAttribute('type');
+        if (blockType == 'procedures_callnoreturn' || blockType == 'procedures_callreturn') {
+          block.setAttribute('inline', true);
+          let argsNumber = block.getElementsByTagName('arg').length;
+          for (let i=0; i<argsNumber; i++) {
+            let shadow = Blockly.Xml.textToDom('<value name="ARG' + i + '"><shadow type="math_number"><field name="NUM">0</field></shadow></value>');
+            block.append(shadow);
+          }
+        }
+      }
+
+      return blocks;
+    });
   };
 
   //
