@@ -21,7 +21,7 @@
       ]
     }
   ],
-  "output": "Number",
+  "output": "Bytes",
   "colour": 330,
   "tooltip": "#blk-i2c_readfrom_bytes_tooltip#",
   "helpUrl": ""

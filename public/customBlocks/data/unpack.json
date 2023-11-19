@@ -4,7 +4,8 @@
   "args0": [
     {
       "type": "input_value",
-      "name": "value"
+      "name": "value",
+      "check": "Bytes"
     },
     {
       "type": "field_input",
