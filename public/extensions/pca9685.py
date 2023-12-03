@@ -16,7 +16,7 @@ class PCA9685:
         self.i2c = i2c
         self.addr = addr
         self.autoIncrement(True)
-        self.setFrequency(_SERVO_FREQ)
+        self.set_frequency(_SERVO_FREQ)
 
     def autoIncrement(self, mode):
         data = self.i2c.readfrom_mem(self.addr, _MODE1, 1)[0]
