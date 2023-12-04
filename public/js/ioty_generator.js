@@ -1287,6 +1287,7 @@ var ioty_generator = new function() {
 
   this.date_time_set_ntp = function(block) {
     self.imports['ntptime'] = 'import ntptime';
+    self.imports['machine'] = 'import machine';
 
     var tz = Blockly.Python.valueToCode(block, 'tz', Blockly.Python.ORDER_NONE);
 
