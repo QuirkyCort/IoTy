@@ -148,6 +148,12 @@ let MSGS = {
   '#blk-analog_read_pin_tooltip#': {
     en: 'Range from 0 to 65535, corresponding to approximately 0 to 3.3V.',
   },
+  '#blk-touch_read_pin#': {
+    en: 'touch read pin',
+  },
+  '#blk-touch_read_pin_tooltip#': {
+    en: 'Returns an integer corresponding to the capacitance. Values are smaller when touched, and must be calibrated for each board / environment.',
+  },
   '#blk-set_analog_write_freq#': {
     en: 'Set analog write frequency on pin',
   },

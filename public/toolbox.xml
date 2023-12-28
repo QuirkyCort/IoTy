@@ -18,6 +18,9 @@
     <block type="analog_read_pin">
       <field name="pin">32</field>
     </block>
+    <block type="touch_read_pin">
+      <field name="pin">4</field>
+    </block>
     <block type="set_analog_write_freq">
       <field name="pin">2</field>
       <value name="frequency">

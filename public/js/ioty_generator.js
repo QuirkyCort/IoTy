@@ -16,6 +16,7 @@ var ioty_generator = new function() {
     Blockly.Python['digital_read_pin'] = self.digital_read_pin;
     Blockly.Python['digital_write_pin'] = self.digital_write_pin;
     Blockly.Python['analog_read_pin'] = self.analog_read_pin;
+    Blockly.Python['touch_read_pin'] = self.touch_read_pin;
     Blockly.Python['set_analog_write_freq'] = self.set_analog_write_freq;
     Blockly.Python['analog_write_pin'] = self.analog_write_pin;
     Blockly.Python['comment'] = self.comment;
@@ -560,6 +561,16 @@ var ioty_generator = new function() {
     var pin = block.getFieldValue('pin');
 
     var code = 'pin.analog_read(' + pin + ')';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.touch_read_pin = function(block) {
+    self.iotyImports['pin'] = 'pin';
+
+    var pin = block.getFieldValue('pin');
+
+    var code = 'pin.touch_read(' + pin + ')';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };

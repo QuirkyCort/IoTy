@@ -1,0 +1,15 @@
+{
+  "type": "touch_read_pin",
+  "message0": "#blk-touch_read_pin# %1",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "pin",
+      "options": $_TouchPins
+    }
+  ],
+  "output": "Number",
+  "colour": 230,
+  "tooltip": "#blk-touch_read_pin_tooltip#",
+  "helpUrl": ""
+}
