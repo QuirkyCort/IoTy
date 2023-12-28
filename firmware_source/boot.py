@@ -31,15 +31,20 @@ def main():
         return mqtt
 
     def start_mqtt_ble_mode():
-        from ioty.ble import BLE_Service
+        try:
+            from ioty.ble import BLE_Service
+            BLE_Service()
+        except:
+            pass
 
-        BLE_Service()
-        mqtt = start_mqtt()
-
-        while True:
-            if mqtt:
-                mqtt.check_msg()
-            sleep_ms(10)
+        try:
+            mqtt = start_mqtt()
+            while True:
+                if mqtt:
+                    mqtt.check_msg()
+                sleep_ms(10)
+        except:
+            pass
 
     def start_ap_mode():
         from ioty.http import HTTP_Service

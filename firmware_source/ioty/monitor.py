@@ -1,10 +1,14 @@
-from ioty.ble import BLE_Service
-import os
 import io
-from time import sleep_ms
-import machine
 
-_timer = machine.Timer(-1)
+try:
+    from ioty.ble import BLE_Service
+    import os
+    from time import sleep_ms
+    import machine
+
+    _timer = machine.Timer(-1)
+except:
+    pass
 
 def schedule_in(handler, delay_ms):
     def _wrap(_arg):
@@ -50,6 +54,9 @@ def wait_for_connection():
         sleep_ms(10)
     sleep_ms(1000)
 
-ble_service = BLE_Service()
-ble_io = BLE_IO(ble_service)
-os.dupterm(ble_io)
+try:
+    ble_service = BLE_Service()
+    ble_io = BLE_IO(ble_service)
+    os.dupterm(ble_io)
+except:
+    pass
