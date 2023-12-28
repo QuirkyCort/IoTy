@@ -23,11 +23,11 @@ class MPU6050:
         self.prev_z = 0
         self.prev_time = time.ticks_us()
 
-    def calibrateGyro(self, reps=40, threshold=100):
+    def calibrateGyro(self, reps=80, threshold=100):
         prev_x, prev_y, prev_z = struct.unpack('>hhh', self.i2c.readfrom_mem(self.addr, 67, 6))
         sum_x, sum_y, sum_z = 0, 0, 0
         while True:
-            time.sleep_ms(50)
+            time.sleep_ms(25)
             x, y, z =  struct.unpack('>hhh', self.i2c.readfrom_mem(self.addr, 67, 6))
             if abs(x - prev_x) > threshold or abs(y - prev_y) > threshold or abs(z - prev_z) > threshold:
                 continue
@@ -92,7 +92,7 @@ class MPU6050:
         y -= self.error_y
         z -= self.error_z
         now = time.ticks_us()
-        delta = now - self.prev_time
+        delta = time.ticks_diff(now, self.prev_time)
         self.gyro_x = (x + self.prev_x)  / 262000000 * delta
         self.gyro_y = (x + self.prev_y)  / 262000000 * delta
         self.gyro_z = (x + self.prev_z)  / 262000000 * delta
