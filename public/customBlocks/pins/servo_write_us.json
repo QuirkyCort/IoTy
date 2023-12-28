@@ -1,6 +1,6 @@
 {
-  "type": "digital_write_pin",
-  "message0": "#blk-write_pin# %1 #blk-to# %2",
+  "type": "servo_write_us",
+  "message0": "#blk-servo_write# %1 #blk-to# %2 #blk-us#",
   "args0": [
     {
       "type": "field_dropdown",
@@ -9,7 +9,7 @@
     },
     {
       "type": "input_value",
-      "name": "value",
+      "name": "us",
       "check": "Number"
     }
   ],
@@ -17,6 +17,6 @@
   "previousStatement": null,
   "nextStatement": null,
   "colour": 230,
-  "tooltip": "#blk-write_pin_tooltip#",
+  "tooltip": "#blk-servo_write_us_tooltip#",
   "helpUrl": ""
 }

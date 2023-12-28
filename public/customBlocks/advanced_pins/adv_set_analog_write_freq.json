@@ -1,0 +1,22 @@
+{
+  "type": "adv_set_analog_write_freq",
+  "message0": "#blk-adv_set_analog_write_freq# %1 #blk-to# %2 #blk-hz#",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "pin",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "frequency",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-set_analog_write_freq_tooltip#",
+  "helpUrl": ""
+}

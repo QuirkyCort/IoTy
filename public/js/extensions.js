@@ -573,6 +573,20 @@ var extensions = new function() {
           'Image must be uncompressed, and of 1/4/8/16/24/32 bits depth. ' +
         '</p>'
     },
+    {
+      id: 'adv_pins',
+      name: 'Advanced Pins',
+      files: [],
+      description:
+        '<p>' +
+          'This extension provides alternative "Pins" blocks which accepts block inputs for pin numbers. ' +
+          'This is useful when iterating through pins, and when using devices with different pin numberings. ' +
+          'You will need to ensure that the selected pins are capable of the requested mode (eg. analog read, output) as there are no checks. ' +
+        '</p>' +
+        '<p>' +
+          'This extensions only add blocks; no additional Python files are added or required.' +
+        '</p>'
+    },
   ]
 
   this.init = function() {

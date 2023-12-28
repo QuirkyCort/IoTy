@@ -1,11 +1,11 @@
 {
-  "type": "digital_read_pin",
-  "message0": "#blk-read_pin# %1",
+  "type": "adv_digital_read_pin",
+  "message0": "#blk-adv_read_pin# %1",
   "args0": [
     {
-      "type": "field_dropdown",
+      "type": "input_value",
       "name": "pin",
-      "options": $_IoPins
+      "check": "Number"
     }
   ],
   "output": "Number",

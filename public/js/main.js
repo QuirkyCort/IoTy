@@ -1144,6 +1144,15 @@ var main = new function() {
       let options = {
         title: 'What\'s New',
         message:
+        '<h3>28 Dec 2023 (Firmware and Advanced Pins)</h3>' +
+        '<p>' +
+          'A new firmware version (11) is released. ' +
+          'The new firmware fixes problems when switching between PWM and digital writes, and adds support for capacitive touch. ' +
+        '</p>' +
+        '<p>' +
+          'An advanced pins extension has been added. ' +
+          'It works the same as the default "Pins" blocks, but accepts block inputs for pin numbers. ' +
+        '</p>' +
         '<h3>14 Oct 2023 (More extensions)</h3>' +
         '<p>' +
           'Many new extensions have been added; ' +
@@ -1169,11 +1178,6 @@ var main = new function() {
         '<p>' +
           'You can now connect to your device using Serial mode. ' +
           'Connect your device to your computer using a USB cable, then change "Connection Mode..." to "Serial". ' +
-        '</p>' +
-        '<h3>26 Jul 2023 (Firmware Flash Tool)</h3>' +
-        '<p>' +
-          'You can now flash a new ESP-32 with the IoTy firmware via a web interface. ' +
-          'Find it under "App -> Flash Firmware".' +
         '</p>'
       }
       acknowledgeDialog(options, function(){

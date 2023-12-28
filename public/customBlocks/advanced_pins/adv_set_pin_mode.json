@@ -1,11 +1,11 @@
 {
-  "type": "set_pin_mode",
-  "message0": "#blk-set_pin# %1 #blk-to_mode# %2",
+  "type": "adv_set_pin_mode",
+  "message0": "#blk-adv_set_pin# %1 #blk-to_mode# %2",
   "args0": [
     {
-      "type": "field_dropdown",
+      "type": "input_value",
       "name": "pin",
-      "options": $_IoPins
+      "check": "Number"
     },
     {
       "type": "field_dropdown",

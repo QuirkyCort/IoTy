@@ -1,11 +1,11 @@
 {
-  "type": "digital_write_pin",
-  "message0": "#blk-write_pin# %1 #blk-to# %2",
+  "type": "adv_digital_write_pin",
+  "message0": "#blk-adv_write_pin# %1 #blk-to# %2",
   "args0": [
     {
-      "type": "field_dropdown",
+      "type": "input_value",
       "name": "pin",
-      "options": $_IoPins
+      "check": "Number"
     },
     {
       "type": "input_value",

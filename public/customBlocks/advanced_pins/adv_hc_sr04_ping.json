@@ -1,0 +1,34 @@
+{
+  "type": "adv_hc_sr04_ping",
+  "message0": "#blk-adv_hc_sr04_ping_trig# %1 #blk-echo# %2 #blk-unit# %3",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "trig",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "echo",
+      "check": "Number"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "unit",
+      "options": [
+        [
+          "cm",
+          "CM"
+        ],
+        [
+          "us",
+          "US"
+        ]
+      ]
+    }
+  ],
+  "output": "Number",
+  "colour": 230,
+  "tooltip": "#blk-hc_sr04_ping_tooltip#",
+  "helpUrl": ""
+}

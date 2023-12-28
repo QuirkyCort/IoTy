@@ -1,0 +1,15 @@
+{
+  "type": "adv_analog_read_pin",
+  "message0": "#blk-adv_analog_read_pin# %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "pin",
+      "check": "Number"
+    }
+  ],
+  "output": "Number",
+  "colour": 230,
+  "tooltip": "#blk-analog_read_pin_tooltip#",
+  "helpUrl": ""
+}

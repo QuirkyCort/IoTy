@@ -17,6 +17,6 @@
   "previousStatement": null,
   "nextStatement": null,
   "colour": 230,
-  "tooltip": "",
+  "tooltip": "#blk-servo_write_deg_tooltip#",
   "helpUrl": ""
 }

@@ -121,6 +121,12 @@ let MSGS = {
   '#blk-set_pin#': {
     en: 'set pin'
   },
+  '#blk-adv_set_pin#': {
+    en: 'adv: set pin'
+  },
+  '#blk-set_pin_tooltip#': {
+    en: 'Set the pin as input (for reading), output (for writing), or input with pullup (for reading, is high if unconnected).',
+  },
   '#blk-to_mode#': {
     en: 'to mode',
   },
@@ -136,8 +142,20 @@ let MSGS = {
   '#blk-read_pin#': {
     en: 'digital read pin',
   },
+  '#blk-adv_read_pin#': {
+    en: 'adv: digital read pin',
+  },
+  '#blk-read_pin_tooltip#': {
+    en: 'Returns a 1 if pin is high (3.3V) and a 0 if pin is low (0V)',
+  },
   '#blk-write_pin#': {
     en: 'digital write pin',
+  },
+  '#blk-adv_write_pin#': {
+    en: 'adv: digital write pin',
+  },
+  '#blk-write_pin_tooltip#': {
+    en: 'Write a 1 to turn the pin on (3.3V), and a 0 to turn it off (0V).',
   },
   '#blk-to#': {
     en: 'to',
@@ -145,17 +163,26 @@ let MSGS = {
   '#blk-analog_read_pin#': {
     en: 'analog read pin',
   },
+  '#blk-adv_analog_read_pin#': {
+    en: 'adv: analog read pin',
+  },
   '#blk-analog_read_pin_tooltip#': {
     en: 'Range from 0 to 65535, corresponding to approximately 0 to 3.3V.',
   },
   '#blk-touch_read_pin#': {
     en: 'touch read pin',
   },
+  '#blk-adv_touch_read_pin#': {
+    en: 'adv: touch read pin',
+  },
   '#blk-touch_read_pin_tooltip#': {
     en: 'Returns an integer corresponding to the capacitance. Values are smaller when touched, and must be calibrated for each board / environment.',
   },
   '#blk-set_analog_write_freq#': {
     en: 'Set analog write frequency on pin',
+  },
+  '#blk-adv_set_analog_write_freq#': {
+    en: 'adv: Set analog write frequency on pin',
   },
   '#blk-hz#': {
     en: 'Hz',
@@ -165,6 +192,9 @@ let MSGS = {
   },
   '#blk-analog_write_pin#': {
     en: 'analog write pin',
+  },
+  '#blk-adv_analog_write_pin#': {
+    en: 'adv: analog write pin',
   },
   '#blk-analog_write_pin_tooltip#': {
     en: 'Range from 0 to 1023',
@@ -327,14 +357,23 @@ let MSGS = {
   '#blk-servo_write#': {
     en: 'servo write pin',
   },
+  '#blk-adv_servo_write#': {
+    en: 'adv: servo write pin',
+  },
+  '#blk-servo_write_deg_tooltip#': {
+    en: 'Set the servo to the specified degrees. The actual angle may vary depending on the type of servo.',
+  },
+  '#blk-servo_write_us_tooltip#': {
+    en: 'Send a micro-seconds signal to the servo. Most servos accepts a range of 1000 to 2000.',
+  },
   '#blk-deg#': {
     en: '°',
   },
   '#blk-us#': {
     en: 'μs',
   },
-  '#blk-hc_sr04_ping_trig#': {
-    en: 'HC-SR04 ping trig',
+  '#blk-adv_hc_sr04_ping_trig#': {
+    en: 'adv: HC-SR04 ping trig',
   },
   '#blk-hc_sr04_ping_tooltip#': {
     en: 'Returns distance in cm. Max of around 412cm.',

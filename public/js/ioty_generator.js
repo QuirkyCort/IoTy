@@ -12,6 +12,7 @@ var ioty_generator = new function() {
     Blockly.Python.INDENT = '    ';
 
     Blockly.Python['when_started'] = self.when_started;
+
     Blockly.Python['set_pin_mode'] = self.set_pin_mode;
     Blockly.Python['digital_read_pin'] = self.digital_read_pin;
     Blockly.Python['digital_write_pin'] = self.digital_write_pin;
@@ -19,15 +20,27 @@ var ioty_generator = new function() {
     Blockly.Python['touch_read_pin'] = self.touch_read_pin;
     Blockly.Python['set_analog_write_freq'] = self.set_analog_write_freq;
     Blockly.Python['analog_write_pin'] = self.analog_write_pin;
+    Blockly.Python['servo_write_deg'] = self.servo_write_deg;
+    Blockly.Python['servo_write_us'] = self.servo_write_us;
+    Blockly.Python['hc_sr04_ping'] = self.hc_sr04_ping;
+
+    Blockly.Python['adv_set_pin_mode'] = self.adv_set_pin_mode;
+    Blockly.Python['adv_digital_read_pin'] = self.adv_digital_read_pin;
+    Blockly.Python['adv_digital_write_pin'] = self.adv_digital_write_pin;
+    Blockly.Python['adv_analog_read_pin'] = self.adv_analog_read_pin;
+    Blockly.Python['adv_touch_read_pin'] = self.adv_touch_read_pin;
+    Blockly.Python['adv_set_analog_write_freq'] = self.adv_set_analog_write_freq;
+    Blockly.Python['adv_analog_write_pin'] = self.adv_analog_write_pin;
+    Blockly.Python['adv_servo_write_deg'] = self.adv_servo_write_deg;
+    Blockly.Python['adv_servo_write_us'] = self.adv_servo_write_us;
+    Blockly.Python['adv_hc_sr04_ping'] = self.adv_hc_sr04_ping;
+
     Blockly.Python['comment'] = self.comment;
     Blockly.Python['sleep'] = self.sleep;
     Blockly.Python['wait_until_connected'] = self.wait_until_connected;
     Blockly.Python['time'] = self.time;
     Blockly.Python['exit'] = self.exit;
     Blockly.Python['read_input'] = self.read_input;
-    Blockly.Python['servo_write_deg'] = self.servo_write_deg;
-    Blockly.Python['servo_write_us'] = self.servo_write_us;
-    Blockly.Python['hc_sr04_ping'] = self.hc_sr04_ping;
     Blockly.Python['connect_to_wifi'] = self.connect_to_wifi;
     Blockly.Python['connect_to_configured_wifi'] = self.connect_to_configured_wifi;
     Blockly.Python['wlan_get_ip'] = self.wlan_get_ip;
@@ -597,6 +610,170 @@ var ioty_generator = new function() {
     return code;
   };
 
+  this.servo_write_deg = function(block) {
+    self.iotyImports['pin'] = 'pin';
+
+    var pin = block.getFieldValue('pin');
+    var deg = Blockly.Python.valueToCode(block, 'deg', Blockly.Python.ORDER_NONE);
+
+    var code = 'pin.servo_write_deg(' + pin + ', ' + deg + ')\n';
+
+    return code;
+  };
+
+  this.servo_write_us = function(block) {
+    self.iotyImports['pin'] = 'pin';
+
+    var pin = block.getFieldValue('pin');
+    var us = Blockly.Python.valueToCode(block, 'us', Blockly.Python.ORDER_NONE);
+
+    var code = 'pin.servo_write_us(' + pin + ', ' + us + ')\n';
+
+    return code;
+  };
+
+  this.hc_sr04_ping = function(block) {
+    self.iotyImports['pin'] = 'pin';
+
+    var trig = block.getFieldValue('trig');
+    var echo = block.getFieldValue('echo');
+    var unit = block.getFieldValue('unit');
+
+    var code;
+    if (unit == 'CM') {
+      code = 'pin.hc_sr04_ping_cm(';
+    } else if (unit == 'US') {
+      code = 'pin.hc_sr04_ping_us(';
+    }
+
+    code += trig + ', ' + echo + ')';
+
+    return [code, Blockly.Python.ORDER_FUNCTION_CALL];
+  };
+
+  this.adv_set_pin_mode = function(block) {
+    self.iotyImports['pin'] = 'pin';
+
+    var pin = Blockly.Python.valueToCode(block, 'pin', Blockly.Python.ORDER_ATOMIC);
+    var mode = block.getFieldValue('mode');
+
+    if (mode == 'INPUT') {
+      mode = 'pin.IN';
+    } else if (mode == 'INPUT_PULLUP') {
+      mode = 'pin.PULL_UP';
+    } else if (mode == 'OUTPUT') {
+      mode = 'pin.OUT';
+    }
+
+    var code = 'pin.set_pin_mode(' + pin + ', ' + mode + ')\n';
+
+    return code;
+  };
+
+  this.adv_digital_read_pin = function(block) {
+    self.iotyImports['pin'] = 'pin';
+
+    var pin = Blockly.Python.valueToCode(block, 'pin', Blockly.Python.ORDER_ATOMIC);
+
+    var code = 'pin.digital_read(' + pin + ')';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.adv_digital_write_pin = function(block) {
+    self.iotyImports['pin'] = 'pin';
+
+    var pin = Blockly.Python.valueToCode(block, 'pin', Blockly.Python.ORDER_ATOMIC);
+    var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_ATOMIC);
+
+    var code = 'pin.digital_write(' + pin + ', ' + value + ')\n';
+
+    return code;
+  };
+
+  this.adv_analog_read_pin = function(block) {
+    self.iotyImports['pin'] = 'pin';
+
+    var pin = Blockly.Python.valueToCode(block, 'pin', Blockly.Python.ORDER_ATOMIC);
+
+    var code = 'pin.analog_read(' + pin + ')';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.adv_touch_read_pin = function(block) {
+    self.iotyImports['pin'] = 'pin';
+
+    var pin = Blockly.Python.valueToCode(block, 'pin', Blockly.Python.ORDER_ATOMIC);
+
+    var code = 'pin.touch_read(' + pin + ')';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.adv_set_analog_write_freq = function(block) {
+    self.iotyImports['pin'] = 'pin';
+
+    var pin = Blockly.Python.valueToCode(block, 'pin', Blockly.Python.ORDER_ATOMIC);
+    var frequency = Blockly.Python.valueToCode(block, 'frequency', Blockly.Python.ORDER_NONE);
+
+    var code = 'pin.set_analog_write_freq(' + pin + ', ' + frequency + ')\n';
+
+    return code;
+  };
+
+  this.adv_analog_write_pin = function(block) {
+    self.iotyImports['pin'] = 'pin';
+
+    var pin = Blockly.Python.valueToCode(block, 'pin', Blockly.Python.ORDER_ATOMIC);
+    var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_ATOMIC);
+
+    var code = 'pin.analog_write(' + pin + ', ' + value + ')\n';
+
+    return code;
+  };
+
+  this.adv_servo_write_deg = function(block) {
+    self.iotyImports['pin'] = 'pin';
+
+    var pin = Blockly.Python.valueToCode(block, 'pin', Blockly.Python.ORDER_ATOMIC);
+    var deg = Blockly.Python.valueToCode(block, 'deg', Blockly.Python.ORDER_NONE);
+
+    var code = 'pin.servo_write_deg(' + pin + ', ' + deg + ')\n';
+
+    return code;
+  };
+
+  this.adv_servo_write_us = function(block) {
+    self.iotyImports['pin'] = 'pin';
+
+    var pin = Blockly.Python.valueToCode(block, 'pin', Blockly.Python.ORDER_ATOMIC);
+    var us = Blockly.Python.valueToCode(block, 'us', Blockly.Python.ORDER_NONE);
+
+    var code = 'pin.servo_write_us(' + pin + ', ' + us + ')\n';
+
+    return code;
+  };
+
+  this.adv_hc_sr04_ping = function(block) {
+    self.iotyImports['pin'] = 'pin';
+
+    var trig = Blockly.Python.valueToCode(block, 'trig', Blockly.Python.ORDER_ATOMIC);
+    var echo = Blockly.Python.valueToCode(block, 'echo', Blockly.Python.ORDER_ATOMIC);
+    var unit = block.getFieldValue('unit');
+
+    var code;
+    if (unit == 'CM') {
+      code = 'pin.hc_sr04_ping_cm(';
+    } else if (unit == 'US') {
+      code = 'pin.hc_sr04_ping_us(';
+    }
+
+    code += trig + ', ' + echo + ')';
+
+    return [code, Blockly.Python.ORDER_FUNCTION_CALL];
+  };
+
   this.comment = function(block) {
     self.imports['time'] = 'import time';
 
@@ -859,47 +1036,6 @@ var ioty_generator = new function() {
     var code = 'neopixel.write(' + pin + ')\n';
 
     return code;
-  };
-
-  this.servo_write_deg = function(block) {
-    self.iotyImports['pin'] = 'pin';
-
-    var pin = block.getFieldValue('pin');
-    var deg = Blockly.Python.valueToCode(block, 'deg', Blockly.Python.ORDER_NONE);
-
-    var code = 'pin.servo_write_deg(' + pin + ', ' + deg + ')\n';
-
-    return code;
-  };
-
-  this.servo_write_us = function(block) {
-    self.iotyImports['pin'] = 'pin';
-
-    var pin = block.getFieldValue('pin');
-    var us = Blockly.Python.valueToCode(block, 'us', Blockly.Python.ORDER_NONE);
-
-    var code = 'pin.servo_write_us(' + pin + ', ' + us + ')\n';
-
-    return code;
-  };
-
-  this.hc_sr04_ping = function(block) {
-    self.iotyImports['pin'] = 'pin';
-
-    var trig = block.getFieldValue('trig');
-    var echo = block.getFieldValue('echo');
-    var unit = block.getFieldValue('unit');
-
-    var code;
-    if (unit == 'CM') {
-      code = 'pin.hc_sr04_ping_cm(';
-    } else if (unit == 'US') {
-      code = 'pin.hc_sr04_ping_us(';
-    }
-
-    code += trig + ', ' + echo + ')';
-
-    return [code, Blockly.Python.ORDER_FUNCTION_CALL];
   };
 
   this.connect_to_wifi = function(block) {
