@@ -295,7 +295,7 @@ let MSGS = {
     en: '# Comment:',
   },
   '#blk-comment_tooltip#': {
-    en: 'This blocks does nothing and is only used for comments.',
+    en: 'This blocks does nothing and is only used for comments. Multiple lines are supported.',
   },
   '#blk-read_input_with_prompt#': {
     en: 'prompt for input with message',

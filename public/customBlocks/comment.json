@@ -3,7 +3,7 @@
   "message0": "#blk-comment# %1",
   "args0": [
     {
-      "type": "field_input",
+      "type": "field_multilinetext",
       "name": "value",
       "text": "Your comment here"
     }

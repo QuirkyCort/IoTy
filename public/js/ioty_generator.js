@@ -775,11 +775,16 @@ var ioty_generator = new function() {
   };
 
   this.comment = function(block) {
-    self.imports['time'] = 'import time';
-
     var value = block.getFieldValue('value');
 
-    var code = '\n# ' + value + '\n\n';
+    // var code = '\n# ' + value + '\n\n';
+    var code = '';
+
+    for (let line of value.split('\n')) {
+      code += '\n# ' + line;
+    }
+
+    code += '\n\n';
 
     return code;
   };
