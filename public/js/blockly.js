@@ -141,6 +141,18 @@ var blockly = new function() {
     }
   };
 
+  // import functions from jsonText to workspace
+  this.importJsonText = function(jsonText) {
+    if (jsonText) {
+      let obj = JSON.parse(jsonText);
+      for (let block of obj.blocks.blocks) {
+        if (block.type == 'procedures_defnoreturn') {
+          Blockly.serialization.blocks.append(block, self.workspace)
+        }
+      }
+    }
+  };
+
   // get xmlText
   this.getXmlText = function() {
     var xml = Blockly.Xml.workspaceToDom(self.workspace);

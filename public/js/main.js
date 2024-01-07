@@ -562,7 +562,8 @@ var main = new function() {
       let menuItems = [
         {html: i18n.get('#main-new_program#'), line: true, callback: self.newProgram},
         {html: i18n.get('#main-load_blocks#'), line: false, callback: self.loadFromComputer},
-        {html: i18n.get('#main-save_blocks#'), line: true, callback: self.saveToComputer},
+        {html: i18n.get('#main-save_blocks#'), line: false, callback: self.saveToComputer},
+        {html: i18n.get('#main-import_functions#'), line: true, callback: self.importFromComputer},
         {html: i18n.get('#main-load_python#'), line: false, callback: self.loadPythonFromComputer},
         {html: i18n.get('#main-save_python#'), line: true, callback: self.savePythonToComputer},
         {html: i18n.get('#main-save_json#'), line: false, callback: self.saveToJson},
@@ -664,6 +665,25 @@ var main = new function() {
       } else {
         self.loadFromComputerXml(e.target.files[0]);
       }
+    });
+  };
+
+  // import functions from blocks file
+  this.importFromComputer = function() {
+    async function loadFiles(zip) {
+      await zip.file('blocks.json').async('string')
+        .then(function(content){
+          blockly.importJsonText(content);
+        });
+    }
+
+    var hiddenElement = document.createElement('input');
+    hiddenElement.type = 'file';
+    hiddenElement.accept = 'application/zip,.zip';
+    hiddenElement.dispatchEvent(new MouseEvent('click'));
+    hiddenElement.addEventListener('change', function(e){
+      JSZip.loadAsync(e.target.files[0])
+        .then(loadFiles);
     });
   };
 

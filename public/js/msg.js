@@ -516,6 +516,15 @@ let MSGS = {
     ru: 'Сохранить блок-программу на компьютер',
     hu: 'Blokk program letöltése',
   },
+  '#main-import_functions#': {
+    en: 'Import functions from blocks file',
+    fr: 'Importer une fonction depuis une sauvegarde',
+    el: 'Εισαγωγή συναρτήσεων από αρχείο μπλοκ',
+    nl: 'Importeer functies van blokkenbestand',
+    de: 'Importiere Funktionen von Blöckedatei',
+    he: 'יבא פונקציות',
+    ru: 'Импортировать функции из блок-программы',
+  },
   '#main-load_python#': {
     en: 'Load Python from your computer',
     fr: 'Téléverser un script Python depuis l\'ordinateur',
