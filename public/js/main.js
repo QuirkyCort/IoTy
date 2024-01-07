@@ -589,7 +589,7 @@ var main = new function() {
   this.newProgram = function() {
     confirmDialog(i18n.get('#main-start_new_warning#'), function() {
       blockly.loadDefaultWorkspace();
-      pythonPanel.modified = false;
+      filesManager.modified = false;
       localStorage.setItem('iotyPythonModified', false);
       blocklyPanel.setDisable(false);
       self.$projectName.val('');

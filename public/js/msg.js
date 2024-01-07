@@ -372,6 +372,9 @@ let MSGS = {
   '#blk-us#': {
     en: 'μs',
   },
+  '#blk-hc_sr04_ping_trig#': {
+    en: 'HC-SR04 ping trig',
+  },
   '#blk-adv_hc_sr04_ping_trig#': {
     en: 'adv: HC-SR04 ping trig',
   },
