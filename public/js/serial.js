@@ -294,6 +294,7 @@ var serial = new function() {
     let currentFileCount = 0;
     let totalFilesCount = Object.keys(filesManager.files).length;
     for (let filename in filesManager.files) {
+      currentFileCount++;
       $downloadWindow.$body.text('Downloading (' + currentFileCount + '/' + totalFilesCount + ')');
       let e = new TextEncoder();
       let fileBuf = e.encode(filesManager.files[filename]);
