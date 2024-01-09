@@ -55,6 +55,8 @@ function toPythonBytesLiteral(bytes) {
 
 class PythonSerial {
   constructor(port, baudRate, dtrRts=0) {
+    this.FILE_BUFFER_SIZE = 5000;
+
     this.chunkDelay = 10;
     this.chunkSize = 256;
 
@@ -167,19 +169,20 @@ class PythonSerial {
   }
 
   async waitForBytes(b, timeout=2000) {
-    while (true) {
+    let pos = findSubarray(this.readBuf, b);
+
+    while (pos == -1) {
       let result = await Promise.race([this.readSerialToBuf(), awaitTimeout(timeout)]);
       if (result == undefined) {
         return null;
       }
 
-      let pos = findSubarray(this.readBuf, b);
-      if (pos != -1) {
-        let before = this.readBuf.slice(0, pos);
-        this.readBuf = this.readBuf.slice(pos+b.length);
-        return before;
-      }
+      pos = findSubarray(this.readBuf, b);
     }
+
+    let before = this.readBuf.slice(0, pos);
+    this.readBuf = this.readBuf.slice(pos+b.length);
+    return before;
   }
 
   // Stop current program
@@ -257,11 +260,21 @@ class PythonSerial {
   }
 
   async copyFileToDevice(filename, content) {
-    let cmd =
-      'f = open("' + filename + '", "wb")\n' +
-      'f.write(b\'' + toPythonBytesLiteral(content) + '\')\n' +
-      'f.close()\n';
+    let cmd = 'f = open("' + filename + '", "wb")\n';
+    let status = await this.sendPythonCmdAndRun(cmd);
+    if (status[0] != 'success') {
+      return ['fail', null];
+    }
 
+    for (let i=0; i<content.byteLength; i+=this.FILE_BUFFER_SIZE) {
+      cmd = 'f.write(b\'' + toPythonBytesLiteral(content.slice(i, i + this.FILE_BUFFER_SIZE)) + '\')\n'
+      status = await this.sendPythonCmdAndRun(cmd);
+      if (status[0] != 'success') {
+        return ['fail', null];
+      }
+    }
+
+    cmd = 'f.close()\n';
     return (await this.sendPythonCmdAndRun(cmd))[0];
   }
 
