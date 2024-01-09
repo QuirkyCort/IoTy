@@ -1083,3 +1083,104 @@ class Keyboard(HumanInterfaceDevice):
     def send_string(self, st):
         for c in st:
             self.send_char(c)
+
+# Class that represents the Consumer Control service
+class ConsumerControl(HumanInterfaceDevice):
+    def __init__(self, name="Bluetooth CCD"):
+        super(ConsumerControl, self).__init__(name)  # Set up the general HID services in super
+        self.device_appearance = 384          # Device appearance ID, 384 = remote control
+
+        self.HIDS = (                         # Service description: describes the service and how we communicate
+            UUID(0x1812),                     # Human Interface Device
+            (
+                (UUID(0x2A4A), F_READ),       # HID information
+                (UUID(0x2A4B), F_READ),       # HID report map
+                (UUID(0x2A4C), F_WRITE),      # HID control point
+                (UUID(0x2A4D), F_READ_NOTIFY, ((UUID(0x2908), ATT_F_READ),)),  # HID report / reference
+                (UUID(0x2A4D), F_READ_WRITE, ((UUID(0x2908), ATT_F_READ),)),  # HID report / reference
+                (UUID(0x2A4E), F_READ_WRITE), # HID protocol mode
+            ),
+        )
+
+        # fmt: off
+        self.HID_INPUT_REPORT = bytes([    # Report Description: describes what we communicate
+            0x05, 0x0C,                    # USAGE_PAGE (Consumer)
+            0x09, 0x01,                    # USAGE (Consumer Control)
+            0xa1, 0x01,                    # COLLECTION (Application)
+            0x85, 0x01,                    #     REPORT_ID (1)
+            0x75, 0x10,                    #     Report Size (16)
+            0x95, 0x01,                    #     Report Count (1)
+            0x15, 0x01,                    #     Logical Minimum (0)
+            0x26, 0x8c, 0x02,              #     Logical Maximum (652)
+            0x19, 0x01,                    #     Usage Minimum (Consumer Control)
+            0x2A, 0x8c, 0x02,              #     Usage Maximum (AC Send)
+            0x81, 0x00,                    #     Input (Data, Array)
+            0xc0                           # END_COLLECTION
+        ])
+        # fmt: on
+
+        self.keypress = 0x00
+
+        self.services = [self.DIS, self.BAS, self.HIDS]  # List of service descriptions
+
+    # Overwrite super to register HID specific service
+    # Call super to register DIS and BAS services
+    def start(self):
+        super(ConsumerControl, self).start()  # Start super
+
+        # print("Registering services")
+        # Register services and get read/write handles for all services
+        handles = self._ble.gatts_register_services(self.services)
+        # Write the values for the characteristics
+        self.write_service_characteristics(handles)
+
+        # Create an Advertiser
+        # Only advertise the top level service, i.e., the HIDS
+        self.adv = Advertiser(self._ble, [UUID(0x1812)], self.device_appearance, self.device_name)
+
+        # print("Server started")
+
+    # Overwrite super to write HID specific characteristics
+    # Call super to write DIS and BAS characteristics
+    def write_service_characteristics(self, handles):
+        super(ConsumerControl, self).write_service_characteristics(handles)
+
+        # Get the handles from the hids, the third service after DIS and BAS
+        # These correspond directly to self.HIDS
+        (h_info, h_hid, _, self.h_rep, h_d1, self.h_repout, h_d2, h_proto,) = handles[2]
+
+        # print("Writing hid service characteristics")
+        # Write service characteristics
+        self._ble.gatts_write(h_info, b"\x01\x01\x00\x02")     # HID info: ver=1.1, country=0, flags=normal
+        self._ble.gatts_write(h_hid, self.HID_INPUT_REPORT)    # HID input report map
+        self._ble.gatts_write(h_d1, struct.pack("<BB", 1, 1))  # HID reference: id=1, type=input
+        self._ble.gatts_write(h_d2, struct.pack("<BB", 1, 2))  # HID reference: id=1, type=output
+        self._ble.gatts_write(h_proto, b"\x01")                # HID protocol mode: report
+
+    # Overwrite super to notify central of a hid report
+    def notify_hid_report(self):
+        if self.is_connected():
+            # Pack the Keyboard state as described by the input report
+            state = struct.pack("<h", self.keypress)
+
+            # Notify central by writing to the report handle
+            while True:
+                try:
+                    self._ble.gatts_notify(self.conn_handle, self.h_rep, state)
+                    return
+                except:
+                    time.sleep_ms(10)
+
+    # Press keys, notify to send the keys to central
+    # This will hold down the keys, call set_keys() without arguments and notify again to release
+    def set_key(self, key=0x00):
+        self.keypress = key
+
+    def send_key(self, key):
+        self.set_key(key)
+        self.notify_hid_report()
+        time.sleep_ms(2)
+
+        self.set_key()
+        self.notify_hid_report()
+        time.sleep_ms(2)

@@ -2482,6 +2482,33 @@ let MSGS = {
   '#blk-hid_mouse_send_abs_tooltip#': {
     en: 'Only works in absolute mode. Sends the absolute position of the mouse from 0 to 32767. Note that these are scaled to the screen (ie. 32767 is always the extreme right/bottom regardless of screen size).',
   },
+  '#blk-hid_ccd_init#': {
+    en: 'init BLE CCD with name',
+  },
+  '#blk-hid_ccd_init_tooltip#': {
+    en: 'Initialize a Bluetooth Consumer Control Device with the given name. The device will only be visible after advertising is started.',
+  },
+  '#blk-hid_ccd_advertising#': {
+    en: 'advertising the BLE CCD',
+  },
+  '#blk-hid_ccd_advertising_tooltip#': {
+    en: 'The device will only be visible if advertising is started.',
+  },
+  '#blk-hid_ccd_status#': {
+    en: 'BLE CCD status is',
+  },
+  '#blk-hid_ccd_status_tooltip#': {
+    en: 'Checks the status of the ccd. You should only send commands when the status is \\"Connected\\".',
+  },
+  '#blk-hid_ccd_send_key#': {
+    en: 'BLE CCD: send key',
+  },
+  '#blk-hid_ccd_send_key_tooltip#': {
+    en: 'Sends the specified key code. See https://www.usb.org/sites/default/files/hut1_21_0.pdf (Consumer Page) for list of codes.',
+  },
+  '#blk-hid_ccd_send_key_select_tooltip#': {
+    en: 'A list of common key codes for easy use.',
+  },
 
 };
 let MSGS_KEYS = Object.keys(MSGS);

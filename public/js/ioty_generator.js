@@ -411,7 +411,12 @@ var ioty_generator = new function() {
     Blockly.Python['hid_mouse_send_rel'] = self.hid_mouse_send_rel;
     Blockly.Python['hid_mouse_send_abs'] = self.hid_mouse_send_abs;
     Blockly.Python['hid_mouse_send_btns'] = self.hid_mouse_send_btns;
-    Blockly.Python.addReservedWords('hid_services,hid_keyboard,hid_mouse');
+    Blockly.Python['hid_ccd_init'] = self.hid_ccd_init;
+    Blockly.Python['hid_ccd_advertising'] = self.hid_ccd_advertising;
+    Blockly.Python['hid_ccd_status'] = self.hid_ccd_status;
+    Blockly.Python['hid_ccd_send_key'] = self.hid_ccd_send_key;
+    Blockly.Python['hid_ccd_send_key_select'] = self.hid_ccd_send_key_select;
+    Blockly.Python.addReservedWords('hid_services,hid_keyboard,hid_mouse,hid_ccd');
   };
 
   // Generate python code
@@ -3874,5 +3879,55 @@ var ioty_generator = new function() {
     return code;
   };
 
+  this.hid_ccd_init = function(block) {
+    self.imports['hid_services'] = 'import hid_services';
+
+    let name = Blockly.Python.valueToCode(block, 'name', Blockly.Python.ORDER_ATOMIC);
+
+    let code =
+      'hid_ccd = hid_services.ConsumerControl(' + name + ')\n' +
+      'hid_ccd.start()\n';
+
+    return code;
+  };
+
+  this.hid_ccd_advertising = function(block) {
+    let type = block.getFieldValue('type');
+
+    let code = 'hid_ccd.';
+    if (type == 'START') {
+      code += 'start_advertising()\n';
+    } else {
+      code += 'stop_advertising()\n';
+    }
+
+    return code;
+  };
+
+  this.hid_ccd_status = function(block) {
+    let type = block.getFieldValue('type');
+
+    let code = 'hid_ccd.get_state() is hid_services.ConsumerControl.DEVICE_' + type;
+
+    return [code, Blockly.Python.ORDER_RELATIONAL];
+  };
+
+  this.hid_ccd_send_key = function(block) {
+    let key = Blockly.Python.valueToCode(block, 'key', Blockly.Python.ORDER_ATOMIC);
+
+    let code =
+      'hid_ccd.send_key(' + key + ')\n';
+
+    return code;
+  };
+
+  this.hid_ccd_send_key_select = function(block) {
+    let key = block.getFieldValue('key');
+
+    let code =
+      'hid_ccd.send_key(' + key + ')\n';
+
+    return code;
+  };
 }
 

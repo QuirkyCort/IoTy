@@ -1,0 +1,17 @@
+{
+  "type": "hid_ccd_init",
+  "message0": "#blk-hid_ccd_init# %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "name",
+      "check": "String"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 65,
+  "tooltip": "#blk-hid_ccd_init_tooltip#",
+  "helpUrl": ""
+}

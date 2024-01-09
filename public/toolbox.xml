@@ -1758,6 +1758,25 @@
       </value>
     </block>
     <block type="hid_mouse_send_btns"></block>
+    <label text="Consumer Control Device"></label>
+    <block type="hid_ccd_init">
+      <value name="name">
+        <shadow type="text">
+          <field name="TEXT">MyCCD</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="hid_ccd_advertising"></block>
+    <block type="hid_ccd_status"></block>
+    <block type="hid_ccd_send_key">
+      <value name="key">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="hid_ccd_send_key_select"></block>
+
   </category>
 
 </xml>

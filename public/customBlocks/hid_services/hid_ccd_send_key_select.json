@@ -1,0 +1,37 @@
+{
+  "type": "hid_ccd_send_key_select",
+  "message0": "#blk-hid_ccd_send_key# %1",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "key",
+      "options": [
+        ["Brightness Increase", "0x6f"],
+        ["Brightness Decrease", "0x70"],
+        ["Record", "0xb2"],
+        ["Rewind", "0xb4"],
+        ["Next Track", "0xb5"],
+        ["Prev Track", "0xb6"],
+        ["Stop", "0xb7"],
+        ["Eject", "0xb8"],
+        ["Play/Pause", "0xcd"],
+        ["Mute", "0xe2"],
+        ["Volume Down", "0xea"],
+        ["Volume Up", "0xe9"],
+        ["Calculator", "0x192"],
+        ["Web Browser", "0x196"],
+        ["Terminal Lock", "0x19e"],
+        ["Undo", "0x21a"],
+        ["Copy", "0x21b"],
+        ["Cut", "0x21c"],
+        ["Paste", "0x21d"]
+      ]
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 65,
+  "tooltip": "#blk-hid_ccd_send_key_select_tooltip#",
+  "helpUrl": ""
+}

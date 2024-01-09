@@ -1,0 +1,17 @@
+{
+  "type": "hid_ccd_send_key",
+  "message0": "#blk-hid_ccd_send_key# %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "key",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 65,
+  "tooltip": "#blk-hid_ccd_send_key_tooltip#",
+  "helpUrl": ""
+}
