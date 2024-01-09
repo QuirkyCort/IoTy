@@ -587,6 +587,22 @@ var extensions = new function() {
           'This extensions only add blocks; no additional Python files are added or required.' +
         '</p>'
     },
+    {
+      id: 'hid_services',
+      name: 'Bluetooth LE Human Interface Devices',
+      files: [
+        ['hid_services.py', 'extensions/hid_services.py?v=16689a30'],
+      ],
+      description:
+        '<p>' +
+          'This extension allows the ESP32 to emulate a BLE HID device (eg. keyboard, mouse, joystick). ' +
+          'You can use it to send keyboard/mouse/joystick commands to your computer or phone. ' +
+        '</p>' +
+        '<p>' +
+          'Currently only works with micropython 1.19.1. ' +
+          'Bluetooth should be disabled in the "When Started" block. ' +
+        '</p>'
+    },
   ]
 
   this.init = function() {

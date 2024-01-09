@@ -1,0 +1,17 @@
+{
+  "type": "hid_keyboard_send_string",
+  "message0": "#blk-hid_keyboard_send_string# %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "value",
+      "check": "String"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 65,
+  "tooltip": "#blk-hid_keyboard_send_string_tooltip#",
+  "helpUrl": ""
+}

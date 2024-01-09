@@ -2407,6 +2407,39 @@ let MSGS = {
   '#blk-bmp_image_depth_tooltip#': {
     en: 'Gets the depth (bits per pixel) of the image',
   },
+  '#blk-hid_keyboard_init#': {
+    en: 'init BLE Keyboard with name',
+  },
+  '#blk-hid_keyboard_init_tooltip#': {
+    en: 'Initialize a Bluetooth Keyboard with the given name. The device will only be visible after advertising is started.',
+  },
+  '#blk-hid_keyboard_advertising#': {
+    en: 'advertising the BLE Keyboard',
+  },
+  '#blk-hid_keyboard_advertising_tooltip#': {
+    en: 'The device will only be visible if advertising is started.',
+  },
+  '#blk-hid_keyboard_status#': {
+    en: 'BLE Keyboard status is',
+  },
+  '#blk-hid_keyboard_status_tooltip#': {
+    en: 'Checks the status of the keyboard. You should only send keypresses when the status is \\"Connected\\".',
+  },
+  '#blk-hid_keyboard_send_string#': {
+    en: 'BLE Keyboard: send string',
+  },
+  '#blk-hid_keyboard_send_string_tooltip#': {
+    en: 'Only the characters on a US keyboard is supported, and special keys (eg. Backspace) cannot be sent using this block.',
+  },
+  '#blk-hid_keyboard_send_key#': {
+    en: 'BLE Keyboard: send key',
+  },
+  '#blk-hid_keyboard_send_key_tooltip#': {
+    en: 'Send special keys. For normal keys (eg. a-z), use send string instead.',
+  },
+  '#blk-with_modifier#': {
+    en: 'with modifier',
+  },
 
 };
 let MSGS_KEYS = Object.keys(MSGS);

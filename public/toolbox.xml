@@ -1694,5 +1694,24 @@
       </value>
     </block>
   </category>
+  <category toolboxitemid="hid_services" name="BLE HID" colour="#9fa55b" hidden="true">
+    <block type="hid_keyboard_init">
+      <value name="name">
+        <shadow type="text">
+          <field name="TEXT">MyKeyboard</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="hid_keyboard_advertising"></block>
+    <block type="hid_keyboard_status"></block>
+    <block type="hid_keyboard_send_string">
+      <value name="value">
+        <shadow type="text">
+          <field name="TEXT">Hello World</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="hid_keyboard_send_key"></block>
+  </category>
 
 </xml>

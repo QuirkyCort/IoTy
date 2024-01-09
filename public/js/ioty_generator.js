@@ -399,6 +399,13 @@ var ioty_generator = new function() {
     Blockly.Python['bmp_image_get_pixel'] = self.bmp_image_get_pixel;
     Blockly.Python['bmp_image_get_pixel_raw'] = self.bmp_image_get_pixel_raw;
     Blockly.Python.addReservedWords('bmp_image,bmp_image_file');
+
+    Blockly.Python['hid_keyboard_init'] = self.hid_keyboard_init;
+    Blockly.Python['hid_keyboard_advertising'] = self.hid_keyboard_advertising;
+    Blockly.Python['hid_keyboard_status'] = self.hid_keyboard_status;
+    Blockly.Python['hid_keyboard_send_string'] = self.hid_keyboard_send_string;
+    Blockly.Python['hid_keyboard_send_key'] = self.hid_keyboard_send_key;
+    Blockly.Python.addReservedWords('hid_services,hid_keyboard');
   };
 
   // Generate python code
@@ -3727,5 +3734,73 @@ var ioty_generator = new function() {
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };
+
+  this.hid_keyboard_init = function(block) {
+    self.imports['hid_services'] = 'import hid_services';
+
+    let name = Blockly.Python.valueToCode(block, 'name', Blockly.Python.ORDER_ATOMIC);
+
+    let code =
+      'hid_keyboard = hid_services.Keyboard(' + name + ')\n' +
+      'hid_keyboard.start()\n';
+
+    return code;
+  };
+
+  this.hid_keyboard_advertising = function(block) {
+    let type = block.getFieldValue('type');
+
+    let code = 'hid_keyboard.';
+    if (type == 'START') {
+      code += 'start_advertising()\n';
+    } else {
+      code += 'stop_advertising()\n';
+    }
+
+    return code;
+  };
+
+  this.hid_keyboard_status = function(block) {
+    let type = block.getFieldValue('type');
+
+    let code = 'hid_keyboard.get_state() is hid_services.Keyboard.DEVICE_' + type;
+
+    return [code, Blockly.Python.ORDER_RELATIONAL];
+  };
+
+  this.hid_keyboard_send_string = function(block) {
+    let value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_ATOMIC);
+
+    let code =
+      'hid_keyboard.send_string(' + value + ')\n';
+
+    return code;
+  };
+
+  this.hid_keyboard_send_key = function(block) {
+    let key = block.getFieldValue('key');
+    let lctrl = block.getFieldValue('lctrl');
+    let lshift = block.getFieldValue('lshift');
+    let lalt = block.getFieldValue('lalt');
+    let lmeta = block.getFieldValue('lmeta');
+    let rctrl = block.getFieldValue('rctrl');
+    let rshift = block.getFieldValue('rshift');
+    let ralt = block.getFieldValue('ralt');
+    let rmeta = block.getFieldValue('rmeta');
+
+    let code =
+      'hid_keyboard.send_key(' + key +
+      ', left_control=' + lctrl +
+      ', left_shift=' + lshift +
+      ', left_alt=' + lalt +
+      ', left_gui=' + lmeta +
+      ', right_control=' + rctrl +
+      ', right_shift=' + rshift +
+      ', right_alt=' + ralt +
+      ', right_gui=' + rmeta + ')\n';
+
+    return code;
+  };
+
 }
 

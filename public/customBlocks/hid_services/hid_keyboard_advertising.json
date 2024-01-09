@@ -1,0 +1,26 @@
+{
+  "type": "hid_keyboard_advertising",
+  "message0": "%1 #blk-hid_keyboard_advertising#",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "type",
+      "options": [
+        [
+          "start",
+          "START"
+        ],
+        [
+          "stop",
+          "STOP"
+        ]
+      ]
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 65,
+  "tooltip": "#blk-hid_keyboard_advertising_tooltip#",
+  "helpUrl": ""
+}

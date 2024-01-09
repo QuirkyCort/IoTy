@@ -1,0 +1,129 @@
+{
+  "type": "hid_keyboard_send_key",
+  "message0": "#blk-hid_keyboard_send_key# %1 #blk-with_modifier# %2 %3 %4 %5 %6 %7 %8 %9",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "key",
+      "options": [
+        ["Enter", "0x28"],
+        ["Esc", "0x29"],
+        ["Backspace", "0x2a"],
+        ["Tab", "0x2b"],
+        ["Caps Lock", "0x39"],
+        ["F1", "0x3a"],
+        ["F2", "0x3b"],
+        ["F3", "0x3c"],
+        ["F4", "0x3d"],
+        ["F5", "0x3e"],
+        ["F6", "0x3f"],
+        ["F7", "0x40"],
+        ["F8", "0x41"],
+        ["F9", "0x42"],
+        ["F10", "0x43"],
+        ["F11", "0x44"],
+        ["F12", "0x45"],
+        ["Print Screen", "0x46"],
+        ["Scroll Lock", "0x47"],
+        ["Pause", "0x48"],
+        ["Insert", "0x49"],
+        ["Home", "0x4a"],
+        ["Page Up", "0x4b"],
+        ["Delete", "0x4c"],
+        ["End", "0x4d"],
+        ["Page Down", "0x4e"],
+        ["Right Arrow", "0x4f"],
+        ["Left Arrow", "0x50"],
+        ["Down Arrow", "0x51"],
+        ["Up Arrow", "0x52"],
+        ["Num Lock", "0x53"],
+        ["Keypad /", "0x54"],
+        ["Keypad *", "0x55"],
+        ["Keypad -", "0x56"],
+        ["Keypad +", "0x57"],
+        ["Keypad Enter", "0x58"],
+        ["Keypad 1", "0x59"],
+        ["Keypad 2", "0x5a"],
+        ["Keypad 3", "0x5b"],
+        ["Keypad 4", "0x5c"],
+        ["Keypad 5", "0x5d"],
+        ["Keypad 6", "0x5e"],
+        ["Keypad 7", "0x5f"],
+        ["Keypad 8", "0x60"],
+        ["Keypad 9", "0x61"],
+        ["Keypad 0", "0x62"],
+        ["Keypad .", "0x63"]
+      ]
+    },
+    {
+      "type": "field_dropdown",
+      "name": "lctrl",
+      "options": [
+        ["-", "0"],
+        ["L CTRL", "1"]
+      ]
+    },
+    {
+      "type": "field_dropdown",
+      "name": "lshift",
+      "options": [
+        ["-", "0"],
+        ["L SHIFT", "1"]
+      ]
+    },
+    {
+      "type": "field_dropdown",
+      "name": "lalt",
+      "options": [
+        ["-", "0"],
+        ["L ALT", "1"]
+      ]
+    },
+    {
+      "type": "field_dropdown",
+      "name": "lmeta",
+      "options": [
+        ["-", "0"],
+        ["L META", "1"]
+      ]
+    },
+    {
+      "type": "field_dropdown",
+      "name": "rctrl",
+      "options": [
+        ["-", "0"],
+        ["R CTRL", "1"]
+      ]
+    },
+    {
+      "type": "field_dropdown",
+      "name": "rshift",
+      "options": [
+        ["-", "0"],
+        ["R SHIFT", "1"]
+      ]
+    },
+    {
+      "type": "field_dropdown",
+      "name": "ralt",
+      "options": [
+        ["-", "0"],
+        ["R ALT", "1"]
+      ]
+    },
+    {
+      "type": "field_dropdown",
+      "name": "rmeta",
+      "options": [
+        ["-", "0"],
+        ["R META", "1"]
+      ]
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 65,
+  "tooltip": "#blk-hid_keyboard_send_key_tooltip#",
+  "helpUrl": ""
+}
