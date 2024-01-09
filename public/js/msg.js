@@ -2440,6 +2440,48 @@ let MSGS = {
   '#blk-with_modifier#': {
     en: 'with modifier',
   },
+  '#blk-hid_mouse_init#': {
+    en: 'init BLE Mouse with name',
+  },
+  '#blk-hid_mouse_init_tooltip#': {
+    en: 'Initialize a Bluetooth Mouse with the given name and mode. The device will only be visible after advertising is started.',
+  },
+  '#blk-hid_mouse_advertising#': {
+    en: 'advertising the BLE Mouse',
+  },
+  '#blk-hid_mouse_advertising_tooltip#': {
+    en: 'The device will only be visible if advertising is started.',
+  },
+  '#blk-hid_mouse_status#': {
+    en: 'BLE Mouse status is',
+  },
+  '#blk-hid_mouse_status_tooltip#': {
+    en: 'Checks the status of the mouse. You should only send commands when the status is \\"Connected\\".',
+  },
+  '#blk-hid_mouse_send_rel#': {
+    en: 'BLE Mouse: send axis X',
+  },
+  '#blk-y#': {
+    en: 'Y',
+  },
+  '#blk-and_wheel#': {
+    en: 'and wheel',
+  },
+  '#blk-hid_mouse_send_rel_tooltip#': {
+    en: 'Only works in relative mode. Sends the relative position of the axis. Range from -127 to 127.',
+  },
+  '#blk-hid_mouse_send_btns#': {
+    en: 'BLE Mouse: send buttons',
+  },
+  '#blk-hid_mouse_send_btns_tooltip#': {
+    en: 'Send the state of the mouse buttons. To simulate a mouse click, you should usually send a down, followed by an up.',
+  },
+  '#blk-hid_mouse_send_abs#': {
+    en: 'BLE Mouse: send position X',
+  },
+  '#blk-hid_mouse_send_abs_tooltip#': {
+    en: 'Only works in absolute mode. Sends the absolute position of the mouse from 0 to 32767. Note that these are scaled to the screen (ie. 32767 is always the extreme right/bottom regardless of screen size).',
+  },
 
 };
 let MSGS_KEYS = Object.keys(MSGS);

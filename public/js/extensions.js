@@ -591,7 +591,7 @@ var extensions = new function() {
       id: 'hid_services',
       name: 'Bluetooth LE Human Interface Devices',
       files: [
-        ['hid_services.py', 'extensions/hid_services.py?v=16689a30'],
+        ['hid_services.py', 'extensions/hid_services.py?v=80e8fbe6'],
       ],
       description:
         '<p>' +

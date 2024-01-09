@@ -682,7 +682,7 @@ class Joystick(HumanInterfaceDevice):
 
 # Class that represents the Mouse service
 class Mouse(HumanInterfaceDevice):
-    def __init__(self, name="Bluetooth Mouse"):
+    def __init__(self, name="Bluetooth Mouse", type="rel"):
         super(Mouse, self).__init__(name)     # Set up the general HID services in super
         self.device_appearance = 962          # Device appearance ID, 962 = mouse
 
@@ -698,42 +698,79 @@ class Mouse(HumanInterfaceDevice):
         )
 
         # fmt: off
-        self.HID_INPUT_REPORT = bytes([    # Report Description: describes what we communicate
-            0x05, 0x01,                    # USAGE_PAGE (Generic Desktop)
-            0x09, 0x02,                    # USAGE (Mouse)
-            0xa1, 0x01,                    # COLLECTION (Application)
-            0x85, 0x01,                    #   REPORT_ID (1)
-            0x09, 0x01,                    #   USAGE (Pointer)
-            0xa1, 0x00,                    #   COLLECTION (Physical)
-            0x05, 0x09,                    #         Usage Page (Buttons)
-            0x19, 0x01,                    #         Usage Minimum (1)
-            0x29, 0x03,                    #         Usage Maximum (3)
-            0x15, 0x00,                    #         Logical Minimum (0)
-            0x25, 0x01,                    #         Logical Maximum (1)
-            0x95, 0x03,                    #         Report Count (3)
-            0x75, 0x01,                    #         Report Size (1)
-            0x81, 0x02,                    #         Input(Data, Variable, Absolute); 3 button bits
-            0x95, 0x01,                    #         Report Count(1)
-            0x75, 0x05,                    #         Report Size(5)
-            0x81, 0x03,                    #         Input(Constant);                 5 bit padding
-            0x05, 0x01,                    #         Usage Page (Generic Desktop)
-            0x09, 0x30,                    #         Usage (X)
-            0x09, 0x31,                    #         Usage (Y)
-            0x09, 0x38,                    #         Usage (Wheel)
-            0x15, 0x81,                    #         Logical Minimum (-127)
-            0x25, 0x7F,                    #         Logical Maximum (127)
-            0x75, 0x08,                    #         Report Size (8)
-            0x95, 0x03,                    #         Report Count (3)
-            0x81, 0x06,                    #         Input(Data, Variable, Relative); 3 position bytes (X,Y,Wheel)
-            0xc0,                          #   END_COLLECTION
-            0xc0                           # END_COLLECTION
-        ])
+        self.type = type
+        if type == "rel":
+            self.HID_INPUT_REPORT = bytes([    # Report Description: describes what we communicate
+                0x05, 0x01,                    # USAGE_PAGE (Generic Desktop)
+                0x09, 0x02,                    # USAGE (Mouse)
+                0xa1, 0x01,                    # COLLECTION (Application)
+                0x85, 0x01,                    #   REPORT_ID (1)
+                0x09, 0x01,                    #   USAGE (Pointer)
+                0xa1, 0x00,                    #   COLLECTION (Physical)
+                0x05, 0x09,                    #         Usage Page (Buttons)
+                0x19, 0x01,                    #         Usage Minimum (1)
+                0x29, 0x03,                    #         Usage Maximum (3)
+                0x15, 0x00,                    #         Logical Minimum (0)
+                0x25, 0x01,                    #         Logical Maximum (1)
+                0x95, 0x03,                    #         Report Count (3)
+                0x75, 0x01,                    #         Report Size (1)
+                0x81, 0x02,                    #         Input(Data, Variable, Absolute); 3 button bits
+                0x95, 0x01,                    #         Report Count(1)
+                0x75, 0x05,                    #         Report Size(5)
+                0x81, 0x03,                    #         Input(Constant);                 5 bit padding
+                0x05, 0x01,                    #         Usage Page (Generic Desktop)
+                0x09, 0x30,                    #         Usage (X)
+                0x09, 0x31,                    #         Usage (Y)
+                0x09, 0x38,                    #         Usage (Wheel)
+                0x15, 0x81,                    #         Logical Minimum (-127)
+                0x25, 0x7F,                    #         Logical Maximum (127)
+                0x75, 0x08,                    #         Report Size (8)
+                0x95, 0x03,                    #         Report Count (3)
+                0x81, 0x06,                    #         Input(Data, Variable, Relative); 3 position bytes (X,Y,Wheel)
+                0xc0,                          #   END_COLLECTION
+                0xc0                           # END_COLLECTION
+            ])
+        else:
+            self.HID_INPUT_REPORT = bytes([    # Report Description: describes what we communicate
+                0x05, 0x01,                    # USAGE_PAGE (Generic Desktop)
+                0x09, 0x02,                    # USAGE (Mouse)
+                0xa1, 0x01,                    # COLLECTION (Application)
+                0x85, 0x01,                    #   REPORT_ID (1)
+                0x09, 0x01,                    #   USAGE (Pointer)
+                0xa1, 0x00,                    #   COLLECTION (Physical)
+                0x05, 0x09,                    #         Usage Page (Buttons)
+                0x19, 0x01,                    #         Usage Minimum (1)
+                0x29, 0x03,                    #         Usage Maximum (3)
+                0x15, 0x00,                    #         Logical Minimum (0)
+                0x25, 0x01,                    #         Logical Maximum (1)
+                0x95, 0x03,                    #         Report Count (3)
+                0x75, 0x01,                    #         Report Size (1)
+                0x81, 0x02,                    #         Input(Data, Variable, Absolute); 3 button bits
+                0x95, 0x01,                    #         Report Count(1)
+                0x75, 0x05,                    #         Report Size(5)
+                0x81, 0x03,                    #         Input(Constant);                 5 bit padding
+                0x05, 0x01,                    #         Usage Page (Generic Desktop)
+                0x09, 0x30,                    #         Usage (X)
+                0x09, 0x31,                    #         Usage (Y)
+                0x16, 0x00, 0x00,              #         Logical Minimum (0)
+                0x26, 0xFF, 0x7F,              #         Logical Maximum (32767)
+                0x36, 0x00, 0x00,              #         Physical Minimum (0)
+                0x46, 0xFF, 0x7F,              #         Physical Maximum (32767)
+                0x75, 0x10,                    #         Report Size (16)
+                0x95, 0x02,                    #         Report Count (2)
+                0x81, 0x02,                    #         Input(Data, Variable, Absolute);
+                0xc0,                          #   END_COLLECTION
+                0xc0                           # END_COLLECTION
+            ])
         # fmt: on
 
         # Define the initial mouse state
         self.x = 0
         self.y = 0
         self.w = 0
+
+        self.x_a = 0
+        self.y_a = 0
 
         self.button1 = 0
         self.button2 = 0
@@ -783,12 +820,21 @@ class Mouse(HumanInterfaceDevice):
     def notify_hid_report(self):
         if self.is_connected():
             # Pack the mouse state as described by the input report
-            b = self.button1 + self.button2 * 2 + self.button3
-            state = struct.pack("Bbbb", b, self.x, self.y, self.w)
+            if self.type == 'rel':
+                b = self.button1 + self.button2 * 2 + self.button3
+                state = struct.pack("Bbbb", b, self.x, self.y, self.w)
+            else:
+                b = self.button1 + self.button2 * 2 + self.button3
+                state = struct.pack("<Bhh", b, self.x_a, self.y_a)
 
             # print("Notify with report: ", struct.unpack("Bbbb", state))
             # Notify central by writing to the report handle
-            self._ble.gatts_notify(self.conn_handle, self.h_rep, state)
+            while True:
+                try:
+                    self._ble.gatts_notify(self.conn_handle, self.h_rep, state)
+                    return
+                except:
+                    time.sleep_ms(10)
 
     def set_axes(self, x=0, y=0):
         if x > 127:
@@ -816,6 +862,20 @@ class Mouse(HumanInterfaceDevice):
         self.button1 = b1
         self.button2 = b2
         self.button3 = b3
+
+    def send_rel(self, x=0, y=0, w=0):
+        self.set_axes(x, y)
+        self.set_wheel(w)
+        self.notify_hid_report()
+
+    def send_buttons(self, b1=0, b2=0, b3=0):
+        self.set_buttons(b1, b2, b3)
+        self.notify_hid_report()
+
+    def send_abs(self, x, y):
+        self.x_a = x
+        self.y_a = y
+        self.notify_hid_report()
 
 # Class that represents the Keyboard service
 class Keyboard(HumanInterfaceDevice):

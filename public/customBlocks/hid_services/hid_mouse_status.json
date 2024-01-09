@@ -1,0 +1,33 @@
+{
+  "type": "hid_mouse_status",
+  "message0": "#blk-hid_mouse_status# %1",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "type",
+      "options": [
+        [
+          "idle",
+          "IDLE"
+        ],
+        [
+          "advertising",
+          "ADVERTISING"
+        ],
+        [
+          "connected",
+          "CONNECTED"
+        ],
+        [
+          "stopped",
+          "STOPPED"
+        ]
+      ]
+    }
+  ],
+  "inputsInline": true,
+  "output": "Boolean",
+  "colour": 65,
+  "tooltip": "#blk-hid_mouse_status_tooltip#",
+  "helpUrl": ""
+}

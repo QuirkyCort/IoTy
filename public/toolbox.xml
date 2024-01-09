@@ -1695,6 +1695,7 @@
     </block>
   </category>
   <category toolboxitemid="hid_services" name="BLE HID" colour="#9fa55b" hidden="true">
+    <label text="Keyboard"></label>
     <block type="hid_keyboard_init">
       <value name="name">
         <shadow type="text">
@@ -1712,6 +1713,51 @@
       </value>
     </block>
     <block type="hid_keyboard_send_key"></block>
+    <label text="Mouse"></label>
+    <block type="hid_mouse_init">
+      <value name="name">
+        <shadow type="text">
+          <field name="TEXT">MyMouse</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="hid_mouse_advertising"></block>
+    <block type="hid_mouse_status"></block>
+    <block type="hid_mouse_send_rel">
+      <value name="x">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="y">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="w">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="hid_mouse_send_abs">
+      <value name="x">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="y">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="w">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="hid_mouse_send_btns"></block>
   </category>
 
 </xml>

@@ -405,7 +405,13 @@ var ioty_generator = new function() {
     Blockly.Python['hid_keyboard_status'] = self.hid_keyboard_status;
     Blockly.Python['hid_keyboard_send_string'] = self.hid_keyboard_send_string;
     Blockly.Python['hid_keyboard_send_key'] = self.hid_keyboard_send_key;
-    Blockly.Python.addReservedWords('hid_services,hid_keyboard');
+    Blockly.Python['hid_mouse_init'] = self.hid_mouse_init;
+    Blockly.Python['hid_mouse_advertising'] = self.hid_mouse_advertising;
+    Blockly.Python['hid_mouse_status'] = self.hid_mouse_status;
+    Blockly.Python['hid_mouse_send_rel'] = self.hid_mouse_send_rel;
+    Blockly.Python['hid_mouse_send_abs'] = self.hid_mouse_send_abs;
+    Blockly.Python['hid_mouse_send_btns'] = self.hid_mouse_send_btns;
+    Blockly.Python.addReservedWords('hid_services,hid_keyboard,hid_mouse');
   };
 
   // Generate python code
@@ -3798,6 +3804,72 @@ var ioty_generator = new function() {
       ', right_shift=' + rshift +
       ', right_alt=' + ralt +
       ', right_gui=' + rmeta + ')\n';
+
+    return code;
+  };
+
+  this.hid_mouse_init = function(block) {
+    self.imports['hid_services'] = 'import hid_services';
+    let type = block.getFieldValue('type');
+
+    let name = Blockly.Python.valueToCode(block, 'name', Blockly.Python.ORDER_ATOMIC);
+
+    let code =
+      'hid_mouse = hid_services.Mouse(' + name + ', \'' + type + '\')\n' +
+      'hid_mouse.start()\n';
+
+    return code;
+  };
+
+  this.hid_mouse_advertising = function(block) {
+    let type = block.getFieldValue('type');
+
+    let code = 'hid_mouse.';
+    if (type == 'START') {
+      code += 'start_advertising()\n';
+    } else {
+      code += 'stop_advertising()\n';
+    }
+
+    return code;
+  };
+
+  this.hid_mouse_status = function(block) {
+    let type = block.getFieldValue('type');
+
+    let code = 'hid_mouse.get_state() is hid_services.Mouse.DEVICE_' + type;
+
+    return [code, Blockly.Python.ORDER_RELATIONAL];
+  };
+
+  this.hid_mouse_send_rel = function(block) {
+    let x = Blockly.Python.valueToCode(block, 'x', Blockly.Python.ORDER_ATOMIC);
+    let y = Blockly.Python.valueToCode(block, 'y', Blockly.Python.ORDER_ATOMIC);
+    let w = Blockly.Python.valueToCode(block, 'w', Blockly.Python.ORDER_ATOMIC);
+
+    let code =
+      'hid_mouse.send_rel(' + x + ', ' + y + ', ' + w + ')\n';
+
+    return code;
+  };
+
+  this.hid_mouse_send_abs = function(block) {
+    let x = Blockly.Python.valueToCode(block, 'x', Blockly.Python.ORDER_ATOMIC);
+    let y = Blockly.Python.valueToCode(block, 'y', Blockly.Python.ORDER_ATOMIC);
+
+    let code =
+      'hid_mouse.send_abs(' + x + ', ' + y + ')\n';
+
+    return code;
+  };
+
+  this.hid_mouse_send_btns = function(block) {
+    let left = block.getFieldValue('left');
+    let right = block.getFieldValue('right');
+    let middle = block.getFieldValue('middle');
+
+    let code =
+      'hid_mouse.send_buttons(' + left + ', ' + right + ', ' + middle + ')\n';
 
     return code;
   };

@@ -1,0 +1,22 @@
+{
+  "type": "hid_mouse_send_abs",
+  "message0": "#blk-hid_mouse_send_abs# %1 #blk-y# %2",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "x",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "y",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 65,
+  "tooltip": "#blk-hid_mouse_send_abs_tooltip#",
+  "helpUrl": ""
+}
