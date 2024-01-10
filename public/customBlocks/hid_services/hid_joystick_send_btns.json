@@ -1,0 +1,76 @@
+{
+  "type": "hid_joystick_send_btns",
+  "message0": "#blk-hid_joystick_send_btns# %1 %2 %3 %4 %5 %6 %7 %8",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "b1",
+      "options": [
+        ["B1 Up", "0"],
+        ["B1 Down", "1"]
+      ]
+    },
+    {
+      "type": "field_dropdown",
+      "name": "b2",
+      "options": [
+        ["B2 Up", "0"],
+        ["B2 Down", "1"]
+      ]
+    },
+    {
+      "type": "field_dropdown",
+      "name": "b3",
+      "options": [
+        ["B3 Up", "0"],
+        ["B3 Down", "1"]
+      ]
+    },
+    {
+      "type": "field_dropdown",
+      "name": "b4",
+      "options": [
+        ["B4 Up", "0"],
+        ["B4 Down", "1"]
+      ]
+    },
+    {
+      "type": "field_dropdown",
+      "name": "b5",
+      "options": [
+        ["B5 Up", "0"],
+        ["B5 Down", "1"]
+      ]
+    },
+    {
+      "type": "field_dropdown",
+      "name": "b6",
+      "options": [
+        ["B6 Up", "0"],
+        ["B6 Down", "1"]
+      ]
+    },
+    {
+      "type": "field_dropdown",
+      "name": "b7",
+      "options": [
+        ["B7 Up", "0"],
+        ["B7 Down", "1"]
+      ]
+    },
+    {
+      "type": "field_dropdown",
+      "name": "b8",
+      "options": [
+        ["B8 Up", "0"],
+        ["B8 Down", "1"]
+      ]
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 65,
+  "tooltip": "#blk-hid_joystick_send_btns_tooltip#",
+  "helpUrl": ""
+}

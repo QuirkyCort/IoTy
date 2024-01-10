@@ -2509,6 +2509,36 @@ let MSGS = {
   '#blk-hid_ccd_send_key_select_tooltip#': {
     en: 'A list of common key codes for easy use.',
   },
+  '#blk-hid_joystick_init#': {
+    en: 'init BLE Joystick with name',
+  },
+  '#blk-hid_joystick_init_tooltip#': {
+    en: 'Initialize a Bluetooth Joystick with the given name. The device will only be visible after advertising is started.',
+  },
+  '#blk-hid_joystick_advertising#': {
+    en: 'advertising the BLE Joystick',
+  },
+  '#blk-hid_joystick_advertising_tooltip#': {
+    en: 'The device will only be visible if advertising is started.',
+  },
+  '#blk-hid_joystick_status#': {
+    en: 'BLE Joystick status is',
+  },
+  '#blk-hid_joystick_status_tooltip#': {
+    en: 'Checks the status of the joystick. You should only send commands when the status is \\"Connected\\".',
+  },
+  '#blk-hid_joystick_send_axes#': {
+    en: 'BLE Joystick: send axis X',
+  },
+  '#blk-hid_joystick_send_axes_tooltip#': {
+    en: 'Sends the relative position of the axis. Range from -127 to 127.',
+  },
+  '#blk-hid_joystick_send_btns#': {
+    en: 'BLE Joystick: send buttons',
+  },
+  '#blk-hid_joystick_send_btns_tooltip#': {
+    en: 'Send the state of the joystick buttons.',
+  },
 
 };
 let MSGS_KEYS = Object.keys(MSGS);

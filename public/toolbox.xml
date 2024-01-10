@@ -1751,11 +1751,6 @@
           <field name="NUM">0</field>
         </shadow>
       </value>
-      <value name="w">
-        <shadow type="math_number">
-          <field name="NUM">0</field>
-        </shadow>
-      </value>
     </block>
     <block type="hid_mouse_send_btns"></block>
     <label text="Consumer Control Device"></label>
@@ -1776,6 +1771,29 @@
       </value>
     </block>
     <block type="hid_ccd_send_key_select"></block>
+    <label text="Joystick"></label>
+    <block type="hid_joystick_init">
+      <value name="name">
+        <shadow type="text">
+          <field name="TEXT">MyJoystick</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="hid_joystick_advertising"></block>
+    <block type="hid_joystick_status"></block>
+    <block type="hid_joystick_send_axes">
+      <value name="x">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="y">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="hid_joystick_send_btns"></block>
 
   </category>
 

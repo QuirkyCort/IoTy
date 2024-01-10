@@ -1,5 +1,6 @@
 # MicroPython Human Interface Device library
 # Copyright (C) 2021 H. Groefsema
+# with edits by Cort
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -654,7 +655,12 @@ class Joystick(HumanInterfaceDevice):
 
             # print("Notify with report: ", struct.unpack("bbB", state))
             # Notify central by writing to the report handle
-            self._ble.gatts_notify(self.conn_handle, self.h_rep, state)
+            while True:
+                try:
+                    self._ble.gatts_notify(self.conn_handle, self.h_rep, state)
+                    return
+                except:
+                    time.sleep_ms(10)
 
     def set_axes(self, x=0, y=0):
         if x > 127:
@@ -679,6 +685,15 @@ class Joystick(HumanInterfaceDevice):
         self.button6 = b6
         self.button7 = b7
         self.button8 = b8
+
+    def send_axes(self, x=0, y=0):
+        self.set_axes(x, y)
+        self.notify_hid_report()
+
+    def send_buttons(self, b1=0, b2=0, b3=0, b4=0, b5=0, b6=0, b7=0, b8=0):
+        self.set_buttons(b1, b2, b3, b4, b5, b6, b7, b8)
+        self.notify_hid_report()
+
 
 # Class that represents the Mouse service
 class Mouse(HumanInterfaceDevice):

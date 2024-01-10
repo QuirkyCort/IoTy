@@ -416,7 +416,12 @@ var ioty_generator = new function() {
     Blockly.Python['hid_ccd_status'] = self.hid_ccd_status;
     Blockly.Python['hid_ccd_send_key'] = self.hid_ccd_send_key;
     Blockly.Python['hid_ccd_send_key_select'] = self.hid_ccd_send_key_select;
-    Blockly.Python.addReservedWords('hid_services,hid_keyboard,hid_mouse,hid_ccd');
+    Blockly.Python['hid_joystick_init'] = self.hid_joystick_init;
+    Blockly.Python['hid_joystick_advertising'] = self.hid_joystick_advertising;
+    Blockly.Python['hid_joystick_status'] = self.hid_joystick_status;
+    Blockly.Python['hid_joystick_send_axes'] = self.hid_joystick_send_axes;
+    Blockly.Python['hid_joystick_send_btns'] = self.hid_joystick_send_btns;
+    Blockly.Python.addReservedWords('hid_services,hid_keyboard,hid_mouse,hid_ccd,hid_joystick');
   };
 
   // Generate python code
@@ -3926,6 +3931,73 @@ var ioty_generator = new function() {
 
     let code =
       'hid_ccd.send_key(' + key + ')\n';
+
+    return code;
+  };
+
+  this.hid_joystick_init = function(block) {
+    self.imports['hid_services'] = 'import hid_services';
+
+    let name = Blockly.Python.valueToCode(block, 'name', Blockly.Python.ORDER_ATOMIC);
+
+    let code =
+      'hid_joystick = hid_services.Joystick(' + name + ')\n' +
+      'hid_joystick.start()\n';
+
+    return code;
+  };
+
+  this.hid_joystick_advertising = function(block) {
+    let type = block.getFieldValue('type');
+
+    let code = 'hid_joystick.';
+    if (type == 'START') {
+      code += 'start_advertising()\n';
+    } else {
+      code += 'stop_advertising()\n';
+    }
+
+    return code;
+  };
+
+  this.hid_joystick_status = function(block) {
+    let type = block.getFieldValue('type');
+
+    let code = 'hid_joystick.get_state() is hid_services.Joystick.DEVICE_' + type;
+
+    return [code, Blockly.Python.ORDER_RELATIONAL];
+  };
+
+  this.hid_joystick_send_axes = function(block) {
+    let x = Blockly.Python.valueToCode(block, 'x', Blockly.Python.ORDER_ATOMIC);
+    let y = Blockly.Python.valueToCode(block, 'y', Blockly.Python.ORDER_ATOMIC);
+
+    let code =
+      'hid_joystick.send_axes(' + x + ', ' + y + ')\n';
+
+    return code;
+  };
+
+  this.hid_joystick_send_btns = function(block) {
+    let b1 = block.getFieldValue('b1');
+    let b2 = block.getFieldValue('b2');
+    let b3 = block.getFieldValue('b3');
+    let b4 = block.getFieldValue('b4');
+    let b5 = block.getFieldValue('b5');
+    let b6 = block.getFieldValue('b6');
+    let b7 = block.getFieldValue('b7');
+    let b8 = block.getFieldValue('b8');
+
+    let code =
+      'hid_joystick.send_buttons(' +
+      b1 + ', ' +
+      b2 + ', ' +
+      b3 + ', ' +
+      b4 + ', ' +
+      b5 + ', ' +
+      b6 + ', ' +
+      b7 + ', ' +
+      b8 + ')\n';
 
     return code;
   };
