@@ -155,19 +155,16 @@ class Advertiser:
         self._payload = self.advertising_payload(name=name, services=services, appearance=appearance)
 
         self.advertising = False
-        # print("Advertiser created: ", self.decode_name(self._payload), " with services: ", self.decode_services(self._payload))
 
     # Start advertising at 100000 interval
     def start_advertising(self):
         if not self.advertising:
             self._ble.gap_advertise(100000, adv_data=self._payload)
-            # print("Started advertising")
 
     # Stop advertising by setting interval of 0
     def stop_advertising(self):
         if self.advertising:
             self._ble.gap_advertise(0, adv_data=self._payload)
-            # print("Stopped advertising")
 
 
 # Class that represents a general HID device services
@@ -186,8 +183,6 @@ class HumanInterfaceDevice(object):
         self.io_capability = _IO_CAPABILITY_NO_INPUT_OUTPUT
         self.bond = False
         self.le_secure = False
-
-        # print("Server created")
 
         self.device_name = device_name
         self.service_uuids = [UUID(0x180A), UUID(0x180F), UUID(0x1812)]  # Service UUIDs: DIS, BAS, HIDS
@@ -242,49 +237,37 @@ class HumanInterfaceDevice(object):
     def ble_irq(self, event, data):
         if event == _IRQ_CENTRAL_CONNECT:              # Central connected
             self.conn_handle, _, _ = data              # Save the handle
-            # print("Central connected: ", self.conn_handle)
             self.set_state(HumanInterfaceDevice.DEVICE_CONNECTED)     # (HIDS specification only allow one central to be connected)
         elif event == _IRQ_CENTRAL_DISCONNECT:         # Central disconnected
             self.conn_handle = None                    # Discard old handle
             conn_handle, addr_type, addr = data
-            # print("Central disconnected: ", conn_handle)
             self.set_state(HumanInterfaceDevice.DEVICE_IDLE)
         elif event == _IRQ_MTU_EXCHANGED:              # MTU was set
             conn_handle, mtu = data
-            # print("MTU exchanged: ", mtu)
         elif event == _IRQ_CONNECTION_UPDATE:          # Connection parameters were updated
             self.conn_handle, _, _, _, _ = data        # The new parameters
-            # print("Connection update")
         elif event == _IRQ_ENCRYPTION_UPDATE:          # Encryption updated
             conn_handle, encrypted, authenticated, bonded, key_size = data
-            # print("encryption update", conn_handle, encrypted, authenticated, bonded, key_size)
         elif event == _IRQ_PASSKEY_ACTION:             # Passkey actions: accept connection or show/enter passkey
             conn_handle, action, passkey = data
-            # print("passkey action", conn_handle, action, passkey)
             if action == _PASSKEY_ACTION_NUMCMP:       # Do we accept this connection?
                 accept = False
                 if self.passkey_callback is not None:  # Is callback function set?
                     accept = self.passkey_callback()   # Call callback for input
                 self._ble.gap_passkey(conn_handle, action, accept)
             elif action == _PASSKEY_ACTION_DISP:       # Show our passkey
-                # print("displaying passkey")
                 self._ble.gap_passkey(conn_handle, action, self.passkey)
             elif action == _PASSKEY_ACTION_INPUT:      # Enter passkey
-                # print("prompting for passkey")
                 pk = None
                 if self.passkey_callback is not None:  # Is callback function set?
                     pk = self.passkey_callback()       # Call callback for input
                 self._ble.gap_passkey(conn_handle, action, pk)
-            # else:
-            #     print("unknown action")
         elif event == _IRQ_GATTS_INDICATE_DONE:
             conn_handle, value_handle, status = data
-            # print("gatts done: ", conn_handle)
         elif event == _IRQ_SET_SECRET:                 # Set secret for bonding
             sec_type, key, value = data
             key = sec_type, bytes(key)
             value = bytes(value) if value else None
-            # print("set secret: ", key, value)
             if value is None:                          # If value is empty, and
                 if key in self.keys:                   # If key is known then
                     del self.keys[key]                 # Forget key
@@ -298,7 +281,6 @@ class HumanInterfaceDevice(object):
             return True
         elif event == _IRQ_GET_SECRET:                 # Get secret for bonding
             sec_type, index, key = data
-            # print("get secret: ", sec_type, index, bytes(key) if key else None)
             if key is None:
                 i = 0
                 for (t, _key), value in self.keys.items():
@@ -314,7 +296,7 @@ class HumanInterfaceDevice(object):
             conn_handle, attr_handle = data
             self._ble.gatts_notify(conn_handle, attr_handle, struct.pack("<B", 0))
         else:
-            print("Unhandled IRQ event: ", event)
+            pass
 
     # Start the service
     # Must be overwritten by subclass, and called in
@@ -348,15 +330,12 @@ class HumanInterfaceDevice(object):
                 self._ble.config(io=self.io_capability)
 
             self.set_state(HumanInterfaceDevice.DEVICE_IDLE)
-            # print("BLE on")
 
     # After registering the DIS and BAS services, write their characteristic values
     # Must be overwritten by subclass, and called in
     # the overwritten function by using
     # super(Subclass, self).write_service_characteristics(handles)
     def write_service_characteristics(self, handles):
-        # print("Writing service characteristics")
-
         # Get handles to service characteristics
         # These correspond directly to self.DIS and sel.BAS
         (h_mod, h_ser, h_fwr, h_hwr, h_swr, h_man, h_pnp) = handles[0]
@@ -366,8 +345,6 @@ class HumanInterfaceDevice(object):
             return struct.pack(str(len(in_str))+"s", in_str.encode('UTF-8'))
 
         # Write service characteristics
-        # print("Writing device information service characteristics")
-
         self._ble.gatts_write(h_mod, string_pack(self.model_number))
         self._ble.gatts_write(h_ser, string_pack(self.serial_number))
         self._ble.gatts_write(h_fwr, string_pack(self.firmware_revision))
@@ -377,7 +354,6 @@ class HumanInterfaceDevice(object):
         # "<B" is now "<BHHH" basis https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Characteristics/org.bluetooth.characteristic.pnp_id.xml
         self._ble.gatts_write(h_pnp, struct.pack("<BHHH", self.pnp_manufacturer_source, self.pnp_manufacturer_uuid, self.pnp_product_id, self.pnp_product_version))
 
-        # print("Writing battery service characteristics")
         # Battery level
         self._ble.gatts_write(self.h_bat, struct.pack("<B", self.battery_level))
 
@@ -394,7 +370,6 @@ class HumanInterfaceDevice(object):
             self._ble.active(0)
 
             self.set_state(HumanInterfaceDevice.DEVICE_STOPPED)
-            # print("Server stopped")
 
     # Load bonding keys from json file
     def load_secrets(self):
@@ -405,7 +380,6 @@ class HumanInterfaceDevice(object):
                     self.keys[sec_type, binascii.a2b_base64(key)] = binascii.a2b_base64(value)
         except:
             pass
-            # print("no secrets available")
 
     # Save bonding keys from json file
     def save_secrets(self):
@@ -418,7 +392,6 @@ class HumanInterfaceDevice(object):
                 json.dump(json_secrets, file)
         except:
             pass
-            # print("failed to save secrets")
 
     def is_running(self):
         return self.device_state is not HumanInterfaceDevice.DEVICE_STOPPED
@@ -541,7 +514,6 @@ class HumanInterfaceDevice(object):
     # Notifies the central by writing to the battery level handle
     def notify_battery_level(self):
         if self.is_connected():
-            # print("Notify battery level: ", self.battery_level)
             self._ble.gatts_notify(self.conn_handle, self.h_bat, struct.pack("<B", self.battery_level))
 
     # Notifies the central of the HID state
@@ -613,7 +585,6 @@ class Joystick(HumanInterfaceDevice):
     def start(self):
         super(Joystick, self).start()  # Start super
 
-        # print("Registering services")
         # Register services and get read/write handles for all services
         handles = self._ble.gatts_register_services(self.services)
         # Write the values for the characteristics
@@ -622,8 +593,6 @@ class Joystick(HumanInterfaceDevice):
         # Create an Advertiser
         # Only advertise the top level service, i.e., the HIDS
         self.adv = Advertiser(self._ble, [UUID(0x1812)], self.device_appearance, self.device_name)
-
-        # print("Server started")
 
     # Overwrite super to write HID specific characteristics
     # Call super to write DIS and BAS characteristics
@@ -638,7 +607,6 @@ class Joystick(HumanInterfaceDevice):
         b = self.button1 + self.button2 * 2 + self.button3 * 4 + self.button4 * 8 + self.button5 * 16 + self.button6 * 32 + self.button7 * 64 + self.button8 * 128
         state = struct.pack("bbB", self.x, self.y, b)
 
-        # print("Writing hid service characteristics")
         # Write service characteristics
         self._ble.gatts_write(h_info, b"\x01\x01\x00\x02")     # HID info: ver=1.1, country=0, flags=normal
         self._ble.gatts_write(h_hid, self.HID_INPUT_REPORT)    # HID input report map
@@ -653,7 +621,6 @@ class Joystick(HumanInterfaceDevice):
             b = self.button1 + self.button2 * 2 + self.button3 * 4 + self.button4 * 8 + self.button5 * 16 + self.button6 * 32 + self.button7 * 64 + self.button8 * 128
             state = struct.pack("bbB", self.x, self.y, b)
 
-            # print("Notify with report: ", struct.unpack("bbB", state))
             # Notify central by writing to the report handle
             while True:
                 try:
@@ -798,7 +765,6 @@ class Mouse(HumanInterfaceDevice):
     def start(self):
         super(Mouse, self).start()  # Start super
 
-        # print("Registering services")
         # Register services and get read/write handles for all services
         handles = self._ble.gatts_register_services(self.services)
         # Write the values for the characteristics
@@ -807,8 +773,6 @@ class Mouse(HumanInterfaceDevice):
         # Create an Advertiser
         # Only advertise the top level service, i.e., the HIDS
         self.adv = Advertiser(self._ble, [UUID(0x1812)], self.device_appearance, self.device_name)
-
-        # print("Server started")
 
     # Overwrite super to write HID specific characteristics
     # Call super to write DIS and BAS characteristics
@@ -823,7 +787,6 @@ class Mouse(HumanInterfaceDevice):
         b = self.button1 + self.button2 * 2 + self.button3 * 4
         state = struct.pack("Bbbb", b, self.x, self.y, self.w)
 
-        # print("Writing hid service characteristics")
         # Write service characteristics
         self._ble.gatts_write(h_info, b"\x01\x01\x00\x02")     # HID info: ver=1.1, country=0, flags=normal
         self._ble.gatts_write(h_hid, self.HID_INPUT_REPORT)    # HID input report map
@@ -842,7 +805,6 @@ class Mouse(HumanInterfaceDevice):
                 b = self.button1 + self.button2 * 2 + self.button3
                 state = struct.pack("<Bhh", b, self.x_a, self.y_a)
 
-            # print("Notify with report: ", struct.unpack("Bbbb", state))
             # Notify central by writing to the report handle
             while True:
                 try:
@@ -961,7 +923,6 @@ class Keyboard(HumanInterfaceDevice):
     # Overwrite super to catch keyboard report write events by the central
     def ble_irq(self, event, data):
         if event == _IRQ_GATTS_WRITE:                   # If a client has written to a characteristic or descriptor.
-            # print("Keyboard changed by Central")
             conn_handle, attr_handle = data             # Get the handle to the characteristic that was written
             report = self._ble.gatts_read(attr_handle)  # Read the report
             bytes = struct.unpack("B", report)          # Unpack the report
@@ -975,7 +936,6 @@ class Keyboard(HumanInterfaceDevice):
     def start(self):
         super(Keyboard, self).start()  # Start super
 
-        # print("Registering services")
         # Register services and get read/write handles for all services
         handles = self._ble.gatts_register_services(self.services)
         # Write the values for the characteristics
@@ -984,8 +944,6 @@ class Keyboard(HumanInterfaceDevice):
         # Create an Advertiser
         # Only advertise the top level service, i.e., the HIDS
         self.adv = Advertiser(self._ble, [UUID(0x1812)], self.device_appearance, self.device_name)
-
-        # print("Server started")
 
     # Overwrite super to write HID specific characteristics
     # Call super to write DIS and BAS characteristics
@@ -996,7 +954,6 @@ class Keyboard(HumanInterfaceDevice):
         # These correspond directly to self.HIDS
         (h_info, h_hid, _, self.h_rep, h_d1, self.h_repout, h_d2, h_proto,) = handles[2]
 
-        # print("Writing hid service characteristics")
         # Write service characteristics
         self._ble.gatts_write(h_info, b"\x01\x01\x00\x02")     # HID info: ver=1.1, country=0, flags=normal
         self._ble.gatts_write(h_hid, self.HID_INPUT_REPORT)    # HID input report map
@@ -1010,7 +967,6 @@ class Keyboard(HumanInterfaceDevice):
             # Pack the Keyboard state as described by the input report
             state = struct.pack("8B", self.modifiers, 0, self.keypresses[0], self.keypresses[1], self.keypresses[2], self.keypresses[3], self.keypresses[4], self.keypresses[5])
 
-            # print("Notify with report: ", struct.unpack("8B", state))
             # Notify central by writing to the report handle
             while True:
                 try:
@@ -1143,7 +1099,6 @@ class ConsumerControl(HumanInterfaceDevice):
     def start(self):
         super(ConsumerControl, self).start()  # Start super
 
-        # print("Registering services")
         # Register services and get read/write handles for all services
         handles = self._ble.gatts_register_services(self.services)
         # Write the values for the characteristics
@@ -1152,8 +1107,6 @@ class ConsumerControl(HumanInterfaceDevice):
         # Create an Advertiser
         # Only advertise the top level service, i.e., the HIDS
         self.adv = Advertiser(self._ble, [UUID(0x1812)], self.device_appearance, self.device_name)
-
-        # print("Server started")
 
     # Overwrite super to write HID specific characteristics
     # Call super to write DIS and BAS characteristics
@@ -1164,7 +1117,6 @@ class ConsumerControl(HumanInterfaceDevice):
         # These correspond directly to self.HIDS
         (h_info, h_hid, _, self.h_rep, h_d1, self.h_repout, h_d2, h_proto,) = handles[2]
 
-        # print("Writing hid service characteristics")
         # Write service characteristics
         self._ble.gatts_write(h_info, b"\x01\x01\x00\x02")     # HID info: ver=1.1, country=0, flags=normal
         self._ble.gatts_write(h_hid, self.HID_INPUT_REPORT)    # HID input report map
