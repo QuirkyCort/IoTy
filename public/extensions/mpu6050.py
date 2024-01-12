@@ -12,7 +12,7 @@ class MPU6050:
         self.reset_gyro()
 
     def init_device(self):
-        self.i2c.writeto_mem(self.addr, 107, bytes([0x80]))
+        self.i2c.writeto_mem(self.addr, 107, bytes([0]))
 
     def reset_gyro(self):
         self.gyro_x = 0
@@ -26,6 +26,7 @@ class MPU6050:
     def calibrateGyro(self, reps=80, threshold=100):
         prev_x, prev_y, prev_z = struct.unpack('>hhh', self.i2c.readfrom_mem(self.addr, 67, 6))
         sum_x, sum_y, sum_z = 0, 0, 0
+        count = reps
         while True:
             time.sleep_ms(25)
             x, y, z =  struct.unpack('>hhh', self.i2c.readfrom_mem(self.addr, 67, 6))
@@ -35,8 +36,8 @@ class MPU6050:
             sum_x += x
             sum_y += y
             sum_z += z
-            reps -= 1
-            if reps == 0:
+            count -= 1
+            if count == 0:
                 break
         self.error_x = sum_x / reps
         self.error_y = sum_y / reps
