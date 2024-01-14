@@ -94,9 +94,9 @@ class MPU6050:
         z -= self.error_z
         now = time.ticks_us()
         delta = time.ticks_diff(now, self.prev_time)
-        self.gyro_x = (x + self.prev_x)  / 262000000 * delta
-        self.gyro_y = (x + self.prev_y)  / 262000000 * delta
-        self.gyro_z = (x + self.prev_z)  / 262000000 * delta
+        self.gyro_x += (x + self.prev_x)  / 262000000 * delta
+        self.gyro_y += (y + self.prev_y)  / 262000000 * delta
+        self.gyro_z += (z + self.prev_z)  / 262000000 * delta
         self.prev_x = x
         self.prev_y = y
         self.prev_z = z
