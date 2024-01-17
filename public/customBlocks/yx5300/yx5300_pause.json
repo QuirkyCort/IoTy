@@ -1,0 +1,11 @@
+{
+  "type": "yx5300_pause",
+  "message0": "#blk-yx5300_pause#",
+  "args0": [],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-yx5300_pause_tooltip#",
+  "helpUrl": ""
+}

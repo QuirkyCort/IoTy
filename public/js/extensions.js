@@ -603,6 +603,23 @@ var extensions = new function() {
           'Bluetooth should be disabled in the "When Started" block. ' +
         '</p>'
     },
+    {
+      id: 'yx5300',
+      name: 'YX5300 / YX6300 MP3 Players',
+      files: [
+        ['yx5300.py', 'extensions/yx5300.py?v=6626559d'],
+      ],
+      description:
+        '<p>' +
+          'This extension allows control of the UART based YX5300 and YX6300 MP3 players. ' +
+          'These are often sold as "Catalex" Serial MP3. ' +
+        '</p>' +
+        '<p>' +
+          'The audio files should be stored in MP3 or WAV format, on a microSD card formatted in FAT16, VFAT, or FAT32. ' +
+          'The files should be prefixed with a unique 3 digit number (eg. 001Bohemian_Rhapsody.mp3, 002Money_for_Nothing.mp3), and may optionally be in folders named "01", "02", etc. ' +
+          'Max of 99 folders and 255 songs per folder.' +
+        '</p>'
+    },
   ]
 
   this.init = function() {

@@ -1,0 +1,11 @@
+{
+  "type": "yx5300_play",
+  "message0": "#blk-yx5300_play#",
+  "args0": [],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-yx5300_play_tooltip#",
+  "helpUrl": ""
+}

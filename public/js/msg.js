@@ -2539,6 +2539,63 @@ let MSGS = {
   '#blk-hid_joystick_send_btns_tooltip#': {
     en: 'Send the state of the joystick buttons.',
   },
+  '#blk-yx5300_init#': {
+    en: 'init yx5300 on',
+  },
+  '#blk-yx5300_init_tooltip#': {
+    en: 'You must have an \\"init UART\\" block with the appropriate pins and baudrate set to 9600 before this.',
+  },
+  '#blk-yx5300_play#': {
+    en: 'yx5300: play',
+  },
+  '#blk-yx5300_play_tooltip#': {
+    en: 'Resume playing the current track',
+  },
+  '#blk-yx5300_play_index#': {
+    en: 'yx5300: play song index',
+  },
+  '#blk-yx5300_play_index_tooltip#': {
+    en: 'Play the song with the specified index.',
+  },
+  '#blk-yx5300_play_folder_index#': {
+    en: 'yx5300: play song in folder',
+  },
+  '#blk-and_index#': {
+    en: 'and index',
+  },
+  '#blk-yx5300_play_folder_index_tooltip#': {
+    en: 'Play the song in the specified folder and index',
+  },
+  '#blk-yx5300_play_next#': {
+    en: 'yx5300: play next track',
+  },
+  '#blk-yx5300_play_next_tooltip#': {
+    en: 'Play the next track',
+  },
+  '#blk-yx5300_play_prev#': {
+    en: 'yx5300: play the prev track',
+  },
+  '#blk-yx5300_play_prev_tooltip#': {
+    en: 'Play the prev track',
+  },
+  '#blk-yx5300_pause#': {
+    en: 'yx5300: pause',
+  },
+  '#blk-yx5300_pause_tooltip#': {
+    en: 'Pause playback. If you run \\"play\\" after this, the playback will continue at the point it was paused.',
+  },
+  '#blk-yx5300_stop#': {
+    en: 'yx5300: stop',
+  },
+  '#blk-yx5300_stop_tooltip#': {
+    en: 'Stop playback. If you run \\"play\\" after this, the playback will restart from the beginning of the track.',
+  },
+  '#blk-yx5300_set_volume#': {
+    en: 'yx5300: set volume',
+  },
+  '#blk-yx5300_set_volume_tooltip#': {
+    en: 'Set the volume. Max of 30.',
+  },
 
 };
 let MSGS_KEYS = Object.keys(MSGS);

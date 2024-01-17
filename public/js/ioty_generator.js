@@ -422,6 +422,17 @@ var ioty_generator = new function() {
     Blockly.Python['hid_joystick_send_axes'] = self.hid_joystick_send_axes;
     Blockly.Python['hid_joystick_send_btns'] = self.hid_joystick_send_btns;
     Blockly.Python.addReservedWords('hid_services,hid_keyboard,hid_mouse,hid_ccd,hid_joystick');
+
+    Blockly.Python['yx5300_init'] = self.yx5300_init;
+    Blockly.Python['yx5300_play'] = self.yx5300_play;
+    Blockly.Python['yx5300_play_index'] = self.yx5300_play_index;
+    Blockly.Python['yx5300_play_folder_index'] = self.yx5300_play_folder_index;
+    Blockly.Python['yx5300_play_next'] = self.yx5300_play_next;
+    Blockly.Python['yx5300_play_prev'] = self.yx5300_play_prev;
+    Blockly.Python['yx5300_pause'] = self.yx5300_pause;
+    Blockly.Python['yx5300_stop'] = self.yx5300_stop;
+    Blockly.Python['yx5300_set_volume'] = self.yx5300_set_volume;
+    Blockly.Python.addReservedWords('yx5300,yx5300_device');
   };
 
   // Generate python code
@@ -4001,5 +4012,71 @@ var ioty_generator = new function() {
 
     return code;
   };
+
+  this.yx5300_init = function(block) {
+    self.imports['yx5300'] = 'import yx5300';
+
+    var uart = block.getFieldValue('uart');
+
+    var code = 'yx5300_device = yx5300.YX5300(uart' + uart + ')\n';
+
+    return code;
+  };
+
+  this.yx5300_play = function(block) {
+    var code = 'yx5300_device.play()\n';
+
+    return code;
+  };
+
+  this.yx5300_play_index = function(block) {
+    let index = Blockly.Python.valueToCode(block, 'index', Blockly.Python.ORDER_ATOMIC);
+
+    var code = 'yx5300_device.play_index(' + index + ')\n';
+
+    return code;
+  };
+
+  this.yx5300_play_folder_index = function(block) {
+    let folder = Blockly.Python.valueToCode(block, 'folder', Blockly.Python.ORDER_ATOMIC);
+    let index = Blockly.Python.valueToCode(block, 'index', Blockly.Python.ORDER_ATOMIC);
+
+    var code = 'yx5300_device.play_folder_index(' + folder + ', ' + index + ')\n';
+
+    return code;
+  };
+
+  this.yx5300_play_next = function(block) {
+    var code = 'yx5300_device.play_next()\n';
+
+    return code;
+  };
+
+  this.yx5300_play_prev = function(block) {
+    var code = 'yx5300_device.play_prev()\n';
+
+    return code;
+  };
+
+  this.yx5300_pause = function(block) {
+    var code = 'yx5300_device.pause()\n';
+
+    return code;
+  };
+
+  this.yx5300_stop = function(block) {
+    var code = 'yx5300_device.stop()\n';
+
+    return code;
+  };
+
+  this.yx5300_set_volume = function(block) {
+    let volume = Blockly.Python.valueToCode(block, 'volume', Blockly.Python.ORDER_ATOMIC);
+
+    var code = 'yx5300_device.set_volume(' + volume + ')\n';
+
+    return code;
+  };
+
 }
 
