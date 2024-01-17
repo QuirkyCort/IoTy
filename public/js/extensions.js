@@ -618,6 +618,9 @@ var extensions = new function() {
           'The audio files should be stored in MP3 or WAV format, on a microSD card formatted in FAT16, VFAT, or FAT32. ' +
           'The files should be prefixed with a unique 3 digit number (eg. 001Bohemian_Rhapsody.mp3, 002Money_for_Nothing.mp3), and may optionally be in folders named "01", "02", etc. ' +
           'Max of 99 folders and 255 songs per folder.' +
+        '</p>' +
+        '<p>' +
+          'Note that the file index is based on the order that the file is written to the microSD card, and not the filename! ' +
         '</p>'
     },
   ]
