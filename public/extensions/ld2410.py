@@ -73,7 +73,7 @@ class LD2410:
             return
 
         self.ack_cmd = self.buf[6] + ((self.buf[7] & 0xfe) << 8 )
-        self.ack_data = self.buf[8:8+data_length]
+        self.ack_data = self.buf[8:8+data_length-2]
         self.buf = self.buf[10+data_length:]
 
     def _parse_report(self):
@@ -112,9 +112,9 @@ class LD2410:
         self.detection_distance = data[8] + (data[9] << 8)
 
     def _send_cmd(self, cmd, data):
-        cmd = struct.pack('<H', cmd)
-        data_length = struct.pack('<H', len(cmd) + len(data))
-        self.uart.write(CMD_HEAD + data_length + cmd + data + CMD_TAIL)
+        cmd_bytes = struct.pack('<H', cmd)
+        data_length = struct.pack('<H', len(cmd_bytes) + len(data))
+        self.uart.write(CMD_HEAD + data_length + cmd_bytes + data + CMD_TAIL)
         return self._wait_for_ack(cmd)
 
     def _wait_for_ack(self, cmd, timeout=100):
@@ -155,14 +155,13 @@ class LD2410:
         return self._send_cmd(SET_SENSITIVITY_CMD, data)
 
     def get_firmware_version(self):
-        self._send_cmd(READ_FIRMWARE_VERSION_CMD, b'')
-        if self._wait_for_ack(READ_FIRMWARE_VERSION_CMD) == False:
+        if self._send_cmd(READ_FIRMWARE_VERSION_CMD, b'') == False:
             return False
         return struct.unpack('<HHI', self.ack_data[2:])
 
     def set_baudrate(self, baudrate):
         data = struct.pack('<H', baudrate)
-        return self._send_cmd(SET_SENSITIVITY_CMD, data)
+        return self._send_cmd(SET_BAUDRATE_CMD, data)
 
     def factory_reset(self):
         return self._send_cmd(FACTORY_RESET_CMD, b'')
