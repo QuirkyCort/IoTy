@@ -2596,6 +2596,66 @@ let MSGS = {
   '#blk-yx5300_set_volume_tooltip#': {
     en: 'Set the volume. Max of 30.',
   },
+  '#blk-ld2410_init#': {
+    en: 'init ld2410 on',
+  },
+  '#blk-ld2410_init_tooltip#': {
+    en: 'You must have an \\"init UART\\" block with the appropriate pins and baudrate (default to 256000) set correctly before this.',
+  },
+  '#blk-ld2410_update#': {
+    en: 'ld2410: update',
+  },
+  '#blk-ld2410_update_tooltip#': {
+    en: 'Run this frequently to read data from the module.',
+  },
+  '#blk-ld2410_get_target#': {
+    en: 'ld2410: get target data',
+  },
+  '#blk-ld2410_get_target_tooltip#': {
+    en: 'Returns a list containing (state, moving target dist (cm), moving target energy, stationary target dist (cm), stationary target energy, detection distance). \\"state\\" is (0: None, 1: Moving target, 2: Stationary target, 3: Both target). ',
+  },
+  '#blk-ld2410_get_engineering#': {
+    en: 'ld2410: get engineering data',
+  },
+  '#blk-ld2410_get_engineering_tooltip#': {
+    en: 'Returns a list containing (max moving gate, max stationary gate, list of moving gate energy, list of stationary gate energy). Engineering mode must be enabled.',
+  },
+  '#blk-ld2410_engineering_mode#': {
+    en: 'ld2410: engineering mode',
+  },
+  '#blk-ld2410_engineering_mode_tooltip#': {
+    en: 'Enable or disable engineering mode. Must be enabled to retrieve engineering data.',
+  },
+  '#blk-ld2410_set_max#': {
+    en: 'ld2410: set max moving gate:',
+  },
+  '#blk-stationary_gate#': {
+    en: 'stationary gate:',
+  },
+  '#blk-and_inactivity_time#': {
+    en: 'and inactivity time',
+  },
+  '#blk-ld2410_set_max_tooltip#': {
+    en: 'Sets the maximum gate for each detection type. Targets beyond the max gate will not be detected.',
+  },
+  '#blk-ld2410_set_sensitivity#': {
+    en: 'ld2410: set sensitivity for gate',
+  },
+  '#blk-to_moving_energy#': {
+    en: 'to moving energy:',
+  },
+  '#blk-and_stationary_energy#': {
+    en: 'and stationary energy',
+  },
+  '#blk-ld2410_set_sensitivity_tooltip#': {
+    en: 'Sets the sensitivity for each gate. Targets energy below the set limits will not be detected.',
+  },
+  '#blk-ld2410_factory_reset#': {
+    en: 'ld2410: factory reset',
+  },
+  '#blk-ld2410_factory_reset_tooltip#': {
+    en: 'Reset all settings to the factory default',
+  },
 
 };
 let MSGS_KEYS = Object.keys(MSGS);

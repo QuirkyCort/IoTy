@@ -1,0 +1,9 @@
+{
+  "type": "ld2410_get_engineering",
+  "message0": "#blk-ld2410_get_engineering#",
+  "args0": [],
+  "output": ["Array"],
+  "colour": 230,
+  "tooltip": "#blk-ld2410_get_engineering_tooltip#",
+  "helpUrl": ""
+}

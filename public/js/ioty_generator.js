@@ -433,6 +433,16 @@ var ioty_generator = new function() {
     Blockly.Python['yx5300_stop'] = self.yx5300_stop;
     Blockly.Python['yx5300_set_volume'] = self.yx5300_set_volume;
     Blockly.Python.addReservedWords('yx5300,yx5300_device');
+
+    Blockly.Python['ld2410_init'] = self.ld2410_init;
+    Blockly.Python['ld2410_update'] = self.ld2410_update;
+    Blockly.Python['ld2410_get_target'] = self.ld2410_get_target;
+    Blockly.Python['ld2410_get_engineering'] = self.ld2410_get_engineering;
+    Blockly.Python['ld2410_engineering_mode'] = self.ld2410_engineering_mode;
+    Blockly.Python['ld2410_set_max'] = self.ld2410_set_max;
+    Blockly.Python['ld2410_set_sensitivity'] = self.ld2410_set_sensitivity;
+    Blockly.Python['ld2410_factory_reset'] = self.ld2410_factory_reset;
+    Blockly.Python.addReservedWords('ld2410,ld2410_device');
   };
 
   // Generate python code
@@ -4074,6 +4084,80 @@ var ioty_generator = new function() {
     let volume = Blockly.Python.valueToCode(block, 'volume', Blockly.Python.ORDER_ATOMIC);
 
     var code = 'yx5300_device.set_volume(' + volume + ')\n';
+
+    return code;
+  };
+
+  this.ld2410_init = function(block) {
+    self.imports['ld2410'] = 'import ld2410';
+
+    var uart = block.getFieldValue('uart');
+
+    var code = 'ld2410_device = ld2410.LD2410(uart' + uart + ')\n';
+
+    return code;
+  };
+
+  this.ld2410_update = function(block) {
+    var code = 'ld2410_device.update()\n';
+
+    return code;
+  };
+
+  this.ld2410_get_target = function(block) {
+    let code = 'ld2410_device.get_target_data()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.ld2410_get_engineering = function(block) {
+    let code = 'ld2410_device.get_engineering_data()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.ld2410_engineering_mode = function(block) {
+    var type = block.getFieldValue('type');
+
+    var code =
+      'ld2410_device.enable_config()\n' +
+      'ld2410_device.' + type + '_engineering_mode()\n' +
+      'ld2410_device.disable_config()\n';
+
+    return code;
+  };
+
+  this.ld2410_set_max = function(block) {
+    let moving = block.getFieldValue('moving');
+    let stationary = block.getFieldValue('stationary');
+    let inactivity = Blockly.Python.valueToCode(block, 'inactivity', Blockly.Python.ORDER_ATOMIC);
+
+    var code =
+      'ld2410_device.enable_config()\n' +
+      'ld2410_device.set_max(' + moving + ', ' + stationary + ', ' + inactivity + ')\n' +
+      'ld2410_device.disable_config()\n';
+
+    return code;
+  };
+
+  this.ld2410_set_sensitivity = function(block) {
+    let gate = block.getFieldValue('gate');
+    let moving = Blockly.Python.valueToCode(block, 'moving', Blockly.Python.ORDER_ATOMIC);
+    let stationary = Blockly.Python.valueToCode(block, 'stationary', Blockly.Python.ORDER_ATOMIC);
+
+    var code =
+      'ld2410_device.enable_config()\n' +
+      'ld2410_device.set_sensitivity(' + gate + ', ' + moving + ', ' + stationary + ')\n' +
+      'ld2410_device.disable_config()\n';
+
+    return code;
+  };
+
+  this.ld2410_factory_reset = function(block) {
+    var code =
+      'ld2410_device.enable_config()\n' +
+      'ld2410_device.factory_reset()\n' +
+      'ld2410_device.restart()\n';
 
     return code;
   };

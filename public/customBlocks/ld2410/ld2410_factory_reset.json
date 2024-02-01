@@ -1,0 +1,11 @@
+{
+  "type": "ld2410_factory_reset",
+  "message0": "#blk-ld2410_factory_reset#",
+  "args0": [],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-ld2410_factory_reset_tooltip#",
+  "helpUrl": ""
+}

@@ -1829,5 +1829,32 @@
       </value>
     </block>
   </category>
+  <category toolboxitemid="ld2410" name="LD2410" colour="#5b67a5" hidden="true">
+    <block type="ld2410_init"></block>
+    <block type="ld2410_update"></block>
+    <block type="ld2410_get_target"></block>
+    <block type="ld2410_get_engineering"></block>
+    <block type="ld2410_engineering_mode"></block>
+    <block type="ld2410_set_max">
+      <value name="inactivity">
+        <shadow type="math_number">
+          <field name="NUM">5</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="ld2410_set_sensitivity">
+      <value name="moving">
+        <shadow type="math_number">
+          <field name="NUM">50</field>
+        </shadow>
+      </value>
+      <value name="stationary">
+        <shadow type="math_number">
+          <field name="NUM">50</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="ld2410_factory_reset"></block>
+  </category>
 
 </xml>

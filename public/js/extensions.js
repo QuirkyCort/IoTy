@@ -623,6 +623,25 @@ var extensions = new function() {
           'Note that the file index is based on the order that the file is written to the microSD card, and not the filename! ' +
         '</p>'
     },
+    {
+      id: 'ld2410',
+      name: 'LD2410 Human Presence Radar',
+      files: [
+        ['ld2410.py', 'extensions/ld2410.py?v=ec57d3b2'],
+      ],
+      description:
+        '<p>' +
+          'The LD2410 uses a 24GHz radar to detect the presence of people. ' +
+          'Unlike Infrared or Ultrasonic sensors, it can detect both moving and stationary people, and provide an approximate range. ' +
+        '</p>' +
+        '<p>' +
+          'The LD2410 communicates via UART and an optional IO pin (...which provides a present / not-present signal).' +
+        '</p>' +
+        '<p>' +
+          'This library allows you to control and read the detailed sensor data via UART. ' +
+          'Note that the default baudrate is 256000. ' +
+        '</p>'
+    },
   ]
 
   this.init = function() {

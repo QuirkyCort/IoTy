@@ -132,7 +132,7 @@ class LD2410:
     def enable_config(self):
         return self._send_cmd(ENABLE_CONFIG_CMD, b'0100')
 
-    def end_config(self):
+    def disable_config(self):
         return self._send_cmd(END_CONFIG_CMD, b'')
 
     def set_max_values(self, moving_gate, stationary_gate, inactivity_time):
@@ -147,7 +147,7 @@ class LD2410:
     def enable_engineering_mode(self):
         return self._send_cmd(ENABLE_ENGINEERING_CMD, b'')
 
-    def end_engineering_mode(self):
+    def disable_engineering_mode(self):
         return self._send_cmd(END_ENGINEERING_CMD, b'')
 
     def set_gate_sensitivity(self, gate, moving, stationary):
@@ -168,3 +168,9 @@ class LD2410:
 
     def restart(self):
         return self._send_cmd(RESTART_CMD, b'')
+
+    def get_target_data(self):
+        return (self.target_state, self.moving_distance, self.moving_energy, self.stationary_distance, self.stationary_energy, self.detection_distance)
+
+    def get_engineering_data(self):
+        return (self.max_moving_gate, self.max_stationary_gate, self.gate_moving_energy, self.gate_stationary_energy)

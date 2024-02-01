@@ -1,0 +1,11 @@
+{
+  "type": "ld2410_update",
+  "message0": "#blk-ld2410_update#",
+  "args0": [],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-ld2410_update_tooltip#",
+  "helpUrl": ""
+}

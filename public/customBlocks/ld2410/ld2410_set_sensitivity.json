@@ -1,0 +1,37 @@
+{
+  "type": "ld2410_set_sensitivity",
+  "message0": "#blk-ld2410_set_sensitivity# %1 #blk-to_moving_energy# %2 #blk-and_stationary_energy# %3",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "gate",
+      "options": [
+        ["0: 0.00m to 0.75m", "0"],
+        ["1: 0.75m to 1.50m", "1"],
+        ["2: 1.50m to 2.25m", "2"],
+        ["3: 2.25m to 3.00m", "3"],
+        ["4: 3.00m to 3.75m", "4"],
+        ["5: 3.75m to 4.50m", "5"],
+        ["6: 4.50m to 5.25m", "6"],
+        ["7: 5.25m to 6.00m", "7"],
+        ["8: 6.00m to 6.75m", "8"]
+      ]
+    },
+    {
+      "type": "input_value",
+      "name": "moving",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "stationary",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-ld2410_set_sensitivity_tooltip#",
+  "helpUrl": ""
+}
