@@ -4134,7 +4134,7 @@ var ioty_generator = new function() {
 
     var code =
       'ld2410_device.enable_config()\n' +
-      'ld2410_device.set_max(' + moving + ', ' + stationary + ', ' + inactivity + ')\n' +
+      'ld2410_device.set_max_values(' + moving + ', ' + stationary + ', ' + inactivity + ')\n' +
       'ld2410_device.disable_config()\n';
 
     return code;
@@ -4147,7 +4147,7 @@ var ioty_generator = new function() {
 
     var code =
       'ld2410_device.enable_config()\n' +
-      'ld2410_device.set_sensitivity(' + gate + ', ' + moving + ', ' + stationary + ')\n' +
+      'ld2410_device.set_gate_sensitivity(' + gate + ', ' + moving + ', ' + stationary + ')\n' +
       'ld2410_device.disable_config()\n';
 
     return code;
