@@ -238,7 +238,7 @@ var main = new function() {
       confirm: i18n.get('#main-appBuilder_go#')
     };
     confirmDialog(options, function(){
-      self.openPage('https://quirkycort.github.io/IoTy-MQTT-Client/public');
+      self.openPage('https://ioty-mqtt.a9i.sg/');
     });
   };
 
@@ -260,7 +260,7 @@ var main = new function() {
       confirm: i18n.get('#main-flashFirmware_go#')
     };
     confirmDialog(options, function(){
-      self.openPage('https://quirkycort.github.io/IoTy-Flash/public/index.html');
+      self.openPage('https://ioty-flash.a9i.sg/');
     });
   };
 
