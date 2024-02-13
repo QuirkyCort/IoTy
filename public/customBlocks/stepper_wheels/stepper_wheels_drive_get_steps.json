@@ -1,0 +1,29 @@
+{
+  "type": "stepper_wheels_drive_get_steps",
+  "message0": "#blk-stepper_wheels_drive_get_steps# %1",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "type",
+      "options": [
+        [
+          "avg of both wheels",
+          "avg_"
+        ],
+        [
+          "left wheel",
+          "left_"
+        ],
+        [
+          "right wheel",
+          "right_"
+        ]
+      ]
+    }
+  ],
+  "inputsInline": true,
+  "output": "Number",
+  "colour": 230,
+  "tooltip": "#blk-stepper_wheels_drive_get_steps_tooltip#",
+  "helpUrl": ""
+}

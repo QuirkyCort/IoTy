@@ -1,0 +1,22 @@
+{
+  "type": "stepper_wheels_drive_tank",
+  "message0": "#blk-stepper_wheels_drive_tank# %1 #blk-and_right_speed# %2",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "left",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "right",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-stepper_wheels_drive_tank_tooltip#",
+  "helpUrl": ""
+}

@@ -1,0 +1,58 @@
+{
+  "type": "stepper_wheels_motor_run_steps",
+  "message0": "#blk-stepper_wheels_motor_run_steps# %1 #blk-at# %2 #blk-steps_per_second# #blk-for# %3 #blk-steps# #blk-and# %4",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "index",
+      "options": [
+        [
+          "0",
+          "0"
+        ],
+        [
+          "1",
+          "1"
+        ],
+        [
+          "2",
+          "2"
+        ],
+        [
+          "3",
+          "3"
+        ]
+      ]
+    },
+    {
+      "type": "input_value",
+      "name": "speed",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "steps",
+      "check": "Number"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "wait",
+      "options": [
+        [
+          "wait for completion",
+          "True"
+        ],
+        [
+          "don't wait",
+          "False"
+        ]
+      ]
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-stepper_wheels_motor_run_steps_tooltip#",
+  "helpUrl": ""
+}

@@ -642,6 +642,21 @@ var extensions = new function() {
           'Note that the default baudrate is 256000. ' +
         '</p>'
     },
+    {
+      id: 'stepper_wheels',
+      name: 'Stepper Wheels',
+      files: [
+        ['stepper_wheels.py', 'extensions/stepper_wheels.py?v=491521d4'],
+      ],
+      description:
+        '<p>' +
+          'Stepper Wheels (https://github.com/QuirkyCort/stepper_wheels) is a firmware that allows you to use a stepper motor controller to drive the wheels on a robot. ' +
+          'These controllers are typically used to drive 3D printers / CNC / Laser cutters, and are available at a low cost. ' +
+        '</p>' +
+        '<p>' +
+          'The Stepper Wheels controller communicates via I2C, with a default address of 85 (0x55). ' +
+        '</p>'
+    },
   ]
 
   this.init = function() {

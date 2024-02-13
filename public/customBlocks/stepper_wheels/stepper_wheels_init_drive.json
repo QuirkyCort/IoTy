@@ -1,0 +1,22 @@
+{
+  "type": "stepper_wheels_init_drive",
+  "message0": "#blk-stepper_wheels_init_drive# %1 #blk-and_right_motor_on_port# %2",
+  "args0": [
+    {
+      "type": "field_input",
+      "name": "left",
+      "text": "0"
+    },
+    {
+      "type": "field_input",
+      "name": "right",
+      "text": "1"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-stepper_wheels_init_drive_tooltip#",
+  "helpUrl": ""
+}

@@ -2656,6 +2656,117 @@ let MSGS = {
   '#blk-ld2410_factory_reset_tooltip#': {
     en: 'Reset all settings to the factory default',
   },
+  '#blk-stepper_wheels_init#': {
+    en: 'init stepper wheels controller with address',
+  },
+  '#blk-stepper_wheels_init_tooltip#': {
+    en: 'You must have an \\"init I2C\\" block before this',
+  },
+  '#blk-stepper_wheels_init_drive#': {
+    en: 'init movement drive with left motor on port',
+  },
+  '#blk-and_right_motor_on_port#': {
+    en: 'and right motor on port',
+  },
+  '#blk-stepper_wheels_init_drive_tooltip#': {
+    en: 'If you have more than one motor on each side, you can specify them seperated by a comma. Eg. \\"0,1\\".',
+  },
+  '#blk-stepper_wheels_enable#': {
+    en: 'the stepper wheels controller',
+  },
+  '#blk-stepper_wheels_enable_tooltip#': {
+    en: 'The stepper controller is enabled by default. Disable it to let the wheels turn freely.',
+  },
+  '#blk-stepper_wheels_reset#': {
+    en: 'reset the stepper wheels controller',
+  },
+  '#blk-stepper_wheels_reset_tooltip#': {
+    en: 'Resetting the controller will stop all motors and set all positions to zero.',
+  },
+  '#blk-stepper_wheels_drive_tank#': {
+    en: 'move tank with left speed',
+  },
+  '#blk-and_right_speed#': {
+    en: 'and right speed',
+  },
+  '#blk-stepper_wheels_drive_tank_tooltip#': {
+    en: 'Wheels will move continuously until given another command. Speed in in steps per second.',
+  },
+  '#blk-stepper_wheels_drive_tank_steps#': {
+    en: 'move tank with left speed',
+  },
+  '#blk-steps#': {
+    en: 'steps',
+  },
+  '#blk-stepper_wheels_drive_tank_steps_tooltip#': {
+    en: 'Speed in in steps per second. If set to \\"wait for completion\\", the program will wait for the movement to complete before running the next block.',
+  },
+  '#blk-stepper_wheels_drive_steering#': {
+    en: 'move steering with direction',
+  },
+  '#blk-stepper_wheels_drive_steering_tooltip#': {
+    en: 'Direction ranges from -100 (left) to 0 (straight) to 100 (right).',
+  },
+  '#blk-stepper_wheels_drive_steering_steps#': {
+    en: 'move steering with direction',
+  },
+  '#blk-stepper_wheels_drive_steering_steps_tooltip#': {
+    en: 'Direction ranges from -100 (left) to 0 (straight) to 100 (right). If set to \\"wait for completion\\", the program will wait for the movement to complete before running the next block.',
+  },
+  '#blk-stepper_wheels_drive_stop#': {
+    en: 'stop moving',
+  },
+  '#blk-stepper_wheels_drive_stop_tooltip#': {
+    en: 'Immediately stop all wheels for the movement drive.',
+  },
+  '#blk-stepper_wheels_drive_reset_steps#': {
+    en: 'reset position of motors in movement drive',
+  },
+  '#blk-stepper_wheels_drive_reset_steps_tooltip#': {
+    en: 'Reset the the steps count to zero.',
+  },
+  '#blk-stepper_wheels_drive_get_steps#': {
+    en: 'position of motors in movement drive for',
+  },
+  '#blk-stepper_wheels_drive_get_steps_tooltip#': {
+    en: 'Get the steps count for the specified motor.',
+  },
+  '#blk-stepper_wheels_motor_run#': {
+    en: 'run motor on port',
+  },
+  '#blk-at#': {
+    en: 'at',
+  },
+  '#blk-steps_per_second#': {
+    en: 'steps per second',
+  },
+  '#blk-stepper_wheels_motor_run_tooltip#': {
+    en: 'Motor will move continuously until given another command.',
+  },
+  '#blk-stepper_wheels_motor_run_steps#': {
+    en: 'run motor on port',
+  },
+  '#blk-stepper_wheels_motor_run_steps_tooltip#': {
+    en: 'If set to \\"wait for completion\\", the program will wait for the movement to complete before running the next block.',
+  },
+  '#blk-stepper_wheels_motor_stop#': {
+    en: 'stop motor on port',
+  },
+  '#blk-stepper_wheels_motor_stop_tooltip#': {
+    en: 'Immediately stop the motor',
+  },
+  '#blk-stepper_wheels_motor_reset_steps#': {
+    en: 'reset position of motor on port',
+  },
+  '#blk-stepper_wheels_motor_reset_steps_tooltip#': {
+    en: 'Reset the the steps count to zero.',
+  },
+  '#blk-stepper_wheels_motor_get_steps#': {
+    en: 'position of motor on port',
+  },
+  '#blk-stepper_wheels_motor_get_steps_tooltip#': {
+    en: 'Get the steps count for the specified motor.',
+  },
 
 };
 let MSGS_KEYS = Object.keys(MSGS);

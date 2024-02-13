@@ -1,0 +1,34 @@
+{
+  "type": "stepper_wheels_motor_stop",
+  "message0": "#blk-stepper_wheels_motor_stop# %1",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "index",
+      "options": [
+        [
+          "0",
+          "0"
+        ],
+        [
+          "1",
+          "1"
+        ],
+        [
+          "2",
+          "2"
+        ],
+        [
+          "3",
+          "3"
+        ]
+      ]
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-stepper_wheels_motor_stop_tooltip#",
+  "helpUrl": ""
+}
