@@ -182,6 +182,8 @@ class BLE_Service:
         ioty.services.delete_all_files()
 
     def _reset(self):
+        self.set_status(constants._STATUS_SUCCESS)
+        sleep_ms(500)
         ioty.services.reset()
 
     def _get_info(self):

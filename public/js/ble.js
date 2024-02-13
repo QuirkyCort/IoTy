@@ -456,7 +456,7 @@ var ble = new function() {
     }
     filesManager.updateCurrentFile();
 
-    let $downloadWindow = main.hiddenButtonDialog('Download to Device', 'Checking syntax...');
+    let $downloadWindow = main.hiddenButtonDialog('Download to Device', 'Checking syntax...', self.reset);
 
     let totalFilesCount = Object.keys(filesManager.files).length;
     let currentFileCount = 0;
@@ -537,6 +537,22 @@ var ble = new function() {
       console.log(error);
       $deleteWindow.$body.text('Error deleting programs.');
       $deleteWindow.$buttonsRow.removeClass('hide');
+    }
+  };
+
+  this.reset = async function() {
+    let status;
+    try {
+      await self.setCmdMode(constants._MODE_RESET);
+      status = await self.retrieve_status();
+    } catch (error) {
+      console.log(error);
+      toastMsg('Error resetting');
+      return;
+    }
+
+    if (status == constants._STATUS_SUCCESS) {
+      toastMsg('Resetting failed');
     }
   };
 

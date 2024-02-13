@@ -1,5 +1,5 @@
 var constants = {
-  CURRENT_VERSION: 11,
+  CURRENT_VERSION: 12,
   MINIMUM_VERSION_TO_UPGRADE: 9,
   FIRMWARE_UPDATE_FILE: '_ioty_updates',
   NETWORK_CONFIGURATION_FILE: '_ioty_network',
@@ -16,7 +16,6 @@ var constants = {
     'ioty/monitor.mpy',
     'ioty/monitor_mqtt.mpy',
     'ioty/mqtt.mpy',
-    'ioty/neopixel.mpy',
     'ioty/pin.mpy',
     'ioty/html',
     'ioty/html/index.html',
@@ -35,9 +34,10 @@ var constants = {
   _MODE_DELETE: 8,
   _MODE_UPDATE: 9,
   _MODE_FILE_HASH: 10,
-  _MODE_WRITE_FILES:11,
-  _MODE_GET_INFO:12,
-  _MODE_MKDIR:13,
+  _MODE_WRITE_FILES: 11,
+  _MODE_GET_INFO: 12,
+  _MODE_MKDIR: 13,
+  _MODE_RESET: 14,
 
   _STATUS_SUCCESS: 0,
   _STATUS_PENDING: 1,
