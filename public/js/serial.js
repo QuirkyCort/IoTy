@@ -259,7 +259,7 @@ var serial = new function() {
     }
     filesManager.updateCurrentFile();
 
-    let $downloadWindow = main.hiddenButtonDialog('Download to Device', 'Checking syntax...');
+    let $downloadWindow = main.hiddenButtonDialog('Download to Device', 'Checking syntax...', self.reset);
 
     // Check syntax
     let result = main.checkPythonSyntax();
@@ -358,6 +358,26 @@ var serial = new function() {
       '  if not(f in ioty.constants._PRESERVE_FILES):\n' +
       '    os.remove(f)\n'
     );
+    return result;
+  };
+
+  this.reset = async function() {
+    self.pythonSerial.setReadToBuf();
+    self.writeEnable = false;
+    if (await self.pythonSerial.enterRawMode() != 'success') {
+      toastMsg('Connection timed out. Press the reset button on your device and try again.');
+      return;
+    }
+
+    let result = await self.pythonSerial.sendPythonCmdAndRun(
+      'import machine\n' +
+      'machine.reset()\n',
+      'no_terminator',
+      0
+    );
+    self.pythonSerial.setReadToHandler();
+    self.writeEnable = true;
+
     return result;
   };
 

@@ -92,16 +92,29 @@ var main = new function() {
     localStorage.setItem('iotySettings', JSON.stringify(self.settings));
   };
 
-  this.hiddenButtonDialog = function(title, body) {
-    let $dialog = acknowledgeDialog({
-      title: title,
-      message: body
-    });
+  this.hiddenButtonDialog = function(title, body, reset) {
+    let buttonsStr = '<button type="button" class="ok btn btn-success">OK</button>';
+    if (typeof reset == 'function') {
+      buttonsStr = '<button type="button" class="reset btn btn-warning">Reset Now</button>' + buttonsStr;
+    }
+
+    var $buttons = $(
+      buttonsStr
+    );
+
+    let $dialog = dialog(title, body, $buttons);
     $dialog.$buttonsRow.addClass('hide');
+
+    if (typeof reset == 'function') {
+      $dialog.$buttonsRow.find('.reset').click(async function() {
+        await reset();
+        $dialog.close();
+      });
+    }
+    $dialog.$buttonsRow.find('.ok').click(function() { $dialog.close(); });
 
     return $dialog;
   };
-
 
   this.preloadFirmwareFiles = async function() {
     async function retrieveUpdateFile() {
