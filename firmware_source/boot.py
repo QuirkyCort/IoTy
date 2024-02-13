@@ -1,3 +1,4 @@
+import os
 from machine import Pin
 from time import sleep_ms
 
@@ -60,10 +61,10 @@ def main():
 
     blink(200, 3)
 
+    ble_mode = False
     if btn.value() == 0:
         led.on()
 
-        ble_mode = False
         for _ in range(200):
             sleep_ms(10)
             if btn.value() == 1:
@@ -74,5 +75,12 @@ def main():
             start_mqtt_ble_mode()
         else:
             start_ap_mode()
+
+    if not ble_mode:
+        try:
+            os.stat('main.py')
+        except:
+            led.on()
+            start_mqtt_ble_mode()
 
 main()
