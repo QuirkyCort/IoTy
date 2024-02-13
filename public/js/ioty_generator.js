@@ -4240,9 +4240,10 @@ var ioty_generator = new function() {
     let left = Blockly.Python.valueToCode(block, 'left', Blockly.Python.ORDER_ATOMIC);
     let right = Blockly.Python.valueToCode(block, 'right', Blockly.Python.ORDER_ATOMIC);
     let steps = Blockly.Python.valueToCode(block, 'steps', Blockly.Python.ORDER_ATOMIC);
+    var wait = block.getFieldValue('wait');
 
     var code =
-      'sw_drive.move_tank_steps(' + left + ', ' + right + ', ' + steps + ')\n';
+      'sw_drive.move_tank_steps(' + left + ', ' + right + ', ' + steps + ', wait=' + wait + ')\n';
 
     return code;
   };
@@ -4261,9 +4262,10 @@ var ioty_generator = new function() {
     let steering = Blockly.Python.valueToCode(block, 'steering', Blockly.Python.ORDER_ATOMIC);
     let speed = Blockly.Python.valueToCode(block, 'speed', Blockly.Python.ORDER_ATOMIC);
     let steps = Blockly.Python.valueToCode(block, 'steps', Blockly.Python.ORDER_ATOMIC);
+    var wait = block.getFieldValue('wait');
 
     var code =
-      'sw_drive.move_steering_steps(' + steering + ', ' + speed + ', ' + steps + ')\n';
+      'sw_drive.move_steering_steps(' + steering + ', ' + speed + ', ' + steps + ', wait=' + wait + ')\n';
 
     return code;
   };
