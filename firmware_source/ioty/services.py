@@ -1,4 +1,5 @@
 import os
+import machine
 import ioty.constants as constants
 
 def get_info():
@@ -64,3 +65,6 @@ def delete_all_files():
     for f in os.listdir():
         if not(f in constants._PRESERVE_FILES):
             os.remove(f)
+
+def reset():
+    machine.reset()

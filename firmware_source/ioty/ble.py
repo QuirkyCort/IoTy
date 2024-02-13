@@ -138,6 +138,8 @@ class BLE_Service:
             self._mkdir()
         elif cmd == constants._MODE_UPDATE:
             self._update()
+        elif cmd == constants._MODE_RESET:
+            self._reset()
 
     def set_status(self, status):
         value = status.to_bytes(2, 'big')
@@ -178,6 +180,9 @@ class BLE_Service:
 
     def _erase_files(self):
         ioty.services.delete_all_files()
+
+    def _reset(self):
+        ioty.services.reset()
 
     def _get_info(self):
         self.set_status(constants._STATUS_PENDING)

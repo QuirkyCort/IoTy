@@ -77,6 +77,8 @@ class MQTT_Service:
                 self.mkdir(cmd)
             elif cmd['mode'] == constants._MODE_UPDATE:
                 self.update(cmd)
+            elif cmd['mode'] == constants._MODE_RESET:
+                self.reset(cmd)
         except:
             self.send_response(constants._STATUS_ERROR, cmd['nonce'])
 
@@ -139,6 +141,10 @@ class MQTT_Service:
     def delete_all(self, cmd):
         ioty.services.delete_all_files()
         self.send_response(constants._STATUS_SUCCESS, cmd['nonce'])
+
+    def reset(self, cmd):
+        self.send_response(constants._STATUS_SUCCESS, cmd['nonce'])
+        ioty.services.reset()
 
     def write_files(self, cmd):
         import ubinascii

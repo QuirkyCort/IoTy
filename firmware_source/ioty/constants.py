@@ -1,4 +1,4 @@
-_VERSION = 11
+_VERSION = 12
 _PRESERVE_FILES = (
 '_ioty_name',
 '_ioty_network',
@@ -10,7 +10,6 @@ _PRESERVE_FILES = (
 'ioty/monitor.mpy',
 'ioty/monitor_mqtt.mpy',
 'ioty/mqtt.mpy',
-'ioty/neopixel.mpy',
 'ioty/pin.mpy',
 'ioty/html',
 'ioty/html/index.html',
@@ -40,6 +39,7 @@ _MODE_FILE_HASH = 10
 _MODE_WRITE_FILES = 11
 _MODE_GET_INFO = 12
 _MODE_MKDIR = 13
+_MODE_RESET = 14
 
 _STATUS_SUCCESS = 0
 _STATUS_PENDING = 1
