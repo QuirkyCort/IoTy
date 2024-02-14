@@ -370,25 +370,30 @@ var serial = new function() {
     self.reset();
   };
 
+  // this.reset = async function() {
+  //   self.pythonSerial.setReadToBuf();
+  //   self.writeEnable = false;
+  //   if (await self.pythonSerial.enterRawMode() != 'success') {
+  //     toastMsg('Connection timed out. Press the reset button on your device and try again.');
+  //     return;
+  //   }
+
+  //   let result = await self.pythonSerial.sendPythonCmdAndRun(
+  //     'import machine\n' +
+  //     'machine.reset()\n',
+  //     'no_terminator',
+  //     0
+  //   );
+  //   self.pythonSerial.setReadToHandler();
+  //   self.writeEnable = true;
+
+  //   return result;
+  // };
+
   this.reset = async function() {
-    self.pythonSerial.setReadToBuf();
-    self.writeEnable = false;
-    if (await self.pythonSerial.enterRawMode() != 'success') {
-      toastMsg('Connection timed out. Press the reset button on your device and try again.');
-      return;
-    }
-
-    let result = await self.pythonSerial.sendPythonCmdAndRun(
-      'import machine\n' +
-      'machine.reset()\n',
-      'no_terminator',
-      0
-    );
-    self.pythonSerial.setReadToHandler();
-    self.writeEnable = true;
-
-    return result;
-  };
+    await serial.port.setSignals({dataTerminalReady: false, requestToSend: true});
+    await serial.port.setSignals({dataTerminalReady: false, requestToSend: false});
+  }
 
   this.changeNameDialog = function() {
     if (! self.isConnected) {

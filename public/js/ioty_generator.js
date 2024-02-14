@@ -4335,7 +4335,7 @@ var ioty_generator = new function() {
     var index = block.getFieldValue('index');
 
     var code =
-      'sw_motor' + index + '.get_steps()';
+      'sw_motor' + index + '.steps()';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };
