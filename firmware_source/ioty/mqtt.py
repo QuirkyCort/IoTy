@@ -144,6 +144,7 @@ class MQTT_Service:
 
     def reset(self, cmd):
         self.send_response(constants._STATUS_SUCCESS, cmd['nonce'])
+        sleep_ms(500)
         ioty.services.reset()
 
     def write_files(self, cmd):

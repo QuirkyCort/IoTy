@@ -540,6 +540,15 @@ var ble = new function() {
     }
   };
 
+  this.resetDialog = function() {
+    if (! self.isConnected) {
+      toastMsg('Not connected. Please connect to device.');
+      return;
+    }
+
+    self.reset();
+  };
+
   this.reset = async function() {
     try {
       await self.setCmdMode(constants._MODE_RESET);

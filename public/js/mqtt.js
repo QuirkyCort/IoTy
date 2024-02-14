@@ -290,7 +290,7 @@ var mqtt = new function() {
     }
     filesManager.updateCurrentFile();
 
-    let $downloadWindow = main.hiddenButtonDialog('Download to Device', 'Checking syntax...');
+    let $downloadWindow = main.hiddenButtonDialog('Download to Device', 'Checking syntax...', self.reset);
 
     // Check syntax
     let result = main.checkPythonSyntax();
@@ -361,6 +361,28 @@ var mqtt = new function() {
     } else {
       $deleteWindow.$body.text('Delete completed.');
       $deleteWindow.$buttonsRow.removeClass('hide');
+    }
+  };
+
+  this.resetDialog = function() {
+    if (! self.isConnected) {
+      toastMsg('Not connected. Please connect to device.');
+      return;
+    }
+
+    self.reset();
+  };
+
+  this.reset = async function() {
+    let nonce = await self.sendCmd(constants._MODE_RESET);
+    let response = await self.waitForResponse(nonce);
+    if (response == null) {
+      toastMsg('Connection timed out');
+    } else if (response.status != constants._STATUS_SUCCESS) {
+      toastMsg('Error resetting device');
+    } else {
+      toastMsg('Reset completed');
+      self.disconnect();
     }
   };
 

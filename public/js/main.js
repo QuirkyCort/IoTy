@@ -322,6 +322,7 @@ var main = new function() {
       {html: i18n.get('#main-getInfo#'), line: false, callback: ble.getInfo},
       {html: i18n.get('#main-listFiles#'), line: false, callback: self.listFiles},
       {html: i18n.get('#main-configureDeviceNetwork#'), line: false, callback: main.configureDeviceNetwork},
+      {html: i18n.get('#main-resetDevice#'), line: false, callback: ble.resetDialog},
       {html: i18n.get('#main-disconnect#'), line: false, callback: ble.disconnect},
     ];
 
@@ -339,6 +340,7 @@ var main = new function() {
       {html: i18n.get('#main-getInfo#'), line: false, callback: mqtt.getInfo},
       {html: i18n.get('#main-listFiles#'), line: false, callback: self.listFiles},
       {html: i18n.get('#main-configureDeviceNetwork#'), line: false, callback: main.configureDeviceNetwork},
+      {html: i18n.get('#main-resetDevice#'), line: false, callback: mqtt.resetDialog},
       {html: i18n.get('#main-disconnect#'), line: false, callback: mqtt.disconnect},
     ];
 
@@ -357,6 +359,7 @@ var main = new function() {
       {html: i18n.get('#main-getInfo#'), line: false, callback: serial.getInfo},
       {html: i18n.get('#main-listFiles#'), line: false, callback: self.listFiles},
       {html: i18n.get('#main-configureDeviceNetwork#'), line: false, callback: main.configureDeviceNetwork},
+      {html: i18n.get('#main-resetDevice#'), line: false, callback: serial.resetDialog},
       {html: i18n.get('#main-disconnect#'), line: false, callback: serial.disconnect},
     ];
 

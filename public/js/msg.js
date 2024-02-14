@@ -658,6 +658,9 @@ let MSGS = {
   '#main-configureDeviceNetwork#': {
     en: 'Configure Device Network...',
   },
+  '#main-resetDevice#': {
+    en: 'Reset Device',
+  },
   '#main-disconnect#': {
     en: 'Disconnect',
   },
