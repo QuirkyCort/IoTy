@@ -172,7 +172,7 @@ class Motor:
         speed = abs(speed)
 
         up_count = speed // self.acceleration_up
-        down_count = speed // self.acceleration_down
+        down_count = speed // self.acceleration_down - 1
 
         up_delta = self.acceleration_up
         down_delta = self.acceleration_down
@@ -322,13 +322,22 @@ class Drive:
         minor_settings = list(major_settings)
         minor_settings[0] = minor_steps
         minor_settings[4] = minor_speed
-        minor_settings[3] = minor_speed // minor_settings[2]
-        minor_settings[6] = minor_speed // minor_settings[5]
-        minor_settings[1] = minor_steps - (minor_settings[6] + minor_speed) // 2 * (minor_settings[5] - 1) * TIME_STEP_MS // 1000
-        if minor_settings[1] != 0:
-            down_ramp_dist = (minor_settings[6] + right_speed_abs) // 2 * (minor_settings[5] - 1) * TIME_STEP_MS // 1000
+
+        if minor_settings[1] == 0:
+            major_max_speed = minor_settings[2] * minor_settings[3]
+            minor_speed = minor_speed * major_max_speed // major_settings[4]
+            minor_settings[3] = minor_speed // minor_settings[2]
+            minor_settings[6] = minor_speed // (minor_settings[5] + 1)
+        else:
+            minor_settings[3] = minor_speed // minor_settings[2]
+            if minor_settings[3] > major_settings[3]:
+                minor_settings[3] = major_settings[3]
+            minor_settings[6] = minor_speed // (minor_settings[5] + 1)
+            if minor_settings[6] > major_settings[6]:
+                minor_settings[6] = major_settings[6]
+            down_ramp_dist = (minor_settings[6] + minor_speed) // 2 * (minor_settings[5] - 1) * TIME_STEP_MS // 1000
             cruise_end_steps = minor_steps - down_ramp_dist
-            minor_settings[1] / cruise_end_steps
+            minor_settings[1] = cruise_end_steps
 
         if left_speed < 0:
             left_direction = 1
