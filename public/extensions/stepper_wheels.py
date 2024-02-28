@@ -2,287 +2,119 @@ from micropython import const
 import struct
 import time
 
-DEFAULT_ACCELERATION = const(50)
+DEFAULT_ACCELERATION = const(500)
 TIME_STEP_MS = const(100)
 WAIT_MS = const(50)
+
+MODE_STOP = const(0)
+MODE_RUN_CONTINUOUS = const(1)
+MODE_RUN_TO_POS = const(30)
+MODE_RUN_TO_POS_W_RAMP = const(31)
 
 VERSION_REG = const(0x00)
 RESET_REG = const(0x01)
 ENABLE_REG = const(0x02)
-TRIGGER_REG = const(0x41)
-DIRECTION_REG = const(0x45)
-MODE_REG = const(0x49)
-POSITION_REG = const(0x4D)
-TARGET_POSITION_REG = const(0x51)
-TARGET_TIME_REG = const(0x55)
-TARGET_STEPS_WITH_RAMP_REG = const(0x59)
-TARGET_TIME_WITH_RAMP_REG = const(0x5D)
-
-MODE_STOP = const(0)
-MODE_RUN_CONTINUOUS = const(1)
-MODE_RUN_TILL_TIME = const(20)
-MODE_RUN_TILL_TIME_WITH_RAMP = const(21)
-MODE_RUN_TILL_POSITION = const(30)
-MODE_RUN_TILL_POSITION_WITH_RAMP = const(31)
+STOP_REGISTER = const(0x20)
+RUN_CONTINUOUS_REGISTER = const(0x30)
+RUN_TO_POS_REGISTER = const(0x40)
+RUN_TO_POS_W_RAMP_REGISTER = const(0x50)
+POSITION_REGISTER = const(0x60)
+SPEED_REGISTER = const(0x70)
+ACCELERATION_REGISTER = const(0x80)
+RUNNING_REGISTER = const(0x90)
 
 
 class Motor:
     def __init__(self, controller, index):
         self.controller = controller
         self.index = index
-        self.acceleration_up = DEFAULT_ACCELERATION
-        self.acceleration_down = DEFAULT_ACCELERATION
+        self._acceleration = 0
+        self.reset()
 
-    def set_trigger(self, trigger):
-        addr = self.index + TRIGGER_REG
-        self.controller.write(addr, struct.pack('<H', trigger))
+    def reset(self):
+        self.stop()
+        self.reset_steps(0)
+        self.set_acceleration(DEFAULT_ACCELERATION, forced=True)
 
-    def get_trigger(self):
-        addr = self.index + TRIGGER_REG
-        return struct.unpack('<H', self.controller.read(addr, 2))[0]
+    def set_acceleration(self, acceleration, forced=False):
+        if acceleration != self._acceleration or forced:
+            addr = self.index + ACCELERATION_REGISTER
+            self.controller.write(addr, struct.pack('<f', acceleration))
+            self._acceleration = acceleration
 
-    def set_direction(self, direction):
-        addr = self.index + DIRECTION_REG
-        self.controller.write(addr, struct.pack('B', direction))
-
-    def get_direction(self):
-        addr = self.index + DIRECTION_REG
-        return struct.unpack('B', self.controller.read(addr, 1))[0]
-
-    def set_mode(self, mode):
-        addr = self.index + MODE_REG
-        self.controller.write(addr, struct.pack('B', mode))
-
-    def get_mode(self):
-        addr = self.index + MODE_REG
-        return struct.unpack('B', self.controller.read(addr, 1))[0]
-
-    def set_position(self, position):
-        addr = self.index + POSITION_REG
-        self.controller.write(addr, struct.pack('<i', position))
-
-    def get_position(self):
-        addr = self.index + POSITION_REG
-        return struct.unpack('<i', self.controller.read(addr, 4))[0]
-
-    def set_target_position(self, position, relative=True):
-        addr = self.index + TARGET_POSITION_REG
-        if relative:
-            pos_type = 1
-        else:
-            pos_type = 0
-        self.controller.write(addr, struct.pack('<Bi', pos_type, position))
-
-    def get_target_position(self):
-        addr = self.index + TARGET_POSITION_REG
-        return struct.unpack('<i', self.controller.read(addr, 4))[0]
-
-    def set_target_time(self, time_steps):
-        addr = self.index + TARGET_TIME_REG
-        self.controller.write(addr, struct.pack('<H', time_steps))
-
-    def get_target_time(self):
-        addr = self.index + TARGET_TIME_REG
-        return struct.unpack('<H', self.controller.read(addr, 2))[0]
-
-    def set_target_steps_with_ramp(self, steps, cruise_end_steps, up_count, up_delta, cruise_speed, down_count, down_delta):
-        addr = self.index + TARGET_STEPS_WITH_RAMP_REG
-        data = struct.pack(
-            '<iiHHHHH',
-            int(steps),
-            int(cruise_end_steps),
-            int(up_count),
-            int(up_delta),
-            int(cruise_speed),
-            int(down_count),
-            int(down_delta)
-        )
-        self.controller.write(addr, data)
-
-    def set_target_time_with_ramp(self, up_count, up_delta, cruise_count, cruise_speed, down_count, down_delta):
-        addr = self.index + TARGET_TIME_WITH_RAMP_REG
-        data = struct.pack(
-            '<HHHHHH',
-            int(up_count),
-            int(up_delta),
-            int(cruise_count),
-            int(cruise_speed),
-            int(down_count),
-            int(down_delta)
-        )
-        self.controller.write(addr, data)
-
-    # Following methods are derived from above methods
-
-    def wait_till_stop(self):
-        while self.get_mode() != MODE_STOP:
-            time.sleep_ms(WAIT_MS)
-
-    def set_speed(self, speed):
-        if speed == 0:
-            self.set_trigger(0)
-            return
-        elif speed >0:
-            direction = 0
-        else:
-            direction = 1
-            speed = -speed
-
-        period = 1000000 / speed
-        trigger = round(period / 128 - 1)
-        self.set_direction(direction)
-        self.set_trigger(trigger)
-
-    def get_speed(self):
-        trigger = self.get_trigger()
-        if trigger == 0:
-            return 0
-        direction = self.get_direction()
-        period = (trigger + 1) * 128
-        speed = round(1000000 / period)
-
-        if direction >= 0:
-            return speed
-        else:
-            return -speed
-
-    def set_target_time_with_accel(self, speed, time):
-        abs_speed = abs(speed)
-        total_time_steps = round(time * 1000 / TIME_STEP_MS)
-        up_count = abs_speed // self.acceleration_up
-        down_count = abs_speed // self.acceleration_down
-        cruise_count = total_time_steps - up_count - down_count
-        if cruise_count < 0:
-            up_count = round(up_count + cruise_count * self.acceleration_up / (self.acceleration_up + self.acceleration_down))
-            down_count = total_time_steps - up_count
-            cruise_count = 0
-        self.set_target_time_with_ramp_time(speed, up_count, cruise_count, down_count)
-
-    def set_target_time_with_ramp_time(self, speed, up_count, cruise_count, down_count):
-        if speed < 0:
-            direction = 1
-        else:
-            direction = 0
-        speed = abs(speed)
-        self.set_direction(direction)
-
-        self.set_target_time_with_ramp(up_count, self.acceleration_up, cruise_count, speed, down_count, self.acceleration_down)
-
-    def calc_target_steps_with_accel(self, speed, steps):
-        speed = abs(speed)
-
-        up_count = speed // self.acceleration_up
-        down_count = speed // self.acceleration_down - 1
-
-        up_delta = self.acceleration_up
-        down_delta = self.acceleration_down
-
-        up_ramp_dist = (up_delta + speed) // 2 * up_count * TIME_STEP_MS // 1000
-        down_ramp_dist = (down_delta + speed) // 2 * (down_count - 1) * TIME_STEP_MS // 1000
-
-        if up_ramp_dist + down_ramp_dist >= steps:
-            a1 = self.acceleration_up
-            a2 = self.acceleration_down
-            freq = 1000 / TIME_STEP_MS
-            up_count = -(a1 ** 2 - (a1 * a2 * (a1 + a2) * (a1 + a2 + 2 * freq * steps)) ** 0.5 + (a1 * a2)) / (a1 * (a1 + a2))
-            down_count = (a1 * up_count + a1 - a2) / a2
-            up_count = round(up_count) + 1
-            down_count = round(down_count)
-            return steps, 0, up_count, up_delta, speed, down_count, down_delta
-        else:
-            cruise_end_steps = steps - down_ramp_dist
-            return steps, cruise_end_steps, up_count, up_delta, speed, down_count, down_delta
-
-    def set_target_steps_with_accel(self, speed, steps):
-        if speed < 0:
-            direction = 1
-        else:
-            direction = 0
-        self.set_direction(direction)
-        settings = self.calc_target_steps_with_accel(speed, steps)
-        self.set_target_steps_with_ramp(*settings)
-
-    def set_target_steps_with_ramp_time(self, speed, steps, up_count, down_count):
-        if speed < 0:
-            direction = 1
-        else:
-            direction = 0
-        self.set_direction(direction)
-        speed = abs(speed)
-
-        up_delta = speed // up_count
-        down_delta = speed // down_count
-
-        down_ramp_dist = (down_delta + speed) // 2 * (down_count - 1) * TIME_STEP_MS // 1000
-
-        if direction == 0:
-            cruise_end_steps = steps - down_ramp_dist
-        else:
-            cruise_end_steps = steps + down_ramp_dist
-        self.set_target_steps_with_ramp(steps, cruise_end_steps, up_count, up_delta, speed, down_count, down_delta)
-
-    # User facing methods.
-    # While the above methods may be public, the user should avoid using them and use the below methods instead.
-
-    def speed(self):
-        return self.get_speed()
+    def acceleration(self):
+        return self._acceleration
 
     def steps(self):
-        return self.get_position()
+        addr = self.index + POSITION_REGISTER
+        return struct.unpack('<l', self.controller.read(addr, 4))[0]
+
+    def speed(self):
+        addr = self.index + SPEED_REGISTER
+        return struct.unpack('<f', self.controller.read(addr, 4))[0]
 
     def reset_steps(self, steps=0):
-        self.set_position(steps)
+        addr = self.index + POSITION_REGISTER
+        self.controller.write(addr, struct.pack('<l', steps))
 
     def stop(self):
-        self.set_trigger(0)
-        self.set_mode(MODE_STOP)
+        addr = self.index + STOP_REGISTER
+        self.controller.write(addr, struct.pack('B', 1))
 
     def run(self, speed):
-        self.set_speed(speed)
-        self.set_mode(MODE_RUN_CONTINUOUS)
+        addr = self.index + RUN_CONTINUOUS_REGISTER
+        self.controller.write(addr, struct.pack('<f', speed))
 
-    def run_time(self, speed, time, ramp=True, wait=True):
-        if time <= 0:
-            return
-        if ramp:
-            self.set_target_time_with_accel(speed, time)
-            self.set_mode(MODE_RUN_TILL_TIME_WITH_RAMP)
-        else:
-            self.set_speed(speed)
-            self.set_target_time(round(time * 1000 / TIME_STEP_MS))
-            self.set_mode(MODE_RUN_TILL_TIME)
+    def is_running(self):
+        addr = self.index + RUNNING_REGISTER
+        return struct.unpack('B', self.controller.read(addr, 1))[0]
 
-        if wait:
-            self.wait_till_stop()
+    def wait_till_stop(self):
+        while self.is_running():
+            time.sleep_ms(WAIT_MS)
+
+    def _run_steps_ramp(self, speed, rel, steps):
+        addr = self.index + RUN_TO_POS_W_RAMP_REGISTER
+        self.controller.write(addr, struct.pack('<fBl', speed, rel, steps))
+
+    def _run_steps_no_ramp(self, speed, rel, steps):
+        addr = self.index + RUN_TO_POS_REGISTER
+        self.controller.write(addr, struct.pack('<fBl', speed, rel, steps))
 
     def run_steps(self, speed, steps, ramp=True, wait=True):
-        if steps == 0:
+        if steps == 0 or speed == 0:
             return
         if speed * steps < 0:
-            speed = -abs(speed)
+            steps = -abs(steps)
         else:
-            speed = abs(speed)
-        steps = abs(steps)
+            steps = abs(steps)
+        speed = abs(speed)
 
         if ramp:
-            self.set_target_steps_with_accel(speed, steps)
-            self.set_mode(MODE_RUN_TILL_POSITION_WITH_RAMP)
+            self._run_steps_ramp(speed, 1, steps)
         else:
-            self.set_speed(speed)
-            self.set_target_position(steps)
-            self.set_mode(MODE_RUN_TILL_POSITION)
+            self._run_steps_no_ramp(speed, 1, steps)
 
         if wait:
             self.wait_till_stop()
 
     def run_target(self, speed, target, ramp=True, wait=True):
-        current = self.get_position()
-        steps = target - current
-        self.run_steps(abs(speed), steps, ramp, wait)
+        speed = abs(speed)
+
+        if ramp:
+            self._run_steps_ramp(speed, 0, target)
+        else:
+            self._run_steps_no_ramp(speed, 0, target)
+
+        if wait:
+            self.wait_till_stop()
 
 
 class Drive:
     def __init__(self, left_motors, right_motors):
+        self._acceleration = 0
+        self.set_acceleration(DEFAULT_ACCELERATION, forced=True)
+
         try:
             iter(left_motors)
             self.left_motors = left_motors
@@ -295,6 +127,23 @@ class Drive:
         except:
             self.right_motors = (right_motors, )
 
+    def _set_left_acceleration(self, acceleration):
+        for motor in self.left_motors:
+            motor.set_acceleration(acceleration)
+
+    def _set_right_acceleration(self, acceleration):
+        for motor in self.right_motors:
+            motor.set_acceleration(acceleration)
+
+    def set_acceleration(self, acceleration, forced=False):
+        if acceleration != self._acceleration or forced:
+            self._set_left_acceleration(acceleration)
+            self._set_right_acceleration(acceleration)
+            self._acceleration = acceleration
+
+    def acceleration(self):
+        return self._acceleration
+
     def move_tank(self, left_speed, right_speed):
         for motor in self.left_motors:
             motor.run(left_speed)
@@ -302,7 +151,7 @@ class Drive:
         for motor in self.right_motors:
             motor.run(right_speed)
 
-    def move_tank_steps(self, left_speed, right_speed, steps, wait=True):
+    def move_tank_steps(self, left_speed, right_speed, steps, ramp=True, wait=True):
         if steps < 0:
             left_speed = -left_speed
             right_speed = -right_speed
@@ -311,62 +160,26 @@ class Drive:
         left_speed_abs = abs(left_speed)
         right_speed_abs = abs(right_speed)
         if left_speed_abs > right_speed_abs:
-            minor_steps = right_speed_abs * steps // left_speed_abs
-            minor_speed = right_speed_abs
-            major_settings = self.left_motors[0].calc_target_steps_with_accel(left_speed, steps)
+            ratio = right_speed_abs / left_speed_abs
+            left_acceleration = self._acceleration
+            right_acceleration = self._acceleration * ratio
+            left_steps = steps
+            right_steps = steps * ratio
         else:
-            minor_steps = left_speed_abs * steps // right_speed_abs
-            minor_speed = left_speed_abs
-            major_settings = self.right_motors[0].calc_target_steps_with_accel(right_speed, steps)
+            ratio = left_speed_abs / right_speed_abs
+            left_acceleration = self._acceleration * ratio
+            right_acceleration = self._acceleration
+            left_steps = steps * ratio
+            right_steps = steps
 
-        minor_settings = list(major_settings)
-        minor_settings[0] = minor_steps
-        minor_settings[4] = minor_speed
-
-        if minor_settings[1] == 0:
-            major_max_speed = minor_settings[2] * minor_settings[3]
-            minor_speed = minor_speed * major_max_speed // major_settings[4]
-            minor_settings[3] = minor_speed // minor_settings[2]
-            minor_settings[6] = minor_speed // (minor_settings[5] + 1)
-        else:
-            minor_settings[3] = minor_speed // minor_settings[2]
-            if minor_settings[3] > major_settings[3]:
-                minor_settings[3] = major_settings[3]
-            minor_settings[6] = minor_speed // (minor_settings[5] + 1)
-            if minor_settings[6] > major_settings[6]:
-                minor_settings[6] = major_settings[6]
-            down_ramp_dist = (minor_settings[6] + minor_speed) // 2 * (minor_settings[5] - 1) * TIME_STEP_MS // 1000
-            cruise_end_steps = minor_steps - down_ramp_dist
-            minor_settings[1] = cruise_end_steps
-
-        if left_speed < 0:
-            left_direction = 1
-        else:
-            left_direction = 0
-
-        if right_speed < 0:
-            right_direction = 1
-        else:
-            right_direction = 0
-
-        if left_speed_abs > right_speed_abs:
-            left_settings = major_settings
-            right_settings = minor_settings
-        else:
-            left_settings = minor_settings
-            right_settings = major_settings
+        self._set_left_acceleration(left_acceleration)
+        self._set_right_acceleration(right_acceleration)
 
         for motor in self.left_motors:
-            motor.set_direction(left_direction)
-            motor.set_target_steps_with_ramp(*left_settings)
-        for motor in self.right_motors:
-            motor.set_direction(right_direction)
-            motor.set_target_steps_with_ramp(*right_settings)
+            motor.run_steps(left_speed, left_steps, ramp=ramp)
 
-        for motor in self.left_motors:
-            motor.set_mode(MODE_RUN_TILL_POSITION_WITH_RAMP)
         for motor in self.right_motors:
-            motor.set_mode(MODE_RUN_TILL_POSITION_WITH_RAMP)
+            motor.run_steps(right_speed, right_steps, ramp=ramp)
 
         if wait:
             for motor in self.left_motors:
@@ -416,15 +229,6 @@ class Drive:
 
     def avg_steps(self):
         return (self.left_steps() + self.right_steps()) / 2
-
-    def left_speed(self):
-        return self.left_motors[0].speed()
-
-    def right_speed(self):
-        return self.right_motors[0].speed()
-
-    def avg_speed(self):
-        return (self.left_speed() + self.right_speed()) / 2
 
 class Controller:
     def __init__(self, i2c, addr=0x55):
