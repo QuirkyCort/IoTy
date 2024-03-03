@@ -4229,8 +4229,8 @@ var ioty_generator = new function() {
   };
 
   this.stepper_wheels_drive_tank = function(block) {
-    let left = Blockly.Python.valueToCode(block, 'left', Blockly.Python.ORDER_ATOMIC);
-    let right = Blockly.Python.valueToCode(block, 'right', Blockly.Python.ORDER_ATOMIC);
+    let left = Blockly.Python.valueToCode(block, 'left', Blockly.Python.ORDER_NONE);
+    let right = Blockly.Python.valueToCode(block, 'right', Blockly.Python.ORDER_NONE);
 
     var code =
       'sw_drive.move_tank(' + left + ', ' + right + ')\n';
@@ -4239,9 +4239,9 @@ var ioty_generator = new function() {
   };
 
   this.stepper_wheels_drive_tank_steps = function(block) {
-    let left = Blockly.Python.valueToCode(block, 'left', Blockly.Python.ORDER_ATOMIC);
-    let right = Blockly.Python.valueToCode(block, 'right', Blockly.Python.ORDER_ATOMIC);
-    let steps = Blockly.Python.valueToCode(block, 'steps', Blockly.Python.ORDER_ATOMIC);
+    let left = Blockly.Python.valueToCode(block, 'left', Blockly.Python.ORDER_NONE);
+    let right = Blockly.Python.valueToCode(block, 'right', Blockly.Python.ORDER_NONE);
+    let steps = Blockly.Python.valueToCode(block, 'steps', Blockly.Python.ORDER_NONE);
     var wait = block.getFieldValue('wait');
 
     var code =
@@ -4251,8 +4251,8 @@ var ioty_generator = new function() {
   };
 
   this.stepper_wheels_drive_steering = function(block) {
-    let steering = Blockly.Python.valueToCode(block, 'steering', Blockly.Python.ORDER_ATOMIC);
-    let speed = Blockly.Python.valueToCode(block, 'speed', Blockly.Python.ORDER_ATOMIC);
+    let steering = Blockly.Python.valueToCode(block, 'steering', Blockly.Python.ORDER_NONE);
+    let speed = Blockly.Python.valueToCode(block, 'speed', Blockly.Python.ORDER_NONE);
 
     var code =
       'sw_drive.move_steering(' + steering + ', ' + speed + ')\n';
@@ -4261,9 +4261,9 @@ var ioty_generator = new function() {
   };
 
   this.stepper_wheels_drive_steering_steps = function(block) {
-    let steering = Blockly.Python.valueToCode(block, 'steering', Blockly.Python.ORDER_ATOMIC);
-    let speed = Blockly.Python.valueToCode(block, 'speed', Blockly.Python.ORDER_ATOMIC);
-    let steps = Blockly.Python.valueToCode(block, 'steps', Blockly.Python.ORDER_ATOMIC);
+    let steering = Blockly.Python.valueToCode(block, 'steering', Blockly.Python.ORDER_NONE);
+    let speed = Blockly.Python.valueToCode(block, 'speed', Blockly.Python.ORDER_NONE);
+    let steps = Blockly.Python.valueToCode(block, 'steps', Blockly.Python.ORDER_NONE);
     var wait = block.getFieldValue('wait');
 
     var code =
@@ -4294,7 +4294,7 @@ var ioty_generator = new function() {
   };
 
   this.stepper_wheels_drive_set_acceleration = function(block) {
-    let acceleration = Blockly.Python.valueToCode(block, 'acceleration', Blockly.Python.ORDER_ATOMIC);
+    let acceleration = Blockly.Python.valueToCode(block, 'acceleration', Blockly.Python.ORDER_NONE);
 
     var code =
       'sw_drive.set_acceleration(' + acceleration + ')\n';
@@ -4304,7 +4304,7 @@ var ioty_generator = new function() {
 
   this.stepper_wheels_motor_run = function(block) {
     var index = block.getFieldValue('index');
-    let speed = Blockly.Python.valueToCode(block, 'speed', Blockly.Python.ORDER_ATOMIC);
+    let speed = Blockly.Python.valueToCode(block, 'speed', Blockly.Python.ORDER_NONE);
 
     var code =
       'sw_motor' + index + '.run(' + speed + ')\n';
@@ -4314,8 +4314,8 @@ var ioty_generator = new function() {
 
   this.stepper_wheels_motor_run_steps = function(block) {
     var index = block.getFieldValue('index');
-    let speed = Blockly.Python.valueToCode(block, 'speed', Blockly.Python.ORDER_ATOMIC);
-    let steps = Blockly.Python.valueToCode(block, 'steps', Blockly.Python.ORDER_ATOMIC);
+    let speed = Blockly.Python.valueToCode(block, 'speed', Blockly.Python.ORDER_NONE);
+    let steps = Blockly.Python.valueToCode(block, 'steps', Blockly.Python.ORDER_NONE);
     var wait = block.getFieldValue('wait');
 
     var code =
@@ -4353,7 +4353,7 @@ var ioty_generator = new function() {
 
   this.stepper_wheels_motor_set_acceleration = function(block) {
     var index = block.getFieldValue('index');
-    let acceleration = Blockly.Python.valueToCode(block, 'acceleration', Blockly.Python.ORDER_ATOMIC);
+    let acceleration = Blockly.Python.valueToCode(block, 'acceleration', Blockly.Python.ORDER_NONE);
 
     var code =
       'sw_motor' + index + '.set_acceleration(' + acceleration + ')\n';
