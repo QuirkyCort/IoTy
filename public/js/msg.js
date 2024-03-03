@@ -2734,6 +2734,12 @@ let MSGS = {
   '#blk-stepper_wheels_drive_get_steps_tooltip#': {
     en: 'Get the steps count for the specified motor.',
   },
+  '#blk-stepper_wheels_drive_set_acceleration#': {
+    en: 'set drive acceleration to',
+  },
+  '#blk-stepper_wheels_drive_set_acceleration_tooltip#': {
+    en: 'Acceleration in steps per second per second.',
+  },
   '#blk-stepper_wheels_motor_run#': {
     en: 'run motor on port',
   },
@@ -2769,6 +2775,12 @@ let MSGS = {
   },
   '#blk-stepper_wheels_motor_get_steps_tooltip#': {
     en: 'Get the steps count for the specified motor.',
+  },
+  '#blk-stepper_wheels_motor_set_acceleration#': {
+    en: 'set acceleration for motor on port',
+  },
+  '#blk-stepper_wheels_motor_set_acceleration_tooltip#': {
+    en: 'Acceleration in steps per second per second.',
   },
 
 };

@@ -1,0 +1,17 @@
+{
+  "type": "stepper_wheels_drive_set_acceleration",
+  "message0": "#blk-stepper_wheels_drive_set_acceleration# %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "acceleration",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-stepper_wheels_drive_set_acceleration_tooltip#",
+  "helpUrl": ""
+}

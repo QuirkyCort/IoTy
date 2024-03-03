@@ -1922,6 +1922,13 @@
     <block type="stepper_wheels_drive_stop"></block>
     <block type="stepper_wheels_drive_get_steps"></block>
     <block type="stepper_wheels_drive_reset_steps"></block>
+    <block type="stepper_wheels_drive_set_acceleration">
+      <value name="acceleration">
+        <shadow type="math_number">
+          <field name="NUM">500</field>
+        </shadow>
+      </value>
+    </block>
     <block type="stepper_wheels_motor_run">
       <value name="speed">
         <shadow type="math_number">
@@ -1944,6 +1951,13 @@
     <block type="stepper_wheels_motor_stop"></block>
     <block type="stepper_wheels_motor_get_steps"></block>
     <block type="stepper_wheels_motor_reset_steps"></block>
+    <block type="stepper_wheels_motor_set_acceleration">
+      <value name="acceleration">
+        <shadow type="math_number">
+          <field name="NUM">500</field>
+        </shadow>
+      </value>
+    </block>
   </category>
 
 </xml>

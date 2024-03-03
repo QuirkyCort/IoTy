@@ -455,11 +455,13 @@ var ioty_generator = new function() {
     Blockly.Python['stepper_wheels_drive_stop'] = self.stepper_wheels_drive_stop;
     Blockly.Python['stepper_wheels_drive_reset_steps'] = self.stepper_wheels_drive_reset_steps;
     Blockly.Python['stepper_wheels_drive_get_steps'] = self.stepper_wheels_drive_get_steps;
+    Blockly.Python['stepper_wheels_drive_set_acceleration'] = self.stepper_wheels_drive_set_acceleration;
     Blockly.Python['stepper_wheels_motor_run'] = self.stepper_wheels_motor_run;
     Blockly.Python['stepper_wheels_motor_run_steps'] = self.stepper_wheels_motor_run_steps;
     Blockly.Python['stepper_wheels_motor_stop'] = self.stepper_wheels_motor_stop;
     Blockly.Python['stepper_wheels_motor_reset_steps'] = self.stepper_wheels_motor_reset_steps;
     Blockly.Python['stepper_wheels_motor_get_steps'] = self.stepper_wheels_motor_get_steps;
+    Blockly.Python['stepper_wheels_motor_set_acceleration'] = self.stepper_wheels_motor_set_acceleration;
     Blockly.Python.addReservedWords('stepper_wheels,sw_controller,sw_drive,sw_motor0,sw_motor1,sw_motor2,sw_motor3');
   };
 
@@ -4291,6 +4293,15 @@ var ioty_generator = new function() {
     return [code, Blockly.Python.ORDER_ATOMIC];
   };
 
+  this.stepper_wheels_drive_set_acceleration = function(block) {
+    let acceleration = Blockly.Python.valueToCode(block, 'acceleration', Blockly.Python.ORDER_ATOMIC);
+
+    var code =
+      'sw_drive.set_acceleration(' + acceleration + ')\n';
+
+    return code;
+  };
+
   this.stepper_wheels_motor_run = function(block) {
     var index = block.getFieldValue('index');
     let speed = Blockly.Python.valueToCode(block, 'speed', Blockly.Python.ORDER_ATOMIC);
@@ -4339,5 +4350,16 @@ var ioty_generator = new function() {
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };
+
+  this.stepper_wheels_motor_set_acceleration = function(block) {
+    var index = block.getFieldValue('index');
+    let acceleration = Blockly.Python.valueToCode(block, 'acceleration', Blockly.Python.ORDER_ATOMIC);
+
+    var code =
+      'sw_motor' + index + '.set_acceleration(' + acceleration + ')\n';
+
+    return code;
+  };
+
 }
 
