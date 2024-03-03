@@ -18,6 +18,6 @@
   "inputsInline": true,
   "nextStatement": null,
   "colour": 65,
-  "tooltip": "",
+  "tooltip": "#blk-mqtt_on_receive_tooltip#",
   "helpUrl": ""
 }

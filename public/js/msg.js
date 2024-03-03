@@ -210,6 +210,9 @@ let MSGS = {
     ru: 'ждать',
     hu: 'várakozás',
   },
+  '#blk-sleep_for_tooltip#': {
+    en: 'Suspend the program for the specified time. You can use this to add delays to a program.',
+  },
   '#blk-seconds#': {
     en: 'seconds',
     fr: 'secondes',
@@ -302,6 +305,9 @@ let MSGS = {
   },
   '#blk-type_cast#': {
     en: 'convert to',
+  },
+  '#blk-type_cast_tooltip#': {
+    en: 'Convert from one data type into another.',
   },
   '#blk-neopixel_init#': {
     en: 'Initialize Neopixel at pin',
@@ -402,6 +408,9 @@ let MSGS = {
   '#blk-connect_to_mqtt_server#': {
     en: 'MQTT: Connect to server',
   },
+  '#blk-connect_to_mqtt_server_tooltip#': {
+    en: 'Connects to the server with the specified username and password. Will throw an error if the user or password is invalid.',
+  },
   '#blk-on_port#': {
     en: 'on port',
   },
@@ -417,14 +426,26 @@ let MSGS = {
   '#blk-mqtt_check_msg#': {
     en: 'MQTT: Check for message',
   },
+  '#blk-mqtt_check_msg_tooltip#': {
+    en: 'Checks for messages. You must run this frequently. The \\"MQTT: On receive message for topic\\" block will not run if you do not run this.',
+  },
   '#blk-mqtt_on_receive#': {
     en: 'MQTT: On receive message for topic',
+  },
+  '#blk-mqtt_on_receive_tooltip#': {
+    en: 'This function will run when a new message is found when running \\"MQTT: Check for message\\".',
   },
   '#blk-with_mqtt_msg#': {
     en: 'with: mqtt_msg',
   },
+  '#blk-mqtt_msg_tooltip#': {
+    en: 'This variable will contain the received message in string format. This block can only be used in a \\"MQTT: On receive message for topic\\" block.',
+  },
   '#blk-mqtt_publish#': {
     en: 'MQTT: Publish to topic',
+  },
+  '#blk-mqtt_publish_tooltip#': {
+    en: 'Encodes the specified string in UTF-8 format and publish it to the specified topic.',
   },
   '#blk-message#': {
     en: 'message',
@@ -1415,7 +1436,7 @@ let MSGS = {
     en: 'write',
   },
   '#blk-uart_write_tooltip#': {
-    en: 'Write a String to file. If \\"New line\\" is enabled, each write will be on its own line.',
+    en: 'Write a String. If \\"New line\\" is enabled, a new line character will be added to the end.',
   },
   '#blk-uart_flush_tooltip#': {
     en: 'Waits until all data has been sent.',
@@ -2737,8 +2758,11 @@ let MSGS = {
   '#blk-stepper_wheels_drive_set_acceleration#': {
     en: 'set drive acceleration to',
   },
+  '#blk-steps_per_second_per_second#': {
+    en: 'steps per second per second',
+  },
   '#blk-stepper_wheels_drive_set_acceleration_tooltip#': {
-    en: 'Acceleration in steps per second per second.',
+    en: 'Affects acceleration and decceleration when running for steps. Commands which only specifies speed always changes speed immediately without acceleration.',
   },
   '#blk-stepper_wheels_motor_run#': {
     en: 'run motor on port',
@@ -2780,7 +2804,7 @@ let MSGS = {
     en: 'set acceleration for motor on port',
   },
   '#blk-stepper_wheels_motor_set_acceleration_tooltip#': {
-    en: 'Acceleration in steps per second per second.',
+    en: 'Affects acceleration and decceleration when running for steps. Commands which only specifies speed always changes speed immediately without acceleration.'
   },
 
 };

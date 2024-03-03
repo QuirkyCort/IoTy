@@ -1,6 +1,6 @@
 {
   "type": "stepper_wheels_drive_set_acceleration",
-  "message0": "#blk-stepper_wheels_drive_set_acceleration# %1",
+  "message0": "#blk-stepper_wheels_drive_set_acceleration# %1 #blk-steps_per_second_per_second#",
   "args0": [
     {
       "type": "input_value",

@@ -27,6 +27,6 @@
   "previousStatement": null,
   "nextStatement": null,
   "colour": 65,
-  "tooltip": "",
+  "tooltip": "#blk-connect_to_mqtt_server_tooltip#",
   "helpUrl": ""
 }

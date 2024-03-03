@@ -27,6 +27,6 @@
   ],
   "output": null,
   "colour": 230,
-  "tooltip": "",
+  "tooltip": "#blk-type_cast_tooltip#",
   "helpUrl": ""
 }

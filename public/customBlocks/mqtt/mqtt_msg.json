@@ -4,6 +4,6 @@
   "args0": [],
   "output": "String",
   "colour": 330,
-  "tooltip": "",
+  "tooltip": "#blk-mqtt_msg_tooltip#",
   "helpUrl": ""
 }

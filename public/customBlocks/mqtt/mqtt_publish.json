@@ -17,6 +17,6 @@
   "previousStatement": null,
   "nextStatement": null,
   "colour": 65,
-  "tooltip": "",
+  "tooltip": "#blk-mqtt_publish_tooltip#",
   "helpUrl": ""
 }

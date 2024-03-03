@@ -29,6 +29,6 @@
   "previousStatement": null,
   "nextStatement": null,
   "colour": 65,
-  "tooltip": "",
+  "tooltip": "#blk-sleep_for_tooltip#",
   "helpUrl": ""
 }
