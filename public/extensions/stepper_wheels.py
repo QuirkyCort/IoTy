@@ -85,9 +85,9 @@ class Motor:
         if steps == 0 or speed == 0:
             return
         if speed * steps < 0:
-            steps = -abs(steps)
+            steps = -abs(int(steps))
         else:
-            steps = abs(steps)
+            steps = abs(int(steps))
         speed = abs(speed)
 
         if ramp:
@@ -113,7 +113,6 @@ class Motor:
 class Drive:
     def __init__(self, left_motors, right_motors):
         self._acceleration = 0
-        self.set_acceleration(DEFAULT_ACCELERATION, forced=True)
 
         try:
             iter(left_motors)
@@ -126,6 +125,8 @@ class Drive:
             self.right_motors = right_motors
         except:
             self.right_motors = (right_motors, )
+
+        self.set_acceleration(DEFAULT_ACCELERATION, forced=True)
 
     def _set_left_acceleration(self, acceleration):
         for motor in self.left_motors:
