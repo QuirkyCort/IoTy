@@ -1,6 +1,7 @@
 from micropython import const
 import struct
 import time
+import math
 
 DEFAULT_ACCELERATION = const(500)
 TIME_STEP_MS = const(100)
@@ -204,6 +205,15 @@ class Drive:
 
         return left_speed, right_speed
 
+    def calc_joystick(self, x, y, limit):
+        steer = 1 - 2 * abs(math.atan2(y, x) / math.pi)
+        speed = min(math.sqrt(x**2 + y**2), limit)
+        if y < 0:
+            speed = -speed
+            steer = -steer
+
+        return steer, speed
+
     def move_steering(self, steer, speed):
         left_speed, right_speed = self.calc_steering(steer, speed)
         self.move_tank(left_speed, right_speed)
@@ -211,6 +221,14 @@ class Drive:
     def move_steering_steps(self, steer, speed, steps, wait=True):
         left_speed, right_speed = self.calc_steering(steer, speed)
         self.move_tank_steps(left_speed, right_speed, steps, wait)
+
+    def move_joystick(self, x, y, limit):
+        steer, speed = self.calc_joystick(x, y, limit)
+        self.move_steering(steer, speed)
+
+    def move_joystick_steps(self, x, y, limit, steps, wait=True):
+        steer, speed = self.calc_joystick(x, y, limit)
+        self.move_steering(steer, speed, steps, wait)
 
     def stop(self):
         for motor in self.left_motors:
