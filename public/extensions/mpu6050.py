@@ -31,6 +31,7 @@ class MPU6050:
             time.sleep_ms(25)
             x, y, z =  struct.unpack('>hhh', self.i2c.readfrom_mem(self.addr, 67, 6))
             if abs(x - prev_x) > threshold or abs(y - prev_y) > threshold or abs(z - prev_z) > threshold:
+                prev_x, prev_y, prev_z = x, y, z
                 continue
             prev_x, prev_y, prev_z = x, y, z
             sum_x += x
