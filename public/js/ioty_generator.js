@@ -4,12 +4,16 @@ var ioty_generator = new function() {
   this.MQTT_CALLBACK_PLACEHOLDER = '# MQTT Callback Placeholder; you should not see this! #\n';
   this.MQTT_SUBSCRIPTION_PLACEHOLDER = '# MQTT Subscription Placeholder; you should not see this! #\n';
   this.EZ_TIMER_CALLBACK_PLACEHOLDER = '# EZ Timer Callback Placeholder; you should not see this! #\n';
+  this.RESERVED_VARIABLES_PLACEHOLDER = '# Reserved Variables Placeholder; you should not see this! #\n';
 
   // Load Python generators
   this.load = function() {
     Blockly.Python.addReservedWords('machine,ioty,ioty_wifi,ioty_mqtt,ioty_mqtt_cb,req,ap,mqtt_msg,pin');
 
     Blockly.Python.INDENT = '    ';
+
+    Blockly.Python['procedures_defreturn'] = self.procedures_defreturn;
+    Blockly.Python['procedures_defnoreturn'] = self.procedures_defreturn;
 
     Blockly.Python['when_started'] = self.when_started;
 
@@ -471,6 +475,7 @@ var ioty_generator = new function() {
     self.iotyImports = {};
     self.mqttSubscriptions = {};
     self.ezTimerCb = [];
+    self.reservedVariables = {};
     self.startType = 'RUN';
 
     let workspaceCode = Blockly.Python.workspaceToCode(blockly.workspace);
@@ -478,6 +483,7 @@ var ioty_generator = new function() {
     workspaceCode = self._mqttCBSubstitution(workspaceCode);
     workspaceCode = self._mqttSubscriptionSubstitution(workspaceCode);
     workspaceCode = self._ezTimerCBSubstitution(workspaceCode);
+    workspaceCode = self._reservedVariablesSubstitution(workspaceCode);
 
     let code = '';
 
@@ -505,9 +511,42 @@ var ioty_generator = new function() {
     }
     code += '\n';
 
+    for (let key in self.reservedVariables) {
+      let globals = '';
+      for (let varName of self.reservedVariables[key]) {
+        globals += varName + ' = ';
+      }
+      globals += 'None\n';
+      code += globals;
+    }
+    code += '\n';
+
     code += workspaceCode;
 
     return code
+  };
+
+  this._reservedVariablesSubstitution = function(code) {
+    let placeholderRegexStr = '([^\S\r\n]*)' + self.RESERVED_VARIABLES_PLACEHOLDER;
+    let placeholderRegexG = new RegExp(placeholderRegexStr, 'g');
+    let placeholderRegex = new RegExp(placeholderRegexStr);
+
+    let reservedVariables = [];
+    for (let key in self.reservedVariables) {
+      for (let varName of self.reservedVariables[key]) {
+        reservedVariables.push(varName);
+      }
+    }
+    const globalString = reservedVariables.length ?
+      Blockly.Python.INDENT + 'global ' + reservedVariables.join(', ') + '\n' :
+      '';
+
+    let matches = code.matchAll(placeholderRegexG);
+    for (let _ of matches) {
+      code = code.replace(placeholderRegex, globalString);
+    }
+
+    return code;
   };
 
   this._mqttCBSubstitution = function(code) {
@@ -547,13 +586,13 @@ var ioty_generator = new function() {
     let placeholderRegexG = new RegExp(placeholderRegexStr, 'g');
     let placeholderRegex = new RegExp(placeholderRegexStr);
 
+    let replacementCode = '';
+    for (let topic in self.mqttSubscriptions) {
+      replacementCode += 'ioty_mqtt.subscribe(b\'' + topic + '\')\n';
+    }
+
     let matches = code.matchAll(placeholderRegexG);
     for (let _ of matches) {
-      let replacementCode = '';
-
-      for (let topic in self.mqttSubscriptions) {
-        replacementCode += 'ioty_mqtt.subscribe(b\'' + topic + '\')\n';
-      }
       code = code.replace(placeholderRegex, replacementCode);
     }
 
@@ -565,13 +604,13 @@ var ioty_generator = new function() {
     let placeholderRegexG = new RegExp(placeholderRegexStr, 'g');
     let placeholderRegex = new RegExp(placeholderRegexStr);
 
+    let replacementCode = '';
+    for (let cb of self.ezTimerCb) {
+      replacementCode += 'ez_timer_obj.set_interval(' + cb.function + ', ' + cb.interval + ', offset=' + cb.offset + ')\n';
+    }
+
     let matches = code.matchAll(placeholderRegexG);
     for (let _ of matches) {
-      let replacementCode = '';
-
-      for (let cb of self.ezTimerCb) {
-        replacementCode += 'ez_timer_obj.set_interval(' + cb.function + ', ' + cb.interval + ', offset=' + cb.offset + ')\n';
-      }
       code = code.replace(placeholderRegex, replacementCode);
     }
 
@@ -582,13 +621,62 @@ var ioty_generator = new function() {
   // Python Generators
   //
 
+  this.procedures_defreturn = function(block) {
+    // First, add a 'global' statement for every variable that is not shadowed by
+    // a local parameter.
+    const globals = [];
+    const workspace = blockly.workspace;
+    const usedVariables = Blockly.Variables.allUsedVarModels(workspace) || [];
+    for (const variable of usedVariables) {
+      const varName = variable.name;
+      // getVars returns parameter names, not ids, for procedure blocks
+      if (!block.getVars().includes(varName)) {
+        globals.push(Blockly.Python.nameDB_.getName(varName, Blockly.Names.NameType.VARIABLE));
+      }
+    }
+    // Add developer variables.
+    const devVarList = Blockly.Variables.allDeveloperVariables(workspace);
+    for (let i = 0; i < devVarList.length; i++) {
+      globals.push(
+          Blockly.Python.nameDB_.getName(devVarList[i], Blockly.Names.NameType.DEVELOPER_VARIABLE));
+    }
+    const globalString = globals.length ?
+      Blockly.Python.INDENT + 'global ' + globals.join(', ') + '\n' :
+      '';
+
+    // Generate function code
+    const funcName = Blockly.Python.nameDB_.getName(block.getFieldValue('NAME'), Blockly.Names.NameType.PROCEDURE);
+    const args = [];
+    const variables = block.getVars();
+    for (let i = 0; i < variables.length; i++) {
+      args[i] = Blockly.Python.nameDB_.getName(variables[i], Blockly.Names.NameType.VARIABLE);
+    }
+    let statements = Blockly.Python.statementToCode(block, 'STACK');
+    let returnValue = Blockly.Python.valueToCode(block, 'RETURN', Blockly.Python.ORDER_NONE) || '';
+    if (returnValue) {
+      returnValue = Blockly.Python.INDENT + 'return ' + returnValue + '\n';
+    } else if (!statements) {
+      statements = Blockly.Python.INDENT + 'pass';
+    }
+    let code =
+      'def ' + funcName + '(' + args.join(', ') + '):\n'
+      + globalString
+      + self.RESERVED_VARIABLES_PLACEHOLDER
+      + statements
+      + returnValue;
+
+    Blockly.Python.definitions_[funcName] = code;
+
+    return null;
+  }
+
   // Start
   this.when_started = function(block) {
     var start_type = block.getFieldValue('start_type');
 
     self.startType = start_type;
 
-    var code = '';
+    var code = '#\n# When Started, run the following code\n#\n';
     return code;
   };
 
@@ -1198,27 +1286,6 @@ var ioty_generator = new function() {
   };
 
   this.try_except = function(block) {
-    // First, add a 'global' statement for every variable that is not shadowed by
-    // a local parameter.
-    const globals = [];
-    const workspace = blockly.workspace;
-    const usedVariables = Blockly.Variables.allUsedVarModels(workspace) || [];
-    for (let i = 0, variable; (variable = usedVariables[i]); i++) {
-      const varName = variable.name;
-      if (block.getVars().indexOf(varName) === -1) {
-        globals.push(Blockly.Python.nameDB_.getName(varName, Blockly.Names.NameType.VARIABLE));
-      }
-    }
-    // Add developer variables.
-    const devVarList = Blockly.Variables.allDeveloperVariables(workspace);
-    for (let i = 0; i < devVarList.length; i++) {
-      globals.push(
-          Blockly.Python.nameDB_.getName(devVarList[i], Blockly.Names.NameType.DEVELOPER_VARIABLE));
-    }
-    const globalString = globals.length ?
-      Blockly.Python.INDENT + 'global ' + globals.join(', ') + '\n' :
-      '';
-
     // Usual stuff
     var tryStatements = Blockly.Python.statementToCode(block, 'try');
     var exceptStatements = Blockly.Python.statementToCode(block, 'except');
@@ -1327,7 +1394,8 @@ var ioty_generator = new function() {
     var code =
       '\n# MQTT callback for topic ' + topic + '\n' +
       'def ' + functionName + '(mqtt_msg):\n'
-      + globalString;
+      + globalString
+      + self.RESERVED_VARIABLES_PLACEHOLDER;
 
     code += statements ? statements : '    pass\n';
 
@@ -2593,7 +2661,8 @@ var ioty_generator = new function() {
 
     var code =
       'def ' + functionName + '():\n'
-      + globalString;
+      + globalString
+      + self.RESERVED_VARIABLES_PLACEHOLDER;
 
     code += statements;
 
@@ -2631,6 +2700,7 @@ var ioty_generator = new function() {
     var code =
       'def ez_timer_timeout_fn():\n'
       + globalString
+      + self.RESERVED_VARIABLES_PLACEHOLDER
       + statements
       + 'ez_timer_obj.set_timeout(ez_timer_timeout_fn, ' + interval + ')\n';
 
@@ -4184,6 +4254,7 @@ var ioty_generator = new function() {
 
   this.stepper_wheels_init = function(block) {
     self.imports['stepper_wheels'] = 'import stepper_wheels';
+    self.reservedVariables['stepper_wheels_init'] = ['sw_controller', 'sw_motor0', 'sw_motor1', 'sw_motor2', 'sw_motor3'];
 
     var addr = block.getFieldValue('addr');
 
@@ -4198,6 +4269,8 @@ var ioty_generator = new function() {
   };
 
   this.stepper_wheels_init_drive = function(block) {
+    self.reservedVariables['stepper_wheels_init_drive'] = ['sw_drive'];
+
     var left = block.getFieldValue('left');
     var right = block.getFieldValue('right');
 
