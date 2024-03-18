@@ -8,7 +8,7 @@ var ioty_generator = new function() {
 
   // Load Python generators
   this.load = function() {
-    Blockly.Python.addReservedWords('machine,ioty,ioty_wifi,ioty_mqtt,ioty_mqtt_cb,req,ap,mqtt_msg,pin');
+    Blockly.Python.addReservedWords('machine,time,ioty,pin,sys,struct');
 
     Blockly.Python.INDENT = '    ';
 
@@ -45,10 +45,13 @@ var ioty_generator = new function() {
     Blockly.Python['time'] = self.time;
     Blockly.Python['exit'] = self.exit;
     Blockly.Python['read_input'] = self.read_input;
+
     Blockly.Python['connect_to_wifi'] = self.connect_to_wifi;
     Blockly.Python['connect_to_configured_wifi'] = self.connect_to_configured_wifi;
     Blockly.Python['wlan_get_ip'] = self.wlan_get_ip;
     Blockly.Python['start_as_ap'] = self.start_as_ap;
+    Blockly.Python.addReservedWords('ioty_wifi,ap');
+
     Blockly.Python['setBluetoothCmds'] = self.setBluetoothCmds;
     Blockly.Python['try_except'] = self.try_except;
     Blockly.Python['run_python'] = self.run_python;
@@ -64,6 +67,7 @@ var ioty_generator = new function() {
     Blockly.Python['binary_op'] = self.binary_op;
     Blockly.Python['binary_not'] = self.binary_not;
     Blockly.Python['binary_shift'] = self.binary_shift;
+    Blockly.Python.addReservedWords('json,math_map');
 
     Blockly.Python['neopixel_init'] = self.neopixel_init;
     Blockly.Python['neopixel_color'] = self.neopixel_color;
@@ -73,6 +77,7 @@ var ioty_generator = new function() {
     Blockly.Python['neopixel_set'] = self.neopixel_set;
     Blockly.Python['neopixel_fill'] = self.neopixel_fill;
     Blockly.Python['neopixel_write'] = self.neopixel_write;
+    Blockly.Python.addReservedWords('neopixel');
 
     Blockly.Python['mqtt_connect_to_server'] = self.mqtt_connect_to_server;
     Blockly.Python['mqtt_wait_msg'] = self.mqtt_wait_msg;
@@ -80,6 +85,7 @@ var ioty_generator = new function() {
     Blockly.Python['mqtt_on_receive'] = self.mqtt_on_receive;
     Blockly.Python['mqtt_msg'] = self.mqtt_msg;
     Blockly.Python['mqtt_publish'] = self.mqtt_publish;
+    Blockly.Python.addReservedWords('ioty_mqtt,ioty_mqtt_cb,mqtt_msg,ubinascii');
 
     Blockly.Python['i2c_init'] = self.i2c_init;
     Blockly.Python['i2c_init_with_pins'] = self.i2c_init_with_pins;
@@ -107,6 +113,7 @@ var ioty_generator = new function() {
     Blockly.Python.addReservedWords('is_file,is_dir');
 
     Blockly.Python['esp32_temperature'] = self.esp32_temperature;
+    Blockly.Python.addReservedWords('esp32');
 
     Blockly.Python['mpu6050_init'] = self.mpu6050_init;
     Blockly.Python['mpu6050_calibrate'] = self.mpu6050_calibrate;
@@ -143,6 +150,7 @@ var ioty_generator = new function() {
 
     Blockly.Python['urequests_simple'] = self.urequests_simple_advance;
     Blockly.Python['urequests_advance'] = self.urequests_simple_advance;
+    Blockly.Python.addReservedWords('urequests,urequest');
 
     Blockly.Python['esp_now_init'] = self.esp_now_init;
     Blockly.Python['esp_now_add_peer'] = self.esp_now_add_peer;
@@ -150,7 +158,7 @@ var ioty_generator = new function() {
     Blockly.Python['esp_now_send'] = self.esp_now_send;
     Blockly.Python['esp_now_get_msg'] = self.esp_now_get_msg;
     Blockly.Python['esp_now_msg_available'] = self.esp_now_msg_available;
-    Blockly.Python.addReservedWords('esp_now');
+    Blockly.Python.addReservedWords('espnow,esp_now');
 
     Blockly.Python['ez_esp_now_init'] = self.ez_esp_now_init;
     Blockly.Python['ez_esp_now_set_group'] = self.ez_esp_now_set_group
@@ -1197,6 +1205,7 @@ var ioty_generator = new function() {
 
   this.connect_to_wifi = function(block) {
     self.imports['network'] = 'import network';
+    self.reservedVariables['connect_to_wifi'] = ['ioty_wifi'];
 
     var ssid = block.getFieldValue('ssid');
     var password = block.getFieldValue('password');
@@ -1219,6 +1228,7 @@ var ioty_generator = new function() {
   this.connect_to_configured_wifi = function(block) {
     self.imports['MQTT_Service'] = 'from ioty.mqtt import MQTT_Service';
     self.imports['time'] = 'import time';
+    self.reservedVariables['connect_to_wifi'] = ['ioty_wifi'];
 
     var code =
       '# Connect to configured WiFi\n' +
@@ -1241,6 +1251,7 @@ var ioty_generator = new function() {
 
   this.start_as_ap = function(block) {
     self.imports['network'] = 'import network';
+    self.reservedVariables['start_as_ap'] = ['ap'];
 
     var ssid = block.getFieldValue('ssid');
     var password = block.getFieldValue('password');
@@ -1319,6 +1330,7 @@ var ioty_generator = new function() {
     self.imports['umqtt'] = 'from umqtt.robust import MQTTClient';
     self.imports['machine'] = 'import machine';
     self.imports['ubinascii'] = 'import ubinascii';
+    self.reservedVariables['mqtt_connect_to_server'] = ['ioty_mqtt'];
 
     var server = block.getFieldValue('server');
     var port = block.getFieldValue('port');
@@ -1423,6 +1435,7 @@ var ioty_generator = new function() {
 
   this.i2c_init = function(block) {
     self.imports['machine'] = 'import machine';
+    self.reservedVariables['i2c_init'] = ['i2c'];
 
     var id = block.getFieldValue('id');
     var freq = block.getFieldValue('freq');
@@ -1434,6 +1447,7 @@ var ioty_generator = new function() {
 
   this.i2c_init_with_pins = function(block) {
     self.imports['machine'] = 'import machine';
+    self.reservedVariables['i2c_init'] = ['i2c'];
 
     var scl = block.getFieldValue('scl');
     var sda = block.getFieldValue('sda');
@@ -1698,6 +1712,7 @@ var ioty_generator = new function() {
 
   this.mpu6050_init = function(block) {
     self.imports['mpu6050'] = 'import mpu6050';
+    self.reservedVariables['mpu6050_init'] = ['mpu6050_device'];
 
     var addr = block.getFieldValue('addr');
 
@@ -1788,6 +1803,7 @@ var ioty_generator = new function() {
 
   this.pca9685_init = function(block) {
     self.imports['pca9685'] = 'import pca9685';
+    self.reservedVariables['pca9685_init'] = ['pca9685_device'];
 
     var addr = block.getFieldValue('addr');
 
@@ -1833,6 +1849,7 @@ var ioty_generator = new function() {
 
   this.ssd1306_init = function(block) {
     self.imports['ssd1306'] = 'import ssd1306';
+    self.reservedVariables['ssd1306_init'] = ['ssd1306_i2c'];
 
     var width = block.getFieldValue('width');
     var height = block.getFieldValue('height');
@@ -1847,6 +1864,7 @@ var ioty_generator = new function() {
 
   this.ssd1306_init_sh1106 = function(block) {
     self.imports['ssd1306'] = 'import ssd1306';
+    self.reservedVariables['ssd1306_init'] = ['ssd1306_i2c'];
 
     var width = block.getFieldValue('width');
     var height = block.getFieldValue('height');
@@ -2019,9 +2037,9 @@ var ioty_generator = new function() {
 
     var code =
       'try:\n' +
-      '    req = urequests.request(\'' + method + '\', ' + url + param + ')\n' +
-      '    ' + variable + ' = req' + return_method + '\n' +
-      '    req.close()\n' +
+      '    urequest = urequests.request(\'' + method + '\', ' + url + param + ')\n' +
+      '    ' + variable + ' = urequest' + return_method + '\n' +
+      '    urequest.close()\n' +
       on_success +
       'except:\n';
 
@@ -2037,6 +2055,7 @@ var ioty_generator = new function() {
   this.esp_now_init = function(block) {
     self.imports['network'] = 'import network';
     self.imports['espnow'] = 'import espnow';
+    self.reservedVariables['esp_now_init'] = ['esp_now'];
 
     var code =
       'ioty_wifi = network.WLAN(network.STA_IF)\n' +
@@ -2141,6 +2160,7 @@ var ioty_generator = new function() {
 
   this.ez_httpd_init = function(block) {
     self.imports['ez_httpd'] = 'import ez_httpd';
+    self.reservedVariables['ez_httpd_init'] = ['ezhttpd'];
 
     let addr = Blockly.Python.valueToCode(block, 'addr', Blockly.Python.ORDER_ATOMIC);
     let port = Blockly.Python.valueToCode(block, 'port', Blockly.Python.ORDER_ATOMIC);
@@ -2251,6 +2271,7 @@ var ioty_generator = new function() {
 
   this.i2c_lcd_init = function(block) {
     self.imports['i2c_lcd'] = 'import i2c_lcd';
+    self.reservedVariables['i2c_lcd_init'] = ['lcd'];
 
     var lines = block.getFieldValue('lines');
     var columns = block.getFieldValue('columns');
@@ -2344,6 +2365,7 @@ var ioty_generator = new function() {
   this.dht_init = function(block) {
     self.imports['dht'] = 'import dht';
     self.imports['machine'] = 'import machine';
+    self.reservedVariables['dht_init'] = ['dht_device'];
 
     var type = block.getFieldValue('type');
     var pin = block.getFieldValue('pin');
@@ -2378,6 +2400,7 @@ var ioty_generator = new function() {
 
   this.ez_ds18x20_init = function(block) {
     self.imports['ez_ds18x20'] = 'import ez_ds18x20';
+    self.reservedVariables['ez_ds18x20_init'] = ['ds_device'];
 
     var pin = block.getFieldValue('pin');
 
@@ -2410,6 +2433,7 @@ var ioty_generator = new function() {
 
   this.non_block_init = function(block) {
     self.imports['non_block'] = 'import non_block';
+    self.reservedVariables['non_block_init'] = ['nblock'];
 
     var code =
       'nblock = non_block.NonBlock()\n';
@@ -2438,6 +2462,8 @@ var ioty_generator = new function() {
     var baudrate = block.getFieldValue('baudrate');
     var tx = block.getFieldValue('tx');
     var rx = block.getFieldValue('rx');
+
+    self.reservedVariables['uart' + id] = ['uart' + id];
 
     var code =
       'uart' + id + ' = machine.UART(' + id + ', baudrate=' + baudrate + ', tx=' + tx + ', rx=' + rx + ')\n';
@@ -2496,6 +2522,7 @@ var ioty_generator = new function() {
 
   this.gps_init = function(block) {
     self.imports['gps'] = 'import gps';
+    self.reservedVariables['gps_init'] = ['gps_device'];
 
     var uart = block.getFieldValue('uart');
 
@@ -2574,6 +2601,7 @@ var ioty_generator = new function() {
 
   this.hx711_init = function(block) {
     self.imports['hx711'] = 'import hx711';
+    self.reservedVariables['hx711_init'] = ['hx711_device'];
 
     var dt = block.getFieldValue('dt');
     var sck = block.getFieldValue('sck');
@@ -2591,6 +2619,7 @@ var ioty_generator = new function() {
 
   this.hx710_init = function(block) {
     self.imports['hx710'] = 'import hx710';
+    self.reservedVariables['hx710_init'] = ['hx710_device'];
 
     var dt = block.getFieldValue('dt');
     var sck = block.getFieldValue('sck');
@@ -2610,6 +2639,7 @@ var ioty_generator = new function() {
 
   this.ez_timer_init = function(block) {
     self.imports['ez_timer'] = 'import ez_timer';
+    self.reservedVariables['ez_timer_init'] = ['ez_timer_obj'];
 
     var code =
       'ez_timer_obj = ez_timer.Timer()\n' +
@@ -2716,6 +2746,8 @@ var ioty_generator = new function() {
     var mosi = block.getFieldValue('mosi');
     var miso = block.getFieldValue('miso');
 
+    self.reservedVariables['spi' + id] = ['spi' + id];
+
     var code =
       'spi' + id + ' = machine.SPI(' + id + ', baudrate=' + baudrate + ', sck=Pin(' + sck + '), mosi=Pin(' + mosi + '), miso=Pin(' + miso + '))\n';
 
@@ -2760,6 +2792,7 @@ var ioty_generator = new function() {
 
   this.mfrc522_init = function(block) {
     self.imports['mfrc522'] = 'import mfrc522';
+    self.reservedVariables['mfrc522_init'] = ['mfrc522_device'];
 
     var spi = block.getFieldValue('spi');
     var rst = block.getFieldValue('rst');
@@ -2785,6 +2818,7 @@ var ioty_generator = new function() {
 
   this.qmc5883l_init = function(block) {
     self.imports['qmc5883l'] = 'import qmc5883l';
+    self.reservedVariables['qmc5883l_init'] = ['qmc5883l_device'];
 
     let addr = block.getFieldValue('addr');
     let scale = block.getFieldValue('scale');
@@ -2811,6 +2845,7 @@ var ioty_generator = new function() {
 
   this.hmc5883l_init = function(block) {
     self.imports['hmc5883l'] = 'import hmc5883l';
+    self.reservedVariables['hmc5883l_init'] = ['hmc5883l_device'];
 
     let addr = block.getFieldValue('addr');
     let scale = block.getFieldValue('scale');
@@ -2837,6 +2872,7 @@ var ioty_generator = new function() {
 
   this.bmp280_init = function(block) {
     self.imports['bmp280'] = 'import bmp280';
+    self.reservedVariables['bmp280_init'] = ['bmp280_device'];
 
     let addr = block.getFieldValue('addr');
 
@@ -2872,6 +2908,7 @@ var ioty_generator = new function() {
 
   this.max30102_init = function(block) {
     self.imports['max30102'] = 'import max30102';
+    self.reservedVariables['max30102_init'] = ['max30102_device'];
 
     let addr = block.getFieldValue('addr');
     let red = block.getFieldValue('red');
@@ -2929,6 +2966,7 @@ var ioty_generator = new function() {
 
   this.vl53l0x_init = function(block) {
     self.imports['vl53l0x'] = 'import vl53l0x';
+    self.reservedVariables['vl53l0x_init'] = ['vl53l0x_device'];
 
     let addr = block.getFieldValue('addr');
 
@@ -2947,6 +2985,7 @@ var ioty_generator = new function() {
 
   this.vl53l1x_init = function(block) {
     self.imports['vl53l1x'] = 'import vl53l1x';
+    self.reservedVariables['vl53l1x_init'] = ['vl53l1x_device'];
 
     let addr = block.getFieldValue('addr');
 
@@ -3013,6 +3052,7 @@ var ioty_generator = new function() {
 
   this.ds3231_init = function(block) {
     self.imports['ds3231'] = 'import ds3231';
+    self.reservedVariables['ds3231_init'] = ['ds3231_device'];
 
     var addr = block.getFieldValue('addr');
 
@@ -3037,6 +3077,7 @@ var ioty_generator = new function() {
 
   this.bme280_init = function(block) {
     self.imports['bme280'] = 'import bme280';
+    self.reservedVariables['bme280_init'] = ['bme280_device'];
 
     let addr = block.getFieldValue('addr');
 
@@ -3078,6 +3119,7 @@ var ioty_generator = new function() {
 
   this.apds9960_init = function(block) {
     self.imports['apds9960'] = 'import apds9960';
+    self.reservedVariables['apds9960_init'] = ['apds9960_device'];
 
     let addr = block.getFieldValue('addr');
 
@@ -3172,6 +3214,7 @@ var ioty_generator = new function() {
 
   this.gy33_i2c_init = function(block) {
     self.imports['gy33_i2c'] = 'import gy33_i2c';
+    self.reservedVariables['gy33_i2c_init'] = ['gy33_i2c_device'];
 
     let addr = block.getFieldValue('addr');
 
@@ -3243,6 +3286,7 @@ var ioty_generator = new function() {
 
   this.gy33_uart_init = function(block) {
     self.imports['gy33_uart'] = 'import gy33_uart';
+    self.reservedVariables['gy33_uart_init'] = ['gy33_uart_device'];
 
     let uart = block.getFieldValue('uart');
 
@@ -3329,6 +3373,7 @@ var ioty_generator = new function() {
 
   this.tcs3472_init = function(block) {
     self.imports['tcs3472'] = 'import tcs3472';
+    self.reservedVariables['tcs3472_init'] = ['tcs3472_device'];
 
     let addr = block.getFieldValue('addr');
 
@@ -3459,6 +3504,7 @@ var ioty_generator = new function() {
 
   this.max6675_init = function(block) {
     self.imports['max6675'] = 'import max6675';
+    self.reservedVariables['max6675_init'] = ['max6675_device'];
 
     let cs = block.getFieldValue('cs');
     let spi = block.getFieldValue('spi');
@@ -3479,6 +3525,7 @@ var ioty_generator = new function() {
 
   this.encoder_init = function(block) {
     self.imports['encoder'] = 'import encoder';
+    self.reservedVariables['encoder_init'] = ['encoder_device'];
 
     let pin1 = block.getFieldValue('pin1');
     let pin2 = block.getFieldValue('pin2');
@@ -3511,6 +3558,7 @@ var ioty_generator = new function() {
 
   this.huskylens_init_i2c = function(block) {
     self.imports['huskylib'] = 'import huskylib';
+    self.reservedVariables['huskylens_init'] = ['huskylens'];
 
     let addr = block.getFieldValue('addr');
 
@@ -3522,6 +3570,7 @@ var ioty_generator = new function() {
 
   this.huskylens_init_uart = function(block) {
     self.imports['huskylib'] = 'import huskylib';
+    self.reservedVariables['huskylens_init'] = ['huskylens'];
 
     let uart = block.getFieldValue('uart');
 
@@ -3660,6 +3709,7 @@ var ioty_generator = new function() {
 
   this.tca9548a_init = function(block) {
     self.imports['tca9548a'] = 'import tca9548a';
+    self.reservedVariables['tca9548a_init'] = ['tca9548a_device'];
 
     let addr = block.getFieldValue('addr');
 
@@ -3692,6 +3742,7 @@ var ioty_generator = new function() {
 
   this.music_init = function(block) {
     self.imports['music'] = 'import music';
+    self.reservedVariables['music_init'] = ['music_device'];
 
     let pin = block.getFieldValue('pin');
 
@@ -3756,6 +3807,7 @@ var ioty_generator = new function() {
 
   this.scaled_text_init = function(block) {
     self.imports['scaled_text'] = 'import scaled_text';
+    self.reservedVariables['scaled_text_init'] = ['text_scaler'];
 
     let type = block.getFieldValue('type');
 
@@ -3801,6 +3853,7 @@ var ioty_generator = new function() {
 
   this.bmp_image_open = function(block) {
     self.imports['bmp_image'] = 'import bmp_image';
+    self.reservedVariables['bmp_image_open'] = ['bmp_image_file'];
 
     let filename = Blockly.Python.valueToCode(block, 'filename', Blockly.Python.ORDER_ATOMIC);
 
@@ -3864,6 +3917,7 @@ var ioty_generator = new function() {
 
   this.hid_keyboard_init = function(block) {
     self.imports['hid_services'] = 'import hid_services';
+    self.reservedVariables['hid_keyboard_init'] = ['hid_keyboard'];
 
     let name = Blockly.Python.valueToCode(block, 'name', Blockly.Python.ORDER_ATOMIC);
 
@@ -3931,6 +3985,8 @@ var ioty_generator = new function() {
 
   this.hid_mouse_init = function(block) {
     self.imports['hid_services'] = 'import hid_services';
+    self.reservedVariables['hid_mouse_init'] = ['hid_mouse'];
+
     let type = block.getFieldValue('type');
 
     let name = Blockly.Python.valueToCode(block, 'name', Blockly.Python.ORDER_ATOMIC);
@@ -3997,6 +4053,7 @@ var ioty_generator = new function() {
 
   this.hid_ccd_init = function(block) {
     self.imports['hid_services'] = 'import hid_services';
+    self.reservedVariables['hid_ccd_init'] = ['hid_ccd'];
 
     let name = Blockly.Python.valueToCode(block, 'name', Blockly.Python.ORDER_ATOMIC);
 
@@ -4048,6 +4105,7 @@ var ioty_generator = new function() {
 
   this.hid_joystick_init = function(block) {
     self.imports['hid_services'] = 'import hid_services';
+    self.reservedVariables['hid_joystick_init'] = ['hid_joystick'];
 
     let name = Blockly.Python.valueToCode(block, 'name', Blockly.Python.ORDER_ATOMIC);
 
@@ -4115,6 +4173,7 @@ var ioty_generator = new function() {
 
   this.yx5300_init = function(block) {
     self.imports['yx5300'] = 'import yx5300';
+    self.reservedVariables['yx5300_init'] = ['yx5300_device'];
 
     var uart = block.getFieldValue('uart');
 
@@ -4180,6 +4239,7 @@ var ioty_generator = new function() {
 
   this.ld2410_init = function(block) {
     self.imports['ld2410'] = 'import ld2410';
+    self.reservedVariables['ld2410_init'] = ['ld2410_device'];
 
     var uart = block.getFieldValue('uart');
 
