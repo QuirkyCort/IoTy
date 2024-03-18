@@ -249,6 +249,86 @@ class Drive:
     def avg_steps(self):
         return (self.left_steps() + self.right_steps()) / 2
 
+
+class Mecanum:
+    def __init__(self, front_left_motor, front_right_motor, rear_left_motor, rear_right_motor, max_speed):
+        self._acceleration = 0
+        self.max_speed = max_speed
+
+        self.motors = (front_left_motor, front_right_motor, rear_left_motor, rear_right_motor)
+
+        self.set_acceleration(DEFAULT_ACCELERATION, forced=True)
+
+    def set_acceleration(self, acceleration, forced=False):
+        if acceleration != self._acceleration or forced:
+            for motor in self.motors:
+                motor.set_acceleration(acceleration)
+            self._acceleration = acceleration
+
+    def acceleration(self):
+        return self._acceleration
+
+    def calc(self, direction, speed, turn):
+        direction = math.radians(direction)
+        vx = speed * math.cos(direction)
+        vy = speed * math.sin(direction)
+        s1 = vx - vy
+        s2 = vx + vy
+
+        motor_speed = (s1 - turn, s2 + turn, s2 - turn, s1 + turn)
+
+        highest = max(map(abs, motor_speed))
+
+        if highest > self.max_speed:
+            scale = self.max_speed / highest
+            motor_speed = [i * scale for i in motor_speed]
+
+        return motor_speed
+
+    def move_and_turn(self, direction, speed, turn):
+        motor_speed = self.calc(direction, speed, turn)
+        for i in range(4):
+            self.motors[i].run(motor_speed[i])
+
+    def move_steps(self, direction, speed, steps, ramp=True, wait=True):
+        motor_speed = self.calc(direction, speed, 0)
+        highest = max(map(abs, motor_speed))
+
+        motor_steps = [0] * 4
+        for i in range(4):
+            acceleration = self._acceleration * abs(motor_speed[i]) / highest
+            motor_steps[i] = steps * abs(motor_speed[i]) / speed
+            self.motors[i].set_acceleration(acceleration)
+
+        for i in range(4):
+            self.motors[i].run_steps(motor_speed[i], int(motor_steps[i]), ramp=ramp, wait=False)
+
+        if wait:
+            for motor in self.motors:
+                motor.wait_till_stop()
+
+    def turn_steps(self, speed, steps, ramp=True, wait=True):
+        for motor in self.motors:
+            motor.set_acceleration(self._acceleration)
+
+        self.motors[0].run_steps(speed, -int(steps), ramp=ramp, wait=False)
+        self.motors[1].run_steps(speed, int(steps), ramp=ramp, wait=False)
+        self.motors[2].run_steps(speed, -int(steps), ramp=ramp, wait=False)
+        self.motors[3].run_steps(speed, int(steps), ramp=ramp, wait=False)
+
+        if wait:
+            for motor in self.motors:
+                motor.wait_till_stop()
+
+    def stop(self):
+        for motor in self.motors:
+            motor.stop()
+
+    def reset_steps(self, steps=0):
+        for motor in self.motors:
+            motor.reset_steps(steps)
+
+
 class Controller:
     def __init__(self, i2c, addr=0x55):
         self.i2c = i2c
