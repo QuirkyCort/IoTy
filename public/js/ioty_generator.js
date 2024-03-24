@@ -601,7 +601,8 @@ var ioty_generator = new function() {
 
     let matches = code.matchAll(placeholderRegexG);
     for (let _ of matches) {
-      code = code.replace(placeholderRegex, replacementCode);
+      let prefixSpaces = code.match(placeholderRegex)[1];
+      code = code.replace(placeholderRegex, prefixSpaces + replacementCode);
     }
 
     return code;
@@ -619,7 +620,8 @@ var ioty_generator = new function() {
 
     let matches = code.matchAll(placeholderRegexG);
     for (let _ of matches) {
-      code = code.replace(placeholderRegex, replacementCode);
+      let prefixSpaces = code.match(placeholderRegex)[1];
+      code = code.replace(placeholderRegex, prefixSpaces + replacementCode);
     }
 
     return code;
