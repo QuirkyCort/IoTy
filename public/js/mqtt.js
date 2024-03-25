@@ -317,17 +317,27 @@ var mqtt = new function() {
     // }
 
     // Download
-    $downloadWindow.$body.text('Downloading...');
-    nonce = await self.sendCmd(constants._MODE_WRITE_FILES, filesManager.files);
-    response = await self.waitForResponse(nonce);
-    if (response == null) {
-      $downloadWindow.$body.text('Connection timed out');
-      $downloadWindow.$buttonsRow.removeClass('hide');
-      return;
-    } else if (response.status != constants._STATUS_SUCCESS) {
-      $downloadWindow.$body.text('Error downloading files');
-      $downloadWindow.$buttonsRow.removeClass('hide');
-      return;
+    let totalFilesCount = Object.keys(filesManager.files).length;
+    let currentFileCount = 0;
+
+    $downloadWindow.$body.text('Downloading (' + currentFileCount + '/' + totalFilesCount + ')');
+    let response;
+    for (let filename in filesManager.files) {
+      progressBar = '';
+      currentFileCount++;
+
+      $downloadWindow.$body.text('Downloading (' + currentFileCount + '/' + totalFilesCount + ')');
+
+      response = await self.writeFile(filename, filesManager.files[filename]);
+      if (response == null) {
+        $downloadWindow.$body.text('Connection timed out');
+        $downloadWindow.$buttonsRow.removeClass('hide');
+        return;
+      } else if (response != constants._STATUS_SUCCESS) {
+        $downloadWindow.$body.text('Error downloading files');
+        $downloadWindow.$buttonsRow.removeClass('hide');
+        return;
+      }
     }
 
     $downloadWindow.$body.text('Download Completed. Please restart your device.');
@@ -485,17 +495,25 @@ var mqtt = new function() {
 
   this.writeFile = async function(name, value, progressCB) {
     let files = {}
-    files[name] = {
-      encoding: 'base64',
-      data: base64EncArr(new Uint8Array(value))
-    };
+    if (typeof value == 'string') {
+      files[name] = value;
+    } else {
+      files[name] = {
+        encoding: 'base64',
+        data: base64EncArr(new Uint8Array(value))
+      };  
+    }
 
     let nonce = await self.sendCmd(constants._MODE_WRITE_FILES, files);
     if (typeof progressCB == 'function') {
       progressCB();
     }
     let response = await self.waitForResponse(nonce);
-    return response.status;
+    if (response != null) {
+      return response.status;
+    } else {
+      return null;
+    }
   };
 
   this.deleteOneFileFromDevice = async function(filename) {
