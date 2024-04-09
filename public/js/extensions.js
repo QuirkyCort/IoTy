@@ -182,7 +182,7 @@ var extensions = new function() {
       id: 'gps',
       name: 'GPS (NMEA over serial)',
       files: [
-        ['gps.py', 'extensions/gps.py?v=20ce00ab'],
+        ['gps.py', 'extensions/gps.py?v=16abb9ae'],
       ],
       description:
         '<p>' +

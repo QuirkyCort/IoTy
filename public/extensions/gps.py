@@ -12,17 +12,16 @@ class GPS:
         self.cog = None
 
     def update(self):
+        parsed = False
         while self.uart.any():
             self.buf += self.uart.read(1)
 
-        end = self.buf.find(b'\n')
-        if end > -1:
-            msg = self.buf[:end-1]
-            self.buf = self.buf[end+1:]
-            self.parse_msg(msg)
-            return True
+            if self.buf[-1] == b'\n':
+                self.parse_msg(self.buf)
+                self.buf = b''
+                parsed = True
 
-        return False
+        return parsed
 
     def crc(self, msg):
         crc = 0
