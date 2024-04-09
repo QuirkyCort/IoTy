@@ -646,7 +646,7 @@ var extensions = new function() {
       id: 'stepper_wheels',
       name: 'Stepper Wheels',
       files: [
-        ['stepper_wheels.py', 'extensions/stepper_wheels.py?v=4f9619fd'],
+        ['stepper_wheels.py', 'extensions/stepper_wheels.py?v=8464152c'],
       ],
       description:
         '<p>' +
@@ -655,6 +655,19 @@ var extensions = new function() {
         '</p>' +
         '<p>' +
           'The Stepper Wheels controller communicates via I2C, with a default address of 85 (0x55). ' +
+        '</p>'
+    },
+    {
+      id: 'stepper_wheels_drives',
+      name: 'Stepper Wheels Drives',
+      files: [],
+      description:
+        '<p>' +
+          'Provides various driving control for the Stepper Wheels extension. ' +
+          'Currently supports Differential Drive (aka Tank Drive) and Delta Drive.' +
+        '</p>' +
+        '<p>' +
+          'This extension only adds blocks; you must also add the Stepper Wheels extension. ' +
         '</p>'
     },
   ]

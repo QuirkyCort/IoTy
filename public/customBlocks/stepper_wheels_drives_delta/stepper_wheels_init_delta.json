@@ -1,0 +1,46 @@
+{
+  "type": "stepper_wheels_init_delta",
+  "message0": "#blk-stepper_wheels_init_delta# %1 #blk-with_motors# %2 %3 %4 #blk-and_max_speed# %5",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "mode",
+      "options": [
+        [
+          "V",
+          "V"
+        ],
+        [
+          "A",
+          "A"
+        ]
+      ]
+    },
+    {
+      "type": "field_number",
+      "name": "motor0",
+      "text": "0"
+    },
+    {
+      "type": "field_number",
+      "name": "motor1",
+      "text": "1"
+    },
+    {
+      "type": "field_number",
+      "name": "motor2",
+      "text": "2"
+    },
+    {
+      "type": "field_number",
+      "name": "max_speed",
+      "text": "1200"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-stepper_wheels_init_delta_tooltip#",
+  "helpUrl": ""
+}

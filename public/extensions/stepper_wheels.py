@@ -329,6 +329,96 @@ class Mecanum:
             motor.reset_steps(steps)
 
 
+class Delta:
+    def __init__(self, mode, motor0, motor1, motor2, max_speed):
+        self._acceleration = 0
+        self.max_speed = max_speed
+        self.mode = mode
+
+        if mode == 'V':
+            self.v1 = [0.5, 0.8660254037844386]
+            self.v2 = [0.5, -0.8660254037844386]
+            self.v3 = [-1.0, 0.0]
+        else:
+            self.v1 = [1.0, 0.0]
+            self.v2 = [-0.5, -0.8660254037844386]
+            self.v3 = [-0.5, 0.8660254037844386]
+
+        self.motors = (motor0, motor1, motor2)
+
+        self.set_acceleration(DEFAULT_ACCELERATION, forced=True)
+
+    def set_acceleration(self, acceleration, forced=False):
+        if acceleration != self._acceleration or forced:
+            for motor in self.motors:
+                motor.set_acceleration(acceleration)
+            self._acceleration = acceleration
+
+    def acceleration(self):
+        return self._acceleration
+
+    def calc(self, direction, speed, turn):
+        direction = math.radians(direction)
+        vf = [math.cos(direction) * speed, math.sin(direction) * speed]
+
+        m = (self.v2[0] - self.v1[0]) / (self.v2[1] - self.v1[1])
+        m3 = (vf[0] - turn * self.v1[0] - (vf[1] - turn * self.v1[1]) * m) / (self.v3[0] - self.v1[0] - (self.v3[1] - self.v1[1]) * m)
+        m2 = (vf[1] - turn * self.v1[1] - m3 * (self.v3[1] - self.v1[1])) / (self.v2[1] - self.v1[1])
+        m1 = turn - m2 - m3
+
+        motor_speed = (m1, m2, m3)
+
+        highest = max(map(abs, motor_speed))
+
+        if highest > self.max_speed:
+            scale = self.max_speed / highest
+            motor_speed = [i * scale for i in motor_speed]
+
+        return motor_speed
+
+    def move_and_turn(self, direction, speed, turn):
+        motor_speed = self.calc(direction, speed, turn)
+        for i in range(3):
+            self.motors[i].run(motor_speed[i])
+
+    def move_steps(self, direction, speed, steps, ramp=True, wait=True):
+        motor_speed = self.calc(direction, speed, 0)
+        highest = max(map(abs, motor_speed))
+
+        motor_steps = [0] * 3
+        for i in range(3):
+            acceleration = self._acceleration * abs(motor_speed[i]) / highest
+            motor_steps[i] = steps * abs(motor_speed[i]) / speed
+            self.motors[i].set_acceleration(acceleration)
+
+        for i in range(3):
+            self.motors[i].run_steps(motor_speed[i], int(motor_steps[i]), ramp=ramp, wait=False)
+
+        if wait:
+            for motor in self.motors:
+                motor.wait_till_stop()
+
+    def turn_steps(self, speed, steps, ramp=True, wait=True):
+        for motor in self.motors:
+            motor.set_acceleration(self._acceleration)
+
+        self.motors[0].run_steps(speed, int(steps), ramp=ramp, wait=False)
+        self.motors[1].run_steps(speed, int(steps), ramp=ramp, wait=False)
+        self.motors[2].run_steps(speed, int(steps), ramp=ramp, wait=False)
+
+        if wait:
+            for motor in self.motors:
+                motor.wait_till_stop()
+
+    def stop(self):
+        for motor in self.motors:
+            motor.stop()
+
+    def reset_steps(self, steps=0):
+        for motor in self.motors:
+            motor.reset_steps(steps)
+
+
 class Controller:
     def __init__(self, i2c, addr=0x55):
         self.i2c = i2c
@@ -372,3 +462,6 @@ class Controller:
             right_motors.append(self.get_motor(right_motor_indexes))
 
         return Drive(left_motors, right_motors)
+
+    def get_delta(self, mode, motor0, motor1, motor2, max_speed):
+        return Delta(mode, self.get_motor(motor0), self.get_motor(motor1), self.get_motor(motor2), max_speed)

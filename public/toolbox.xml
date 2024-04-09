@@ -1857,10 +1857,44 @@
     <block type="ld2410_factory_reset"></block>
   </category>
   <category toolboxitemid="stepper_wheels" name="Stepper Wheels" colour="#5b67a5" hidden="true">
+    <label text="Controller"></label>
     <block type="stepper_wheels_init"></block>
-    <block type="stepper_wheels_init_drive"></block>
     <block type="stepper_wheels_enable"></block>
     <block type="stepper_wheels_reset"></block>
+    <label text="Motor"></label>
+    <block type="stepper_wheels_motor_run">
+      <value name="speed">
+        <shadow type="math_number">
+          <field name="NUM">200</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="stepper_wheels_motor_run_steps">
+      <value name="speed">
+        <shadow type="math_number">
+          <field name="NUM">200</field>
+        </shadow>
+      </value>
+      <value name="steps">
+        <shadow type="math_number">
+          <field name="NUM">300</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="stepper_wheels_motor_stop"></block>
+    <block type="stepper_wheels_motor_get_steps"></block>
+    <block type="stepper_wheels_motor_reset_steps"></block>
+    <block type="stepper_wheels_motor_set_acceleration">
+      <value name="acceleration">
+        <shadow type="math_number">
+          <field name="NUM">500</field>
+        </shadow>
+      </value>
+    </block>
+  </category>
+  <category toolboxitemid="stepper_wheels_drives" name="Stepper Wheels Drives" colour="#5b67a5" hidden="true">
+    <label text="Differential Drive"></label>
+    <block type="stepper_wheels_init_drive"></block>
     <block type="stepper_wheels_drive_tank">
       <value name="left">
         <shadow type="math_number">
@@ -1929,14 +1963,31 @@
         </shadow>
       </value>
     </block>
-    <block type="stepper_wheels_motor_run">
+    <label text="Delta Drive"></label>
+    <block type="stepper_wheels_init_delta"></block>
+    <block type="stepper_wheels_delta_move_turn">
+      <value name="direction">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
       <value name="speed">
         <shadow type="math_number">
           <field name="NUM">200</field>
         </shadow>
       </value>
+      <value name="turn">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
     </block>
-    <block type="stepper_wheels_motor_run_steps">
+    <block type="stepper_wheels_delta_move_steps">
+      <value name="direction">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
       <value name="speed">
         <shadow type="math_number">
           <field name="NUM">200</field>
@@ -1948,10 +1999,20 @@
         </shadow>
       </value>
     </block>
-    <block type="stepper_wheels_motor_stop"></block>
-    <block type="stepper_wheels_motor_get_steps"></block>
-    <block type="stepper_wheels_motor_reset_steps"></block>
-    <block type="stepper_wheels_motor_set_acceleration">
+    <block type="stepper_wheels_delta_turn_steps">
+      <value name="turn">
+        <shadow type="math_number">
+          <field name="NUM">200</field>
+        </shadow>
+      </value>
+      <value name="steps">
+        <shadow type="math_number">
+          <field name="NUM">300</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="stepper_wheels_delta_stop"></block>
+    <block type="stepper_wheels_delta_set_acceleration">
       <value name="acceleration">
         <shadow type="math_number">
           <field name="NUM">500</field>

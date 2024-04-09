@@ -2806,6 +2806,51 @@ let MSGS = {
   '#blk-stepper_wheels_motor_set_acceleration_tooltip#': {
     en: 'Affects acceleration and decceleration when running for steps. Commands which only specifies speed always changes speed immediately without acceleration.'
   },
+  '#blk-stepper_wheels_init_delta#': {
+    en: 'init delta drive of type',
+  },
+  '#blk-with_motors#': {
+    en: 'with motors',
+  },
+  '#blk-and_max_speed#': {
+    en: 'and max speed',
+  },
+  '#blk-stepper_wheels_init_delta_tooltip#': {
+    en: 'V type: center wheel is at the back. A type: center wheel is at the front.',
+  },
+  '#blk-stepper_wheels_delta_move_turn#': {
+    en: 'delta drive: move in direction',
+  },
+  '#blk-and_rotation#': {
+    en: 'and_rotation',
+  },
+  '#blk-stepper_wheels_delta_move_turn_tooltip#': {
+    en: 'Will move continuously until given another command. Direction is in degrees.',
+  },
+  '#blk-stepper_wheels_delta_move_steps#': {
+    en: 'delta drive: move in direction',
+  },
+  '#blk-stepper_wheels_delta_move_steps_tooltip#': {
+    en: 'If set to \\"wait for completion\\", the program will wait for the movement to complete before running the next block.',
+  },
+  '#blk-stepper_wheels_delta_turn_steps#': {
+    en: 'delta drive: turn at speed',
+  },
+  '#blk-stepper_wheels_delta_turn_steps_tooltip#': {
+    en: 'If set to \\"wait for completion\\", the program will wait for the movement to complete before running the next block.',
+  },
+  '#blk-stepper_wheels_delta_stop#': {
+    en: 'delta drive: stop',
+  },
+  '#blk-stepper_wheels_delta_stop_tooltip#': {
+    en: 'Immediately stop all wheels.',
+  },
+  '#blk-stepper_wheels_delta_set_acceleration#': {
+    en: 'delta drive: set acceleration to',
+  },
+  '#blk-stepper_wheels_delta_set_acceleration_tooltip#': {
+    en: 'Affects acceleration and decceleration when running for steps. Commands which only specifies speed always changes speed immediately without acceleration.',
+  },
 
 };
 let MSGS_KEYS = Object.keys(MSGS);
