@@ -1141,7 +1141,7 @@ var main = new function() {
       title: 'Firmware Update',
       message:
         'A new firmware (version ' + constants.CURRENT_VERSION + ') is available, but your device version is too old to upgrade through this page. ' +
-        'Please use Serial mode or the <a href="https://quirkycort.github.io/IoTy-Flash/public/index.html">Firmware Flash Tool</a> to update your firmware. '
+        'Please use Serial mode or the <a href="https://ioty-flash.a9i.sg/">Firmware Flash Tool</a> to update your firmware. '
     });
   };
 
