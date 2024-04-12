@@ -1174,12 +1174,30 @@ var main = new function() {
 
   // Display what's new if not seen before
   this.showWhatsNew = function(forceShow=false) {
-    let current = 20231014;
+    let current = 20240413;
     let lastShown = localStorage.getItem('whatsNew');
     if (lastShown == null || parseInt(lastShown) < current || forceShow) {
       let options = {
         title: 'What\'s New',
         message:
+        '<h3>13 Apr 2024 (Firmware and extensions)</h3>' +
+        '<p>' +
+          'A new firmware version (12) is released. ' +
+          'Adds support for reset in BLE and Internet mode. ' +
+          'Auto-start download mode if there are no programs loaded on the device. ' +
+        '</p>' +
+        '<p>' +
+          'Many new extensions have been added; ' +
+          '<ul>' +
+            '<li>PNG Decoder</li>' +
+            '<li>BMP Image</li>' +
+            '<li>Bluetooth LE Human Interface Devices</li>' +
+            '<li>YX5300 / YX6300 MP3 Players</li>' +
+            '<li>LD2410 Human Presence Radar</li>' +
+            '<li>Stepper Wheels</li>' +
+            '<li>Stepper Wheels Drives</li>' +
+          '</ul>' +
+        '</p>' +
         '<h3>28 Dec 2023 (Firmware and Advanced Pins)</h3>' +
         '<p>' +
           'A new firmware version (11) is released. ' +
@@ -1209,11 +1227,6 @@ var main = new function() {
             '<li>Music</li>' +
             '<li>Scaled Text</li>' +
           '</ul>' +
-        '</p>' +
-        '<h3>29 Jul 2023 (Serial Mode)</h3>' +
-        '<p>' +
-          'You can now connect to your device using Serial mode. ' +
-          'Connect your device to your computer using a USB cable, then change "Connection Mode..." to "Serial". ' +
         '</p>'
       }
       acknowledgeDialog(options, function(){
