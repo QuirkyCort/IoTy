@@ -723,6 +723,7 @@ var extensions = new function() {
       self.processExtensions();
       $dialog.close();
     });
+    $('#extensionsSearch')[0].focus();
 
     return $dialog;
   };
