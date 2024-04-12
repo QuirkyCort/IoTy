@@ -1733,7 +1733,7 @@ var ioty_generator = new function() {
   };
 
   this.mpu6050_calibrate = function(block) {
-    var code = 'mpu6050_device.calibrateGyro()\n';
+    var code = 'mpu6050_device.calibrate_gyro()\n';
 
     return code;
   };

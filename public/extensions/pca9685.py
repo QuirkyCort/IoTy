@@ -15,10 +15,10 @@ class PCA9685:
     def __init__(self, i2c, addr=64):
         self.i2c = i2c
         self.addr = addr
-        self.autoIncrement(True)
+        self.auto_increment(True)
         self.set_frequency(_SERVO_FREQ)
 
-    def autoIncrement(self, mode):
+    def auto_increment(self, mode):
         data = self.i2c.readfrom_mem(self.addr, _MODE1, 1)[0]
         if mode:
             data |= 1 << _MODE1_AI_BIT

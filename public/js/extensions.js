@@ -6,7 +6,7 @@ var extensions = new function() {
       id: 'mpu6050',
       name: 'MPU-6050 / MPU-6500 (Gyro and Accelerometer)',
       files: [
-        ['mpu6050.py', 'extensions/mpu6050.py?v=472e78b6'],
+        ['mpu6050.py', 'extensions/mpu6050.py?v=ee532473'],
       ],
       description:
         '<p>' +
@@ -25,7 +25,7 @@ var extensions = new function() {
       id: 'pca9685',
       name: 'PCA-9685 (PWM / Servo Driver)',
       files: [
-        ['pca9685.py', 'extensions/pca9685.py?v=b8af3a92'],
+        ['pca9685.py', 'extensions/pca9685.py?v=a1c5275a'],
       ],
       description:
         '<p>' +

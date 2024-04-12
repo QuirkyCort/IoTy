@@ -23,7 +23,7 @@ class MPU6050:
         self.prev_z = 0
         self.prev_time = time.ticks_us()
 
-    def calibrateGyro(self, reps=80, threshold=100):
+    def calibrate_gyro(self, reps=80, threshold=100):
         prev_x, prev_y, prev_z = struct.unpack('>hhh', self.i2c.readfrom_mem(self.addr, 67, 6))
         sum_x, sum_y, sum_z = 0, 0, 0
         count = reps
@@ -43,6 +43,17 @@ class MPU6050:
         self.error_x = sum_x / reps
         self.error_y = sum_y / reps
         self.error_z = sum_z / reps
+
+    def calibrateGyro(self, reps=80, threshold=100):
+        self.calibrate_gyro(reps, threshold)
+
+    def get_calibration(self):
+        return self.error_x, self.error_y, self.error_z
+
+    def set_calibration(self, calibration):
+        self.error_x = calibration[0]
+        self.error_y = calibration[1]
+        self.error_z = calibration[2]
 
     def accel_all(self):
         all = struct.unpack('>hhh', self.i2c.readfrom_mem(self.addr, 59, 6))
