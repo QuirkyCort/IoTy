@@ -1030,6 +1030,8 @@ var ioty_generator = new function() {
       type = 'float(';
     } else if (type == 'STRING') {
       type = 'str(';
+    } else if (type == 'HEX') {
+      type = 'hex(';
     }
 
     var code = type + value + ')';

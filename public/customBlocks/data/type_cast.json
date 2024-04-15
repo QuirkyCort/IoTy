@@ -17,6 +17,10 @@
         [
           "string",
           "STRING"
+        ],
+        [
+          "hexadecimal string",
+          "HEX"
         ]
       ]
     },
