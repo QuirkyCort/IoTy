@@ -838,6 +838,18 @@ let MSGS = {
   '#blk-mpu6050_get_angle_tooltip#': {
     en: 'You must run \\"update gyro angles\\" frequently to get a valid angle.',
   },
+  '#blk-mpu6050_get_calibration#': {
+    en: 'MPU-6050 calibration data',
+  },
+  '#blk-mpu6050_get_calibration_tooltip#': {
+    en: 'Returns the x, y, and z error in a list.',
+  },
+  '#blk-mpu6050_set_calibration#': {
+    en: 'set MPU-6050 calibration',
+  },
+  '#blk-mpu6050_set_calibration_tooltip#': {
+    en: 'Expects a list of x, y, z error as input.',
+  },
   '#blk-pca9685_init#': {
     en: 'init PCA-9685 with address',
   },

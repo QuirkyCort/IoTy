@@ -123,6 +123,8 @@ var ioty_generator = new function() {
     Blockly.Python['mpu6050_gyro'] = self.mpu6050_gyro;
     Blockly.Python['mpu6050_angle'] = self.mpu6050_angle;
     Blockly.Python['mpu6050_temperature'] = self.mpu6050_temperature;
+    Blockly.Python['mpu6050_get_calibration'] = self.mpu6050_get_calibration;
+    Blockly.Python['mpu6050_set_calibration'] = self.mpu6050_set_calibration;
     Blockly.Python.addReservedWords('mpu6050,mpu6050_device');
 
     Blockly.Python['pca9685_init'] = self.pca9685_init;
@@ -1810,6 +1812,20 @@ var ioty_generator = new function() {
     var code = 'mpu6050_device.temperature_' + devType + '()';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.mpu6050_get_calibration = function(block) {
+    var code = 'mpu6050_device.get_calibration()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.mpu6050_set_calibration = function(block) {
+    var calibration = Blockly.Python.valueToCode(block, 'calibration', Blockly.Python.ORDER_NONE);
+
+    var code = 'mpu6050_device.set_calibration(' + calibration + ')\n';
+
+    return code;
   };
 
   this.pca9685_init = function(block) {

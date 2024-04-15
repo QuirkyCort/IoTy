@@ -1,0 +1,9 @@
+{
+  "type": "mpu6050_get_calibration",
+  "message0": "#blk-mpu6050_get_calibration#",
+  "args0": [],
+  "output": ["Array"],
+  "colour": 230,
+  "tooltip": "#blk-mpu6050_get_calibration_tooltip#",
+  "helpUrl": ""
+}

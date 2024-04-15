@@ -1,0 +1,17 @@
+{
+  "type": "mpu6050_set_calibration",
+  "message0": "#blk-mpu6050_set_calibration# %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "calibration",
+      "check": "Array"
+    }
+  ],
+  "inputsInline": false,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-mpu6050_set_calibration_tooltip#",
+  "helpUrl": ""
+}
