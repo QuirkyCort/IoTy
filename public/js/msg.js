@@ -719,6 +719,12 @@ let MSGS = {
   '#main-flashFirmware_go#': {
     en: 'Go to Firmware Flash Tool',
   },
+  '#main-invalid_blocks_file#': {
+    en: 'Invalid Blocks file (...maybe it contains Python instead?)',
+  },
+  '#main-invalid_python_file#': {
+    en: 'Invalid Python file (...maybe it contains Blocks instead?)',
+  },
   '#blockly-save#': {
     en: 'Save Now',
     fr: 'Enregistrer maintenant',

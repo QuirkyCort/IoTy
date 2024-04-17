@@ -720,7 +720,8 @@ var main = new function() {
     }
 
     JSZip.loadAsync(file)
-      .then(loadFiles);
+      .then(loadFiles)
+      .catch(error => showErrorModal(i18n.get('#main-invalid_blocks_file#')));
 
     let filename = file.name.replace(/.zip/, '');
     self.$projectName.val(filename);
@@ -760,32 +761,39 @@ var main = new function() {
     hiddenElement.type = 'file';
     hiddenElement.accept = 'application/zip,.zip';
     hiddenElement.dispatchEvent(new MouseEvent('click'));
-    hiddenElement.addEventListener('change', function(e){
-      async function loadFiles(zip) {
-        filesManager.deleteAll();
+    hiddenElement.addEventListener('change', self.loadPythonFromComputerZip);
+  };
 
-        let filenames = [];
-        zip.forEach(function(path, file) {
-          filenames.push(path);
-        });
+  this.loadPythonFromComputerZip = function(e) {
+    async function loadFiles(zip) {
+      filesManager.deleteAll();
 
-        for (let filename of filenames) {
-          await zip.file(filename).async('string')
-            .then(function(content){
-              filesManager.add(filename, content);
-            });
-        }
+      let filenames = [];
+      zip.forEach(function(path, file) {
+        filenames.push(path);
+      });
 
-        filesManager.modified = true;
-        filesManager.unsaved = true;
-        filesManager.saveLocalStorage();
-        self.tabClicked('navPython');
+      if (! filenames.includes('main.py')) {
+        throw new Error('No main.py in zip archive');
       }
 
-      JSZip.loadAsync(e.target.files[0])
-        .then(loadFiles);
-    });
-  };
+      for (let filename of filenames) {
+        await zip.file(filename).async('string')
+          .then(function(content){
+            filesManager.add(filename, content);
+          });
+      }
+
+      filesManager.modified = true;
+      filesManager.unsaved = true;
+      filesManager.saveLocalStorage();
+      self.tabClicked('navPython');
+    }
+
+    JSZip.loadAsync(e.target.files[0])
+      .then(loadFiles)
+      .catch(error => showErrorModal(i18n.get('#main-invalid_python_file#')));
+  }
 
   // save to json package
   this.saveToJson = async function() {
