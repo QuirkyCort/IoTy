@@ -578,6 +578,7 @@
         </shadow>
       </value>
     </block>
+    <block type="file_write_binary"></block>
     <block type="file_flush"></block>
     <block type="file_close"></block>
     <block type="file_is_file">
@@ -2032,5 +2033,8 @@
     <block type="camera_set_contrast"></block>
     <block type="camera_set_quality"></block>
   </category>
-
+  <category toolboxitemid="mv" name="Machine Vision" colour="#9fa55b" hidden="true">
+    <block type="mv_find_blobs_yuv"></block>
+    <block type="mv_find_blobs_grayscale"></block>
+  </category>
 </xml>

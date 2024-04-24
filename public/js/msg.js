@@ -1114,6 +1114,12 @@ let MSGS = {
   '#blk-file_write_tooltip#': {
     en: 'Write a String to file. If \\"New line\\" is enabled, each write will be on its own line.',
   },
+  '#blk-write_binary_to#': {
+    en: 'write binary data to',
+  },
+  '#blk-file_write_binary_tooltip#': {
+    en: 'Write a Bytes object to file.',
+  },
   '#blk-read_one_line_from#': {
     en: 'read one line from',
   },
@@ -2919,6 +2925,42 @@ let MSGS = {
   },
   '#blk-camera_set_quality_tooltip#': {
     en: 'Sets the quality of the JPEG image. Ranges from 10 (highest quality) to 63 (lowest quality).',
+  },
+  '#blk-mv_find_blobs_yuv#': {
+    en: 'find blobs from YUV image',
+  },
+  '#blk-mv_find_blobs_yuv_tooltip#': {
+    en: 'The detection will act on only a quarter of the pixels, skipping all odd columns and rows. Return value is a list of matches sorted by pixel_count (largest first). Each match is a list containing: pixel_count, center_x, center_y, x, y, width, height.',
+  },
+  '#blk-with_width#': {
+    en: 'with width',
+  },
+  '#blk-and_height#': {
+    en: 'and height',
+  },
+  '#blk-with_min_max_Y#': {
+    en: 'with min/max Y:',
+  },
+  '#blk-U#': {
+    en: 'U:',
+  },
+  '#blk-V#': {
+    en: 'V:',
+  },
+  '#blk-and_at_least#': {
+    en: 'and at least',
+  },
+  '#blk-pixels#': {
+    en: 'pixels',
+  },
+  '#blk-mv_find_blobs_grayscale#': {
+    en: 'find blobs from Grayscale image',
+  },
+  '#blk-mv_find_blobs_grayscale_tooltip#': {
+    en: 'The detection will act on all of the pixels. Return value is a list of matches sorted by pixel_count (largest first). Each match is a list containing: pixel_count, center_x, center_y, x, y, width, height.',
+  },
+  '#blk-with_min_max_intensity#': {
+    en: 'with min/max intensity:',
   },
 };
 let MSGS_KEYS = Object.keys(MSGS);

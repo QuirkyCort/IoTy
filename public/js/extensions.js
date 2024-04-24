@@ -691,6 +691,18 @@ var extensions = new function() {
           'This extension only adds blocks. ' +
         '</p>'
     },
+    {
+      id: 'mv',
+      name: 'Machine Vision',
+      files: [
+        ['mv.py', 'extensions/mv.py?v=e25a63ca'],
+      ],
+      description:
+        '<p>' +
+          'Provides functions for Machine Vision tasks. ' +
+          'Currently, the only available functions are for blob detection.' +
+        '</p>'
+    },
   ]
 
   this.init = function() {

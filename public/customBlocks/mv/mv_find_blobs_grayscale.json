@@ -1,0 +1,40 @@
+{
+  "type": "mv_find_blobs_grayscale",
+  "message0": "#blk-mv_find_blobs_grayscale# %1 #blk-with_width# %2 #blk-and_height# %3 #blk-with_min_max_intensity# %4 %5 #blk-and_at_least# %6 #blk-pixels#",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "buf",
+      "check": "Bytes"
+    },
+    {
+      "type": "field_number",
+      "name": "width",
+      "value": "160"
+    },
+    {
+      "type": "field_number",
+      "name": "height",
+      "value": "120"
+    },
+    {
+      "type": "field_number",
+      "name": "minI",
+      "value": "0"
+    },
+    {
+      "type": "field_number",
+      "name": "maxI",
+      "value": "255"
+    },
+    {
+      "type": "field_number",
+      "name": "pixels_threshold",
+      "value": "10"
+    }
+  ],
+  "output": "Array",
+  "colour": 65,
+  "tooltip": "#blk-mv_find_blobs_grayscale_tooltip#",
+  "helpUrl": ""
+}

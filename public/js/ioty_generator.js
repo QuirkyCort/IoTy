@@ -106,6 +106,7 @@ var ioty_generator = new function() {
     Blockly.Python['file_readline'] = self.file_readline;
     Blockly.Python['file_read'] = self.file_read;
     Blockly.Python['file_write'] = self.file_write;
+    Blockly.Python['file_write_binary'] = self.file_write_binary;
     Blockly.Python['file_close'] = self.file_close;
     Blockly.Python['file_flush'] = self.file_flush;
     Blockly.Python['file_is_file'] = self.file_is_file;
@@ -496,6 +497,9 @@ var ioty_generator = new function() {
     Blockly.Python['camera_set_quality'] = self.camera_set_quality;
     Blockly.Python.addReservedWords('camera');
 
+    Blockly.Python['mv_find_blobs_yuv'] = self.mv_find_blobs_yuv;
+    Blockly.Python['mv_find_blobs_grayscale'] = self.mv_find_blobs_grayscale;
+    Blockly.Python.addReservedWords('mv');
   };
 
   // Generate python code
@@ -1662,6 +1666,15 @@ var ioty_generator = new function() {
     }
 
     var code = variable + '.write(' + value + ending + ')\n';
+
+    return code;
+  };
+
+  this.file_write_binary = function(block) {
+    var variable = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('variable'), 'VARIABLE');
+    var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_NONE);
+
+    var code = variable + '.write(' + value + ')\n';
 
     return code;
   };
@@ -4598,6 +4611,8 @@ var ioty_generator = new function() {
   };
 
   this.camera_init = function(block) {
+    self.imports['camera'] = 'import camera';
+
     var format = block.getFieldValue('format');
     var framesize = block.getFieldValue('framesize');
 
@@ -4658,5 +4673,38 @@ var ioty_generator = new function() {
     return code;
   };
 
+  this.mv_find_blobs_yuv = function(block) {
+    self.imports['mv'] = 'import mv';
+
+    let buf = Blockly.Python.valueToCode(block, 'buf', Blockly.Python.ORDER_NONE);
+    var width = block.getFieldValue('width');
+    var height = block.getFieldValue('height');
+    var minY = block.getFieldValue('minY');
+    var maxY = block.getFieldValue('maxY');
+    var minU = block.getFieldValue('minU');
+    var maxU = block.getFieldValue('maxU');
+    var minV = block.getFieldValue('minV');
+    var maxV = block.getFieldValue('maxV');
+    var pixels_threshold = block.getFieldValue('pixels_threshold');
+
+    var code = 'mv.find_blobs_yuv(' + buf + ', ' + width + ', ' + height + ', (' + minY + ', ' + maxY + ', ' + minU + ', ' + maxU + ', ' + minV + ', ' + maxV + '), ' + pixels_threshold + ')';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.mv_find_blobs_grayscale = function(block) {
+    self.imports['mv'] = 'import mv';
+
+    let buf = Blockly.Python.valueToCode(block, 'buf', Blockly.Python.ORDER_NONE);
+    var width = block.getFieldValue('width');
+    var height = block.getFieldValue('height');
+    var minI = block.getFieldValue('minI');
+    var maxI = block.getFieldValue('maxI');
+    var pixels_threshold = block.getFieldValue('pixels_threshold');
+
+    var code = 'mv.find_blobs_grayscale(' + buf + ', ' + width + ', ' + height + ', (' + minI + ', ' + maxI + '), ' + pixels_threshold + ')';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
 }
 
