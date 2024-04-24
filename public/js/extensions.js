@@ -670,6 +670,27 @@ var extensions = new function() {
           'This extension only adds blocks; you must also add the Stepper Wheels extension. ' +
         '</p>'
     },
+    {
+      id: 'camera',
+      name: 'Camera',
+      files: [],
+      description:
+        '<p>' +
+          'Provides blocks for reading the camera on an ESP32-Cam. ' +
+          'You must use a firmware with camera support for this to work. ' +
+          'Note that in the ESP32-Cam...' +
+        '</p>' +
+        '<p>' +
+          '<ul>' +
+            '<li>You cannot use the boot button in your program. It interferes with the camera.</li>' +
+            '<li>Camera LED is on pin 4; digital_write 1 to activate.</li>' +
+            '<li>Red indicator LED on pin 33; digital_write 0 to activate.</li>' +
+          '</ul>' +
+        '</p>' +
+        '<p>' +
+          'This extension only adds blocks. ' +
+        '</p>'
+    },
   ]
 
   this.init = function() {

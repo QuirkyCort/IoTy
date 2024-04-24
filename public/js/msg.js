@@ -2869,7 +2869,57 @@ let MSGS = {
   '#blk-stepper_wheels_delta_set_acceleration_tooltip#': {
     en: 'Affects acceleration and decceleration when running for steps. Commands which only specifies speed always changes speed immediately without acceleration.',
   },
-
+  '#blk-camera_init#': {
+    en: 'init camera with format',
+  },
+  '#blk-and_framesize#': {
+    en: 'and framesize',
+  },
+  '#blk-camera_init_tooltip#': {
+    en: 'Large framesize may crash the ESP32, especially when not using JPEG. To reinitialize the camera, you must \\"deinit\\" first.',
+  },
+  '#blk-camera_deinit#': {
+    en: 'deinit camera',
+  },
+  '#blk-camera_deinit_tooltip#': {
+    en: 'You must deinitialize the camera before you can initialize it again.',
+  },
+  '#blk-camera_capture#': {
+    en: 'camera get image',
+  },
+  '#blk-camera_capture_tooltip#': {
+    en: 'Returns the last captured image (...which may be a long time ago) as a bytes object. To get the latest image, perform two captures consecutively and use the second image.',
+  },
+  '#blk-camera_set_whitebalance#': {
+    en: 'camera set whitebalance',
+  },
+  '#blk-camera_set_whitebalance_tooltip#': {
+    en: 'Sets the whitebalance.',
+  },
+  '#blk-camera_set_saturation#': {
+    en: 'camera set saturation',
+  },
+  '#blk-camera_set_saturation_tooltip#': {
+    en: 'Sets the saturation',
+  },
+  '#blk-camera_set_brightness#': {
+    en: 'camera set brightness',
+  },
+  '#blk-camera_set_brightness_tooltip#': {
+    en: 'Sets the brightness',
+  },
+  '#blk-camera_set_contrast#': {
+    en: 'camera set contrast',
+  },
+  '#blk-camera_set_contrast_tooltip#': {
+    en: 'Sets the contrast',
+  },
+  '#blk-camera_set_quality#': {
+    en: 'camera set quality',
+  },
+  '#blk-camera_set_quality_tooltip#': {
+    en: 'Sets the quality of the JPEG image. Ranges from 10 (highest quality) to 63 (lowest quality).',
+  },
 };
 let MSGS_KEYS = Object.keys(MSGS);
 

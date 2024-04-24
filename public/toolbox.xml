@@ -2022,5 +2022,15 @@
       </value>
     </block>
   </category>
+  <category toolboxitemid="camera" name="Camera" colour="#5b67a5" hidden="true">
+    <block type="camera_init"></block>
+    <block type="camera_deinit"></block>
+    <block type="camera_capture"></block>
+    <block type="camera_set_whitebalance"></block>
+    <block type="camera_set_saturation"></block>
+    <block type="camera_set_brightness"></block>
+    <block type="camera_set_contrast"></block>
+    <block type="camera_set_quality"></block>
+  </category>
 
 </xml>

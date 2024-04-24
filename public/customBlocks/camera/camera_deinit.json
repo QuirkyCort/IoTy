@@ -1,0 +1,11 @@
+{
+  "type": "camera_deinit",
+  "message0": "#blk-camera_deinit#",
+  "args0": [],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-camera_deinit_tooltip#",
+  "helpUrl": ""
+}

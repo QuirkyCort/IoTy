@@ -1,0 +1,9 @@
+{
+  "type": "camera_capture",
+  "message0": "#blk-camera_capture#",
+  "args0": [],
+  "output": "Bytes",
+  "colour": 230,
+  "tooltip": "#blk-camera_capture_tooltip#",
+  "helpUrl": ""
+}

@@ -1,0 +1,96 @@
+{
+  "type": "camera_init",
+  "message0": "#blk-camera_init# %1 #blk-and_framesize# %2",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "format",
+      "options": [
+        [
+          "JPEG",
+          "JPEG"
+        ],
+        [
+          "RGB565",
+          "RGB565"
+        ],
+        [
+          "YUV422",
+          "YUV422"
+        ],
+        [
+          "GRAYSCALE",
+          "GRAYSCALE"
+        ]
+      ]
+    },
+    {
+      "type": "field_dropdown",
+      "name": "framesize",
+      "options": [
+        [
+          "96X96",
+          "FRAME_96X96"
+        ],
+        [
+          "QQVGA (160x120)",
+          "FRAME_QQVGA"
+        ],
+        [
+          "QCIF (176x144)",
+          "FRAME_QCIF"
+        ],
+        [
+          "HQVGA (240x176)",
+          "FRAME_HQVGA"
+        ],
+        [
+          "240X240",
+          "FRAME_240X240"
+        ],
+        [
+          "QVGA (320x240)",
+          "FRAME_QVGA"
+        ],
+        [
+          "CIF (400x296)",
+          "FRAME_CIF"
+        ],
+        [
+          "HVGA (480x320)",
+          "FRAME_HVGA"
+        ],
+        [
+          "VGA (640x480)",
+          "FRAME_VGA"
+        ],
+        [
+          "SVGA (800x600)",
+          "FRAME_SVGA"
+        ],
+        [
+          "XGA (1024x768)",
+          "FRAME_XGA"
+        ],
+        [
+          "HD (1280x720)",
+          "FRAME_HD"
+        ],
+        [
+          "SXGA (1280x1024)",
+          "FRAME_SXGA"
+        ],
+        [
+          "UXGA (1600x1200)",
+          "FRAME_UXGA"
+        ]
+      ]
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-camera_init_tooltip#",
+  "helpUrl": ""
+}
