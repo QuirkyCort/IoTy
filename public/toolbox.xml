@@ -553,6 +553,7 @@
         </shadow>
       </value>
     </block>
+    <block type="mqtt_publish_bytes"></block>
     <block type="mqtt_check_msg"></block>
   </category>
   <category name="#blk-file#" colour="#5b67a5">

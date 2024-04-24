@@ -85,6 +85,7 @@ var ioty_generator = new function() {
     Blockly.Python['mqtt_on_receive'] = self.mqtt_on_receive;
     Blockly.Python['mqtt_msg'] = self.mqtt_msg;
     Blockly.Python['mqtt_publish'] = self.mqtt_publish;
+    Blockly.Python['mqtt_publish_bytes'] = self.mqtt_publish_bytes;
     Blockly.Python.addReservedWords('ioty_mqtt,ioty_mqtt_cb,mqtt_msg,ubinascii');
 
     Blockly.Python['i2c_init'] = self.i2c_init;
@@ -1458,6 +1459,17 @@ var ioty_generator = new function() {
     topic = escapeSingleQuotes(topic);
 
     var code = 'ioty_mqtt.publish(b\'' + topic + '\', bytes(' + value + ', \'utf-8\'))\n'
+
+    return code;
+  };
+
+  this.mqtt_publish_bytes = function(block) {
+    var topic = block.getFieldValue('topic');
+    var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_NONE);
+
+    topic = escapeSingleQuotes(topic);
+
+    var code = 'ioty_mqtt.publish(b\'' + topic + '\', ' + value + ')\n'
 
     return code;
   };

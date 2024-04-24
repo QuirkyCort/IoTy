@@ -450,6 +450,12 @@ let MSGS = {
   '#blk-message#': {
     en: 'message',
   },
+  '#blk-mqtt_publish_bytes#': {
+    en: 'MQTT: Publish bytes to topic',
+  },
+  '#blk-mqtt_publish_tooltip#': {
+    en: 'Publish the bytes object to the specified topic.',
+  },
   '#blk-i2c_init#': {
     en: 'init i2c on pins',
   },
