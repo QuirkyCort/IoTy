@@ -1,0 +1,15 @@
+{
+  "type": "mv_yuv_to_grayscale",
+  "message0": "#blk-mv_yuv_to_grayscale# %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "buf",
+      "check": "Bytes"
+    }
+  ],
+  "output": "Bytes",
+  "colour": 65,
+  "tooltip": "#blk-mv_yuv_to_grayscale_tooltip#",
+  "helpUrl": ""
+}

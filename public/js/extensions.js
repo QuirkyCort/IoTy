@@ -700,7 +700,7 @@ var extensions = new function() {
       description:
         '<p>' +
           'Provides functions for Machine Vision tasks. ' +
-          'Currently, the only available functions are for blob detection.' +
+          'Currently, functions are for blob detection, circle detection, edge detection, and blurring are available.' +
         '</p>'
     },
   ]

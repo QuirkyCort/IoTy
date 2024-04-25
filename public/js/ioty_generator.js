@@ -500,6 +500,11 @@ var ioty_generator = new function() {
 
     Blockly.Python['mv_find_blobs_yuv'] = self.mv_find_blobs_yuv;
     Blockly.Python['mv_find_blobs_grayscale'] = self.mv_find_blobs_grayscale;
+    Blockly.Python['mv_find_circle_single'] = self.mv_find_circle_single;
+    Blockly.Python['mv_edge_detect'] = self.mv_edge_detect;
+    Blockly.Python['mv_yuv_to_grayscale'] = self.mv_yuv_to_grayscale;
+    Blockly.Python['mv_gaussian_blur_3x3_gray'] = self.mv_gaussian_blur_3x3_gray;
+    Blockly.Python['mv_sobel'] = self.mv_sobel;
     Blockly.Python.addReservedWords('mv');
   };
 
@@ -4716,6 +4721,68 @@ var ioty_generator = new function() {
     var pixels_threshold = block.getFieldValue('pixels_threshold');
 
     var code = 'mv.find_blobs_grayscale(' + buf + ', ' + width + ', ' + height + ', (' + minI + ', ' + maxI + '), ' + pixels_threshold + ')';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.mv_find_circle_single = function(block) {
+    self.imports['mv'] = 'import mv';
+
+    let buf = Blockly.Python.valueToCode(block, 'buf', Blockly.Python.ORDER_NONE);
+    var width = block.getFieldValue('width');
+    var height = block.getFieldValue('height');
+    var radius = block.getFieldValue('radius');
+    var pixels_threshold = block.getFieldValue('pixels_threshold');
+
+    var code = 'mv.hough_circles_single(' + buf + ', ' + width + ', ' + height + ', ' + radius + ', ' + pixels_threshold + ')';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.mv_edge_detect = function(block) {
+    self.imports['mv'] = 'import mv';
+
+    let buf = Blockly.Python.valueToCode(block, 'buf', Blockly.Python.ORDER_NONE);
+    var width = block.getFieldValue('width');
+    var height = block.getFieldValue('height');
+    var minV = block.getFieldValue('minV');
+    var maxV = block.getFieldValue('maxV');
+
+    var code = 'mv.edge_detect(' + buf + ', ' + width + ', ' + height + ', ' + minV + ', ' + maxV + ')';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.mv_yuv_to_grayscale = function(block) {
+    self.imports['mv'] = 'import mv';
+
+    let buf = Blockly.Python.valueToCode(block, 'buf', Blockly.Python.ORDER_NONE);
+
+    var code = 'mv.yuv_to_grayscale(' + buf + ')';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.mv_gaussian_blur_3x3_gray = function(block) {
+    self.imports['mv'] = 'import mv';
+
+    let buf = Blockly.Python.valueToCode(block, 'buf', Blockly.Python.ORDER_NONE);
+    var width = block.getFieldValue('width');
+    var height = block.getFieldValue('height');
+
+    var code = 'mv.gaussian_blur_3x3(' + buf + ', ' + width + ', ' + height + ')';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.mv_sobel = function(block) {
+    self.imports['mv'] = 'import mv';
+
+    let buf = Blockly.Python.valueToCode(block, 'buf', Blockly.Python.ORDER_NONE);
+    var width = block.getFieldValue('width');
+    var height = block.getFieldValue('height');
+
+    var code = 'mv.sobel(' + buf + ', ' + width + ', ' + height + ')';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };

@@ -1,0 +1,35 @@
+{
+  "type": "mv_edge_detect",
+  "message0": "#blk-mv_edge_detect# %1 #blk-of_width# %2 #blk-and_height# %3 #blk-with_min_max_threshold# %4 %5",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "buf",
+      "check": "Bytes"
+    },
+    {
+      "type": "field_number",
+      "name": "width",
+      "value": "160"
+    },
+    {
+      "type": "field_number",
+      "name": "height",
+      "value": "120"
+    },
+    {
+      "type": "field_number",
+      "name": "minV",
+      "value": "3200"
+    },
+    {
+      "type": "field_number",
+      "name": "maxV",
+      "value": "6400"
+    }
+  ],
+  "output": "Bytes",
+  "colour": 65,
+  "tooltip": "#blk-mv_edge_detect_tooltip#",
+  "helpUrl": ""
+}

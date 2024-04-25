@@ -2037,5 +2037,10 @@
   <category toolboxitemid="mv" name="Machine Vision" colour="#9fa55b" hidden="true">
     <block type="mv_find_blobs_yuv"></block>
     <block type="mv_find_blobs_grayscale"></block>
+    <block type="mv_find_circle_single"></block>
+    <block type="mv_edge_detect"></block>
+    <block type="mv_yuv_to_grayscale"></block>
+    <block type="mv_gaussian_blur_3x3_gray"></block>
+    <block type="mv_sobel"></block>
   </category>
 </xml>

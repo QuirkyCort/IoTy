@@ -2941,8 +2941,8 @@ let MSGS = {
   '#blk-mv_find_blobs_yuv_tooltip#': {
     en: 'The detection will act on only a quarter of the pixels, skipping all odd columns and rows. Return value is a list of matches sorted by pixel_count (largest first). Each match is a list containing: pixel_count, center_x, center_y, x, y, width, height.',
   },
-  '#blk-with_width#': {
-    en: 'with width',
+  '#blk-of_width#': {
+    en: 'of width',
   },
   '#blk-and_height#': {
     en: 'and height',
@@ -2970,6 +2970,42 @@ let MSGS = {
   },
   '#blk-with_min_max_intensity#': {
     en: 'with min/max intensity:',
+  },
+  '#blk-mv_yuv_to_grayscale#': {
+    en: 'convert YUV image to Grayscale',
+  },
+  '#blk-mv_yuv_to_grayscale_tooltip#': {
+    en: 'Takes a bytes object containing YUV422 data and return a bytes object containing grayscale data.',
+  },
+  '#blk-mv_gaussian_blur_3x3_gray#': {
+    en: 'perform a 3x3 gaussian blur on Grayscale image',
+  },
+  '#blk-mv_gaussian_blur_3x3_gray_tooltip#': {
+    en: 'Takes a bytes object containing grayscale data and return a bytes object containing blurred grayscale data.',
+  },
+  '#blk-mv_sobel#': {
+    en: 'perform a sobel filter on Grayscale image',
+  },
+  '#blk-mv_sobel_tooltip#': {
+    en: 'Takes a bytes object containing grayscale data and return a list containing derivatives (...rate of intensity change).',
+  },
+  '#blk-mv_edge_detect#': {
+    en: 'perform edge detection on Grayscale image',
+  },
+  '#blk-with_min_max_threshold#': {
+    en: 'with min/max threshold',
+  },
+  '#blk-mv_edge_detect_tooltip#': {
+    en: 'Takes a bytes object containing grayscale data and return a bytes object with edges marked as 255 and non-edges as 0. Pixels above max will always be marked as edge, those below min will always be marked as non-edge, those in-between will be marked as edge if they are next to an edge.',
+  },
+  '#blk-mv_find_circle_single#': {
+    en: 'find circles from edge detection image',
+  },
+  '#blk-with_circle_radius#': {
+    en: 'with circle radius',
+  },
+  '#blk-mv_find_circle_single_tooltip#': {
+    en: 'The input should be a bytes object returned by an edge detect block. Return value is a list of matches sorted by pixel_count (largest first). Each match is a list containing: pixel_count, x, y.',
   },
 };
 let MSGS_KEYS = Object.keys(MSGS);

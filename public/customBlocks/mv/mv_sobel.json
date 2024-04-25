@@ -1,0 +1,25 @@
+{
+  "type": "mv_sobel",
+  "message0": "#blk-mv_sobel# %1 #blk-of_width# %2 #blk-and_height# %3",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "buf",
+      "check": "Bytes"
+    },
+    {
+      "type": "field_number",
+      "name": "width",
+      "value": "160"
+    },
+    {
+      "type": "field_number",
+      "name": "height",
+      "value": "120"
+    }
+  ],
+  "output": "Array",
+  "colour": 65,
+  "tooltip": "#blk-mv_sobel_tooltip#",
+  "helpUrl": ""
+}

@@ -1,6 +1,6 @@
 {
   "type": "mv_find_blobs_yuv",
-  "message0": "#blk-mv_find_blobs_yuv# %1 #blk-with_width# %2 #blk-and_height# %3 #blk-with_min_max_Y# %4 %5 #blk-U# %6 %7 #blk-V# %8 %9 #blk-and_at_least# %10 #blk-pixels#",
+  "message0": "#blk-mv_find_blobs_yuv# %1 #blk-of_width# %2 #blk-and_height# %3 #blk-with_min_max_Y# %4 %5 #blk-U# %6 %7 #blk-V# %8 %9 #blk-and_at_least# %10 #blk-pixels#",
   "args0": [
     {
       "type": "input_value",

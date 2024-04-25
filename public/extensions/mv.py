@@ -1,130 +1,132 @@
 import math
 
-def yuv_to_gray(buf, w, h):
-  gray = bytearray(w * h)
+def yuv_to_grayscale(buf):
+    size = len(buf) / 2
+    gray = bytearray(size)
 
-  for i in range(w * h):
-    gray[i] = buf[i * 2]
+    for i in range(size):
+        gray[i] = buf[i * 2]
 
-  return gray
+    return gray
 
 def gaussian_blur_3x3(buf, w, h):
-  blurred = bytearray(w * h)
+    blurred = bytearray(w * h)
 
-  for y in range(h):
-    row = y * w
-    row_m1 = y - 1
-    row_p1 = y + 1
-    if row_m1 < 0:
-      row_m1 *= -1
-    elif row_p1 > h - 1:
-      row_p1 = 2 * h - row_p1 - 2
-    row_m1 *= w
-    row_p1 *= w
-    for x in range(w):
-      pos = row + x
-      x_m1 = x-1
-      x_p1 = x+1
-      if x_m1 < 0:
-        x_m1 *= -1
-      elif x_p1 > w -1:
-        x_p1 = 2 * w - x_p1 - 2
-      pixel = 4 * buf[pos]
-      pixel += 2 * (buf[row + x_m1] + buf[row + x_p1] + buf[row_m1 + x] + buf[row_p1 + x])
-      pixel += buf[row_m1 + x_m1] + buf[row_m1 + x_p1] + buf[row_p1 + x_m1] + buf[row_p1 + x_p1]
-      blurred[pos] = pixel // 16
-  return blurred
+    for y in range(h):
+        row = y * w
+        row_m1 = y - 1
+        row_p1 = y + 1
+        if row_m1 < 0:
+            row_m1 *= -1
+        elif row_p1 > h - 1:
+            row_p1 = 2 * h - row_p1 - 2
+        row_m1 *= w
+        row_p1 *= w
+        for x in range(w):
+            pos = row + x
+            x_m1 = x-1
+            x_p1 = x+1
+            if x_m1 < 0:
+                x_m1 *= -1
+            elif x_p1 > w -1:
+                x_p1 = 2 * w - x_p1 - 2
+            pixel = 4 * buf[pos]
+            pixel += 2 * (buf[row + x_m1] + buf[row + x_p1] + buf[row_m1 + x] + buf[row_p1 + x])
+            pixel += buf[row_m1 + x_m1] + buf[row_m1 + x_p1] + buf[row_p1 + x_m1] + buf[row_p1 + x_p1]
+            blurred[pos] = pixel // 16
+    return blurred
 
 def sobel(buf, w, h):
-  g = [0] * (w * h)
-  for y in range(1, h-1):
-    row = y * w
-    for x in range(1, w-1):
-      pos = row + x
-      gx = buf[pos - 1] * -2
-      gx += buf[pos + 1] * 2
-      gx -= buf[pos - 1 - w]
-      gx += buf[pos + 1 - w]
-      gx -= buf[pos - 1 + w]
-      gx += buf[pos + 1 + w]
-      gy = buf[pos - w] * -2
-      gy += buf[pos + w] * 2
-      gy -= buf[pos - w - 1]
-      gy += buf[pos + w - 1]
-      gy -= buf[pos - w + 1]
-      gy += buf[pos + w + 1]
-      g[pos] = gx**2 + gy**2
-  return g
+    g = [0] * (w * h)
+    for y in range(1, h-1):
+        row = y * w
+        for x in range(1, w-1):
+            pos = row + x
+            gx = buf[pos - 1] * -2
+            gx += buf[pos + 1] * 2
+            gx -= buf[pos - 1 - w]
+            gx += buf[pos + 1 - w]
+            gx -= buf[pos - 1 + w]
+            gx += buf[pos + 1 + w]
+            gy = buf[pos - w] * -2
+            gy += buf[pos + w] * 2
+            gy -= buf[pos - w - 1]
+            gy += buf[pos + w - 1]
+            gy -= buf[pos - w + 1]
+            gy += buf[pos + w + 1]
+            g[pos] = gx**2 + gy**2
+    return g
 
 def edge_detect(buf, w, h, minV, maxV):
-  edge = bytearray(w * h)
+    edge = bytearray(w * h)
 
-  g = sobel(buf, w, h)
-  for i in range(w * h):
-    if g[i] > maxV:
-      edge[i] = 255
+    g = sobel(buf, w, h)
+    for i in range(w * h):
+        if g[i] > maxV:
+            edge[i] = 255
 
-  for y in range(1, h-1):
-    row = y * w
-    for x in range(1, w-1):
-      pos = row + x
-      if minV < g[pos] < maxV:
-        if edge[pos - w] or edge[pos + w] or edge[pos - 1] or edge[pos + 1]:
-          edge[pos] = 255
+    for y in range(1, h-1):
+        row = y * w
+        for x in range(1, w-1):
+            pos = row + x
+            if minV < g[pos] < maxV:
+                if edge[pos - w] or edge[pos + w] or edge[pos - 1] or edge[pos + 1]:
+                    edge[pos] = 255
 
-  return edge
+    return edge
 
-def hough_circle_single(buf, w, h, r, threshold):
-  a_w = w - 2 * r
-  a_h = h - 2 * r
-  accum = [[0] * a_w for _ in range(a_h)]
-  minR2 = math.ceil((r - 0.5) ** 2)
-  maxR2 = math.floor((r + 0.5) ** 2)
+def hough_circles_single(buf, w, h, r, threshold):
+    a_w = w - 2 * r
+    a_h = h - 2 * r
+    accum = [[0] * a_w for _ in range(a_h)]
+    minR2 = math.ceil((r - 0.5) ** 2)
+    maxR2 = math.floor((r + 0.5) ** 2)
 
-  for y in range(h):
-    row = y * w
-    for x in range(w):
-      if buf[row + x]:
-        x_start = max(x - r, r)
-        x_end = min(x + r, a_w + r)
-        y_start = max(y - r, r)
-        y_end = min(y + r, a_h + r)
-        for a in range(y_start, y_end):
-          dy = (y - a) ** 2
-          for b in range(x_start, x_end):
-            a_r = (x - b)**2 + dy
-            if minR2 <= a_r <= maxR2:
-              accum[a-r][b-r] += 1
+    for y in range(h):
+        row = y * w
+        for x in range(w):
+            if buf[row + x]:
+                x_start = max(x - r, r)
+                x_end = min(x + r, a_w + r)
+                y_start = max(y - r, r)
+                y_end = min(y + r, a_h + r)
+                for a in range(y_start, y_end):
+                    dy = (y - a) ** 2
+                    for b in range(x_start, x_end):
+                        a_r = (x - b)**2 + dy
+                        if minR2 <= a_r <= maxR2:
+                            accum[a-r][b-r] += 1
 
-  results = []
-  for a in range(a_h):
-    for b in range(a_w):
-      if accum[a][b] > threshold:
-        results.append([b+r, a+r])
+    results = []
+    for a in range(a_h):
+        for b in range(a_w):
+            if accum[a][b] > threshold:
+                results.append([b+r, a+r])
 
-  merged_results = []
-  for result in results:
-    merged = False
+    merged_results = []
+    for result in results:
+        merged = False
+        for merged_result in merged_results:
+            if (merged_result[3]-1 <= result[0] <= merged_result[4]+1
+                and merged_result[5]-1 <= result[1] <= merged_result[6]+1):
+                merged_result[0] += 1
+                merged_result[1] += result[0]
+                merged_result[2] += result[1]
+                merged_result[3] = min(result[0], merged_result[3])
+                merged_result[4] = max(result[0], merged_result[4])
+                merged_result[5] = min(result[1], merged_result[5])
+                merged_result[6] = max(result[1], merged_result[6])
+                merged = True
+                break
+        if merged == False:
+            merged_results.append([1, result[0], result[1], result[0], result[0], result[1], result[1]])
+
+    final_results = []
     for merged_result in merged_results:
-      if (merged_result[3]-1 <= result[0] <= merged_result[4]+1
-          and merged_result[5]-1 <= result[1] <= merged_result[6]+1):
-        merged_result[0] += 1
-        merged_result[1] += result[0]
-        merged_result[2] += result[1]
-        merged_result[3] = min(result[0], merged_result[3])
-        merged_result[4] = max(result[0], merged_result[4])
-        merged_result[5] = min(result[1], merged_result[5])
-        merged_result[6] = max(result[1], merged_result[6])
-        merged = True
-        break
-    if merged == False:
-      merged_results.append([1, result[0], result[1], result[0], result[0], result[1], result[1]])
+        final_results.append([merged_result[0], merged_result[1] / merged_result[0], merged_result[2] / merged_result[0]])
 
-  final_results = []
-  for merged_result in merged_results:
-    final_results.append([merged_result[1] / merged_result[0], merged_result[2] / merged_result[0]])
-
-  return final_results
+    final_results.sort(key=lambda x: -x[0])
+    return final_results
 
 def _process_blobs(blobs, pixelsThreshold):
     keys = list(blobs.keys())
