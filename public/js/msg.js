@@ -2887,6 +2887,9 @@ let MSGS = {
   '#blk-and_framesize#': {
     en: 'and framesize',
   },
+  '#blk-and_clock#': {
+    en: 'and clock',
+  },
   '#blk-camera_init_tooltip#': {
     en: 'Large framesize may crash the ESP32, especially when not using JPEG. To reinitialize the camera, you must \\"deinit\\" first.',
   },

@@ -4627,8 +4627,9 @@ var ioty_generator = new function() {
 
     var format = block.getFieldValue('format');
     var framesize = block.getFieldValue('framesize');
+    var clock = block.getFieldValue('clock');
 
-    var code = 'camera.init(0, format=camera.' + format + ', framesize=camera.' + framesize + ', fb_location=camera.PSRAM)\n';
+    var code = 'camera.init(0, format=camera.' + format + ', framesize=camera.' + framesize + ', xclk_freq=camera.' + clock + ', fb_location=camera.PSRAM)\n';
 
     return code;
   };

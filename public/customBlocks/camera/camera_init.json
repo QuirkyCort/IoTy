@@ -1,6 +1,6 @@
 {
   "type": "camera_init",
-  "message0": "#blk-camera_init# %1 #blk-and_framesize# %2",
+  "message0": "#blk-camera_init# %1 #blk-and_framesize# %2 #blk-and_clock# %3",
   "args0": [
     {
       "type": "field_dropdown",
@@ -83,6 +83,20 @@
         [
           "UXGA (1600x1200)",
           "FRAME_UXGA"
+        ]
+      ]
+    },
+    {
+      "type": "field_dropdown",
+      "name": "clock",
+      "options": [
+        [
+          "20 MHz",
+          "XCLK_20MHz"
+        ],
+        [
+          "10 MHz",
+          "XCLK_10MHz"
         ]
       ]
     }
