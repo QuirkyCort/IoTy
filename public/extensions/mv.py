@@ -1,7 +1,7 @@
 import math
 
 def yuv_to_grayscale(buf):
-    size = len(buf) / 2
+    size = len(buf) // 2
     gray = bytearray(size)
 
     for i in range(size):
@@ -83,8 +83,8 @@ def gaussian_blur_3x3_yuv(buf, w, h):
             x_p1 = x+1
             if x_m1 < 0:
                 x_m1 *= -1
-            elif x_p1 > w -1:
-                x_p1 = 2 * w - x_p1 - 2
+            elif x_p1 > hw -1:
+                x_p1 = 2 * hw - x_p1 - 2
             x_m1 *= 4
             x_p1 *= 4
             u = 4 * buf[pos + 1]
