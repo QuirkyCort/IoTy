@@ -103,19 +103,14 @@ def sobel(buf, w, h):
         row = y * w
         for x in range(1, w-1):
             pos = row + x
-            gx = buf[pos - 1] * -2
-            gx += buf[pos + 1] * 2
-            gx -= buf[pos - 1 - w]
-            gx += buf[pos + 1 - w]
-            gx -= buf[pos - 1 + w]
-            gx += buf[pos + 1 + w]
-            gy = buf[pos - w] * -2
-            gy += buf[pos + w] * 2
-            gy -= buf[pos - w - 1]
-            gy += buf[pos + w - 1]
-            gy -= buf[pos - w + 1]
-            gy += buf[pos + w + 1]
-            g[pos] = gx**2 + gy**2
+            tl = buf[pos - 1 - w]
+            tr = buf[pos + 1 - w]
+            bl = buf[pos - 1 + w]
+            br = buf[pos + 1 + w]
+
+            gx = 2 * (buf[pos + 1] - buf[pos - 1]) - tl + tr - bl + br
+            gy = 2 * (buf[pos + w] - buf[pos - w]) - tl + bl - tr + br
+            g[pos] = gx*gx + gy*gy
     return g
 
 def edge_detect(buf, w, h, minV, maxV):
