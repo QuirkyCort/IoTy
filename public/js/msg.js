@@ -2983,6 +2983,12 @@ let MSGS = {
   '#blk-mv_gaussian_blur_3x3_gray_tooltip#': {
     en: 'Takes a bytes object containing grayscale data and return a bytes object containing blurred grayscale data.',
   },
+  '#blk-mv_gaussian_blur_3x3_yuv#': {
+    en: 'perform a 3x3 gaussian blur on YUV422 image',
+  },
+  '#blk-mv_gaussian_blur_3x3_yuv_tooltip#': {
+    en: 'Takes a bytes object containing YUV422 data and return a bytes object containing blurred YUV422 data.',
+  },
   '#blk-mv_sobel#': {
     en: 'perform a sobel filter on Grayscale image',
   },

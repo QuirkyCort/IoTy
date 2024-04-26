@@ -9,7 +9,7 @@ def yuv_to_grayscale(buf):
 
     return gray
 
-def gaussian_blur_3x3(buf, w, h):
+def gaussian_blur_3x3_gray(buf, w, h):
     blurred = bytearray(w * h)
 
     for y in range(h):
@@ -34,6 +34,67 @@ def gaussian_blur_3x3(buf, w, h):
             pixel += 2 * (buf[row + x_m1] + buf[row + x_p1] + buf[row_m1 + x] + buf[row_p1 + x])
             pixel += buf[row_m1 + x_m1] + buf[row_m1 + x_p1] + buf[row_p1 + x_m1] + buf[row_p1 + x_p1]
             blurred[pos] = pixel // 16
+    return blurred
+
+def gaussian_blur_3x3_yuv(buf, w, h):
+    blurred = bytearray(w * h * 2)
+
+    for y in range(h):
+        row = y * w * 2
+        row_m1 = y - 1
+        row_p1 = y + 1
+        if row_m1 < 0:
+            row_m1 *= -1
+        elif row_p1 > h - 1:
+            row_p1 = 2 * h - row_p1 - 2
+        row_m1 *= w * 2
+        row_p1 *= w * 2
+        for x in range(w):
+            x2 = x * 2
+            pos = row + x2
+            x_m1 = x-1
+            x_p1 = x+1
+            if x_m1 < 0:
+                x_m1 *= -1
+            elif x_p1 > w -1:
+                x_p1 = 2 * w - x_p1 - 2
+            x_m1 *= 2
+            x_p1 *= 2
+            pixel = 4 * buf[pos]
+            pixel += 2 * (buf[row + x_m1] + buf[row + x_p1] + buf[row_m1 + x] + buf[row_p1 + x])
+            pixel += buf[row_m1 + x_m1] + buf[row_m1 + x_p1] + buf[row_p1 + x_m1] + buf[row_p1 + x_p1]
+            blurred[pos] = pixel // 16
+
+    hw = w // 2
+    for y in range(h):
+        row = y * hw * 4
+        row_m1 = y - 1
+        row_p1 = y + 1
+        if row_m1 < 0:
+            row_m1 *= -1
+        elif row_p1 > h - 1:
+            row_p1 = 2 * h - row_p1 - 2
+        row_m1 *= hw * 4
+        row_p1 *= hw * 4
+        for x in range(hw):
+            x4 = x * 4
+            pos = row + x4
+            x_m1 = x-1
+            x_p1 = x+1
+            if x_m1 < 0:
+                x_m1 *= -1
+            elif x_p1 > w -1:
+                x_p1 = 2 * w - x_p1 - 2
+            x_m1 *= 4
+            x_p1 *= 4
+            u = 4 * buf[pos + 1]
+            u += 2 * (buf[row + x_m1 + 1] + buf[row + x_p1 + 1] + buf[row_m1 + x + 1] + buf[row_p1 + x + 1])
+            u += buf[row_m1 + x_m1 + 1] + buf[row_m1 + x_p1 + 1] + buf[row_p1 + x_m1 + 1] + buf[row_p1 + x_p1 + 1]
+            blurred[pos + 1] = u // 16
+            v = 4 * buf[pos + 3]
+            v += 2 * (buf[row + x_m1 + 3] + buf[row + x_p1 + 3] + buf[row_m1 + x + 3] + buf[row_p1 + x + 3])
+            v += buf[row_m1 + x_m1 + 3] + buf[row_m1 + x_p1 + 3] + buf[row_p1 + x_m1 + 3] + buf[row_p1 + x_p1 + 3]
+            blurred[pos + 3] = v // 16
     return blurred
 
 def sobel(buf, w, h):

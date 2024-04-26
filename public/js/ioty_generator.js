@@ -504,6 +504,7 @@ var ioty_generator = new function() {
     Blockly.Python['mv_edge_detect'] = self.mv_edge_detect;
     Blockly.Python['mv_yuv_to_grayscale'] = self.mv_yuv_to_grayscale;
     Blockly.Python['mv_gaussian_blur_3x3_gray'] = self.mv_gaussian_blur_3x3_gray;
+    Blockly.Python['mv_gaussian_blur_3x3_yuv'] = self.mv_gaussian_blur_3x3_yuv;
     Blockly.Python['mv_sobel'] = self.mv_sobel;
     Blockly.Python.addReservedWords('mv');
   };
@@ -4770,7 +4771,19 @@ var ioty_generator = new function() {
     var width = block.getFieldValue('width');
     var height = block.getFieldValue('height');
 
-    var code = 'mv.gaussian_blur_3x3(' + buf + ', ' + width + ', ' + height + ')';
+    var code = 'mv.gaussian_blur_3x3_gray(' + buf + ', ' + width + ', ' + height + ')';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.mv_gaussian_blur_3x3_yuv = function(block) {
+    self.imports['mv'] = 'import mv';
+
+    let buf = Blockly.Python.valueToCode(block, 'buf', Blockly.Python.ORDER_NONE);
+    var width = block.getFieldValue('width');
+    var height = block.getFieldValue('height');
+
+    var code = 'mv.gaussian_blur_3x3_yuv(' + buf + ', ' + width + ', ' + height + ')';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };

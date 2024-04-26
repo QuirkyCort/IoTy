@@ -2041,6 +2041,7 @@
     <block type="mv_edge_detect"></block>
     <block type="mv_yuv_to_grayscale"></block>
     <block type="mv_gaussian_blur_3x3_gray"></block>
+    <block type="mv_gaussian_blur_3x3_yuv"></block>
     <block type="mv_sobel"></block>
   </category>
 </xml>
