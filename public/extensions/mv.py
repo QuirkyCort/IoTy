@@ -143,20 +143,23 @@ def hough_circles_single(buf, w, h, r, threshold):
     minR2 = math.ceil((r - 0.5) ** 2)
     maxR2 = math.floor((r + 0.5) ** 2)
 
+    offsets = []
+    for y in range(-r, r):
+        dy = y ** 2
+        for x in range(-r, r):
+            a_r = x**2 + dy
+            if minR2 <= a_r <= maxR2:
+                offsets.append([x - r, y - r])
+
     for y in range(h):
         row = y * w
         for x in range(w):
             if buf[row + x]:
-                x_start = max(x - r, r)
-                x_end = min(x + r, a_w + r)
-                y_start = max(y - r, r)
-                y_end = min(y + r, a_h + r)
-                for a in range(y_start, y_end):
-                    dy = (y - a) ** 2
-                    for b in range(x_start, x_end):
-                        a_r = (x - b)**2 + dy
-                        if minR2 <= a_r <= maxR2:
-                            accum[a-r][b-r] += 1
+                for offset in offsets:
+                   x_pos = offset[0] + x
+                   y_pos = offset[1] + y
+                   if 0 <= x_pos < a_w and 0 <= y_pos < a_h:
+                      accum[y_pos][x_pos] += 1
 
     results = []
     for a in range(a_h):
