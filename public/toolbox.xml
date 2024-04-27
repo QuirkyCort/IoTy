@@ -2040,6 +2040,10 @@
     <block type="mv_find_circle_single"></block>
     <block type="mv_edge_detect"></block>
     <block type="mv_yuv_to_grayscale"></block>
+    <block type="mv_scale_grayscale"></block>
+    <block type="mv_crop_grayscale"></block>
+    <block type="mv_crop_row_grayscale"></block>
+    <block type="mv_crop_row_yuv"></block>
     <block type="mv_gaussian_blur_3x3_gray"></block>
     <block type="mv_gaussian_blur_3x3_yuv"></block>
     <block type="mv_sobel"></block>

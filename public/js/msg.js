@@ -2936,7 +2936,7 @@ let MSGS = {
     en: 'Sets the quality of the JPEG image. Ranges from 10 (highest quality) to 63 (lowest quality).',
   },
   '#blk-mv_find_blobs_yuv#': {
-    en: 'find blobs from YUV image',
+    en: 'find blobs from YUV422 image',
   },
   '#blk-mv_find_blobs_yuv_tooltip#': {
     en: 'The detection will act on only a quarter of the pixels, skipping all odd columns and rows. Return value is a list of matches sorted by pixel_count (largest first). Each match is a list containing: pixel_count, center_x, center_y, x, y, width, height.',
@@ -2972,7 +2972,7 @@ let MSGS = {
     en: 'with min/max intensity:',
   },
   '#blk-mv_yuv_to_grayscale#': {
-    en: 'convert YUV image to Grayscale',
+    en: 'convert YUV422 image to Grayscale',
   },
   '#blk-mv_yuv_to_grayscale_tooltip#': {
     en: 'Takes a bytes object containing YUV422 data and return a bytes object containing grayscale data.',
@@ -3012,6 +3012,45 @@ let MSGS = {
   },
   '#blk-mv_find_circle_single_tooltip#': {
     en: 'The input should be a bytes object returned by an edge detect block. Return value is a list of matches sorted by pixel_count (largest first). Each match is a list containing: pixel_count, x, y.',
+  },
+  '#blk-mv_scale_grayscale#': {
+    en: 'scale down Grayscale image',
+  },
+  '#blk-by_factor#': {
+    en: 'by factor',
+  },
+  '#blk-mv_scale_grayscale_tooltip#': {
+    en: 'Takes a bytes object containing grayscale data and return a bytes object containing scaled down grayscale data. The scale factor must be an integer.',
+  },
+  '#blk-mv_crop_grayscale#': {
+    en: 'crop Grayscale image',
+  },
+  '#blk-from_left_top#': {
+    en: 'from left/top',
+  },
+  '#blk-and_width_height#': {
+    en: 'and width/height',
+  },
+  '#blk-mv_crop_grayscale_tooltip#': {
+    en: 'Takes a bytes object containing grayscale data and return a bytes object containing cropped grayscale data. This can only operate on grayscale images.',
+  },
+  '#blk-mv_crop_row_grayscale#': {
+    en: 'crop by row Grayscale image',
+  },
+  '#blk-from_top#': {
+    en: 'from top',
+  },
+  '#blk-and_height#': {
+    en: 'and height',
+  },
+  '#blk-mv_crop_row_grayscale_tooltip#': {
+    en: 'Can only crop by row (ie. the output image will have the same width as the input image), but is much faster and more memory efficient than the normal crop.',
+  },
+  '#blk-mv_crop_row_yuv#': {
+    en: 'crop by row YUV422 image',
+  },
+  '#blk-mv_crop_row_yuv_tooltip#': {
+    en: 'Can only crop by row (ie. the output image will have the same width as the input image), but is much faster and more memory efficient than the normal crop. This one works on YUV422 images.',
   },
 };
 let MSGS_KEYS = Object.keys(MSGS);

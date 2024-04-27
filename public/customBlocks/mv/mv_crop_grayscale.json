@@ -1,0 +1,45 @@
+{
+  "type": "mv_crop_grayscale",
+  "message0": "#blk-mv_crop_grayscale# %1 #blk-of_width# %2 #blk-and_height# %3 #blk-from_left_top# %4 %5 #blk-and_width_height# %6 %7",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "buf",
+      "check": "Bytes"
+    },
+    {
+      "type": "field_number",
+      "name": "width",
+      "value": "160"
+    },
+    {
+      "type": "field_number",
+      "name": "height",
+      "value": "120"
+    },
+    {
+      "type": "field_number",
+      "name": "left",
+      "value": "40"
+    },
+    {
+      "type": "field_number",
+      "name": "top",
+      "value": "30"
+    },
+    {
+      "type": "field_number",
+      "name": "out_width",
+      "value": "80"
+    },
+    {
+      "type": "field_number",
+      "name": "out_height",
+      "value": "60"
+    }
+  ],
+  "output": "Bytes",
+  "colour": 65,
+  "tooltip": "#blk-mv_crop_grayscale_tooltip#",
+  "helpUrl": ""
+}

@@ -506,6 +506,10 @@ var ioty_generator = new function() {
     Blockly.Python['mv_gaussian_blur_3x3_gray'] = self.mv_gaussian_blur_3x3_gray;
     Blockly.Python['mv_gaussian_blur_3x3_yuv'] = self.mv_gaussian_blur_3x3_yuv;
     Blockly.Python['mv_sobel'] = self.mv_sobel;
+    Blockly.Python['mv_scale_grayscale'] = self.mv_scale_grayscale;
+    Blockly.Python['mv_crop_grayscale'] = self.mv_crop_grayscale;
+    Blockly.Python['mv_crop_row_grayscale'] = self.mv_crop_row_grayscale;
+    Blockly.Python['mv_crop_row_yuv'] = self.mv_crop_row_yuv;
     Blockly.Python.addReservedWords('mv');
   };
 
@@ -4706,7 +4710,7 @@ var ioty_generator = new function() {
     var maxV = block.getFieldValue('maxV');
     var pixels_threshold = block.getFieldValue('pixels_threshold');
 
-    var code = 'mv.find_blobs_yuv(' + buf + ', ' + width + ', ' + height + ', (' + minY + ', ' + maxY + ', ' + minU + ', ' + maxU + ', ' + minV + ', ' + maxV + '), ' + pixels_threshold + ')';
+    var code = 'mv.find_blobs_yuv422(' + buf + ', ' + width + ', ' + height + ', (' + minY + ', ' + maxY + ', ' + minU + ', ' + maxU + ', ' + minV + ', ' + maxV + '), ' + pixels_threshold + ')';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };
@@ -4759,7 +4763,7 @@ var ioty_generator = new function() {
 
     let buf = Blockly.Python.valueToCode(block, 'buf', Blockly.Python.ORDER_NONE);
 
-    var code = 'mv.yuv_to_grayscale(' + buf + ')';
+    var code = 'mv.yuv422_to_grayscale(' + buf + ')';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };
@@ -4783,7 +4787,7 @@ var ioty_generator = new function() {
     var width = block.getFieldValue('width');
     var height = block.getFieldValue('height');
 
-    var code = 'mv.gaussian_blur_3x3_yuv(' + buf + ', ' + width + ', ' + height + ')';
+    var code = 'mv.gaussian_blur_3x3_yuv422(' + buf + ', ' + width + ', ' + height + ')';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };
@@ -4796,6 +4800,61 @@ var ioty_generator = new function() {
     var height = block.getFieldValue('height');
 
     var code = 'mv.sobel(' + buf + ', ' + width + ', ' + height + ')';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.mv_scale_grayscale = function(block) {
+    self.imports['mv'] = 'import mv';
+
+    let buf = Blockly.Python.valueToCode(block, 'buf', Blockly.Python.ORDER_NONE);
+    var width = block.getFieldValue('width');
+    var height = block.getFieldValue('height');
+    var factor = block.getFieldValue('factor');
+
+    var code = 'mv.scale_grayscale(' + buf + ', ' + width + ', ' + height + ', ' + factor + ')';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.mv_crop_grayscale = function(block) {
+    self.imports['mv'] = 'import mv';
+
+    let buf = Blockly.Python.valueToCode(block, 'buf', Blockly.Python.ORDER_NONE);
+    var width = block.getFieldValue('width');
+    var height = block.getFieldValue('height');
+    var left = block.getFieldValue('left');
+    var top = block.getFieldValue('top');
+    var out_width = block.getFieldValue('out_width');
+    var out_height = block.getFieldValue('out_height');
+
+    var code = 'mv.crop_grayscale(' + buf + ', ' + width + ', ' + height + ', ' + left + ', ' + top + ', ' + out_width + ', ' + out_height + ')';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.mv_crop_row_grayscale = function(block) {
+    self.imports['mv'] = 'import mv';
+
+    let buf = Blockly.Python.valueToCode(block, 'buf', Blockly.Python.ORDER_NONE);
+    var width = block.getFieldValue('width');
+    var top = block.getFieldValue('top');
+    var out_height = block.getFieldValue('out_height');
+
+    var code = 'mv.crop_row_grayscale(' + buf + ', ' + width + ', ' + top + ', ' + out_height + ')';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.mv_crop_row_yuv = function(block) {
+    self.imports['mv'] = 'import mv';
+
+    let buf = Blockly.Python.valueToCode(block, 'buf', Blockly.Python.ORDER_NONE);
+    var width = block.getFieldValue('width');
+    var top = block.getFieldValue('top');
+    var out_height = block.getFieldValue('out_height');
+
+    var code = 'mv.crop_row_yuv422(' + buf + ', ' + width + ', ' + top + ', ' + out_height + ')';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };

@@ -695,7 +695,7 @@ var extensions = new function() {
       id: 'mv',
       name: 'Machine Vision',
       files: [
-        ['mv.py', 'extensions/mv.py?v=c4c6ead2'],
+        ['mv.py', 'extensions/mv.py?v=2d80fcdf'],
       ],
       description:
         '<p>' +

@@ -1,6 +1,6 @@
 import math
 
-def yuv_to_grayscale(buf):
+def yuv422_to_grayscale(buf):
     size = len(buf) // 2
     gray = bytearray(size)
 
@@ -8,6 +8,50 @@ def yuv_to_grayscale(buf):
         gray[i] = buf[i * 2]
 
     return gray
+
+def scale_grayscale(buf, w, h, factor):
+    out_w = w // factor
+    out_h = h // factor
+    out = bytearray(out_w * out_h)
+
+    i = 0
+    for y in range(out_h):
+        row = y * w * factor
+        for x in range(out_w):
+            pos = row + x * factor
+            out[i] = buf[pos]
+            i += 1
+    return out
+
+def crop_grayscale(buf, w, h, left, top, out_w, out_h):
+    out = bytearray(out_w * out_h)
+
+    if left + out_w > w:
+        raise Exception('x out of range')
+
+    if top + out_h > h:
+        raise Exception('y out of range')
+
+    i = 0
+    for y in range(top, top + out_h):
+        row = y * w
+        for x in range(left, left + out_w):
+            pos = row + x
+            out[i] = buf[pos]
+            i += 1
+    return out
+
+def crop_row_grayscale(buf, w, top, out_h):
+    mv = memoryview(buf)
+    start = w * top
+    end = w * (top + out_h)
+    return mv[start:end]
+
+def crop_row_yuv422(buf, w, top, out_h):
+    mv = memoryview(buf)
+    start = 2 * w * top
+    end = 2 * w * (top + out_h)
+    return mv[start:end]
 
 def gaussian_blur_3x3_gray(buf, w, h):
     blurred = bytearray(w * h)
@@ -36,7 +80,7 @@ def gaussian_blur_3x3_gray(buf, w, h):
             blurred[pos] = pixel // 16
     return blurred
 
-def gaussian_blur_3x3_yuv(buf, w, h):
+def gaussian_blur_3x3_yuv422(buf, w, h):
     blurred = bytearray(w * h * 2)
 
     for y in range(h):
@@ -222,7 +266,7 @@ def _process_blobs(blobs, pixelsThreshold):
     results.sort(key=lambda x: -x[0])
     return results
 
-def find_blobs_yuv(buf, width, height, thresholds, pixelsThreshold):
+def find_blobs_yuv422(buf, width, height, thresholds, pixelsThreshold):
     blobs = {}
     groupings = [[0] * (width // 2) for _ in range(height // 2)]
     next_group = 1
