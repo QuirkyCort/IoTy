@@ -141,8 +141,11 @@ def gaussian_blur_3x3_yuv422(buf, w, h):
             blurred[pos + 3] = v // 16
     return blurred
 
-def sobel(buf, w, h):
-    g = [0] * (w * h)
+@micropython.viper
+def sobel(buf: ptr8, w: int, h: int):
+    g = []
+    for _ in range(w * h):
+        g.append(uint(0))
     for y in range(1, h-1):
         row = y * w
         for x in range(1, w-1):
@@ -176,35 +179,9 @@ def edge_detect(buf, w, h, minV, maxV):
     return edge
 
 def hough_circles_single(buf, w, h, r, threshold):
-    a_w = w - 2 * r
-    a_h = h - 2 * r
-    accum = [[0] * a_w for _ in range(a_h)]
     minR2 = math.ceil((r - 0.5) ** 2)
     maxR2 = math.floor((r + 0.5) ** 2)
-
-    offsets = []
-    for y in range(-r, r):
-        dy = y ** 2
-        for x in range(-r, r):
-            a_r = x**2 + dy
-            if minR2 <= a_r <= maxR2:
-                offsets.append([x - r, y - r])
-
-    for y in range(h):
-        row = y * w
-        for x in range(w):
-            if buf[row + x]:
-                for offset in offsets:
-                   x_pos = offset[0] + x
-                   y_pos = offset[1] + y
-                   if 0 <= x_pos < a_w and 0 <= y_pos < a_h:
-                      accum[y_pos][x_pos] += 1
-
-    results = []
-    for a in range(a_h):
-        for b in range(a_w):
-            if accum[a][b] > threshold:
-                results.append([b+r, a+r])
+    results = hough_circles_single_viper(buf, w, h, r, minR2, maxR2, threshold)
 
     merged_results = []
     for result in results:
@@ -230,6 +207,45 @@ def hough_circles_single(buf, w, h, r, threshold):
 
     final_results.sort(key=lambda x: -x[0])
     return final_results
+
+@micropython.viper
+def hough_circles_single_viper(buf: ptr8, w: int, h: int, r: int, minR2: int, maxR2: int, threshold: int):
+    a_w = w - 2 * r
+    a_h = h - 2 * r
+    accum = []
+    for _ in range(a_h * a_w):
+        accum.append(uint(0))
+
+    offsets = []
+    for y in range(2*r+1):
+        dy = y - r
+        dy *= dy
+        for x in range(2*r+1):
+            dx = x - r
+            dx *= dx
+            a_r = dx + dy
+            if minR2 <= a_r <= maxR2:
+                offsets.append([x - r, y - r])
+
+    for y in range(h):
+        row = y * w
+        for x in range(w):
+            if buf[row + x]:
+                for offset in offsets:
+                    x_pos = int(offset[0]) + x
+                    y_pos = int(offset[1]) + y
+                    if 0 <= x_pos < a_w and 0 <= y_pos < a_h:
+                        pos = y_pos * a_w + x_pos
+                        accum[pos] = int(accum[pos]) + 1
+
+    results = []
+    for a in range(a_h):
+        row = a * a_w
+        for b in range(a_w):
+            if int(accum[row + b]) > threshold:
+                results.append([b+r, a+r])
+
+    return results
 
 def _process_blobs(blobs, pixelsThreshold):
     keys = list(blobs.keys())
