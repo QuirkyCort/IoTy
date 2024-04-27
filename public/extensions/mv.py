@@ -9,7 +9,8 @@ def yuv422_to_grayscale(buf):
 
     return gray
 
-def scale_grayscale(buf, w, h, factor):
+@micropython.viper
+def scale_grayscale(buf: ptr8, w: int, h: int, factor: int):
     out_w = w // factor
     out_h = h // factor
     out = bytearray(out_w * out_h)
