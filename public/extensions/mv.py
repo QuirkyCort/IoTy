@@ -53,7 +53,8 @@ def crop_row_yuv422(buf, w, top, out_h):
     end = 2 * w * (top + out_h)
     return mv[start:end]
 
-def gaussian_blur_3x3_gray(buf, w, h):
+@micropython.viper
+def gaussian_blur_3x3_gray(buf: ptr8, w: int, h: int):
     blurred = bytearray(w * h)
 
     for y in range(h):
