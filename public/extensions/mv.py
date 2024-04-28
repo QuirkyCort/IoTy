@@ -288,12 +288,19 @@ def find_blobs_yuv422(buf, width, height, thresholds, pixelsThreshold):
     blobs = {}
     groupings = [[0] * (width // 2) for _ in range(height // 2)]
     next_group = 1
+    threshold0 = thresholds[0]
+    threshold1 = thresholds[1]
+    threshold2 = thresholds[2]
+    threshold3 = thresholds[3]
+    threshold4 = thresholds[4]
+    threshold5 = thresholds[5]
+
     for y in range(height // 2):
         row = y * 2 * width
         for x in range(width // 2):
             pos = (row + x * 2) * 2
 
-            if thresholds[0] <= buf[pos] <= thresholds[1] and thresholds[2] <= buf[pos+1] <= thresholds[3] and thresholds[4] <= buf[pos+3] <= thresholds[5]:
+            if threshold0 <= buf[pos] <= threshold1 and threshold2 <= buf[pos+1] <= threshold3 and threshold4 <= buf[pos+3] <= threshold5:
                 left = 0
                 top = 0
                 if x != 0:
@@ -307,36 +314,38 @@ def find_blobs_yuv422(buf, width, height, thresholds, pixelsThreshold):
                     next_group += 1
                 elif left != 0:
                     groupings[y][x] = left
-                    blobs[left][1] += 1
-                    blobs[left][2] += x
-                    blobs[left][3] += y
-                    if x < blobs[left][4]:
-                        blobs[left][4] = x
-                    elif x > blobs[left][5]:
-                        blobs[left][5] = x
-                    if y < blobs[left][6]:
-                        blobs[left][6] = y
-                    elif y > blobs[left][7]:
-                        blobs[left][7] = y
+                    blob = blobs[left]
+                    blob[1] += 1
+                    blob[2] += x
+                    blob[3] += y
+                    if x < blob[4]:
+                        blob[4] = x
+                    elif x > blob[5]:
+                        blob[5] = x
+                    if y < blob[6]:
+                        blob[6] = y
+                    elif y > blob[7]:
+                        blob[7] = y
 
                     if top != 0:
                         if left > top:
                             blobs[top][0].add(left)
                         elif top > left:
-                            blobs[left][0].add(top)
+                            blob[0].add(top)
                 elif top != 0:
                     groupings[y][x] = top
-                    blobs[top][1] += 1
-                    blobs[top][2] += x
-                    blobs[top][3] += y
-                    if x < blobs[top][4]:
-                        blobs[top][4] = x
-                    elif x > blobs[top][5]:
-                        blobs[top][5] = x
-                    if y < blobs[top][6]:
-                        blobs[top][6] = y
-                    elif y > blobs[top][7]:
-                        blobs[top][7] = y
+                    blob = blobs[top]
+                    blob[1] += 1
+                    blob[2] += x
+                    blob[3] += y
+                    if x < blob[4]:
+                        blob[4] = x
+                    elif x > blob[5]:
+                        blob[5] = x
+                    if y < blob[6]:
+                        blob[6] = y
+                    elif y > blob[7]:
+                        blob[7] = y
 
     return _process_blobs(blobs, pixelsThreshold)
 
