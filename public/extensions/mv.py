@@ -277,8 +277,8 @@ def _process_blobs(blobs, pixelsThreshold):
                 blob[3] / blob[1],
                 blob[4],
                 blob[6],
-                blob[5] - blob[4],
-                blob[7] - blob[6]
+                blob[5] - blob[4] + 1,
+                blob[7] - blob[6] + 1
             ])
 
     results.sort(key=lambda x: -x[0])
