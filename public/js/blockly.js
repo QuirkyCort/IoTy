@@ -53,7 +53,7 @@ var blockly = new function() {
 
   // Load toolbox
   this.loadToolBox = function() {
-    return fetch('toolbox.xml?v=542572c6')
+    return fetch('toolbox.xml?v=3087f5d2')
       .then(response => response.text())
       .then(function(response) {
         response = i18n.replace(response);
