@@ -82,7 +82,8 @@ def gaussian_blur_3x3_gray(buf: ptr8, w: int, h: int):
             blurred[pos] = pixel // 16
     return blurred
 
-def gaussian_blur_3x3_yuv422(buf, w, h):
+@micropython.viper
+def gaussian_blur_3x3_yuv422(buf: ptr8, w: int, h: int):
     blurred = bytearray(w * h * 2)
 
     for y in range(h):
@@ -96,13 +97,12 @@ def gaussian_blur_3x3_yuv422(buf, w, h):
         row_m1 *= w * 2
         row_p1 *= w * 2
         for x in range(w):
-            x2 = x * 2
-            pos = row + x2
+            pos = row + x * 2
             x_m1 = x-1
             x_p1 = x+1
             if x_m1 < 0:
                 x_m1 *= -1
-            elif x_p1 > w -1:
+            elif x_p1 > w - 1:
                 x_p1 = 2 * w - x_p1 - 2
             x_m1 *= 2
             x_p1 *= 2
@@ -123,13 +123,12 @@ def gaussian_blur_3x3_yuv422(buf, w, h):
         row_m1 *= hw * 4
         row_p1 *= hw * 4
         for x in range(hw):
-            x4 = x * 4
-            pos = row + x4
+            pos = row + x * 4
             x_m1 = x-1
             x_p1 = x+1
             if x_m1 < 0:
                 x_m1 *= -1
-            elif x_p1 > hw -1:
+            elif x_p1 > hw - 1:
                 x_p1 = 2 * hw - x_p1 - 2
             x_m1 *= 4
             x_p1 *= 4
