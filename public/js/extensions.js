@@ -650,7 +650,7 @@ var extensions = new function() {
       ],
       description:
         '<p>' +
-          'Stepper Wheels (https://github.com/QuirkyCort/stepper_wheels) is a firmware that allows you to use a stepper motor controller to drive the wheels on a robot. ' +
+          '<a href="https://github.com/QuirkyCort/stepper_wheels">Stepper Wheels</a> is a firmware that allows you to use a stepper motor controller to drive the wheels on a robot. ' +
           'These controllers are typically used to drive 3D printers / CNC / Laser cutters, and are available at a low cost. ' +
         '</p>' +
         '<p>' +
@@ -701,6 +701,9 @@ var extensions = new function() {
         '<p>' +
           'Provides functions for Machine Vision tasks. ' +
           'Currently, functions are for blob detection, circle detection, edge detection, and blurring are available.' +
+        '</p>' +
+        '<p>' +
+          'Some tools to support this extension can be found here: <a href="https://github.com/QuirkyCort/misc/tree/main/machine_vision">https://github.com/QuirkyCort/misc/tree/main/machine_vision</a>' +
         '</p>'
     },
   ]
