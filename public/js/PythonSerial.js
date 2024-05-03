@@ -209,10 +209,10 @@ class PythonSerial {
     this.writer.write(cmd);
   }
 
-  async enterRawMode() {
+  async enterRawMode(timeout=2500) {
     this.clearBuf();
     this.sendCtrlC();
-    let r = await this.waitForString('>>> ', 5000);
+    let r = await this.waitForString('>>> ', timeout);
     if (r == null) {
       return 'timeout';
     }
@@ -226,9 +226,9 @@ class PythonSerial {
     return 'success';
   }
 
-  async exitRawMode() {
+  async exitRawMode(timeout=3000) {
     this.sendCtrlB();
-    let r = await this.waitForString('>>> ');
+    let r = await this.waitForString('>>> ', timeout);
     if (r == null) {
       return 'timeout';
     }

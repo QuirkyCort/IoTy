@@ -145,6 +145,7 @@ var serial = new function() {
     self.pythonSerial.setReadToBuf();
     self.writeEnable = false;
     if (await self.pythonSerial.enterRawMode() != 'success') {
+      await self.pythonSerial.exitRawMode(500);
       return null;
     }
     let result = await self.pythonSerial.sendPythonCmdAndRun(
@@ -200,6 +201,7 @@ var serial = new function() {
     self.pythonSerial.setReadToBuf();
     self.writeEnable = false;
     if (await self.pythonSerial.enterRawMode() != 'success') {
+      await self.pythonSerial.exitRawMode(500);
       toastMsg('Connection timed out. Press the reset button on your device and try again.');
       return;
     }
@@ -276,6 +278,7 @@ var serial = new function() {
     self.pythonSerial.setReadToBuf();
     self.writeEnable = false;
     if (await self.pythonSerial.enterRawMode() != 'success') {
+      await self.pythonSerial.exitRawMode(500);
       $downloadWindow.$body.text('Connection timed out. Press the reset button on your device and try again.');
       $downloadWindow.$buttonsRow.removeClass('hide');
       return;
@@ -330,6 +333,7 @@ var serial = new function() {
       self.pythonSerial.setReadToBuf();
       self.writeEnable = false;
       if (await self.pythonSerial.enterRawMode() != 'success') {
+        await self.pythonSerial.exitRawMode(500);
         $deleteWindow.$body.text('Connection timed out. Press the reset button on your device and try again.');
         $deleteWindow.$buttonsRow.removeClass('hide');
         return
@@ -420,6 +424,7 @@ var serial = new function() {
     self.pythonSerial.setReadToBuf();
     self.writeEnable = false;
     if (await self.pythonSerial.enterRawMode() != 'success') {
+      await self.pythonSerial.exitRawMode(500);
       $changeNameWindow.$body.text('Connection timed out. Press the reset button on your device and try again.');
       $changeNameWindow.$buttonsRow.removeClass('hide');
       return
@@ -452,6 +457,7 @@ var serial = new function() {
     self.pythonSerial.setReadToBuf();
     self.writeEnable = false;
     if (await self.pythonSerial.enterRawMode() != 'success') {
+      await self.pythonSerial.exitRawMode(500);
       $configureDeviceNetworkWindow.$body.text('Connection timed out. Press the reset button on your device and try again.');
       $configureDeviceNetworkWindow.$buttonsRow.removeClass('hide');
       return
@@ -477,6 +483,7 @@ var serial = new function() {
     self.pythonSerial.setReadToBuf();
     self.writeEnable = false;
     if (await self.pythonSerial.enterRawMode() != 'success') {
+      await self.pythonSerial.exitRawMode(500);
       return {
         status: constants._STATUS_FAILED,
         content: null
@@ -514,6 +521,7 @@ var serial = new function() {
     self.pythonSerial.setReadToBuf();
     self.writeEnable = false;
     if (await self.pythonSerial.enterRawMode() != 'success') {
+      await self.pythonSerial.exitRawMode(500);
       return null;
     }
 
@@ -532,6 +540,7 @@ var serial = new function() {
     self.pythonSerial.setReadToBuf();
     self.writeEnable = false;
     if (await self.pythonSerial.enterRawMode() != 'success') {
+      await self.pythonSerial.exitRawMode(500);
       return constants._STATUS_FAILED;
     }
 
@@ -554,6 +563,7 @@ var serial = new function() {
     self.pythonSerial.setReadToBuf();
     self.writeEnable = false;
     if (await self.pythonSerial.enterRawMode() != 'success') {
+      await self.pythonSerial.exitRawMode(500);
       return constants._STATUS_FAILED;
     }
 
@@ -572,6 +582,7 @@ var serial = new function() {
     self.pythonSerial.setReadToBuf();
     self.writeEnable = false;
     if (await self.pythonSerial.enterRawMode() != 'success') {
+      await self.pythonSerial.exitRawMode(500);
       return constants._STATUS_FAILED;
     }
 
