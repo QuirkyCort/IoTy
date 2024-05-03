@@ -1,7 +1,9 @@
 import math
 
-def yuv422_to_grayscale(buf):
-    size = len(buf) // 2
+@micropython.viper
+def yuv422_to_grayscale(src_buf):
+    size = int(len(src_buf)) // 2
+    buf = ptr8(src_buf)
     gray = bytearray(size)
 
     for i in range(size):
@@ -161,19 +163,20 @@ def sobel(buf: ptr8, w: int, h: int):
             g[pos] = gx*gx + gy*gy
     return g
 
-def edge_detect(buf, w, h, minV, maxV):
+@micropython.viper
+def edge_detect(buf, w: int, h: int, minV: int, maxV: int):
     edge = bytearray(w * h)
 
     g = sobel(buf, w, h)
     for i in range(w * h):
-        if g[i] > maxV:
+        if int(g[i]) > maxV:
             edge[i] = 255
 
     for y in range(1, h-1):
         row = y * w
         for x in range(1, w-1):
             pos = row + x
-            if minV < g[pos] < maxV:
+            if minV < int(g[pos]) < maxV:
                 if edge[pos - w] or edge[pos + w] or edge[pos - 1] or edge[pos + 1]:
                     edge[pos] = 255
 
