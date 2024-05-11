@@ -174,6 +174,7 @@ var ioty_generator = new function() {
     Blockly.Python['ez_httpd_available'] = self.ez_httpd_available;
     Blockly.Python['ez_httpd_wait_for_connection'] = self.ez_httpd_wait_for_connection;
     Blockly.Python['ez_httpd_send_response'] = self.ez_httpd_send_response;
+    Blockly.Python['ez_httpd_send_bytes'] = self.ez_httpd_send_bytes;
     Blockly.Python['ez_httpd_send_file'] = self.ez_httpd_send_file;
     Blockly.Python['ez_httpd_send_404'] = self.ez_httpd_send_404;
     Blockly.Python.addReservedWords('ez_httpd,ezhttpd');
@@ -2270,6 +2271,14 @@ var ioty_generator = new function() {
     let response = Blockly.Python.valueToCode(block, 'response', Blockly.Python.ORDER_ATOMIC);
 
     var code = 'ezhttpd.send_response(' + response + ')\n';
+
+    return code;
+  };
+
+  this.ez_httpd_send_bytes = function(block) {
+    let response = Blockly.Python.valueToCode(block, 'response', Blockly.Python.ORDER_ATOMIC);
+
+    var code = 'ezhttpd.send_bytes(' + response + ')\n';
 
     return code;
   };

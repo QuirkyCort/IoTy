@@ -1075,6 +1075,7 @@
         </shadow>
       </value>
     </block>
+    <block type="ez_httpd_send_bytes"></block>
     <block type="ez_httpd_send_file">
       <value name="filename">
         <shadow type="text">

@@ -1258,6 +1258,12 @@ let MSGS = {
   '#blk-ez_httpd_send_response_tooltip#': {
     en: 'Send a response to the client. This must be after a wait_for_connection.',
   },
+  '#blk-ez_httpd_send_bytes#': {
+    en: 'send response in bytes',
+  },
+  '#blk-ez_httpd_send_bytes_tooltip#': {
+    en: 'Send a bytes object to the client. This must be after a wait_for_connection.',
+  },
   '#blk-ez_httpd_send_file#': {
     en: 'send file',
   },

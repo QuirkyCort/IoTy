@@ -101,7 +101,7 @@ var extensions = new function() {
       id: 'ez_httpd',
       name: 'EZ HTTP Server',
       files: [
-        ['ez_httpd.py', 'extensions/ez_httpd.py?v=d86791a2'],
+        ['ez_httpd.py', 'extensions/ez_httpd.py?v=44f17bd7'],
       ],
       description:
         '<p>' +

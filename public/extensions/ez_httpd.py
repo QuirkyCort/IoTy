@@ -3,7 +3,10 @@ import socket
 
 class HTTPD:
     def __init__(self, address='192.168.4.1', port= '80'):
+        self.mjpeg_client_connection = None
+
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.socket.bind((address, port))
         self.socket.listen(0)
 
@@ -93,10 +96,36 @@ class HTTPD:
                 return (url.decode('utf-8'), self.get_query_dict(query), buf.decode('utf-8'))
 
     def send_response(self, response_data, status='200 OK'):
-        header = b'HTTP/1.0 ' + status.encode() + '\r\n\r\n'
-        response = header + response_data.encode()
-        self.client_connection.sendall(response)
+        self.send_bytes(response_data.encode(), status)
+
+    def send_bytes(self, response_data, status='200 OK'):
+        header = b'HTTP/1.0 ' + status.encode() + b'\r\n\r\n'
+        self.client_connection.sendall(header)
+        self.client_connection.sendall(response_data)
         self.client_connection.close()
+
+    def start_mjpeg_response(self):
+        header = b'HTTP/1.0 200 OK\r\n'
+        header += b'Content-Type: multipart/x-mixed-replace; boundary=ioty_ez_httpd_mjpeg\r\n\r\n'
+        self.client_connection.sendall(header)
+        self.mjpeg_client_connection = self.client_connection
+
+    def send_mjpeg_frame(self, frame_data):
+        boundary = b'--ioty_ez_httpd_mjpeg\r\n'
+        boundary += b'Content-Type: image/jpeg\r\n'
+        boundary += b'Content-Length: ' + str(len(frame_data)).encode() + b'\r\n\r\n'
+        try:
+            self.mjpeg_client_connection.sendall(boundary)
+            self.mjpeg_client_connection.sendall(frame_data)
+            self.mjpeg_client_connection.sendall(b'\r\n')
+        except OSError as e:
+            self.mjpeg_client_connection.close()
+            self.mjpeg_client_connection = None
+
+    def mjpeg_connection_open(self):
+        if self.mjpeg_client_connection == None:
+            return False
+        return True
 
     def send_file(self, filename):
         self.client_connection.sendall(b'HTTP/1.0 200 OK\r\n\r\n')
