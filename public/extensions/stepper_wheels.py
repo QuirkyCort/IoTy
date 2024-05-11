@@ -272,10 +272,12 @@ class Mecanum:
         direction = math.radians(direction)
         vx = speed * math.cos(direction)
         vy = speed * math.sin(direction)
-        s1 = vx - vy
-        s2 = vx + vy
+        s1 = vx + vy + turn
+        s2 = vx - vy + turn
+        s3 = vy - vx + turn
+        s4 = -vx -vy + turn
 
-        motor_speed = (s1 - turn, s2 + turn, s2 - turn, s1 + turn)
+        motor_speed = (s1, s2, s3, s4)
 
         highest = max(map(abs, motor_speed))
 
@@ -465,3 +467,6 @@ class Controller:
 
     def get_delta(self, mode, motor0, motor1, motor2, max_speed):
         return Delta(mode, self.get_motor(motor0), self.get_motor(motor1), self.get_motor(motor2), max_speed)
+
+    def get_mecanum(self, motor0, motor1, motor2, motor3, max_speed):
+        return Mecanum(self.get_motor(motor0), self.get_motor(motor1), self.get_motor(motor2), self.get_motor(motor3), max_speed)

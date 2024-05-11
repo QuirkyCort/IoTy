@@ -1,0 +1,36 @@
+{
+  "type": "stepper_wheels_mecanum_turn_steps",
+  "message0": "#blk-stepper_wheels_mecanum_turn_steps# %1 #blk-for# %2 #blk-steps# #blk-and# %3",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "turn",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "steps",
+      "check": "Number"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "wait",
+      "options": [
+        [
+          "wait for completion",
+          "True"
+        ],
+        [
+          "don't wait",
+          "False"
+        ]
+      ]
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-stepper_wheels_mecanum_turn_steps_tooltip#",
+  "helpUrl": ""
+}

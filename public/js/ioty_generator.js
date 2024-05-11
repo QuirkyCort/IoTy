@@ -486,7 +486,13 @@ var ioty_generator = new function() {
     Blockly.Python['stepper_wheels_delta_turn_steps'] = self.stepper_wheels_delta_turn_steps;
     Blockly.Python['stepper_wheels_delta_stop'] = self.stepper_wheels_delta_stop;
     Blockly.Python['stepper_wheels_delta_set_acceleration'] = self.stepper_wheels_delta_set_acceleration;
-    Blockly.Python.addReservedWords('sw_drive,sw_delta');
+    Blockly.Python['stepper_wheels_init_mecanum'] = self.stepper_wheels_init_mecanum;
+    Blockly.Python['stepper_wheels_mecanum_move_turn'] = self.stepper_wheels_mecanum_move_turn;
+    Blockly.Python['stepper_wheels_mecanum_move_steps'] = self.stepper_wheels_mecanum_move_steps;
+    Blockly.Python['stepper_wheels_mecanum_turn_steps'] = self.stepper_wheels_mecanum_turn_steps;
+    Blockly.Python['stepper_wheels_mecanum_stop'] = self.stepper_wheels_mecanum_stop;
+    Blockly.Python['stepper_wheels_mecanum_set_acceleration'] = self.stepper_wheels_mecanum_set_acceleration;
+    Blockly.Python.addReservedWords('sw_drive,sw_delta,sw_mecanum');
 
     Blockly.Python['camera_init'] = self.camera_init;
     Blockly.Python['camera_deinit'] = self.camera_deinit;
@@ -4628,6 +4634,70 @@ var ioty_generator = new function() {
 
     var code =
       'sw_delta.set_acceleration(' + acceleration + ')\n';
+
+    return code;
+  };
+
+  this.stepper_wheels_init_mecanum = function(block) {
+    self.reservedVariables['stepper_wheels_init_mecanum'] = ['sw_mecanum'];
+
+    var motor0 = block.getFieldValue('motor0');
+    var motor1 = block.getFieldValue('motor1');
+    var motor2 = block.getFieldValue('motor2');
+    var motor3 = block.getFieldValue('motor3');
+    var max_speed = block.getFieldValue('max_speed');
+
+    var code =
+      'sw_mecanum = sw_controller.get_mecanum(' + motor0 + ', ' + motor1 + ', ' + motor2 + ', ' + motor3 + ', ' + max_speed + ')\n';
+
+    return code;
+  };
+
+  this.stepper_wheels_mecanum_move_turn = function(block) {
+    let direction = Blockly.Python.valueToCode(block, 'direction', Blockly.Python.ORDER_NONE);
+    let speed = Blockly.Python.valueToCode(block, 'speed', Blockly.Python.ORDER_NONE);
+    let turn = Blockly.Python.valueToCode(block, 'turn', Blockly.Python.ORDER_NONE);
+
+    var code =
+      'sw_mecanum.move_and_turn(' + direction + ', ' + speed + ', ' + turn + ')\n';
+
+    return code;
+  };
+
+  this.stepper_wheels_mecanum_move_steps = function(block) {
+    let direction = Blockly.Python.valueToCode(block, 'direction', Blockly.Python.ORDER_NONE);
+    let speed = Blockly.Python.valueToCode(block, 'speed', Blockly.Python.ORDER_NONE);
+    let steps = Blockly.Python.valueToCode(block, 'steps', Blockly.Python.ORDER_NONE);
+    var wait = block.getFieldValue('wait');
+
+    var code =
+      'sw_mecanum.move_steps(' + direction + ', ' + speed + ', ' + steps + ', wait=' + wait + ')\n';
+
+    return code;
+  };
+
+  this.stepper_wheels_mecanum_turn_steps = function(block) {
+    let turn = Blockly.Python.valueToCode(block, 'turn', Blockly.Python.ORDER_NONE);
+    let steps = Blockly.Python.valueToCode(block, 'steps', Blockly.Python.ORDER_NONE);
+    var wait = block.getFieldValue('wait');
+
+    var code =
+      'sw_mecanum.turn_steps(' + turn + ', ' + steps + ', wait=' + wait + ')\n';
+
+    return code;
+  };
+
+  this.stepper_wheels_mecanum_stop = function(block) {
+    var code = 'sw_mecanum.stop()\n';
+
+    return code;
+  };
+
+  this.stepper_wheels_mecanum_set_acceleration = function(block) {
+    let acceleration = Blockly.Python.valueToCode(block, 'acceleration', Blockly.Python.ORDER_NONE);
+
+    var code =
+      'sw_mecanum.set_acceleration(' + acceleration + ')\n';
 
     return code;
   };

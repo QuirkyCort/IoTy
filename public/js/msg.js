@@ -2881,6 +2881,42 @@ let MSGS = {
   '#blk-stepper_wheels_delta_set_acceleration_tooltip#': {
     en: 'Affects acceleration and decceleration when running for steps. Commands which only specifies speed always changes speed immediately without acceleration.',
   },
+  '#blk-stepper_wheels_init_mecanum#': {
+    en: 'init mecanum drive',
+  },
+  '#blk-stepper_wheels_init_mecanum_tooltip#': {
+    en: 'Motors should be \\"Front Left\\", \\"Front Right\\", \\"Rear Left\\", \\"Rear Right\\"',
+  },
+  '#blk-stepper_wheels_mecanum_move_turn#': {
+    en: 'mecanum drive: move in direction',
+  },
+  '#blk-stepper_wheels_mecanum_move_turn_tooltip#': {
+    en: 'Will move continuously until given another command. Direction is in degrees.',
+  },
+  '#blk-stepper_wheels_mecanum_move_steps#': {
+    en: 'mecanum drive: move in direction',
+  },
+  '#blk-stepper_wheels_mecanum_move_steps_tooltip#': {
+    en: 'If set to \\"wait for completion\\", the program will wait for the movement to complete before running the next block.',
+  },
+  '#blk-stepper_wheels_mecanum_turn_steps#': {
+    en: 'mecanum drive: turn at speed',
+  },
+  '#blk-stepper_wheels_mecanum_turn_steps_tooltip#': {
+    en: 'If set to \\"wait for completion\\", the program will wait for the movement to complete before running the next block.',
+  },
+  '#blk-stepper_wheels_mecanum_stop#': {
+    en: 'mecanum drive: stop',
+  },
+  '#blk-stepper_wheels_mecanum_stop_tooltip#': {
+    en: 'Immediately stop all wheels.',
+  },
+  '#blk-stepper_wheels_mecanum_set_acceleration#': {
+    en: 'mecanum drive: set acceleration to',
+  },
+  '#blk-stepper_wheels_mecanum_set_acceleration_tooltip#': {
+    en: 'Affects acceleration and decceleration when running for steps. Commands which only specifies speed always changes speed immediately without acceleration.',
+  },
   '#blk-camera_init#': {
     en: 'init camera with format',
   },

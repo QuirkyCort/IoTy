@@ -2023,6 +2023,62 @@
         </shadow>
       </value>
     </block>
+    <label text="Mecanum Drive"></label>
+    <block type="stepper_wheels_init_mecanum"></block>
+    <block type="stepper_wheels_mecanum_move_turn">
+      <value name="direction">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="speed">
+        <shadow type="math_number">
+          <field name="NUM">200</field>
+        </shadow>
+      </value>
+      <value name="turn">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="stepper_wheels_mecanum_move_steps">
+      <value name="direction">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="speed">
+        <shadow type="math_number">
+          <field name="NUM">200</field>
+        </shadow>
+      </value>
+      <value name="steps">
+        <shadow type="math_number">
+          <field name="NUM">300</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="stepper_wheels_mecanum_turn_steps">
+      <value name="turn">
+        <shadow type="math_number">
+          <field name="NUM">200</field>
+        </shadow>
+      </value>
+      <value name="steps">
+        <shadow type="math_number">
+          <field name="NUM">300</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="stepper_wheels_mecanum_stop"></block>
+    <block type="stepper_wheels_mecanum_set_acceleration">
+      <value name="acceleration">
+        <shadow type="math_number">
+          <field name="NUM">500</field>
+        </shadow>
+      </value>
+    </block>
   </category>
   <category toolboxitemid="camera" name="Camera" colour="#5b67a5" hidden="true">
     <block type="camera_init">

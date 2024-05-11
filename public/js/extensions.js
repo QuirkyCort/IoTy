@@ -646,7 +646,7 @@ var extensions = new function() {
       id: 'stepper_wheels',
       name: 'Stepper Wheels',
       files: [
-        ['stepper_wheels.py', 'extensions/stepper_wheels.py?v=8464152c'],
+        ['stepper_wheels.py', 'extensions/stepper_wheels.py?v=324e32e7'],
       ],
       description:
         '<p>' +
