@@ -136,11 +136,11 @@ var mqtt = new function() {
       '</div>' +
       '<div class="configuration">' +
         '<div class="configurationTitle">Username</div>' +
-        '<div class="text"><input type="text" class="username"></div>' +
+        '<div class="text"><input type="text" class="username" autocapitalize="off"></div>' +
       '</div>' +
       '<div class="configuration">' +
         '<div class="configurationTitle">Password</div>' +
-        '<div class="text"><input type="text" class="password"></div>' +
+        '<div class="text"><input type="text" class="password" autocapitalize="off"></div>' +
       '</div>'
     );
 
@@ -501,7 +501,7 @@ var mqtt = new function() {
       files[name] = {
         encoding: 'base64',
         data: base64EncArr(new Uint8Array(value))
-      };  
+      };
     }
 
     let nonce = await self.sendCmd(constants._MODE_WRITE_FILES, files);
