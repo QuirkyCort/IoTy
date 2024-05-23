@@ -100,14 +100,20 @@ class HTTPD:
 
     def send_bytes(self, response_data, status='200 OK'):
         header = b'HTTP/1.0 ' + status.encode() + b'\r\n\r\n'
-        self.client_connection.sendall(header)
-        self.client_connection.sendall(response_data)
+        try:
+            self.client_connection.sendall(header)
+            self.client_connection.sendall(response_data)
+        except:
+            pass
         self.client_connection.close()
 
     def start_mjpeg_response(self):
         header = b'HTTP/1.0 200 OK\r\n'
         header += b'Content-Type: multipart/x-mixed-replace; boundary=ioty_ez_httpd_mjpeg\r\n\r\n'
-        self.client_connection.sendall(header)
+        try:
+            self.client_connection.sendall(header)
+        except:
+            pass
         self.mjpeg_client_connection = self.client_connection
 
     def send_mjpeg_frame(self, frame_data):
@@ -128,11 +134,14 @@ class HTTPD:
         return True
 
     def send_file(self, filename):
-        self.client_connection.sendall(b'HTTP/1.0 200 OK\r\n\r\n')
-        with open(filename, 'rb') as f:
-            while True:
-                d = f.read(1024)
-                if d == b'':
-                    break
-                self.client_connection.sendall(d)
+        try:
+            self.client_connection.sendall(b'HTTP/1.0 200 OK\r\n\r\n')
+            with open(filename, 'rb') as f:
+                while True:
+                    d = f.read(1024)
+                    if d == b'':
+                        break
+                    self.client_connection.sendall(d)
+        except:
+            pass
         self.client_connection.close()
