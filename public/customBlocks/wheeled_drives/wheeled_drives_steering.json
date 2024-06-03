@@ -1,0 +1,21 @@
+{
+  "type": "wheeled_drives_steering",
+  "message0": "#blk-wheeled_drives_steering# %1 #blk-and_speed# %2",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "steering",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "speed",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "output": "Array",
+  "colour": 230,
+  "tooltip": "#blk-wheeled_drives_steering_tooltip#",
+  "helpUrl": ""
+}

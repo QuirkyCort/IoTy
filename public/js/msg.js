@@ -3094,6 +3094,40 @@ let MSGS = {
   '#blk-mv_crop_row_yuv_tooltip#': {
     en: 'Can only crop by row (ie. the output image will have the same width as the input image), but is much faster and more memory efficient than the normal crop. This one works on YUV422 images.',
   },
+  '#blk-wheeled_drives_steering#': {
+    en: 'motor speed for steering',
+  },
+  '#blk-wheeled_drives_steering_tooltip#': {
+    en: 'Steering value should range from -100 to 100. Returns a list containing speed for left and right motors.',
+  },
+  '#blk-wheeled_drives_joystick#': {
+    en: 'motor speed for joystick x',
+  },
+  '#blk-wheeled_drives_joystick_tooltip#': {
+    en: 'x and y values should range from negative to positive. Magnitude is used as the speed. Returns a list containing speed for left and right motors.',
+  },
+  '#blk-wheeled_drives_delta#': {
+    en: 'motor speed for delta drive of type',
+  },
+  '#blk-wheeled_drives_delta_tooltip#': {
+    en: 'Direction should be in degrees. Rotation is in motor speed. Returns a list containing speed for three motors.',
+  },
+  '#blk-direction#': {
+    en: 'direction',
+  },
+  '#blk-speed#': {
+    en: 'speed',
+  },
+  '#blk-rotation#': {
+    en: 'rotation',
+  },
+  '#blk-wheeled_drives_mecanum#': {
+    en: 'motor speed for mecanum drive with direction',
+  },
+  '#blk-wheeled_drives_mecanum_tooltip#': {
+    en: 'Direction should be in degrees. Rotation is in motor speed. Returns a list containing speed for four motors.',
+  },
+
 };
 let MSGS_KEYS = Object.keys(MSGS);
 

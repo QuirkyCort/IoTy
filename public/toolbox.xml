@@ -2107,4 +2107,64 @@
     <block type="mv_gaussian_blur_3x3_yuv"></block>
     <block type="mv_sobel"></block>
   </category>
+  <category toolboxitemid="wheeled_drives" name="Wheeled Drives" colour="#5b67a5" hidden="true">
+    <block type="wheeled_drives_steering">
+      <value name="steering">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="speed">
+        <shadow type="math_number">
+          <field name="NUM">1023</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="wheeled_drives_joystick">
+      <value name="x">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="y">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="wheeled_drives_delta">
+      <value name="direction">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="speed">
+        <shadow type="math_number">
+          <field name="NUM">200</field>
+        </shadow>
+      </value>
+      <value name="rotation">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="wheeled_drives_mecanum">
+      <value name="direction">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="speed">
+        <shadow type="math_number">
+          <field name="NUM">200</field>
+        </shadow>
+      </value>
+      <value name="rotation">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+  </category>
 </xml>

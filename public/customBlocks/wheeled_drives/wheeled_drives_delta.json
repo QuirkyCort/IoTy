@@ -1,0 +1,45 @@
+{
+  "type": "wheeled_drives_delta",
+  "message0": "#blk-wheeled_drives_delta# %1 #blk-direction# %2 #blk-speed# %3 #blk-rotation# %4 #blk-and_max_speed# %5",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "mode",
+      "options": [
+        [
+          "V",
+          "V"
+        ],
+        [
+          "A",
+          "A"
+        ]
+      ]
+    },
+    {
+      "type": "input_value",
+      "name": "direction",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "speed",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "rotation",
+      "check": "Number"
+    },
+    {
+      "type": "field_number",
+      "name": "max_speed",
+      "value": 1023
+    }
+  ],
+  "inputsInline": true,
+  "output": "Array",
+  "colour": 230,
+  "tooltip": "#blk-wheeled_drives_delta_tooltip#",
+  "helpUrl": ""
+}

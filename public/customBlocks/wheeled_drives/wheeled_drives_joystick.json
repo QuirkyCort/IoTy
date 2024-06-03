@@ -1,0 +1,26 @@
+{
+  "type": "wheeled_drives_joystick",
+  "message0": "#blk-wheeled_drives_joystick# %1 #blk-and_y# %2 #blk-and_max_speed# %3",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "x",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "y",
+      "check": "Number"
+    },
+    {
+      "type": "field_number",
+      "name": "max_speed",
+      "value": 1023
+    }
+  ],
+  "inputsInline": true,
+  "output": "Array",
+  "colour": 230,
+  "tooltip": "#blk-wheeled_drives_joystick_tooltip#",
+  "helpUrl": ""
+}

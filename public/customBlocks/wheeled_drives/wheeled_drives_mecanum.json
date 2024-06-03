@@ -1,0 +1,31 @@
+{
+  "type": "wheeled_drives_mecanum",
+  "message0": "#blk-wheeled_drives_mecanum# %1 #blk-speed# %2 #blk-rotation# %3 #blk-and_max_speed# %4",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "direction",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "speed",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "rotation",
+      "check": "Number"
+    },
+    {
+      "type": "field_number",
+      "name": "max_speed",
+      "value": 1023
+    }
+  ],
+  "inputsInline": true,
+  "output": "Array",
+  "colour": 230,
+  "tooltip": "#blk-wheeled_drives_mecanum_tooltip#",
+  "helpUrl": ""
+}

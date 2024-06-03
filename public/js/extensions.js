@@ -101,7 +101,7 @@ var extensions = new function() {
       id: 'ez_httpd',
       name: 'EZ HTTP Server',
       files: [
-        ['ez_httpd.py', 'extensions/ez_httpd.py?v=44f17bd7'],
+        ['ez_httpd.py', 'extensions/ez_httpd.py?v=b066aa6b'],
       ],
       description:
         '<p>' +
@@ -664,7 +664,7 @@ var extensions = new function() {
       description:
         '<p>' +
           'Provides various driving control for the Stepper Wheels extension. ' +
-          'Currently supports Differential Drive (aka Tank Drive) and Delta Drive.' +
+          'Currently supports Differential (2 wheels), Delta Drive, and Mecanum Drive.' +
         '</p>' +
         '<p>' +
           'This extension only adds blocks; you must also add the Stepper Wheels extension. ' +
@@ -704,6 +704,17 @@ var extensions = new function() {
         '</p>' +
         '<p>' +
           'Some tools to support this extension can be found here: <a href="https://github.com/QuirkyCort/misc/tree/main/machine_vision">https://github.com/QuirkyCort/misc/tree/main/machine_vision</a>' +
+        '</p>'
+    },
+    {
+      id: 'wheeled_drives',
+      name: 'Wheeled Drives',
+      files: [
+        ['wheeled_drives.py', 'extensions/wheeled_drives.py?v=d0314d9d'],
+      ],
+      description:
+        '<p>' +
+          'Provides functions for calculating motor speed when controlling different types of wheeled robot (eg. 2 wheeled, 3 omni-wheels, mecanum). ' +
         '</p>'
     },
   ]

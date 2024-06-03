@@ -518,6 +518,12 @@ var ioty_generator = new function() {
     Blockly.Python['mv_crop_row_grayscale'] = self.mv_crop_row_grayscale;
     Blockly.Python['mv_crop_row_yuv'] = self.mv_crop_row_yuv;
     Blockly.Python.addReservedWords('mv');
+
+    Blockly.Python['wheeled_drives_steering'] = self.wheeled_drives_steering;
+    Blockly.Python['wheeled_drives_joystick'] = self.wheeled_drives_joystick;
+    Blockly.Python['wheeled_drives_delta'] = self.wheeled_drives_delta;
+    Blockly.Python['wheeled_drives_mecanum'] = self.wheeled_drives_mecanum;
+    Blockly.Python.addReservedWords('wheeled_drives');
   };
 
   // Generate python code
@@ -4937,5 +4943,56 @@ var ioty_generator = new function() {
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };
+
+  this.wheeled_drives_steering = function(block) {
+    self.imports['wheeled_drives'] = 'import wheeled_drives';
+
+    let steering = Blockly.Python.valueToCode(block, 'steering', Blockly.Python.ORDER_NONE);
+    let speed = Blockly.Python.valueToCode(block, 'speed', Blockly.Python.ORDER_NONE);
+
+    let code = 'wheeled_drives.steering(' + steering + ', ' + speed + ')';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.wheeled_drives_joystick = function(block) {
+    self.imports['wheeled_drives'] = 'import wheeled_drives';
+
+    let x = Blockly.Python.valueToCode(block, 'x', Blockly.Python.ORDER_NONE);
+    let y = Blockly.Python.valueToCode(block, 'y', Blockly.Python.ORDER_NONE);
+    let max_speed = block.getFieldValue('max_speed');
+
+    let code = 'wheeled_drives.joystick(' + x + ', ' + y + ', ' + max_speed + ')';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.wheeled_drives_delta = function(block) {
+    self.imports['wheeled_drives'] = 'import wheeled_drives';
+
+    let mode = block.getFieldValue('mode');
+    let direction = Blockly.Python.valueToCode(block, 'direction', Blockly.Python.ORDER_NONE);
+    let speed = Blockly.Python.valueToCode(block, 'speed', Blockly.Python.ORDER_NONE);
+    let rotation = Blockly.Python.valueToCode(block, 'rotation', Blockly.Python.ORDER_NONE);
+    let max_speed = block.getFieldValue('max_speed');
+
+    let code = 'wheeled_drives.delta("' + mode + '", ' + direction + ', ' + speed + ', ' + rotation + ', ' + max_speed + ')';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.wheeled_drives_mecanum = function(block) {
+    self.imports['wheeled_drives'] = 'import wheeled_drives';
+
+    let direction = Blockly.Python.valueToCode(block, 'direction', Blockly.Python.ORDER_NONE);
+    let speed = Blockly.Python.valueToCode(block, 'speed', Blockly.Python.ORDER_NONE);
+    let rotation = Blockly.Python.valueToCode(block, 'rotation', Blockly.Python.ORDER_NONE);
+    let max_speed = block.getFieldValue('max_speed');
+
+    let code = 'wheeled_drives.mecanum(' + direction + ', ' + speed + ', ' + rotation + ', ' + max_speed + ')';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
 }
 
