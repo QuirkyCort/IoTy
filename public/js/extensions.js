@@ -719,7 +719,7 @@ var extensions = new function() {
       id: 'ili9341',
       name: 'ILI9341 Display',
       files: [
-        ['ili9341.py', 'extensions/ili9341.py?v=ef12b04a'],
+        ['ili9341.py', 'extensions/ili9341.py?v=11f65a40'],
       ],
       description:
         '<p>' +

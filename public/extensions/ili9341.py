@@ -17,6 +17,32 @@ def color565(r, g, b):
     """
     return (r & 0xf8) << 8 | (g & 0xfc) << 3 | b >> 3
 
+def hsv565(h, s, v):
+    if s == 0.0:
+        return v*255, v*255, v*255
+    h /= 360
+    i = int(h*6.0)
+    f = (h*6.0) - i
+    p = v*(1.0 - s)
+    q = v*(1.0 - s*f)
+    t = v*(1.0 - s*(1.0-f))
+    i = i%6
+    v = int(v * 255)
+    t = int(t * 255)
+    p = int(p * 255)
+    q = int(q * 255)
+    if i == 0:
+        return color565(v, t, p)
+    if i == 1:
+        return color565(q, v, p)
+    if i == 2:
+        return color565(p, v, t)
+    if i == 3:
+        return color565(p, q, v)
+    if i == 4:
+        return color565(t, p, v)
+    if i == 5:
+        return color565(v, p, q)
 
 class Display(object):
     """Serial interface for 16-bit color (5-6-5 RGB) IL9341 display.

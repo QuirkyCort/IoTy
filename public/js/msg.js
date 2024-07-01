@@ -3169,6 +3169,12 @@ let MSGS = {
   '#blk-ili9341_rgb_tooltip#': {
     en: 'This color block is not compatible with the color blocks from other extensions (eg. Neopixel).',
   },
+  '#blk-ili9341_hsv#': {
+    en: 'ILI9341 HSV',
+  },
+  '#blk-ili9341_hsv_tooltip#': {
+    en: 'H ranges from 0 to 360. S and V from 0 to 1. This color block is not compatible with the color blocks from other extensions (eg. Neopixel).',
+  },
   '#blk-ili9341_text8x8#': {
     en: 'ILI9341 draw 8x8 text',
   },

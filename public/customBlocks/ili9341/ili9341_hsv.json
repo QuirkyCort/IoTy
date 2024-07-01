@@ -1,0 +1,26 @@
+{
+  "type": "ili9341_hsv",
+  "message0": "#blk-ili9341_hsv# %1 %2 %3",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "h",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "s",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "v",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "output": "Color_ili9341",
+  "colour": 230,
+  "tooltip": "#blk-ili9341_hsv_tooltip#",
+  "helpUrl": ""
+}

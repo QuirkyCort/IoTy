@@ -528,6 +528,7 @@ var ioty_generator = new function() {
     Blockly.Python['ili9341_init'] = self.ili9341_init;
     Blockly.Python['ili9341_color'] = self.ili9341_color;
     Blockly.Python['ili9341_rgb'] = self.ili9341_rgb;
+    Blockly.Python['ili9341_hsv'] = self.ili9341_hsv;
     Blockly.Python['ili9341_clear'] = self.ili9341_clear;
     Blockly.Python['ili9341_text8x8'] = self.ili9341_text8x8;
     Blockly.Python['ili9341_text_with_font'] = self.ili9341_text_with_font;
@@ -5054,6 +5055,18 @@ var ioty_generator = new function() {
     let blue = Blockly.Python.valueToCode(block, 'blue', Blockly.Python.ORDER_NONE);
 
     var code = 'ili9341.color565(' + red + ', ' + green + ', ' + blue + ')';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.ili9341_hsv = function(block) {
+    self.imports['ili9341'] = 'import ili9341';
+
+    let h = Blockly.Python.valueToCode(block, 'h', Blockly.Python.ORDER_NONE);
+    let s = Blockly.Python.valueToCode(block, 's', Blockly.Python.ORDER_NONE);
+    let v = Blockly.Python.valueToCode(block, 'v', Blockly.Python.ORDER_NONE);
+
+    var code = 'ili9341.hsv565(' + h + ', ' + s + ', ' + v + ')';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };
