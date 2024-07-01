@@ -1,0 +1,71 @@
+{
+  "type": "ili9341_init",
+  "message0": "#blk-ili9341_init# %1 #blk-cs# %2 #blk-dc# %3 #blk-rst# %4 #blk-width# %5 #blk-height# %6 #blk-rotation# %7 #blk-mirror# %8 #blk-bgr# %9",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "spi",
+      "options": [
+        ["SPI1", "1"],
+        ["SPI2", "2"]
+      ]
+    },
+    {
+      "type": "field_input",
+      "name": "cs",
+      "text": "15"
+    },
+    {
+      "type": "field_input",
+      "name": "dc",
+      "text": "2"
+    },
+    {
+      "type": "field_input",
+      "name": "rst",
+      "text": "15"
+    },
+    {
+      "type": "field_input",
+      "name": "width",
+      "text": "320"
+    },
+    {
+      "type": "field_input",
+      "name": "height",
+      "text": "240"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "rotation",
+      "options": [
+        ["0", "0"],
+        ["90", "90"],
+        ["180", "180"],
+        ["270", "270"]
+      ]
+    },
+    {
+      "type": "field_dropdown",
+      "name": "mirror",
+      "options": [
+        ["False", "False"],
+        ["True", "True"]
+      ]
+    },
+    {
+      "type": "field_dropdown",
+      "name": "bgr",
+      "options": [
+        ["False", "False"],
+        ["True", "True"]
+      ]
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-ili9341_init_tooltip#",
+  "helpUrl": ""
+}

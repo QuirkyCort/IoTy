@@ -524,6 +524,13 @@ var ioty_generator = new function() {
     Blockly.Python['wheeled_drives_delta'] = self.wheeled_drives_delta;
     Blockly.Python['wheeled_drives_mecanum'] = self.wheeled_drives_mecanum;
     Blockly.Python.addReservedWords('wheeled_drives');
+
+    Blockly.Python['ili9341_init'] = self.ili9341_init;
+    Blockly.Python['ili9341_color'] = self.ili9341_color;
+    Blockly.Python['ili9341_rgb'] = self.ili9341_rgb;
+    Blockly.Python['ili9341_clear'] = self.ili9341_clear;
+    Blockly.Python['ili9341_text8x8'] = self.ili9341_text8x8;
+    Blockly.Python.addReservedWords('ili9341,ili9341_device');
   };
 
   // Generate python code
@@ -4994,5 +5001,70 @@ var ioty_generator = new function() {
     return [code, Blockly.Python.ORDER_ATOMIC];
   };
 
+  this.ili9341_init = function(block) {
+    self.imports['ili9341'] = 'import ili9341';
+    self.reservedVariables['ili9341_init'] = ['ili9341_device'];
+
+    let spi = block.getFieldValue('spi');
+    let cs = block.getFieldValue('cs');
+    let dc = block.getFieldValue('dc');
+    let rst = block.getFieldValue('rst');
+    let width = block.getFieldValue('width');
+    let height = block.getFieldValue('height');
+    let rotation = block.getFieldValue('rotation');
+    let mirror = block.getFieldValue('mirror');
+    let bgr = block.getFieldValue('bgr');
+
+    var code = 'ili9341_device = ili9341.Display(spi' + spi + ', cs=Pin(' + cs + '), dc=Pin(' + dc + '), rst=Pin(' + rst + '), width=' + width + ', height=' + height + ', rotation=' + rotation + ', mirror=' + mirror + ', bgr=' + bgr + ')\n';
+
+    return code;
+  };
+
+  this.ili9341_color = function(block) {
+    self.imports['ili9341'] = 'import ili9341';
+
+    let color = block.getFieldValue('color');
+
+    var code = 'ili9341.color565' + color;
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.ili9341_rgb = function(block) {
+    self.imports['ili9341'] = 'import ili9341';
+
+    let red = Blockly.Python.valueToCode(block, 'red', Blockly.Python.ORDER_NONE);
+    let green = Blockly.Python.valueToCode(block, 'green', Blockly.Python.ORDER_NONE);
+    let blue = Blockly.Python.valueToCode(block, 'blue', Blockly.Python.ORDER_NONE);
+
+    var code = 'ili9341.color565(' + red + ', ' + green + ', ' + blue + ')';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.ili9341_clear = function(block) {
+    self.imports['ili9341'] = 'import ili9341';
+
+    let color = Blockly.Python.valueToCode(block, 'color', Blockly.Python.ORDER_NONE);
+
+    var code = 'ili9341_device.clear(' + color + ')\n';
+
+    return code;
+  };
+
+  this.ili9341_text8x8 = function(block) {
+    self.imports['ili9341'] = 'import ili9341';
+
+    let text = Blockly.Python.valueToCode(block, 'text', Blockly.Python.ORDER_NONE);
+    let x = Blockly.Python.valueToCode(block, 'x', Blockly.Python.ORDER_NONE);
+    let y = Blockly.Python.valueToCode(block, 'y', Blockly.Python.ORDER_NONE);
+    let color = Blockly.Python.valueToCode(block, 'color', Blockly.Python.ORDER_NONE);
+    let background = Blockly.Python.valueToCode(block, 'background', Blockly.Python.ORDER_NONE);
+    let rotate = block.getFieldValue('rotate');
+
+    var code = 'ili9341_device.draw_text8x8(' + x + ', ' + y + ', ' + text + ', ' + color + ', background=' + background + ', rotate=' + rotate + ')\n';
+
+    return code;
+  };
 }
 

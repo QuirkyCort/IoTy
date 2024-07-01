@@ -3127,6 +3127,57 @@ let MSGS = {
   '#blk-wheeled_drives_mecanum_tooltip#': {
     en: 'Direction should be in degrees. Rotation is in motor speed. Returns a list containing speed for four motors.',
   },
+  '#blk-ili9341_init#': {
+    en: 'init ILI9341 on',
+  },
+  '#blk-ili9341_init_tooltip#': {
+    en: 'You must have a \\"init SPI\\" block before this. It should be set to a high baudrate (eg. 80000000).',
+  },
+  '#blk-cs#': {
+    en: 'cs',
+  },
+  '#blk-dc#': {
+    en: 'dc',
+  },
+  '#blk-rst#': {
+    en: 'rst',
+  },
+  '#blk-width#': {
+    en: 'width',
+  },
+  '#blk-mirror#': {
+    en: 'mirror',
+  },
+  '#blk-bgr#': {
+    en: 'bgr',
+  },
+  '#blk-ili9341_clear#': {
+    en: 'ILI9341 clear screen with color',
+  },
+  '#blk-ili9341_clear_tooltip#': {
+    en: 'Fills the entire screen with the specified color.',
+  },
+  '#blk-ili9341_color#': {
+    en: 'ILI9341 color',
+  },
+  '#blk-ili9341_color_tooltip#': {
+    en: 'This color block is not compatible with the color blocks from other extensions (eg. Neopixel).',
+  },
+  '#blk-ili9341_rgb#': {
+    en: 'ILI9341 RGB',
+  },
+  '#blk-ili9341_rgb_tooltip#': {
+    en: 'This color block is not compatible with the color blocks from other extensions (eg. Neopixel).',
+  },
+  '#blk-ili9341_text8x8#': {
+    en: 'ILI9341 draw 8x8 text',
+  },
+  '#blk-ili9341_text8x8_tooltip#': {
+    en: 'Draws text using the built-in 8x8 font.',
+  },
+  '#blk-background#': {
+    en: 'background',
+  },
 
 };
 let MSGS_KEYS = Object.keys(MSGS);

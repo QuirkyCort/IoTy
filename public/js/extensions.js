@@ -78,7 +78,6 @@ var extensions = new function() {
       description:
         '<p>' +
           'The ESP-NOW protocol allows direct communication between up to 20 registered peers, without requiring a WiFi access point. ' +
-          'To use this extension, your device must be loaded with a <a href="https://github.com/glenn20/micropython-espnow-images">firmware supporting ESP-NOW</a>. ' +
         '</p>' +
         '<p>' +
           'This extensions only add blocks; no additional Python files are added or required.' +
@@ -94,7 +93,6 @@ var extensions = new function() {
         '<p>' +
           'This is an easy to use version of ESP-NOW that doesn\'t require the peer\'s MAC address. ' +
           'Instead, each device will set a group, and messages are broadcast to all devices within the same group (similar to the microbit "radio"). ' +
-          'To use this extension, your device must be loaded with a <a href="https://github.com/glenn20/micropython-espnow-images">firmware supporting ESP-NOW</a>. ' +
         '</p>'
     },
     {
@@ -715,6 +713,25 @@ var extensions = new function() {
       description:
         '<p>' +
           'Provides functions for calculating motor speed when controlling different types of wheeled robot (eg. 2 wheeled, 3 omni-wheels, mecanum). ' +
+        '</p>'
+    },
+    {
+      id: 'ili9341',
+      name: 'ILI9341 Display',
+      files: [
+        ['ili9341.py', 'extensions/ili9341.py?v=ef12b04a'],
+      ],
+      description:
+        '<p>' +
+          'The ILI9341 is a color LCD display that can display text and images. ' +
+          'It is used in the ESP32-2432S028R (aka. Cheap Yellow Display, CYD). ' +
+        '</p>' +
+        '<p>' +
+          'When using this display, the SPI interface should be initialized at a high speed; 80000000 is recommended. ' +
+          'You may also need to turn on the backlight (pin 21 for the CYD). ' +
+        '</p>' +
+        '<p>' +
+          'Default settings are for the CYD; you may need to change it if you are using an external display with different wirings. ' +
         '</p>'
     },
   ]
