@@ -530,6 +530,7 @@ var ioty_generator = new function() {
     Blockly.Python['ili9341_rgb'] = self.ili9341_rgb;
     Blockly.Python['ili9341_clear'] = self.ili9341_clear;
     Blockly.Python['ili9341_text8x8'] = self.ili9341_text8x8;
+    Blockly.Python['ili9341_text_with_font'] = self.ili9341_text_with_font;
     Blockly.Python['ili9341_pixel'] = self.ili9341_pixel;
     Blockly.Python['ili9341_line'] = self.ili9341_line;
     Blockly.Python['ili9341_rectangle'] = self.ili9341_rectangle;
@@ -537,6 +538,9 @@ var ioty_generator = new function() {
     Blockly.Python['ili9341_image_from_file'] = self.ili9341_image_from_file;
     Blockly.Python['ili9341_image_from_buf'] = self.ili9341_image_from_buf;
     Blockly.Python.addReservedWords('ili9341,ili9341_device');
+
+    Blockly.Python['xglcd_font_load'] = self.xglcd_font_load;
+    Blockly.Python.addReservedWords('xglcd_font');
   };
 
   // Generate python code
@@ -3919,12 +3923,18 @@ var ioty_generator = new function() {
 
     let type = block.getFieldValue('type');
 
+    let fbObject;
+    let fbType;
     if (type == 'SSD1306') {
-      type = 'ssd1306_i2c';
+      fbObject = 'ssd1306_i2c';
+      fbType = 'scaled_text.SSD1306';
+    } else if (type == 'ILI9341') {
+      fbObject = 'ili9341_device';
+      fbType = 'scaled_text.ILI9341';
     }
 
     let code =
-      'text_scaler = scaled_text.ScaledText(' + type + ')\n';
+      'text_scaler = scaled_text.ScaledText(' + fbObject + ', fb_type=' + fbType + ')\n';
 
     return code;
   };
@@ -5073,6 +5083,31 @@ var ioty_generator = new function() {
     return code;
   };
 
+  this.ili9341_text_with_font = function(block) {
+    self.imports['ili9341'] = 'import ili9341';
+
+    let text = Blockly.Python.valueToCode(block, 'text', Blockly.Python.ORDER_NONE);
+    let font = Blockly.Python.valueToCode(block, 'font', Blockly.Python.ORDER_NONE);
+    let x = Blockly.Python.valueToCode(block, 'x', Blockly.Python.ORDER_NONE);
+    let y = Blockly.Python.valueToCode(block, 'y', Blockly.Python.ORDER_NONE);
+    let color = Blockly.Python.valueToCode(block, 'color', Blockly.Python.ORDER_NONE);
+    let background = Blockly.Python.valueToCode(block, 'background', Blockly.Python.ORDER_NONE);
+    let rotate = block.getFieldValue('rotate');
+
+    let landscape = 'False';
+    let rotate_180 = 'False';
+    if (rotate == 90 || rotate == 270) {
+      landscape = 'True';
+    }
+    if (rotate == 90 || rotate == 180) {
+      rotate_180 = 'True';
+    }
+
+    var code = 'ili9341_device.draw_text(' + x + ', ' + y + ', ' + text + ', ' + font + ', ' + color + ', background=' + background + ', landscape=' + landscape + ', rotate_180=' + rotate_180 + ')\n';
+
+    return code;
+  };
+
   this.ili9341_pixel = function(block) {
     self.imports['ili9341'] = 'import ili9341';
 
@@ -5186,6 +5221,18 @@ var ioty_generator = new function() {
     var code = 'ili9341_device.draw_sprite(' + buf + ', ' + x + ', ' + y + ', ' + w + ', ' + h + ')\n';
 
     return code;
+  };
+
+  this.xglcd_font_load = function(block) {
+    self.imports['xglcd_font'] = 'import xglcd_font';
+
+    let filename = Blockly.Python.valueToCode(block, 'filename', Blockly.Python.ORDER_NONE);
+    let width = block.getFieldValue('width');
+    let height = block.getFieldValue('height');
+
+    var code = 'xglcd_font.XglcdFont(' + filename + ', ' + width + ', ' + height + ')';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
   };
 
 }

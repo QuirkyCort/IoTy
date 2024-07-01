@@ -3178,6 +3178,15 @@ let MSGS = {
   '#blk-background#': {
     en: 'background',
   },
+  '#blk-ili9341_text_with_font#': {
+    en: 'ILI9341 draw text',
+  },
+  '#blk-ili9341_text_with_font_tooltip#': {
+    en: 'Draws text using the provided font object. You should use the xglcd extension to load a font file.',
+  },
+  '#blk-font#': {
+    en: 'font',
+  },
   '#blk-ili9341_ellipse#': {
     en: 'ILI9341 draw ellipse at x,y',
   },
@@ -3219,6 +3228,12 @@ let MSGS = {
   },
   '#blk-ili9341_image_from_buf_tooltip#': {
     en: 'The supplied buf must contain raw RGB565 data (eg. read from a file in binary mode).',
+  },
+  '#blk-xglcd_font_load#': {
+    en: 'load xglcd font from file',
+  },
+  '#blk-xglcd_font_load_tooltip#': {
+    en: 'Load a font in the X-GLCD format, and return a font object. Width and Height must match font file (ie. you cannot scale it).',
   },
 
 };

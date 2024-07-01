@@ -1,0 +1,30 @@
+{
+  "type": "xglcd_font_load",
+  "message0": "#blk-xglcd_font_load# %1 #blk-width# %2 #blk-height# %3",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "filename",
+      "check": "String"
+    },
+    {
+      "type": "field_number",
+      "name": "width",
+      "min": 0,
+      "precision": 1,
+      "value": 5
+    },
+    {
+      "type": "field_number",
+      "name": "height",
+      "min": 0,
+      "precision": 1,
+      "value": 8
+    }
+  ],
+  "inputsInline": true,
+  "output": "Font_xglcd",
+  "colour": 230,
+  "tooltip": "#blk-xglcd_font_load_tooltip#",
+  "helpUrl": ""
+}

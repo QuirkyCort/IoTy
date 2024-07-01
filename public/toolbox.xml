@@ -2221,6 +2221,33 @@
         </shadow>
       </value>
     </block>
+    <block type="ili9341_text_with_font">
+      <value name="x">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="y">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="text">
+        <shadow type="text">
+          <field name="TEXT">abc</field>
+        </shadow>
+      </value>
+      <value name="color">
+        <shadow type="ili9341_color">
+          <field name="color">(255, 255, 255)</field>
+        </shadow>
+      </value>
+      <value name="background">
+        <shadow type="ili9341_color">
+          <field name="color">(0, 0, 0)</field>
+        </shadow>
+      </value>
+    </block>
     <block type="ili9341_pixel">
       <value name="x">
         <shadow type="math_number">
@@ -2365,6 +2392,15 @@
       <value name="h">
         <shadow type="math_number">
           <field name="NUM">240</field>
+        </shadow>
+      </value>
+    </block>
+  </category>
+  <category toolboxitemid="xglcd_font" name="X-GLCD" colour="#5b67a5" hidden="true">
+    <block type="xglcd_font_load">
+      <value name="filename">
+        <shadow type="text">
+          <field name="TEXT">FixedFont5x8.c</field>
         </shadow>
       </value>
     </block>

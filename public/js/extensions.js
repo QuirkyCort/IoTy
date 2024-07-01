@@ -526,7 +526,7 @@ var extensions = new function() {
       id: 'scaled_text',
       name: 'Scaled Text',
       files: [
-        ['scaled_text.py', 'extensions/scaled_text.py?v=fd8996d0'],
+        ['scaled_text.py', 'extensions/scaled_text.py?v=5395fbc9'],
       ],
       description:
         '<p>' +
@@ -732,6 +732,22 @@ var extensions = new function() {
         '</p>' +
         '<p>' +
           'Default settings are for the CYD; you may need to change it if you are using an external display with different wirings. ' +
+        '</p>'
+    },
+    {
+      id: 'xglcd_font',
+      name: 'X-GLCD Font',
+      files: [
+        ['xglcd_font.py', 'extensions/xglcd_font.py?v=f7829402'],
+      ],
+      description:
+        '<p>' +
+          'This extension is used to load fonts in the X-GLCD format. ' +
+          'The loaded font can be used with the ILI9341 Display extension to draw text. ' +
+        '</p>' +
+        '<p>' +
+          'No font files are included with this extension. ' +
+          'You can download one from <a href="https://github.com/rdagger/micropython-ili9341/tree/master/fonts">https://github.com/rdagger/micropython-ili9341/tree/master/fonts</a> and upload it to your device.' +
         '</p>'
     },
   ]

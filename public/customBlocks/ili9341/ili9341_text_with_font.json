@@ -1,0 +1,52 @@
+{
+  "type": "ili9341_text_with_font",
+  "message0": "#blk-ili9341_text_with_font# %1 #blk-font# %2 #blk-at_xy# %3 %4 #blk-color# %5 #blk-background# %6 #blk-rotation# %7",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "text",
+      "check": "String"
+    },
+    {
+      "type": "input_value",
+      "name": "font",
+      "check": "Font_xglcd"
+    },
+    {
+      "type": "input_value",
+      "name": "x",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "y",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "color",
+      "check": "Color_ili9341"
+    },
+    {
+      "type": "input_value",
+      "name": "background",
+      "check": "Color_ili9341"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "rotate",
+      "options": [
+        ["0", "0"],
+        ["90", "90"],
+        ["180", "180"],
+        ["270", "270"]
+      ]
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-ili9341_text_with_font_tooltip#",
+  "helpUrl": ""
+}

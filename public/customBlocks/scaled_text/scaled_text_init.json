@@ -6,7 +6,8 @@
       "type": "field_dropdown",
       "name": "type",
       "options": [
-        ["SSD-1306", "SSD1306"]
+        ["SSD-1306", "SSD1306"],
+        ["ILI9341", "ILI9341"]
       ]
     }
   ],
