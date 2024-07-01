@@ -3178,6 +3178,48 @@ let MSGS = {
   '#blk-background#': {
     en: 'background',
   },
+  '#blk-ili9341_ellipse#': {
+    en: 'ILI9341 draw ellipse at x,y',
+  },
+  '#blk-ili9341_ellipse_tooltip#': {
+    en: 'Draws an ellipse. If you need a circle, set both the x and y radius to the same value.',
+  },
+  '#blk-fill#': {
+    en: 'fill',
+  },
+  '#blk-ili9341_line#': {
+    en: 'ILI9341 draw line from x,y',
+  },
+  '#blk-ili9341_line_tooltip#': {
+    en: 'Draws a line from x1,y1 to x2,y2.',
+  },
+  '#blk-x2y2#': {
+    en: 'x2,y2',
+  },
+  '#blk-ili9341_pixel#': {
+    en: 'ILI9341 draw pixel at x,y',
+  },
+  '#blk-ili9341_pixel_tooltip#': {
+    en: 'Draws a single pixel at the specified location.',
+  },
+  '#blk-ili9341_rectangle#': {
+    en: 'ILI9341 draw rectangle at x,y',
+  },
+  '#blk-ili9341_rectangle_tooltip#': {
+    en: 'Draws a rectangle at the specified location.',
+  },
+  '#blk-ili9341_image_from_file#': {
+    en: 'ILI9341 draw image from file',
+  },
+  '#blk-ili9341_image_from_file_tooltip#': {
+    en: 'Load a raw RGB565 image from the specified file and draw it on screen.',
+  },
+  '#blk-ili9341_image_from_buf#': {
+    en: 'ILI9341 draw image from buf',
+  },
+  '#blk-ili9341_image_from_buf_tooltip#': {
+    en: 'The supplied buf must contain raw RGB565 data (eg. read from a file in binary mode).',
+  },
 
 };
 let MSGS_KEYS = Object.keys(MSGS);

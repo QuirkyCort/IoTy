@@ -530,6 +530,12 @@ var ioty_generator = new function() {
     Blockly.Python['ili9341_rgb'] = self.ili9341_rgb;
     Blockly.Python['ili9341_clear'] = self.ili9341_clear;
     Blockly.Python['ili9341_text8x8'] = self.ili9341_text8x8;
+    Blockly.Python['ili9341_pixel'] = self.ili9341_pixel;
+    Blockly.Python['ili9341_line'] = self.ili9341_line;
+    Blockly.Python['ili9341_rectangle'] = self.ili9341_rectangle;
+    Blockly.Python['ili9341_ellipse'] = self.ili9341_ellipse;
+    Blockly.Python['ili9341_image_from_file'] = self.ili9341_image_from_file;
+    Blockly.Python['ili9341_image_from_buf'] = self.ili9341_image_from_buf;
     Blockly.Python.addReservedWords('ili9341,ili9341_device');
   };
 
@@ -5066,5 +5072,121 @@ var ioty_generator = new function() {
 
     return code;
   };
+
+  this.ili9341_pixel = function(block) {
+    self.imports['ili9341'] = 'import ili9341';
+
+    let x = Blockly.Python.valueToCode(block, 'x', Blockly.Python.ORDER_NONE);
+    let y = Blockly.Python.valueToCode(block, 'y', Blockly.Python.ORDER_NONE);
+    let color = Blockly.Python.valueToCode(block, 'color', Blockly.Python.ORDER_NONE);
+
+    var code = 'ili9341_device.draw_pixel(' + x + ', ' + y + ', ' + color + ')\n';
+
+    return code;
+  };
+
+  this.ili9341_line = function(block) {
+    self.imports['ili9341'] = 'import ili9341';
+
+    let x1 = Blockly.Python.valueToCode(block, 'x1', Blockly.Python.ORDER_NONE);
+    let y1 = Blockly.Python.valueToCode(block, 'y1', Blockly.Python.ORDER_NONE);
+    let x2 = Blockly.Python.valueToCode(block, 'x2', Blockly.Python.ORDER_NONE);
+    let y2 = Blockly.Python.valueToCode(block, 'y2', Blockly.Python.ORDER_NONE);
+    let color = Blockly.Python.valueToCode(block, 'color', Blockly.Python.ORDER_NONE);
+
+    if (y1 == y2) {
+      if (parseInt(x2) > parseInt(x1)) {
+        var code = 'ili9341_device.draw_hline(' + x1 + ', ' + y1 + ', ' + (parseInt(x2) - parseInt(x1)) + ', ' + color + ')\n';
+      } else {
+        var code = 'ili9341_device.draw_hline(' + x2 + ', ' + y2 + ', ' + (parseInt(x1) - parseInt(x2)) + ', ' + color + ')\n';
+      }
+    } else if (x1 == x2) {
+      if (parseInt(y2) > parseInt(y1)) {
+        var code = 'ili9341_device.draw_vline(' + x1 + ', ' + y1 + ', ' + (parseInt(y2) - parseInt(y1)) + ', ' + color + ')\n';
+      } else {
+        var code = 'ili9341_device.draw_vline(' + x2 + ', ' + y2 + ', ' + (parseInt(y1) - parseInt(y2)) + ', ' + color + ')\n';
+      }
+    } else {
+      var code = 'ili9341_device.draw_line(' + x1 + ', ' + y1 + ', ' + x2 + ', ' + y2 + ', ' + color + ')\n';
+    }
+
+    return code;
+  };
+
+  this.ili9341_rectangle = function(block) {
+    self.imports['ili9341'] = 'import ili9341';
+
+    let x = Blockly.Python.valueToCode(block, 'x', Blockly.Python.ORDER_NONE);
+    let y = Blockly.Python.valueToCode(block, 'y', Blockly.Python.ORDER_NONE);
+    let w = Blockly.Python.valueToCode(block, 'w', Blockly.Python.ORDER_NONE);
+    let h = Blockly.Python.valueToCode(block, 'h', Blockly.Python.ORDER_NONE);
+    let color = Blockly.Python.valueToCode(block, 'color', Blockly.Python.ORDER_NONE);
+    let fill = block.getFieldValue('fill');
+
+    let cmd = 'draw_rectangle';
+    if (fill == 'True') {
+      cmd = 'fill_rectangle'
+    }
+
+    var code = 'ili9341_device.' + cmd + '(' + x + ', ' + y + ', ' + w + ', ' + h + ', ' + color + ')\n';
+
+    return code;
+  };
+
+  this.ili9341_ellipse = function(block) {
+    self.imports['ili9341'] = 'import ili9341';
+
+    let x = Blockly.Python.valueToCode(block, 'x', Blockly.Python.ORDER_NONE);
+    let y = Blockly.Python.valueToCode(block, 'y', Blockly.Python.ORDER_NONE);
+    let xr = Blockly.Python.valueToCode(block, 'xr', Blockly.Python.ORDER_NONE);
+    let yr = Blockly.Python.valueToCode(block, 'yr', Blockly.Python.ORDER_NONE);
+    let color = Blockly.Python.valueToCode(block, 'color', Blockly.Python.ORDER_NONE);
+    let fill = block.getFieldValue('fill');
+
+    if (xr == yr) {
+      let cmd = 'draw_circle';
+      if (fill == 'True') {
+        cmd = 'fill_circle';
+      }
+      var code = 'ili9341_device.' + cmd + '(' + x + ', ' + y + ', ' + xr + ', ' + color + ')\n';
+    } else {
+      let cmd = 'draw_ellipse';
+      if (fill == 'True') {
+        cmd = 'fill_ellipse';
+      }
+      var code = 'ili9341_device.' + cmd + '(' + x + ', ' + y + ', ' + xr + ', ' + yr + ', ' + color + ')\n';
+    }
+
+    return code;
+  };
+
+  this.ili9341_image_from_file = function(block) {
+    self.imports['ili9341'] = 'import ili9341';
+
+    let filename = Blockly.Python.valueToCode(block, 'filename', Blockly.Python.ORDER_NONE);
+    let x = Blockly.Python.valueToCode(block, 'x', Blockly.Python.ORDER_NONE);
+    let y = Blockly.Python.valueToCode(block, 'y', Blockly.Python.ORDER_NONE);
+    let w = Blockly.Python.valueToCode(block, 'w', Blockly.Python.ORDER_NONE);
+    let h = Blockly.Python.valueToCode(block, 'h', Blockly.Python.ORDER_NONE);
+
+    var code = 'ili9341_device.draw_image(' + filename + ', ' + x + ', ' + y + ', ' + w + ', ' + h + ')\n';
+
+    return code;
+  };
+
+  this.ili9341_image_from_buf = function(block) {
+    self.imports['ili9341'] = 'import ili9341';
+
+    let buf = Blockly.Python.valueToCode(block, 'buf', Blockly.Python.ORDER_NONE);
+    let x = Blockly.Python.valueToCode(block, 'x', Blockly.Python.ORDER_NONE);
+    let y = Blockly.Python.valueToCode(block, 'y', Blockly.Python.ORDER_NONE);
+    let w = Blockly.Python.valueToCode(block, 'w', Blockly.Python.ORDER_NONE);
+    let h = Blockly.Python.valueToCode(block, 'h', Blockly.Python.ORDER_NONE);
+
+    var code = 'ili9341_device.draw_sprite(' + buf + ', ' + x + ', ' + y + ', ' + w + ', ' + h + ')\n';
+
+    return code;
+  };
+
 }
 

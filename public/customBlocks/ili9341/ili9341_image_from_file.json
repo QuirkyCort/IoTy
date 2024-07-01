@@ -1,0 +1,37 @@
+{
+  "type": "ili9341_image_from_file",
+  "message0": "#blk-ili9341_image_from_file# %1 #blk-at_xy# %2 %3 #blk-width# %4 #blk-height# %5",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "filename",
+      "check": "String"
+    },
+    {
+      "type": "input_value",
+      "name": "x",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "y",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "w",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "h",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-ili9341_image_from_file_tooltip#",
+  "helpUrl": ""
+}

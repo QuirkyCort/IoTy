@@ -2221,5 +2221,152 @@
         </shadow>
       </value>
     </block>
+    <block type="ili9341_pixel">
+      <value name="x">
+        <shadow type="math_number">
+          <field name="NUM">10</field>
+        </shadow>
+      </value>
+      <value name="y">
+        <shadow type="math_number">
+          <field name="NUM">20</field>
+        </shadow>
+      </value>
+      <value name="color">
+        <shadow type="ili9341_color">
+          <field name="color">(255, 255, 255)</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="ili9341_line">
+      <value name="x1">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="y1">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="x2">
+        <shadow type="math_number">
+          <field name="NUM">10</field>
+        </shadow>
+      </value>
+      <value name="y2">
+        <shadow type="math_number">
+          <field name="NUM">20</field>
+        </shadow>
+      </value>
+      <value name="color">
+        <shadow type="ili9341_color">
+          <field name="color">(255, 255, 255)</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="ili9341_rectangle">
+      <value name="x">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="y">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="w">
+        <shadow type="math_number">
+          <field name="NUM">10</field>
+        </shadow>
+      </value>
+      <value name="h">
+        <shadow type="math_number">
+          <field name="NUM">20</field>
+        </shadow>
+      </value>
+      <value name="color">
+        <shadow type="ili9341_color">
+          <field name="color">(255, 255, 255)</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="ili9341_ellipse">
+      <value name="x">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="y">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="xr">
+        <shadow type="math_number">
+          <field name="NUM">10</field>
+        </shadow>
+      </value>
+      <value name="yr">
+        <shadow type="math_number">
+          <field name="NUM">20</field>
+        </shadow>
+      </value>
+      <value name="color">
+        <shadow type="ili9341_color">
+          <field name="color">(255, 255, 255)</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="ili9341_image_from_file">
+      <value name="filename">
+        <shadow type="text">
+          <field name="TEXT">image.raw</field>
+        </shadow>
+      </value>
+      <value name="x">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="y">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="w">
+        <shadow type="math_number">
+          <field name="NUM">320</field>
+        </shadow>
+      </value>
+      <value name="h">
+        <shadow type="math_number">
+          <field name="NUM">240</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="ili9341_image_from_buf">
+      <value name="x">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="y">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="w">
+        <shadow type="math_number">
+          <field name="NUM">320</field>
+        </shadow>
+      </value>
+      <value name="h">
+        <shadow type="math_number">
+          <field name="NUM">240</field>
+        </shadow>
+      </value>
+    </block>
   </category>
 </xml>

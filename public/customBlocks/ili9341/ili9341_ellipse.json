@@ -1,0 +1,45 @@
+{
+  "type": "ili9341_ellipse",
+  "message0": "#blk-ili9341_ellipse# %1 %2 #blk-with_xryr# %3 %4 #blk-color# %5 #blk-fill# %6",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "x",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "y",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "xr",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "yr",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "color",
+      "check": "Color_ili9341"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "fill",
+      "options": [
+        ["False", "False"],
+        ["True", "True"]
+      ]
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-ili9341_ellipse_tooltip#",
+  "helpUrl": ""
+}

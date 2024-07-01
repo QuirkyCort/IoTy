@@ -1,0 +1,27 @@
+{
+  "type": "ili9341_pixel",
+  "message0": "#blk-ili9341_pixel# %1 %2 #blk-color# %3",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "x",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "y",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "color",
+      "check": "Color_ili9341"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-ili9341_pixel_tooltip#",
+  "helpUrl": ""
+}

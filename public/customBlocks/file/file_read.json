@@ -13,7 +13,7 @@
       "variable": "file1"
     }
   ],
-  "output": "String",
+  "output": ["String", "Bytes"],
   "colour": 230,
   "tooltip": "#blk-file_read_tooltip#",
   "helpUrl": ""
