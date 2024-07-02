@@ -285,14 +285,14 @@ var serial = new function() {
     }
 
     // Erase
-    $downloadWindow.$body.text('Erasing...');
-    let response = await self.erase();
-    if (response[0] != 'success') {
-      $downloadWindow.$body.text('Error erasing files.');
-      $downloadWindow.$buttonsRow.removeClass('hide');
-      await self.pythonSerial.exitRawMode();
-      return;
-    }
+    // $downloadWindow.$body.text('Erasing...');
+    // let response = await self.erase();
+    // if (response[0] != 'success') {
+    //   $downloadWindow.$body.text('Error erasing files.');
+    //   $downloadWindow.$buttonsRow.removeClass('hide');
+    //   await self.pythonSerial.exitRawMode();
+    //   return;
+    // }
 
     let currentFileCount = 0;
     let totalFilesCount = Object.keys(filesManager.files).length;
