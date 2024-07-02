@@ -28,7 +28,7 @@
     {
       "type": "field_dropdown",
       "name": "miso",
-      "options": $_UnusedIoPins
+      "options": $_InputOnlyUnusedIoPins
     }
   ],
   "inputsInline": true,
