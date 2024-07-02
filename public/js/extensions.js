@@ -267,7 +267,7 @@ var extensions = new function() {
       id: 'hmc5883l',
       name: 'HMC5883L (Magnetic Sensor)',
       files: [
-        ['hmc5883l.py', 'extensions/hmc5883l.py?v=55220922'],
+        ['hmc5883l.py', 'extensions/hmc5883l.py?v=bf37280e'],
       ],
       description:
         '<p>' +

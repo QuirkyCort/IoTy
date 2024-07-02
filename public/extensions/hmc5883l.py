@@ -23,14 +23,14 @@ class HMC5883L:
 
     def init_device(self):
         # 75Hz, 8 samples average, no bias
-        self.i2c.writeto_mem(self.addr, 0x00, struct.pack('<B', 0b01111000))
-        self.i2c.writeto_mem(self.addr, 0x01, struct.pack('<B', self.scale << 5))
+        self.i2c.writeto_mem(self.addr, 0x00, struct.pack('B', 0b01111000))
+        self.i2c.writeto_mem(self.addr, 0x01, struct.pack('B', self.scale << 5))
         # continuous mode, normal speed I2C
-        self.i2c.writeto_mem(self.addr, 0x02, struct.pack('<B', 0))
+        self.i2c.writeto_mem(self.addr, 0x02, struct.pack('B', 0))
 
     def read(self):
         data = self.i2c.readfrom_mem(self.addr, 0x03, 6)
-        self.x, self.y, self.z = struct.unpack('<hhh', data)
+        self.x, self.z, self.y = struct.unpack('>hhh', data)
 
         return (self.x, self.y, self.z)
 
