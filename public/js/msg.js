@@ -3241,6 +3241,27 @@ let MSGS = {
   '#blk-xglcd_font_load_tooltip#': {
     en: 'Load a font in the X-GLCD format, and return a font object. Width and Height must match font file (ie. you cannot scale it).',
   },
+  '#blk-xpt2046_init#': {
+    en: 'init XPT2046 on',
+  },
+  '#blk-xpt2046_init_tooltip#': {
+    en: 'You must have a \\"init SPI\\" block before this.',
+  },
+  '#blk-int#': {
+    en: 'int',
+  },
+  '#blk-min_max_x#': {
+    en: 'min/max x',
+  },
+  '#blk-min_max_y#': {
+    en: 'min/max y',
+  },
+  '#blk-xpt2046_get_pos#': {
+    en: 'xpt2046 get position',
+  },
+  '#blk-xpt2046_get_pos_tooltip#': {
+    en: 'Returns the x and y position of the detected touch as a list, or None if no touch is detected.',
+  },
 
 };
 let MSGS_KEYS = Object.keys(MSGS);

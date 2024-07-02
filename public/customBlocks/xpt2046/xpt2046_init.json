@@ -1,0 +1,86 @@
+{
+  "type": "xpt2046_init",
+  "message0": "#blk-xpt2046_init# %1 #blk-cs# %2 #blk-int# %3 #blk-width# %4 #blk-height# %5 #blk-min_max_x# %6 %7 #blk-min_max_y# %8 %9 #blk-rotation# %10",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "spi",
+      "options": [
+        ["SPI2", "2"],
+        ["SPI1", "1"]
+      ]
+    },
+    {
+      "type": "field_number",
+      "name": "cs",
+      "min": 0,
+      "precision": 1,
+      "value": 33
+    },
+    {
+      "type": "field_number",
+      "name": "int",
+      "min": 0,
+      "precision": 1,
+      "value": 36
+    },
+    {
+      "type": "field_number",
+      "name": "width",
+      "min": 0,
+      "precision": 1,
+      "value": 320
+    },
+    {
+      "type": "field_number",
+      "name": "height",
+      "min": 0,
+      "precision": 1,
+      "value": 240
+    },
+    {
+      "type": "field_number",
+      "name": "x_min",
+      "min": 0,
+      "precision": 1,
+      "value": 100
+    },
+    {
+      "type": "field_number",
+      "name": "x_max",
+      "min": 0,
+      "precision": 1,
+      "value": 1900
+    },
+    {
+      "type": "field_number",
+      "name": "y_min",
+      "min": 0,
+      "precision": 1,
+      "value": 100
+    },
+    {
+      "type": "field_number",
+      "name": "y_max",
+      "min": 0,
+      "precision": 1,
+      "value": 1900
+    },
+    {
+      "type": "field_dropdown",
+      "name": "rotation",
+      "options": [
+        ["0", "0"],
+        ["90", "90"],
+        ["180", "180"],
+        ["270", "270"]
+      ]
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-xpt2046_init_tooltip#",
+  "helpUrl": ""
+}

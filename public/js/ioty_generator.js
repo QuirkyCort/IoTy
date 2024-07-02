@@ -542,6 +542,10 @@ var ioty_generator = new function() {
 
     Blockly.Python['xglcd_font_load'] = self.xglcd_font_load;
     Blockly.Python.addReservedWords('xglcd_font');
+
+    Blockly.Python['xpt2046_init'] = self.xpt2046_init;
+    Blockly.Python['xpt2046_get_pos'] = self.xpt2046_get_pos;
+    Blockly.Python.addReservedWords('xpt2046,xpt2046_device');
   };
 
   // Generate python code
@@ -5244,6 +5248,34 @@ var ioty_generator = new function() {
     let height = block.getFieldValue('height');
 
     var code = 'xglcd_font.XglcdFont(' + filename + ', ' + width + ', ' + height + ')';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.xpt2046_init = function(block) {
+    self.imports['xpt2046'] = 'import xpt2046';
+    self.reservedVariables['xpt2046_init'] = ['xpt2046_device'];
+
+    let spi = block.getFieldValue('spi');
+    let cs = block.getFieldValue('cs');
+    let int = block.getFieldValue('int');
+    let width = block.getFieldValue('width');
+    let height = block.getFieldValue('height');
+    let x_min = block.getFieldValue('x_min');
+    let x_max = block.getFieldValue('x_max');
+    let y_min = block.getFieldValue('y_min');
+    let y_max = block.getFieldValue('y_max');
+    let rotation = block.getFieldValue('rotation');
+
+    var code = 'xpt2046_device = xpt2046.Touch(spi' + spi + ', cs=Pin(' + cs + '), int_pin=Pin(' + int + '), width=' + width + ', height=' + height + ', x_min=' + x_min + ', x_max=' + x_max + ', y_min=' + y_min + ', y_max=' + y_max + ', rotation=' + rotation + ')\n';
+
+    return code;
+  };
+
+  this.xpt2046_get_pos = function(block) {
+    self.imports['xpt2046'] = 'import xpt2046';
+
+    var code = 'xpt2046_device.get_pos()';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };

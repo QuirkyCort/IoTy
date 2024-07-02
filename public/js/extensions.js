@@ -719,7 +719,7 @@ var extensions = new function() {
       id: 'ili9341',
       name: 'ILI9341 Display',
       files: [
-        ['ili9341.py', 'extensions/ili9341.py?v=11f65a40'],
+        ['ili9341.py', 'extensions/ili9341.py?v=d8b5f7b8'],
       ],
       description:
         '<p>' +
@@ -738,7 +738,7 @@ var extensions = new function() {
       id: 'xglcd_font',
       name: 'X-GLCD Font',
       files: [
-        ['xglcd_font.py', 'extensions/xglcd_font.py?v=f7829402'],
+        ['xglcd_font.py', 'extensions/xglcd_font.py?v=c8c11221'],
       ],
       description:
         '<p>' +
@@ -748,6 +748,24 @@ var extensions = new function() {
         '<p>' +
           'No font files are included with this extension. ' +
           'You can download one from <a href="https://github.com/rdagger/micropython-ili9341/tree/master/fonts">https://github.com/rdagger/micropython-ili9341/tree/master/fonts</a> and upload it to your device.' +
+        '</p>'
+    },
+    {
+      id: 'xpt2046',
+      name: 'ADS7843/XPT2046 Touchscreen Controller',
+      files: [
+        ['xpt2046.py', 'extensions/xpt2046.py?v=7c9b4059'],
+      ],
+      description:
+        '<p>' +
+          'The ADS7843/XPT2046 is resistive touchscreen controller that can return the touch position in X and Y coordinates. ' +
+          'It is used in the ESP32-2432S028R (aka. Cheap Yellow Display, CYD). ' +
+        '</p>' +
+        '<p>' +
+          'On the CYD, you should use SPI channel 2 to communicate with this device, and use sck=Pin(25), mosi=Pin(32), miso=Pin(39). ' +
+        '</p>' +
+        '<p>' +
+          'Default settings are for the CYD; you may need to change it if you are using an external device with different wirings. ' +
         '</p>'
     },
   ]

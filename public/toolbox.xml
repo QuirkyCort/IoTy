@@ -2422,4 +2422,8 @@
       </value>
     </block>
   </category>
+  <category toolboxitemid="xpt2046" name="XPT2046" colour="#5b67a5" hidden="true">
+    <block type="xpt2046_init"></block>
+    <block type="xpt2046_get_pos"></block>
+  </category>
 </xml>
