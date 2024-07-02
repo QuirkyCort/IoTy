@@ -2041,7 +2041,13 @@ var ioty_generator = new function() {
     var color = Blockly.Python.valueToCode(block, 'color', Blockly.Python.ORDER_ATOMIC);
     var fill = block.getFieldValue('fill');
 
-    var code = 'ssd1306_i2c.rect(' + x + ', ' + y + ', ' + w + ', ' + h + ', ' + color + ', ' + fill + ')\n';
+    if (fill == 'True') {
+      fill = ', True';
+    } else {
+      fill = '';
+    }
+
+    var code = 'ssd1306_i2c.rect(' + x + ', ' + y + ', ' + w + ', ' + h + ', ' + color + fill + ')\n';
 
     return code;
   };
