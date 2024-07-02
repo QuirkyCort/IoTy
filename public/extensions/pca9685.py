@@ -1,4 +1,3 @@
-from machine import Pin, SoftI2C
 from time import sleep_us
 from micropython import const
 

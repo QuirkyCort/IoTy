@@ -25,7 +25,7 @@ var extensions = new function() {
       id: 'pca9685',
       name: 'PCA-9685 (PWM / Servo Driver)',
       files: [
-        ['pca9685.py', 'extensions/pca9685.py?v=a1c5275a'],
+        ['pca9685.py', 'extensions/pca9685.py?v=56308430'],
       ],
       description:
         '<p>' +
