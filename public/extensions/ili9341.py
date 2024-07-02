@@ -7,6 +7,7 @@ from sys import implementation
 from framebuf import FrameBuffer, RGB565  # type: ignore
 from micropython import const  # type: ignore
 
+
 def color565(r, g, b):
     """Return RGB565 color value.
 
@@ -642,20 +643,15 @@ class Display(object):
         # Confirm coordinates in boundary
         if self.is_off_grid(x, y, x + 7, y + 7):
             return
-        # Rearrange color
-        r = (color & 0xF800) >> 8
-        g = (color & 0x07E0) >> 3
-        b = (color & 0x1F) << 3
         buf = bytearray(w * 16)
         fbuf = FrameBuffer(buf, w, h, RGB565)
         if background != 0:
-            bg_r = (background & 0xF800) >> 8
-            bg_g = (background & 0x07E0) >> 3
-            bg_b = (background & 0x1F) << 3
-            bg_color = (bg_r & 0xf8) | bg_g >> 5 | (bg_b & 0xf8) << 5 | (bg_g & 0x1c) << 11
-            fbuf.fill(bg_color)
-        fb_color = (r & 0xf8) | g >> 5 | (b & 0xf8) << 5 | (g & 0x1c) << 11
-        fbuf.text(text, 0, 0, fb_color)
+            # Swap background color bytes to correct for framebuf endianness
+            b_color = ((background & 0xFF) << 8) | ((background & 0xFF00) >> 8)
+            fbuf.fill(b_color)
+        # Swap text color bytes to correct for framebuf endianness
+        t_color = ((color & 0xFF) << 8) | ((color & 0xFF00) >> 8)
+        fbuf.text(text, 0, 0, t_color)
         if rotate == 0:
             self.block(x, y, x + w - 1, y + (h - 1), buf)
         elif rotate == 90:
