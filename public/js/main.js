@@ -360,6 +360,7 @@ var main = new function() {
       {html: i18n.get('#main-getInfo#'), line: false, callback: serial.getInfo},
       {html: i18n.get('#main-listFiles#'), line: false, callback: self.listFiles},
       {html: i18n.get('#main-configureDeviceNetwork#'), line: false, callback: main.configureDeviceNetwork},
+      {html: i18n.get('#main-softResetDevice#'), line: false, callback: serial.softResetDialog},
       {html: i18n.get('#main-resetDevice#'), line: false, callback: serial.resetDialog},
       {html: i18n.get('#main-disconnect#'), line: false, callback: serial.disconnect},
     ];

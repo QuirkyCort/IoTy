@@ -395,6 +395,15 @@ var serial = new function() {
     self.reset();
   };
 
+  this.softResetDialog = function() {
+    if (! self.isConnected) {
+      toastMsg('Not connected. Please connect to device.');
+      return;
+    }
+
+    self.softReset();
+  };
+
   // this.reset = async function() {
   //   self.pythonSerial.setReadToBuf();
   //   self.writeEnable = false;
@@ -418,6 +427,11 @@ var serial = new function() {
   this.reset = async function() {
     await serial.port.setSignals({dataTerminalReady: false, requestToSend: true});
     await serial.port.setSignals({dataTerminalReady: false, requestToSend: false});
+  }
+
+  this.softReset = function() {
+    self.pythonSerial.sendCtrlC();
+    self.pythonSerial.sendCtrlD();
   }
 
   this.changeNameDialog = function() {
