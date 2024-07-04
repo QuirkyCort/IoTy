@@ -22,6 +22,10 @@ var serial = new function() {
     { // RPI Pico
       usbProductId: 5,
       usbVendorId: 11914
+    },
+    { // Arduino Nano ESP32
+      usbProductId: 1387,
+      usbVendorId: 9025
     }
   ];
 
