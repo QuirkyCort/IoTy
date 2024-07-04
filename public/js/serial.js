@@ -111,13 +111,34 @@ var serial = new function() {
     }
 
     if (self.writeEnable) {
-      const value = new TextEncoder('utf-8').encode(text + '\r\n');
       try {
         self.pythonSerial.writeString(text + '\r\n');
       } catch (error) {
         console.log(error);
         toastMsg('Error sending');
       }
+    }
+  };
+
+  this.sendSerialPasteMode = async function(text) {
+    if (! self.isConnected) {
+      toastMsg('Not connected. Please connect to device.');
+      return;
+    }
+
+    if (self.writeEnable) {
+      self.pythonSerial.sendCtrlE();
+
+      try {
+        for (let line of text.split('\n')) {
+          self.pythonSerial.writeString(line + '\r\n');
+        }
+      } catch (error) {
+        console.log(error);
+        toastMsg('Error sending');
+      }
+
+      self.pythonSerial.sendCtrlD();
     }
   };
 

@@ -6,6 +6,13 @@ var ioty_generator = new function() {
   this.EZ_TIMER_CALLBACK_PLACEHOLDER = '# EZ Timer Callback Placeholder; you should not see this! #\n';
   this.RESERVED_VARIABLES_PLACEHOLDER = '# Reserved Variables Placeholder; you should not see this! #\n';
 
+  this.imports = {};
+  this.iotyImports = {};
+  this.mqttSubscriptions = {};
+  this.ezTimerCb = [];
+  this.reservedVariables = {};
+  this.startType = 'RUN';
+
   // Load Python generators
   this.load = function() {
     Blockly.Python.addReservedWords('machine,time,ioty,pin,sys,struct');

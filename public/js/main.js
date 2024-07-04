@@ -352,6 +352,7 @@ var main = new function() {
       {html: i18n.get('#main-connectMode#'), line: false, callback: self.connectModeMenu },
       {html: i18n.get('#main-connectSerial#'), line: false, callback: serial.connectDialog },
       {html: i18n.get('#main-download#'), line: false, callback: serial.download },
+      {html: i18n.get('#main-runSelectedBlock#'), line: false, callback: self.runSelectedBlock },
       {html: i18n.get('#main-erase#'), line: false, callback: serial.eraseDialog },
       {html: i18n.get('#main-changeName#'), line: false, callback: serial.changeNameDialog},
       {html: i18n.get('#main-checkVersion#'), line: false, callback: serial.checkVersion},
@@ -1178,6 +1179,18 @@ var main = new function() {
           'No updates are required.'
       }, interface.updateFirmware);
     }
+  };
+
+  this.runSelectedBlock = function() {
+    Blockly.Python.init(blockly.workspace);
+    let code = Blockly.Python.blockToCode(Blockly.getSelected(), true);
+    monitorPanel.sendAbort();
+    setTimeout(function(){
+      let interface = main.getInterface();
+      if (typeof interface.sendSerialPasteMode == 'function') {
+        interface.sendSerialPasteMode(code);
+      }
+    }, 200);
   };
 
   // Display what's new if not seen before

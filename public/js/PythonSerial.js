@@ -203,6 +203,12 @@ class PythonSerial {
     this.writer.write(cmd);
   }
 
+  // Enter paste mode
+  sendCtrlE() {
+    let cmd = new Uint8Array([0x0d, 0x05]);
+    this.writer.write(cmd);
+  }
+
   // Soft reset OR Execute command (RAW mode)
   sendCtrlD() {
     let cmd = new Uint8Array([0x04]);

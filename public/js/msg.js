@@ -664,6 +664,9 @@ let MSGS = {
   '#main-download#': {
     en: 'Download to device',
   },
+  '#main-runSelectedBlock#': {
+    en: 'Run selected block',
+  },
   '#main-erase#': {
     en: 'Erase device',
   },
