@@ -1,0 +1,31 @@
+{
+  "type": "xpt2046_in_circle",
+  "message0": "#blk-xpt2046_in_circle# %1 #blk-is_in_circle# #blk-xy# %2 %3 #blk-r# %4",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "pos",
+      "check": "Array"
+    },
+    {
+      "type": "input_value",
+      "name": "x",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "y",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "r",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "output": "Boolean",
+  "colour": 230,
+  "tooltip": "#blk-xpt2046_in_circle_tooltip#",
+  "helpUrl": ""
+}

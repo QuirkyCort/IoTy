@@ -2425,5 +2425,50 @@
   <category toolboxitemid="xpt2046" name="XPT2046" colour="#5b67a5" hidden="true">
     <block type="xpt2046_init"></block>
     <block type="xpt2046_get_pos"></block>
+    <block type="xpt2046_in_rect">
+      <value name="pos">
+        <block type="xpt2046_get_pos"></block>
+      </value>
+      <value name="x">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="y">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="w">
+        <shadow type="math_number">
+          <field name="NUM">50</field>
+        </shadow>
+      </value>
+      <value name="h">
+        <shadow type="math_number">
+          <field name="NUM">50</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="xpt2046_in_circle">
+      <value name="pos">
+        <block type="xpt2046_get_pos"></block>
+      </value>
+      <value name="x">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="y">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="r">
+        <shadow type="math_number">
+          <field name="NUM">25</field>
+        </shadow>
+      </value>
+    </block>
   </category>
 </xml>

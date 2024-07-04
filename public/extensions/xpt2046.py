@@ -4,6 +4,20 @@
 """XPT2046 Touch module."""
 from time import sleep
 
+def in_rect(pos, x, y, w, h):
+    if pos == None:
+        return False
+    if pos[0] < x or pos[0] > x + w or pos[1] < y or pos[1] > y + h:
+        return False
+    return True
+
+def in_circle(pos, x, y, r):
+    if pos == None:
+        return False
+    d_sqr = (pos[0] - x) ** 2 + (pos[1] - y) ** 2
+    if d_sqr < r ** 2:
+        return True
+    return False
 
 class Touch(object):
     """Serial interface for XPT2046 Touch Screen Controller."""
@@ -43,12 +57,6 @@ class Touch(object):
         # Rotated to match screen on CYD
         self.width = height
         self.height = width
-        # if rotation == 0 or rotation == 180:
-        #     self.width = height
-        #     self.height = width
-        # else:
-        #     self.width = width
-        #     self.height = height
         self.rotation = rotation
         # Set calibration
         self.x_min = x_min

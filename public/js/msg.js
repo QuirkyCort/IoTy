@@ -3262,6 +3262,33 @@ let MSGS = {
   '#blk-xpt2046_get_pos_tooltip#': {
     en: 'Returns the x and y position of the detected touch as a list, or None if no touch is detected.',
   },
+  '#blk-xpt2046_in_rect#': {
+    en: 'touch position',
+  },
+  '#blk-xpt2046_in_rect_tooltip#': {
+    en: 'Touch position should be a list containing the x and y values.',
+  },
+  '#blk-is_in_rectangle#': {
+    en: 'is in rectangle',
+  },
+  '#blk-xy#': {
+    en: 'x/y',
+  },
+  '#blk-wh#': {
+    en: 'w/h',
+  },
+  '#blk-xpt2046_in_circle#': {
+    en: 'touch position',
+  },
+  '#blk-xpt2046_in_circle_tooltip#': {
+    en: 'Touch position should be a list containing the x and y values.',
+  },
+  '#blk-is_in_circle#': {
+    en: 'is in circle',
+  },
+  '#blk-r#': {
+    en: 'r',
+  },
 
 };
 let MSGS_KEYS = Object.keys(MSGS);

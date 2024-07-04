@@ -1,0 +1,36 @@
+{
+  "type": "xpt2046_in_rect",
+  "message0": "#blk-xpt2046_in_rect# %1 #blk-is_in_rectangle# #blk-xy# %2 %3 #blk-wh# %4 %5",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "pos",
+      "check": "Array"
+    },
+    {
+      "type": "input_value",
+      "name": "x",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "y",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "w",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "h",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "output": "Boolean",
+  "colour": 230,
+  "tooltip": "#blk-xpt2046_in_rect_tooltip#",
+  "helpUrl": ""
+}
