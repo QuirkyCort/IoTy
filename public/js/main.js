@@ -1185,13 +1185,10 @@ var main = new function() {
   this.runSelectedBlock = function() {
     Blockly.Python.init(blockly.workspace);
     let code = Blockly.Python.blockToCode(Blockly.getSelected(), true);
-    monitorPanel.sendAbort();
-    setTimeout(function(){
-      let interface = main.getInterface();
-      if (typeof interface.sendSerialPasteMode == 'function') {
-        interface.sendSerialPasteMode(code);
-      }
-    }, 200);
+    let interface = main.getInterface();
+    if (typeof interface.sendSerialPasteMode == 'function') {
+      interface.sendSerialPasteMode(code);
+    }
   };
 
   // Display what's new if not seen before

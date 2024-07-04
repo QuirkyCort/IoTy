@@ -131,6 +131,7 @@ var serial = new function() {
     }
 
     if (self.writeEnable) {
+      self.pythonSerial.sendCtrlC();
       self.pythonSerial.sendCtrlE();
 
       try {
