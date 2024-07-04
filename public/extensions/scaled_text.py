@@ -38,7 +38,9 @@ class ScaledText:
                 self._fill_rect(x + start * scale, y, scale * (i - start), scale, c)
             y += scale
 
-    def text(self, s, x, y, c=1, scale=2):
+    def text(self, s, x, y, c=1, scale=2, background=None):
+        if background != None:
+            self._fill_rect(x, y, len(s) * 8 * scale, 8 * scale, c=background)
         for char in s:
             self._draw_char(char, x, y, c, int(scale))
             x += 8 * scale

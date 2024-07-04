@@ -526,11 +526,11 @@ var extensions = new function() {
       id: 'scaled_text',
       name: 'Scaled Text',
       files: [
-        ['scaled_text.py', 'extensions/scaled_text.py?v=5395fbc9'],
+        ['scaled_text.py', 'extensions/scaled_text.py?v=8e90992c'],
       ],
       description:
         '<p>' +
-          'This extension works with other extensions using the frame buffer (eg. SSD-1306), and provides drawing of larger text. ' +
+          'This extension works with other extensions that draws to screen (eg. SSD-1306), and provides drawing of larger text. ' +
           'The built-in micropython frame buffer only provides an 8x8 pixels font, which can be too small to read for some. ' +
           'This extension overcomes this by scaling the built-in font (eg. 2 times, 3 times) before drawing it. ' +
         '</p>' +

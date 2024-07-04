@@ -402,6 +402,7 @@ var ioty_generator = new function() {
 
     Blockly.Python['scaled_text_init'] = self.scaled_text_init;
     Blockly.Python['scaled_text_text'] = self.scaled_text_text;
+    Blockly.Python['scaled_text_text_with_background'] = self.scaled_text_text_with_background;
     Blockly.Python.addReservedWords('scaled_text,text_scaler');
 
     Blockly.Python['png_decoder_render'] = self.png_decoder_render;
@@ -3960,6 +3961,19 @@ var ioty_generator = new function() {
     let scale = block.getFieldValue('scale');
 
     let code = 'text_scaler.text(' + text + ', ' + x + ', ' + y + ', ' + color + ', scale=' + scale + ')\n';
+
+    return code;
+  };
+
+  this.scaled_text_text_with_background = function(block) {
+    let text = Blockly.Python.valueToCode(block, 'text', Blockly.Python.ORDER_ATOMIC);
+    let x = Blockly.Python.valueToCode(block, 'x', Blockly.Python.ORDER_ATOMIC);
+    let y = Blockly.Python.valueToCode(block, 'y', Blockly.Python.ORDER_ATOMIC);
+    let color = Blockly.Python.valueToCode(block, 'color', Blockly.Python.ORDER_ATOMIC);
+    let background = Blockly.Python.valueToCode(block, 'background', Blockly.Python.ORDER_ATOMIC);
+    let scale = block.getFieldValue('scale');
+
+    let code = 'text_scaler.text(' + text + ', ' + x + ', ' + y + ', ' + color + ', scale=' + scale + ', background=' + background + ')\n';
 
     return code;
   };

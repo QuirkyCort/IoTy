@@ -2405,7 +2405,16 @@ let MSGS = {
     en: 'draw scaled text',
   },
   '#blk-scaled_text_text_tooltip#': {
-    en: 'Works the same as the normal text function, but with an additional scale option. Be sure to use \\"fill\\" to clear the screen, and \\"show\\" to display the frame buffer after writing.',
+    en: 'Works the same as the normal text function, but with an additional scale option. Does not clear the background. You may need to use \\"show\\" after writing.',
+  },
+  '#blk-scaled_text_text_with_background#': {
+    en: 'draw scaled text',
+  },
+  '#blk-scaled_text_text_with_background_tooltip#': {
+    en: 'Works the same as the normal text function, but with an additional scale option. Clears the background with the provided color. You may need to use \\"show\\" after writing.',
+  },
+  '#blk-scale#': {
+    en: 'scale',
   },
   '#blk-png_decoder_render#': {
     en: 'render PNG image',
