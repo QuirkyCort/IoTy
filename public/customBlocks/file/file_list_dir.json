@@ -1,0 +1,15 @@
+{
+  "type": "file_list_dir",
+  "message0": "#blk-list_dir# %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "path",
+      "check": "String"
+    }
+  ],
+  "output": "Boolean",
+  "colour": 230,
+  "tooltip": "#blk-file_list_dir_tooltip#",
+  "helpUrl": ""
+}

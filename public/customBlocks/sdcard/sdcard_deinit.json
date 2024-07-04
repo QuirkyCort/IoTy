@@ -1,0 +1,18 @@
+{
+  "type": "sdcard_deinit",
+  "message0": "#blk-sdcard_deinit# %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "dirname",
+      "check": "String"
+    }
+
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-sdcard_deinit_tooltip#",
+  "helpUrl": ""
+}

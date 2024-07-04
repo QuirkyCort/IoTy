@@ -119,7 +119,12 @@ var ioty_generator = new function() {
     Blockly.Python['file_flush'] = self.file_flush;
     Blockly.Python['file_is_file'] = self.file_is_file;
     Blockly.Python['file_is_dir'] = self.file_is_dir;
+    Blockly.Python['file_list_dir'] = self.file_list_dir;
     Blockly.Python.addReservedWords('is_file,is_dir');
+
+    Blockly.Python['sdcard_init'] = self.sdcard_init;
+    Blockly.Python['sdcard_deinit'] = self.sdcard_deinit;
+    Blockly.Python.addReservedWords('sdcard');
 
     Blockly.Python['esp32_temperature'] = self.esp32_temperature;
     Blockly.Python.addReservedWords('esp32');
@@ -1798,6 +1803,45 @@ var ioty_generator = new function() {
     var code = 'is_dir(' + path + ')';
 
     return [code, Blockly.Python.ORDER_FUNCTION_CALL];
+  };
+
+  this.file_list_dir = function(block) {
+    self.imports['os'] = 'import os';
+
+    var path = Blockly.Python.valueToCode(block, 'path', Blockly.Python.ORDER_NONE);
+
+    var code = 'os.listdir(' + path + ')';
+
+    return [code, Blockly.Python.ORDER_FUNCTION_CALL];
+  };
+
+  this.sdcard_init = function(block) {
+    self.imports['machine'] = 'import machine';
+    self.imports['os'] = 'import os';
+
+    let slot = block.getFieldValue('slot');
+    let cs = block.getFieldValue('cs');
+    let sck = block.getFieldValue('sck');
+    let mosi = block.getFieldValue('mosi');
+    let miso = block.getFieldValue('miso');
+    let dirname = Blockly.Python.valueToCode(block, 'dirname', Blockly.Python.ORDER_NONE);
+
+    var code =
+      'sdcard = machine.SDCard(slot=' + slot + ', sck=Pin(' + sck + '), miso=Pin(' + miso + '), mosi=Pin(' + mosi + '), cs=Pin(' + cs + '))\n' +
+      'os.mount(sdcard, ' + dirname + ')\n';
+    return code;
+  };
+
+  this.sdcard_deinit = function(block) {
+    self.imports['machine'] = 'import machine';
+    self.imports['os'] = 'import os';
+
+    let dirname = Blockly.Python.valueToCode(block, 'dirname', Blockly.Python.ORDER_NONE);
+
+    var code =
+      'os.umount(' + dirname + ')\n' +
+      'sdcard.deinit()\n';
+    return code;
   };
 
   this.esp32_temperature = function(block) {

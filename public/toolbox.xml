@@ -596,6 +596,33 @@
         </shadow>
       </value>
     </block>
+    <block type="file_list_dir">
+      <value name="path">
+        <shadow type="text">
+          <field name="TEXT">/</field>
+        </shadow>
+      </value>
+    </block>
+    <label text="SDCard"></label>
+    <block type="sdcard_init">
+      <field name="slot">2</field>
+      <field name="cs">5</field>
+      <field name="sck">18</field>
+      <field name="mosi">23</field>
+      <field name="miso">19</field>
+      <value name="dirname">
+        <shadow type="text">
+          <field name="TEXT">/sd</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="sdcard_deinit">
+      <value name="dirname">
+        <shadow type="text">
+          <field name="TEXT">/sd</field>
+        </shadow>
+      </value>
+    </block>
   </category>
   <category name="I2C" colour="#a55b80">
     <block type="i2c_init"></block>

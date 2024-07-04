@@ -1159,6 +1159,33 @@ let MSGS = {
   '#blk-file_is_dir_tooltip#': {
     en: 'Returns True if the specified path is a directory',
   },
+  '#blk-list_dir#': {
+    en: 'list dir',
+  },
+  '#blk-file_list_dir_tooltip#': {
+    en: 'Returns directory content as a list of strings',
+  },
+  '#blk-sdcard_init#': {
+    en: 'init sdcard on slot',
+  },
+  '#blk-sdcard_init_tooltip#': {
+    en: 'Init and mount the sdcard. Default values are for the Cheap Yellow Display, and may need to be changed depending on your sdcard wiring.',
+  },
+  '#blk-sdcard_deinit#': {
+    en: 'deinit sdcard at mount point',
+  },
+  '#blk-sdcard_deinit_tooltip#': {
+    en: 'Unmount and deinit the sdcard. This frees up the SPI slot for other uses.',
+  },
+  '#blk-sck#': {
+    en: 'sck',
+  },
+  '#blk-miso#': {
+    en: 'miso',
+  },
+  '#blk-mount_point#': {
+    en: 'mount point',
+  },
   '#blk-microcontroller_temperature_in#': {
     en: 'microcontroller temperature in',
   },
