@@ -263,7 +263,7 @@ var ioty_generator = new function() {
     Blockly.Python['spi_init'] = self.spi_init;
     Blockly.Python['spi_read'] = self.spi_read;
     Blockly.Python['spi_write'] = self.spi_write;
-    Blockly.Python.addReservedWords('spi1,spi2');
+    Blockly.Python.addReservedWords('spi1,spi2,softSpi1,softSpi2');
 
     Blockly.Python['mfrc522_init'] = self.mfrc522_init;
     Blockly.Python['mfrc522_card_present'] = self.mfrc522_card_present;
@@ -2923,10 +2923,17 @@ var ioty_generator = new function() {
     var mosi = block.getFieldValue('mosi');
     var miso = block.getFieldValue('miso');
 
-    self.reservedVariables['spi' + id] = ['spi' + id];
+    self.reservedVariables[id] = [id];
+
+    let cmd = 'SPI';
+    let channel = id.slice(-1) + ', ';
+    if (id.slice(0,4) == 'soft') {
+      cmd = 'SoftSPI';
+      channel = '';
+    }
 
     var code =
-      'spi' + id + ' = machine.SPI(' + id + ', baudrate=' + baudrate + ', sck=Pin(' + sck + '), mosi=Pin(' + mosi + '), miso=Pin(' + miso + '))\n';
+      id + ' = machine.' + cmd + '(' + channel + 'baudrate=' + baudrate + ', sck=Pin(' + sck + '), mosi=Pin(' + mosi + '), miso=Pin(' + miso + '))\n';
 
     return code;
   };
@@ -2950,7 +2957,7 @@ var ioty_generator = new function() {
       size = 8;
     }
 
-    var code = 'struct.unpack(\'' + format + '\', spi' + id + '.read(' + size + '))[0]';
+    var code = 'struct.unpack(\'' + format + '\', ' + id + '.read(' + size + '))[0]';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };
@@ -2962,7 +2969,7 @@ var ioty_generator = new function() {
     var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_NONE);
     var format = block.getFieldValue('format');
 
-    var code = 'spi' + id + '.write(struct.pack(\'' + format + '\', ' + value + '))\n';
+    var code = id + '.write(struct.pack(\'' + format + '\', ' + value + '))\n';
 
     return code;
   };
@@ -2976,7 +2983,7 @@ var ioty_generator = new function() {
     var cs = block.getFieldValue('cs');
 
     var code =
-      'mfrc522_device = mfrc522.MFRC522(spi' + spi + ', ' + rst + ', ' + cs + ')\n';
+      'mfrc522_device = mfrc522.MFRC522(' + spi + ', ' + rst + ', ' + cs + ')\n';
 
     return code;
   };
@@ -3687,7 +3694,7 @@ var ioty_generator = new function() {
     let spi = block.getFieldValue('spi');
 
     let code =
-      'max6675_device = max6675.MAX6675(spi' + spi + ', ' + cs + ')\n';
+      'max6675_device = max6675.MAX6675(' + spi + ', ' + cs + ')\n';
 
     return code;
   };
@@ -5109,7 +5116,7 @@ var ioty_generator = new function() {
     let mirror = block.getFieldValue('mirror');
     let bgr = block.getFieldValue('bgr');
 
-    var code = 'ili9341_device = ili9341.Display(spi' + spi + ', cs=Pin(' + cs + '), dc=Pin(' + dc + '), rst=Pin(' + rst + '), width=' + width + ', height=' + height + ', rotation=' + rotation + ', mirror=' + mirror + ', bgr=' + bgr + ')\n';
+    var code = 'ili9341_device = ili9341.Display(' + spi + ', cs=Pin(' + cs + '), dc=Pin(' + dc + '), rst=Pin(' + rst + '), width=' + width + ', height=' + height + ', rotation=' + rotation + ', mirror=' + mirror + ', bgr=' + bgr + ')\n';
 
     return code;
   };
@@ -5340,7 +5347,7 @@ var ioty_generator = new function() {
     let y_max = block.getFieldValue('y_max');
     let rotation = block.getFieldValue('rotation');
 
-    var code = 'xpt2046_device = xpt2046.Touch(spi' + spi + ', cs=Pin(' + cs + '), int_pin=Pin(' + int + '), width=' + width + ', height=' + height + ', x_min=' + x_min + ', x_max=' + x_max + ', y_min=' + y_min + ', y_max=' + y_max + ', rotation=' + rotation + ')\n';
+    var code = 'xpt2046_device = xpt2046.Touch(' + spi + ', cs=Pin(' + cs + '), int_pin=Pin(' + int + '), width=' + width + ', height=' + height + ', x_min=' + x_min + ', x_max=' + x_max + ', y_min=' + y_min + ', y_max=' + y_max + ', rotation=' + rotation + ')\n';
 
     return code;
   };

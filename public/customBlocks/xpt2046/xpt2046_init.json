@@ -5,10 +5,7 @@
     {
       "type": "field_dropdown",
       "name": "spi",
-      "options": [
-        ["SPI2", "2"],
-        ["SPI1", "1"]
-      ]
+      "options": $_SPI
     },
     {
       "type": "field_number",

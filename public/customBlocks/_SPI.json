@@ -1,0 +1,6 @@
+[
+  ["SPI1", "spi1"],
+  ["SPI2", "spi2"],
+  ["Soft SPI1", "softSpi1"],
+  ["Soft SPI2", "softSpi2"]
+]
