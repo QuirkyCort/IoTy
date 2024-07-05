@@ -453,7 +453,7 @@ let MSGS = {
   '#blk-mqtt_publish_bytes#': {
     en: 'MQTT: Publish bytes to topic',
   },
-  '#blk-mqtt_publish_tooltip#': {
+  '#blk-mqtt_publish_bytes_tooltip#': {
     en: 'Publish the bytes object to the specified topic.',
   },
   '#blk-i2c_init#': {
