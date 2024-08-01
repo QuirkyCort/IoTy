@@ -1570,7 +1570,9 @@ var ioty_generator = new function() {
   };
 
   this.i2c_scan = function(block) {
-    var code = 'i2c.scan()';
+    var id = block.getFieldValue('id');
+
+    var code = id + '.scan()';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };
@@ -1578,12 +1580,13 @@ var ioty_generator = new function() {
   this.i2c_writeto_mem = function(block) {
     self.imports['struct'] = 'import struct';
 
+    var id = block.getFieldValue('id');
     var address = Blockly.Python.valueToCode(block, 'address', Blockly.Python.ORDER_NONE);
     var register = Blockly.Python.valueToCode(block, 'register', Blockly.Python.ORDER_NONE);
     var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_NONE);
     var format = block.getFieldValue('format');
 
-    var code = 'i2c.writeto_mem(' + address + ', ' + register + ', struct.pack(\'' + format + '\', ' + value + '))\n';
+    var code = id + '.writeto_mem(' + address + ', ' + register + ', struct.pack(\'' + format + '\', ' + value + '))\n';
 
     return code;
   };
@@ -1591,6 +1594,7 @@ var ioty_generator = new function() {
   this.i2c_readfrom_mem = function(block) {
     self.imports['struct'] = 'import struct';
 
+    var id = block.getFieldValue('id');
     var address = Blockly.Python.valueToCode(block, 'address', Blockly.Python.ORDER_NONE);
     var register = Blockly.Python.valueToCode(block, 'register', Blockly.Python.ORDER_NONE);
     var format = block.getFieldValue('format');
@@ -1608,7 +1612,7 @@ var ioty_generator = new function() {
       size = 8;
     }
 
-    var code = 'struct.unpack(\'' + format + '\', i2c.readfrom_mem(' + address + ', ' + register + ', ' + size + '))[0]';
+    var code = 'struct.unpack(\'' + format + '\', ' + id + '.readfrom_mem(' + address + ', ' + register + ', ' + size + '))[0]';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };
@@ -1616,6 +1620,7 @@ var ioty_generator = new function() {
   this.i2c_writeto = function(block) {
     self.imports['struct'] = 'import struct';
 
+    var id = block.getFieldValue('id');
     var address = Blockly.Python.valueToCode(block, 'address', Blockly.Python.ORDER_NONE);
     var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_NONE);
     var format = block.getFieldValue('format');
@@ -1626,7 +1631,7 @@ var ioty_generator = new function() {
       stopParam = ', False';
     }
 
-    var code = 'i2c.writeto(' + address + ', struct.pack(\'' + format + '\', ' + value + ')' + stopParam + ')\n';
+    var code = id + '.writeto(' + address + ', struct.pack(\'' + format + '\', ' + value + ')' + stopParam + ')\n';
 
     return code;
   };
@@ -1634,6 +1639,7 @@ var ioty_generator = new function() {
   this.i2c_readfrom = function(block) {
     self.imports['struct'] = 'import struct';
 
+    var id = block.getFieldValue('id');
     var address = Blockly.Python.valueToCode(block, 'address', Blockly.Python.ORDER_NONE);
     var format = block.getFieldValue('format');
     var stop = block.getFieldValue('stop');
@@ -1656,12 +1662,13 @@ var ioty_generator = new function() {
       size = 8;
     }
 
-    var code = 'struct.unpack(\'' + format + '\', i2c.readfrom(' + address + ', ' + size + stopParam + '))[0]';
+    var code = 'struct.unpack(\'' + format + '\', ' + id + '.readfrom(' + address + ', ' + size + stopParam + '))[0]';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };
 
   this.i2c_readfrom_bytes = function(block) {
+    var id = block.getFieldValue('id');
     var address = Blockly.Python.valueToCode(block, 'address', Blockly.Python.ORDER_NONE);
     var bytes = Blockly.Python.valueToCode(block, 'bytes', Blockly.Python.ORDER_NONE);
     var stop = block.getFieldValue('stop');
@@ -1671,7 +1678,7 @@ var ioty_generator = new function() {
       stopParam = ', False';
     }
 
-    var code = 'i2c.readfrom(' + address + ', ' + bytes + stopParam + ')';
+    var code = id + '.readfrom(' + address + ', ' + bytes + stopParam + ')';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };

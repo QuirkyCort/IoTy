@@ -1,7 +1,12 @@
 {
   "type": "i2c_readfrom",
-  "message0": "#blk-i2c_readfrom_addr# %1 #blk-of_format# %2 #blk-and# %3",
+  "message0": "%1 #blk-i2c_readfrom_addr# %2 #blk-of_format# %3 #blk-and# %4",
   "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "id",
+      "options": $_I2C
+    },
     {
       "type": "input_value",
       "name": "address",

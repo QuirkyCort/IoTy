@@ -1,7 +1,12 @@
 {
   "type": "i2c_writeto_mem",
-  "message0": "#blk-i2c_writeto_addr# %1 #blk-at_register# %2 #blk-with_value# %3 #blk-of_format# %4",
+  "message0": "%1 #blk-i2c_writeto_addr# %2 #blk-at_register# %3 #blk-with_value# %4 #blk-of_format# %5",
   "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "id",
+      "options": $_I2C
+    },
     {
       "type": "input_value",
       "name": "address",

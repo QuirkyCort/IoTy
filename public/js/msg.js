@@ -472,10 +472,10 @@ let MSGS = {
     en: 'freq',
   },
   '#blk-i2c_scan#': {
-    en: 'scan for i2c devices',
+    en: 'scan for i2c devices on',
   },
   '#blk-i2c_writeto_addr#': {
-    en: 'i2c write to address',
+    en: 'write to address',
   },
   '#blk-with_value#': {
     en: 'with value',
@@ -487,7 +487,7 @@ let MSGS = {
     en: 'of format',
   },
   '#blk-i2c_readfrom_addr#': {
-    en: 'i2c read from address',
+    en: 'read from address',
   },
   '#blk-number_of_bytes#': {
     en: '# bytes',
