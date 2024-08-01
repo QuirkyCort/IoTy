@@ -1,7 +1,12 @@
 {
   "type": "max30102_init",
-  "message0": "#blk-max30102_init# %1 #blk-red_pwr# %2 #blk-ir_pwr# %3",
+  "message0": "#blk-max30102_init# %1 #blk-with_address# %2 #blk-red_pwr# %3 #blk-ir_pwr# %4",
   "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "id",
+      "options": $_I2C
+    },
     {
       "type": "field_input",
       "name": "addr",

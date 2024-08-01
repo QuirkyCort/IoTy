@@ -7,11 +7,11 @@
       "name": "id",
       "options": [
         [
-          "18 (scl), 19\u00A0(sda)",
+          "I2C0 on pins 18 (scl), 19\u00A0(sda)",
           "0"
         ],
         [
-          "25 (scl), 26\u00A0(sda)",
+          "I2C1 on pins 25 (scl), 26\u00A0(sda)",
           "1"
         ]
       ]
@@ -26,6 +26,6 @@
   "previousStatement": null,
   "nextStatement": null,
   "colour": 330,
-  "tooltip": "",
+  "tooltip": "#blk-i2c_init_tooltip#",
   "helpUrl": ""
 }

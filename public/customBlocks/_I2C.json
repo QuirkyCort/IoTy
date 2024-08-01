@@ -1,0 +1,6 @@
+[
+  ["I2C0", "i2c0"],
+  ["I2C1", "i2c1"],
+  ["Soft I2C0", "softI2c0"],
+  ["Soft I2C1", "softI2c1"]
+]

@@ -1,7 +1,17 @@
 {
   "type": "ssd1306_init",
-  "message0": "#blk-ssd1306_init# %1 #blk-height# %2 #blk-and_addr# %3",
+  "message0": "#blk-ssd1306_init# %1 #blk-with_address# %2 #blk-width# %3 #blk-height# %4",
   "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "id",
+      "options": $_I2C
+    },
+    {
+      "type": "field_input",
+      "name": "addr",
+      "text": "60"
+    },
     {
       "type": "field_input",
       "name": "width",
@@ -11,11 +21,6 @@
       "type": "field_input",
       "name": "height",
       "text": "64"
-    },
-    {
-      "type": "field_input",
-      "name": "addr",
-      "text": "60"
     }
   ],
   "inputsInline": true,

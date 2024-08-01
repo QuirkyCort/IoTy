@@ -1,7 +1,12 @@
 {
   "type": "pca9685_init",
-  "message0": "#blk-pca9685_init# %1",
+  "message0": "#blk-pca9685_init# %1 #blk-with_address# %2",
   "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "id",
+      "options": $_I2C
+    },
     {
       "type": "field_input",
       "name": "addr",

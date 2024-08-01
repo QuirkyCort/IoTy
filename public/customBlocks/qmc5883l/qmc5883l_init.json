@@ -1,7 +1,12 @@
 {
   "type": "qmc5883l_init",
-  "message0": "#blk-qmc5883l_init# %1 #blk-and_scale# %2",
+  "message0": "#blk-qmc5883l_init# %1 #blk-with_address# %2 #blk-and_scale# %3",
   "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "id",
+      "options": $_I2C
+    },
     {
       "type": "field_input",
       "name": "addr",

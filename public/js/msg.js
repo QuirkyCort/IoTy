@@ -457,10 +457,16 @@ let MSGS = {
     en: 'Publish the bytes object to the specified topic.',
   },
   '#blk-i2c_init#': {
-    en: 'init i2c on pins',
+    en: 'init',
+  },
+  '#blk-i2c_init_tooltip#': {
+    en: 'Initialize I2C device 1 or 2 using their default pins. If you need Soft I2C or different pins, use the other \\"init I2C\\" block',
   },
   '#blk-i2c_init_with_pins_tooltip#': {
     en: 'A more advanced version of init i2c that allows setting of SCL and SDA pins',
+  },
+  '#blk-on_pins#': {
+    en: 'on pins',
   },
   '#blk-freq#': {
     en: 'freq',
@@ -809,10 +815,13 @@ let MSGS = {
     en: 'Select Extensions',
   },
   '#blk-mpu6050_init#': {
-    en: 'init MPU-6050 with address',
+    en: 'init MPU-6050 on',
   },
   '#blk-mpu6050_init_tooltip#': {
     en: 'You must have an \\"init i2c\\" block before this',
+  },
+  '#blk-with_address#': {
+    en: 'with address',
   },
   '#blk-mpu6050_calibrate#': {
     en: 'calibrate MPU-6050',
@@ -869,7 +878,7 @@ let MSGS = {
     en: 'Expects a list of x, y, z error as input.',
   },
   '#blk-pca9685_init#': {
-    en: 'init PCA-9685 with address',
+    en: 'init PCA-9685 on',
   },
   '#blk-pca9685_init_tooltip#': {
     en: 'You must have an \\"init i2c\\" block before this',
@@ -899,7 +908,7 @@ let MSGS = {
     en: 'Typical values for servos range from 1000 to 2000',
   },
   '#blk-ssd1306_init#': {
-    en: 'init SSD-1306 with width',
+    en: 'init SSD-1306 on',
   },
   '#blk-height#': {
     en: 'height',
@@ -911,7 +920,7 @@ let MSGS = {
     en: 'You must have an \\"init i2c\\" block before this',
   },
   '#blk-ssd1306_init_sh1106#': {
-    en: 'init SH-1106 with width',
+    en: 'init SH-1106 on',
   },
   '#blk-ssd1306_init_sh1106_tooltip#': {
     en: 'Use this to init a SH1106 display. After init, all the SSD1306 blocks can be used with the SH1106.',
@@ -1343,7 +1352,10 @@ let MSGS = {
     en: 'Close a previously opened CSV file. You cannot read/write to the file after closing.',
   },
   '#blk-i2c_lcd_init#': {
-    en: 'init I2C LCD with lines',
+    en: 'init I2C LCD on',
+  },
+  '#blk-with_lines#': {
+    en: 'with lines',
   },
   '#blk-columns#': {
     en: 'columns',
@@ -1697,7 +1709,7 @@ let MSGS = {
     en: 'Returns the card UID as a hex string. Use the \\"card is present\\" block first to ensure a card is present before running this block.',
   },
   '#blk-qmc5883l_init#': {
-    en: 'init QMC5883L with address',
+    en: 'init QMC5883L on',
   },
   '#blk-and_scale#': {
     en: 'and scale',
@@ -1718,7 +1730,7 @@ let MSGS = {
     en: 'You must perform a read before using this block.',
   },
   '#blk-hmc5883l_init#': {
-    en: 'init HMC5883L with address',
+    en: 'init HMC5883L on',
   },
   '#blk-hmc5883l_init_tooltip#': {
     en: 'You must have an \\"init I2C\\" block before this',
@@ -1736,7 +1748,7 @@ let MSGS = {
     en: 'You must perform a read before using this block.',
   },
   '#blk-bmp280_init#': {
-    en: 'init BMP280 with address',
+    en: 'init BMP280 on',
   },
   '#blk-bmp280_init_tooltip#': {
     en: 'You must have an \\"init I2C\\" block before this',
@@ -1772,7 +1784,7 @@ let MSGS = {
     en: 'Normally, the IoTy device will continue to receive commands (eg. Download programs) over bluetooth when running a program. If disabled, you must switch to programming mode to program your device.',
   },
   '#blk-max30102_init#': {
-    en: 'init MAX30102 with address',
+    en: 'init MAX30102 on',
   },
   '#blk-max30102_init_tooltip#': {
     en: 'You must have an \\"init I2C\\" block before this',
@@ -1847,7 +1859,7 @@ let MSGS = {
     en: 'Run python code and return the result.',
   },
   '#blk-vl53l0x_init#': {
-    en: 'init VL53L0X with address',
+    en: 'init VL53L0X on',
   },
   '#blk-vl53l0x_init_tooltip#': {
     en: 'You must have an \\"init I2C\\" block before this',
@@ -1859,7 +1871,7 @@ let MSGS = {
     en: 'Returns -1 if the distance is too far.',
   },
   '#blk-vl53l1x_init#': {
-    en: 'init VL53L1X with address',
+    en: 'init VL53L1X on',
   },
   '#blk-vl53l1x_init_tooltip#': {
     en: 'You must have an \\"init I2C\\" block before this',
@@ -1901,7 +1913,7 @@ let MSGS = {
     en: 'Log the provided data. Data must be a list with two items, the first is the x-axis and the second is the y-axis.',
   },
   '#blk-ds3231_init#': {
-    en: 'init DS3231 with address',
+    en: 'init DS3231 on',
   },
   '#blk-ds3231_init_tooltip#': {
     en: 'You must have an \\"init I2C\\" block before this',
@@ -1919,7 +1931,7 @@ let MSGS = {
     en: 'Input should be a list containing year, month, day, weekday, hours, minutes, seconds, subseconds. Subseconds is ignored and is only present for compatibility with machine.RTC.',
   },
   '#blk-bme280_init#': {
-    en: 'init BME280 with address',
+    en: 'init BME280 on',
   },
   '#blk-bme280_init_tooltip#': {
     en: 'You must have an \\"init I2C\\" block before this',
@@ -1955,7 +1967,7 @@ let MSGS = {
     en: 'You must perform a read before using this block. Value is in relative humidity percentage.',
   },
   '#blk-apds9960_init#': {
-    en: 'init APDS9960 with addres',
+    en: 'init APDS9960 on',
   },
   '#blk-apds9960_init_tooltip#': {
     en: 'You must have an \\"init I2C\\" block before this',
@@ -2030,7 +2042,7 @@ let MSGS = {
     en: 'Possible values are \\"u\\" (up), \\"d\\" (down), \\"l\\" (left), \\"r\\" (right), \\"\\" (no gesture). You must perform a \\"read gesture\\" first to retrieve the gesture from the sensor.',
   },
   '#blk-gy33_i2c_init#': {
-    en: 'init GY33 (I2C) with address',
+    en: 'init GY33 (I2C) on',
   },
   '#blk-gy33_i2c_init_tooltip#': {
     en: 'You must have an \\"init I2C\\" block before this',
@@ -2114,7 +2126,7 @@ let MSGS = {
     en: 'Calibrate the black value. The sensor should be on a black surface when you run this. You must run update first.',
   },
   '#blk-tcs3472_init#': {
-    en: 'init TCS3472 with address',
+    en: 'init TCS3472 on',
   },
   '#blk-tcs3472_init_tooltip#': {
     en: 'You must have an \\"init I2C\\" block before this',
@@ -2255,7 +2267,7 @@ let MSGS = {
     en: 'Set the current encoder position readings to the specified value.',
   },
   '#blk-huskylens_init_i2c#': {
-    en: 'init Husky Lens in I2C mode with address',
+    en: 'init Husky Lens in I2C mode on',
   },
   '#blk-huskylens_init_i2c_tooltip#': {
     en: 'You must have an \\"init I2C\\" block before this',
@@ -2366,7 +2378,7 @@ let MSGS = {
     en: 'Capture a photo or screenshot and save to the SD card',
   },
   '#blk-tca9548a_init#': {
-    en: 'init TCA9548A with address',
+    en: 'init TCA9548A on',
   },
   '#blk-tca9548a_init_tooltip#': {
     en: 'You must have an \\"init I2C\\" block before this',
@@ -2759,7 +2771,7 @@ let MSGS = {
     en: 'Reset all settings to the factory default',
   },
   '#blk-stepper_wheels_init#': {
-    en: 'init stepper wheels controller with address',
+    en: 'init stepper wheels controller on',
   },
   '#blk-stepper_wheels_init_tooltip#': {
     en: 'You must have an \\"init I2C\\" block before this',

@@ -1536,25 +1536,35 @@ var ioty_generator = new function() {
 
   this.i2c_init = function(block) {
     self.imports['machine'] = 'import machine';
-    self.reservedVariables['i2c_init'] = ['i2c'];
 
     var id = block.getFieldValue('id');
     var freq = block.getFieldValue('freq');
 
-    var code = 'i2c = machine.I2C(' + id + ', freq=' + freq + ')\n';
+    self.reservedVariables['i2c' + id] = ['i2c' + id];
+
+    var code = 'i2c' + id + ' = machine.I2C(' + id + ', freq=' + freq + ')\n';
 
     return code;
   };
 
   this.i2c_init_with_pins = function(block) {
     self.imports['machine'] = 'import machine';
-    self.reservedVariables['i2c_init'] = ['i2c'];
 
+    var id = block.getFieldValue('id');
     var scl = block.getFieldValue('scl');
     var sda = block.getFieldValue('sda');
     var freq = block.getFieldValue('freq');
 
-    var code = 'i2c = machine.I2C(0, scl=machine.Pin(' + scl + '), sda=machine.Pin(' + sda + '), freq=' + freq + ')\n';
+    self.reservedVariables[id] = [id];
+
+    let cmd = 'I2C';
+    let channel = id.slice(-1) + ', '
+    if (id.slice(0,4) == 'soft') {
+      cmd = 'SoftI2C';
+      channel = '';
+    }
+
+    var code = id + ' = machine.' + cmd + '(' + channel + 'scl=machine.Pin(' + scl + '), sda=machine.Pin(' + sda + '), freq=' + freq + ')\n';
 
     return code;
   };
@@ -1863,10 +1873,11 @@ var ioty_generator = new function() {
     self.imports['mpu6050'] = 'import mpu6050';
     self.reservedVariables['mpu6050_init'] = ['mpu6050_device'];
 
+    var id = block.getFieldValue('id');
     var addr = block.getFieldValue('addr');
 
     var code =
-      'mpu6050_device = mpu6050.MPU6050(i2c, ' + addr + ')\n';
+      'mpu6050_device = mpu6050.MPU6050(' + id + ', ' + addr + ')\n';
     return code;
   };
 
@@ -1968,9 +1979,10 @@ var ioty_generator = new function() {
     self.imports['pca9685'] = 'import pca9685';
     self.reservedVariables['pca9685_init'] = ['pca9685_device'];
 
+    var id = block.getFieldValue('id');
     var addr = block.getFieldValue('addr');
 
-    var code = 'pca9685_device = pca9685.PCA9685(i2c, ' + addr + ')\n';
+    var code = 'pca9685_device = pca9685.PCA9685(' + id + ', ' + addr + ')\n';
 
     return code;
   };
@@ -2014,12 +2026,13 @@ var ioty_generator = new function() {
     self.imports['ssd1306'] = 'import ssd1306';
     self.reservedVariables['ssd1306_init'] = ['ssd1306_i2c'];
 
+    var id = block.getFieldValue('id');
     var width = block.getFieldValue('width');
     var height = block.getFieldValue('height');
     var addr = block.getFieldValue('addr');
 
     var code =
-      'ssd1306_i2c = ssd1306.SSD1306_I2C(' + width + ', ' + height + ', i2c, ' + addr + ')\n'+
+      'ssd1306_i2c = ssd1306.SSD1306_I2C(' + width + ', ' + height + ', ' + id +', ' + addr + ')\n'+
       'ssd1306_i2c.init_display()\n';
 
     return code;
@@ -2029,12 +2042,13 @@ var ioty_generator = new function() {
     self.imports['ssd1306'] = 'import ssd1306';
     self.reservedVariables['ssd1306_init'] = ['ssd1306_i2c'];
 
+    var id = block.getFieldValue('id');
     var width = block.getFieldValue('width');
     var height = block.getFieldValue('height');
     var addr = block.getFieldValue('addr');
 
     var code =
-      'ssd1306_i2c = ssd1306.SSD1306_I2C(' + width + ', ' + height + ', i2c, ' + addr + ', driver=ssd1306.TYPE_SH1106)\n'+
+      'ssd1306_i2c = ssd1306.SSD1306_I2C(' + width + ', ' + height + ', ' + id + ', ' + addr + ', driver=ssd1306.TYPE_SH1106)\n'+
       'ssd1306_i2c.init_display()\n';
 
     return code;
@@ -2450,12 +2464,13 @@ var ioty_generator = new function() {
     self.imports['i2c_lcd'] = 'import i2c_lcd';
     self.reservedVariables['i2c_lcd_init'] = ['lcd'];
 
+    var id = block.getFieldValue('id');
     var lines = block.getFieldValue('lines');
     var columns = block.getFieldValue('columns');
     var addr = block.getFieldValue('addr');
 
     var code =
-      'lcd = i2c_lcd.LCD(i2c, ' + addr + ', ' + lines + ', ' + columns + ')\n';
+      'lcd = i2c_lcd.LCD(' + id + ', ' + addr + ', ' + lines + ', ' + columns + ')\n';
 
     return code;
   };
@@ -3004,11 +3019,12 @@ var ioty_generator = new function() {
     self.imports['qmc5883l'] = 'import qmc5883l';
     self.reservedVariables['qmc5883l_init'] = ['qmc5883l_device'];
 
+    var id = block.getFieldValue('id');
     let addr = block.getFieldValue('addr');
     let scale = block.getFieldValue('scale');
 
     let code =
-      'qmc5883l_device = qmc5883l.QMC5883L(i2c, addr=' + addr + ', scale=qmc5883l.SCALE_' + scale + ')\n';
+      'qmc5883l_device = qmc5883l.QMC5883L(' + id + ', addr=' + addr + ', scale=qmc5883l.SCALE_' + scale + ')\n';
 
     return code;
   };
@@ -3031,11 +3047,12 @@ var ioty_generator = new function() {
     self.imports['hmc5883l'] = 'import hmc5883l';
     self.reservedVariables['hmc5883l_init'] = ['hmc5883l_device'];
 
+    var id = block.getFieldValue('id');
     let addr = block.getFieldValue('addr');
     let scale = block.getFieldValue('scale');
 
     let code =
-      'hmc5883l_device = hmc5883l.HMC5883L(i2c, addr=' + addr + ', scale=hmc5883l.SCALE_' + scale + ')\n';
+      'hmc5883l_device = hmc5883l.HMC5883L(' + id + ', addr=' + addr + ', scale=hmc5883l.SCALE_' + scale + ')\n';
 
     return code;
   };
@@ -3058,10 +3075,11 @@ var ioty_generator = new function() {
     self.imports['bmp280'] = 'import bmp280';
     self.reservedVariables['bmp280_init'] = ['bmp280_device'];
 
+    var id = block.getFieldValue('id');
     let addr = block.getFieldValue('addr');
 
     let code =
-      'bmp280_device = bmp280.BMP280(i2c, addr=' + addr + ')\n';
+      'bmp280_device = bmp280.BMP280(' + id + ', addr=' + addr + ')\n';
 
     return code;
   };
@@ -3094,12 +3112,13 @@ var ioty_generator = new function() {
     self.imports['max30102'] = 'import max30102';
     self.reservedVariables['max30102_init'] = ['max30102_device'];
 
+    var id = block.getFieldValue('id');
     let addr = block.getFieldValue('addr');
     let red = block.getFieldValue('red');
     let ir = block.getFieldValue('ir');
 
     let code =
-      'max30102_device = max30102.MAX30102(i2c, addr=' + addr + ', red_led=' + red + ', ir_led=' + ir + ')\n';
+      'max30102_device = max30102.MAX30102(' + id + ', addr=' + addr + ', red_led=' + red + ', ir_led=' + ir + ')\n';
 
     return code;
   };
@@ -3152,10 +3171,11 @@ var ioty_generator = new function() {
     self.imports['vl53l0x'] = 'import vl53l0x';
     self.reservedVariables['vl53l0x_init'] = ['vl53l0x_device'];
 
+    var id = block.getFieldValue('id');
     let addr = block.getFieldValue('addr');
 
     let code =
-      'vl53l0x_device = vl53l0x.VL53L0X(i2c, addr=' + addr + ')\n' +
+      'vl53l0x_device = vl53l0x.VL53L0X(' + id + ', addr=' + addr + ')\n' +
       'vl53l0x_device.start()\n';
 
     return code;
@@ -3171,10 +3191,11 @@ var ioty_generator = new function() {
     self.imports['vl53l1x'] = 'import vl53l1x';
     self.reservedVariables['vl53l1x_init'] = ['vl53l1x_device'];
 
+    var id = block.getFieldValue('id');
     let addr = block.getFieldValue('addr');
 
     let code =
-      'vl53l1x_device = vl53l1x.VL53L1X(i2c, addr=' + addr + ')\n' +
+      'vl53l1x_device = vl53l1x.VL53L1X(' + id + ', addr=' + addr + ')\n' +
       'vl53l1x_device.start()\n';
 
     return code;
@@ -3238,9 +3259,10 @@ var ioty_generator = new function() {
     self.imports['ds3231'] = 'import ds3231';
     self.reservedVariables['ds3231_init'] = ['ds3231_device'];
 
+    var id = block.getFieldValue('id');
     var addr = block.getFieldValue('addr');
 
-    var code = 'ds3231_device = ds3231.DS3231(i2c, ' + addr + ')\n';
+    var code = 'ds3231_device = ds3231.DS3231(' + id + ', ' + addr + ')\n';
 
     return code;
   };
@@ -3263,10 +3285,11 @@ var ioty_generator = new function() {
     self.imports['bme280'] = 'import bme280';
     self.reservedVariables['bme280_init'] = ['bme280_device'];
 
+    var id = block.getFieldValue('id');
     let addr = block.getFieldValue('addr');
 
     let code =
-      'bme280_device = bme280.BME280(i2c, addr=' + addr + ')\n';
+      'bme280_device = bme280.BME280(' + id + ', addr=' + addr + ')\n';
 
     return code;
   };
@@ -3305,10 +3328,11 @@ var ioty_generator = new function() {
     self.imports['apds9960'] = 'import apds9960';
     self.reservedVariables['apds9960_init'] = ['apds9960_device'];
 
+    var id = block.getFieldValue('id');
     let addr = block.getFieldValue('addr');
 
     let code =
-      'apds9960_device = apds9960.APDS9960(i2c, addr=' + addr + ')\n';
+      'apds9960_device = apds9960.APDS9960(' + id + ', addr=' + addr + ')\n';
 
     return code;
   };
@@ -3400,10 +3424,11 @@ var ioty_generator = new function() {
     self.imports['gy33_i2c'] = 'import gy33_i2c';
     self.reservedVariables['gy33_i2c_init'] = ['gy33_i2c_device'];
 
+    var id = block.getFieldValue('id');
     let addr = block.getFieldValue('addr');
 
     let code =
-      'gy33_i2c_device = gy33_i2c.GY33_I2C(i2c, addr=' + addr + ')\n';
+      'gy33_i2c_device = gy33_i2c.GY33_I2C(' + id + ', addr=' + addr + ')\n';
 
     return code;
   };
@@ -3559,10 +3584,11 @@ var ioty_generator = new function() {
     self.imports['tcs3472'] = 'import tcs3472';
     self.reservedVariables['tcs3472_init'] = ['tcs3472_device'];
 
+    var id = block.getFieldValue('id');
     let addr = block.getFieldValue('addr');
 
     let code =
-      'tcs3472_device = tcs3472.TCS3472(i2c, addr=' + addr + ')\n';
+      'tcs3472_device = tcs3472.TCS3472(' + id + ', addr=' + addr + ')\n';
 
     return code;
   };
@@ -3744,10 +3770,11 @@ var ioty_generator = new function() {
     self.imports['huskylib'] = 'import huskylib';
     self.reservedVariables['huskylens_init'] = ['huskylens'];
 
+    var id = block.getFieldValue('id');
     let addr = block.getFieldValue('addr');
 
     let code =
-      'huskylens = huskylib.HuskyLensI2C(i2c, ' + addr + ')\n';
+      'huskylens = huskylib.HuskyLensI2C(' + id + ', ' + addr + ')\n';
 
     return code;
   };
@@ -3895,10 +3922,11 @@ var ioty_generator = new function() {
     self.imports['tca9548a'] = 'import tca9548a';
     self.reservedVariables['tca9548a_init'] = ['tca9548a_device'];
 
+    var id = block.getFieldValue('id');
     let addr = block.getFieldValue('addr');
 
     let code =
-      'tca9548a_device = tca9548a.TCA9548A(i2c, ' + addr + ')\n';
+      'tca9548a_device = tca9548a.TCA9548A(' + id + ', ' + addr + ')\n';
 
     return code;
   };
@@ -4519,10 +4547,11 @@ var ioty_generator = new function() {
     self.imports['stepper_wheels'] = 'import stepper_wheels';
     self.reservedVariables['stepper_wheels_init'] = ['sw_controller', 'sw_motor0', 'sw_motor1', 'sw_motor2', 'sw_motor3'];
 
+    var id = block.getFieldValue('id');
     var addr = block.getFieldValue('addr');
 
     var code =
-      'sw_controller = stepper_wheels.Controller(i2c, ' + addr + ')\n' +
+      'sw_controller = stepper_wheels.Controller(' + id + ', ' + addr + ')\n' +
       'sw_motor0 = sw_controller.get_motor(0)\n' +
       'sw_motor1 = sw_controller.get_motor(1)\n' +
       'sw_motor2 = sw_controller.get_motor(2)\n' +

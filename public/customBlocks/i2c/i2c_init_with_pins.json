@@ -1,7 +1,12 @@
 {
   "type": "i2c_init_with_pins",
-  "message0": "#blk-i2c_init# SCL %1 SDA %2 #blk-freq# %3",
+  "message0": "#blk-i2c_init# %1 #blk-on_pins# SCL %2 SDA %3 #blk-freq# %4",
   "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "id",
+      "options": $_I2C
+    },
     {
       "type": "field_number",
       "name": "scl",
