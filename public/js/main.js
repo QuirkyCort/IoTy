@@ -1193,12 +1193,27 @@ var main = new function() {
 
   // Display what's new if not seen before
   this.showWhatsNew = function(forceShow=false) {
-    let current = 20240413;
+    let current = 20240801;
     let lastShown = localStorage.getItem('whatsNew');
     if (lastShown == null || parseInt(lastShown) < current || forceShow) {
       let options = {
         title: 'What\'s New',
         message:
+        '<h3>1 Aug 2024 (I2C changes and New extensions)</h3>' +
+        '<p>' +
+          'The I2C blocks now allows for use of the second channel and Soft I2C.' +
+        '</p>' +
+        '<p>' +
+          'Many new extensions have been added; ' +
+          '<ul>' +
+            '<li>Camera (...for ESP32-Cam)</li>' +
+            '<li>Machine Vision</li>' +
+            '<li>Wheeled Drive</li>' +
+            '<li>ILI9341 Display</li>' +
+            '<li>X-GLCD Font</li>' +
+            '<li>ADS7843 / XPT2046 Touchscreen Controller</li>' +
+          '</ul>' +
+        '</p>' +
         '<h3>13 Apr 2024 (Firmware and extensions)</h3>' +
         '<p>' +
           'A new firmware version (12) is released. ' +
@@ -1225,27 +1240,6 @@ var main = new function() {
         '<p>' +
           'An advanced pins extension has been added. ' +
           'It works the same as the default "Pins" blocks, but accepts block inputs for pin numbers. ' +
-        '</p>' +
-        '<h3>14 Oct 2023 (More extensions)</h3>' +
-        '<p>' +
-          'Many new extensions have been added; ' +
-          '<ul>' +
-            '<li>Magnetic Compass (QMC5883L and HMC5883L)</li>' +
-            '<li>Temperature / Barometric (BMP280 and BME280)</li>' +
-            '<li>Heart Rate and Pulse Oximeter (MAX30102)</li>' +
-            '<li>Time-of-Flight distance sensor (VL53L0X and VL53L1X)</li>' +
-            '<li>MQTT Logger</li>' +
-            '<li>Real-Time Clock (DS3231)</li>' +
-            '<li>Proximity, Ambient Light, Gesture (APDS9960)</li>' +
-            '<li>Light and Color (GY33 and TCS3472)</li>' +
-            '<li>Tween</li>' +
-            '<li>Thermocouple board (MAX6675)</li>' +
-            '<li>Analog-to-Digital (HX710)</li>' +
-            '<li>AI Camera (Husky Lens)</li>' +
-            '<li>I2C Multiplexer (TCA9548A)</li>' +
-            '<li>Music</li>' +
-            '<li>Scaled Text</li>' +
-          '</ul>' +
         '</p>'
       }
       acknowledgeDialog(options, function(){
