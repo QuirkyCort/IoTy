@@ -816,7 +816,23 @@
   <category toolboxitemid="mpu6050" name="MPU-6050" colour="#5b67a5" hidden="true">
     <block type="mpu6050_init"></block>
     <block type="mpu6050_calibrate"></block>
-    <block type="mpu6050_reset"></block>
+    <block type="mpu6050_reset">
+      <value name="x">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="y">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="z">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
     <block type="mpu6050_update"></block>
     <block type="mpu6050_accel"></block>
     <block type="mpu6050_gyro"></block>

@@ -830,10 +830,10 @@ let MSGS = {
     en: 'Ensure that the MPU-6050 is stationary during calibration',
   },
   '#blk-mpu6050_reset#': {
-    en: 'reset MPU-6050 gyro angles',
+    en: 'reset MPU-6050 gyro angles x/y/z',
   },
   '#blk-mpu6050_reset_tooltip#': {
-    en: 'Resets all angles to zero',
+    en: 'Resets all angles to the specified values',
   },
   '#blk-mpu6050_update#': {
     en: 'update MPU-6050 gyro angles',

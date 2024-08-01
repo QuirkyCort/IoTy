@@ -10,14 +10,17 @@ class MPU6050:
         self.error_z = 0
         self.init_device()
         self.reset_gyro()
+        self.reset_prev()
 
     def init_device(self):
         self.i2c.writeto_mem(self.addr, 107, bytes([0]))
 
-    def reset_gyro(self):
-        self.gyro_x = 0
-        self.gyro_y = 0
-        self.gyro_z = 0
+    def reset_gyro(self, x=0, y=0, z=0):
+        self.gyro_x = x
+        self.gyro_y = y
+        self.gyro_z = z
+
+    def reset_prev(self):
         self.prev_x = 0
         self.prev_y = 0
         self.prev_z = 0

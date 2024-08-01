@@ -1,7 +1,23 @@
 {
   "type": "mpu6050_reset",
-  "message0": "#blk-mpu6050_reset#",
-  "args0": [],
+  "message0": "#blk-mpu6050_reset# %1 %2 %3",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "x",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "y",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "z",
+      "check": "Number"
+    }
+  ],
   "inputsInline": true,
   "previousStatement": null,
   "nextStatement": null,

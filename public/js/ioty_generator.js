@@ -1895,7 +1895,15 @@ var ioty_generator = new function() {
   };
 
   this.mpu6050_reset = function(block) {
-    var code = 'mpu6050_device.reset_gyro()\n';
+    let x = Blockly.Python.valueToCode(block, 'x', Blockly.Python.ORDER_NONE);
+    let y = Blockly.Python.valueToCode(block, 'y', Blockly.Python.ORDER_NONE);
+    let z = Blockly.Python.valueToCode(block, 'z', Blockly.Python.ORDER_NONE);
+
+    if (!x) { x = '0'; }
+    if (!y) { y = '0'; }
+    if (!z) { z = '0'; }
+
+    var code = 'mpu6050_device.reset_gyro(' + x + ', ' + y + ', ' + z + ')\n';
 
     return code;
   };

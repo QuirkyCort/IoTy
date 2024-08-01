@@ -6,7 +6,7 @@ var extensions = new function() {
       id: 'mpu6050',
       name: 'MPU-6050 / MPU-6500 (Gyro and Accelerometer)',
       files: [
-        ['mpu6050.py', 'extensions/mpu6050.py?v=ee532473'],
+        ['mpu6050.py', 'extensions/mpu6050.py?v=04b76ab3'],
       ],
       description:
         '<p>' +
