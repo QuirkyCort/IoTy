@@ -1,0 +1,17 @@
+{
+  "type": "st7789_fill",
+  "message0": "#blk-st7789_fill# %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "color",
+      "check": "Color_st7789"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-st7789_fill_tooltip#",
+  "helpUrl": ""
+}

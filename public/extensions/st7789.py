@@ -1,6 +1,11 @@
+# Based on https://github.com/devbis/st7789py_mpy
+# With some added code from https://github.com/rdagger/micropython-ili9341
+# With edits by Cort
+
 import time
 from micropython import const
 import ustruct as struct
+from framebuf import FrameBuffer, RGB565
 
 # commands
 ST77XX_NOP = const(0x00)
@@ -46,16 +51,6 @@ ColorMode_16bit = const(0x05)
 ColorMode_18bit = const(0x06)
 ColorMode_16M = const(0x07)
 
-# Color definitions
-BLACK = const(0x0000)
-BLUE = const(0x001F)
-RED = const(0xF800)
-GREEN = const(0x07E0)
-CYAN = const(0x07FF)
-MAGENTA = const(0xF81F)
-YELLOW = const(0xFFE0)
-WHITE = const(0xFFFF)
-
 _ENCODE_PIXEL = ">H"
 _ENCODE_POS = ">HH"
 _DECODE_PIXEL = ">BBB"
@@ -77,9 +72,35 @@ def color565(r, g=0, b=0):
         pass
     return (r & 0xf8) << 8 | (g & 0xfc) << 3 | b >> 3
 
+def hsv565(h, s, v):
+    if s == 0.0:
+        return v*255, v*255, v*255
+    h /= 360
+    i = int(h*6.0)
+    f = (h*6.0) - i
+    p = v*(1.0 - s)
+    q = v*(1.0 - s*f)
+    t = v*(1.0 - s*(1.0-f))
+    i = i%6
+    v = int(v * 255)
+    t = int(t * 255)
+    p = int(p * 255)
+    q = int(q * 255)
+    if i == 0:
+        return color565(v, t, p)
+    if i == 1:
+        return color565(q, v, p)
+    if i == 2:
+        return color565(p, v, t)
+    if i == 3:
+        return color565(p, q, v)
+    if i == 4:
+        return color565(t, p, v)
+    if i == 5:
+        return color565(v, p, q)
 
 class ST77xx:
-    def __init__(self, spi, width, height, reset, dc, cs=None, backlight=None,
+    def __init__(self, spi, width, height, reset, dc, cs=None,
                  xstart=-1, ystart=-1):
         """
         display = st7789.ST7789(
@@ -99,7 +120,6 @@ class ST77xx:
         self.reset = reset
         self.dc = dc
         self.cs = cs
-        self.backlight = backlight
         if xstart >= 0 and ystart >= 0:
             self.xstart = xstart
             self.ystart = ystart
@@ -231,6 +251,17 @@ class ST77xx:
         self._set_rows(y0, y1)
         self.write(ST77XX_RAMWR)
 
+    def is_off_grid(self, xmin, ymin, xmax, ymax):
+        if xmin < 0:
+            return True
+        if ymin < 0:
+            return True
+        if xmax >= self.width:
+            return True
+        if ymax >= self.height:
+            return True
+        return False
+
     def vline(self, x, y, length, color):
         self.fill_rect(x, y, 1, length, color)
 
@@ -262,6 +293,301 @@ class ST77xx:
                 self.write(None, data)
         if rest:
             self.write(None, pixel * rest)
+
+    def circle(self, x0, y0, r, color):
+        f = 1 - r
+        dx = 1
+        dy = -r - r
+        x = 0
+        y = r
+        self.pixel(x0, y0 + r, color)
+        self.pixel(x0, y0 - r, color)
+        self.pixel(x0 + r, y0, color)
+        self.pixel(x0 - r, y0, color)
+        while x < y:
+            if f >= 0:
+                y -= 1
+                dy += 2
+                f += dy
+            x += 1
+            dx += 2
+            f += dx
+            self.pixel(x0 + x, y0 + y, color)
+            self.pixel(x0 - x, y0 + y, color)
+            self.pixel(x0 + x, y0 - y, color)
+            self.pixel(x0 - x, y0 - y, color)
+            self.pixel(x0 + y, y0 + x, color)
+            self.pixel(x0 - y, y0 + x, color)
+            self.pixel(x0 + y, y0 - x, color)
+            self.pixel(x0 - y, y0 - x, color)
+
+    def ellipse(self, x0, y0, a, b, color):
+        a2 = a * a
+        b2 = b * b
+        twoa2 = a2 + a2
+        twob2 = b2 + b2
+        x = 0
+        y = b
+        px = 0
+        py = twoa2 * y
+        # Plot initial points
+        self.pixel(x0 + x, y0 + y, color)
+        self.pixel(x0 - x, y0 + y, color)
+        self.pixel(x0 + x, y0 - y, color)
+        self.pixel(x0 - x, y0 - y, color)
+        # Region 1
+        p = round(b2 - (a2 * b) + (0.25 * a2))
+        while px < py:
+            x += 1
+            px += twob2
+            if p < 0:
+                p += b2 + px
+            else:
+                y -= 1
+                py -= twoa2
+                p += b2 + px - py
+            self.pixel(x0 + x, y0 + y, color)
+            self.pixel(x0 - x, y0 + y, color)
+            self.pixel(x0 + x, y0 - y, color)
+            self.pixel(x0 - x, y0 - y, color)
+        # Region 2
+        p = round(b2 * (x + 0.5) * (x + 0.5) +
+                  a2 * (y - 1) * (y - 1) - a2 * b2)
+        while y > 0:
+            y -= 1
+            py -= twoa2
+            if p > 0:
+                p += a2 - py
+            else:
+                x += 1
+                px += twob2
+                p += a2 - py + px
+            self.pixel(x0 + x, y0 + y, color)
+            self.pixel(x0 - x, y0 + y, color)
+            self.pixel(x0 + x, y0 - y, color)
+            self.pixel(x0 - x, y0 - y, color)
+
+    def fill_circle(self, x0, y0, r, color):
+        """Draw a filled circle.
+
+        Args:
+            x0 (int): X coordinate of center point.
+            y0 (int): Y coordinate of center point.
+            r (int): Radius.
+            color (int): RGB565 color value.
+        """
+        f = 1 - r
+        dx = 1
+        dy = -r - r
+        x = 0
+        y = r
+        self.vline(x0, y0 - r, 2 * r + 1, color)
+        while x < y:
+            if f >= 0:
+                y -= 1
+                dy += 2
+                f += dy
+            x += 1
+            dx += 2
+            f += dx
+            self.vline(x0 + x, y0 - y, 2 * y + 1, color)
+            self.vline(x0 - x, y0 - y, 2 * y + 1, color)
+            self.vline(x0 - y, y0 - x, 2 * x + 1, color)
+            self.vline(x0 + y, y0 - x, 2 * x + 1, color)
+
+    def fill_ellipse(self, x0, y0, a, b, color):
+        """Draw a filled ellipse.
+
+        Args:
+            x0, y0 (int): Coordinates of center point.
+            a (int): Semi axis horizontal.
+            b (int): Semi axis vertical.
+            color (int): RGB565 color value.
+        Note:
+            The center point is the center of the x0,y0 pixel.
+            Since pixels are not divisible, the axes are integer rounded
+            up to complete on a full pixel.  Therefore the major and
+            minor axes are increased by 1.
+        """
+        a2 = a * a
+        b2 = b * b
+        twoa2 = a2 + a2
+        twob2 = b2 + b2
+        x = 0
+        y = b
+        px = 0
+        py = twoa2 * y
+        # Plot initial points
+        self.line(x0, y0 - y, x0, y0 + y, color)
+        # Region 1
+        p = round(b2 - (a2 * b) + (0.25 * a2))
+        while px < py:
+            x += 1
+            px += twob2
+            if p < 0:
+                p += b2 + px
+            else:
+                y -= 1
+                py -= twoa2
+                p += b2 + px - py
+            self.line(x0 + x, y0 - y, x0 + x, y0 + y, color)
+            self.line(x0 - x, y0 - y, x0 - x, y0 + y, color)
+        # Region 2
+        p = round(b2 * (x + 0.5) * (x + 0.5) +
+                  a2 * (y - 1) * (y - 1) - a2 * b2)
+        while y > 0:
+            y -= 1
+            py -= twoa2
+            if p > 0:
+                p += a2 - py
+            else:
+                x += 1
+                px += twob2
+                p += a2 - py + px
+            self.line(x0 + x, y0 - y, x0 + x, y0 + y, color)
+            self.line(x0 - x, y0 - y, x0 - x, y0 + y, color)
+
+    def text8x8(self, x, y, text, color,  background=0,
+                     rotate=0):
+        w = len(text) * 8
+        h = 8
+        # Confirm coordinates in boundary
+        if self.is_off_grid(x, y, x + 7, y + 7):
+            return
+        buf = bytearray(w * 16)
+        fbuf = FrameBuffer(buf, w, h, RGB565)
+        if background != 0:
+            # Swap background color bytes to correct for framebuf endianness
+            b_color = ((background & 0xFF) << 8) | ((background & 0xFF00) >> 8)
+            fbuf.fill(b_color)
+        # Swap text color bytes to correct for framebuf endianness
+        t_color = ((color & 0xFF) << 8) | ((color & 0xFF00) >> 8)
+        fbuf.text(text, 0, 0, t_color)
+        if rotate == 0:
+            # self.block(x, y, x + w - 1, y + (h - 1), buf)
+            self.blit_buffer(buf, x, y, w, h)
+        elif rotate == 90:
+            buf2 = bytearray(w * 16)
+            fbuf2 = FrameBuffer(buf2, h, w, RGB565)
+            for y1 in range(h):
+                for x1 in range(w):
+                    fbuf2.pixel(y1, x1,
+                                fbuf.pixel(x1, (h - 1) - y1))
+            # self.block(x, y, x + (h - 1), y + w - 1, buf2)
+            self.blit_buffer(buf2, x, y, h, w)
+        elif rotate == 180:
+            buf2 = bytearray(w * 16)
+            fbuf2 = FrameBuffer(buf2, w, h, RGB565)
+            for y1 in range(h):
+                for x1 in range(w):
+                    fbuf2.pixel(x1, y1,
+                                fbuf.pixel((w - 1) - x1, (h - 1) - y1))
+            # self.block(x, y, x + w - 1, y + (h - 1), buf2)
+            self.blit_buffer(buf2, x, y, w, h)
+        elif rotate == 270:
+            buf2 = bytearray(w * 16)
+            fbuf2 = FrameBuffer(buf2, h, w, RGB565)
+            for y1 in range(h):
+                for x1 in range(w):
+                    fbuf2.pixel(y1, x1,
+                                fbuf.pixel((w - 1) - x1, y1))
+            # self.block(x, y, x + (h - 1), y + w - 1, buf2)
+            self.blit_buffer(buf2, x, y, h, w)
+
+    def letter(self, x, y, letter, font, color, background=0,
+                    landscape=False, rotate_180=False):
+        buf, w, h = font.get_letter(letter, color, background, landscape)
+        if rotate_180:
+            # Manually rotate the buffer by 180 degrees
+            # ensure bytes pairs for each pixel retain color565
+            new_buf = bytearray(len(buf))
+            num_pixels = len(buf) // 2
+            for i in range(num_pixels):
+                # The index for the new buffer's byte pair
+                new_idx = (num_pixels - 1 - i) * 2
+                # The index for the original buffer's byte pair
+                old_idx = i * 2
+                # Swap the pixels
+                new_buf[new_idx], new_buf[new_idx + 1] = buf[old_idx], buf[old_idx + 1]
+            buf = new_buf
+
+        # Check for errors (Font could be missing specified letter)
+        if w == 0:
+            return w, h
+
+        if landscape:
+            y -= w
+            if self.is_off_grid(x, y, x + h - 1, y + w - 1):
+                return 0, 0
+            # self.block(x, y,
+            #            x + h - 1, y + w - 1,
+            #            buf)
+            self.blit_buffer(buf, x, y, h, w)
+        else:
+            if self.is_off_grid(x, y, x + w - 1, y + h - 1):
+                return 0, 0
+            # self.block(x, y,
+            #            x + w - 1, y + h - 1,
+            #            buf)
+            self.blit_buffer(buf, x, y, w, h)
+        return w, h
+
+    def text(self, x, y, text, font, color,  background=0,
+                  landscape=False, rotate_180=False, spacing=1):
+        iterable_text = reversed(text) if rotate_180 else text
+        for letter in iterable_text:
+            # Get letter array and letter dimensions
+            w, h = self.letter(x, y, letter, font, color, background,
+                                    landscape, rotate_180)
+            # Stop on error
+            if w == 0 or h == 0:
+                return
+
+            if landscape:
+                # Fill in spacing
+                if spacing:
+                    self.fill_rect(x, y - w - spacing, h, spacing, background)
+                # Position y for next letter
+                y -= (w + spacing)
+            else:
+                # Fill in spacing
+                if spacing:
+                    self.fill_rect(x + w, y, spacing, h, background)
+                # Position x for next letter
+                x += (w + spacing)
+
+    def image(self, path, x=0, y=0, w=320, h=240):
+        x2 = x + w - 1
+        y2 = y + h - 1
+        if self.is_off_grid(x, y, x2, y2):
+            return
+        with open(path, "rb") as f:
+            chunk_height = 1024 // w
+            chunk_count, remainder = divmod(h, chunk_height)
+            chunk_size = chunk_height * w * 2
+            chunk_y = y
+            if chunk_count:
+                for c in range(0, chunk_count):
+                    buf = f.read(chunk_size)
+                    # self.block(x, chunk_y,
+                    #            x2, chunk_y + chunk_height - 1,
+                    #            buf)
+                    self.blit_buffer(buf, x, chunk_y, w, chunk_height)
+                    chunk_y += chunk_height
+            if remainder:
+                buf = f.read(remainder * w * 2)
+                # self.block(x, chunk_y,
+                #            x2, chunk_y + remainder - 1,
+                #            buf)
+                self.blit_buffer(buf, x, chunk_y, w, remainder)
+
+    def sprite(self, buf, x, y, w, h):
+        x2 = x + w - 1
+        y2 = y + h - 1
+        if self.is_off_grid(x, y, x2, y2):
+            return
+        # self.block(x, y, x2, y2, buf)
+        self.blit_buffer(buf, x, y, w, h)
 
     def fill(self, color):
         self.fill_rect(0, 0, self.width, self.height, color)

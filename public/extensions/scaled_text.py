@@ -3,6 +3,7 @@ from micropython import const
 
 SSD1306 = const(0x00)
 ILI9341 = const(0x01)
+ST7789 = const(0x02)
 
 class ScaledText:
     def __init__(self, fb, fb_type=SSD1306):
@@ -17,6 +18,8 @@ class ScaledText:
             self.fb.fill_rect(x, y, w, h, c)
         elif self.fb_type == ILI9341:
             self.fb.fill_rectangle(x, y, w, h, c)
+        elif self.fb_type == ST7789:
+            self.fb.fill_rect(x, y, w, h, c)
 
     def _draw_char(self, char, x, y, c, scale):
         if char != self.last_char:

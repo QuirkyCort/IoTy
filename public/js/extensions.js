@@ -526,7 +526,7 @@ var extensions = new function() {
       id: 'scaled_text',
       name: 'Scaled Text',
       files: [
-        ['scaled_text.py', 'extensions/scaled_text.py?v=8e90992c'],
+        ['scaled_text.py', 'extensions/scaled_text.py?v=16fe1e11'],
       ],
       description:
         '<p>' +
@@ -768,7 +768,24 @@ var extensions = new function() {
           'Default settings are for the CYD; you may need to change it if you are using an external device with different wirings. ' +
         '</p>'
     },
-  ]
+    {
+      id: 'st7789',
+      name: 'ST7789 Display',
+      files: [
+        ['st7789.py', 'extensions/st7789.py?v=b462e9b3'],
+      ],
+      description:
+        '<p>' +
+          'The ST7789 is a color LCD display that can display text and images. ' +
+        '</p>' +
+        '<p>' +
+          'When using this display, the SPI interface should be initialized at a high speed; 20000000 is recommended. ' +
+          'You may also need to turn on the backlight (pin 4 for the TTGO). ' +
+        '</p>' +
+        '<p>' +
+          'Default settings are for the TTGO; you may need to change it if you are using an external display with different wirings. ' +
+        '</p>'
+    },  ]
 
   this.init = function() {
 

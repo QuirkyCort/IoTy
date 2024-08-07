@@ -1,11 +1,16 @@
 {
-  "type": "scaled_text_text_with_background",
-  "message0": "#blk-scaled_text_text_with_background# %1 #blk-at_xy# %2 %3 #blk-color# %4 #blk-background# %5 #blk-scale# %6",
+  "type": "st7789_text_with_font",
+  "message0": "#blk-st7789_text_with_font# %1 #blk-font# %2 #blk-at_xy# %3 %4 #blk-color# %5 #blk-background# %6 #blk-rotation# %7",
   "args0": [
     {
       "type": "input_value",
       "name": "text",
       "check": "String"
+    },
+    {
+      "type": "input_value",
+      "name": "font",
+      "check": "Font_xglcd"
     },
     {
       "type": "input_value",
@@ -20,24 +25,21 @@
     {
       "type": "input_value",
       "name": "color",
-      "check": ["Number","Color_ili9341","Color_st7789"]
+      "check": "Color_st7789"
     },
     {
       "type": "input_value",
       "name": "background",
-      "check": ["Number","Color_ili9341","Color_st7789"]
+      "check": "Color_st7789"
     },
     {
       "type": "field_dropdown",
-      "name": "scale",
+      "name": "rotate",
       "options": [
-        ["2x", "2"],
-        ["3x", "3"],
-        ["4x", "4"],
-        ["5x", "5"],
-        ["6x", "6"],
-        ["7x", "7"],
-        ["8x", "8"]
+        ["0", "0"],
+        ["90", "90"],
+        ["180", "180"],
+        ["270", "270"]
       ]
     }
   ],
@@ -45,6 +47,6 @@
   "previousStatement": null,
   "nextStatement": null,
   "colour": 230,
-  "tooltip": "#blk-scaled_text_text_with_background_tooltip#",
+  "tooltip": "#blk-st7789_text_with_font_tooltip#",
   "helpUrl": ""
 }

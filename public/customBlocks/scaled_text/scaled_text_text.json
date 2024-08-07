@@ -20,7 +20,7 @@
     {
       "type": "input_value",
       "name": "color",
-      "check": ["Number","Color_ili9341"]
+      "check": ["Number","Color_ili9341","Color_st7789"]
     },
     {
       "type": "field_dropdown",

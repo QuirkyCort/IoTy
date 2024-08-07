@@ -1,0 +1,26 @@
+{
+  "type": "st7789_hsv",
+  "message0": "#blk-st7789_hsv# %1 %2 %3",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "h",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "s",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "v",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "output": "Color_st7789",
+  "colour": 230,
+  "tooltip": "#blk-st7789_hsv_tooltip#",
+  "helpUrl": ""
+}

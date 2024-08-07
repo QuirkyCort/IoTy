@@ -1,0 +1,27 @@
+{
+  "type": "st7789_pixel",
+  "message0": "#blk-st7789_pixel# %1 %2 #blk-color# %3",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "x",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "y",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "color",
+      "check": "Color_st7789"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-st7789_pixel_tooltip#",
+  "helpUrl": ""
+}

@@ -561,6 +561,22 @@ var ioty_generator = new function() {
     Blockly.Python['xpt2046_in_rect'] = self.xpt2046_in_rect;
     Blockly.Python['xpt2046_in_circle'] = self.xpt2046_in_circle;
     Blockly.Python.addReservedWords('xpt2046,xpt2046_device');
+
+    Blockly.Python['st7789_init'] = self.st7789_init;
+    Blockly.Python['st7789_color'] = self.st7789_color;
+    Blockly.Python['st7789_rgb'] = self.st7789_rgb;
+    Blockly.Python['st7789_hsv'] = self.st7789_hsv;
+    Blockly.Python['st7789_fill'] = self.st7789_fill;
+    Blockly.Python['st7789_text8x8'] = self.st7789_text8x8;
+    Blockly.Python['st7789_text_with_font'] = self.st7789_text_with_font;
+    Blockly.Python['st7789_pixel'] = self.st7789_pixel;
+    Blockly.Python['st7789_line'] = self.st7789_line;
+    Blockly.Python['st7789_rectangle'] = self.st7789_rectangle;
+    Blockly.Python['st7789_ellipse'] = self.st7789_ellipse;
+    Blockly.Python['st7789_image_from_file'] = self.st7789_image_from_file;
+    Blockly.Python['st7789_image_from_buf'] = self.st7789_image_from_buf;
+    Blockly.Python.addReservedWords('st7789,st7789_device');
+
   };
 
   // Generate python code
@@ -4046,6 +4062,9 @@ var ioty_generator = new function() {
     } else if (type == 'ILI9341') {
       fbObject = 'ili9341_device';
       fbType = 'scaled_text.ILI9341';
+    } else if (type == 'ST7789') {
+      fbObject = 'st7789_device';
+      fbType = 'scaled_text.ST7789';
     }
 
     let code =
@@ -5431,5 +5450,223 @@ var ioty_generator = new function() {
     return [code, Blockly.Python.ORDER_ATOMIC];
   };
 
+  this.st7789_init = function(block) {
+    self.imports['st7789'] = 'import st7789';
+    self.reservedVariables['st7789_init'] = ['st7789_device'];
+
+    let spi = block.getFieldValue('spi');
+    let cs = block.getFieldValue('cs');
+    let dc = block.getFieldValue('dc');
+    let rst = block.getFieldValue('rst');
+    let size = block.getFieldValue('size');
+
+    let width = size.split('_')[0]
+    let height = size.split('_')[1]
+
+    var code =
+      'st7789_device = st7789.ST7789(' + spi + ', ' + width + ', ' + height + ', cs=machine.Pin(' + cs + ', machine.Pin.OUT), dc=machine.Pin(' + dc + ', machine.Pin.OUT), reset=machine.Pin(' + rst + ', machine.Pin.OUT))\n' +
+      'st7789_device.init()\n';
+
+    return code;
+  };
+
+  this.st7789_color = function(block) {
+    self.imports['st7789'] = 'import st7789';
+
+    let color = block.getFieldValue('color');
+
+    var code = 'st7789.color565' + color;
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.st7789_rgb = function(block) {
+    self.imports['st7789'] = 'import st7789';
+
+    let red = Blockly.Python.valueToCode(block, 'red', Blockly.Python.ORDER_NONE);
+    let green = Blockly.Python.valueToCode(block, 'green', Blockly.Python.ORDER_NONE);
+    let blue = Blockly.Python.valueToCode(block, 'blue', Blockly.Python.ORDER_NONE);
+
+    var code = 'st7789.color565(' + red + ', ' + green + ', ' + blue + ')';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.st7789_hsv = function(block) {
+    self.imports['st7789'] = 'import st7789';
+
+    let h = Blockly.Python.valueToCode(block, 'h', Blockly.Python.ORDER_NONE);
+    let s = Blockly.Python.valueToCode(block, 's', Blockly.Python.ORDER_NONE);
+    let v = Blockly.Python.valueToCode(block, 'v', Blockly.Python.ORDER_NONE);
+
+    var code = 'st7789.hsv565(' + h + ', ' + s + ', ' + v + ')';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.st7789_fill = function(block) {
+    self.imports['st7789'] = 'import st7789';
+
+    let color = Blockly.Python.valueToCode(block, 'color', Blockly.Python.ORDER_NONE);
+
+    var code = 'st7789_device.fill(' + color + ')\n';
+
+    return code;
+  };
+
+  this.st7789_text8x8 = function(block) {
+    self.imports['st7789'] = 'import st7789';
+
+    let text = Blockly.Python.valueToCode(block, 'text', Blockly.Python.ORDER_NONE);
+    let x = Blockly.Python.valueToCode(block, 'x', Blockly.Python.ORDER_NONE);
+    let y = Blockly.Python.valueToCode(block, 'y', Blockly.Python.ORDER_NONE);
+    let color = Blockly.Python.valueToCode(block, 'color', Blockly.Python.ORDER_NONE);
+    let background = Blockly.Python.valueToCode(block, 'background', Blockly.Python.ORDER_NONE);
+    let rotate = block.getFieldValue('rotate');
+
+    var code = 'st7789_device.text8x8(' + x + ', ' + y + ', ' + text + ', ' + color + ', background=' + background + ', rotate=' + rotate + ')\n';
+
+    return code;
+  };
+
+  this.st7789_text_with_font = function(block) {
+    self.imports['st7789'] = 'import st7789';
+
+    let text = Blockly.Python.valueToCode(block, 'text', Blockly.Python.ORDER_NONE);
+    let font = Blockly.Python.valueToCode(block, 'font', Blockly.Python.ORDER_NONE);
+    let x = Blockly.Python.valueToCode(block, 'x', Blockly.Python.ORDER_NONE);
+    let y = Blockly.Python.valueToCode(block, 'y', Blockly.Python.ORDER_NONE);
+    let color = Blockly.Python.valueToCode(block, 'color', Blockly.Python.ORDER_NONE);
+    let background = Blockly.Python.valueToCode(block, 'background', Blockly.Python.ORDER_NONE);
+    let rotate = block.getFieldValue('rotate');
+
+    let landscape = 'False';
+    let rotate_180 = 'False';
+    if (rotate == 90 || rotate == 270) {
+      landscape = 'True';
+    }
+    if (rotate == 90 || rotate == 180) {
+      rotate_180 = 'True';
+    }
+
+    var code = 'st7789_device.text(' + x + ', ' + y + ', ' + text + ', ' + font + ', ' + color + ', background=' + background + ', landscape=' + landscape + ', rotate_180=' + rotate_180 + ')\n';
+
+    return code;
+  };
+
+  this.st7789_pixel = function(block) {
+    self.imports['st7789'] = 'import st7789';
+
+    let x = Blockly.Python.valueToCode(block, 'x', Blockly.Python.ORDER_NONE);
+    let y = Blockly.Python.valueToCode(block, 'y', Blockly.Python.ORDER_NONE);
+    let color = Blockly.Python.valueToCode(block, 'color', Blockly.Python.ORDER_NONE);
+
+    var code = 'st7789_device.pixel(' + x + ', ' + y + ', ' + color + ')\n';
+
+    return code;
+  };
+
+  this.st7789_line = function(block) {
+    self.imports['st7789'] = 'import st7789';
+
+    let x1 = Blockly.Python.valueToCode(block, 'x1', Blockly.Python.ORDER_NONE);
+    let y1 = Blockly.Python.valueToCode(block, 'y1', Blockly.Python.ORDER_NONE);
+    let x2 = Blockly.Python.valueToCode(block, 'x2', Blockly.Python.ORDER_NONE);
+    let y2 = Blockly.Python.valueToCode(block, 'y2', Blockly.Python.ORDER_NONE);
+    let color = Blockly.Python.valueToCode(block, 'color', Blockly.Python.ORDER_NONE);
+
+    if (y1 == y2) {
+      if (parseInt(x2) > parseInt(x1)) {
+        var code = 'st7789_device.hline(' + x1 + ', ' + y1 + ', ' + (parseInt(x2) - parseInt(x1)) + ', ' + color + ')\n';
+      } else {
+        var code = 'st7789_device.hline(' + x2 + ', ' + y2 + ', ' + (parseInt(x1) - parseInt(x2)) + ', ' + color + ')\n';
+      }
+    } else if (x1 == x2) {
+      if (parseInt(y2) > parseInt(y1)) {
+        var code = 'st7789_device.vline(' + x1 + ', ' + y1 + ', ' + (parseInt(y2) - parseInt(y1)) + ', ' + color + ')\n';
+      } else {
+        var code = 'st7789_device.vline(' + x2 + ', ' + y2 + ', ' + (parseInt(y1) - parseInt(y2)) + ', ' + color + ')\n';
+      }
+    } else {
+      var code = 'st7789_device.line(' + x1 + ', ' + y1 + ', ' + x2 + ', ' + y2 + ', ' + color + ')\n';
+    }
+
+    return code;
+  };
+
+  this.st7789_rectangle = function(block) {
+    self.imports['st7789'] = 'import st7789';
+
+    let x = Blockly.Python.valueToCode(block, 'x', Blockly.Python.ORDER_NONE);
+    let y = Blockly.Python.valueToCode(block, 'y', Blockly.Python.ORDER_NONE);
+    let w = Blockly.Python.valueToCode(block, 'w', Blockly.Python.ORDER_NONE);
+    let h = Blockly.Python.valueToCode(block, 'h', Blockly.Python.ORDER_NONE);
+    let color = Blockly.Python.valueToCode(block, 'color', Blockly.Python.ORDER_NONE);
+    let fill = block.getFieldValue('fill');
+
+    let cmd = 'rect';
+    if (fill == 'True') {
+      cmd = 'fill_rect'
+    }
+
+    var code = 'st7789_device.' + cmd + '(' + x + ', ' + y + ', ' + w + ', ' + h + ', ' + color + ')\n';
+
+    return code;
+  };
+
+  this.st7789_ellipse = function(block) {
+    self.imports['st7789'] = 'import st7789';
+
+    let x = Blockly.Python.valueToCode(block, 'x', Blockly.Python.ORDER_NONE);
+    let y = Blockly.Python.valueToCode(block, 'y', Blockly.Python.ORDER_NONE);
+    let xr = Blockly.Python.valueToCode(block, 'xr', Blockly.Python.ORDER_NONE);
+    let yr = Blockly.Python.valueToCode(block, 'yr', Blockly.Python.ORDER_NONE);
+    let color = Blockly.Python.valueToCode(block, 'color', Blockly.Python.ORDER_NONE);
+    let fill = block.getFieldValue('fill');
+
+    if (xr == yr) {
+      let cmd = 'circle';
+      if (fill == 'True') {
+        cmd = 'fill_circle';
+      }
+      var code = 'st7789_device.' + cmd + '(' + x + ', ' + y + ', ' + xr + ', ' + color + ')\n';
+    } else {
+      let cmd = 'ellipse';
+      if (fill == 'True') {
+        cmd = 'fill_ellipse';
+      }
+      var code = 'st7789_device.' + cmd + '(' + x + ', ' + y + ', ' + xr + ', ' + yr + ', ' + color + ')\n';
+    }
+
+    return code;
+  };
+
+  this.st7789_image_from_file = function(block) {
+    self.imports['st7789'] = 'import st7789';
+
+    let filename = Blockly.Python.valueToCode(block, 'filename', Blockly.Python.ORDER_NONE);
+    let x = Blockly.Python.valueToCode(block, 'x', Blockly.Python.ORDER_NONE);
+    let y = Blockly.Python.valueToCode(block, 'y', Blockly.Python.ORDER_NONE);
+    let w = Blockly.Python.valueToCode(block, 'w', Blockly.Python.ORDER_NONE);
+    let h = Blockly.Python.valueToCode(block, 'h', Blockly.Python.ORDER_NONE);
+
+    var code = 'st7789_device.image(' + filename + ', ' + x + ', ' + y + ', ' + w + ', ' + h + ')\n';
+
+    return code;
+  };
+
+  this.st7789_image_from_buf = function(block) {
+    self.imports['st7789'] = 'import st7789';
+
+    let buf = Blockly.Python.valueToCode(block, 'buf', Blockly.Python.ORDER_NONE);
+    let x = Blockly.Python.valueToCode(block, 'x', Blockly.Python.ORDER_NONE);
+    let y = Blockly.Python.valueToCode(block, 'y', Blockly.Python.ORDER_NONE);
+    let w = Blockly.Python.valueToCode(block, 'w', Blockly.Python.ORDER_NONE);
+    let h = Blockly.Python.valueToCode(block, 'h', Blockly.Python.ORDER_NONE);
+
+    var code = 'st7789_device.sprite(' + buf + ', ' + x + ', ' + y + ', ' + w + ', ' + h + ')\n';
+
+    return code;
+  };
 }
 

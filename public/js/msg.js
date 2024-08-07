@@ -3343,7 +3343,87 @@ let MSGS = {
   '#blk-r#': {
     en: 'r',
   },
-
+  '#blk-st7789_init#': {
+    en: 'init ST7789 on',
+  },
+  '#blk-st7789_init_tooltip#': {
+    en: 'You must have a \\"init SPI\\" block before this. It should be set to a high baudrate (eg. 20000000).',
+  },
+  '#blk-size#': {
+    en: 'size',
+  },
+  '#blk-st7789_fill#': {
+    en: 'ST7789 fill screen with color',
+  },
+  '#blk-st7789_fill_tooltip#': {
+    en: 'Fills the entire screen with the specified color.',
+  },
+  '#blk-st7789_color#': {
+    en: 'ST7789 color',
+  },
+  '#blk-st7789_color_tooltip#': {
+    en: 'This color block is not compatible with the color blocks from other extensions (eg. Neopixel).',
+  },
+  '#blk-st7789_rgb#': {
+    en: 'ST7789 RGB',
+  },
+  '#blk-st7789_rgb_tooltip#': {
+    en: 'This color block is not compatible with the color blocks from other extensions (eg. Neopixel).',
+  },
+  '#blk-st7789_hsv#': {
+    en: 'ST7789 HSV',
+  },
+  '#blk-st7789_hsv_tooltip#': {
+    en: 'H ranges from 0 to 360. S and V from 0 to 1. This color block is not compatible with the color blocks from other extensions (eg. Neopixel).',
+  },
+  '#blk-st7789_text8x8#': {
+    en: 'ST7789 draw 8x8 text',
+  },
+  '#blk-st7789_text8x8_tooltip#': {
+    en: 'Draws text using the built-in 8x8 font.',
+  },
+  '#blk-st7789_text_with_font#': {
+    en: 'ST7789 draw text',
+  },
+  '#blk-st7789_text_with_font_tooltip#': {
+    en: 'Draws text using the provided font object. You should use the xglcd extension to load a font file.',
+  },
+  '#blk-st7789_ellipse#': {
+    en: 'ST7789 draw ellipse at x,y',
+  },
+  '#blk-st7789_ellipse_tooltip#': {
+    en: 'Draws an ellipse. If you need a circle, set both the x and y radius to the same value.',
+  },
+  '#blk-st7789_line#': {
+    en: 'ST7789 draw line from x,y',
+  },
+  '#blk-st7789_line_tooltip#': {
+    en: 'Draws a line from x1,y1 to x2,y2.',
+  },
+  '#blk-st7789_pixel#': {
+    en: 'ST7789 draw pixel at x,y',
+  },
+  '#blk-st7789_pixel_tooltip#': {
+    en: 'Draws a single pixel at the specified location.',
+  },
+  '#blk-st7789_rectangle#': {
+    en: 'ST7789 draw rectangle at x,y',
+  },
+  '#blk-st7789_rectangle_tooltip#': {
+    en: 'Draws a rectangle at the specified location.',
+  },
+  '#blk-st7789_image_from_file#': {
+    en: 'ST7789 draw image from file',
+  },
+  '#blk-st7789_image_from_file_tooltip#': {
+    en: 'Load a raw RGB565 image from the specified file and draw it on screen.',
+  },
+  '#blk-st7789_image_from_buf#': {
+    en: 'ST7789 draw image from buf',
+  },
+  '#blk-st7789_image_from_buf_tooltip#': {
+    en: 'The supplied buf must contain raw RGB565 data (eg. read from a file in binary mode).',
+  },
 };
 let MSGS_KEYS = Object.keys(MSGS);
 

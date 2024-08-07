@@ -1,0 +1,37 @@
+{
+  "type": "st7789_line",
+  "message0": "#blk-st7789_line# %1 %2 #blk-x2y2# %3 %4 #blk-color# %5",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "x1",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "y1",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "x2",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "y2",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "color",
+      "check": "Color_st7789"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-st7789_line_tooltip#",
+  "helpUrl": ""
+}
