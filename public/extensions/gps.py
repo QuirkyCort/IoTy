@@ -16,10 +16,12 @@ class GPS:
         while self.uart.any():
             self.buf += self.uart.read(1)
 
-            if self.buf[-1] == b'\n':
+            if self.buf[-1] == ord('\n'):
                 self.parse_msg(self.buf)
                 self.buf = b''
                 parsed = True
+            elif len(self.buf) > 82:
+                self.buf = b''
 
         return parsed
 
