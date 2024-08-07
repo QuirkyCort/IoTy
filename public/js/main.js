@@ -1193,13 +1193,13 @@ var main = new function() {
 
   // Display what's new if not seen before
   this.showWhatsNew = function(forceShow=false) {
-    let current = 20240801;
+    let current = 20240807;
     let lastShown = localStorage.getItem('whatsNew');
     if (lastShown == null || parseInt(lastShown) < current || forceShow) {
       let options = {
         title: 'What\'s New',
         message:
-        '<h3>1 Aug 2024 (I2C changes and New extensions)</h3>' +
+        '<h3>7 Aug 2024 (I2C changes and New extensions)</h3>' +
         '<p>' +
           'The I2C blocks now allows for use of the second channel and Soft I2C.' +
         '</p>' +
@@ -1212,6 +1212,7 @@ var main = new function() {
             '<li>ILI9341 Display</li>' +
             '<li>X-GLCD Font</li>' +
             '<li>ADS7843 / XPT2046 Touchscreen Controller</li>' +
+            '<li>ST7789 Display</li>' +
           '</ul>' +
         '</p>' +
         '<h3>13 Apr 2024 (Firmware and extensions)</h3>' +
