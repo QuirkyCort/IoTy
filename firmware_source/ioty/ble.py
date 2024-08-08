@@ -140,6 +140,8 @@ class BLE_Service:
             self._update()
         elif cmd == constants._MODE_RESET:
             self._reset()
+        elif cmd == constants._MODE_GET_HASH:
+            self._get_hash()
 
     def set_status(self, status):
         value = status.to_bytes(2, 'big')
@@ -205,6 +207,9 @@ class BLE_Service:
     def _mkdir(self):
         self.set_status(constants._STATUS_PENDING)
 
+    def _get_hash(self):
+        self.set_status(constants._STATUS_PENDING)
+
     def on_data_write(self, value):
         if not self.allowCmds:
             return
@@ -241,6 +246,11 @@ class BLE_Service:
                 self.set_status(constants._STATUS_SUCCESS)
             except:
                 self.set_status(constants._STATUS_ERROR)
+        elif self._mode == constants._MODE_GET_HASH:
+            filename = value.decode('utf-8')
+            hash = ioty.services.get_hash(filename)
+            self.data_send(hash)
+            self.set_status(constants._STATUS_SUCCESS)
 
     def serial_send(self, data):
         for conn_handle in self._connections:

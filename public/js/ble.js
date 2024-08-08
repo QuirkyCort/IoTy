@@ -228,6 +228,19 @@ var ble = new function() {
     }
   };
 
+  this.getHash = async function(filename) {
+    self.dataNotificationBuf = new Uint8Array();
+    await self.setCmdMode(constants._MODE_GET_HASH);
+    await self.writeData(filename);
+    let status = await self.retrieve_status();
+    if (status == constants._STATUS_SUCCESS) {
+      let utf8decoder = new TextDecoder();
+      let text = utf8decoder.decode(self.dataNotificationBuf);
+      return text;
+    }
+    return false;
+  }
+
   this.listFiles = function() {
     if (! self.isConnected) {
       toastMsg('Not connected. Please connect to device.');
@@ -489,9 +502,19 @@ var ble = new function() {
         currentFileCount++;
         updateProgress();
 
-        status = await self.writeFile(filename, filesManager.files[filename], updateProgress);
-        if (status != constants._STATUS_SUCCESS) {
-          break;
+        let remoteHash = await self.getHash(filename);
+        let data = new TextEncoder().encode(filesManager.files[filename]);
+        let localHashBuf = await crypto.subtle.digest('SHA-256', data);
+        let localHash = Array.from(new Uint8Array(localHashBuf)).map((b) => b.toString(16).padStart(2, "0")).join("")
+
+        if (remoteHash == localHash) {
+          console.log('No change. Skipping ' + filename);
+          status = constants._STATUS_SUCCESS;
+        } else {
+          status = await self.writeFile(filename, filesManager.files[filename], updateProgress);
+          if (status != constants._STATUS_SUCCESS) {
+            break;
+          }
         }
       }
 

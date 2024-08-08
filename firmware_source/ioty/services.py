@@ -1,6 +1,8 @@
 import os
 import machine
 import ioty.constants as constants
+import hashlib
+import binascii
 
 def get_info():
     import gc
@@ -68,3 +70,16 @@ def delete_all_files():
 
 def reset():
     machine.reset()
+
+def get_hash(path):
+    h = hashlib.sha256()
+    try:
+        with open(path, 'rb') as f:
+            while True:
+                buf = f.read(256)
+                if not buf:
+                    break
+                h.update(buf)
+        return binascii.hexlify(h.digest())
+    except:
+        return b'None'

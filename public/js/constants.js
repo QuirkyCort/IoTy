@@ -1,5 +1,5 @@
 var constants = {
-  CURRENT_VERSION: 12,
+  CURRENT_VERSION: 13,
   MINIMUM_VERSION_TO_UPGRADE: 9,
   FIRMWARE_UPDATE_FILE: '_ioty_updates',
   NETWORK_CONFIGURATION_FILE: '_ioty_network',
@@ -38,6 +38,7 @@ var constants = {
   _MODE_GET_INFO: 12,
   _MODE_MKDIR: 13,
   _MODE_RESET: 14,
+  _MODE_GET_HASH: 15,
 
   _STATUS_SUCCESS: 0,
   _STATUS_PENDING: 1,
