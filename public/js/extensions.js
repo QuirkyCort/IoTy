@@ -50,7 +50,7 @@ var extensions = new function() {
       id: 'urequests',
       name: 'urequests (HTTP Requests)',
       files: [
-        ['urequests.py', 'extensions/urequests.py?v=9467c710'],
+        ['urequests.py', 'extensions/urequests.py?v=c9f15642'],
       ],
       description:
         '<p>' +
