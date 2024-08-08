@@ -1,6 +1,0 @@
-Category
-===
-
-# capacitive touch sensor
-
-# mounting of sdcard as filesystem
