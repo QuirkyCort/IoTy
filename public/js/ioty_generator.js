@@ -162,6 +162,7 @@ var ioty_generator = new function() {
 
     Blockly.Python['dict_empty'] = self.dict_empty;
     Blockly.Python['dict_key_value'] = self.dict_key_value;
+    Blockly.Python['dict_key_value_input'] = self.dict_key_value_input;
     Blockly.Python['dict_set'] = self.dict_set;
 
     Blockly.Python['urequests_simple'] = self.urequests_simple_advance;
@@ -2198,6 +2199,27 @@ var ioty_generator = new function() {
     return [code, Blockly.Python.ORDER_ATOMIC];
   };
 
+  this.dict_key_value_input = function(block) {
+    var variable = Blockly.Python.valueToCode(block, 'variable', Blockly.Python.ORDER_NONE);
+    if (variable == '') {
+      variable = 'None';
+    }
+
+    var code = variable;
+
+    let i=0;
+    while (true) {
+      let key = Blockly.Python.valueToCode(block, 'key' + i, Blockly.Python.ORDER_NONE);
+      if (key) {
+        code += '[' + key + ']';
+      } else {
+        break;
+      }
+      i++;
+    }
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
   this.dict_set = function(block) {
     var variable = Blockly.Python.valueToCode(block, 'variable', Blockly.Python.ORDER_ATOMIC);
     var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_NONE);

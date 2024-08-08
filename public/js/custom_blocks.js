@@ -88,6 +88,29 @@ Blockly.defineBlocksWithJsonArray([
   },
 ]);
 
+Blockly.defineBlocksWithJsonArray([
+  {
+    "type": "dict_key_value_input",
+    "message0": "%1 [ %2 ]",
+    "args0": [
+      {
+        "type": "input_value",
+        "name": "variable"
+      },
+      {
+        "type": "input_value",
+        "name": "key0"
+      }
+    ],
+    "output": null,
+    "inputsInline": true,
+    "colour": 260,
+    "tooltip": i18n.get('#blk-dict_key_value_tooltip#'),
+    "helpUrl": "",
+    "mutator": "dict_create_with_mutator",
+  },
+]);
+
 const dictCreateMutator = {
   itemCount_: 1,
 
