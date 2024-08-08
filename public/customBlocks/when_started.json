@@ -7,7 +7,7 @@
       "name": "start_type",
       "options": [
         [
-          "run immediately",
+          "run immediately (Bluetooth Enabled)",
           "RUN"
         ],
         [
@@ -19,7 +19,7 @@
           "WAIT_MQTT"
         ],
         [
-          "disable Bluetooth connection",
+          "run immediately (Bluetooth Disabled)",
           "DISABLE"
         ]
       ]
