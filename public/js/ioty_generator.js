@@ -65,6 +65,9 @@ var ioty_generator = new function() {
     Blockly.Python['run_python_and_return'] = self.run_python_and_return;
 
     Blockly.Python['type_cast'] = self.type_cast;
+    Blockly.Python['bytes'] = self.bytes;
+    Blockly.Python['bytearray'] = self.bytearray;
+    Blockly.Python['bytearray_by_size'] = self.bytearray_by_size;
     Blockly.Python['decode'] = self.decode;
     Blockly.Python['encode'] = self.encode;
     Blockly.Python['unpack'] = self.unpack;
@@ -1129,6 +1132,58 @@ var ioty_generator = new function() {
     var code = type + value + ')';
 
     return [code, Blockly.Python.ORDER_FUNCTION_CALL];
+  };
+
+  this.bytes = function(block) {
+    const bytestring = block.getFieldValue('bytestring');
+
+    let outstring = '';
+    let escaped = false;
+    for (c of bytestring) {
+      if (c == "'" && escaped == false) {
+        outstring += '\\';
+      }
+      outstring += c;
+      if (c == '\\' && escaped == false) {
+        escaped = true;
+      } else {
+        escaped = false;
+      }
+    }
+
+    let code = 'b\'' + outstring + '\'';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.bytearray = function(block) {
+    const bytestring = block.getFieldValue('bytestring');
+
+    let outstring = '';
+    let escaped = false;
+    for (c of bytestring) {
+      if (c == "'" && escaped == false) {
+        outstring += '\\';
+      }
+      outstring += c;
+      if (c == '\\' && escaped == false) {
+        escaped = true;
+      } else {
+        escaped = false;
+      }
+    }
+
+    let code = 'bytearray(b\'' + outstring + '\')';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.bytearray_by_size = function(block) {
+    var size = Blockly.Python.valueToCode(block, 'size', Blockly.Python.ORDER_ATOMIC);
+
+    let code = 'bytearray(' + size + ')';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
   };
 
   this.decode = function(block) {

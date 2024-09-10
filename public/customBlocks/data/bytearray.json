@@ -1,0 +1,16 @@
+{
+  "type": "bytearray",
+  "message0": "bytearray %1",
+  "args0": [
+    {
+      "type": "field_input",
+      "name": "bytestring",
+      "text": ""
+    }
+  ],
+  "inputsInline": true,
+  "output": "Bytes",
+  "colour": 230,
+  "tooltip": "#blk-bytearray_tooltip#",
+  "helpUrl": ""
+}

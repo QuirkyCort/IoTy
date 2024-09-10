@@ -309,6 +309,18 @@ let MSGS = {
   '#blk-type_cast_tooltip#': {
     en: 'Convert from one data type into another.',
   },
+  '#blk-bytes_tooltip#': {
+    en: 'Returns a bytes object. Bytes objects can be indexed like a list, but cannot be modified.',
+  },
+  '#blk-bytearray_tooltip#': {
+    en: 'Returns a bytearray. Bytearray works just like a bytes object, but can be modified.',
+  },
+  '#blk-of_size#': {
+    en: 'of size',
+  },
+  '#blk-bytearray_by_size_tooltip#': {
+    en: 'Returns a bytearray of the specified size initialized to all 0.',
+  },
   '#blk-neopixel_init#': {
     en: 'Initialize Neopixel at pin',
   },

@@ -1,0 +1,16 @@
+{
+  "type": "bytes",
+  "message0": "bytes %1",
+  "args0": [
+    {
+      "type": "field_input",
+      "name": "bytestring",
+      "text": ""
+    }
+  ],
+  "inputsInline": true,
+  "output": "Bytes",
+  "colour": 230,
+  "tooltip": "#blk-bytes_tooltip#",
+  "helpUrl": ""
+}

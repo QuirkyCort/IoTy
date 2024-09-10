@@ -1,0 +1,16 @@
+{
+  "type": "bytearray_by_size",
+  "message0": "bytearray #blk-of_size# %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "size",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "output": "Bytes",
+  "colour": 230,
+  "tooltip": "#blk-bytearray_by_size_tooltip#",
+  "helpUrl": ""
+}
