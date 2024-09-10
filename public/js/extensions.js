@@ -597,7 +597,7 @@ var extensions = new function() {
           'You can use it to send keyboard/mouse/joystick commands to your computer or phone. ' +
         '</p>' +
         '<p>' +
-          'Currently only works with micropython 1.19.1. ' +
+          'Currently only works with micropython 1.19.1 and 1.23.0. ' +
           'Bluetooth should be disabled in the "When Started" block. ' +
         '</p>'
     },
