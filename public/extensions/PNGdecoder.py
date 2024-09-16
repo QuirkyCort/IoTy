@@ -2,18 +2,49 @@
 # License: GNU General Public License version 3 -> http://www.gnu.org/licenses/
 
 from array import array
-from io import BytesIO
+from io import BytesIO, IOBase
 from micropython import const
+
+LIB_ZLIB = const(0)
+LIB_DEFLATE = const(1)
 
 try:
     import zlib
+    decompression_lib = LIB_ZLIB
 except:
     import deflate
+    decompression_lib = LIB_DEFLATE
 
 NO_CONVERSION = const(0)
 RGB24_TO_RGB565BE = const(1)
 RGB24_TO_RGB565LE = const(2)
 
+
+class IDAT_Reader(IOBase):
+    def __init__(self, src, chunkSize):
+        self.src = src
+        self.chunkSize = chunkSize
+        self.buf = b''
+        self._fill_buf()
+
+    def _fill_buf(self):
+        if len(self.buf) > 0:
+            return
+        self.buf = self.src.read(self.chunkSize)
+        self.src.seek(4, 1)
+        nextSize = int.from_bytes(self.src.read(4), 'big')
+        isNextChunkIDAT = bool(self.src.read(4) == b'IDAT')
+        if not isNextChunkIDAT:
+            self.src.seek(12 * -1, 1)
+        self.chunkSize = nextSize
+
+    def readinto(self, b):
+        if len(self.buf) == 0:
+            return 0
+        b[0] = self.buf[0]
+        self.buf = self.buf[1:]
+        self._fill_buf()
+        return 1
 
 def png(source, callback=print, cache=False, bg=(0, 0, 0), fastalpha=True, format=NO_CONVERSION):
     chunkSize = 0
@@ -153,21 +184,22 @@ def png(source, callback=print, cache=False, bg=(0, 0, 0), fastalpha=True, forma
 
     @micropython.viper
     def readIDAT(src):
-        isNextChunkIDAT = True
-        fullchunk = b''
-        while isNextChunkIDAT:
-            fullchunk += src.read(chunkSize)
-            src.seek(4, 1)
-            nextSize = bint(src.read(4))
-            isNextChunkIDAT = bool(src.read(4) == b'IDAT')
-            if not isNextChunkIDAT:
-                src.seek(12 * -1, 1)
-            setChunkSize(nextSize)  #chunkSize = nextSize
-        try:
+        if int(decompression_lib) == LIB_ZLIB:
+            isNextChunkIDAT = True
+            fullchunk = b''
+            while isNextChunkIDAT:
+                fullchunk += src.read(chunkSize)
+                src.seek(4, 1)
+                nextSize = bint(src.read(4))
+                isNextChunkIDAT = bool(src.read(4) == b'IDAT')
+                if not isNextChunkIDAT:
+                    src.seek(12 * -1, 1)
+                setChunkSize(nextSize)  #chunkSize = nextSize
             idat = zlib.decompress(fullchunk)
             idat = BytesIO(idat)
-        except:
-            idat = deflate.DeflateIO(BytesIO(fullchunk), deflate.ZLIB)
+        else:
+            idat_stream = IDAT_Reader(src, chunkSize)
+            idat = deflate.DeflateIO(idat_stream, deflate.ZLIB)
         W = int(WHDC[0])
         H = int(WHDC[1])
         D = int(WHDC[2])
