@@ -9,11 +9,11 @@ LIB_ZLIB = const(0)
 LIB_DEFLATE = const(1)
 
 try:
-    import zlib
-    decompression_lib = LIB_ZLIB
-except:
     import deflate
     decompression_lib = LIB_DEFLATE
+except:
+    import zlib
+    decompression_lib = LIB_ZLIB
 
 NO_CONVERSION = const(0)
 RGB24_TO_RGB565BE = const(1)
@@ -24,13 +24,8 @@ class IDAT_Reader(IOBase):
     def __init__(self, src, chunkSize):
         self.src = src
         self.chunkSize = chunkSize
-        self.buf = b''
-        self._fill_buf()
 
-    def _fill_buf(self):
-        if len(self.buf) > 0:
-            return
-        self.buf = self.src.read(self.chunkSize)
+    def _next_chunk(self):
         self.src.seek(4, 1)
         nextSize = int.from_bytes(self.src.read(4), 'big')
         isNextChunkIDAT = bool(self.src.read(4) == b'IDAT')
@@ -39,12 +34,18 @@ class IDAT_Reader(IOBase):
         self.chunkSize = nextSize
 
     def readinto(self, b):
-        if len(self.buf) == 0:
+        count = self.src.readinto(b)
+        if count == 0:
             return 0
-        b[0] = self.buf[0]
-        self.buf = self.buf[1:]
-        self._fill_buf()
+        self.chunkSize -= 1
+        if self.chunkSize == 0:
+            self._next_chunk()
         return 1
+
+    def close(self):
+        self.src.seek(self.chunkSize, 1)
+        self._next_chunk()
+
 
 def png(source, callback=print, cache=False, bg=(0, 0, 0), fastalpha=True, format=NO_CONVERSION):
     chunkSize = 0
@@ -184,7 +185,10 @@ def png(source, callback=print, cache=False, bg=(0, 0, 0), fastalpha=True, forma
 
     @micropython.viper
     def readIDAT(src):
-        if int(decompression_lib) == LIB_ZLIB:
+        if int(decompression_lib) == LIB_DEFLATE:
+            idat_stream = IDAT_Reader(src, chunkSize)
+            idat = deflate.DeflateIO(idat_stream, deflate.ZLIB)
+        else:
             isNextChunkIDAT = True
             fullchunk = b''
             while isNextChunkIDAT:
@@ -197,9 +201,7 @@ def png(source, callback=print, cache=False, bg=(0, 0, 0), fastalpha=True, forma
                 setChunkSize(nextSize)  #chunkSize = nextSize
             idat = zlib.decompress(fullchunk)
             idat = BytesIO(idat)
-        else:
-            idat_stream = IDAT_Reader(src, chunkSize)
-            idat = deflate.DeflateIO(idat_stream, deflate.ZLIB)
+
         W = int(WHDC[0])
         H = int(WHDC[1])
         D = int(WHDC[2])
@@ -230,6 +232,9 @@ def png(source, callback=print, cache=False, bg=(0, 0, 0), fastalpha=True, forma
                     clr = rgb2int(readColor(clrI, D, C))
                 show(int(rx) + x, int(ry) + y, clr)
             prevrow = row
+        if int(decompression_lib) == LIB_DEFLATE:
+            idat.close()
+            idat_stream.close()
 
     @micropython.viper
     def readColor(src, depth: int, colormode: int):
