@@ -4188,9 +4188,9 @@ var ioty_generator = new function() {
       type = 'ssd1306_i2c.pixel';
     } else if (type == 'ILI9341') {
       type = 'ili9341_device.draw_pixel';
+    } else if (type == 'ST7789') {
+      type = 'st7789_device.pixel';
     }
-
-
 
     let code =
       'PNGdecoder.png(' + filename + ', callback=' + type + ', format=PNGdecoder.' + format + ').render(' + x + ', ' + y + ')\n';
