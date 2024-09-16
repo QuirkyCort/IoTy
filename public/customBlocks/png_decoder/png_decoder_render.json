@@ -1,6 +1,6 @@
 {
   "type": "png_decoder_render",
-  "message0": "#blk-png_decoder_render# %1 #blk-to_display# %2 #blk-with_offset_x# %3 #blk-and_y# %4",
+  "message0": "#blk-png_decoder_render# %1 #blk-to_display# %2 #blk-with_offset_x# %3 #blk-and_y# %4 #blk-convert_format# %5",
   "args0": [
     {
       "type": "input_value",
@@ -11,7 +11,8 @@
       "type": "field_dropdown",
       "name": "type",
       "options": [
-        ["SSD-1306", "SSD1306"]
+        ["SSD-1306", "SSD1306"],
+        ["ILI9341", "ILI9341"]
       ]
     },
     {
@@ -23,6 +24,15 @@
       "type": "input_value",
       "name": "y",
       "check": "Number"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "format",
+      "options": [
+        ["NO_CONVERSION", "NO_CONVERSION"],
+        ["RGB24_TO_RGB565BE", "RGB24_TO_RGB565BE"],
+        ["RGB24_TO_RGB565LE", "RGB24_TO_RGB565LE"]
+      ]
     }
   ],
   "inputsInline": true,

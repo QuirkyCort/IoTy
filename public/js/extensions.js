@@ -542,7 +542,7 @@ var extensions = new function() {
       id: 'png_decoder',
       name: 'PNG Decoder',
       files: [
-        ['PNGdecoder.py', 'extensions/PNGdecoder.py?v=98b17ad5'],
+        ['PNGdecoder.py', 'extensions/PNGdecoder.py?v=6dd1844a'],
       ],
       description:
         '<p>' +

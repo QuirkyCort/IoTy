@@ -1,12 +1,21 @@
 # PNG decoder. Copyright (C) 2020 Remixer Dec
 # License: GNU General Public License version 3 -> http://www.gnu.org/licenses/
 
-import zlib
 from array import array
 from io import BytesIO
+from micropython import const
+
+try:
+    import zlib
+except:
+    import deflate
+
+NO_CONVERSION = const(0)
+RGB24_TO_RGB565BE = const(1)
+RGB24_TO_RGB565LE = const(2)
 
 
-def png(source, callback=print, cache=False, bg=(0, 0, 0), fastalpha=True):
+def png(source, callback=print, cache=False, bg=(0, 0, 0), fastalpha=True, format=NO_CONVERSION):
     chunkSize = 0
     chunkType = 0
     bpp = 4
@@ -126,6 +135,17 @@ def png(source, callback=print, cache=False, bg=(0, 0, 0), fastalpha=True):
 
     @micropython.viper
     def show(x, y, c: int):
+        if int(format) == RGB24_TO_RGB565BE:
+            r = (c >> 16) & 0b11111000
+            g = (c >> 8) & 0b11111100
+            b = c & 0b11111000
+            c = (r << 8) | (g << 3) | (b >> 3)
+        elif int(format) == RGB24_TO_RGB565LE:
+            r = (c >> 16) & 0b11111000
+            g = (c >> 8) & 0b11111100
+            b = c & 0b11111000
+            c = (r << 8) | (g << 3) | (b >> 3)
+            c = ((c & 0xff) << 8) | c >> 8
         if cache:
             cached.append(c)
         if c >= 0:
@@ -143,8 +163,11 @@ def png(source, callback=print, cache=False, bg=(0, 0, 0), fastalpha=True):
             if not isNextChunkIDAT:
                 src.seek(12 * -1, 1)
             setChunkSize(nextSize)  #chunkSize = nextSize
-        idat = zlib.decompress(fullchunk)
-        idat = BytesIO(idat)
+        try:
+            idat = zlib.decompress(fullchunk)
+            idat = BytesIO(idat)
+        except:
+            idat = deflate.DeflateIO(BytesIO(fullchunk), deflate.ZLIB)
         W = int(WHDC[0])
         H = int(WHDC[1])
         D = int(WHDC[2])

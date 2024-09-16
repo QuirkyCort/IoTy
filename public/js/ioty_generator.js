@@ -4182,13 +4182,18 @@ var ioty_generator = new function() {
     let type = block.getFieldValue('type');
     let x = Blockly.Python.valueToCode(block, 'x', Blockly.Python.ORDER_ATOMIC);
     let y = Blockly.Python.valueToCode(block, 'y', Blockly.Python.ORDER_ATOMIC);
+    let format = block.getFieldValue('format');
 
     if (type == 'SSD1306') {
-      type = 'ssd1306_i2c';
+      type = 'ssd1306_i2c.pixel';
+    } else if (type == 'ILI9341') {
+      type = 'ili9341_device.draw_pixel';
     }
 
+
+
     let code =
-      'PNGdecoder.png(' + filename + ', callback=' + type + '.pixel).render(' + x + ', ' + y + ')\n';
+      'PNGdecoder.png(' + filename + ', callback=' + type + ', format=PNGdecoder.' + format + ').render(' + x + ', ' + y + ')\n';
 
     return code;
   };

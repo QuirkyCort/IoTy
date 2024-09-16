@@ -2485,6 +2485,9 @@ let MSGS = {
   '#blk-with_offset_x#': {
     en: 'with offset x',
   },
+  '#blk-convert_format#': {
+    en: 'convert format',
+  },
   '#blk-bmp_image_open#': {
     en: 'bmp image: open file',
   },
