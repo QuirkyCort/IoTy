@@ -1,0 +1,9 @@
+{
+  "type": "lds02rr_distances",
+  "message0": "#blk-lds02rr_distances#",
+  "args0": [],
+  "output": "Array",
+  "colour": 230,
+  "tooltip": "#blk-lds02rr_distances_tooltip#",
+  "helpUrl": ""
+}

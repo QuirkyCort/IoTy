@@ -1,7 +1,6 @@
 var mqtt = new function() {
   var self = this;
 
-  this.URL = 'http://192.168.4.1:8000';
   this.COMMAND_TOPIC = '_IOTY_COMMAND';
   this.RESPONSE_TOPIC = '_IOTY_RESPONSE';
   this.TO_MONITOR_TOPIC = '_IOTY_TO_MONITOR';

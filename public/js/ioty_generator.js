@@ -581,6 +581,12 @@ var ioty_generator = new function() {
     Blockly.Python['st7789_image_from_buf'] = self.st7789_image_from_buf;
     Blockly.Python.addReservedWords('st7789,st7789_device');
 
+    Blockly.Python['lds02rr_init'] = self.lds02rr_init;
+    Blockly.Python['lds02rr_update'] = self.lds02rr_update;
+    Blockly.Python['lds02rr_rpm'] = self.lds02rr_rpm;
+    Blockly.Python['lds02rr_distances'] = self.lds02rr_distances;
+    Blockly.Python.addReservedWords('lds02rr,lds02rr_device');
+
   };
 
   // Generate python code
@@ -5749,6 +5755,35 @@ var ioty_generator = new function() {
     var code = 'st7789_device.sprite(' + buf + ', ' + x + ', ' + y + ', ' + w + ', ' + h + ')\n';
 
     return code;
+  };
+
+  this.lds02rr_init = function(block) {
+    self.imports['lds02rr'] = 'import lds02rr';
+    self.reservedVariables['lds02rr_init'] = ['lds02rr_device'];
+
+    var uart = block.getFieldValue('uart');
+
+    var code = 'lds02rr_device = lds02rr.LDS02RR(uart' + uart + ')\n';
+
+    return code;
+  };
+
+  this.lds02rr_update = function(block) {
+    var code = 'lds02rr_device.update()\n';
+
+    return code;
+  };
+
+  this.lds02rr_rpm = function(block) {
+    code = 'lds02rr_device.get_rpm()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.lds02rr_distances = function(block) {
+    code = 'lds02rr_device.get_distances()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
   };
 }
 

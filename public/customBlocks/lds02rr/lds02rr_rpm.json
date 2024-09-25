@@ -1,0 +1,9 @@
+{
+  "type": "lds02rr_rpm",
+  "message0": "#blk-lds02rr_rpm#",
+  "args0": [],
+  "output": "Number",
+  "colour": 230,
+  "tooltip": "#blk-lds02rr_rpm_tooltip#",
+  "helpUrl": ""
+}

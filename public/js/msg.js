@@ -856,7 +856,7 @@ let MSGS = {
   '#blk-mpu6050_get_accel#': {
     en: 'MPU-6050 acceleration',
   },
-  '#blk-mpu6050_accl_tooltip#': {
+  '#blk-mpu6050_accel_tooltip#': {
     en: 'Returns the acceleration in milligravity.',
   },
   '#blk-mpu6050_get_gyro#': {
@@ -3438,6 +3438,30 @@ let MSGS = {
   },
   '#blk-st7789_image_from_buf_tooltip#': {
     en: 'The supplied buf must contain raw RGB565 data (eg. read from a file in binary mode).',
+  },
+  '#blk-lds02rr_init#': {
+    en: 'init LDS02RR on',
+  },
+  '#blk-lds02rr_init_tooltip#': {
+    en: 'You must have an \\"init UART\\" block with the appropriate pins and baudrate (115200) set correctly before this.',
+  },
+  '#blk-lds02rr_update#': {
+    en: 'lds02rr: update',
+  },
+  '#blk-lds02rr_update_tooltip#': {
+    en: 'Run this frequently to read data from the sensor. The readings will not change if you do not run this.',
+  },
+  '#blk-lds02rr_rpm#': {
+    en: 'lds02rr: get rpm',
+  },
+  '#blk-lds02rr_rpm_tooltip#': {
+    en: 'Get the LIDAR RPM. Will return 0 if RPM data isn\'t available yet.',
+  },
+  '#blk-lds02rr_distances#': {
+    en: 'lds02rr: get distances',
+  },
+  '#blk-lds02rr_distances_tooltip#': {
+    en: 'Returns a list with 360 items, each representing the range in mm.',
   },
 };
 let MSGS_KEYS = Object.keys(MSGS);

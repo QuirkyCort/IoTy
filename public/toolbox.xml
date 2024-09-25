@@ -2802,4 +2802,10 @@
       </value>
     </block>
   </category>
+  <category toolboxitemid="lds02rr" name="LDS02RR" colour="#5b67a5" hidden="true">
+    <block type="lds02rr_init"></block>
+    <block type="lds02rr_update"></block>
+    <block type="lds02rr_rpm"></block>
+    <block type="lds02rr_distances"></block>
+  </category>
 </xml>

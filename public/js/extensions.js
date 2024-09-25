@@ -787,7 +787,24 @@ var extensions = new function() {
         '<p>' +
           'Default settings are for the TTGO; you may need to change it if you are using an external display with different wirings. ' +
         '</p>'
-    },  ]
+    },
+    {
+      id: 'lds02rr',
+      name: 'LDS02RR LIDAR (Xiaomi / Roborock / Neato XV11)',
+      files: [
+        ['lds02rr.py', 'extensions/lds02rr.py?v=f64efd33'],
+      ],
+      description:
+        '<p>' +
+          'The LDS02RR is a low cost 2D LIDAR designed for use in vacuum cleaners. ' +
+          'There are many similar designs for this LIDAR, and this extension is compatible with those described as Xiaomi / Roborock LDS02RR and the Neato XV11 LIDAR. ' +
+        '</p>' +
+        '<p>' +
+          'The motor RPM needs to be between 180 to 349 RPM to transmit valid data. ' +
+          'This extension does not control the motor RPM, and you should control it by adjusting the motor voltage or with PWM. ' +
+        '</p>'
+    },
+  ]
 
   this.init = function() {
 

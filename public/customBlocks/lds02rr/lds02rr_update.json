@@ -1,0 +1,10 @@
+{
+  "type": "lds02rr_update",
+  "message0": "#blk-lds02rr_update#",
+  "args0": [],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-lds02rr_update_tooltip#",
+  "helpUrl": ""
+}
