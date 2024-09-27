@@ -2,12 +2,12 @@ import select
 import socket
 
 class HTTPD:
-    def __init__(self, address='192.168.4.1', port= '80'):
+    def __init__(self, address='192.168.4.1', port=80):
         self.mjpeg_client_connection = None
 
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        self.socket.bind((address, port))
+        self.socket.bind(socket.getaddrinfo(address, port)[0][-1])
         self.socket.listen(0)
 
         self.poll = select.poll()

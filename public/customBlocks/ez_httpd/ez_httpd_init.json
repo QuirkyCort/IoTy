@@ -10,7 +10,7 @@
     {
       "type": "input_value",
       "name": "port",
-      "check": "String"
+      "check": "Number"
     }
   ],
   "inputsInline": true,
