@@ -42,7 +42,7 @@ var extensions = new function() {
       description:
         '<p>' +
           'The SSD-1306 is an OLED screen that can display text and monochrome images. ' +
-          'This extension allows you to draw text, lines, and shapes on the SSD-1306 via I2C.' +
+          'This extension allows you to draw text, lines, and shapes on the SSD-1306 via I2C. ' +
           'It also supports the SH-1106 OLED screen.' +
         '</p>'
     },
@@ -169,7 +169,7 @@ var extensions = new function() {
       ],
       description:
         '<p>' +
-          'This module allows you to perform non-blocking read from the terminal/stdin.' +
+          'This module allows you to perform non-blocking read from the terminal/stdin. ' +
           'Unlike the "input" block, this module will not wait for input and will always return immediately. ' +
         '</p>' +
         '<p>' +
@@ -312,7 +312,7 @@ var extensions = new function() {
       description:
         '<p>' +
           'The VL53L0X is a Time-of-Flight (ToF) laser ranging module. ' +
-          'It is similar to the VL53L1X, but with a shorter range of 2 meters.' +
+          'It is similar to the VL53L1X, but with a shorter range of 2 meters. ' +
           'This extension allows you to read the distance in millimeters (mm).' +
         '</p>'
     },
@@ -325,7 +325,7 @@ var extensions = new function() {
       description:
         '<p>' +
           'The VL53L1X is a Time-of-Flight (ToF) laser ranging module. ' +
-          'It is similar to the VL53L0X, but with a longer range of 4 meters.' +
+          'It is similar to the VL53L0X, but with a longer range of 4 meters. ' +
           'This extension allows you to read the distance in millimeters (mm).' +
         '</p>'
     },
@@ -463,7 +463,7 @@ var extensions = new function() {
         '<p>' +
           'Note that the MAX6675 performs a measurement and stores the result after every read. ' +
           'On the next read, it returns the stored result. ' +
-          'This means that the result may be very outdated if reading is infrequent.' +
+          'This means that the result may be very outdated if reading is infrequent. ' +
           'To get the latest measurement, perform a read, wait 0.22secs, then read again.' +
         '</p>' +
         '<p>' +

@@ -1490,7 +1490,7 @@ let MSGS = {
     en: 'characters',
   },
   '#blk-non_block_read_tooltip#': {
-    en: 'The specified number of characters. Use -1 to read all available characters.',
+    en: 'Read the specified number of characters. Use -1 to read all available characters.',
   },
   '#blk-init#': {
     en: 'init',
