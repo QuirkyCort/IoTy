@@ -173,7 +173,7 @@ var extensions = new function() {
           'Unlike the "input" block, this module will not wait for input and will always return immediately. ' +
         '</p>' +
         '<p>' +
-          'If available data is less than what is requested, the "read" function will return whatever is available, while "readline" will return an empty string. ' +
+          'If available data is less than what is requested, both the "read" and "readline" will return an empty string. ' +
         '</p>'
     },
     {
