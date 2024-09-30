@@ -164,7 +164,9 @@ class GPS:
     def get_datetime(self):
         if self.date is None or self.time is None:
             return None
-        return (self.date[2], self.date[1], self.date[0], 0, self.time[0], self.time[1], self.time[2], 0)
+        seconds = int(self.time[2])
+        subseconds = round(1000000 * (self.time[2] - seconds))
+        return (self.date[2], self.date[1], self.date[0], 0, self.time[0], self.time[1], seconds, subseconds)
 
     def get_sog(self):
         return self.sog
