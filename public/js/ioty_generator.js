@@ -54,6 +54,7 @@ var ioty_generator = new function() {
     Blockly.Python['read_input'] = self.read_input;
 
     Blockly.Python['connect_to_wifi'] = self.connect_to_wifi;
+    Blockly.Python['connect_to_wifi_blocks_input'] = self.connect_to_wifi_blocks_input;
     Blockly.Python['connect_to_configured_wifi'] = self.connect_to_configured_wifi;
     Blockly.Python['wlan_get_ip'] = self.wlan_get_ip;
     Blockly.Python['start_as_ap'] = self.start_as_ap;
@@ -1384,6 +1385,19 @@ var ioty_generator = new function() {
 
     var code =
       'ioty_wifi = ioty.wifi.connect(\'' + ssid + '\', \'' + password + '\')\n'
+
+    return code;
+  };
+
+  this.connect_to_wifi_blocks_input = function(block) {
+    self.imports['ioty_wifi'] = 'import ioty.wifi';
+    self.reservedVariables['connect_to_wifi'] = ['ioty_wifi'];
+
+    let ssid = Blockly.Python.valueToCode(block, 'ssid', Blockly.Python.ORDER_NONE);
+    let password = Blockly.Python.valueToCode(block, 'password', Blockly.Python.ORDER_NONE);
+
+    var code =
+      'ioty_wifi = ioty.wifi.connect(' + ssid + ', ' + password + ')\n'
 
     return code;
   };

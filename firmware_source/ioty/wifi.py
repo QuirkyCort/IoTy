@@ -50,6 +50,30 @@ def connect_configured(timeout=-1):
         raise Exception('No WiFi configured')
     return connect(ssid, password, timeout)
 
+def isconnected():
+    if wifi:
+        return wifi.isconnected()
+    elif ap:
+        return ap.isconnected()
+
+def disconnect():
+    if wifi:
+        return wifi.disconnect()
+    elif ap:
+        return ap.disconnect()
+
+def deactivate():
+    if wifi:
+        return wifi.active(False)
+    elif ap:
+        return ap.active(False)
+
+def status():
+    if wifi:
+        return wifi.status()
+    elif ap:
+        return ap.status()
+
 def is_present(ssid):
     if time.time() > ssid_cache[0]:
         _activate_station()
@@ -67,7 +91,7 @@ def get_ip():
     if wifi:
         return wifi.ifconfig()[0]
     elif ap:
-        return wifi.ifconfig()[0]
+        return ap.ifconfig()[0]
     raise Exception('WiFi not active')
 
 def start_ap(ssid, password='', max_clients=10, channel=1, hidden=False):
