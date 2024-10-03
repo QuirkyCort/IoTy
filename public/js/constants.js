@@ -1,5 +1,5 @@
 var constants = {
-  CURRENT_VERSION: 13,
+  CURRENT_VERSION: 14,
   MINIMUM_VERSION_TO_UPGRADE: 9,
   FIRMWARE_UPDATE_FILE: '_ioty_updates',
   NETWORK_CONFIGURATION_FILE: '_ioty_network',
@@ -21,7 +21,9 @@ var constants = {
     'ioty/html/index.html',
     'umqtt',
     'umqtt/robust.mpy',
-    'umqtt/simple.mpy'
+    'umqtt/simple.mpy',
+    'ioty/wifi.mpy',
+    'ioty/services.mpy'
   ],
 
   _MODE_OPEN: 1,

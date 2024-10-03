@@ -12,3 +12,5 @@ mv ioty_8 umqtt/robust.mpy
 mv ioty_9 ioty/mqtt.mpy
 mv ioty_a ioty/monitor_mqtt.mpy
 mv ioty_b ioty/html/index.html
+mv ioty_c ioty/wifi.mpy
+mv ioty_d ioty/services.mpy
