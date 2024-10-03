@@ -1,0 +1,15 @@
+{
+  "type": "wlan_is_present",
+  "message0": "#blk-wlan_is_present# %1 #blk-is_present#",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "ssid",
+      "check": "String"
+    }
+  ],
+  "output": "Boolean",
+  "colour": 65,
+  "tooltip": "#blk-wlan_is_present_tooltip#",
+  "helpUrl": ""
+}

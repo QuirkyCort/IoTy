@@ -1,0 +1,9 @@
+{
+  "type": "wlan_scan",
+  "message0": "#blk-wlan_scan#",
+  "args0": [],
+  "output": "Array",
+  "colour": 65,
+  "tooltip": "#blk-wlan_scan_tooltip#",
+  "helpUrl": ""
+}

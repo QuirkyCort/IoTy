@@ -556,6 +556,26 @@
   <category name="#blk-network#" colour="#9fa55b">
     <block type="connect_to_configured_wifi"></block>
     <block type="connect_to_wifi"></block>
+    <block type="connect_to_wifi_blocks_input">
+      <value name="ssid">
+        <shadow type="text">
+          <field name="TEXT">SSID</field>
+        </shadow>
+      </value>
+      <value name="password">
+        <shadow type="text">
+          <field name="TEXT">password</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="wlan_scan"></block>
+    <block type="wlan_is_present">
+      <value name="ssid">
+        <shadow type="text">
+          <field name="TEXT">SSID</field>
+        </shadow>
+      </value>
+    </block>
     <block type="wlan_get_ip"></block>
     <block type="start_as_ap"></block>
     <block type="mqtt_connect_to_server"></block>

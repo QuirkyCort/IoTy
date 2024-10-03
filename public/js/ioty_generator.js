@@ -57,7 +57,8 @@ var ioty_generator = new function() {
     Blockly.Python['connect_to_configured_wifi'] = self.connect_to_configured_wifi;
     Blockly.Python['wlan_get_ip'] = self.wlan_get_ip;
     Blockly.Python['start_as_ap'] = self.start_as_ap;
-    Blockly.Python.addReservedWords('ioty_wifi,ap');
+    Blockly.Python['wlan_scan'] = self.wlan_scan;
+    Blockly.Python['wlan_is_present'] = self.wlan_is_present;
 
     Blockly.Python['setBluetoothCmds'] = self.setBluetoothCmds;
     Blockly.Python['try_except'] = self.try_except;
@@ -1372,7 +1373,7 @@ var ioty_generator = new function() {
   };
 
   this.connect_to_wifi = function(block) {
-    self.imports['network'] = 'import network';
+    self.imports['ioty_wifi'] = 'import ioty.wifi';
     self.reservedVariables['connect_to_wifi'] = ['ioty_wifi'];
 
     var ssid = block.getFieldValue('ssid');
@@ -1382,44 +1383,30 @@ var ioty_generator = new function() {
     password = escapeSingleQuotes(password);
 
     var code =
-      '\n# Connect to WiFi\n' +
-      'ioty_wifi = network.WLAN(network.STA_IF)\n' +
-      'ioty_wifi.active(True)\n' +
-      'ioty_wifi.connect(\'' + ssid + '\', \'' + password + '\')\n' +
-      'while not ioty_wifi.isconnected():\n' +
-      '    pass\n' +
-      '# Done: Connect to WiFi\n\n';
+      'ioty_wifi = ioty.wifi.connect(\'' + ssid + '\', \'' + password + '\')\n'
 
-      return code;
+    return code;
   };
 
   this.connect_to_configured_wifi = function(block) {
-    self.imports['MQTT_Service'] = 'from ioty.mqtt import MQTT_Service';
-    self.imports['time'] = 'import time';
+    self.imports['ioty_wifi'] = 'import ioty.wifi';
     self.reservedVariables['connect_to_wifi'] = ['ioty_wifi'];
 
     var code =
-      '# Connect to configured WiFi\n' +
-      'mqtt = MQTT_Service()\n' +
-      'if mqtt.read_config():\n' +
-      '    ioty_wifi = mqtt.connect_wifi()\n' +
-      '    while not mqtt.wifi_isconnected():\n' +
-      '        time.sleep_ms(500)\n' +
-      'else:\n' +
-      '    raise Exception("No WiFi configured")\n\n';
+      'ioty_wifi = ioty.wifi.connect_configured()\n'
 
-      return code;
+    return code;
   };
 
   this.wlan_get_ip = function(block) {
-    var code = 'ioty_wifi.ifconfig()[0]';
+    var code = 'ioty.wifi.get_ip()';
 
-      return [code, Blockly.Python.ORDER_NONE];
+    return [code, Blockly.Python.ORDER_NONE];
   };
 
   this.start_as_ap = function(block) {
-    self.imports['network'] = 'import network';
-    self.reservedVariables['start_as_ap'] = ['ap'];
+    self.imports['ioty_wifi'] = 'import ioty.wifi';
+    self.reservedVariables['start_as_ap'] = ['ioty_ap'];
 
     var ssid = block.getFieldValue('ssid');
     var password = block.getFieldValue('password');
@@ -1428,22 +1415,27 @@ var ioty_generator = new function() {
     password = escapeSingleQuotes(password);
 
     var code =
-      '\n# Start as Access Point\n' +
-      'ap = network.WLAN(network.AP_IF)\n';
+      'ioty_wifi = ioty.wifi.start_ap(\'' + ssid + '\', \'' + password + '\')\n'
 
-    if (password.length >= 8) {
-      code +=
-        'ap.config(essid="' + ssid + '", password="' + password + '")\n' +
-        'ap.config(authmode=3)\n';
-    } else {
-      code += 'ap.config(essid="' + ssid + '")\n';
-    }
+    return code;
+  };
 
-    code +=
-      'ap.config(max_clients=10)\n' +
-      'ap.active(True)\n';
+  this.wlan_scan = function(block) {
+    self.imports['ioty_wifi'] = 'import ioty.wifi';
 
-      return code;
+    var code = 'ioty.wifi.scan()';
+
+    return [code, Blockly.Python.ORDER_NONE];
+  };
+
+  this.wlan_is_present = function(block) {
+    self.imports['ioty_wifi'] = 'import ioty.wifi';
+
+    var ssid = Blockly.Python.valueToCode(block, 'ssid', Blockly.Python.ORDER_NONE);
+
+    var code = 'ioty.wifi.is_present(' + ssid + ')';
+
+    return [code, Blockly.Python.ORDER_NONE];
   };
 
   this.setBluetoothCmds = function(block) {

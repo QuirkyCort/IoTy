@@ -1,8 +1,11 @@
 import network
 import time
+from micropython import const
 
 wifi = None
 ap = None
+ssid_cache =[-1, ()]
+CACHE_EXPIRY = const(5)
 
 def _activate_station():
     global wifi, ap
@@ -44,20 +47,28 @@ def connect_configured(timeout=-1):
             ssid = f.readline().rstrip('\n')
             password = f.readline().rstrip('\n')
     except:
-        raise Exception("No WiFi configured")
+        raise Exception('No WiFi configured')
     return connect(ssid, password, timeout)
 
 def is_present(ssid):
+    if time.time() > ssid_cache[0]:
+        _activate_station()
+        ssid_cache[1] = tuple(x[0] for x in wifi.scan())
+        ssid_cache[0] = time.time() + CACHE_EXPIRY
+
+    return ssid.encode() in ssid_cache[1]
+
+def scan():
     _activate_station()
 
-    ssids = wifi.scan()
-    for found in ssids:
-        if ssid == found[0].decode():
-            return True
-    return False
+    return wifi.scan()
 
 def get_ip():
-    return wifi.ifconfig()[0]
+    if wifi:
+        return wifi.ifconfig()[0]
+    elif ap:
+        return wifi.ifconfig()[0]
+    raise Exception('WiFi not active')
 
 def start_ap(ssid, password='', max_clients=10, channel=1, hidden=False):
     _activate_ap()

@@ -417,6 +417,9 @@ let MSGS = {
   '#blk-connect_to_wifi_tooltip#': {
     en: 'If the \\"When Started\\" block is set to \\"wait for Internet connection\\", your device will connect automatically and you should not use this block.',
   },
+  '#blk-connect_to_wifi_blocks_input_tooltip#': {
+    en: 'Works the same as the other \\"Connect to WiFi\\" block, but allows blocks input for SSID and Password.',
+  },
   '#blk-connect_to_mqtt_server#': {
     en: 'MQTT: Connect to server',
   },
@@ -1094,7 +1097,22 @@ let MSGS = {
     en: 'start as Access Point',
   },
   '#blk-start_as_ap_tooltip#': {
-    en: 'If password is less than 8 characters long, an open AP (no password) will be created.',
+    en: 'Password must be either empty (open AP) or at least 8 characters long.',
+  },
+  '#blk-wlan_scan#': {
+    en: 'scan for WiFi',
+  },
+  '#blk-wlan_scan_tooltip#': {
+    en: 'Returns a list of available WiFi networks. Returns a list of tuples containing (ssid, bssid, channel, RSSI, authmode, hidden).',
+  },
+  '#blk-wlan_is_present#': {
+    en: 'WiFi SSID',
+  },
+  '#blk-is_present#': {
+    en: 'is present',
+  },
+  '#blk-wlan_is_present_tooltip#': {
+    en: 'Returns True if the specified WiFi SSID is available.',
   },
   '#blk-date_time_get#': {
     en: 'date and time',

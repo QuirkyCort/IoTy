@@ -1193,12 +1193,17 @@ var main = new function() {
 
   // Display what's new if not seen before
   this.showWhatsNew = function(forceShow=false) {
-    let current = 20240807;
+    let current = 20241003;
     let lastShown = localStorage.getItem('whatsNew');
     if (lastShown == null || parseInt(lastShown) < current || forceShow) {
       let options = {
         title: 'What\'s New',
         message:
+        '<h3>73 Oct 2024 (Firmware 14)</h3>' +
+        '<p>' +
+          'A new firmware version (14) is released. ' +
+          '<strong>You must update to this new version or network functions will not work!</strong>' +
+        '</p>' +
         '<h3>7 Aug 2024 (I2C changes and New extensions)</h3>' +
         '<p>' +
           'The I2C blocks now allows for use of the second channel and Soft I2C.' +
@@ -1232,15 +1237,6 @@ var main = new function() {
             '<li>Stepper Wheels</li>' +
             '<li>Stepper Wheels Drives</li>' +
           '</ul>' +
-        '</p>' +
-        '<h3>28 Dec 2023 (Firmware and Advanced Pins)</h3>' +
-        '<p>' +
-          'A new firmware version (11) is released. ' +
-          'The new firmware fixes problems when switching between PWM and digital writes, and adds support for capacitive touch. ' +
-        '</p>' +
-        '<p>' +
-          'An advanced pins extension has been added. ' +
-          'It works the same as the default "Pins" blocks, but accepts block inputs for pin numbers. ' +
         '</p>'
       }
       acknowledgeDialog(options, function(){
