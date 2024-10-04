@@ -1179,6 +1179,15 @@
       </value>
     </block>
     <block type="ucsv_readrow"></block>
+    <block type="controls_forEach">
+      <field name="VAR">row</field>
+      <value name="LIST">
+        <block type="variables_get">
+          <field name="VAR">csv1</field>
+        </block>
+      </value>
+    </block>
+
     <block type="ucsv_writerow">
       <value name="value">
         <block type="lists_create_with">

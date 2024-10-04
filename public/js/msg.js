@@ -1364,7 +1364,7 @@ let MSGS = {
     en: 'read one row from',
   },
   '#blk-ucsv_readrow_tooltip#': {
-    en: 'read a single rom from the CSV file and return a list',
+    en: 'Read a single rom from the CSV file and return a list. This will raise an exception when there are no more rows to read.',
   },
   '#blk-ucsv_writerow_tooltip#': {
     en: 'Write a row to the CSV file. The input must be a list',
