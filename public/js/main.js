@@ -284,11 +284,11 @@ var main = new function() {
       e.stopPropagation();
 
       let menuItems = [
-        // {html: 'Wiki', line: false, callback: function() { self.openPage('https://github.com/QuirkyCort/gears/wiki'); }},
+        {html: 'Documentations', line: false, callback: function() { self.openPage('https://tutorials.aposteriori.com.sg/120-IoTy/10-Introduction/10-Intro.html'); }},
         {html: 'Github', line: false, callback: function() { self.openPage('https://github.com/QuirkyCort/IoTy'); }},
         {html: i18n.get('#main-whats_new#'), line: false, callback: function() { self.showWhatsNew(true); }},
         {html: i18n.get('#main-privacy#'), line: false, callback: function() { self.openPage('privacy.html'); }},
-        {html: i18n.get('#main-about#'), line: true, callback: self.openAbout },
+        {html: i18n.get('#main-about#'), line: false, callback: self.openAbout },
       ];
 
       menuDropDown(self.$helpMenu, menuItems, {className: 'helpMenuDropDown'});

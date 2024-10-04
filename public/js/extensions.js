@@ -19,7 +19,8 @@ var extensions = new function() {
         '</p>' +
         '<p>' +
           'This extension allows you to read the device via I2C, and additionally provides calibration routines to correct for errors, and integration routines to obtain headings.' +
-        '</p>'
+        '</p>' +
+        '<p><a href="https://tutorials.aposteriori.com.sg/120-IoTy/110-Extensions_Hardware/10-Gyro.html" target="_blank">Documentations</a></p>'
     },
     {
       id: 'pca9685',
@@ -31,7 +32,8 @@ var extensions = new function() {
         '<p>' +
           'The PCA-9685 is a 16-channel 12-bit PWM driver, commonly used to drive RC servos. ' +
           'This extension allows you to control the PCA-9685 via I2C.' +
-        '</p>'
+        '</p>' +
+        '<p><a href="https://tutorials.aposteriori.com.sg/120-IoTy/110-Extensions_Hardware/20-Servo-driver.html" target="_blank">Documentations</a></p>'
     },
     {
       id: 'ssd1306',
@@ -44,7 +46,8 @@ var extensions = new function() {
           'The SSD-1306 is an OLED screen that can display text and monochrome images. ' +
           'This extension allows you to draw text, lines, and shapes on the SSD-1306 via I2C. ' +
           'It also supports the SH-1106 OLED screen.' +
-        '</p>'
+        '</p>' +
+        '<p><a href="https://tutorials.aposteriori.com.sg/120-IoTy/110-Extensions_Hardware/30-SSD1306.html" target="_blank">Documentations</a></p>'
     },
     {
       id: 'urequests',
@@ -56,7 +59,8 @@ var extensions = new function() {
         '<p>' +
           'This extension allows you to make http request (ie. retrieve webpages). ' +
           'You can use this to retrieve normal webpages, as well as useful data (eg. weather) from <a href="https://github.com/public-apis/public-apis">public APIs</a>.' +
-        '</p>'
+        '</p>' +
+        '<p><a href="https://tutorials.aposteriori.com.sg/120-IoTy/100-Extensions_Software/10-urequests.html" target="_blank">Documentations</a></p>'
     },
     {
       id: 'ioty_neopixel',
@@ -69,7 +73,8 @@ var extensions = new function() {
           'NeoPixels (aka WS2812 LEDs), are full-colour LEDs where you can control each individual LED brightness and color. ' +
           'If using Python, you can use the built-in <a href="https://docs.micropython.org/en/latest/esp32/quickref.html#neopixel-and-apa106-driver">neopixel</a> module without any extensions. ' +
           'This extensions is a thin wrapper over the built-in neopixel module to allow programming the Neopixel without an object-oriented approach.' +
-        '</p>'
+        '</p>' +
+        '<p><a href="https://tutorials.aposteriori.com.sg/120-IoTy/110-Extensions_Hardware/40-Neopixel.html" target="_blank">Documentations</a></p>'
     },
     {
       id: 'espnow',
@@ -93,7 +98,8 @@ var extensions = new function() {
         '<p>' +
           'This is an easy to use version of ESP-NOW that doesn\'t require the peer\'s MAC address. ' +
           'Instead, each device will set a group, and messages are broadcast to all devices within the same group (similar to the microbit "radio"). ' +
-        '</p>'
+        '</p>' +
+        '<p><a href="https://tutorials.aposteriori.com.sg/120-IoTy/100-Extensions_Software/20-EZ-ESP-NOW.html" target="_blank">Documentations</a></p>'
     },
     {
       id: 'ez_httpd',
@@ -109,7 +115,8 @@ var extensions = new function() {
         '<p>' +
           'In AP mode, the address of the IoTy device will be http://194.168.4.1. ' +
           'If connected to WiFi, use the "IP address" block to retrieve your address.' +
-        '</p>'
+        '</p>' +
+        '<p><a href="https://tutorials.aposteriori.com.sg/120-IoTy/100-Extensions_Software/30-EZ-HTTPD.html" target="_blank">Documentations</a></p>'
     },
     {
       id: 'ucsv',
@@ -133,7 +140,8 @@ var extensions = new function() {
         '<p>' +
           'The HD44780 is a popular LCD screen, often paired with a PCF8574 IO expander for I2C control. ' +
           'This extensions allows you to write text to such a screen. ' +
-        '</p>'
+        '</p>' +
+        '<p><a href="https://tutorials.aposteriori.com.sg/120-IoTy/110-Extensions_Hardware/50-I2C-LCD.html" target="_blank">Documentations</a></p>'
     },
     {
       id: 'dht',
@@ -146,7 +154,8 @@ var extensions = new function() {
         '</p>' +
         '<p>' +
           'This extensions only add blocks; no additional Python files are added or required.' +
-        '</p>'
+        '</p>' +
+        '<p><a href="https://tutorials.aposteriori.com.sg/120-IoTy/110-Extensions_Hardware/60-DHT11.html" target="_blank">Documentations</a></p>'
     },
     {
       id: 'ez_ds18x20',
@@ -159,7 +168,8 @@ var extensions = new function() {
           'The DS18X20 series of sensors provides temperature readings via the OneWire protocol. ' +
           'This extension provides a thin wrapper around the ds18x20 module built into micropython, allowing you to read multiple sensors using their index number instead of their serial code. ' +
           'When using this extension, be sure to run the "convert temp" command before reading the temperature.' +
-        '</p>'
+        '</p>' +
+        '<p><a href="https://tutorials.aposteriori.com.sg/120-IoTy/110-Extensions_Hardware/70-EZ-DS18X20.html" target="_blank">Documentations</a></p>'
     },
     {
       id: 'non_block',
@@ -174,7 +184,8 @@ var extensions = new function() {
         '</p>' +
         '<p>' +
           'If available data is less than what is requested, both the "read" and "readline" will return an empty string. ' +
-        '</p>'
+        '</p>' +
+        '<p><a href="https://tutorials.aposteriori.com.sg/120-IoTy/100-Extensions_Software/40-non-block.html" target="_blank">Documentations</a></p>'
     },
     {
       id: 'gps',
@@ -187,7 +198,8 @@ var extensions = new function() {
           'This module allows you read GPS modules that returns NMEA data over serial. ' +
           'Most common GPS modules are of this type and should work. ' +
           'To keep things simple, only Latitude, Longitude, Altitude, Date, and Time are parsed. ' +
-        '</p>'
+        '</p>' +
+        '<p><a href="https://tutorials.aposteriori.com.sg/120-IoTy/110-Extensions_Hardware/80-GPS.html" target="_blank">Documentations</a></p>'
     },
     {
       id: 'hx711',
@@ -200,7 +212,8 @@ var extensions = new function() {
           'This module allows you read the HX711 Analog-to-Digital converter. ' +
           'This device is commonly used with load cells for weight / force measurement. ' +
           'It return a unitless value, so calibration is required if you want to measure weight. ' +
-        '</p>'
+        '</p>' +
+        '<p><a href="https://tutorials.aposteriori.com.sg/120-IoTy/110-Extensions_Hardware/90-hx711.html" target="_blank">Documentations</a></p>'
     },
     {
       id: 'hx710',
@@ -219,7 +232,8 @@ var extensions = new function() {
         '</p>' +
         '<p>' +
           'When taking a reading, you can specify the type of the next reading.' +
-        '</p>'
+        '</p>' +
+        '<p><a href="https://tutorials.aposteriori.com.sg/120-IoTy/110-Extensions_Hardware/100-hx710.html" target="_blank">Documentations</a></p>'
     },
     {
       id: 'ez_timer',
@@ -235,7 +249,8 @@ var extensions = new function() {
         '<p>' +
           'It has 1ms resolution and uses polling, so there are no guarantees for the exact time that the timer runs. ' +
           'As long as you run update frequently, it should be fairly accurate (...within a few ms).' +
-        '</p>'
+        '</p>' +
+        '<p><a href="https://tutorials.aposteriori.com.sg/120-IoTy/100-Extensions_Software/50-EZ-Timer.html" target="_blank">Documentations</a></p>'
     },
     {
       id: 'mfrc522',
@@ -246,7 +261,8 @@ var extensions = new function() {
       description:
         '<p>' +
           'This module allows you read the ID from an RFID card using an MFRC522 based RFID reader. ' +
-        '</p>'
+        '</p>' +
+        '<p><a href="https://tutorials.aposteriori.com.sg/120-IoTy/110-Extensions_Hardware/110-MFRC522.html" target="_blank">Documentations</a></p>'
     },
     {
       id: 'qmc5883l',
@@ -261,7 +277,8 @@ var extensions = new function() {
         '<p>' +
           'It is often found in the form of a GY-271 module, but note that the GY-271 may also be equipped with a HMC5883L instead. ' +
           'You can check by doing an I2C scan; the QMC5883L will have an address of 0x0D (13), while the HMC5883L uses address 0x1E (30).' +
-        '</p>'
+        '</p>' +
+        '<p><a href="https://tutorials.aposteriori.com.sg/120-IoTy/110-Extensions_Hardware/120-Magnetic-Sensor.html" target="_blank">Documentations</a></p>'
     },
     {
       id: 'hmc5883l',
@@ -276,7 +293,8 @@ var extensions = new function() {
         '<p>' +
           'It is often found in the form of a GY-271 module, but note that the GY-271 may also be equipped with a GMC5883L instead. ' +
           'You can check by doing an I2C scan; the QMC5883L will have an address of 0x0D (13), while the HMC5883L uses address 0x1E (30).' +
-        '</p>'
+        '</p>' +
+        '<p><a href="https://tutorials.aposteriori.com.sg/120-IoTy/110-Extensions_Hardware/120-Magnetic-Sensor.html" target="_blank">Documentations</a></p>'
     },
     {
       id: 'bmp280',
@@ -288,7 +306,8 @@ var extensions = new function() {
         '<p>' +
           'The BMP280 is a barometric pressure sensor often used for calculating altitude from pressure. ' +
           'This extension allows you to read temperature, pressure, and the calculated altitude. ' +
-        '</p>'
+        '</p>' +
+        '<p><a href="https://tutorials.aposteriori.com.sg/120-IoTy/110-Extensions_Hardware/130-Barometric-Pressure.html" target="_blank">Documentations</a></p>'
     },
     {
       id: 'max30102',
@@ -301,7 +320,8 @@ var extensions = new function() {
           'The MAX30102 is an integrated pulse oximetry and heart-rate monitor module. ' +
           'This extension allows you to detect heart beats, read heart rate (bpm), and get the raw readings (IR and Red). ' +
           'Calculation of SpO2 is currently not provided by this extension. ' +
-        '</p>'
+        '</p>' +
+        '<p><a href="https://tutorials.aposteriori.com.sg/120-IoTy/110-Extensions_Hardware/140-Heart-Rate.html" target="_blank">Documentations</a></p>'
     },
     {
       id: 'vl53l0x',
@@ -314,7 +334,8 @@ var extensions = new function() {
           'The VL53L0X is a Time-of-Flight (ToF) laser ranging module. ' +
           'It is similar to the VL53L1X, but with a shorter range of 2 meters. ' +
           'This extension allows you to read the distance in millimeters (mm).' +
-        '</p>'
+        '</p>' +
+        '<p><a href="https://tutorials.aposteriori.com.sg/120-IoTy/110-Extensions_Hardware/150-ToF.html" target="_blank">Documentations</a></p>'
     },
     {
       id: 'vl53l1x',
@@ -327,7 +348,8 @@ var extensions = new function() {
           'The VL53L1X is a Time-of-Flight (ToF) laser ranging module. ' +
           'It is similar to the VL53L0X, but with a longer range of 4 meters. ' +
           'This extension allows you to read the distance in millimeters (mm).' +
-        '</p>'
+        '</p>' +
+        '<p><a href="https://tutorials.aposteriori.com.sg/120-IoTy/110-Extensions_Hardware/150-ToF.html" target="_blank">Documentations</a></p>'
     },
     {
       id: 'mqtt_logger',
@@ -353,7 +375,8 @@ var extensions = new function() {
         '</p>' +
         '<p>' +
           'This extension allows you read and write to the DS3231 in a format that is compatible with "machine.RTC", allowing you to easily set or save your device time. ' +
-        '</p>'
+        '</p>' +
+        '<p><a href="https://tutorials.aposteriori.com.sg/120-IoTy/110-Extensions_Hardware/160-rtc-ds3231.html" target="_blank">Documentations</a></p>'
     },
     {
       id: 'bme280',
@@ -366,7 +389,8 @@ var extensions = new function() {
           'The BME280 is a barometric pressure sensor often used for calculating altitude from pressure. ' +
           'It is similar to the BMP280, but provides an additional humidity value. ' +
           'This extension allows you to read temperature, humidity, pressure, and the calculated altitude. ' +
-        '</p>'
+        '</p>' +
+        '<p><a href="https://tutorials.aposteriori.com.sg/120-IoTy/110-Extensions_Hardware/130-Barometric-Pressure.html" target="_blank">Documentations</a></p>'
     },
     {
       id: 'apds9960',
@@ -377,7 +401,8 @@ var extensions = new function() {
       description:
         '<p>' +
           'The APDS9960 can detect proximity (up to a few cm), ambient light level and color, and gestures (...move your hand left/right/up/down near the sensor). ' +
-        '</p>'
+        '</p>' +
+        '<p><a href="https://tutorials.aposteriori.com.sg/120-IoTy/110-Extensions_Hardware/170-apds9960.html" target="_blank">Documentations</a></p>'
     },
     {
       id: 'gy33_i2c',
@@ -396,8 +421,8 @@ var extensions = new function() {
         '<p>' +
           'The GY33 supports both UART and I2C. ' +
           'This extension is for the I2C interface (S0 needs to be grounded). ' +
-          'For wiring details, please see <a href="https://github.com/QuirkyCort/micropython-gy33">this page</a>.' +
-        '</p>'
+        '</p>' +
+        '<p><a href="https://tutorials.aposteriori.com.sg/120-IoTy/110-Extensions_Hardware/180-gy33_i2c.html" target="_blank">Documentations</a></p>'
     },
     {
       id: 'gy33_uart',
@@ -416,8 +441,8 @@ var extensions = new function() {
         '<p>' +
           'The GY33 supports both UART and I2C. ' +
           'This extension is for the UART interface (S0 needs to be unconnected). ' +
-          'For wiring details, please see <a href="https://github.com/QuirkyCort/micropython-gy33">this page</a>.' +
-        '</p>'
+        '</p>' +
+        '<p><a href="https://tutorials.aposteriori.com.sg/120-IoTy/110-Extensions_Hardware/190-gy33_uart.html" target="_blank">Documentations</a></p>'
     },
     {
       id: 'tcs3472',
@@ -432,7 +457,8 @@ var extensions = new function() {
         '</p>' +
         '<p>' +
           'This extension allows you to read the raw and calibrated values, and perform calibration if required.' +
-        '</p>'
+        '</p>' +
+        '<p><a href="https://tutorials.aposteriori.com.sg/120-IoTy/110-Extensions_Hardware/200-tcs3472.html" target="_blank">Documentations</a></p>'
     },
     {
       id: 'tween',
