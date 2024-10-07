@@ -91,7 +91,7 @@ def analog_write(pin, value):
 def servo_write_deg(pin, deg):
     _init_pin(pin)
     if _pins[pin][1] != _SERVO:
-        _pins[pin][0] = PWM(Pin(pin), freq=50, duty=deg)
+        _pins[pin][0] = PWM(Pin(pin), freq=50, duty=0)
         _pins[pin][1] = _SERVO
 
     _pins[pin][0].duty_ns(500000 + int(deg * 2000000 / 180))
@@ -99,7 +99,7 @@ def servo_write_deg(pin, deg):
 def servo_write_us(pin, us):
     _init_pin(pin)
     if _pins[pin][1] != _SERVO:
-        _pins[pin][0] = PWM(Pin(pin), freq=50, duty=us)
+        _pins[pin][0] = PWM(Pin(pin), freq=50, duty=0)
         _pins[pin][1] = _SERVO
 
     _pins[pin][0].duty_ns(int(us) * 1000)
