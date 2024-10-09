@@ -540,7 +540,7 @@ var extensions = new function() {
       id: 'music',
       name: 'Music (Tone)',
       files: [
-        ['music.py', 'extensions/music.py?v=89544506'],
+        ['music.py', 'extensions/music.py?v=d2df4f08'],
       ],
       description:
         '<p>' +

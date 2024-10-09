@@ -176,15 +176,20 @@ class Music:
     def update(self):
         if ticks_diff(self.stop_ms, ticks_ms()) <= 0:
             if self.queue_idx < len(self.queue):
+                freq, _ = self.queue[self.queue_idx]
                 self._play_next()
             elif self.loops != 0:
                 self.queue_idx = 0
                 self.loops -= 1
                 if self.loops < -1:
                     self.loops = -1
+                freq, _ = self.queue[self.queue_idx]
                 self._play_next()
             else:
+                freq = -1
                 self.stop()
+            return freq
+        return 0
 
     def is_playing(self):
         return self.playing
