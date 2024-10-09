@@ -473,7 +473,8 @@ var extensions = new function() {
         '</p>' +
         '<p>' +
           'With this extension, you can provide the start, stop, and duration (or speed), and it will generate the intermediate steps for you with the appropriate <a href="https://easings.net/">easing</a> function. ' +
-        '</p>'
+        '</p>' +
+        '<p><a href="https://tutorials.aposteriori.com.sg/120-IoTy/100-Extensions_Software/60-tween.html" target="_blank">Documentations</a></p>'
     },
     {
       id: 'max6675',
@@ -495,7 +496,8 @@ var extensions = new function() {
         '<p>' +
           'When wiring this device, SO should be connected to the MISO pin, and there are no connections for the MOSI pin. ' +
           'CS should be connected to any pin that supports digital write.' +
-        '</p>'
+        '</p>' +
+        '<p><a href="https://tutorials.aposteriori.com.sg/120-IoTy/110-Extensions_Hardware/210-max6675.html" target="_blank">Documentations</a></p>'
     },
     {
       id: 'encoder',
@@ -507,7 +509,8 @@ var extensions = new function() {
         '<p>' +
           'Incremental encoders are used to detect motor movements as well as some knobs. ' +
           'It can detect direction, relative position, and speed. ' +
-        '</p>'
+        '</p>' +
+        '<p><a href="https://tutorials.aposteriori.com.sg/120-IoTy/110-Extensions_Hardware/220-encoder.html" target="_blank">Documentations</a></p>'
     },
     {
       id: 'huskylens',
@@ -522,7 +525,8 @@ var extensions = new function() {
         '</p>' +
         '<p>' +
           'This device can be wired in I2C mode (T -> SDA, R -> SCL), or UART mode (T -> Rx, R -> Tx). ' +
-        '</p>'
+        '</p>' +
+        '<p><a href="https://tutorials.aposteriori.com.sg/120-IoTy/110-Extensions_Hardware/230-husky-lens.html" target="_blank">Documentations</a></p>'
     },
     {
       id: 'tca9548a',
@@ -546,7 +550,8 @@ var extensions = new function() {
         '<p>' +
           'Plays tones, musical notes, and songs in Ring Tone Text Transfer Language (RTTTL) format. ' +
           'Find more RTTTL songs <a href="https://picaxe.com/rtttl-ringtones-for-tune-command/">here</a>, or <a href="https://eddmann.com/nokia-composer-web/">compose</a> your own.' +
-        '</p>'
+        '</p>' +
+        '<p><a href="https://tutorials.aposteriori.com.sg/120-IoTy/110-Extensions_Hardware/250-music.html" target="_blank">Documentations</a></p>'
     },
     {
       id: 'scaled_text',
