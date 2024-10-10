@@ -578,7 +578,7 @@ var extensions = new function() {
       description:
         '<p>' +
           'This extension allows you to decoder and render a PNG image on screen. ' +
-          'In blocks mode, you can only render the image to a supported display type (...currently SSD-1306 and the SH-1106 which uses the same extension). ' +
+          'In blocks mode, you can only render the image to a supported display type. ' +
           'In Python, you can render to any type of display by providing a suitable callback. ' +
         '</p>' +
         '<p>' +
@@ -594,8 +594,7 @@ var extensions = new function() {
       description:
         '<p>' +
           'This extension allows you to decoder and render a BMP image on screen. ' +
-          'You can directly render the image to a supported display type (...currently SSD-1306 and the SH-1106 which uses the same extension), ' +
-          'or extract out each pixel value one at a time. ' +
+          'You can directly render the image to a supported display type, or extract out each pixel value one at a time. ' +
         '</p>' +
         '<p>' +
           'Images can be uploaded using the "Files on Device..." option in the 3-dots menu. ' +
