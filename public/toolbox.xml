@@ -1708,7 +1708,6 @@
       </value>
     </block>
     <block type="bmp_image_get_pixel"></block>
-    <block type="bmp_image_get_pixel_raw"></block>
   </category>
   <category toolboxitemid="adv_pins" name="Adv Pins" colour="#5b67a5" hidden="true">
     <block type="adv_set_pin_mode">

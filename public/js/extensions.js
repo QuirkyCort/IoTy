@@ -589,7 +589,7 @@ var extensions = new function() {
       id: 'bmp_image',
       name: 'BMP Image',
       files: [
-        ['bmp_image.py', 'extensions/bmp_image.py?v=16689a30'],
+        ['bmp_image.py', 'extensions/bmp_image.py?v=aced5b14'],
       ],
       description:
         '<p>' +

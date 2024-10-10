@@ -1,5 +1,14 @@
 import struct
 import math
+from micropython import const
+
+NO_CONVERSION = const(0)
+RGB565BE = const(1)
+RGB565LE = const(2)
+RGB24 = const(3)
+BW = const(4)
+WB = const(5)
+LIST = const(99)
 
 class BMP:
     def __init__(self, filename):
@@ -34,7 +43,7 @@ class BMP:
         self.row_size = math.ceil(self.depth * self.width / 32) * 4
         if self.dib_size != 12:
             compression = struct.unpack('<I', self.file.read(4))[0]
-            if compression != 0:
+            if compression != 0 and compression != 3:
                 raise RuntimeError('Compression not supported')
 
     def _read_palette(self):
@@ -84,20 +93,11 @@ class BMP:
         p = self.file.read(4)
         return (p[2], p[1], p[0])
 
-    def _555_to_24(self, w):
-        b = w[0] & 31
-        g = ((w[1] & 3) << 3) | (w[0] >> 5)
-        r = (w[1] >> 2) & 31
-        r = 255 * r // 31
-        g = 255 * g // 31
-        b = 255 * b // 31
-        return (r, g, b)
-
     def close(self):
         self.file.close()
         self.file = None
 
-    def get_pixel_raw(self):
+    def _get_pixel_raw(self):
         if self.depth == 1:
             p = self._get_pixel_1()
         elif self.depth == 4:
@@ -119,22 +119,95 @@ class BMP:
 
         return p
 
-    def get_pixel(self):
-        p = self.get_pixel_raw()
+    def _to_rgb24(self, p):
+        if self.depth <= 8:
+            p = self.palette[p]
+            return p[0] << 16 | p[1] << 8 | p[2]
+        elif self.depth == 16:
+            b = p[0] & 31
+            g = ((p[1] & 3) << 3) | (p[0] >> 5)
+            r = (p[1] >> 3) & 31
+            r = 255 * r // 31
+            g = 255 * g // 31
+            b = 255 * b // 31
+            return r << 16 | g << 8 | b
+        elif self.depth == 24:
+            return p[0] << 16 | p[1] << 8 | p[2]
 
+    def _to_565BE(self, p):
+        if self.depth <= 8:
+            p = self.palette[p]
+            return (p[0] & 248) << 8 | (p[1] & 252) << 3 | (p[2] & 248) >> 3
+        elif self.depth == 16:
+            return p[1] << 8 | p[0]
+        elif self.depth == 24:
+            return (p[0] & 248) << 8 | (p[1] & 252) << 3 | (p[2] & 248) >> 3
+
+    def _to_565LE(self, p):
+        if self.depth <= 8:
+            p = self.palette[p]
+            return (p[1] & 28) << 11 | (p[2] & 248) << 5 | (p[0] & 248) | (p[1] & 224) >> 5
+        elif self.depth == 16:
+            return p[0] << 8 | p[1]
+        elif self.depth == 24:
+            return (p[1] & 28) << 11 | (p[2] & 248) << 5 | (p[0] & 248) | (p[1] & 224) >> 5
+
+    def _to_BW(self, p):
+        if self.depth <= 8:
+            p = self.palette[p]
+            if max(p[0], p[1], p[2]) > 127:
+                return 1
+            return 0
+        elif self.depth == 16:
+            b = p[0] & 31
+            g = ((p[1] & 3) << 3) | (p[0] >> 5)
+            r = (p[1] >> 3) & 31
+            if max(r, g, b) > 15:
+                return 1
+            return 0
+        elif self.depth == 24:
+            if max(p[0], p[1], p[2]) > 127:
+                return 1
+            return 0
+
+    def _to_WB(self, p):
+        p = self._to_BW(p)
+        if p:
+            return 0
+        return 1
+
+    def _to_list(self, p):
         if self.depth <= 8:
             return self.palette[p]
         elif self.depth == 16:
-            return self._555_to_24(p)
-        else:
+            b = p[0] & 31
+            g = ((p[1] & 3) << 3) | (p[0] >> 5)
+            r = (p[1] >> 2) & 31
+            r = 255 * r // 31
+            g = 255 * g // 31
+            b = 255 * b // 31
+            return (r, g, b)
+        elif self.depth == 24:
             return p
 
-    def render(self, cb, x_offset, y_offset):
-        for y in range(self.height - 1, -1, -1):
-            for x in range(self.width):
-                cb(x + x_offset, y + y_offset, self.get_pixel())
+    def get_pixel(self, format=RGB24):
+        p = self._get_pixel_raw()
 
-    def render_raw(self, cb, x_offset, y_offset):
+        if format == RGB24:
+            return self._to_rgb24(p)
+        elif format == RGB565BE:
+            return self._to_565BE(p)
+        elif format == RGB565LE:
+            return self._to_565LE(p)
+        elif format == BW:
+            return self._to_BW(p)
+        elif format == WB:
+            return self._to_WB(p)
+        elif format == LIST:
+            return self._to_list(p)
+
+    def render(self, cb, x_offset, y_offset, format=RGB24):
         for y in range(self.height - 1, -1, -1):
             for x in range(self.width):
-                cb(x + x_offset, y + y_offset, self.get_pixel_raw())
+                cb(x + x_offset, y + y_offset, self.get_pixel(format=format))
+

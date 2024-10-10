@@ -433,7 +433,6 @@ var ioty_generator = new function() {
     Blockly.Python['bmp_image_depth'] = self.bmp_image_depth;
     Blockly.Python['bmp_image_render'] = self.bmp_image_render;
     Blockly.Python['bmp_image_get_pixel'] = self.bmp_image_get_pixel;
-    Blockly.Python['bmp_image_get_pixel_raw'] = self.bmp_image_get_pixel_raw;
     Blockly.Python.addReservedWords('bmp_image,bmp_image_file');
 
     Blockly.Python['hid_keyboard_init'] = self.hid_keyboard_init;
@@ -4233,25 +4232,24 @@ var ioty_generator = new function() {
     let type = block.getFieldValue('type');
     let x = Blockly.Python.valueToCode(block, 'x', Blockly.Python.ORDER_ATOMIC);
     let y = Blockly.Python.valueToCode(block, 'y', Blockly.Python.ORDER_ATOMIC);
+    let format = block.getFieldValue('format');
 
     if (type == 'SSD1306') {
-      type = 'ssd1306_i2c';
+      type = 'ssd1306_i2c.pixel';
+    } else if (type == 'ILI9341') {
+      type = 'ili9341_device.draw_pixel';
+    } else if (type == 'ST7789') {
+      type = 'st7789_device.pixel';
     }
 
     let code =
-      'bmp_image_file.render_raw(' + type + '.pixel, ' + x + ', ' + y + ')\n';
+      'bmp_image_file.render(' + type + ', ' + x + ', ' + y + ', format=bmp_image.' + format + ')\n';
 
     return code;
   };
 
   this.bmp_image_get_pixel = function(block) {
-    let code = 'bmp_image_file.get_pixel()';
-
-    return [code, Blockly.Python.ORDER_ATOMIC];
-  };
-
-  this.bmp_image_get_pixel_raw = function(block) {
-    let code = 'bmp_image_file.get_pixel_raw()';
+    let code = 'bmp_image_file.get_pixel(format=bmp_image.LIST)';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };
