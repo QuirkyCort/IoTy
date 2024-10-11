@@ -567,7 +567,8 @@ var extensions = new function() {
         '</p>' +
         '<p>' +
           'When using this extension, you should continue to use the original "fill" and "show" functions; this extension only replaces the "text" function. ' +
-        '</p>'
+        '</p>' +
+        '<p><a href="https://tutorials.aposteriori.com.sg/120-IoTy/110-Extensions_Hardware/260-Scaled-Text.html" target="_blank">Documentations</a></p>'
     },
     {
       id: 'png_decoder',
@@ -583,7 +584,8 @@ var extensions = new function() {
         '</p>' +
         '<p>' +
           'Images can be uploaded using the "Files on Device..." option in the 3-dots menu. ' +
-        '</p>'
+        '</p>' +
+        '<p><a href="https://tutorials.aposteriori.com.sg/120-IoTy/110-Extensions_Hardware/270-PNG-decoder.html" target="_blank">Documentations</a></p>'
     },
     {
       id: 'bmp_image',
@@ -599,7 +601,8 @@ var extensions = new function() {
         '<p>' +
           'Images can be uploaded using the "Files on Device..." option in the 3-dots menu. ' +
           'Image must be uncompressed, and of 1/4/8/16/24/32 bits depth. ' +
-        '</p>'
+        '</p>' +
+        '<p><a href="https://tutorials.aposteriori.com.sg/120-IoTy/110-Extensions_Hardware/280-BMP-Image.html" target="_blank">Documentations</a></p>'
     },
     {
       id: 'adv_pins',
@@ -629,7 +632,8 @@ var extensions = new function() {
         '<p>' +
           'Currently only works with micropython 1.19.1 and 1.23.0. ' +
           'Bluetooth should be disabled in the "When Started" block. ' +
-        '</p>'
+        '</p>' +
+        '<p><a href="https://tutorials.aposteriori.com.sg/120-IoTy/100-Extensions_Software/70-BLE-HID.html" target="_blank">Documentations</a></p>'
     },
     {
       id: 'yx5300',
@@ -649,7 +653,8 @@ var extensions = new function() {
         '</p>' +
         '<p>' +
           'Note that the file index is based on the order that the file is written to the microSD card, and not the filename! ' +
-        '</p>'
+        '</p>' +
+        '<p><a href="https://tutorials.aposteriori.com.sg/120-IoTy/110-Extensions_Hardware/290-serial-mp3.html" target="_blank">Documentations</a></p>'
     },
     {
       id: 'ld2410',
