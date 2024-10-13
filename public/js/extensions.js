@@ -673,7 +673,8 @@ var extensions = new function() {
         '<p>' +
           'This library allows you to control and read the detailed sensor data via UART. ' +
           'Note that the default baudrate is 256000. ' +
-        '</p>'
+        '</p>' +
+        '<p><a href="https://tutorials.aposteriori.com.sg/120-IoTy/110-Extensions_Hardware/300-ld2410.html" target="_blank">Documentations</a></p>'
     },
     {
       id: 'stepper_wheels',
