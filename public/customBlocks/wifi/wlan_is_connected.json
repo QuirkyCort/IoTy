@@ -1,0 +1,9 @@
+{
+  "type": "wlan_is_connected",
+  "message0": "#blk-wlan_is_connected#",
+  "args0": [],
+  "output": "Boolean",
+  "colour": 65,
+  "tooltip": "#blk-wlan_is_connected_tooltip#",
+  "helpUrl": ""
+}

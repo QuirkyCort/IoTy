@@ -1114,6 +1114,12 @@ let MSGS = {
   '#blk-wlan_is_present_tooltip#': {
     en: 'Returns True if the specified WiFi SSID is available.',
   },
+  '#blk-wlan_is_connected#': {
+    en: 'WiFi is connected',
+  },
+  '#blk-wlan_is_connected_tooltip#': {
+    en: 'Returns True if connected to a router or if a client is connected to your device (AP Mode), else returns None.',
+  },
   '#blk-date_time_get#': {
     en: 'date and time',
   },

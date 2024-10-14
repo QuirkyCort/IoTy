@@ -60,6 +60,7 @@ var ioty_generator = new function() {
     Blockly.Python['start_as_ap'] = self.start_as_ap;
     Blockly.Python['wlan_scan'] = self.wlan_scan;
     Blockly.Python['wlan_is_present'] = self.wlan_is_present;
+    Blockly.Python['wlan_is_connected'] = self.wlan_is_connected;
 
     Blockly.Python['setBluetoothCmds'] = self.setBluetoothCmds;
     Blockly.Python['try_except'] = self.try_except;
@@ -1447,6 +1448,14 @@ var ioty_generator = new function() {
     var ssid = Blockly.Python.valueToCode(block, 'ssid', Blockly.Python.ORDER_NONE);
 
     var code = 'ioty.wifi.is_present(' + ssid + ')';
+
+    return [code, Blockly.Python.ORDER_NONE];
+  };
+
+  this.wlan_is_connected = function(block) {
+    self.imports['ioty_wifi'] = 'import ioty.wifi';
+
+    var code = 'ioty.wifi.isconnected()';
 
     return [code, Blockly.Python.ORDER_NONE];
   };

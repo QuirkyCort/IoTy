@@ -576,6 +576,7 @@
         </shadow>
       </value>
     </block>
+    <block type="wlan_is_connected"></block>
     <block type="wlan_get_ip"></block>
     <block type="start_as_ap"></block>
     <block type="mqtt_connect_to_server"></block>
