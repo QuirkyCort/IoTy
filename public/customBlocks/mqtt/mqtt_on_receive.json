@@ -16,7 +16,6 @@
     }
   ],
   "inputsInline": true,
-  "nextStatement": null,
   "colour": 65,
   "tooltip": "#blk-mqtt_on_receive_tooltip#",
   "helpUrl": ""
