@@ -1,6 +1,6 @@
 {
   "type": "mqtt_connect_to_server",
-  "message0": "#blk-connect_to_mqtt_server# %1 #blk-on_port# %2 #blk-with_user# %3 #blk-and_password# %4",
+  "message0": "#blk-connect_to_mqtt_server# %1 #blk-on_port# %2 #blk-with_user# %3 #blk-and_password# %4 %5",
   "args0": [
     {
       "type": "field_input",
@@ -21,6 +21,14 @@
       "type": "field_input",
       "name": "password",
       "text": "password"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "ssl",
+      "options": [
+        ["No SSL", "NO_SSL"],
+        ["SSL", "SSL"]
+      ]
     }
   ],
   "inputsInline": true,

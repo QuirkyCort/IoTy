@@ -1518,6 +1518,12 @@ var ioty_generator = new function() {
     var port = block.getFieldValue('port');
     var name = block.getFieldValue('name');
     var password = block.getFieldValue('password');
+    var ssl = block.getFieldValue('ssl');
+
+    let sslParams = '';
+    if (ssl == 'SSL') {
+      sslParams = ',ssl=True, ssl_params={\'server_hostname\':\'' + server + '\'}';
+    }
 
     name = escapeSingleQuotes(name);
     password = escapeSingleQuotes(password);
@@ -1532,7 +1538,9 @@ var ioty_generator = new function() {
         ', port=' + port +
         ', user=\'' + name + '\'' +
         ', password=\'' + password + '\'' +
-        ', keepalive=60)\n' +
+        ', keepalive=60' +
+        sslParams +
+        ')\n' +
       'ioty_mqtt.set_callback(ioty_mqtt_cb)\n' +
       'ioty_mqtt.connect()\n' +
       self.MQTT_SUBSCRIPTION_PLACEHOLDER +
