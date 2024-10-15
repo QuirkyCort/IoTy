@@ -734,7 +734,7 @@ var extensions = new function() {
       description:
         '<p>' +
           'Provides functions for Machine Vision tasks. ' +
-          'Currently, functions are for blob detection, circle detection, edge detection, and blurring are available.' +
+          'Currently, functions for blob detection, circle detection, edge detection, and blurring are available.' +
         '</p>' +
         '<p>' +
           'Some tools to support this extension can be found here: <a href="https://github.com/QuirkyCort/misc/tree/main/machine_vision">https://github.com/QuirkyCort/misc/tree/main/machine_vision</a>' +
