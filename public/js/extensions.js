@@ -922,6 +922,8 @@ var extensions = new function() {
         item.hide();
       }
     }
+
+    window.dispatchEvent(new Event('resize'));
   }
 
   this.processFilesManager = async function(extension) {
