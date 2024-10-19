@@ -313,9 +313,9 @@ class Mecanum:
         for motor in self.motors:
             motor.set_acceleration(self._acceleration)
 
-        self.motors[0].run_steps(speed, -int(steps), ramp=ramp, wait=False)
+        self.motors[0].run_steps(speed, int(steps), ramp=ramp, wait=False)
         self.motors[1].run_steps(speed, int(steps), ramp=ramp, wait=False)
-        self.motors[2].run_steps(speed, -int(steps), ramp=ramp, wait=False)
+        self.motors[2].run_steps(speed, int(steps), ramp=ramp, wait=False)
         self.motors[3].run_steps(speed, int(steps), ramp=ramp, wait=False)
 
         if wait:
