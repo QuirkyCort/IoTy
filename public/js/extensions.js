@@ -818,7 +818,7 @@ var extensions = new function() {
         '<p>' +
           'When using this display, the SPI interface should be initialized at a high speed; 20000000 is recommended. ' +
           'You may also need to turn on the backlight (pin 4 for the TTGO). ' +
-          'On the TTGQ, you should use SPI channel 1 and sck=Pin(18), mosi=Pin(19), miso=Pin(12). ' +
+          'On the TTGO, you should use SPI channel 1 and sck=Pin(18), mosi=Pin(19), miso=Pin(12). ' +
         '</p>' +
         '<p>' +
           'Default settings are for the TTGO; you may need to change it if you are using an external display with different wirings. ' +
