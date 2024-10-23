@@ -3487,6 +3487,42 @@ let MSGS = {
   '#blk-lds02rr_distances_tooltip#': {
     en: 'Returns a list with 360 items, each representing the range in mm.',
   },
+  '#blk-amg8833_init#': {
+    en: 'init AMG8833 on',
+  },
+  '#blk-amg8833_init_tooltip#': {
+    en: 'You must have an \\"init I2C\\" block before this',
+  },
+  '#blk-amg8833_set_ma_mode#': {
+    en: 'amg8833: set moving average mode to',
+  },
+  '#blk-amg8833_set_ma_mode_tooltip#': {
+    en: 'In moving average mode, the readings will be less noisy, but respond slower to changes.',
+  },
+  '#blk-amg8833_read#': {
+    en: 'amg8833: read',
+  },
+  '#blk-amg8833_read_tooltip#': {
+    en: 'Takes one set of readings from the sensor. You must run this before getting temperature.',
+  },
+  '#blk-amg8833_get_buf#': {
+    en: 'amg8833: get buffer',
+  },
+  '#blk-amg8833_get_buf_tooltip#': {
+    en: 'Retrieve the temperature data as a bytes array. You must perform a \\"read\\" before this.',
+  },
+  '#blk-amg8833_get_temperature#': {
+    en: 'amg8833: get temperature at x',
+  },
+  '#blk-amg8833_get_temperature_tooltip#': {
+    en: 'Retrieve the temperature (Celsius) at the specified position in the array. You must perform a \\"read\\" before this.',
+  },
+  '#blk-amg8833_get_thermistor_temperature#': {
+    en: 'amg8833: get thermistor temperature',
+  },
+  '#blk-amg8833_get_thermistor_temperature_tooltip#': {
+    en: 'Retrieve the temperature (Celsius) of the sensor chip.',
+  },
 };
 let MSGS_KEYS = Object.keys(MSGS);
 
