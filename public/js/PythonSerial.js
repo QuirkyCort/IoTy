@@ -217,7 +217,11 @@ class PythonSerial {
 
   async enterRawMode(timeout=2500) {
     this.clearBuf();
-    this.sendCtrlC();
+    try {
+      this.sendCtrlC();
+    } catch (error) {
+      return 'error';
+    }
     let r = await this.waitForString('>>> ', timeout);
     if (r == null) {
       return 'timeout';
