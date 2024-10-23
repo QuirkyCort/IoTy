@@ -589,6 +589,14 @@ var ioty_generator = new function() {
     Blockly.Python['lds02rr_distances'] = self.lds02rr_distances;
     Blockly.Python.addReservedWords('lds02rr,lds02rr_device');
 
+    Blockly.Python['amg8833_init'] = self.amg8833_init;
+    Blockly.Python['amg8833_set_ma_mode'] = self.amg8833_set_ma_mode;
+    Blockly.Python['amg8833_read'] = self.amg8833_read;
+    Blockly.Python['amg8833_get_buf'] = self.amg8833_get_buf;
+    Blockly.Python['amg8833_get_temperature'] = self.amg8833_get_temperature;
+    Blockly.Python['amg8833_get_thermistor_temperature'] = self.amg8833_get_thermistor_temperature;
+    Blockly.Python.addReservedWords('amg8833');
+
   };
 
   // Generate python code
@@ -5796,13 +5804,68 @@ var ioty_generator = new function() {
   };
 
   this.lds02rr_rpm = function(block) {
-    code = 'lds02rr_device.get_rpm()';
+    let code = 'lds02rr_device.get_rpm()';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };
 
   this.lds02rr_distances = function(block) {
-    code = 'lds02rr_device.get_distances()';
+    let code = 'lds02rr_device.get_distances()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.amg8833_init = function(block) {
+    self.imports['amg8833'] = 'import amg8833';
+    self.reservedVariables['amg8833_init'] = ['amg8833_device'];
+
+    let id = block.getFieldValue('id');
+    let addr = block.getFieldValue('addr');
+
+    let code =
+      'amg8833_device = amg8833.AMG8833(' + id + ', ' + addr + ')\n';
+
+    return code;
+  };
+
+  this.amg8833_set_ma_mode = function(block) {
+    let mode = block.getFieldValue('mode');
+
+    let code =
+      'amg8833_device.set_moving_average_mode(' + mode + ')\n';
+
+    return code;
+  };
+
+  this.amg8833_read = function(block) {
+    let code =
+      'amg8833_device.read()\n';
+
+    return code;
+  };
+
+  this.amg8833_get_buf = function(block) {
+    let format = block.getFieldValue('format');
+
+    let code =
+      'amg8833_device.get_buf(format=amg8833.' + format + ')';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.amg8833_get_temperature = function(block) {
+    let x = Blockly.Python.valueToCode(block, 'x', Blockly.Python.ORDER_NONE);
+    let y = Blockly.Python.valueToCode(block, 'y', Blockly.Python.ORDER_NONE);
+
+    let code =
+      'amg8833_device.get_temperature(' + x + ', ' + y + ')';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.amg8833_get_thermistor_temperature = function(block) {
+    let code =
+      'amg8833_device.get_thermistor_temperature()';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };

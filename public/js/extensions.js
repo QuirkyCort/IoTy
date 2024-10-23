@@ -840,6 +840,18 @@ var extensions = new function() {
           'This extension does not control the motor RPM, and you should control it by adjusting the motor voltage or with PWM. ' +
         '</p>'
     },
+    {
+      id: 'amg8833',
+      name: 'AMG8833 IR Thermal Camera',
+      files: [
+        ['amg8833.py', 'extensions/amg8833.py?v=c9f520ce'],
+      ],
+      description:
+        '<p>' +
+          'The AMG8833 contains an 8x8 array of IR thermal sensors. ' +
+          'It can be used to detect hot or warm objects (eg. a human) from a distance.' +
+        '</p>'
+    },
   ]
 
   this.init = function() {

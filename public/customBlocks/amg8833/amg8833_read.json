@@ -1,0 +1,11 @@
+{
+  "type": "amg8833_read",
+  "message0": "#blk-amg8833_read#",
+  "args0": [],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-amg8833_read_tooltip#",
+  "helpUrl": ""
+}

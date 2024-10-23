@@ -1,0 +1,19 @@
+{
+  "type": "amg8833_get_buf",
+  "message0": "#blk-amg8833_get_buf# %1",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "format",
+      "options": [
+        ["Int16LE", "INT_16LE"],
+        ["UInt16LE", "UINT_16LE"],
+        ["No Conversion (12bits LE)", "NO_CONVERSION"]
+      ]
+    }
+  ],
+  "output": "Bytes",
+  "colour": 230,
+  "tooltip": "#blk-amg8833_get_buf_tooltip#",
+  "helpUrl": ""
+}

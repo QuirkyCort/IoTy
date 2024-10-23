@@ -2837,4 +2837,23 @@
     <block type="lds02rr_rpm"></block>
     <block type="lds02rr_distances"></block>
   </category>
+  <category toolboxitemid="amg8833" name="AMG8833" colour="#5b67a5" hidden="true">
+    <block type="amg8833_init"></block>
+    <block type="amg8833_set_ma_mode"></block>
+    <block type="amg8833_read"></block>
+    <block type="amg8833_get_buf"></block>
+    <block type="amg8833_get_temperature">
+      <value name="x">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="y">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="amg8833_get_thermistor_temperature"></block>
+  </category>
 </xml>

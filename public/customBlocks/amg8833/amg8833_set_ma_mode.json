@@ -1,0 +1,20 @@
+{
+  "type": "amg8833_set_ma_mode",
+  "message0": "#blk-amg8833_set_ma_mode# %1",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "mode",
+      "options": [
+        ["True", "True"],
+        ["False", "False"]
+      ]
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-amg8833_set_ma_mode_tooltip#",
+  "helpUrl": ""
+}
