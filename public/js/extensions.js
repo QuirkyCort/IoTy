@@ -684,7 +684,7 @@ var extensions = new function() {
       ],
       description:
         '<p>' +
-          '<a href="https://github.com/QuirkyCort/stepper_wheels">Stepper Wheels</a> is a firmware that allows you to use a stepper motor controller to drive the wheels on a robot. ' +
+          '<a href="https://github.com/QuirkyCort/stepper_wheels" target="_blank">Stepper Wheels</a> is a firmware that allows you to use a stepper motor controller to drive the wheels on a robot. ' +
           'These controllers are typically used to drive 3D printers / CNC / Laser cutters, and are available at a low cost. ' +
         '</p>' +
         '<p>' +

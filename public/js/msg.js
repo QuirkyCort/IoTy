@@ -2951,7 +2951,7 @@ let MSGS = {
     en: 'delta drive: move in direction',
   },
   '#blk-and_rotation#': {
-    en: 'and_rotation',
+    en: 'and rotation',
   },
   '#blk-stepper_wheels_delta_move_turn_tooltip#': {
     en: 'Will move continuously until given another command. Direction is in degrees.',
