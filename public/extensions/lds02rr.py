@@ -15,7 +15,7 @@ class LDS02RR:
         self.speed = 0
 
     def update(self):
-        parsed = False
+        last_read = None
         while self.uart.any():
             char = self.uart.read(1)[0]
 
@@ -27,10 +27,9 @@ class LDS02RR:
                 self.buf[self.ptr] = char
                 self.ptr += 1
                 if self.ptr == 22:
-                    self._parse_measurement()
+                    last_read = self._parse_measurement()
                     self.ptr = 0
-
-        return parsed
+        return last_read
 
     def get_distances(self):
         return self.distances
@@ -60,7 +59,7 @@ class LDS02RR:
 
     def _parse_measurement(self):
         if not self._checksum_correct():
-            return
+            return None
         sample_index = self.buf[1] - 0xa0
         self.speed = struct.unpack('h', self.buf[2:4])[0]
         for i in range(4):
@@ -73,3 +72,4 @@ class LDS02RR:
             else:
                 self.distances[pos] = -1
                 self.strengths[pos] = -1
+        return pos
