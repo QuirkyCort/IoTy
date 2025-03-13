@@ -1,5 +1,9 @@
 import time
-from machine import Pin, ADC, PWM, TouchPad, time_pulse_us
+from machine import Pin, ADC, PWM, time_pulse_us
+try:
+    from machine import TouchPad
+except:
+    pass
 from micropython import const
 
 OUT = Pin.OUT

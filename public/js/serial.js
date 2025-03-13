@@ -26,8 +26,11 @@ var serial = new function() {
     { // Arduino Nano ESP32
       usbProductId: 1387,
       usbVendorId: 9025
-    }
-  ];
+    },
+    { // ESP32-C3 Supermini
+      usbProductId: 4097,
+      usbVendorId: 12346
+    },  ];
 
   this.writeEnable = false;
 
