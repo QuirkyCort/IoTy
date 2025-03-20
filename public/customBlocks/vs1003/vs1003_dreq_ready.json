@@ -1,0 +1,10 @@
+{
+  "type": "vs1003_dreq_ready",
+  "message0": "#blk-vs1003_dreq_ready#",
+  "args0": [],
+  "output": ["Boolean"],
+  "inputsInline": true,
+  "colour": 230,
+  "tooltip": "#blk-vs1003_dreq_ready_tooltip#",
+  "helpUrl": ""
+}

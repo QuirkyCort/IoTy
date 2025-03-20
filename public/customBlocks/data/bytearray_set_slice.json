@@ -1,0 +1,30 @@
+{
+  "type": "bytearray_set_slice",
+  "message0": "%1 #blk-set_slice# #blk-from# %2 : %3 #blk-to# %4",
+  "args0": [
+    {
+      "type": "field_variable",
+      "name": "variable",
+      "variable": "buf"
+    },
+    {
+      "type": "input_value",
+      "name": "start"
+    },
+    {
+      "type": "input_value",
+      "name": "end"
+    },
+    {
+      "type": "input_value",
+      "name": "value",
+      "check": "Bytes"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-bytearray_set_slice_tooltip#",
+  "helpUrl": ""
+}

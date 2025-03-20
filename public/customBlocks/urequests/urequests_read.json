@@ -1,0 +1,15 @@
+{
+  "type": "urequests_read",
+  "message0": "#blk-urequests_read# %1 #blk-bytes#",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "size",
+      "check": "Number"
+    }
+  ],
+  "output": ["Bytes"],
+  "colour": 65,
+  "tooltip": "#blk-urequests_read_tooltip#",
+  "helpUrl": ""
+}

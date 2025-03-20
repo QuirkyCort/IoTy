@@ -1,0 +1,45 @@
+{
+  "type": "vs1003_init",
+  "message0": "#blk-vs1003_init# %1 #blk-xcs# %2 #blk-xdcs# %3 #blk-dreq# %4 #blk-xrst# %5",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "spi",
+      "options": $_SPI
+    },
+    {
+      "type": "field_number",
+      "name": "xcs",
+      "min": 0,
+      "precision": 1,
+      "value": 25
+    },
+    {
+      "type": "field_number",
+      "name": "xdcs",
+      "min": 0,
+      "precision": 1,
+      "value": 33
+    },
+    {
+      "type": "field_number",
+      "name": "dreq",
+      "min": 0,
+      "precision": 1,
+      "value": 26
+    },
+    {
+      "type": "field_number",
+      "name": "xrst",
+      "min": 0,
+      "precision": 1,
+      "value": 27
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-vs1003_init_tooltip#",
+  "helpUrl": ""
+}

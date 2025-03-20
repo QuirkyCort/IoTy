@@ -502,6 +502,30 @@
         </shadow>
       </value>
     </block>
+    <block type="bytearray_get_slice">
+      <value name="start">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="end">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="bytearray_set_slice">
+      <value name="start">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="end">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
     <block type="decode"></block>
     <block type="encode"></block>
     <block type="unpack"></block>
@@ -1073,6 +1097,28 @@
       <value name="url">
         <shadow type="text">
           <field name="TEXT">http://whatever.url</field>
+        </shadow>
+      </value>
+    </block>
+    <label text="Advanced (Connect then get)"></label>
+    <block type="urequests_connect">
+      <value name="url">
+        <shadow type="text">
+          <field name="TEXT">http://whatever.url</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="urequests_read">
+      <value name="size">
+        <shadow type="math_number">
+          <field name="NUM">512</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="urequests_settimeout">
+      <value name="timeout">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
         </shadow>
       </value>
     </block>
@@ -2855,5 +2901,18 @@
       </value>
     </block>
     <block type="amg8833_get_thermistor_temperature"></block>
+  </category>
+  <category toolboxitemid="vs1003" name="VS1003" colour="#5b67a5" hidden="true">
+    <block type="vs1003_init"></block>
+    <block type="vs1003_play_bytes"></block>
+    <block type="vs1003_set_volume">
+      <value name="vol">
+        <shadow type="math_number">
+          <field name="NUM">10</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="vs1003_dreq_ready"></block>
+    <block type="vs1003_set_stream_mode"></block>
   </category>
 </xml>

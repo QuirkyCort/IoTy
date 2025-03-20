@@ -321,6 +321,18 @@ let MSGS = {
   '#blk-bytearray_by_size_tooltip#': {
     en: 'Returns a bytearray of the specified size initialized to all 0.',
   },
+  '#blk-set_slice#': {
+    en: 'set slice',
+  },
+  '#blk-bytearray_set_slice_tooltip#': {
+    en: 'Set a slice of a bytearray object to the specified value.',
+  },
+  '#blk-get_slice#': {
+    en: 'get slice',
+  },
+  '#blk-bytearray_get_slice_tooltip#': {
+    en: 'Get a slice of a bytearray object.',
+  },
   '#blk-neopixel_init#': {
     en: 'Initialize Neopixel at pin',
   },
@@ -1080,6 +1092,27 @@ let MSGS = {
   },
   '#blk-urequests_advance_tooltip#': {
     en: 'The advance urequest allows setting of request header and body, as well as detection of error.',
+  },
+  '#blk-connect_to#': {
+    en: 'connect to',
+  },
+  '#blk-urequests_connect_tooltip#': {
+    en: 'This block separates the connection and the request, allowing you to stream data.',
+  },
+  '#blk-urequests_read#': {
+    en: 'urequest read',
+  },
+  '#blk-bytes#': {
+    en: 'bytes',
+  },
+  '#blk-urequests_read_tooltip#': {
+    en: 'Read up to the specified number of bytes. If set to -1, the entire response will be read. If settimeout is set to 0, it will return a None if no data is available to read.',
+  },
+  '#blk-urequests_settimeout#': {
+    en: 'urequest: set timeout to',
+  },
+  '#blk-urequests_settimeout_tooltip#': {
+    en: 'Timeout in seconds. If 0, the socket will be in non-blocking mode. If set to None, it will be in blocking mode. If non-zero, an exception will be raised if the timeout expires before a read/write completes.',
   },
   '#blk-connect_to_configured_wifi#': {
     en: 'Connect to configured WiFi',
@@ -3522,6 +3555,48 @@ let MSGS = {
   },
   '#blk-amg8833_get_thermistor_temperature_tooltip#': {
     en: 'Retrieve the temperature (Celsius) of the sensor chip.',
+  },
+  '#blk-vs1003_init#': {
+    en: 'init VS1003 on',
+  },
+  '#blk-xcs#': {
+    en: 'xcs',
+  },
+  '#blk-xdcs#': {
+    en: 'xdcs',
+  },
+  '#blk-dreq#': {
+    en: 'dreq',
+  },
+  '#blk-xrst#': {
+    en: 'xrst',
+  },
+  '#blk-vs1003_init_tooltip#': {
+    en: 'You must have an \\"init SPI\\" block before this. The dreq pin is used in input mode, while the rest must be output capable.',
+  },
+  '#blk-vs1003_set_stream_mode#': {
+    en: 'vs1003: set stream mode to',
+  },
+  '#blk-vs1003_set_stream_mode_tooltip#': {
+    en: 'If set to true, the VS1003 will automatically adjust playback speed to match the incoming data rate.',
+  },
+  '#blk-vs1003_set_volume#': {
+    en: 'vs1003: set volume to',
+  },
+  '#blk-vs1003_set_volume_tooltip#': {
+    en: 'Sets the volume. Max of 10.',
+  },
+  '#blk-vs1003_dreq_ready#': {
+    en: 'vs1003: dreq ready',
+  },
+  '#blk-vs1003_dreq_ready_tooltip#': {
+    en: 'If True, you can safely send up to 32 bytes of data to the VS1003.',
+  },
+  '#blk-vs1003_play_bytes#': {
+    en: 'vs1003: play bytes',
+  },
+  '#blk-vs1003_play_bytes_tooltip#': {
+    en: 'Play the specified bytes. If dreq ready is False or if sending more than 32 bytes, this function may take a while to complete.',
   },
 };
 let MSGS_KEYS = Object.keys(MSGS);

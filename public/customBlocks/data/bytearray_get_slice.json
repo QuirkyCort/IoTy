@@ -1,0 +1,24 @@
+{
+  "type": "bytearray_get_slice",
+  "message0": "%1 #blk-get_slice# #blk-from# %2 : %3",
+  "args0": [
+    {
+      "type": "field_variable",
+      "name": "variable",
+      "variable": "buf"
+    },
+    {
+      "type": "input_value",
+      "name": "start"
+    },
+    {
+      "type": "input_value",
+      "name": "end"
+    }
+  ],
+  "inputsInline": true,
+  "output": "Bytes",
+  "colour": 230,
+  "tooltip": "#blk-bytearray_get_slice_tooltip#",
+  "helpUrl": ""
+}

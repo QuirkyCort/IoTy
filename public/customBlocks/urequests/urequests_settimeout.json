@@ -1,0 +1,17 @@
+{
+  "type": "urequests_settimeout",
+  "message0": "#blk-urequests_settimeout# %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "timeout"
+    }
+  ],
+  "inputsInline": false,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 65,
+  "tooltip": "#blk-urequests_settimeout_tooltip#",
+  "helpUrl": ""
+
+}

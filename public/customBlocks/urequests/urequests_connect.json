@@ -1,0 +1,78 @@
+{
+  "type": "urequests_connect",
+  "message0": "http %1 #blk-connect_to# %2 #blk-with# %3 #blk-in_body# %4 #blk-and_header# %5 #blk-on_success# %6 #blk-on_fail# %7",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "method",
+      "options": [
+        [
+          "GET",
+          "GET"
+        ],
+        [
+          "POST",
+          "POST"
+        ],
+        [
+          "HEAD",
+          "HEAD"
+        ],
+        [
+          "PUT",
+          "PUT"
+        ],
+        [
+          "PATCH",
+          "PATCH"
+        ],
+        [
+          "DELETE",
+          "DELETE"
+        ]
+      ]
+    },
+    {
+      "type": "input_value",
+      "name": "url",
+      "check": "String"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "body_type",
+      "options": [
+        [
+          "JSON",
+          "JSON"
+        ],
+        [
+          "Data",
+          "DATA"
+        ]
+      ]
+    },
+    {
+      "type": "input_value",
+      "name": "body"
+    },
+    {
+      "type": "input_value",
+      "name": "header"
+    },
+    {
+      "type": "input_statement",
+      "name": "on_success"
+    },
+    {
+      "type": "input_statement",
+      "name": "on_fail"
+    }
+  ],
+  "inputsInline": false,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 65,
+  "tooltip": "#blk-urequests_connect_tooltip#",
+  "helpUrl": ""
+
+}

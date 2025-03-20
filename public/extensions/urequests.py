@@ -1,4 +1,6 @@
-import usocket
+# Based on https://github.com/micropython/micropython-lib/blob/master/python-ecosys/requests/requests/__init__.py
+
+import socket
 
 
 class Response:
@@ -28,10 +30,15 @@ class Response:
         return str(self.content, self.encoding)
 
     def json(self):
-        import ujson
+        import json
 
-        return ujson.loads(self.content)
+        return json.loads(self.content)
 
+    def read(self, size):
+        return self.raw.read(size)
+
+    def settimeout(self, timeout):
+        return self.raw.settimeout(timeout)
 
 def request(
     method,
@@ -48,11 +55,11 @@ def request(
     chunked_data = data and getattr(data, "__iter__", None) and not getattr(data, "__len__", None)
 
     if auth is not None:
-        import ubinascii
+        import binascii
 
         username, password = auth
         formated = b"{}:{}".format(username, password)
-        formated = str(ubinascii.b2a_base64(formated)[:-1], "ascii")
+        formated = str(binascii.b2a_base64(formated)[:-1], "ascii")
         headers["Authorization"] = "Basic {}".format(formated)
 
     try:
@@ -73,14 +80,14 @@ def request(
         host, port = host.split(":", 1)
         port = int(port)
 
-    ai = usocket.getaddrinfo(host, port, 0, usocket.SOCK_STREAM)
+    ai = socket.getaddrinfo(host, port, 0, socket.SOCK_STREAM)
     ai = ai[0]
 
     resp_d = None
     if parse_headers is not False:
         resp_d = {}
 
-    s = usocket.socket(ai[0], usocket.SOCK_STREAM, ai[2])
+    s = socket.socket(ai[0], socket.SOCK_STREAM, ai[2])
 
     if timeout is not None:
         # Note: settimeout is not supported on all platforms, will raise
@@ -102,9 +109,9 @@ def request(
             s.write(b"\r\n")
         if json is not None:
             assert data is None
-            import ujson
+            import json
 
-            data = ujson.dumps(json)
+            data = json.dumps(json)
             s.write(b"Content-Type: application/json\r\n")
         if data:
             if chunked_data:

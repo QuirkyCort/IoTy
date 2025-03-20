@@ -1,0 +1,17 @@
+{
+  "type": "vs1003_play_bytes",
+  "message0": "#blk-vs1003_play_bytes# %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "data",
+      "check": "Bytes"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-vs1003_play_bytes_tooltip#",
+  "helpUrl": ""
+}

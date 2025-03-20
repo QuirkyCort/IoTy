@@ -71,6 +71,8 @@ var ioty_generator = new function() {
     Blockly.Python['bytes'] = self.bytes;
     Blockly.Python['bytearray'] = self.bytearray;
     Blockly.Python['bytearray_by_size'] = self.bytearray_by_size;
+    Blockly.Python['bytearray_set_slice'] = self.bytearray_set_slice;
+    Blockly.Python['bytearray_get_slice'] = self.bytearray_get_slice;
     Blockly.Python['decode'] = self.decode;
     Blockly.Python['encode'] = self.encode;
     Blockly.Python['unpack'] = self.unpack;
@@ -173,7 +175,10 @@ var ioty_generator = new function() {
 
     Blockly.Python['urequests_simple'] = self.urequests_simple_advance;
     Blockly.Python['urequests_advance'] = self.urequests_simple_advance;
-    Blockly.Python.addReservedWords('urequests,urequest');
+    Blockly.Python['urequests_connect'] = self.urequests_connect;
+    Blockly.Python['urequests_read'] = self.urequests_read;
+    Blockly.Python['urequests_settimeout'] = self.urequests_settimeout;
+    Blockly.Python.addReservedWords('urequests');
 
     Blockly.Python['esp_now_init'] = self.esp_now_init;
     Blockly.Python['esp_now_add_peer'] = self.esp_now_add_peer;
@@ -596,6 +601,13 @@ var ioty_generator = new function() {
     Blockly.Python['amg8833_get_temperature'] = self.amg8833_get_temperature;
     Blockly.Python['amg8833_get_thermistor_temperature'] = self.amg8833_get_thermistor_temperature;
     Blockly.Python.addReservedWords('amg8833');
+
+    Blockly.Python['vs1003_init'] = self.vs1003_init;
+    Blockly.Python['vs1003_set_stream_mode'] = self.vs1003_set_stream_mode;
+    Blockly.Python['vs1003_set_volume'] = self.vs1003_set_volume;
+    Blockly.Python['vs1003_dreq_ready'] = self.vs1003_dreq_ready;
+    Blockly.Python['vs1003_play_bytes'] = self.vs1003_play_bytes;
+    Blockly.Python.addReservedWords('vs1003');
 
   };
 
@@ -1200,6 +1212,27 @@ var ioty_generator = new function() {
     let code = 'bytearray(' + size + ')';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.bytearray_get_slice = function(block) {
+    let variable = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('variable'), 'VARIABLE');
+    var start = Blockly.Python.valueToCode(block, 'start', Blockly.Python.ORDER_ATOMIC);
+    var end = Blockly.Python.valueToCode(block, 'end', Blockly.Python.ORDER_ATOMIC);
+
+    let code = variable + '[' + start + ':' + end + ']';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.bytearray_set_slice = function(block) {
+    let variable = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('variable'), 'VARIABLE');
+    var start = Blockly.Python.valueToCode(block, 'start', Blockly.Python.ORDER_ATOMIC);
+    var end = Blockly.Python.valueToCode(block, 'end', Blockly.Python.ORDER_ATOMIC);
+    var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_ATOMIC);
+
+    let code = variable + '[' + start + ':' + end + '] = ' + value + '\n';
+
+    return code;
   };
 
   this.decode = function(block) {
@@ -2311,6 +2344,7 @@ var ioty_generator = new function() {
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };
+
   this.dict_set = function(block) {
     var variable = Blockly.Python.valueToCode(block, 'variable', Blockly.Python.ORDER_ATOMIC);
     var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_NONE);
@@ -2326,6 +2360,7 @@ var ioty_generator = new function() {
 
   this.urequests_simple_advance = function(block) {
     self.imports['urequests'] = 'import urequests';
+    self.reservedVariables['urequests_simple_advance'] = ['urequest'];
 
     let method = block.getFieldValue('method');
     var url = Blockly.Python.valueToCode(block, 'url', Blockly.Python.ORDER_ATOMIC);
@@ -2375,6 +2410,63 @@ var ioty_generator = new function() {
     } else {
       code += '    pass\n';
     }
+
+    return code;
+  };
+
+  this.urequests_connect = function(block) {
+    self.imports['urequests'] = 'import urequests';
+    self.reservedVariables['urequests_simple_advance'] = ['urequest'];
+
+    let method = block.getFieldValue('method');
+    var url = Blockly.Python.valueToCode(block, 'url', Blockly.Python.ORDER_ATOMIC);
+    let body_type = block.getFieldValue('body_type');
+    let body = Blockly.Python.valueToCode(block, 'body', Blockly.Python.ORDER_ATOMIC);
+    let header = Blockly.Python.valueToCode(block, 'header', Blockly.Python.ORDER_ATOMIC);
+    var on_success = Blockly.Python.statementToCode(block, 'on_success');
+    var on_fail = Blockly.Python.statementToCode(block, 'on_fail');
+
+    let param = '';
+
+    if (body) {
+      if (body_type == 'JSON') {
+        param += ', json=' + body;
+      } else {
+        param += ', data=' + body;
+      }
+    }
+
+    if (header) {
+      param += ', headers=' + header;
+    }
+
+    var code =
+      'try:\n' +
+      '    urequest = urequests.request(\'' + method + '\', ' + url + param + ')\n' +
+      on_success +
+      'except:\n';
+
+    if (on_fail) {
+      code += on_fail;
+    } else {
+      code += '    pass\n';
+    }
+
+    return code;
+  };
+
+  this.urequests_read = function(block) {
+    let size = Blockly.Python.valueToCode(block, 'size', Blockly.Python.ORDER_ATOMIC);
+
+    let code = 'urequest.read(' + size + ')';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.urequests_settimeout = function(block) {
+    let timeout = Blockly.Python.valueToCode(block, 'timeout', Blockly.Python.ORDER_ATOMIC);
+
+    let code = 'urequest.settimeout(' + timeout + ')\n';
 
     return code;
   };
@@ -5868,6 +5960,52 @@ var ioty_generator = new function() {
       'amg8833_device.get_thermistor_temperature()';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.vs1003_init = function(block) {
+    self.imports['vs1003'] = 'import vs1003';
+    self.reservedVariables['vs1003_init'] = ['vs1003_device'];
+
+    let spi = block.getFieldValue('spi');
+    let xcs = block.getFieldValue('xcs');
+    let xdcs = block.getFieldValue('xdcs');
+    let dreq = block.getFieldValue('dreq');
+    let xrst = block.getFieldValue('xrst');
+
+    var code = 'vs1003_device = vs1003.VS1003(' + spi + ', xcs=' + xcs + ', xdcs=' + xdcs + ', dreq=' + dreq + ', xrst=' + xrst + ')\n';
+
+    return code;
+  };
+
+  this.vs1003_set_stream_mode = function(block) {
+    let mode = block.getFieldValue('mode');
+
+    var code = 'vs1003_device.set_stream_mode(' + mode + ')\n';
+
+    return code;
+  };
+
+  this.vs1003_set_volume = function(block) {
+    let vol = Blockly.Python.valueToCode(block, 'vol', Blockly.Python.ORDER_NONE);
+
+    var code = 'vs1003_device.set_volume(' + vol + ')\n';
+
+    return code;
+  };
+
+  this.vs1003_dreq_ready = function(block) {
+    let code =
+      'vs1003_device.dreq_ready()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.vs1003_play_bytes = function(block) {
+    let data = Blockly.Python.valueToCode(block, 'data', Blockly.Python.ORDER_NONE);
+
+    var code = 'vs1003_device.play_bytes(' + data + ')\n';
+
+    return code;
   };
 }
 

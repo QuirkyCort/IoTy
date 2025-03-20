@@ -1,0 +1,17 @@
+{
+  "type": "vs1003_set_volume",
+  "message0": "#blk-vs1003_set_volume# %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "vol",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-vs1003_set_volume_tooltip#",
+  "helpUrl": ""
+}

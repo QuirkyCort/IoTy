@@ -53,7 +53,7 @@ var extensions = new function() {
       id: 'urequests',
       name: 'urequests (HTTP Requests)',
       files: [
-        ['urequests.py', 'extensions/urequests.py?v=c9f15642'],
+        ['urequests.py', 'extensions/urequests.py?v=fc3410c0'],
       ],
       description:
         '<p>' +
@@ -828,7 +828,7 @@ var extensions = new function() {
       id: 'lds02rr',
       name: 'LDS02RR LIDAR (Xiaomi / Roborock / Neato XV11)',
       files: [
-        ['lds02rr.py', 'extensions/lds02rr.py?v=f64efd33'],
+        ['lds02rr.py', 'extensions/lds02rr.py?v=9cbbb04c'],
       ],
       description:
         '<p>' +
@@ -850,6 +850,18 @@ var extensions = new function() {
         '<p>' +
           'The AMG8833 contains an 8x8 array of IR thermal sensors. ' +
           'It can be used to detect hot or warm objects (eg. a human) from a distance.' +
+        '</p>'
+    },
+    {
+      id: 'vs1003',
+      name: 'VS1003 MP3/WMA AUDIO CODEC',
+      files: [
+        ['vs1003.py', 'extensions/vs1003.py?v=f1df473c'],
+      ],
+      description:
+        '<p>' +
+          'The VS1003 is a single-chip MP3/WMA/MIDI audio decoder and ADPCM encoder. ' +
+          'Unlike the YX5300 MP3 player which requires an SD card, the VS1003 can receive audio data via SPI, allowing it to play files on the micropython filesystem or from the internet.' +
         '</p>'
     },
   ]
