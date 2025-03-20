@@ -3596,7 +3596,13 @@ let MSGS = {
     en: 'vs1003: play bytes',
   },
   '#blk-vs1003_play_bytes_tooltip#': {
-    en: 'Play the specified bytes. If dreq ready is False or if sending more than 32 bytes, this function may take a while to complete.',
+    en: 'Play the provided bytes. If dreq ready is False or if sending more than 32 bytes, this function may take a while to complete.',
+  },
+  '#blk-vs1003_play_file#': {
+    en: 'vs1003: play file',
+  },
+  '#blk-vs1003_play_file_tooltip#': {
+    en: 'Play the specified file. Blocks until playback is completed.',
   },
 };
 let MSGS_KEYS = Object.keys(MSGS);

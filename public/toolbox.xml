@@ -2905,6 +2905,13 @@
   <category toolboxitemid="vs1003" name="VS1003" colour="#5b67a5" hidden="true">
     <block type="vs1003_init"></block>
     <block type="vs1003_play_bytes"></block>
+    <block type="vs1003_play_file">
+      <value name="filename">
+        <shadow type="text">
+          <field name="TEXT">filename.mp3</field>
+        </shadow>
+      </value>
+    </block>
     <block type="vs1003_set_volume">
       <value name="vol">
         <shadow type="math_number">

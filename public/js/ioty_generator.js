@@ -607,6 +607,7 @@ var ioty_generator = new function() {
     Blockly.Python['vs1003_set_volume'] = self.vs1003_set_volume;
     Blockly.Python['vs1003_dreq_ready'] = self.vs1003_dreq_ready;
     Blockly.Python['vs1003_play_bytes'] = self.vs1003_play_bytes;
+    Blockly.Python['vs1003_play_file'] = self.vs1003_play_file;
     Blockly.Python.addReservedWords('vs1003');
 
   };
@@ -6004,6 +6005,14 @@ var ioty_generator = new function() {
     let data = Blockly.Python.valueToCode(block, 'data', Blockly.Python.ORDER_NONE);
 
     var code = 'vs1003_device.play_bytes(' + data + ')\n';
+
+    return code;
+  };
+
+  this.vs1003_play_file = function(block) {
+    let filename = Blockly.Python.valueToCode(block, 'filename', Blockly.Python.ORDER_NONE);
+
+    var code = 'vs1003_device.play_file(' + filename + ')\n';
 
     return code;
   };
