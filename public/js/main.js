@@ -1193,13 +1193,21 @@ var main = new function() {
 
   // Display what's new if not seen before
   this.showWhatsNew = function(forceShow=false) {
-    let current = 20241003;
+    let current = 20250321;
     let lastShown = localStorage.getItem('whatsNew');
     if (lastShown == null || parseInt(lastShown) < current || forceShow) {
       let options = {
         title: 'What\'s New',
         message:
-        '<h3>73 Oct 2024 (Firmware 14)</h3>' +
+        '<h3>21 Mar 2025</h3>' +
+        '<p>' +
+          'Added extension for VS1003 MP3/WMA Audio CODEC.' +
+          'Added blocks to urequests to facilicate streaming.' +
+        '</p>' +
+        '<p>' +
+          'Put together, these new additions allows you to stream internet radio stations on your ESP32 device.' +
+        '</p>' +
+        '<h3>3 Oct 2024 (Firmware 14)</h3>' +
         '<p>' +
           'A new firmware version (14) is released. ' +
           '<strong>You must update to this new version or network functions will not work!</strong>' +
@@ -1218,24 +1226,6 @@ var main = new function() {
             '<li>X-GLCD Font</li>' +
             '<li>ADS7843 / XPT2046 Touchscreen Controller</li>' +
             '<li>ST7789 Display</li>' +
-          '</ul>' +
-        '</p>' +
-        '<h3>13 Apr 2024 (Firmware and extensions)</h3>' +
-        '<p>' +
-          'A new firmware version (12) is released. ' +
-          'Adds support for reset in BLE and Internet mode. ' +
-          'Auto-start download mode if there are no programs loaded on the device. ' +
-        '</p>' +
-        '<p>' +
-          'Many new extensions have been added; ' +
-          '<ul>' +
-            '<li>PNG Decoder</li>' +
-            '<li>BMP Image</li>' +
-            '<li>Bluetooth LE Human Interface Devices</li>' +
-            '<li>YX5300 / YX6300 MP3 Players</li>' +
-            '<li>LD2410 Human Presence Radar</li>' +
-            '<li>Stepper Wheels</li>' +
-            '<li>Stepper Wheels Drives</li>' +
           '</ul>' +
         '</p>'
       }
