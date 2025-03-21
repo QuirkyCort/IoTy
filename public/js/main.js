@@ -1201,8 +1201,8 @@ var main = new function() {
         message:
         '<h3>21 Mar 2025</h3>' +
         '<p>' +
-          'Added extension for VS1003 MP3/WMA Audio CODEC. ' +
-          'Added blocks to urequests to facilicate streaming.' +
+          'Added extension for VS1003 MP3/WMA Audio CODEC and Circular Buffer. ' +
+          'Added blocks to urequests to facilicate streaming. ' +
         '</p>' +
         '<p>' +
           'Put together, these new additions allows you to stream internet radio stations on your ESP32 device.' +
