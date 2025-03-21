@@ -1,0 +1,16 @@
+{
+  "type": "bytesBuffer_init",
+  "message0": "#blk-bytesBuffer_init# %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "size",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "output": "CircularBuffer",
+  "colour": 230,
+  "tooltip": "#blk-bytesBuffer_init_tooltip#",
+  "helpUrl": ""
+}

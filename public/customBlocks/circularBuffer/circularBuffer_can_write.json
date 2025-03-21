@@ -1,0 +1,21 @@
+{
+  "type": "circularBuffer_can_write",
+  "message0": "#blk-circularBuffer# %1 #blk-can_write# %2",
+  "args0": [
+    {
+      "type": "field_variable",
+      "name": "variable",
+      "variable": "buf"
+    },
+    {
+      "type": "input_value",
+      "name": "size",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "output": "Boolean",
+  "colour": 230,
+  "tooltip": "#blk-circularBuffer_can_write_tooltip#",
+  "helpUrl": ""
+}

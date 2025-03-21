@@ -1201,7 +1201,7 @@ var main = new function() {
         message:
         '<h3>21 Mar 2025</h3>' +
         '<p>' +
-          'Added extension for VS1003 MP3/WMA Audio CODEC.' +
+          'Added extension for VS1003 MP3/WMA Audio CODEC. ' +
           'Added blocks to urequests to facilicate streaming.' +
         '</p>' +
         '<p>' +

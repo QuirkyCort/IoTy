@@ -70,6 +70,11 @@ class VS1003:
     def dreq_ready(self):
         return self.dreq.value()
 
+    def flush_buffer(self):
+        zeros = b'\x00' * 32
+        for _ in range(64):
+            self.write_data(zeros)
+
     def get_status(self):
         return self.read_reg(REG_STATUS)
 
@@ -101,6 +106,7 @@ class VS1003:
             while True:
                 d = f.read(32)
                 if d:
-                    self.play_bytes(d)
+                    self.write_data(d)
                 else:
                     break
+        self.flush_buffer()

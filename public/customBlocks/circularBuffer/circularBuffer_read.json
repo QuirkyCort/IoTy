@@ -1,0 +1,21 @@
+{
+  "type": "circularBuffer_read",
+  "message0": "#blk-circularBuffer# %1 #blk-read# %2",
+  "args0": [
+    {
+      "type": "field_variable",
+      "name": "variable",
+      "variable": "buf"
+    },
+    {
+      "type": "input_value",
+      "name": "size",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "output": "Bytes",
+  "colour": 230,
+  "tooltip": "#blk-circularBuffer_read_tooltip#",
+  "helpUrl": ""
+}

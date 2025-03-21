@@ -1,0 +1,16 @@
+{
+  "type": "circularBuffer_free_space",
+  "message0": "#blk-circularBuffer_free_space# %1",
+  "args0": [
+    {
+      "type": "field_variable",
+      "name": "variable",
+      "variable": "buf"
+    }
+  ],
+  "inputsInline": true,
+  "output": "Bytes",
+  "colour": 230,
+  "tooltip": "#blk-circularBuffer_free_space_tooltip#",
+  "helpUrl": ""
+}

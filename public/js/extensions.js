@@ -856,12 +856,23 @@ var extensions = new function() {
       id: 'vs1003',
       name: 'VS1003 MP3/WMA Audio CODEC',
       files: [
-        ['vs1003.py', 'extensions/vs1003.py?v=f1df473c'],
+        ['vs1003.py', 'extensions/vs1003.py?v=894dfb1a'],
       ],
       description:
         '<p>' +
           'The VS1003 is a single-chip MP3/WMA/MIDI audio decoder and ADPCM encoder. ' +
           'Unlike the YX5300 MP3 player which requires an SD card, the VS1003 can receive audio data via SPI, allowing it to play files on the micropython filesystem or from the internet.' +
+        '</p>'
+    },
+    {
+      id: 'circularBuffer',
+      name: 'Circular Buffer',
+      files: [
+        ['circularBuffer.py', 'extensions/circularBuffer.py?v=6cddbf7e'],
+      ],
+      description:
+        '<p>' +
+          'Provides a <a href="https://en.wikipedia.org/wiki/Circular_buffer">circular buffer</a> useful for buffering data (ie. when streaming data from the internet). ' +
         '</p>'
     },
   ]

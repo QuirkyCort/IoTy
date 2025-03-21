@@ -610,6 +610,14 @@ var ioty_generator = new function() {
     Blockly.Python['vs1003_play_file'] = self.vs1003_play_file;
     Blockly.Python.addReservedWords('vs1003');
 
+    Blockly.Python['bytesBuffer_init'] = self.bytesBuffer_init;
+    Blockly.Python['circularBuffer_can_write'] = self.circularBuffer_can_write;
+    Blockly.Python['circularBuffer_write'] = self.circularBuffer_write;
+    Blockly.Python['circularBuffer_can_read'] = self.circularBuffer_can_read;
+    Blockly.Python['circularBuffer_read'] = self.circularBuffer_read;
+    Blockly.Python['circularBuffer_free_space'] = self.circularBuffer_free_space;
+    Blockly.Python.addReservedWords('vs1003');
+
   };
 
   // Generate python code
@@ -6016,5 +6024,60 @@ var ioty_generator = new function() {
 
     return code;
   };
+
+  this.bytesBuffer_init = function(block) {
+    self.imports['circularBuffer'] = 'import circularBuffer';
+
+    let size = Blockly.Python.valueToCode(block, 'size', Blockly.Python.ORDER_ATOMIC);
+
+    var code = 'circularBuffer.BytesBuffer(' + size + ')';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.circularBuffer_can_write = function(block) {
+    let variable = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('variable'), 'VARIABLE');
+    let size = Blockly.Python.valueToCode(block, 'size', Blockly.Python.ORDER_ATOMIC);
+
+    var code = variable + '.can_write(' + size + ')';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.circularBuffer_write = function(block) {
+    let variable = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('variable'), 'VARIABLE');
+    let data = Blockly.Python.valueToCode(block, 'data', Blockly.Python.ORDER_ATOMIC);
+
+    var code = variable + '.write(' + data + ')\n';
+
+    return code;
+  };
+
+  this.circularBuffer_can_read = function(block) {
+    let variable = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('variable'), 'VARIABLE');
+    let size = Blockly.Python.valueToCode(block, 'size', Blockly.Python.ORDER_ATOMIC);
+
+    var code = variable + '.can_read(' + size + ')';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.circularBuffer_read = function(block) {
+    let variable = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('variable'), 'VARIABLE');
+    let size = Blockly.Python.valueToCode(block, 'size', Blockly.Python.ORDER_ATOMIC);
+
+    var code = variable + '.read(' + size + ')';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.circularBuffer_free_space = function(block) {
+    let variable = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('variable'), 'VARIABLE');
+
+    var code = variable + '.free_space()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
 }
 

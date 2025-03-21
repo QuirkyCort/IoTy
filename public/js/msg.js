@@ -3604,6 +3604,39 @@ let MSGS = {
   '#blk-vs1003_play_file_tooltip#': {
     en: 'Play the specified file. Blocks until playback is completed.',
   },
+  '#blk-bytesBuffer_init#': {
+    en: 'circular bytes buffer of size',
+  },
+  '#blk-bytesBuffer_init_tooltip#': {
+    en: 'Create a circular bytes buffer of the specified size.',
+  },
+  '#blk-circularBuffer#': {
+    en: 'circularBuffer',
+  },
+  '#blk-can_write#': {
+    en: 'can write',
+  },
+  '#blk-circularBuffer_can_write_tooltip#': {
+    en: 'Returns True if there is enough space to write the specified number of bytes.',
+  },
+  '#blk-can_read#': {
+    en: 'can read',
+  },
+  '#blk-circularBuffer_can_read_tooltip#': {
+    en: 'Returns True if the specified number of bytes can be read.',
+  },
+  '#blk-circularBuffer_write_tooltip#': {
+    en: 'Write to the buffer. You should check that there is enough space before writing.',
+  },
+  '#blk-circularBuffer_read_tooltip#': {
+    en: 'Read the specified number of bytes from the buffer. You should check that there are sufficient bytes to read before calling this.',
+  },
+  '#blk-circularBuffer_free_space#': {
+    en: 'free space in circular buffer',
+  },
+  '#blk-circularBuffer_free_space_tooltip#': {
+    en: 'Returns the number of bytes that can be written to the buffer.',
+  },
 };
 let MSGS_KEYS = Object.keys(MSGS);
 
