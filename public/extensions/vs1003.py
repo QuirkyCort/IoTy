@@ -131,15 +131,15 @@ class VS1003:
     def read_adpcm_block(self):
         buf = bytearray(256)
         ptr = 0
-        while ptr < 255:
+        while ptr < 127:
             available = struct.unpack('>H', self.read_reg(REG_HDAT1))[0]
             if available > 896:
                 time.sleep_us(100)
                 continue
-            read_count = min(255 - ptr, available)
+            read_count = min(128 - ptr, available)
             for _ in range(read_count):
-                buf[ptr:ptr+2] = self.read_reg(REG_HDAT0)
-                ptr += 2
+                buf[2*ptr:2*ptr+2] = self.read_reg(REG_HDAT0)
+                ptr += 1
         return buf
 
     def get_riff_header(self, blocks_count=0, sample_rate=8000):

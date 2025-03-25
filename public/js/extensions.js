@@ -856,7 +856,7 @@ var extensions = new function() {
       id: 'vs1003',
       name: 'VS1003 MP3/WMA Audio CODEC',
       files: [
-        ['vs1003.py', 'extensions/vs1003.py?v=74a9e878'],
+        ['vs1003.py', 'extensions/vs1003.py?v=33718775'],
       ],
       description:
         '<p>' +
