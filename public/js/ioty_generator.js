@@ -608,6 +608,10 @@ var ioty_generator = new function() {
     Blockly.Python['vs1003_dreq_ready'] = self.vs1003_dreq_ready;
     Blockly.Python['vs1003_play_bytes'] = self.vs1003_play_bytes;
     Blockly.Python['vs1003_play_file'] = self.vs1003_play_file;
+    Blockly.Python['vs1003_reset'] = self.vs1003_reset;
+    Blockly.Python['vs1003_start_recording_to_file'] = self.vs1003_start_recording_to_file;
+    Blockly.Python['vs1003_record_to_file'] = self.vs1003_record_to_file;
+    Blockly.Python['vs1003_stop_recording_to_file'] = self.vs1003_stop_recording_to_file;
     Blockly.Python.addReservedWords('vs1003');
 
     Blockly.Python['bytesBuffer_init'] = self.bytesBuffer_init;
@@ -6021,6 +6025,40 @@ var ioty_generator = new function() {
     let filename = Blockly.Python.valueToCode(block, 'filename', Blockly.Python.ORDER_NONE);
 
     var code = 'vs1003_device.play_file(' + filename + ')\n';
+
+    return code;
+  };
+
+  this.vs1003_reset = function(block) {
+    let code = 'vs1003_device.reset()\n';
+
+    return code;
+  };
+
+  this.vs1003_start_recording_to_file = function(block) {
+    let filename = Blockly.Python.valueToCode(block, 'filename', Blockly.Python.ORDER_NONE);
+    let hp = block.getFieldValue('hp');
+    let gain = block.getFieldValue('gain');
+    let source = block.getFieldValue('source');
+
+    let line = 'False';
+    if (source == 'LINE') {
+      line = 'True';
+    }
+
+    let code = 'vs1003_device.start_recording_to_file(' + filename + ', hp=' + hp + ', gain=' + gain + ', line_in=' + line + ')\n';
+
+    return code;
+  };
+
+  this.vs1003_record_to_file = function(block) {
+    let code = 'vs1003_device.record_to_file()\n';
+
+    return code;
+  };
+
+  this.vs1003_stop_recording_to_file = function(block) {
+    let code = 'vs1003_device.stop_recording_to_file()\n';
 
     return code;
   };

@@ -2921,6 +2921,16 @@
     </block>
     <block type="vs1003_dreq_ready"></block>
     <block type="vs1003_set_stream_mode"></block>
+    <block type="vs1003_reset"></block>
+    <block type="vs1003_start_recording_to_file">
+      <value name="filename">
+        <shadow type="text">
+          <field name="TEXT">recording.ima</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="vs1003_record_to_file"></block>
+    <block type="vs1003_stop_recording_to_file"></block>
   </category>
   <category toolboxitemid="circularBuffer" name="Circular Buffer" colour="#5b67a5" hidden="true">
     <block type="bytesBuffer_init">

@@ -1,5 +1,6 @@
 import time
 import math
+import struct
 from machine import Pin
 from micropython import const
 
@@ -10,7 +11,13 @@ REG_MODE = const(b'\x00')
 REG_STATUS = const(b'\x01')
 REG_BASS = const(b'\x02')
 REG_CLOCKF = const(b'\x03')
+REG_HDAT0 = const(b'\x08')
+REG_HDAT1 = const(b'\x09')
 REG_VOL = const(b'\x0b')
+REG_AICTRL0 = const(b'\x0c')
+REG_AICTRL1 = const(b'\x0d')
+
+RIFF_HEADER = const(b'RIFF____WAVEfmt \x14\x00\x00\x00\x11\x00\x01\x00________\x00\x01\x04\x00\x02\x00\xf9\x01fact\x04\x00\x00\x00____data____')
 
 
 class VS1003:
@@ -70,6 +77,16 @@ class VS1003:
     def dreq_ready(self):
         return self.dreq.value()
 
+    def _activate_adpcm_mode(self, hp=False, gain=0, line_in=False):
+        self.write_reg(REG_AICTRL0, b'\x00\x15')
+        self.write_reg(REG_AICTRL1, struct.pack('>H', gain))
+        mode = 0x18
+        if hp:
+            mode |= 0x20
+        if line_in:
+            mode |= 0x40
+        self.write_reg(REG_MODE, bytes([mode, 0x04]))
+
     def flush_buffer(self):
         zeros = b'\x00' * 32
         for _ in range(64):
@@ -110,3 +127,43 @@ class VS1003:
                 else:
                     break
         self.flush_buffer()
+
+    def read_adpcm_block(self):
+        buf = bytearray(256)
+        ptr = 0
+        while ptr < 255:
+            available = struct.unpack('>H', self.read_reg(REG_HDAT1))[0]
+            if available > 896:
+                time.sleep_us(100)
+                continue
+            read_count = min(255 - ptr, available)
+            for _ in range(read_count):
+                buf[ptr:ptr+2] = self.read_reg(REG_HDAT0)
+                ptr += 2
+        return buf
+
+    def get_riff_header(self, blocks_count=0, sample_rate=8000):
+        length = len(RIFF_HEADER)
+        buf = bytearray(length)
+        buf[0:length] = RIFF_HEADER
+        buf[4:8] = struct.pack('<I', blocks_count * 256 + 52)
+        buf[24:28] = struct.pack('<I', sample_rate)
+        buf[28:32] = struct.pack('<I', int(sample_rate * 256 / 505))
+        buf[48:52] = struct.pack('<I', blocks_count * 505)
+        buf[56:60] = struct.pack('<I', blocks_count * 256)
+        return buf
+
+    def start_recording_to_file(self, filename, hp=False, gain=0, line_in=False):
+        self.file = open(filename, 'wb')
+        self.written_blocks = 0
+        self.file.write(RIFF_HEADER)
+        self._activate_adpcm_mode(hp, gain, line_in)
+
+    def record_to_file(self):
+        self.file.write(self.read_adpcm_block())
+        self.written_blocks += 1
+
+    def stop_recording_to_file(self):
+        self.file.seek(0)
+        self.file.write(self.get_riff_header(self.written_blocks))
+        self.file.close()

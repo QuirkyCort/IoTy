@@ -1,0 +1,11 @@
+{
+  "type": "vs1003_stop_recording_to_file",
+  "message0": "#blk-vs1003_stop_recording_to_file#",
+  "args0": [],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-vs1003_stop_recording_to_file_tooltip#",
+  "helpUrl": ""
+}

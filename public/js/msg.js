@@ -3604,6 +3604,39 @@ let MSGS = {
   '#blk-vs1003_play_file_tooltip#': {
     en: 'Play the specified file. Blocks until playback is completed.',
   },
+  '#blk-vs1003_reset#': {
+    en: 'vs1003: reset',
+  },
+  '#blk-vs1003_reset_tooltip#': {
+    en: 'Performs a hard reset. You will need to reconfigure the volume and stream mode after this.',
+  },
+  '#blk-vs1003_start_recording_to_file#': {
+    en: 'vs1003: record to file',
+  },
+  '#blk-high_pass_filter#': {
+    en: 'high pass filter',
+  },
+  '#blk-gain#': {
+    en: 'gain',
+  },
+  '#blk-source#': {
+    en: 'source',
+  },
+  '#blk-vs1003_start_recording_to_file_tooltip#': {
+    en: 'Opens the specified file and get it ready for audio recording in ADPCM format. You will need to call \\"record_to_file\\" repeatedly to actually record data.',
+  },
+  '#blk-vs1003_record_to_file#': {
+    en: 'vs1003: record to file',
+  },
+  '#blk-vs1003_record_to_file_tooltip#': {
+    en: 'Record data to a previously opened file. You must call \\"start_recording_to_file\\" before this.',
+  },
+  '#blk-vs1003_stop_recording_to_file#': {
+    en: 'vs1003: record to file',
+  },
+  '#blk-vs1003_stop_recording_to_file_tooltip#': {
+    en: 'Stop a previously started recording.',
+  },
   '#blk-bytesBuffer_init#': {
     en: 'circular bytes buffer of size',
   },

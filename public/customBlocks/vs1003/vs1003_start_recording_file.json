@@ -1,0 +1,47 @@
+{
+  "type": "vs1003_start_recording_to_file",
+  "message0": "#blk-vs1003_start_recording_to_file# %1 #blk-high_pass_filter# %2 #blk-gain# %3 #blk-source# %4",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "filename",
+      "check": "String"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "hp",
+      "options": [
+        ["True", "True"],
+        ["False", "False"]
+      ]
+    },
+    {
+      "type": "field_dropdown",
+      "name": "gain",
+      "options": [
+        ["Auto", "0"],
+        ["1", "1024"],
+        ["2", "2048"],
+        ["4", "4096"],
+        ["8", "8192"],
+        ["16", "16384"],
+        ["32", "32768"],
+        ["64", "65535"]
+      ]
+    },
+    {
+      "type": "field_dropdown",
+      "name": "source",
+      "options": [
+        ["Mic", "MIC"],
+        ["Line Input", "LINE"]
+      ]
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-vs1003_start_recording_to_file_tooltip#",
+  "helpUrl": ""
+}
