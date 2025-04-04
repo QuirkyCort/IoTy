@@ -90,7 +90,7 @@ def analog_write(pin, value):
         _pins[pin][0] = PWM(Pin(pin), freq=1000, duty=0)
         _pins[pin][1] = _PWM
 
-    _pins[pin][0].duty(value)
+    _pins[pin][0].duty(int(value))
 
 def servo_write_deg(pin, deg):
     _init_pin(pin)
