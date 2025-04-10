@@ -7,7 +7,6 @@ import binascii
 def get_info():
     import gc
     import network
-    import binascii
 
     fs_stats = os.statvfs('/')
     return {

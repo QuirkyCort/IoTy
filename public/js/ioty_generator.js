@@ -103,7 +103,7 @@ var ioty_generator = new function() {
     Blockly.Python['mqtt_msg'] = self.mqtt_msg;
     Blockly.Python['mqtt_publish'] = self.mqtt_publish;
     Blockly.Python['mqtt_publish_bytes'] = self.mqtt_publish_bytes;
-    Blockly.Python.addReservedWords('ioty_mqtt,ioty_mqtt_cb,mqtt_msg,ubinascii');
+    Blockly.Python.addReservedWords('ioty_mqtt,ioty_mqtt_cb,mqtt_msg,binascii');
 
     Blockly.Python['i2c_init'] = self.i2c_init;
     Blockly.Python['i2c_init_with_pins'] = self.i2c_init_with_pins;
@@ -622,7 +622,7 @@ var ioty_generator = new function() {
     Blockly.Python['circularBuffer_can_read'] = self.circularBuffer_can_read;
     Blockly.Python['circularBuffer_read'] = self.circularBuffer_read;
     Blockly.Python['circularBuffer_free_space'] = self.circularBuffer_free_space;
-    Blockly.Python.addReservedWords('vs1003');
+    Blockly.Python.addReservedWords('circularBuffer');
 
   };
 
@@ -1316,21 +1316,21 @@ var ioty_generator = new function() {
   };
 
   this.base64_encode = function(block) {
-    self.imports['ubinascii'] = 'import ubinascii';
+    self.imports['binascii'] = 'import binascii';
 
     let value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_ATOMIC);
 
-    let code = 'ubinascii.b2a_base64(' + value + ')[:-1].decode()';
+    let code = 'binascii.b2a_base64(' + value + ')[:-1].decode()';
 
     return [code, Blockly.Python.ORDER_FUNCTION_CALL];
   };
 
   this.base64_decode = function(block) {
-    self.imports['ubinascii'] = 'import ubinascii';
+    self.imports['binascii'] = 'import binascii';
 
     let value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_ATOMIC);
 
-    let code = 'ubinascii.a2b_base64(' + value + ')';
+    let code = 'binascii.a2b_base64(' + value + ')';
 
     return [code, Blockly.Python.ORDER_FUNCTION_CALL];
   };
@@ -1587,7 +1587,7 @@ var ioty_generator = new function() {
   this.mqtt_connect_to_server = function(block) {
     self.imports['umqtt'] = 'from umqtt.robust import MQTTClient';
     self.imports['machine'] = 'import machine';
-    self.imports['ubinascii'] = 'import ubinascii';
+    self.imports['binascii'] = 'import binascii';
     self.reservedVariables['mqtt_connect_to_server'] = ['ioty_mqtt'];
 
     var server = block.getFieldValue('server');
@@ -1610,7 +1610,7 @@ var ioty_generator = new function() {
       '    ' + self.MQTT_CALLBACK_PLACEHOLDER +
       '\n# Connect to MQTT server\n' +
       'ioty_mqtt = MQTTClient(' +
-        'ubinascii.hexlify(machine.unique_id()), \'' + server + '\'' +
+        'binascii.hexlify(machine.unique_id()), \'' + server + '\'' +
         ', port=' + port +
         ', user=\'' + name + '\'' +
         ', password=\'' + password + '\'' +

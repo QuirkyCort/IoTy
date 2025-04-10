@@ -3,7 +3,7 @@ import json
 import os
 from umqtt.robust import MQTTClient
 from machine import unique_id
-from ubinascii import hexlify
+from binascii import hexlify
 from time import sleep_ms
 import ioty.services
 
