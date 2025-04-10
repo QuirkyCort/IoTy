@@ -1,0 +1,15 @@
+{
+  "type": "base64_encode",
+  "message0": "%1 #blk-base64_encode# %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "value",
+      "check": "Bytes"
+    }
+  ],
+  "output": "String",
+  "colour": 230,
+  "tooltip": "#blk-base64_encode_tooltip#",
+  "helpUrl": ""
+}

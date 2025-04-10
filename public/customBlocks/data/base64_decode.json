@@ -1,0 +1,15 @@
+{
+  "type": "base64_decode",
+  "message0": "%1 #blk-base64_decode# %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "value",
+      "check": "String"
+    }
+  ],
+  "output": "Bytes",
+  "colour": 230,
+  "tooltip": "#blk-base64_decode_tooltip#",
+  "helpUrl": ""
+}

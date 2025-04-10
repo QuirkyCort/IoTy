@@ -558,6 +558,8 @@
     </block>
     <block type="json_dumps"></block>
     <block type="json_loads"></block>
+    <block type="base64_encode"></block>
+    <block type="base64_decode"></block>
     <block type="binary_op">
       <value name="value2">
         <shadow type="math_number">

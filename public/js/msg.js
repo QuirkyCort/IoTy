@@ -3670,6 +3670,18 @@ let MSGS = {
   '#blk-circularBuffer_free_space_tooltip#': {
     en: 'Returns the number of bytes that can be written to the buffer.',
   },
+  '#blk-base64_encode#': {
+    en: 'base64',
+  },
+  '#blk-base64_encode_tooltip#': {
+    en: 'Converts Bytes to base64 String',
+  },
+  '#blk-base64_decode#': {
+    en: 'base64',
+  },
+  '#blk-base64_decode_tooltip#': {
+    en: 'Converts base64 String to Bytes',
+  },
 };
 let MSGS_KEYS = Object.keys(MSGS);
 
