@@ -3,7 +3,7 @@ import json
 import os
 from umqtt.robust import MQTTClient
 from machine import unique_id
-from binascii import hexlify
+from binascii import hexlify, b2a_base64, a2b_base64
 from time import sleep_ms
 import ioty.services
 
@@ -106,12 +106,10 @@ class MQTT_Service:
         self.send_response(constants._STATUS_SUCCESS, cmd['nonce'], content)
 
     def read_file(self, cmd):
-        import ubinascii
-
         file = open(cmd['content']['filename'], 'rb')
         data = file.read()
         content = {
-            'data': ubinascii.b2a_base64(data)
+            'data': b2a_base64(data)
         }
         self.send_response(constants._STATUS_SUCCESS, cmd['nonce'], content)
 
@@ -148,13 +146,12 @@ class MQTT_Service:
         ioty.services.reset()
 
     def write_files(self, cmd):
-        import ubinascii
         try:
             for filename in cmd['content']:
                 with open(filename, 'wb') as file:
                     content = cmd['content'][filename]
                     if (isinstance(content, dict)):
-                        file.write(ubinascii.a2b_base64(content['data']))
+                        file.write(a2b_base64(content['data']))
                     else:
                         file.write(content)
             self.send_response(constants._STATUS_SUCCESS, cmd['nonce'])
