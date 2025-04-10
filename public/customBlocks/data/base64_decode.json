@@ -1,6 +1,6 @@
 {
   "type": "base64_decode",
-  "message0": "%1 #blk-base64_decode# %1",
+  "message0": "#blk-base64_decode# %1",
   "args0": [
     {
       "type": "input_value",

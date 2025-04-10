@@ -1318,9 +1318,9 @@ var ioty_generator = new function() {
   this.base64_encode = function(block) {
     self.imports['ubinascii'] = 'import ubinascii';
 
-    var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_ATOMIC);
+    let value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_ATOMIC);
 
-    var code = 'ubinascii.b2a_base64(' + value + ')';
+    let code = 'ubinascii.b2a_base64(' + value + ')[:-1].decode()';
 
     return [code, Blockly.Python.ORDER_FUNCTION_CALL];
   };
@@ -1328,9 +1328,9 @@ var ioty_generator = new function() {
   this.base64_decode = function(block) {
     self.imports['ubinascii'] = 'import ubinascii';
 
-    var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_ATOMIC);
+    let value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_ATOMIC);
 
-    var code = 'ubinascii.a2b_base64(' + value + ')';
+    let code = 'ubinascii.a2b_base64(' + value + ')';
 
     return [code, Blockly.Python.ORDER_FUNCTION_CALL];
   };
