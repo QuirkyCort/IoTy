@@ -1540,7 +1540,7 @@ var ioty_generator = new function() {
     let value = block.getFieldValue('value');
 
     if (self.startType != 'RUN' && self.startType != 'WAIT') {
-      return '';
+      return '# Enable / Disable receiving commands requires no code as Bluetooth is not enabled.\n';
     }
 
     if (value == 'DISABLED') {

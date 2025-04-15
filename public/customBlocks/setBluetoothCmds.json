@@ -1,17 +1,17 @@
 {
   "type": "setBluetoothCmds",
-  "message0": "#blk-setBluetoothCmds# %1",
+  "message0": "%1 #blk-setBluetoothCmds#",
   "args0": [
     {
       "type": "field_dropdown",
       "name": "value",
       "options": [
         [
-          "disabled",
+          "disable",
           "DISABLED"
         ],
         [
-          "enabled",
+          "enable",
           "ENABLED"
         ]
       ]

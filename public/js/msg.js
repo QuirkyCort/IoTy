@@ -1847,7 +1847,7 @@ let MSGS = {
     en: 'You must perform a read before using this block. Value is calculated from the pressure, and is in meters above sea level.',
   },
   '#blk-setBluetoothCmds#': {
-    en: 'receiving of commands via bluetooth is',
+    en: 'receiving of commands via bluetooth',
   },
   '#blk-setBluetoothCmds_tooltip#': {
     en: 'Normally, the IoTy device will continue to receive commands (eg. Download programs) over bluetooth when running a program. If disabled, you must switch to programming mode to program your device.',
