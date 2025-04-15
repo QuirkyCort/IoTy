@@ -1,0 +1,10 @@
+{
+  "type": "idle",
+  "message0": "#blk-idle#",
+  "args0": [],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 65,
+  "tooltip": "#blk-idle_tooltip#",
+  "helpUrl": ""
+}

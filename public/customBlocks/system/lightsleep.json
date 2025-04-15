@@ -1,0 +1,16 @@
+{
+  "type": "lightsleep",
+  "message0": "#blk-lightsleep# %1 #blk-ms#",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "duration",
+      "check": "Number"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 65,
+  "tooltip": "#blk-lightsleep_tooltip#",
+  "helpUrl": ""
+}

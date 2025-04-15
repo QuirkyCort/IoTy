@@ -1,0 +1,36 @@
+{
+  "type": "reset_cause",
+  "message0": "#blk-reset_cause# %1",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "reason",
+      "options": [
+        [
+          "power on",
+          "PWRON_RESET"
+        ],
+        [
+          "hard reset",
+          "HARD_RESET"
+        ],
+        [
+          "soft reset",
+          "SOFT_RESET"
+        ],
+        [
+          "watchdog reset",
+          "WDT_RESET"
+        ],
+        [
+          "deepsleep",
+          "DEEPSLEEP_RESET"
+        ]
+      ]
+    }
+  ],
+  "output": "Boolean",
+  "colour": 65,
+  "tooltip": "#blk-reset_cause_tooltip#",
+  "helpUrl": ""
+}

@@ -1,0 +1,28 @@
+{
+  "type": "wake_reason",
+  "message0": "#blk-wake_reason# %1",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "reason",
+      "options": [
+        [
+          "WLAN",
+          "WLAN_WAKE"
+        ],
+        [
+          "pin change",
+          "PIN_WAKE"
+        ],
+        [
+          "timer",
+          "RTC_WAKE"
+        ]
+      ]
+    }
+  ],
+  "output": "Boolean",
+  "colour": 65,
+  "tooltip": "#blk-wake_reason_tooltip#",
+  "helpUrl": ""
+}

@@ -1,0 +1,16 @@
+{
+  "type": "start_watchdog",
+  "message0": "#blk-start_watchdog# %1 #blk-ms#",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "duration",
+      "check": "Number"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 65,
+  "tooltip": "#blk-start_watchdog_tooltip#",
+  "helpUrl": ""
+}

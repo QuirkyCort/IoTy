@@ -2966,4 +2966,31 @@
     </block>
     <block type="circularBuffer_free_space"></block>
   </category>
+  <category toolboxitemid="system" name="System" colour="#9fa55b" hidden="true">
+    <block type="idle"></block>
+    <block type="wake_reason"></block>
+    <block type="lightsleep">
+      <value name="duration">
+        <shadow type="math_number">
+          <field name="NUM">10000</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="deepsleep">
+      <value name="duration">
+        <shadow type="math_number">
+          <field name="NUM">10000</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="reset_cause"></block>
+    <block type="start_watchdog">
+      <value name="duration">
+        <shadow type="math_number">
+          <field name="NUM">10000</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="feed_watchdog"></block>
+  </category>
 </xml>

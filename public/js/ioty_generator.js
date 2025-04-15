@@ -624,6 +624,15 @@ var ioty_generator = new function() {
     Blockly.Python['circularBuffer_free_space'] = self.circularBuffer_free_space;
     Blockly.Python.addReservedWords('circularBuffer');
 
+    Blockly.Python['idle'] = self.idle;
+    Blockly.Python['lightsleep'] = self.lightsleep;
+    Blockly.Python['deepsleep'] = self.deepsleep;
+    Blockly.Python['wake_reason'] = self.wake_reason;
+    Blockly.Python['reset_cause'] = self.reset_cause;
+    Blockly.Python['start_watchdog'] = self.start_watchdog;
+    Blockly.Python['feed_watchdog'] = self.feed_watchdog;
+    Blockly.Python.addReservedWords('watchdog_timer');
+
   };
 
   // Generate python code
@@ -6138,6 +6147,69 @@ var ioty_generator = new function() {
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };
+
+  this.idle = function(block) {
+    self.imports['machine'] = 'import machine';
+
+
+    let code = 'machine.idle()\n';
+
+    return code;
+  };
+
+  this.lightsleep = function(block) {
+    self.imports['machine'] = 'import machine';
+    let duration = Blockly.Python.valueToCode(block, 'duration', Blockly.Python.ORDER_ATOMIC);
+
+    let code = 'machine.lightsleep(' + duration + ')\n';
+
+    return code;
+  };
+
+  this.deepsleep = function(block) {
+    self.imports['machine'] = 'import machine';
+    let duration = Blockly.Python.valueToCode(block, 'duration', Blockly.Python.ORDER_ATOMIC);
+
+    let code = 'machine.deepsleep(' + duration + ')\n';
+
+    return code;
+  };
+
+  this.wake_reason = function(block) {
+    self.imports['machine'] = 'import machine';
+    let reason = block.getFieldValue('reason');;
+
+    let code = 'machine.wake_reason() == machine.' + reason;
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.reset_cause = function(block) {
+    self.imports['machine'] = 'import machine';
+    let reason = block.getFieldValue('reason');;
+
+    let code = 'machine.reset_cause() == machine.' + reason;
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.start_watchdog = function(block) {
+    self.imports['machine'] = 'import machine';
+    let duration = Blockly.Python.valueToCode(block, 'duration', Blockly.Python.ORDER_ATOMIC);
+
+    let code = 'watchdog_timer = machine.WDT(timeout=' + duration + ')\n';
+
+    return code;
+  };
+
+  this.feed_watchdog = function(block) {
+    self.imports['machine'] = 'import machine';
+
+    let code = 'watchdog_timer.feed()\n';
+
+    return code;
+  };
+
 
 }
 

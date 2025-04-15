@@ -3682,6 +3682,48 @@ let MSGS = {
   '#blk-base64_decode_tooltip#': {
     en: 'Converts base64 String to Bytes',
   },
+  '#blk-idle#': {
+    en: 'idle',
+  },
+  '#blk-idle_tooltip#': {
+    en: 'Idle for at most 1ms. Peripherals continue working and execution resumes as soon as any interrupt is triggered.',
+  },
+  '#blk-lightsleep#': {
+    en: 'lightsleep for',
+  },
+  '#blk-lightsleep_tooltip#': {
+    en: 'Light sleep for at most the specified duration, but possibly earlier. Upon wake, execution resumes from the next block. You can use \\"wake reason\\" to check what caused the wakeup.',
+  },
+  '#blk-deepsleep#': {
+    en: 'deepsleep for',
+  },
+  '#blk-deepsleep_tooltip#': {
+    en: 'Deep sleep for the specified duration. Upon wake, the program is restarted, similar to a hard or power-on reset. You can use \\"reset cause\\" to check what caused the wakeup.',
+  },
+  '#blk-wake_reason#': {
+    en: 'wake reason is',
+  },
+  '#blk-wake_reason_tooltip#': {
+    en: 'Provides the reason for waking up after a lightsleep.',
+  },
+  '#blk-reset_cause#': {
+    en: 'reset cause is',
+  },
+  '#blk-reset_cause_tooltip#': {
+    en: 'Provides the reason for reset (ie. power on, deep sleep, etc).',
+  },
+  '#blk-start_watchdog#': {
+    en: 'start watchdog with timeout',
+  },
+  '#blk-start_watchdog_tooltip#': {
+    en: 'Starts a watchdog timer with the given timeout. If the watchdog is not fed before the timeout, it will reset the device. This is useful to reset the device in case of a crash.',
+  },
+  '#blk-feed_watchdog#': {
+    en: 'feed watchdog',
+  },
+  '#blk-feed_watchdog_tooltip#': {
+    en: 'Feeds the watchdog timer. This should be done frequently to prevent the device from resetting.',
+  },
 };
 let MSGS_KEYS = Object.keys(MSGS);
 

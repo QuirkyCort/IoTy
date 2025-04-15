@@ -1,0 +1,16 @@
+{
+  "type": "deepsleep",
+  "message0": "#blk-deepsleep# %1 #blk-ms#",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "duration",
+      "check": "Number"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 65,
+  "tooltip": "#blk-deepsleep_tooltip#",
+  "helpUrl": ""
+}

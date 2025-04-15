@@ -875,6 +875,22 @@ var extensions = new function() {
           'Provides a <a href="https://en.wikipedia.org/wiki/Circular_buffer">circular buffer</a> useful for buffering data (ie. when streaming data from the internet). ' +
         '</p>'
     },
+    {
+      id: 'system',
+      name: 'System',
+      files: [],
+      description:
+      '<p>' +
+        'Provides access to system functions such as deepsleep and watchdog timer. ' +
+      '</p>' +
+      '<p>' +
+        'Be careful when using these blocks, as improper use may prevent you from programming your device. ' +
+        'If that occurs, you can usually recover by putting the device into programming mode (...hold the boot button while clicking reset).' +
+      '</p>' +
+      '<p>' +
+        'This extensions only add blocks; no additional Python files are added or required.' +
+      '</p>'
+    }
   ]
 
   this.init = function() {
