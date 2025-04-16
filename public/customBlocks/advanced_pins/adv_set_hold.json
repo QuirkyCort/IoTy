@@ -16,8 +16,8 @@
           "HOLD"
         ],
         [
-          "no hold",
-          "NO HOLD"
+          "release",
+          "RELEASE"
         ]
       ]
     }

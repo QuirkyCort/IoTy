@@ -999,7 +999,7 @@ var ioty_generator = new function() {
 
     if (mode == 'HOLD') {
       mode = 'True';
-    } else if (mode == 'NO_HOLD') {
+    } else if (mode == 'RELEASE') {
       mode = 'False';
     }
 

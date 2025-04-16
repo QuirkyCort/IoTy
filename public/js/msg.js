@@ -127,6 +127,9 @@ let MSGS = {
   '#blk-set_pin_tooltip#': {
     en: 'Set the pin as input (for reading), output (for writing), or input with pullup (for reading, is high if unconnected).',
   },
+  '#blk-set_pin_hold_tooltip#': {
+    en: 'When held, the pin value cannot be changed. This is necessary to hold the pin high or low during sleep.',
+  },
   '#blk-to_mode#': {
     en: 'to mode',
   },
