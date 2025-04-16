@@ -2,7 +2,11 @@ import time
 from machine import Pin, ADC, PWM, time_pulse_us
 try:
     from machine import TouchPad
-except:
+except ImportError:
+    pass
+try:
+    import esp32
+except ImportError:
     pass
 from micropython import const
 
@@ -42,6 +46,12 @@ def set_pin_mode(pin, mode):
     else:
         _pins[pin][0] = Pin(pin, mode)
     _pins[pin][1] = state
+
+def set_hold(pin, hold):
+    set_pin_mode(pin, OUT)
+    _pins[pin][0].init(hold=hold)
+    if hold:
+        esp32.gpio_deep_sleep_hold(True)
 
 def digital_read(pin):
     _init_pin(pin)

@@ -36,6 +36,7 @@ var ioty_generator = new function() {
     Blockly.Python['hc_sr04_ping'] = self.hc_sr04_ping;
 
     Blockly.Python['adv_set_pin_mode'] = self.adv_set_pin_mode;
+    Blockly.Python['adv_set_pin_hold'] = self.adv_set_pin_hold;
     Blockly.Python['adv_digital_read_pin'] = self.adv_digital_read_pin;
     Blockly.Python['adv_digital_write_pin'] = self.adv_digital_write_pin;
     Blockly.Python['adv_analog_read_pin'] = self.adv_analog_read_pin;
@@ -986,6 +987,23 @@ var ioty_generator = new function() {
     }
 
     var code = 'pin.set_pin_mode(' + pin + ', ' + mode + ')\n';
+
+    return code;
+  };
+
+  this.adv_set_pin_hold = function(block) {
+    self.iotyImports['pin'] = 'pin';
+
+    var pin = Blockly.Python.valueToCode(block, 'pin', Blockly.Python.ORDER_ATOMIC);
+    var mode = block.getFieldValue('mode');
+
+    if (mode == 'HOLD') {
+      mode = 'True';
+    } else if (mode == 'NO_HOLD') {
+      mode = 'False';
+    }
+
+    var code = 'pin.set_hold(' + pin + ', ' + mode + ')\n';
 
     return code;
   };
