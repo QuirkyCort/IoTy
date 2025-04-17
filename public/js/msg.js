@@ -1094,7 +1094,7 @@ let MSGS = {
     en: 'on fail',
   },
   '#blk-urequests_advance_tooltip#': {
-    en: 'The advance urequest allows setting of request header and body, as well as detection of error.',
+    en: 'Request header should be a dictionary. Body should be bytes (data) or JSON encodable data (json).',
   },
   '#blk-connect_to#': {
     en: 'connect to',

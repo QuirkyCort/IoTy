@@ -2975,7 +2975,6 @@
   </category>
   <category toolboxitemid="system" name="System" colour="#9fa55b" hidden="true">
     <block type="idle"></block>
-    <block type="wake_reason"></block>
     <block type="lightsleep">
       <value name="duration">
         <shadow type="math_number">
@@ -2983,6 +2982,7 @@
         </shadow>
       </value>
     </block>
+    <block type="wake_reason"></block>
     <block type="deepsleep">
       <value name="duration">
         <shadow type="math_number">
