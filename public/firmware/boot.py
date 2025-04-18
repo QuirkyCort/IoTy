@@ -1,16 +1,23 @@
 import os
 from machine import Pin
 from time import sleep_ms
+import ioty.constants as constants
 
 def main():
-    led = Pin(2, Pin.OUT)
-    btn = Pin(0, Pin.IN, Pin.PULL_UP)
+    led = Pin(constants._LED_PIN, Pin.OUT)
+    btn = Pin(constants._BOOT_PIN, Pin.IN, Pin.PULL_UP)
+
+    def led_on():
+        led.value(constants._LED_ON)
+
+    def led_off():
+        led.value(constants._LED_OFF)
 
     def blink(ms,count=1):
         for _ in range(count):
-            led.on()
+            led_on()
             sleep_ms(ms)
-            led.off()
+            led_off()
             sleep_ms(ms)
 
     def start_mqtt():
@@ -20,15 +27,15 @@ def main():
         if not mqtt.read_config():
             return
 
-        led.off()
+        led_off()
         mqtt.connect_wifi()
         while not mqtt.wifi_isconnected():
             blink(50, 2)
             sleep_ms(500)
-        led.off()
+        led_off()
 
         mqtt.connect_mqtt()
-        led.on()
+        led_on()
         return mqtt
 
     def start_mqtt_ble_mode():
@@ -63,7 +70,7 @@ def main():
 
     ble_mode = False
     if btn.value() == 0:
-        led.on()
+        led_on()
 
         for _ in range(200):
             sleep_ms(10)
@@ -80,7 +87,7 @@ def main():
         try:
             os.stat('main.py')
         except:
-            led.on()
+            led_on()
             start_mqtt_ble_mode()
 
 main()
