@@ -2,7 +2,6 @@ _VERSION = 15
 _BOOT_PIN = 0
 _LED_PIN = 2
 _LED_ON = 1
-_LED_OFF = 0
 _PRESERVE_FILES = (
 '_ioty_name',
 '_ioty_network',
