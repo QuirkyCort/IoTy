@@ -31,7 +31,7 @@ var main = new function() {
       self.bleAvailable = false;
       self.connectionMode = 'serial';
     } else {
-      self.connectionMode = 'ble';
+      self.connectionMode = 'serial';
     }
 
     let deviceWifiSettings = localStorage.getItem('deviceWifiSettings');
