@@ -66,7 +66,10 @@ def main():
             http.wait_for_connection()
             blink(50)
 
-    blink(200, 3)
+    try:
+        os.stat('_FASTBOOT')
+    except:
+        blink(200, 3)
 
     ble_mode = False
     if btn.value() == 0:
