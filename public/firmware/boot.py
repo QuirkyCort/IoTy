@@ -11,7 +11,7 @@ def main():
         led.value(constants._LED_ON)
 
     def led_off():
-        led.value(constants._LED_OFF)
+        led.value(1 - constants._LED_ON)
 
     def blink(ms,count=1):
         for _ in range(count):
@@ -66,7 +66,10 @@ def main():
             http.wait_for_connection()
             blink(50)
 
-    blink(200, 3)
+    try:
+        os.stat('_FASTBOOT')
+    except:
+        blink(200, 3)
 
     ble_mode = False
     if btn.value() == 0:
