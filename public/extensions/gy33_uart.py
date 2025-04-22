@@ -42,7 +42,7 @@ class GY33_UART:
 
             if self.header == 2:
                 if self._read_frame(c):
-                    return
+                    return True
             elif c == HEADER:
                 self._clear_frame()
                 self.header += 1
@@ -96,7 +96,7 @@ class GY33_UART:
         self.raw[0] = (self.recv_buf[0] << 8) + self.recv_buf[1]
         self.raw[1] = (self.recv_buf[2] << 8) + self.recv_buf[3]
         self.raw[2] = (self.recv_buf[4] << 8) + self.recv_buf[5]
-        self.raw[3] = (self.recv_buf[6] << 8) + self.recv_buf[6]
+        self.raw[3] = (self.recv_buf[6] << 8) + self.recv_buf[7]
 
     def _parse_lcc(self):
         self.lcc[0] = (self.recv_buf[0] << 8) + self.recv_buf[1]
