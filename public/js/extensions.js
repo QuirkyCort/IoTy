@@ -428,7 +428,7 @@ var extensions = new function() {
       id: 'gy33_uart',
       name: 'GY33 UART (Light and Color sensor)',
       files: [
-        ['gy33_uart.py', 'extensions/gy33_uart.py?v=5f8cfc5a'],
+        ['gy33_uart.py', 'extensions/gy33_uart.py?v=25537a86'],
       ],
       description:
         '<p>' +

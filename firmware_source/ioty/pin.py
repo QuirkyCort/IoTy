@@ -48,6 +48,7 @@ def set_pin_mode(pin, mode):
     _pins[pin][1] = state
 
 def set_hold(pin, hold):
+    _init_pin(pin)
     _pins[pin][0].init(hold=hold)
     if hold:
         esp32.gpio_deep_sleep_hold(True)
