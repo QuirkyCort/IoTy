@@ -17,18 +17,19 @@ class LDS02RR:
     def update(self):
         last_read = None
         while self.uart.any():
-            char = self.uart.read(1)[0]
+            chars = self.uart.read(100)
 
-            if self.ptr == 0:
-                if char == MEASUREMENT_SYNC:
-                    self.buf[0] = char
+            for char in chars:
+                if self.ptr == 0:
+                    if char == MEASUREMENT_SYNC:
+                        self.buf[0] = char
+                        self.ptr += 1
+                else:
+                    self.buf[self.ptr] = char
                     self.ptr += 1
-            else:
-                self.buf[self.ptr] = char
-                self.ptr += 1
-                if self.ptr == 22:
-                    last_read = self._parse_measurement()
-                    self.ptr = 0
+                    if self.ptr == 22:
+                        last_read = self._parse_measurement()
+                        self.ptr = 0
         return last_read
 
     def get_distances(self):
@@ -42,14 +43,13 @@ class LDS02RR:
 
     def _checksum_correct(self):
         checksum = 0
-        values = struct.unpack('<HHHHHHHHHH', self.buf)
-        for value in values:
-            checksum = (checksum << 1) + value
+        values = struct.unpack('<11H', self.buf)
+        for i in range(10):
+            checksum = (checksum << 1) + values[i]
             checksum %= 0xFFFFFFFF
         calculated = (checksum + (checksum >> 15)) & 0x7FFF
-        given = struct.unpack('<H', self.buf[-2:])[0]
 
-        return calculated == given
+        return calculated == values[10]
 
     def _parse_sample(self, index):
         flags = self.buf[index + 1] >> 6
@@ -67,9 +67,9 @@ class LDS02RR:
             distance, strength, flags = self._parse_sample(index)
             pos = sample_index * 4 + i
             if flags & DATA_INVALID:
-                self.distances[pos] = distance
-                self.strengths[pos] = strength
-            else:
                 self.distances[pos] = -1
                 self.strengths[pos] = -1
+            else:
+                self.distances[pos] = distance
+                self.strengths[pos] = strength
         return pos
