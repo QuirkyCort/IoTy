@@ -109,10 +109,11 @@ def request(
             s.write(b"\r\n")
         if json is not None:
             assert data is None
-            import json
+            import json as json_module
 
-            data = json.dumps(json)
+            data = json_module.dumps(json)
             s.write(b"Content-Type: application/json\r\n")
+            s.write(b"Content-Length: %d\r\n" % len(data))
         if data:
             if chunked_data:
                 s.write(b"Transfer-Encoding: chunked\r\n")
