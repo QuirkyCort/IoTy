@@ -20,7 +20,7 @@ def set_group(g):
     group = g
 
 def send(message):
-    esp_now.send(b'\xff\xff\xff\xff\xff\xff', json.dumps([group, message]))
+    esp_now.send(b'\xff\xff\xff\xff\xff\xff', json.dumps([group, message], separators=(',', ':')))
 
 def recv(wait):
     while True:
