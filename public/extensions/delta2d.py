@@ -78,6 +78,11 @@ class Delta2D:
         offset_angle, start_angle = struct.unpack('>HH', self.buf[9:13])
         start_angle /= 100
         if start_angle < self._prev_start_angle:
+            for i in range(self.measurement_ptr, len(self.measurements)):
+                self.measurements[i][0] = 0.0
+                self.measurements[i][1] = -1.0
+                if self.strength:
+                    self.measurements[i][2] = 0
             self.measurement_ptr = 0
         self._prev_start_angle = start_angle
         count = (self.payload_length - 5) / 3
@@ -96,12 +101,6 @@ class Delta2D:
         if start_angle == 337.5:
             if self.integer:
                 return True
-            for i in range(self.measurement_ptr, len(self.measurements)):
-                self.measurements[i][0] = 0.0
-                self.measurements[i][1] = -1.0
-                if self.strength:
-                    self.measurements[i][2] = 0
-            self.measurement_ptr += 1
             return True
         return False
 
