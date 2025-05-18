@@ -11,6 +11,7 @@ class CoinD4:
         self.uart = uart
         self.strength = strength
         self.integer = integer
+        self.uart_buf = bytearray(100)
         self.buf = bytearray(FRAME_LENGTH)
         self.ptr = 0
         self.speed = 0
@@ -31,10 +32,12 @@ class CoinD4:
     def update(self):
         buf = self.buf
         ptr = self.ptr
+        uart_buf = self.uart_buf
         while self.uart.any():
-            chars = self.uart.read(100)
+            count = self.uart.readinto(uart_buf)
 
-            for char in chars:
+            for i in range(count):
+                char = uart_buf[i]
                 if ptr == 0:
                     if char == DATA_HEADER[0]:
                         buf[0] = char
