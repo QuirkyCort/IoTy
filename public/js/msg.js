@@ -1313,7 +1313,7 @@ let MSGS = {
     en: 'ESP-NOW message is available',
   },
   '#blk-esp_now_msg_available_tooltip#': {
-    en: 'Returns a list containing sender\'s MAC address and message. Set wait time to -1 to wait forever.',
+    en: 'Returns True if a message is available to read.',
   },
   '#blk-init_ez_esp_now#': {
     en: 'Init EZ ESP-NOW',
