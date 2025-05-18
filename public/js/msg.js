@@ -1307,7 +1307,7 @@ let MSGS = {
     en: 'ESP-NOW get message, wait for',
   },
   '#blk-esp_now_get_msg_tooltip#': {
-    en: 'Returns a list containing sender\'s MAC address and message. Set wait time to -1 to wait forever.',
+    en: 'Returns a list containing sender\'s MAC address and message. Set wait time to -1 to wait forever. Returns (None, None) if no message is received.',
   },
   '#blk-esp_now_msg_available#': {
     en: 'ESP-NOW message is available',
