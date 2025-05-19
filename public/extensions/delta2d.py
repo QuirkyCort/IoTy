@@ -11,6 +11,7 @@ class Delta2D:
     def __init__(self, uart, strength=False, integer=True):
         self.uart = uart
         self.measurements = []
+        self.uart_buf = bytearray(100)
         self.buf = bytearray(HEADER_LENGTH + PAYLOAD_LENGTH)
         self.strength = strength
         self.integer = integer
@@ -25,31 +26,37 @@ class Delta2D:
         else:
             for _ in range(32 * 16):
                 if strength:
-                    self.measurements.append([0.0, -1.0, 0])
+                    self.measurements.append([0.0, -1, 0])
                 else:
-                    self.measurements.append([0.0, -1.0])
+                    self.measurements.append([0.0, -1])
 
     def update(self):
+        buf = self.buf
+        ptr = self.ptr
+        uart_buf = self.uart_buf
         while self.uart.any():
-            chars = self.uart.read(100)
+            count = self.uart.readinto(uart_buf)
 
-            for char in chars:
-                if self.ptr == 0:
+            for i in range(count):
+                char = uart_buf[i]
+                if ptr == 0:
                     if char == HEADER_SYNC:
-                        self.buf[0] = char
-                        self.ptr += 1
+                        buf[0] = char
+                        ptr += 1
                 else:
-                    self.buf[self.ptr] = char
-                    self.ptr += 1
-                    if self.ptr == HEADER_LENGTH:
+                    buf[ptr] = char
+                    ptr += 1
+                    if ptr == HEADER_LENGTH:
                         if self._header_valid():
-                            self.payload_length = struct.unpack('>H', self.buf[6:8])[0]
+                            self.payload_length = struct.unpack('>H', buf[6:8])[0]
                         else:
-                            self.ptr = 0
-                    elif self.ptr == HEADER_LENGTH + self.payload_length + 2:
-                        self.ptr = 0
+                            ptr = 0
+                    elif ptr == HEADER_LENGTH + self.payload_length + 2:
+                        ptr = 0
                         if self._checksum_correct():
+                            self.ptr = ptr
                             return self._parse_frame()
+        self.ptr = ptr
         return False
 
     def get_measurements(self):
@@ -74,30 +81,36 @@ class Delta2D:
         return False
 
     def _parse_measurement_frame(self):
-        self.speed = self.buf[8]
-        offset_angle, start_angle = struct.unpack('>HH', self.buf[9:13])
+        measurements = self.measurements
+        measurement_ptr = self.measurement_ptr
+        buf = self.buf
+        integer = self.integer
+        strength = self.strength
+        self.speed = buf[8]
+        offset_angle, start_angle = struct.unpack('>HH', buf[9:13])
         start_angle /= 100
         if start_angle < self._prev_start_angle:
-            for i in range(self.measurement_ptr, len(self.measurements)):
-                self.measurements[i][0] = 0.0
-                self.measurements[i][1] = -1.0
-                if self.strength:
-                    self.measurements[i][2] = 0
-            self.measurement_ptr = 0
+            for i in range(measurement_ptr, len(measurements)):
+                measurements[i][0] = 0.0
+                measurements[i][1] = -1
+                if strength:
+                    measurements[i][2] = 0
+            measurement_ptr = 0
         self._prev_start_angle = start_angle
         count = (self.payload_length - 5) / 3
         angle_step = FRAME_ANGLE / count
         for i in range(count):
             angle = start_angle + i * angle_step
-            strength, distance = struct.unpack('>BH', self.buf[13+i*3:16+i*3])
-            if self.integer:
-                self.measurements[round(angle)] = distance >> 2
+            strength_val, distance = struct.unpack('>BH', buf[13+i*3:16+i*3])
+            if integer:
+                measurements[round(angle)] = distance >> 2
             else:
-                self.measurements[self.measurement_ptr][0] = angle
-                self.measurements[self.measurement_ptr][1] = distance / 4
-                if self.strength:
-                    self.measurements[self.measurement_ptr][2] = strength
-                self.measurement_ptr += 1
+                measurements[measurement_ptr][0] = angle
+                measurements[measurement_ptr][1] = distance >> 2
+                if strength:
+                    measurements[measurement_ptr][2] = strength_val
+                measurement_ptr += 1
+        self.measurement_ptr = measurement_ptr
         if start_angle == 337.5:
             if self.integer:
                 return True
