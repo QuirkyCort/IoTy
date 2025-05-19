@@ -1,0 +1,10 @@
+{
+  "type": "coind4_update",
+  "message0": "#blk-coind4_update#",
+  "args0": [],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-coind4_update_tooltip#",
+  "helpUrl": ""
+}

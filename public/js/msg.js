@@ -3727,6 +3727,51 @@ let MSGS = {
   '#blk-feed_watchdog_tooltip#': {
     en: 'Feeds the watchdog timer. This should be done frequently to prevent the device from resetting.',
   },
+  '#blk-coind4_init#': {
+    en: 'init COIN-D4 on',
+  },
+  '#blk-in#': {
+    en: 'in',
+  },
+  '#blk-coind4_init_tooltip#': {
+    en: 'You must have an \\"init UART\\" block with the appropriate pins and baudrate (230400) set correctly before this.',
+  },
+  '#blk-coind4_start#': {
+    en: 'coind4: start',
+  },
+  '#blk-coind4_start_tooltip#': {
+    en: 'Starts the LIDAR. You must run this before you can get any data from the sensor.',
+  },
+  '#blk-coind4_stop#': {
+    en: 'coind4: stop',
+  },
+  '#blk-coind4_stop_tooltip#': {
+    en: 'Stops the LIDAR.',
+  },
+  '#blk-coind4_update#': {
+    en: 'coind4: update',
+  },
+  '#blk-coind4_update_tooltip#': {
+    en: 'Run this frequently to read data from the sensor. The readings will not change if you do not run this.',
+  },
+  '#blk-coind4_update_return#': {
+    en: 'coind4: update',
+  },
+  '#blk-coind4_update_return_tooltip#': {
+    en: 'Works like the above update, but returns True when a complete set of data is available. In Float mode, you must wait for this to return True before getting measurements.',
+  },
+  '#blk-coind4_rpm#': {
+    en: 'coind4: get rpm',
+  },
+  '#blk-coind4_rpm_tooltip#': {
+    en: 'Get the LIDAR RPM. Will return 0 if RPM data isn\'t available yet.',
+  },
+  '#blk-coind4_measurements#': {
+    en: 'coind4: get measurements',
+  },
+  '#blk-coind4_measurements_tooltip#': {
+    en: 'In integer mode, returns a list with 360 items, each representing the range in mm. In float mode, returns a list of lists, each containing the angle in degrees and distances in mm. A distance of 0 will be returned if the distance is not available.',
+  },
 };
 let MSGS_KEYS = Object.keys(MSGS);
 

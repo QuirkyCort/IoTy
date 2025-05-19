@@ -838,6 +838,9 @@ var extensions = new function() {
         '<p>' +
           'The motor RPM needs to be between 180 to 349 RPM to transmit valid data. ' +
           'This extension does not control the motor RPM, and you should control it by adjusting the motor voltage or with PWM. ' +
+        '</p>' +
+        '<p>' +
+          'UART must be initialized at baudrate 115200. ' +
         '</p>'
     },
     {
@@ -890,7 +893,26 @@ var extensions = new function() {
       '<p>' +
         'This extensions only add blocks; no additional Python files are added or required.' +
       '</p>'
-    }
+    },
+    {
+      id: 'coind4',
+      name: 'COIN-D4 LIDAR',
+      files: [
+        ['coind4.py', 'extensions/coind4.py?v=9cbbb04c'],
+      ],
+      description:
+        '<p>' +
+          'The COIN-D4 is a low cost 2D dToF LIDAR. ' +
+          'Compared to a triangulation LIDAR, the COIN-D4 is much smaller and has a shorter minimum distance. ' +
+        '</p>' +
+        '<p>' +
+          'As I do not have access to the COIN-D4 documentation, this extension is written based on the M1C1_Mini protocol and may not support all features of the COIN-D4. ' +
+          'Basic features such as start / stop and retrieval of distance readings are supported. ' +
+        '</p>' +
+        '<p>' +
+          'UART must be initialized at baudrate 230400. ' +
+        '</p>'
+    },
   ]
 
   this.init = function() {

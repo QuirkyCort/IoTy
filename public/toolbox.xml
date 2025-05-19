@@ -3000,4 +3000,13 @@
     </block>
     <block type="feed_watchdog"></block>
   </category>
+  <category toolboxitemid="coind4" name="COIN-D4" colour="#5b67a5" hidden="true">
+    <block type="coind4_init"></block>
+    <block type="coind4_start"></block>
+    <block type="coind4_stop"></block>
+    <block type="coind4_update"></block>
+    <block type="coind4_update_return"></block>
+    <block type="coind4_rpm"></block>
+    <block type="coind4_measurements"></block>
+  </category>
 </xml>

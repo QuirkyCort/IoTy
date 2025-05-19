@@ -634,6 +634,15 @@ var ioty_generator = new function() {
     Blockly.Python['feed_watchdog'] = self.feed_watchdog;
     Blockly.Python.addReservedWords('watchdog_timer');
 
+    Blockly.Python['coind4_init'] = self.coind4_init;
+    Blockly.Python['coind4_start'] = self.coind4_start;
+    Blockly.Python['coind4_stop'] = self.coind4_stop;
+    Blockly.Python['coind4_update'] = self.coind4_update;
+    Blockly.Python['coind4_update_return'] = self.coind4_update_return;
+    Blockly.Python['coind4_rpm'] = self.coind4_rpm;
+    Blockly.Python['coind4_measurements'] = self.coind4_measurements;
+    Blockly.Python.addReservedWords('coind4,coind4_device');
+
   };
 
   // Generate python code
@@ -6228,6 +6237,52 @@ var ioty_generator = new function() {
     return code;
   };
 
+  this.coind4_init = function(block) {
+    self.imports['coind4'] = 'import coind4';
+    self.reservedVariables['coind4_init'] = ['coind4_device'];
 
+    let uart = block.getFieldValue('uart');
+    let integer = block.getFieldValue('integer');
+
+    let code = 'coind4_device = coind4.CoinD4(uart' + uart + ', integer=' + integer + ')\n';
+
+    return code;
+  };
+
+  this.coind4_start = function(block) {
+    let code = 'coind4_device.start()\n';
+
+    return code;
+  };
+
+  this.coind4_stop = function(block) {
+    let code = 'coind4_device.stop()\n';
+
+    return code;
+  };
+
+  this.coind4_update = function(block) {
+    let code = 'coind4_device.update()\n';
+
+    return code;
+  };
+
+  this.coind4_update_return = function(block) {
+    let code = 'coind4_device.update()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.coind4_rpm = function(block) {
+    let code = 'coind4_device.get_rpm()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.coind4_measurements = function(block) {
+    let code = 'coind4_device.get_measurements()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
 }
 

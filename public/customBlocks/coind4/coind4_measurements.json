@@ -1,0 +1,9 @@
+{
+  "type": "coind4_measurements",
+  "message0": "#blk-coind4_measurements#",
+  "args0": [],
+  "output": "Array",
+  "colour": 230,
+  "tooltip": "#blk-coind4_measurements_tooltip#",
+  "helpUrl": ""
+}

@@ -21,13 +21,13 @@ class CoinD4:
         self._prev_start_angle = 0
         if self.integer:
             for _ in range(360):
-                self.measurements.append(-1)
+                self.measurements.append(0)
         else:
             for _ in range(420):
                 if strength:
-                    self.measurements.append([0.0, -1, 0])
+                    self.measurements.append([0.0, 0, 0])
                 else:
-                    self.measurements.append([0.0, -1])
+                    self.measurements.append([0.0, 0])
 
     def update(self):
         buf = self.buf

@@ -1,0 +1,9 @@
+{
+  "type": "coind4_update_return",
+  "message0": "#blk-coind4_update_return#",
+  "args0": [],
+  "output": "Boolean",
+  "colour": 230,
+  "tooltip": "#blk-coind4_update_return_tooltip#",
+  "helpUrl": ""
+}
