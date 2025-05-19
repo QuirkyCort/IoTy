@@ -3,7 +3,7 @@
   "message0": "#blk-xpt2046_get_pos#",
   "args0": [],
   "inputsInline": true,
-  "output": "Array",
+  "output": ["Array", "Boolean"],
   "colour": 230,
   "tooltip": "#blk-xpt2046_get_pos_tooltip#",
   "helpUrl": ""
