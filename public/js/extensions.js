@@ -53,7 +53,7 @@ var extensions = new function() {
       id: 'urequests',
       name: 'urequests (HTTP Requests)',
       files: [
-        ['urequests.py', 'extensions/urequests.py?v=fc3410c0'],
+        ['urequests.py', 'extensions/urequests.py?v=8f775290'],
       ],
       description:
         '<p>' +
@@ -92,7 +92,7 @@ var extensions = new function() {
       id: 'ez_espnow',
       name: 'EZ ESP-NOW',
       files: [
-        ['ez_espnow.py', 'extensions/ez_espnow.py?v=270742f4'],
+        ['ez_espnow.py', 'extensions/ez_espnow.py?v=7b503961'],
       ],
       description:
         '<p>' +
@@ -828,7 +828,7 @@ var extensions = new function() {
       id: 'lds02rr',
       name: 'LDS02RR LIDAR (Xiaomi / Roborock / Neato XV11)',
       files: [
-        ['lds02rr.py', 'extensions/lds02rr.py?v=9cbbb04c'],
+        ['lds02rr.py', 'extensions/lds02rr.py?v=82983e3f'],
       ],
       description:
         '<p>' +
@@ -898,7 +898,7 @@ var extensions = new function() {
       id: 'coind4',
       name: 'COIN-D4 LIDAR',
       files: [
-        ['coind4.py', 'extensions/coind4.py?v=9cbbb04c'],
+        ['coind4.py', 'extensions/coind4.py?v=3814a093'],
       ],
       description:
         '<p>' +
@@ -911,6 +911,26 @@ var extensions = new function() {
         '</p>' +
         '<p>' +
           'UART must be initialized at baudrate 230400. ' +
+        '</p>'
+    },
+    {
+      id: 'delta2d',
+      name: 'Delta 2D LIDAR',
+      files: [
+        ['delta2d.py', 'extensions/delta2d.py?v=390153cf'],
+      ],
+      description:
+        '<p>' +
+          'The Delta-2D is a low cost 2D LIDAR designed for use in vacuum cleaners. ' +
+          'There are many similar designs for this LIDAR (eg. Delta-2A), and this extension is may be compatible with them. ' +
+        '</p>' +
+        '<p>' +
+          'The motor RPM needs to be between 180 to 349 RPM to transmit valid data. ' +
+          'This extension does not control the motor RPM, and you should control it by adjusting the motor voltage or with PWM. ' +
+        '</p>' +
+        '<p>' +
+          'UART must be initialized at baudrate 115200. ' +
+          'If using a differente variant (eg. Delta-2A), you may need to use 230400. ' +
         '</p>'
     },
   ]

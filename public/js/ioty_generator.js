@@ -595,7 +595,7 @@ var ioty_generator = new function() {
     Blockly.Python['lds02rr_update'] = self.lds02rr_update;
     Blockly.Python['lds02rr_rpm'] = self.lds02rr_rpm;
     Blockly.Python['lds02rr_distances'] = self.lds02rr_distances;
-    Blockly.Python.addReservedWords('lds02rr,lds02rr_device');
+    Blockly.Python.addReservedWords('lds02rr');
 
     Blockly.Python['amg8833_init'] = self.amg8833_init;
     Blockly.Python['amg8833_set_ma_mode'] = self.amg8833_set_ma_mode;
@@ -641,7 +641,14 @@ var ioty_generator = new function() {
     Blockly.Python['coind4_update_return'] = self.coind4_update_return;
     Blockly.Python['coind4_rpm'] = self.coind4_rpm;
     Blockly.Python['coind4_measurements'] = self.coind4_measurements;
-    Blockly.Python.addReservedWords('coind4,coind4_device');
+    Blockly.Python.addReservedWords('coind4');
+
+    Blockly.Python['delta2d_init'] = self.delta2d_init;
+    Blockly.Python['delta2d_update'] = self.delta2d_update;
+    Blockly.Python['delta2d_update_return'] = self.delta2d_update_return;
+    Blockly.Python['delta2d_rpm'] = self.delta2d_rpm;
+    Blockly.Python['delta2d_measurements'] = self.delta2d_measurements;
+    Blockly.Python.addReservedWords('delta2d');
 
   };
 
@@ -6266,6 +6273,41 @@ var ioty_generator = new function() {
 
   this.coind4_measurements = function(block) {
     let code = 'coind4_device.get_measurements()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.delta2d_init = function(block) {
+    self.imports['delta2d'] = 'import delta2d';
+    self.reservedVariables['delta2d_init'] = ['delta2d_device'];
+
+    let uart = block.getFieldValue('uart');
+
+    let code = 'delta2d_device = delta2d.Delta2D(uart' + uart + ')\n';
+
+    return code;
+  };
+
+  this.delta2d_update = function(block) {
+    let code = 'delta2d_device.update()\n';
+
+    return code;
+  };
+
+  this.delta2d_update_return = function(block) {
+    let code = 'delta2d_device.update()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.delta2d_rpm = function(block) {
+    let code = 'delta2d_device.get_rpm()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.delta2d_measurements = function(block) {
+    let code = 'delta2d_device.get_measurements()';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };

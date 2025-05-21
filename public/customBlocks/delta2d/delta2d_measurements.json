@@ -1,0 +1,9 @@
+{
+  "type": "delta2d_measurements",
+  "message0": "#blk-delta2d_measurements#",
+  "args0": [],
+  "output": "Array",
+  "colour": 230,
+  "tooltip": "#blk-delta2d_measurements_tooltip#",
+  "helpUrl": ""
+}

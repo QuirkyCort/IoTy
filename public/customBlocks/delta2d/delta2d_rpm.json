@@ -1,0 +1,9 @@
+{
+  "type": "delta2d_rpm",
+  "message0": "#blk-delta2d_rpm#",
+  "args0": [],
+  "output": "Number",
+  "colour": 230,
+  "tooltip": "#blk-delta2d_rpm_tooltip#",
+  "helpUrl": ""
+}

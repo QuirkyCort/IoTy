@@ -1,0 +1,9 @@
+{
+  "type": "delta2d_update_return",
+  "message0": "#blk-delta2d_update_return#",
+  "args0": [],
+  "output": "Boolean",
+  "colour": 230,
+  "tooltip": "#blk-delta2d_update_return_tooltip#",
+  "helpUrl": ""
+}

@@ -3009,4 +3009,11 @@
     <block type="coind4_rpm"></block>
     <block type="coind4_measurements"></block>
   </category>
+  <category toolboxitemid="delta2d" name="Delta-2D" colour="#5b67a5" hidden="true">
+    <block type="delta2d_init"></block>
+    <block type="delta2d_update"></block>
+    <block type="delta2d_update_return"></block>
+    <block type="delta2d_rpm"></block>
+    <block type="delta2d_measurements"></block>
+  </category>
 </xml>

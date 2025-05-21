@@ -3772,6 +3772,36 @@ let MSGS = {
   '#blk-coind4_measurements_tooltip#': {
     en: 'In integer mode, returns a list with 360 items, each representing the range in mm. In float mode, returns a list of lists, each containing the angle in degrees and distances in mm. A distance of 0 will be returned if the distance is not available.',
   },
+  '#blk-delta2d_init#': {
+    en: 'init Delta-2D on',
+  },
+  '#blk-delta2d_init_tooltip#': {
+    en: 'You must have an \\"init UART\\" block with the appropriate pins and baudrate (115200) set correctly before this.',
+  },
+  '#blk-delta2d_update#': {
+    en: 'delta2d: update',
+  },
+  '#blk-delta2d_update_tooltip#': {
+    en: 'Run this frequently to read data from the sensor. The readings will not change if you do not run this.',
+  },
+  '#blk-delta2d_update_return#': {
+    en: 'delta2d: update',
+  },
+  '#blk-delta2d_update_return_tooltip#': {
+    en: 'Works like the above update, but returns True when a complete set of data is available. In Float mode, you must wait for this to return True before getting measurements.',
+  },
+  '#blk-delta2d_rpm#': {
+    en: 'delta2d: get rpm',
+  },
+  '#blk-delta2d_rpm_tooltip#': {
+    en: 'Get the LIDAR RPM. Will return 0 if RPM data isn\'t available yet.',
+  },
+  '#blk-delta2d_measurements#': {
+    en: 'delta2d: get measurements',
+  },
+  '#blk-delta2d_measurements_tooltip#': {
+    en: 'In integer mode, returns a list with 360 items, each representing the range in mm. In float mode, returns a list of lists, each containing the angle in degrees and distances in mm. A distance of 0 will be returned if the distance is not available.',
+  },
 };
 let MSGS_KEYS = Object.keys(MSGS);
 
