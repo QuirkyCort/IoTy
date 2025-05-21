@@ -2557,47 +2557,32 @@ var ioty_generator = new function() {
   };
 
   this.esp_now_add_peer = function(block) {
+    self.imports['binascii'] = 'import binascii';
+
     let mac = Blockly.Python.valueToCode(block, 'mac', Blockly.Python.ORDER_ATOMIC);
-    mac = mac.substring(1,mac.length-1);
 
-    let macParts = mac.split(/(..)/g).filter(s => s);
-    mac = '';
-    for (let part of macParts) {
-      mac += '\\x' + part;
-    }
-
-    var code = 'esp_now.add_peer(b\'' + mac + '\')\n';
+    let code = 'esp_now.add_peer(binascii.unhexlify(' + mac + '))\n';
 
     return code;
   };
 
   this.esp_now_remove_peer = function(block) {
+    self.imports['binascii'] = 'import binascii';
+
     let mac = Blockly.Python.valueToCode(block, 'mac', Blockly.Python.ORDER_ATOMIC);
-    mac = mac.substring(1,mac.length-1);
 
-    let macParts = mac.split(/(..)/g).filter(s => s);
-    mac = '';
-    for (let part of macParts) {
-      mac += '\\x' + part;
-    }
-
-    var code = 'esp_now.del_peer(b\'' + mac + '\')\n';
+    let code = 'esp_now.del_peer(binascii.unhexlify(' + mac + '))\n';
 
     return code;
   };
 
   this.esp_now_send = function(block) {
+    self.imports['binascii'] = 'import binascii';
+
     let value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_ATOMIC);
     let mac = Blockly.Python.valueToCode(block, 'mac', Blockly.Python.ORDER_ATOMIC);
-    mac = mac.substring(1,mac.length-1);
 
-    let macParts = mac.split(/(..)/g).filter(s => s);
-    mac = '';
-    for (let part of macParts) {
-      mac += '\\x' + part;
-    }
-
-    var code = 'esp_now.send(b\'' + mac + '\', ' + value + ')\n';
+    let code = 'esp_now.send(binascii.unhexlify(' + mac + '), ' + value + ')\n';
 
     return code;
   };
