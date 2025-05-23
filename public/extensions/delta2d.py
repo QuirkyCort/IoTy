@@ -89,14 +89,11 @@ class Delta2D:
         self.speed = buf[8]
         offset_angle, start_angle = struct.unpack('>HH', buf[9:13])
         start_angle /= 100
-        if start_angle < self._prev_start_angle:
-            for i in range(measurement_ptr, len(measurements)):
-                measurements[i][0] = 0.0
-                measurements[i][1] = -1
-                if strength:
-                    measurements[i][2] = 0
+
+        if start_angle < self._prev_start_angle and integer == False:
             measurement_ptr = 0
         self._prev_start_angle = start_angle
+
         count = (self.payload_length - 5) / 3
         angle_step = FRAME_ANGLE / count
         for i in range(count):

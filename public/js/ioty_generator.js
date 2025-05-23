@@ -6282,8 +6282,9 @@ var ioty_generator = new function() {
     self.reservedVariables['delta2d_init'] = ['delta2d_device'];
 
     let uart = block.getFieldValue('uart');
+    let integer = block.getFieldValue('integer');
 
-    let code = 'delta2d_device = delta2d.Delta2D(uart' + uart + ')\n';
+    let code = 'delta2d_device = delta2d.Delta2D(uart' + uart + ', integer=' + integer + ')\n';
 
     return code;
   };

@@ -755,7 +755,7 @@ var extensions = new function() {
       id: 'ili9341',
       name: 'ILI9341 Display',
       files: [
-        ['ili9341.py', 'extensions/ili9341.py?v=d8b5f7b8'],
+        ['ili9341.py', 'extensions/ili9341.py?v=b99501ca'],
       ],
       description:
         '<p>' +
@@ -917,7 +917,7 @@ var extensions = new function() {
       id: 'delta2d',
       name: 'Delta 2D LIDAR',
       files: [
-        ['delta2d.py', 'extensions/delta2d.py?v=390153cf'],
+        ['delta2d.py', 'extensions/delta2d.py?v=60a5901e'],
       ],
       description:
         '<p>' +
