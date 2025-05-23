@@ -137,6 +137,10 @@ class Display(object):
             bgr (Optional bool): Swaps red and blue colors (default True)
             gamma (Optional bool): Custom gamma correction (default True)
         """
+        self.cmd_buf = bytearray(1)
+        self.data_buf = bytearray(4)
+        self.color_buf = bytearray(2)
+
         self.spi = spi
         self.cs = cs
         self.dc = dc
@@ -524,7 +528,43 @@ class Display(object):
         """
         if self.is_off_grid(x, y, x, y):
             return
-        self.block(x, y, x, y, color.to_bytes(2, 'big'))
+        cmd_buf = self.cmd_buf
+        data_buf = self.data_buf
+
+        self.cs(0)
+
+        cmd_buf[0] = self.SET_COLUMN
+        data_buf[0] = x >> 8
+        data_buf[1] = x & 0xff
+        data_buf[2] = data_buf[0]
+        data_buf[3] = data_buf[1]
+
+        self.dc(0)
+        self.spi.write(cmd_buf)
+        self.dc(1)
+        self.spi.write(data_buf)
+
+        cmd_buf[0] = self.SET_PAGE
+        data_buf[0] = y >> 8
+        data_buf[1] = y & 0xff
+        data_buf[2] = data_buf[0]
+        data_buf[3] = data_buf[1]
+
+        self.dc(0)
+        self.spi.write(cmd_buf)
+        self.dc(1)
+        self.spi.write(data_buf)
+
+        cmd_buf[0] = self.WRITE_RAM
+        self.color_buf[0] = color >> 8
+        self.color_buf[1] = color & 0xff
+
+        self.dc(0)
+        self.spi.write(cmd_buf)
+        self.dc(1)
+        self.spi.write(self.color_buf)
+
+        self.cs(1)
 
     def draw_polygon(self, sides, x0, y0, r, color, rotate=0):
         """Draw an n-sided regular polygon.
