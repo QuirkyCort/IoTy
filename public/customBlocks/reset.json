@@ -1,0 +1,25 @@
+{
+  "type": "reset",
+  "message0": "%1",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "type",
+      "options": [
+        [
+          "#blk-hard_reset#",
+          "HARD_RESET"
+        ],
+        [
+          "#blk-soft_reset#",
+          "SOFT_RESET"
+        ]
+      ]
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 65,
+  "tooltip": "#blk-reset_tooltip#",
+  "helpUrl": ""
+}

@@ -72,6 +72,7 @@
       <field name="units">MILLI</field>
     </block>
     <block type="exit"></block>
+    <block type="reset"></block>
     <block type="date_time_get"></block>
     <block type="date_time_set"></block>
     <block type="date_time_set_ntp">

@@ -297,6 +297,15 @@ let MSGS = {
     he: "סיים את התוכנית",
     ru: 'Остановить выполнение программы',
   },
+  '#blk-soft_reset#': {
+    en: 'soft reset',
+  },
+  '#blk-hard_reset#': {
+    en: 'hard reset',
+  },
+  '#blk-reset_tooltip#': {
+    en: 'Resets the device.',
+  },
   '#blk-comment#': {
     en: '# Comment:',
   },

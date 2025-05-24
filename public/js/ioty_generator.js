@@ -52,6 +52,7 @@ var ioty_generator = new function() {
     Blockly.Python['wait_until_connected'] = self.wait_until_connected;
     Blockly.Python['time'] = self.time;
     Blockly.Python['exit'] = self.exit;
+    Blockly.Python['reset'] = self.reset;
     Blockly.Python['read_input'] = self.read_input;
 
     Blockly.Python['connect_to_wifi'] = self.connect_to_wifi;
@@ -1189,6 +1190,21 @@ var ioty_generator = new function() {
     self.imports['sys'] = 'import sys';
 
     var code = 'sys.exit()\n';
+
+    return code;
+  };
+
+  this.reset = function(block) {
+    self.imports['machine'] = 'import machine';
+
+    let type = block.getFieldValue('type');
+
+    let code;
+    if (type == 'SOFT_RESET') {
+      code = 'machine.soft_reset()\n';
+    } else {
+      code = 'machine.reset()\n';
+    }
 
     return code;
   };
