@@ -3027,4 +3027,9 @@
     <block type="pms7003_wake"></block>
     <block type="pms7003_read"></block>
   </category>
+  <category toolboxitemid="ags10" name="AGS10" colour="#5b67a5" hidden="true">
+    <block type="ags10_init"></block>
+    <block type="ags10_read"></block>
+    <block type="ags10_set_zero"></block>
+  </category>
 </xml>

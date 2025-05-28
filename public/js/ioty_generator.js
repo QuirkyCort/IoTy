@@ -661,6 +661,11 @@ var ioty_generator = new function() {
     Blockly.Python['pms7003_read'] = self.pms7003_read;
     Blockly.Python.addReservedWords('pms7003');
 
+    Blockly.Python['ags10_init'] = self.ags10_init;
+    Blockly.Python['ags10_read'] = self.ags10_read;
+    Blockly.Python['ags10_set_zero'] = self.ags10_set_zero;
+    Blockly.Python.addReservedWords('ags10');
+
   };
 
   // Generate python code
@@ -6398,5 +6403,37 @@ var ioty_generator = new function() {
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };
+
+  this.ags10_init = function(block) {
+    self.imports['ags10'] = 'import ags10';
+    self.reservedVariables['ags10_init'] = ['ags10_device'];
+
+    let id = block.getFieldValue('id');
+    let addr = block.getFieldValue('addr');
+
+    let code = 'ags10_device = ags10.AGS10(' + id + ', addr=' + addr + ')\n';
+
+    return code;
+  };
+
+  this.ags10_read = function(block) {
+    let code = 'ags10_device.read()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.ags10_set_zero = function(block) {
+    let type = block.getFieldValue('type');
+
+    let code;
+    if (type == 'CURRENT') {
+      code = 'ags10_device.set_zero_to_current()\n';
+    } else {
+      code = 'ags10_device.set_zero_to_factory()\n';
+    }
+
+    return code;
+  };
+
 }
 

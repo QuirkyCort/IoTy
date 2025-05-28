@@ -950,6 +950,22 @@ var extensions = new function() {
           'UART must be initialized at baudrate 9600. ' +
         '</p>'
     },
+    {
+      id: 'ags10',
+      name: 'AGS10 (TVOC Sensor)',
+      files: [
+        ['ags10.py', 'extensions/ags10.py?v=52c08b82'],
+      ],
+      description:
+        '<p>' +
+          'The AGS10 is a sensor for measuring the quantity of Total Volatile Organic Compounds (TVOC) in air. ' +
+          'Output is in ppb (parts per billion). ' +
+        '</p>' +
+        '<p>' +
+          'Upon power up, it can take around 2 mins for the sensor to pre-heat, before readings are available. ' +
+          'It is also important not to read more than once every 1.5 seconds. ' +
+        '</p>'
+    },
   ]
 
   this.init = function() {

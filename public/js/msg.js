@@ -3859,6 +3859,24 @@ let MSGS = {
   '#blk-pms7003_read_tooltip#': {
     en: 'Use this in Passive mode to retrieve new data from the sensor. This will block until a new reading is available, or until timeout. Returns None on timeout, else a dictionary with the latest measurements.',
   },
+  '#blk-ags10_init#': {
+    en: 'init AGS10 on',
+  },
+  '#blk-ags10_init_tooltip#': {
+    en: 'You must have an \\"init I2C\\" block before this',
+  },
+  '#blk-ags10_read#': {
+    en: 'ags10: read',
+  },
+  '#blk-ags10_read_tooltip#': {
+    en: 'Read the sensor and return the TVOC in ppb (Parts per billion). If the sensor is not ready, this will return None. You should wait at least 1.5 seconds between each read.',
+  },
+  '#blk-ags10_set_zero#': {
+    en: 'ags10: set zero to',
+  },
+  '#blk-ags10_set_zero_tooltip#': {
+    en: 'The AGS10 is factory calibrated, but you can recalibrate it by setting the zero value to the current reading. The sensor should be exposed to clean air for at least 15 mins before doing this.',
+  },
 };
 let MSGS_KEYS = Object.keys(MSGS);
 
