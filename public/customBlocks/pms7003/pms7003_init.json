@@ -1,0 +1,19 @@
+{
+  "type": "pms7003_init",
+  "message0": "#blk-pms7003_init# %1",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "uart",
+      "options": [
+        ["UART1", "1"],
+        ["UART2", "2"]
+      ]
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-pms7003_init_tooltip#",
+  "helpUrl": ""
+}

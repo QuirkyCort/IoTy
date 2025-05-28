@@ -1,0 +1,19 @@
+{
+  "type": "pms7003_set_mode",
+  "message0": "#blk-pms7003_set_mode# %1",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "mode",
+      "options": [
+        ["Active", "ACTIVE"],
+        ["Passive", "PASSIVE"]
+      ]
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-pms7003_set_mode_tooltip#",
+  "helpUrl": ""
+}

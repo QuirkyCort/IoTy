@@ -651,6 +651,16 @@ var ioty_generator = new function() {
     Blockly.Python['delta2d_measurements'] = self.delta2d_measurements;
     Blockly.Python.addReservedWords('delta2d');
 
+    Blockly.Python['pms7003_init'] = self.pms7003_init;
+    Blockly.Python['pms7003_update'] = self.pms7003_update;
+    Blockly.Python['pms7003_update_return'] = self.pms7003_update_return;
+    Blockly.Python['pms7003_measurements'] = self.pms7003_measurements;
+    Blockly.Python['pms7003_set_mode'] = self.pms7003_set_mode;
+    Blockly.Python['pms7003_sleep'] = self.pms7003_sleep;
+    Blockly.Python['pms7003_wake'] = self.pms7003_wake;
+    Blockly.Python['pms7003_read'] = self.pms7003_read;
+    Blockly.Python.addReservedWords('pms7003');
+
   };
 
   // Generate python code
@@ -6325,6 +6335,66 @@ var ioty_generator = new function() {
 
   this.delta2d_measurements = function(block) {
     let code = 'delta2d_device.get_measurements()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.pms7003_init = function(block) {
+    self.imports['pms7003'] = 'import pms7003';
+    self.reservedVariables['pms7003_init'] = ['pms7003_device'];
+
+    let uart = block.getFieldValue('uart');
+
+    let code = 'pms7003_device = pms7003.PMS7003(uart' + uart + ')\n';
+
+    return code;
+  };
+
+  this.pms7003_update = function(block) {
+    let code = 'pms7003_device.update()\n';
+
+    return code;
+  };
+
+  this.pms7003_update_return = function(block) {
+    let code = 'pms7003_device.update()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.pms7003_measurements = function(block) {
+    let code = 'pms7003_device.get_measurements()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.pms7003_set_mode = function(block) {
+    let mode = block.getFieldValue('mode');
+
+    if (mode == 'ACTIVE') {
+      mode = 'set_active_mode';
+    } else {
+      mode = 'set_passive_mode';
+    }
+    let code = 'pms7003_device.'+ mode + '()\n';
+
+    return code;
+  };
+
+  this.pms7003_sleep = function(block) {
+    let code = 'pms7003_device.sleep()\n';
+
+    return code;
+  };
+
+  this.pms7003_wake = function(block) {
+    let code = 'pms7003_device.wake()\n';
+
+    return code;
+  };
+
+  this.pms7003_read = function(block) {
+    let code = 'pms7003_device.read()';
 
     return [code, Blockly.Python.ORDER_ATOMIC];
   };

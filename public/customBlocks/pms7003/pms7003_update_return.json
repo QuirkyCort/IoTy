@@ -1,0 +1,9 @@
+{
+  "type": "pms7003_update_return",
+  "message0": "#blk-pms7003_update_return#",
+  "args0": [],
+  "output": "Boolean",
+  "colour": 230,
+  "tooltip": "#blk-pms7003_update_return_tooltip#",
+  "helpUrl": ""
+}

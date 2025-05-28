@@ -3811,6 +3811,54 @@ let MSGS = {
   '#blk-delta2d_measurements_tooltip#': {
     en: 'In integer mode, returns a list with 360 items, each representing the range in mm. In float mode, returns a list of lists, each containing the angle in degrees and distances in mm. A distance of 0 will be returned if the distance is not available.',
   },
+  '#blk-pms7003_init#': {
+    en: 'init PMS7003 on',
+  },
+  '#blk-pms7003_init_tooltip#': {
+    en: 'You must have an \\"init UART\\" block with the appropriate pins and baudrate (9600) set correctly before this.',
+  },
+  '#blk-pms7003_update#': {
+    en: 'pms7003: update',
+  },
+  '#blk-pms7003_update_tooltip#': {
+    en: 'Run this frequently to read data from the sensor. The readings will not change if you do not run this.',
+  },
+  '#blk-pms7003_update_return#': {
+    en: 'pms7003: update',
+  },
+  '#blk-pms7003_update_return_tooltip#': {
+    en: 'Works like the above update, but returns True when a new set of data is available.',
+  },
+  '#blk-pms7003_measurements#': {
+    en: 'pms7003: get measurements',
+  },
+  '#blk-pms7003_measurements_tooltip#': {
+    en: 'Returns a dictionary containing the concentration and number of particles for different particle sizes.',
+  },
+  '#blk-pms7003_set_mode#': {
+    en: 'pms7003: set mode to',
+  },
+  '#blk-pms7003_set_mode_tooltip#': {
+    en: 'In Active mode, the sensor will continuously measure and return data. In Passive mode, you must call \\"read\\" to retrieve new data.',
+  },
+  '#blk-pms7003_sleep#': {
+    en: 'pms7003: sleep',
+  },
+  '#blk-pms7003_sleep_tooltip#': {
+    en: 'Put the sensor to sleep, reducing power consumption. It will not return any data until you wake it up.',
+  },
+  '#blk-pms7003_wake#': {
+    en: 'pms7003: wake',
+  },
+  '#blk-pms7003_wake_tooltip#': {
+    en: 'Wakes the sensor from sleep.',
+  },
+  '#blk-pms7003_read#': {
+    en: 'pms7003: read',
+  },
+  '#blk-pms7003_read_tooltip#': {
+    en: 'Use this in Passive mode to retrieve new data from the sensor. This will block until a new reading is available, or until timeout. Returns None on timeout, else a dictionary with the latest measurements.',
+  },
 };
 let MSGS_KEYS = Object.keys(MSGS);
 

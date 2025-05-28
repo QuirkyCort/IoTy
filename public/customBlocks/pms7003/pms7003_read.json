@@ -1,0 +1,9 @@
+{
+  "type": "pms7003_read",
+  "message0": "#blk-pms7003_read#",
+  "args0": [],
+  "output": "Dict",
+  "colour": 230,
+  "tooltip": "#blk-pms7003_read_tooltip#",
+  "helpUrl": ""
+}

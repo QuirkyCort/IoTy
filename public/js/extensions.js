@@ -933,6 +933,23 @@ var extensions = new function() {
           'If using a differente variant (eg. Delta-2A), you may need to use 230400. ' +
         '</p>'
     },
+    {
+      id: 'pms7003',
+      name: 'PMS7003 (Particle Concentration Sensor)',
+      files: [
+        ['pms7003.py', 'extensions/pms7003.py?v=85695624'],
+      ],
+      description:
+        '<p>' +
+          'The PMS7003 is a particle concentration sensor typically used for measuring air quality. ' +
+        '</p>' +
+        '<p>' +
+          'This driver should also work with the PMS5003, but is untested on that sensor. ' +
+        '</p>' +
+        '<p>' +
+          'UART must be initialized at baudrate 9600. ' +
+        '</p>'
+    },
   ]
 
   this.init = function() {

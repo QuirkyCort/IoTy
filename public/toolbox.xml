@@ -3017,4 +3017,14 @@
     <block type="delta2d_rpm"></block>
     <block type="delta2d_measurements"></block>
   </category>
+  <category toolboxitemid="pms7003" name="PMS7003" colour="#5b67a5" hidden="true">
+    <block type="pms7003_init"></block>
+    <block type="pms7003_update"></block>
+    <block type="pms7003_update_return"></block>
+    <block type="pms7003_measurements"></block>
+    <block type="pms7003_set_mode"></block>
+    <block type="pms7003_sleep"></block>
+    <block type="pms7003_wake"></block>
+    <block type="pms7003_read"></block>
+  </category>
 </xml>
