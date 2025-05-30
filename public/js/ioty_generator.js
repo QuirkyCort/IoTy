@@ -666,6 +666,12 @@ var ioty_generator = new function() {
     Blockly.Python['ags10_set_zero'] = self.ags10_set_zero;
     Blockly.Python.addReservedWords('ags10');
 
+    Blockly.Python['mlx90640_init'] = self.mlx90640_init;
+    Blockly.Python['mlx90640_read'] = self.mlx90640_read;
+    Blockly.Python['mlx90640_get_buf'] = self.mlx90640_get_buf;
+    Blockly.Python['mlx90640_get_temperature'] = self.mlx90640_get_temperature;
+    Blockly.Python.addReservedWords('mlx90640');
+
   };
 
   // Generate python code
@@ -6435,5 +6441,40 @@ var ioty_generator = new function() {
     return code;
   };
 
-}
+  this.mlx90640_init = function(block) {
+    self.imports['mlx90640'] = 'import mlx90640';
+    self.reservedVariables['mlx90640_init'] = ['mlx90640_device'];
+
+    let id = block.getFieldValue('id');
+    let addr = block.getFieldValue('addr');
+
+    let code =
+      'mlx90640_device = mlx90640.MLX90640(' + id + ', ' + addr + ')\n';
+
+    return code;
+  };
+
+  this.mlx90640_read = function(block) {
+    let code =
+      'mlx90640_device.read()\n';
+
+    return code;
+  };
+
+  this.mlx90640_get_buf = function(block) {
+    let code =
+      'mlx90640_device.get_buf()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.mlx90640_get_temperature = function(block) {
+    let x = Blockly.Python.valueToCode(block, 'x', Blockly.Python.ORDER_NONE);
+    let y = Blockly.Python.valueToCode(block, 'y', Blockly.Python.ORDER_NONE);
+
+    let code =
+      'mlx90640_device.get_temperature(' + x + ', ' + y + ')';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };}
 

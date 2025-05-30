@@ -3877,6 +3877,30 @@ let MSGS = {
   '#blk-ags10_set_zero_tooltip#': {
     en: 'The AGS10 is factory calibrated, but you can recalibrate it by setting the zero value to the current reading. The sensor should be exposed to clean air for at least 15 mins before doing this.',
   },
+  '#blk-mlx90640_init#': {
+    en: 'init MLX90640 on',
+  },
+  '#blk-mlx90640_init_tooltip#': {
+    en: 'You must have an \\"init I2C\\" block before this',
+  },
+  '#blk-mlx90640_read#': {
+    en: 'mlx90640: read',
+  },
+  '#blk-mlx90640_read_tooltip#': {
+    en: 'Takes one set of readings from the sensor. You must run this before getting temperature.',
+  },
+  '#blk-mlx90640_get_buf#': {
+    en: 'mlx90640: get buffer',
+  },
+  '#blk-mlx90640_get_buf_tooltip#': {
+    en: 'Retrieve the temperature data as a big endian signed 16bits integer bytes array. The value represents the temperature in multiples of 0.1C. You must perform a \\"read\\" before this.',
+  },
+  '#blk-mlx90640_get_temperature#': {
+    en: 'mlx90640: get temperature at x',
+  },
+  '#blk-mlx90640_get_temperature_tooltip#': {
+    en: 'Retrieve the temperature (Celsius) at the specified position in the array. You must perform a \\"read\\" before this.',
+  },
 };
 let MSGS_KEYS = Object.keys(MSGS);
 

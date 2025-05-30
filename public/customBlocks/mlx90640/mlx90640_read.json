@@ -1,0 +1,11 @@
+{
+  "type": "mlx90640_read",
+  "message0": "#blk-mlx90640_read#",
+  "args0": [],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-mlx90640_read_tooltip#",
+  "helpUrl": ""
+}

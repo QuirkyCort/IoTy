@@ -966,6 +966,18 @@ var extensions = new function() {
           'It is also important not to read more than once every 1.5 seconds. ' +
         '</p>'
     },
+    {
+      id: 'mlx90640',
+      name: 'MLX90640 (Thermal Camera)',
+      files: [
+        ['mlx90640.py', 'extensions/mlx90640.py?v=1a194493'],
+      ],
+      description:
+        '<p>' +
+          'The MLX90640 is a 32x24 pixels thermal IR array with factory calibration. ' +
+          'It can be used to detect hot or warm objects (eg. a human) from a distance.' +
+        '</p>'
+    },
   ]
 
   this.init = function() {

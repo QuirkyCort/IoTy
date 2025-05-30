@@ -1,0 +1,9 @@
+{
+  "type": "mlx90640_get_buf",
+  "message0": "#blk-mlx90640_get_buf#",
+  "args0": [],
+  "output": "Bytes",
+  "colour": 230,
+  "tooltip": "#blk-mlx90640_get_buf_tooltip#",
+  "helpUrl": ""
+}

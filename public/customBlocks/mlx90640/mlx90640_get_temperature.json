@@ -1,0 +1,21 @@
+{
+  "type": "mlx90640_get_temperature",
+  "message0": "#blk-mlx90640_get_temperature# %1 #blk-and_y# %2",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "x",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "y",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "output": "Number",
+  "colour": 230,
+  "tooltip": "#blk-mlx90640_get_temperature_tooltip#",
+  "helpUrl": ""
+}

@@ -3032,4 +3032,21 @@
     <block type="ags10_read"></block>
     <block type="ags10_set_zero"></block>
   </category>
+  <category toolboxitemid="mlx90640" name="MXL90640" colour="#5b67a5" hidden="true">
+    <block type="mlx90640_init"></block>
+    <block type="mlx90640_read"></block>
+    <block type="mlx90640_get_buf"></block>
+    <block type="mlx90640_get_temperature">
+      <value name="x">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="y">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+  </category>
 </xml>
