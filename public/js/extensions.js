@@ -970,12 +970,15 @@ var extensions = new function() {
       id: 'mlx90640',
       name: 'MLX90640 (Thermal Camera)',
       files: [
-        ['mlx90640.py', 'extensions/mlx90640.py?v=1a194493'],
+        ['mlx90640.py', 'extensions/mlx90640.py?v=09841071'],
       ],
       description:
         '<p>' +
           'The MLX90640 is a 32x24 pixels thermal IR array with factory calibration. ' +
           'It can be used to detect hot or warm objects (eg. a human) from a distance.' +
+        '</p>' +
+        '<p>' +
+          'It is recommended to set the I2C bus to a higher speed (eg. 400kHz) when using this device.' +
         '</p>'
     },
   ]

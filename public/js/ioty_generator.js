@@ -6455,8 +6455,14 @@ var ioty_generator = new function() {
   };
 
   this.mlx90640_read = function(block) {
+    let type = block.getFieldValue('type');
+
+    let fast = 'False';
+    if (type == 'FAST') {
+      fast = 'True';
+    }
     let code =
-      'mlx90640_device.read()\n';
+      'mlx90640_device.read(fast=' + fast + ')\n';
 
     return code;
   };

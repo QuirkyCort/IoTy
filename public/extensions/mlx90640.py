@@ -397,7 +397,7 @@ class MLX90640:
 
         return PIXos_cp_sp0, PIXos_cp_sp1
 
-    def read(self):
+    def read(self, fast=False):
         in_buf = self.in_buf
         out_buf = self.out_buf
         Kgain = self.Kgain
@@ -426,21 +426,25 @@ class MLX90640:
                 # Gain compensation
                 out = raw * Kgain
 
-                # IR data compensation: offset, Vdd, Ta
-                out = out - offsets[i] * (1 + Kta[i] * dT) * (1 + Kv[r%2][c%2] * dV)
-
-                # IR data Emissivity compensation
-                out = out / emissivity
-
-                # IR data gradient compensation
-                if i % 2:
-                    out = out - PIXos_cp_sp1
+                if fast:
+                    # Compensate offset only
+                    out = out - offsets[i]
                 else:
-                    out = out - PIXos_cp_sp0
+                    # IR data compensation: offset, Vdd, Ta
+                    out = out - offsets[i] * (1 + Kta[i] * dT) * (1 + Kv[r%2][c%2] * dV)
 
-                # Normalizing to sensitivity and Calculating To for basic temperature range
-                Sx = Ksto2 * (Acomp[i] ** 3 * out + Acomp[i] ** 4 * Tar) ** 0.25
-                out = (out / (Acomp[i] * (1 - Ksto2 * 273.15) + Sx) + Tar) ** 0.25 - 273.15
+                    # IR data Emissivity compensation
+                    out = out / emissivity
+
+                    # IR data gradient compensation
+                    if i % 2:
+                        out = out - PIXos_cp_sp1
+                    else:
+                        out = out - PIXos_cp_sp0
+
+                    # Normalizing to sensitivity and Calculating To for basic temperature range
+                    Sx = Ksto2 * (Acomp[i] ** 3 * out + Acomp[i] ** 4 * Tar) ** 0.25
+                    out = (out / (Acomp[i] * (1 - Ksto2 * 273.15) + Sx) + Tar) ** 0.25 - 273.15
 
                 # Convert to int with x10 multiplier
                 out = int(out * 10)

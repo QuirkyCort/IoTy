@@ -3887,7 +3887,7 @@ let MSGS = {
     en: 'mlx90640: read',
   },
   '#blk-mlx90640_read_tooltip#': {
-    en: 'Takes one set of readings from the sensor. You must run this before getting temperature.',
+    en: 'Takes one set of readings from the sensor. You must run this before getting temperature. If you only need an image and not the temperature, you can run this in fast mode for better performance.',
   },
   '#blk-mlx90640_get_buf#': {
     en: 'mlx90640: get buffer',
