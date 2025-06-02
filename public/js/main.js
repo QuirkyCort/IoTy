@@ -1193,16 +1193,27 @@ var main = new function() {
 
   // Display what's new if not seen before
   this.showWhatsNew = function(forceShow=false) {
-    let current = 20250321;
+    let current = 20250602;
     let lastShown = localStorage.getItem('whatsNew');
     if (lastShown == null || parseInt(lastShown) < current || forceShow) {
       let options = {
         title: 'What\'s New',
         message:
+        '<h3>2 Jun 2025 (New extensions)</h3>' +
+        '<p>' +
+          '<ul>' +
+            '<li>System (Access to deepsleep and watchdog in Blocks)</li>' +
+            '<li>COIN-D4 (LiDAR)</li>' +
+            '<li>Delta 2D (LiDAR)</li>' +
+            '<li>PMS7003 Particle Concentration Sensor (Air Quality)</li>' +
+            '<li>AGS10 Total Volatile Organic Compounds (Air Quality)</li>' +
+            '<li>MLX90640 (Thermal Camera)</li>' +
+          '</ul>' +
+        '</p>' +
         '<h3>21 Mar 2025</h3>' +
         '<p>' +
           'Added extension for VS1003 MP3/WMA Audio CODEC and Circular Buffer. ' +
-          'Added blocks to urequests to facilicate streaming. ' +
+          'Added blocks to urequests to facilitate streaming. ' +
         '</p>' +
         '<p>' +
           'Put together, these new additions allows you to stream internet radio stations on your ESP32 device.' +
@@ -1211,22 +1222,6 @@ var main = new function() {
         '<p>' +
           'A new firmware version (14) is released. ' +
           '<strong>You must update to this new version or network functions will not work!</strong>' +
-        '</p>' +
-        '<h3>7 Aug 2024 (I2C changes and New extensions)</h3>' +
-        '<p>' +
-          'The I2C blocks now allows for use of the second channel and Soft I2C.' +
-        '</p>' +
-        '<p>' +
-          'Many new extensions have been added; ' +
-          '<ul>' +
-            '<li>Camera (...for ESP32-Cam)</li>' +
-            '<li>Machine Vision</li>' +
-            '<li>Wheeled Drive</li>' +
-            '<li>ILI9341 Display</li>' +
-            '<li>X-GLCD Font</li>' +
-            '<li>ADS7843 / XPT2046 Touchscreen Controller</li>' +
-            '<li>ST7789 Display</li>' +
-          '</ul>' +
         '</p>'
       }
       acknowledgeDialog(options, function(){
