@@ -118,6 +118,7 @@ var filesManager = new function() {
         break;
       }
     }
+    self.unsaved = true;
     self.select('main.py');
   };
 
