@@ -5240,7 +5240,7 @@ var ioty_generator = new function() {
   this.camera_set_brightness = function(block) {
     var level = block.getFieldValue('level');
 
-    var code = 'camera.set_brightness(' + level + ')\n';
+    var code = 'camera.brightness(' + level + ')\n';
 
     return code;
   };
@@ -5248,7 +5248,7 @@ var ioty_generator = new function() {
   this.camera_set_contrast = function(block) {
     var level = block.getFieldValue('level');
 
-    var code = 'camera.set_contrast(' + level + ')\n';
+    var code = 'camera.contrast(' + level + ')\n';
 
     return code;
   };
@@ -5256,7 +5256,7 @@ var ioty_generator = new function() {
   this.camera_set_quality = function(block) {
     var quality = block.getFieldValue('quality');
 
-    var code = 'camera.set_quality(' + quality + ')\n';
+    var code = 'camera.quality(' + quality + ')\n';
 
     return code;
   };
