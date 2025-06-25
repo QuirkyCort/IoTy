@@ -724,6 +724,7 @@ let MSGS = {
   },
   '#main-connectMode#': {
     en: 'Connection Mode...',
+    ru: 'Режим подключения...',
   },
   '#main-connectBLE#': {
     en: 'Connect (Bluetooth)',
@@ -733,33 +734,43 @@ let MSGS = {
   },
   '#main-connectSerial#': {
     en: 'Connect (Serial)...',
+    ru: 'Подключиться (Serial)...',
   },
   '#main-download#': {
     en: 'Download to device',
+    ru: 'Загрузить на устройство',
   },
   '#main-runSelectedBlock#': {
     en: 'Run selected block',
+    ru: 'Запустить выбранные блоки',
   },
   '#main-erase#': {
     en: 'Erase device',
+    ru: 'Очистить устройство',
   },
   '#main-changeName#': {
     en: 'Change device name',
+    ru: 'Сменить имя устройства',
   },
   '#main-updateFirmware#': {
     en: 'Update Firmware',
+    ru: 'Обновить прошивку',
   },
   '#main-checkVersion#': {
     en: 'Check Version',
+    ru: 'Проверить версию',
   },
   '#main-getInfo#': {
     en: 'Get Device Info',
+    ru: 'Получить информацию об устройстве',
   },
   '#main-listFiles#': {
     en: 'Files on Device...',
+    ru: 'Файлы на устройстве...',
   },
   '#main-configureDeviceNetwork#': {
     en: 'Configure Device Network...',
+    ru: 'Сетевые настройки устройства...',
   },
   '#main-softResetDevice#': {
     en: 'Soft Reset Device',
@@ -769,6 +780,7 @@ let MSGS = {
   },
   '#main-disconnect#': {
     en: 'Disconnect',
+    ru: 'Отключить',
   },
   '#main-appBuilder_title#': {
     en: 'MQTT App Builder',
