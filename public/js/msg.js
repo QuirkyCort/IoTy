@@ -119,7 +119,8 @@ let MSGS = {
     hu: 'Indításkor',
   },
   '#blk-set_pin#': {
-    en: 'set pin'
+    en: 'set pin',
+    ru: 'задать пину',
   },
   '#blk-adv_set_pin#': {
     en: 'adv: set pin'
@@ -132,6 +133,7 @@ let MSGS = {
   },
   '#blk-to_mode#': {
     en: 'to mode',
+    ru: 'режим',
   },
   '#blk-input#': {
     en: 'input',
@@ -144,6 +146,7 @@ let MSGS = {
   },
   '#blk-read_pin#': {
     en: 'digital read pin',
+    ru: 'прочитать цифровой пин',
   },
   '#blk-adv_read_pin#': {
     en: 'adv: digital read pin',
@@ -153,6 +156,7 @@ let MSGS = {
   },
   '#blk-write_pin#': {
     en: 'digital write pin',
+    ru: 'запись в цифровой пин',
   },
   '#blk-adv_write_pin#': {
     en: 'adv: digital write pin',
@@ -162,9 +166,11 @@ let MSGS = {
   },
   '#blk-to#': {
     en: 'to',
+    ru: 'значение',
   },
   '#blk-analog_read_pin#': {
     en: 'analog read pin',
+    ru: 'прочитать аналоговый пин',
   },
   '#blk-adv_analog_read_pin#': {
     en: 'adv: analog read pin',
@@ -174,6 +180,7 @@ let MSGS = {
   },
   '#blk-touch_read_pin#': {
     en: 'touch read pin',
+    ru: 'прочитать емкость пина',
   },
   '#blk-adv_touch_read_pin#': {
     en: 'adv: touch read pin',
@@ -183,18 +190,21 @@ let MSGS = {
   },
   '#blk-set_analog_write_freq#': {
     en: 'Set analog write frequency on pin',
+    ru: 'задать частоту на алоговом пине',
   },
   '#blk-adv_set_analog_write_freq#': {
     en: 'adv: Set analog write frequency on pin',
   },
   '#blk-hz#': {
     en: 'Hz',
+    ru: 'Гц',
   },
   '#blk-set_analog_write_freq_tooltip#': {
     en: 'Range from 1Hz to 40,000,000Hz',
   },
   '#blk-analog_write_pin#': {
     en: 'analog write pin',
+    ru: 'записать в аналоговый пин',
   },
   '#blk-adv_analog_write_pin#': {
     en: 'adv: analog write pin',
@@ -317,6 +327,7 @@ let MSGS = {
   },
   '#blk-type_cast#': {
     en: 'convert to',
+    ru: 'преобразовать в',
   },
   '#blk-type_cast_tooltip#': {
     en: 'Convert from one data type into another.',
@@ -398,6 +409,7 @@ let MSGS = {
   },
   '#blk-servo_write#': {
     en: 'servo write pin',
+    ru: 'серво двигатель на пине',
   },
   '#blk-adv_servo_write#': {
     en: 'adv: servo write pin',
@@ -413,9 +425,11 @@ let MSGS = {
   },
   '#blk-us#': {
     en: 'μs',
+    ru: 'мкс',
   },
   '#blk-hc_sr04_ping_trig#': {
     en: 'HC-SR04 ping trig',
+    ru: 'HC-SR04 расстояние trig',
   },
   '#blk-adv_hc_sr04_ping_trig#': {
     en: 'adv: HC-SR04 ping trig',
@@ -428,6 +442,7 @@ let MSGS = {
   },
   '#blk-unit#': {
     en: 'unit',
+    ru: 'в',
   },
   '#blk-network#': {
     en: 'Network',
@@ -744,6 +759,7 @@ let MSGS = {
   },
   '#main-appBuilder_title#': {
     en: 'MQTT App Builder',
+    ru: 'MQTT Дашборд',
   },
   '#main-appBuilder_description#': {
     en: 'The MQTT App Builder allows you to build a web-based app that can control your IoTy device through the MQTT protocol.',
