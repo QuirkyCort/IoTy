@@ -449,9 +449,11 @@ let MSGS = {
   },
   '#blk-connect_to_wifi#': {
     en: 'Connect to WiFi',
+    ru: 'Подключиться к WiFi',
   },
   '#blk-with_password#': {
     en: 'with password',
+    ru: 'с паролем',
   },
   '#blk-connect_to_wifi_tooltip#': {
     en: 'If the \\"When Started\\" block is set to \\"wait for Internet connection\\", your device will connect automatically and you should not use this block.',
@@ -461,51 +463,62 @@ let MSGS = {
   },
   '#blk-connect_to_mqtt_server#': {
     en: 'MQTT: Connect to server',
+    ru: 'MQTT: подключиться к серверу',
   },
   '#blk-connect_to_mqtt_server_tooltip#': {
     en: 'Connects to the server with the specified username and password. Will throw an error if the user or password is invalid.',
   },
   '#blk-on_port#': {
     en: 'on port',
+    ru: 'порт',
   },
   '#blk-with_user#': {
     en: 'with user',
+    ru: 'пользователь',
   },
   '#blk-and_password#': {
     en: 'and password',
+    ru: 'пароль',
   },
   '#blk-mqtt_wait_msg#': {
     en: 'MQTT: Wait for message',
   },
   '#blk-mqtt_check_msg#': {
     en: 'MQTT: Check for message',
+    ru: 'MQTT: проверить сообщения',
   },
   '#blk-mqtt_check_msg_tooltip#': {
     en: 'Checks for messages. You must run this frequently. The \\"MQTT: On receive message for topic\\" block will not run if you do not run this.',
   },
   '#blk-mqtt_on_receive#': {
     en: 'MQTT: On receive message for topic',
+    ru: 'MQTT: когда получено сообщение по теме',
+
   },
   '#blk-mqtt_on_receive_tooltip#': {
     en: 'This function will run when a new message is found when running \\"MQTT: Check for message\\".',
   },
   '#blk-with_mqtt_msg#': {
     en: 'with: mqtt_msg',
+    ru: 'которое хранится в mqtt_msg',
   },
   '#blk-mqtt_msg_tooltip#': {
     en: 'This variable will contain the received message in string format. This block can only be used in a \\"MQTT: On receive message for topic\\" block.',
   },
   '#blk-mqtt_publish#': {
     en: 'MQTT: Publish to topic',
+    ru: 'MQTT: опубликовать в теме',
   },
   '#blk-mqtt_publish_tooltip#': {
     en: 'Encodes the specified string in UTF-8 format and publish it to the specified topic.',
   },
   '#blk-message#': {
     en: 'message',
+    ru: 'сообщение',
   },
   '#blk-mqtt_publish_bytes#': {
     en: 'MQTT: Publish bytes to topic',
+    ru: 'MQTT: опубликовать байты в теме',
   },
   '#blk-mqtt_publish_bytes_tooltip#': {
     en: 'Publish the bytes object to the specified topic.',
@@ -1144,39 +1157,46 @@ let MSGS = {
   },
   '#blk-connect_to_configured_wifi#': {
     en: 'Connect to configured WiFi',
+    ru: 'Подключиться к настроенному WiFi',
   },
   '#blk-connect_to_configured_wifi_tooltip#': {
     en: 'Connect to the WiFi hotspot that was configured via \\"Configure Device Network...\\". If the \\"When Started\\" block is set to \\"wait for Internet connection\\", your device will connect automatically and you should not use this block.',
   },
   '#blk-wlan_get_ip#': {
     en: 'IP address',
+    ru: 'IP адрес',
   },
   '#blk-wlan_get_ip_tooltip#': {
     en: 'After connecting to WiFi, you can use this to get your IP address.',
   },
   '#blk-start_as_ap#': {
     en: 'start as Access Point',
+    ru: 'запустить точку доступа',
   },
   '#blk-start_as_ap_tooltip#': {
     en: 'Password must be either empty (open AP) or at least 8 characters long.',
   },
   '#blk-wlan_scan#': {
     en: 'scan for WiFi',
+    ru: 'список WiFi сетей',
   },
   '#blk-wlan_scan_tooltip#': {
     en: 'Returns a list of available WiFi networks. Returns a list of tuples containing (ssid, bssid, channel, RSSI, authmode, hidden).',
   },
   '#blk-wlan_is_present#': {
     en: 'WiFi SSID',
+    ru: 'WiFi с SSID',
   },
   '#blk-is_present#': {
     en: 'is present',
+    ru: 'доступна',
   },
   '#blk-wlan_is_present_tooltip#': {
     en: 'Returns True if the specified WiFi SSID is available.',
   },
   '#blk-wlan_is_connected#': {
     en: 'WiFi is connected',
+    ru: 'есть подключение к WiFi',
   },
   '#blk-wlan_is_connected_tooltip#': {
     en: 'Returns True if connected to a router or if a client is connected to your device (AP Mode), else returns None.',
