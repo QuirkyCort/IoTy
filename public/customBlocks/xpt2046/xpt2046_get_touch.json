@@ -1,0 +1,11 @@
+{
+  "type": "xpt2046_get_touch",
+  "message0": "#blk-xpt2046_get_touch#",
+  "args0": [],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-xpt2046_get_touch_tooltip#",
+  "helpUrl": ""
+}

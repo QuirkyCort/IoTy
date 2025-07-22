@@ -3385,6 +3385,9 @@ let MSGS = {
   '#blk-xpt2046_init_tooltip#': {
     en: 'You must have a \\"init SPI\\" block before this.',
   },
+  '#blk-xpt2046_init_no_int_tooltip#': {
+    en: 'This version of the block does not use the interrupt pin. You must poll for touch events using the \\"xpt2046 get touch\\" block.',
+  },
   '#blk-int#': {
     en: 'int',
   },
@@ -3393,6 +3396,12 @@ let MSGS = {
   },
   '#blk-min_max_y#': {
     en: 'min/max y',
+  },
+  '#blk-xpt2046_get_touch#': {
+    en: 'xpt2046 get touch',
+  },
+  '#blk-xpt2046_get_touch_tooltip#': {
+    en: 'When initialized without an interrupt pin, you need to run this block frequently to check for touch events.',
   },
   '#blk-xpt2046_get_pos#': {
     en: 'xpt2046 get position',

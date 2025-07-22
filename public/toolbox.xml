@@ -2594,6 +2594,8 @@
   </category>
   <category toolboxitemid="xpt2046" name="XPT2046" colour="#5b67a5" hidden="true">
     <block type="xpt2046_init"></block>
+    <block type="xpt2046_init_no_int"></block>
+    <block type="xpt2046_get_touch"></block>
     <block type="xpt2046_get_pos"></block>
     <block type="xpt2046_in_rect">
       <value name="pos">
