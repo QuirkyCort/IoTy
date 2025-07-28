@@ -32,6 +32,11 @@ def recv(wait):
             if wait:
                 continue
             return None
-        data = json.loads(data)
-        if data[0] == group:
-            return data[1]
+        try:
+            data = json.loads(data)
+            if data[0] == group:
+                return data[1]
+        except:
+            if wait:
+                continue
+            return None
