@@ -92,7 +92,7 @@ var extensions = new function() {
       id: 'ez_espnow',
       name: 'EZ ESP-NOW',
       files: [
-        ['ez_espnow.py', 'extensions/ez_espnow.py?v=3a273636'],
+        ['ez_espnow.py', 'extensions/ez_espnow.py?v=9abb0dd0'],
       ],
       description:
         '<p>' +
