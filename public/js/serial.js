@@ -32,8 +32,8 @@ var serial = new function() {
       usbVendorId: 12346
     },
     { // Freenove ESP32-S3-WROOM CAM Board
-      usbProductId: 6790,
-      usbVendorId: 21971
+      usbProductId: 21971,
+      usbVendorId: 6790
     },
   ];
 
