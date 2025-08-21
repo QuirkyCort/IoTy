@@ -1,0 +1,142 @@
+{
+  "type": "camera2_init",
+  "message0": "#blk-camera2_init# %1 #blk-and_framesize# %2 #blk-grab_mode# %3",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "format",
+      "options": [
+        [
+          "JPEG",
+          "JPEG"
+        ],
+        [
+          "RGB565",
+          "RGB565"
+        ],
+        [
+          "RGB888",
+          "RGB888"
+        ],
+        [
+          "YUV422",
+          "YUV422"
+        ],
+        [
+          "GRAYSCALE",
+          "GRAYSCALE"
+        ]
+      ]
+    },
+    {
+      "type": "field_dropdown",
+      "name": "framesize",
+      "options": [
+        [
+          "96X96",
+          "R96X96"
+        ],
+        [
+          "QQVGA (160x120)",
+          "QQVGA"
+        ],
+        [
+          "128X128",
+          "R128X128"
+        ],
+        [
+          "QCIF (176x144)",
+          "QCIF"
+        ],
+        [
+          "HQVGA (240x176)",
+          "HQVGA"
+        ],
+        [
+          "240X240",
+          "R240X240"
+        ],
+        [
+          "QVGA (320x240)",
+          "QVGA"
+        ],
+        [
+          "320X320",
+          "R320X320"
+        ],
+        [
+          "CIF (400x296)",
+          "CIF"
+        ],
+        [
+          "HVGA (480x320)",
+          "HVGA"
+        ],
+        [
+          "VGA (640x480)",
+          "VGA"
+        ],
+        [
+          "SVGA (800x600)",
+          "SVGA"
+        ],
+        [
+          "XGA (1024x768)",
+          "XGA"
+        ],
+        [
+          "HD (1280x720)",
+          "HD"
+        ],
+        [
+          "SXGA (1280x1024)",
+          "SXGA"
+        ],
+        [
+          "UXGA (1600x1200)",
+          "UXGA"
+        ],
+        [
+          "FHD (1920x1080)",
+          "FHD"
+        ],
+        [
+          "QXGA (2048x1536)",
+          "QXGA"
+        ],
+        [
+          "QHD (2560x1440)",
+          "QHD"
+        ],
+        [
+          "WQXGA (2560x1600)",
+          "WQXGA"
+        ],
+        [
+          "QSXGA (2560x2048)",
+          "QSXGA"
+        ]
+      ]
+    },
+    {
+      "type": "field_dropdown",
+      "name": "grab_mode",
+      "options": [
+        [
+          "When Empty",
+          "WHEN_EMPTY"
+        ],
+        [
+          "Latest",
+          "LATEST"
+        ]
+      ]
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-camera2_init_tooltip#",
+  "helpUrl": ""
+}

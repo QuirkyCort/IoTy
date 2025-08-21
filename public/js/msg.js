@@ -3910,7 +3910,57 @@ let MSGS = {
   '#blk-mlx90640_get_temperature_tooltip#': {
     en: 'Retrieve the temperature (Celsius) at the specified position in the array. You must perform a \\"read\\" before this.',
   },
-};
+  '#blk-camera2_init#': {
+    en: 'camera2: init with format',
+  },
+  '#blk-grab_mode#': {
+    en: 'grab mode',
+  },
+  '#blk-camera2_init_tooltip#': {
+    en: 'Large framesize may crash the device, especially when not using JPEG. To reinitialize the camera, you must \\"deinit\\" first.',
+  },
+  '#blk-camera2_deinit#': {
+    en: 'camera2: deinit',
+  },
+  '#blk-camera2_deinit_tooltip#': {
+    en: 'You must deinitialize the camera before you can initialize it again.',
+  },
+  '#blk-camera2_capture#': {
+    en: 'camera2: get image',
+  },
+  '#blk-camera2_capture_tooltip#': {
+    en: 'Returns an image which can be used like a bytes object.',
+  },
+  '#blk-camera_set_whitebalance#': {
+    en: 'camera set whitebalance',
+  },
+  '#blk-camera_set_whitebalance_tooltip#': {
+    en: 'Sets the whitebalance.',
+  },
+  '#blk-camera_set_saturation#': {
+    en: 'camera set saturation',
+  },
+  '#blk-camera_set_saturation_tooltip#': {
+    en: 'Sets the saturation',
+  },
+  '#blk-camera_set_brightness#': {
+    en: 'camera set brightness',
+  },
+  '#blk-camera_set_brightness_tooltip#': {
+    en: 'Sets the brightness',
+  },
+  '#blk-camera_set_contrast#': {
+    en: 'camera set contrast',
+  },
+  '#blk-camera_set_contrast_tooltip#': {
+    en: 'Sets the contrast',
+  },
+  '#blk-camera_set_quality#': {
+    en: 'camera set quality',
+  },
+  '#blk-camera_set_quality_tooltip#': {
+    en: 'Sets the quality of the JPEG image. Ranges from 10 (highest quality) to 63 (lowest quality).',
+  },};
 let MSGS_KEYS = Object.keys(MSGS);
 
 let LANG = localStorage.getItem('LANG');

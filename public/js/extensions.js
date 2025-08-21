@@ -726,6 +726,22 @@ var extensions = new function() {
         '</p>'
     },
     {
+      id: 'camera2',
+      name: 'Camera2',
+      files: [],
+      description:
+        '<p>' +
+          'Provides blocks for reading cameras. ' +
+          'This is a newer version of the Camera extension. ' +
+          'It uses https://github.com/cnadler86/micropython-camera-API and supports more camera types. ' +
+          'You must use a firmware with camera2 support for this to work. ' +
+          'Note that in the ESP32S3 Cam...' +
+        '</p>' +
+        '<p>' +
+          'This extension only adds blocks. ' +
+        '</p>'
+    },
+    {
       id: 'mv',
       name: 'Machine Vision',
       files: [

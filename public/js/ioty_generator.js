@@ -533,6 +533,16 @@ var ioty_generator = new function() {
     Blockly.Python['camera_set_quality'] = self.camera_set_quality;
     Blockly.Python.addReservedWords('camera');
 
+    Blockly.Python['camera2_init'] = self.camera2_init;
+    Blockly.Python['camera2_deinit'] = self.camera2_deinit;
+    Blockly.Python['camera2_capture'] = self.camera2_capture;
+    Blockly.Python['camera2_set_whitebalance'] = self.camera2_set_whitebalance;
+    Blockly.Python['camera2_set_saturation'] = self.camera2_set_saturation;
+    Blockly.Python['camera2_set_brightness'] = self.camera2_set_brightness;
+    Blockly.Python['camera2_set_contrast'] = self.camera2_set_contrast;
+    Blockly.Python['camera2_set_quality'] = self.camera2_set_quality;
+    Blockly.Python.addReservedWords('camera');
+
     Blockly.Python['mv_find_blobs_yuv'] = self.mv_find_blobs_yuv;
     Blockly.Python['mv_find_blobs_grayscale'] = self.mv_find_blobs_grayscale;
     Blockly.Python['mv_find_circle_single'] = self.mv_find_circle_single;
@@ -5256,6 +5266,71 @@ var ioty_generator = new function() {
   };
 
   this.camera_set_quality = function(block) {
+    var quality = block.getFieldValue('quality');
+
+    var code = 'camera.quality(' + quality + ')\n';
+
+    return code;
+  };
+
+  this.camera2_init = function(block) {
+    self.imports['camera'] = 'import camera';
+    self.reservedVariables['camera2_init'] = ['cam2_dev'];
+
+    var format = block.getFieldValue('format');
+    var framesize = block.getFieldValue('framesize');
+    var grabMode = block.getFieldValue('grab_mode');
+
+    var code = 'cam2_dev = camera.Camera(pixel_format=camera.PixelFormat.' + format + ', frame_size=camera.FrameSize.' + framesize + ', grab_mode=camera.GrabMode.' + grabMode + ')\n';
+
+    return code;
+  };
+
+  this.camera2_deinit = function(block) {
+    var code = 'cam2_dev.deinit()\n';
+
+    return code;
+  };
+
+  this.camera2_capture = function(block) {
+    var code = 'cam2_dev.capture()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.camera2_set_whitebalance = function(block) {
+    var mode = block.getFieldValue('mode');
+
+    var code = 'camera.whitebalance(camera.' + mode + ')\n';
+
+    return code;
+  };
+
+  this.camera2_set_saturation = function(block) {
+    var level = block.getFieldValue('level');
+
+    var code = 'camera.saturation(' + level + ')\n';
+
+    return code;
+  };
+
+  this.camera2_set_brightness = function(block) {
+    var level = block.getFieldValue('level');
+
+    var code = 'camera.brightness(' + level + ')\n';
+
+    return code;
+  };
+
+  this.camera2_set_contrast = function(block) {
+    var level = block.getFieldValue('level');
+
+    var code = 'camera.contrast(' + level + ')\n';
+
+    return code;
+  };
+
+  this.camera2_set_quality = function(block) {
     var quality = block.getFieldValue('quality');
 
     var code = 'camera.quality(' + quality + ')\n';

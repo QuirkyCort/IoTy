@@ -2263,6 +2263,18 @@
     <block type="camera_set_contrast"></block>
     <block type="camera_set_quality"></block>
   </category>
+  <category toolboxitemid="camera2" name="Camera2" colour="#5b67a5" hidden="true">
+    <block type="camera2_init">
+      <field name="framesize">VGA</field>
+    </block>
+    <block type="camera2_deinit"></block>
+    <block type="camera2_capture"></block>
+    <!-- <block type="camera_set_whitebalance"></block>
+    <block type="camera_set_saturation"></block>
+    <block type="camera_set_brightness"></block>
+    <block type="camera_set_contrast"></block>
+    <block type="camera_set_quality"></block> -->
+  </category>
   <category toolboxitemid="mv" name="Machine Vision" colour="#9fa55b" hidden="true">
     <block type="mv_find_blobs_yuv"></block>
     <block type="mv_find_blobs_grayscale"></block>
