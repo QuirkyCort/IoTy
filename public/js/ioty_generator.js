@@ -537,6 +537,8 @@ var ioty_generator = new function() {
     Blockly.Python['camera2_deinit'] = self.camera2_deinit;
     Blockly.Python['camera2_capture'] = self.camera2_capture;
     Blockly.Python['camera2_set_whitebalance'] = self.camera2_set_whitebalance;
+    Blockly.Python['camera2_set_gain'] = self.camera2_set_gain;
+    Blockly.Python['camera2_set_exposure'] = self.camera2_set_exposure;
     Blockly.Python['camera2_set_saturation'] = self.camera2_set_saturation;
     Blockly.Python['camera2_set_brightness'] = self.camera2_set_brightness;
     Blockly.Python['camera2_set_contrast'] = self.camera2_set_contrast;
@@ -5301,7 +5303,41 @@ var ioty_generator = new function() {
   this.camera2_set_whitebalance = function(block) {
     var mode = block.getFieldValue('mode');
 
-    var code = 'camera.whitebalance(camera.' + mode + ')\n';
+    var code;
+    if (mode == '0') {
+      code = 'cam2_dev.set_whitebal(True)\n';
+    } else {
+      code = 'cam2_dev.set_whitebal(False)\n' +
+             'cam2_dev.set_wb_mode(' + mode + ')\n';
+    }
+
+    return code;
+  };
+
+  this.camera2_set_gain = function(block) {
+    var level = block.getFieldValue('level');
+
+    var code;
+    if (level == 0) {
+      code = 'cam2_dev.set_gain_ctrl(True)\n';
+    } else {
+      code = 'cam2_dev.set_gain_ctrl(False)\n' +
+             'cam2_dev.set_agc_gain(' + level + ')\n';
+    }
+
+    return code;
+  };
+
+  this.camera2_set_exposure = function(block) {
+    var level = block.getFieldValue('level');
+
+    var code;
+    if (level == 0) {
+      code = 'cam2_dev.set_exposure_ctrl(True)\n';
+    } else {
+      code = 'cam2_dev.set_exposure_ctrl(False)\n' +
+             'cam2_dev.set_aec_value(' + level + ')\n';
+    }
 
     return code;
   };
@@ -5309,7 +5345,7 @@ var ioty_generator = new function() {
   this.camera2_set_saturation = function(block) {
     var level = block.getFieldValue('level');
 
-    var code = 'camera.saturation(' + level + ')\n';
+    var code = 'cam2_dev.set_saturation(' + level + ')\n';
 
     return code;
   };
@@ -5317,7 +5353,7 @@ var ioty_generator = new function() {
   this.camera2_set_brightness = function(block) {
     var level = block.getFieldValue('level');
 
-    var code = 'camera.brightness(' + level + ')\n';
+    var code = 'cam2_dev.set_brightness(' + level + ')\n';
 
     return code;
   };
@@ -5325,7 +5361,7 @@ var ioty_generator = new function() {
   this.camera2_set_contrast = function(block) {
     var level = block.getFieldValue('level');
 
-    var code = 'camera.contrast(' + level + ')\n';
+    var code = 'cam2_dev.set_contrast(' + level + ')\n';
 
     return code;
   };
@@ -5333,7 +5369,7 @@ var ioty_generator = new function() {
   this.camera2_set_quality = function(block) {
     var quality = block.getFieldValue('quality');
 
-    var code = 'camera.quality(' + quality + ')\n';
+    var code = 'cam2_dev.set_quality(' + quality + ')\n';
 
     return code;
   };

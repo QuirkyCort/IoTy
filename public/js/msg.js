@@ -3931,35 +3931,47 @@ let MSGS = {
   '#blk-camera2_capture_tooltip#': {
     en: 'Returns an image which can be used like a bytes object.',
   },
-  '#blk-camera_set_whitebalance#': {
-    en: 'camera set whitebalance',
+  '#blk-camera2_set_whitebalance#': {
+    en: 'camera2: set whitebalance',
   },
-  '#blk-camera_set_whitebalance_tooltip#': {
+  '#blk-camera2_set_whitebalance_tooltip#': {
     en: 'Sets the whitebalance.',
   },
-  '#blk-camera_set_saturation#': {
-    en: 'camera set saturation',
+  '#blk-camera2_set_gain#': {
+    en: 'camera2: set gain',
   },
-  '#blk-camera_set_saturation_tooltip#': {
+  '#blk-camera2_set_gain_tooltip#': {
+    en: 'Sets the gain. 0 means auto-gain control. Max of 30.',
+  },
+  '#blk-camera2_set_exposure#': {
+    en: 'camera2: set exposure',
+  },
+  '#blk-camera2_set_exposure_tooltip#': {
+    en: 'Sets the exposure. 0 means auto-exposure control. Max of 1200.',
+  },
+  '#blk-camera2_set_saturation#': {
+    en: 'camera2: set saturation',
+  },
+  '#blk-camera2_set_saturation_tooltip#': {
     en: 'Sets the saturation',
   },
-  '#blk-camera_set_brightness#': {
-    en: 'camera set brightness',
+  '#blk-camera2_set_brightness#': {
+    en: 'camera2: set brightness',
   },
-  '#blk-camera_set_brightness_tooltip#': {
+  '#blk-camera2_set_brightness_tooltip#': {
     en: 'Sets the brightness',
   },
-  '#blk-camera_set_contrast#': {
-    en: 'camera set contrast',
+  '#blk-camera2_set_contrast#': {
+    en: 'camera2: set contrast',
   },
-  '#blk-camera_set_contrast_tooltip#': {
+  '#blk-camera2_set_contrast_tooltip#': {
     en: 'Sets the contrast',
   },
-  '#blk-camera_set_quality#': {
-    en: 'camera set quality',
+  '#blk-camera2_set_quality#': {
+    en: 'camera2: set quality',
   },
-  '#blk-camera_set_quality_tooltip#': {
-    en: 'Sets the quality of the JPEG image. Ranges from 10 (highest quality) to 63 (lowest quality).',
+  '#blk-camera2_set_quality_tooltip#': {
+    en: 'Sets the quality of the JPEG image. Ranges from 0 (lowest) to 100 (highest).',
   },};
 let MSGS_KEYS = Object.keys(MSGS);
 

@@ -1,30 +1,30 @@
 {
-  "type": "camera_set_saturation",
-  "message0": "#blk-camera_set_saturation# %1",
+  "type": "camera2_set_whitebalance",
+  "message0": "#blk-camera2_set_whitebalance# %1",
   "args0": [
     {
       "type": "field_dropdown",
-      "name": "level",
+      "name": "mode",
       "options": [
         [
-          "0",
+          "Auto",
           "0"
         ],
         [
-          "-2",
-          "-2"
-        ],
-        [
-          "-1",
-          "-1"
-        ],
-        [
-          "1",
+          "Sunny",
           "1"
         ],
         [
-          "2",
+          "Cloudy",
           "2"
+        ],
+        [
+          "Office",
+          "3"
+        ],
+        [
+          "Home",
+          "4"
         ]
       ]
     }
@@ -33,6 +33,6 @@
   "previousStatement": null,
   "nextStatement": null,
   "colour": 230,
-  "tooltip": "#blk-camera_set_saturation_tooltip#",
+  "tooltip": "#blk-camera2_set_whitebalance_tooltip#",
   "helpUrl": ""
 }

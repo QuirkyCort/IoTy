@@ -1,17 +1,17 @@
 {
-  "type": "camera_set_quality",
-  "message0": "#blk-camera_set_quality# %1",
+  "type": "camera2_set_quality",
+  "message0": "#blk-camera2_set_quality# %1",
   "args0": [
     {
       "type": "field_number",
       "name": "quality",
-      "value": "10"
+      "value": "85"
     }
   ],
   "inputsInline": true,
   "previousStatement": null,
   "nextStatement": null,
   "colour": 230,
-  "tooltip": "#blk-camera_set_quality_tooltip#",
+  "tooltip": "#blk-camera2_set_quality_tooltip#",
   "helpUrl": ""
 }
