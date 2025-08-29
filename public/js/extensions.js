@@ -791,7 +791,7 @@ var extensions = new function() {
       id: 'xpt2046',
       name: 'ADS7843 / XPT2046 Touchscreen Controller',
       files: [
-        ['xpt2046.py', 'extensions/xpt2046.py?v=f20ecb6f'],
+        ['xpt2046.py', 'extensions/xpt2046.py?v=74823ea2'],
       ],
       description:
         '<p>' +

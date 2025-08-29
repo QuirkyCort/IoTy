@@ -5719,7 +5719,12 @@ var ioty_generator = new function() {
     let y_max = block.getFieldValue('y_max');
     let rotation = block.getFieldValue('rotation');
 
-    var code = 'xpt2046_device = xpt2046.Touch(' + spi + ', cs=Pin(' + cs + '), int_pin=Pin(' + int + '), width=' + width + ', height=' + height + ', x_min=' + x_min + ', x_max=' + x_max + ', y_min=' + y_min + ', y_max=' + y_max + ', rotation=' + rotation + ')\n';
+    let intParam = 'None';
+    if (int != -1) {
+      intParam = 'Pin(' + int + ')';
+    }
+
+    var code = 'xpt2046_device = xpt2046.Touch(' + spi + ', cs=Pin(' + cs + '), int_pin=' + intParam + ', width=' + width + ', height=' + height + ', x_min=' + x_min + ', x_max=' + x_max + ', y_min=' + y_min + ', y_max=' + y_max + ', rotation=' + rotation + ')\n';
 
     return code;
   };

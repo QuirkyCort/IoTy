@@ -3383,7 +3383,7 @@ let MSGS = {
     en: 'init XPT2046 on',
   },
   '#blk-xpt2046_init_tooltip#': {
-    en: 'You must have a \\"init SPI\\" block before this.',
+    en: 'You must have a \\"init SPI\\" block before this. If int is set to -1, the touchscreen will run in non-interrupt mode.',
   },
   '#blk-int#': {
     en: 'int',

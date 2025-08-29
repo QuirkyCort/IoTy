@@ -68,9 +68,9 @@ class Touch(object):
         self.y_multiplier = self.height / (y_max - y_min)
         self.y_add = y_min * -self.y_multiplier
         self.pos = None
+        self.int_pin = int_pin
 
         if int_pin is not None:
-            self.int_pin = int_pin
             self.int_pin.init(int_pin.IN)
             self.int_handler = int_handler
             self.int_locked = False
@@ -114,7 +114,16 @@ class Touch(object):
         elif pin.value():
             self.pos = None
 
+    def read(self):
+        buff = self.raw_touch()
+        if buff is not None:
+            self.pos = self.normalize(*buff)
+        else:
+            self.pos = None
+
     def get_pos(self):
+        if self.int_pin == None:
+            self.read()
         return self.pos
 
     def normalize(self, x, y):
