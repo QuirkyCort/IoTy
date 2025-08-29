@@ -30,7 +30,12 @@ var serial = new function() {
     { // ESP32-C3 Supermini
       usbProductId: 4097,
       usbVendorId: 12346
-    },  ];
+    },
+    { // Freenove ESP32-S3-WROOM CAM Board
+      usbProductId: 21971,
+      usbVendorId: 6790
+    },
+  ];
 
   this.writeEnable = false;
 
@@ -82,6 +87,7 @@ var serial = new function() {
         self.port = await navigator.serial.requestPort({filters: filters});
       } else {
         self.port = await navigator.serial.requestPort();
+        console.log(self.port.getInfo());
       }
 
       self.port.ondisconnect = function(){

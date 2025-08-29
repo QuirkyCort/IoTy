@@ -3385,6 +3385,9 @@ let MSGS = {
   '#blk-xpt2046_init_tooltip#': {
     en: 'You must have a \\"init SPI\\" block before this. If int is set to -1, the touchscreen will run in non-interrupt mode.',
   },
+  '#blk-xpt2046_init_no_int_tooltip#': {
+    en: 'This version of the block does not use the interrupt pin. You must poll for touch events using the \\"xpt2046 get touch\\" block.',
+  },
   '#blk-int#': {
     en: 'int',
   },
@@ -3393,6 +3396,12 @@ let MSGS = {
   },
   '#blk-min_max_y#': {
     en: 'min/max y',
+  },
+  '#blk-xpt2046_get_touch#': {
+    en: 'xpt2046 get touch',
+  },
+  '#blk-xpt2046_get_touch_tooltip#': {
+    en: 'When initialized without an interrupt pin, you need to run this block frequently to check for touch events.',
   },
   '#blk-xpt2046_get_pos#': {
     en: 'xpt2046 get position',
@@ -3901,7 +3910,69 @@ let MSGS = {
   '#blk-mlx90640_get_temperature_tooltip#': {
     en: 'Retrieve the temperature (Celsius) at the specified position in the array. You must perform a \\"read\\" before this.',
   },
-};
+  '#blk-camera2_init#': {
+    en: 'camera2: init with format',
+  },
+  '#blk-grab_mode#': {
+    en: 'grab mode',
+  },
+  '#blk-camera2_init_tooltip#': {
+    en: 'Large framesize may crash the device, especially when not using JPEG. To reinitialize the camera, you must \\"deinit\\" first.',
+  },
+  '#blk-camera2_deinit#': {
+    en: 'camera2: deinit',
+  },
+  '#blk-camera2_deinit_tooltip#': {
+    en: 'You must deinitialize the camera before you can initialize it again.',
+  },
+  '#blk-camera2_capture#': {
+    en: 'camera2: get image',
+  },
+  '#blk-camera2_capture_tooltip#': {
+    en: 'Returns an image which can be used like a bytes object.',
+  },
+  '#blk-camera2_set_whitebalance#': {
+    en: 'camera2: set whitebalance',
+  },
+  '#blk-camera2_set_whitebalance_tooltip#': {
+    en: 'Sets the whitebalance.',
+  },
+  '#blk-camera2_set_gain#': {
+    en: 'camera2: set gain',
+  },
+  '#blk-camera2_set_gain_tooltip#': {
+    en: 'Sets the gain. 0 means auto-gain control. Max of 30.',
+  },
+  '#blk-camera2_set_exposure#': {
+    en: 'camera2: set exposure',
+  },
+  '#blk-camera2_set_exposure_tooltip#': {
+    en: 'Sets the exposure. 0 means auto-exposure control. Max of 1200.',
+  },
+  '#blk-camera2_set_saturation#': {
+    en: 'camera2: set saturation',
+  },
+  '#blk-camera2_set_saturation_tooltip#': {
+    en: 'Sets the saturation',
+  },
+  '#blk-camera2_set_brightness#': {
+    en: 'camera2: set brightness',
+  },
+  '#blk-camera2_set_brightness_tooltip#': {
+    en: 'Sets the brightness',
+  },
+  '#blk-camera2_set_contrast#': {
+    en: 'camera2: set contrast',
+  },
+  '#blk-camera2_set_contrast_tooltip#': {
+    en: 'Sets the contrast',
+  },
+  '#blk-camera2_set_quality#': {
+    en: 'camera2: set quality',
+  },
+  '#blk-camera2_set_quality_tooltip#': {
+    en: 'Sets the quality of the JPEG image. Ranges from 0 (lowest) to 100 (highest).',
+  },};
 let MSGS_KEYS = Object.keys(MSGS);
 
 let LANG = localStorage.getItem('LANG');

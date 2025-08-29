@@ -533,6 +533,18 @@ var ioty_generator = new function() {
     Blockly.Python['camera_set_quality'] = self.camera_set_quality;
     Blockly.Python.addReservedWords('camera');
 
+    Blockly.Python['camera2_init'] = self.camera2_init;
+    Blockly.Python['camera2_deinit'] = self.camera2_deinit;
+    Blockly.Python['camera2_capture'] = self.camera2_capture;
+    Blockly.Python['camera2_set_whitebalance'] = self.camera2_set_whitebalance;
+    Blockly.Python['camera2_set_gain'] = self.camera2_set_gain;
+    Blockly.Python['camera2_set_exposure'] = self.camera2_set_exposure;
+    Blockly.Python['camera2_set_saturation'] = self.camera2_set_saturation;
+    Blockly.Python['camera2_set_brightness'] = self.camera2_set_brightness;
+    Blockly.Python['camera2_set_contrast'] = self.camera2_set_contrast;
+    Blockly.Python['camera2_set_quality'] = self.camera2_set_quality;
+    Blockly.Python.addReservedWords('camera');
+
     Blockly.Python['mv_find_blobs_yuv'] = self.mv_find_blobs_yuv;
     Blockly.Python['mv_find_blobs_grayscale'] = self.mv_find_blobs_grayscale;
     Blockly.Python['mv_find_circle_single'] = self.mv_find_circle_single;
@@ -572,6 +584,8 @@ var ioty_generator = new function() {
     Blockly.Python.addReservedWords('xglcd_font');
 
     Blockly.Python['xpt2046_init'] = self.xpt2046_init;
+    Blockly.Python['xpt2046_init_no_int'] = self.xpt2046_init_no_int;
+    Blockly.Python['xpt2046_get_touch'] = self.xpt2046_get_touch;
     Blockly.Python['xpt2046_get_pos'] = self.xpt2046_get_pos;
     Blockly.Python['xpt2046_in_rect'] = self.xpt2046_in_rect;
     Blockly.Python['xpt2046_in_circle'] = self.xpt2046_in_circle;
@@ -5261,6 +5275,105 @@ var ioty_generator = new function() {
     return code;
   };
 
+  this.camera2_init = function(block) {
+    self.imports['camera'] = 'import camera';
+    self.reservedVariables['camera2_init'] = ['cam2_dev'];
+
+    var format = block.getFieldValue('format');
+    var framesize = block.getFieldValue('framesize');
+    var grabMode = block.getFieldValue('grab_mode');
+
+    var code = 'cam2_dev = camera.Camera(pixel_format=camera.PixelFormat.' + format + ', frame_size=camera.FrameSize.' + framesize + ', grab_mode=camera.GrabMode.' + grabMode + ')\n';
+
+    return code;
+  };
+
+  this.camera2_deinit = function(block) {
+    var code = 'cam2_dev.deinit()\n';
+
+    return code;
+  };
+
+  this.camera2_capture = function(block) {
+    var code = 'cam2_dev.capture()';
+
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
+  this.camera2_set_whitebalance = function(block) {
+    var mode = block.getFieldValue('mode');
+
+    var code;
+    if (mode == '0') {
+      code = 'cam2_dev.set_whitebal(True)\n';
+    } else {
+      code = 'cam2_dev.set_whitebal(False)\n' +
+             'cam2_dev.set_wb_mode(' + mode + ')\n';
+    }
+
+    return code;
+  };
+
+  this.camera2_set_gain = function(block) {
+    var level = block.getFieldValue('level');
+
+    var code;
+    if (level == 0) {
+      code = 'cam2_dev.set_gain_ctrl(True)\n';
+    } else {
+      code = 'cam2_dev.set_gain_ctrl(False)\n' +
+             'cam2_dev.set_agc_gain(' + level + ')\n';
+    }
+
+    return code;
+  };
+
+  this.camera2_set_exposure = function(block) {
+    var level = block.getFieldValue('level');
+
+    var code;
+    if (level == 0) {
+      code = 'cam2_dev.set_exposure_ctrl(True)\n';
+    } else {
+      code = 'cam2_dev.set_exposure_ctrl(False)\n' +
+             'cam2_dev.set_aec_value(' + level + ')\n';
+    }
+
+    return code;
+  };
+
+  this.camera2_set_saturation = function(block) {
+    var level = block.getFieldValue('level');
+
+    var code = 'cam2_dev.set_saturation(' + level + ')\n';
+
+    return code;
+  };
+
+  this.camera2_set_brightness = function(block) {
+    var level = block.getFieldValue('level');
+
+    var code = 'cam2_dev.set_brightness(' + level + ')\n';
+
+    return code;
+  };
+
+  this.camera2_set_contrast = function(block) {
+    var level = block.getFieldValue('level');
+
+    var code = 'cam2_dev.set_contrast(' + level + ')\n';
+
+    return code;
+  };
+
+  this.camera2_set_quality = function(block) {
+    var quality = block.getFieldValue('quality');
+
+    var code = 'cam2_dev.set_quality(' + quality + ')\n';
+
+    return code;
+  };
+
   this.mv_find_blobs_yuv = function(block) {
     self.imports['mv'] = 'import mv';
 
@@ -5725,6 +5838,33 @@ var ioty_generator = new function() {
     }
 
     var code = 'xpt2046_device = xpt2046.Touch(' + spi + ', cs=Pin(' + cs + '), int_pin=' + intParam + ', width=' + width + ', height=' + height + ', x_min=' + x_min + ', x_max=' + x_max + ', y_min=' + y_min + ', y_max=' + y_max + ', rotation=' + rotation + ')\n';
+
+    return code;
+  };
+
+  this.xpt2046_init_no_int = function(block) {
+    self.imports['xpt2046'] = 'import xpt2046';
+    self.reservedVariables['xpt2046_init'] = ['xpt2046_device'];
+
+    let spi = block.getFieldValue('spi');
+    let cs = block.getFieldValue('cs');
+    let width = block.getFieldValue('width');
+    let height = block.getFieldValue('height');
+    let x_min = block.getFieldValue('x_min');
+    let x_max = block.getFieldValue('x_max');
+    let y_min = block.getFieldValue('y_min');
+    let y_max = block.getFieldValue('y_max');
+    let rotation = block.getFieldValue('rotation');
+
+    var code = 'xpt2046_device = xpt2046.Touch(' + spi + ', cs=Pin(' + cs + '), width=' + width + ', height=' + height + ', x_min=' + x_min + ', x_max=' + x_max + ', y_min=' + y_min + ', y_max=' + y_max + ', rotation=' + rotation + ')\n';
+
+    return code;
+  };
+
+  this.xpt2046_get_touch = function(block) {
+    self.imports['xpt2046'] = 'import xpt2046';
+
+    var code = 'xpt2046_device.get_touch()\n';
 
     return code;
   };

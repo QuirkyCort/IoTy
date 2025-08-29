@@ -77,10 +77,8 @@ class Touch(object):
             int_pin.irq(trigger=int_pin.IRQ_FALLING | int_pin.IRQ_RISING,
                         handler=self.int_press)
 
-    def get_touch(self):
+    def get_touch(self, timeout=0.1, confidence=3):
         """Take multiple samples to get accurate touch reading."""
-        timeout = 2  # set timeout to 2 seconds
-        confidence = 5
         buff = [[0, 0] for x in range(confidence)]
         buf_length = confidence  # Require a confidence of 5 good samples
         buffptr = 0  # Track current buffer position
@@ -92,7 +90,8 @@ class Touch(object):
                 dev = sum([(c[0] - meanx)**2 +
                           (c[1] - meany)**2 for c in buff]) / buf_length
                 if dev <= 50:  # Deviation should be under margin of 50
-                    return self.normalize(meanx, meany)
+                    self.pos = self.normalize(meanx, meany)
+                    return None
             # get a new value
             sample = self.raw_touch()  # get a touch
             if sample is None:
@@ -102,8 +101,9 @@ class Touch(object):
                 buffptr = (buffptr + 1) % buf_length  # Incr, until rollover
                 nsamples = min(nsamples + 1, buf_length)  # Incr. until max
 
-            sleep(.05)
-            timeout -= .05
+            sleep(.01)
+            timeout -= .01
+        self.pos = None
         return None
 
     def int_press(self, pin):
