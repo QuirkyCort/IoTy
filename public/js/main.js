@@ -618,6 +618,35 @@ var main = new function() {
     });
   };
 
+  // Prepare download window, generate python, and check syntax
+  this.downloadWindow = async function(reset) {
+    let $downloadWindow = self.hiddenButtonDialog('Download to Device', 'Downloading extensions...', reset);
+
+    if (filesManager.modified == false) {
+      try {
+        await pythonPanel.loadPythonFromBlockly();
+      } catch (e) {
+        $downloadWindow.$body.text('Error preparing Python code.');
+        $downloadWindow.$buttonsRow.removeClass('hide');
+        return;
+      }
+    }
+    filesManager.updateCurrentFile();
+
+    // Check syntax
+    $downloadWindow.$body.text('Checking syntax...');
+    let result = self.checkPythonSyntax();
+    if (result.error) {
+      $downloadWindow.$body.text('Syntax Error');
+      let $error = $('<pre>' + result.text + '</pre>');
+      $downloadWindow.$body.append($error);
+      $downloadWindow.$buttonsRow.removeClass('hide');
+      return;
+    }
+
+    return $downloadWindow;
+  }
+
   // Load project name from local storage
   this.loadProjectName = function() {
     self.$projectName.val(localStorage.getItem('projectName'));

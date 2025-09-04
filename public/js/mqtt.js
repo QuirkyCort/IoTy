@@ -284,36 +284,10 @@ var mqtt = new function() {
       return;
     }
 
-    if (filesManager.modified == false) {
-      await pythonPanel.loadPythonFromBlockly();
-    }
-    filesManager.updateCurrentFile();
-
-    let $downloadWindow = main.hiddenButtonDialog('Download to Device', 'Checking syntax...', self.reset);
-
-    // Check syntax
-    let result = main.checkPythonSyntax();
-    if (result.error) {
-      $downloadWindow.$body.text('Syntax Error');
-      let $error = $('<pre>' + result.text + '</pre>');
-      $downloadWindow.$body.append($error);
-      $downloadWindow.$buttonsRow.removeClass('hide');
+    let $downloadWindow = await main.downloadWindow(self.reset);
+    if ($downloadWindow == null) {
       return;
     }
-
-    // Erase all
-    // $downloadWindow.$body.text('Erasing...');
-    // let nonce = await self.sendCmd(constants._MODE_DELETE_ALL);
-    // let response = await self.waitForResponse(nonce);
-    // if (response == null) {
-    //   $downloadWindow.$body.text('Connection timed out');
-    //   $downloadWindow.$buttonsRow.removeClass('hide');
-    //   return;
-    // } else if (response.status != constants._STATUS_SUCCESS) {
-    //   $downloadWindow.$body.text('Error erasing files');
-    //   $downloadWindow.$buttonsRow.removeClass('hide');
-    //   return;
-    // }
 
     // Download
     let totalFilesCount = Object.keys(filesManager.files).length;

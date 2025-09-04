@@ -291,20 +291,8 @@ var serial = new function() {
       return;
     }
 
-    if (filesManager.modified == false) {
-      await pythonPanel.loadPythonFromBlockly();
-    }
-    filesManager.updateCurrentFile();
-
-    let $downloadWindow = main.hiddenButtonDialog('Download to Device', 'Checking syntax...', self.reset);
-
-    // Check syntax
-    let result = main.checkPythonSyntax();
-    if (result.error) {
-      $downloadWindow.$body.text('Syntax Error');
-      let $error = $('<pre>' + result.text + '</pre>');
-      $downloadWindow.$body.append($error);
-      $downloadWindow.$buttonsRow.removeClass('hide');
+    let $downloadWindow = await main.downloadWindow(self.reset);
+    if ($downloadWindow == null) {
       return;
     }
 
@@ -319,16 +307,7 @@ var serial = new function() {
       return;
     }
 
-    // Erase
-    // $downloadWindow.$body.text('Erasing...');
-    // let response = await self.erase();
-    // if (response[0] != 'success') {
-    //   $downloadWindow.$body.text('Error erasing files.');
-    //   $downloadWindow.$buttonsRow.removeClass('hide');
-    //   await self.pythonSerial.exitRawMode();
-    //   return;
-    // }
-
+    // Download
     let currentFileCount = 0;
     let totalFilesCount = Object.keys(filesManager.files).length;
     for (let filename in filesManager.files) {

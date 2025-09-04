@@ -1084,12 +1084,19 @@ var extensions = new function() {
   }
 
   this.processFilesManager = async function(extension) {
-    for (file of extension.files) {
-      if (! (file in filesManager.files)) {
-        let response = await fetch(file[1]);
-        let content = await response.text();
-        filesManager.add(file[0], content);
+    try {
+      for (file of extension.files) {
+        if (! (file in filesManager.files)) {
+          let response = await fetch(file[1]);
+          let content = await response.text();
+          filesManager.add(file[0], content);
+        }
       }
+    } catch (e) {
+      if (e instanceof TypeError) {
+        acknowledgeDialog('Failed to load Python extension files. Please check your internet connection.');
+      }
+      throw e;
     }
   };
 

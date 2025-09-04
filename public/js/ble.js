@@ -464,33 +464,16 @@ var ble = new function() {
       return;
     }
 
-    if (filesManager.modified == false) {
-      await pythonPanel.loadPythonFromBlockly();
+    let $downloadWindow = await main.downloadWindow(self.reset);
+    if ($downloadWindow == null) {
+      return;
     }
-    filesManager.updateCurrentFile();
-
-    let $downloadWindow = main.hiddenButtonDialog('Download to Device', 'Checking syntax...', self.reset);
 
     let totalFilesCount = Object.keys(filesManager.files).length;
     let currentFileCount = 0;
     let progressBar = '';
 
-    // Check syntax
-    let result = main.checkPythonSyntax();
-
-    if (result.error) {
-      $downloadWindow.$body.text('Syntax Error');
-      let $error = $('<pre>' + result.text + '</pre>');
-      $downloadWindow.$body.append($error);
-      $downloadWindow.$buttonsRow.removeClass('hide');
-      return;
-    }
-
-    // $downloadWindow.$body.text('Erasing...');
-
     try {
-      // await self.setCmdMode(constants._MODE_DELETE_ALL);
-
       function updateProgress() {
         progressBar += '.';
         $downloadWindow.$body.text('Downloading (' + currentFileCount + '/' + totalFilesCount + ')' + progressBar);
