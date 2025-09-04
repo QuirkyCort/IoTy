@@ -302,6 +302,7 @@ var serial = new function() {
     self.writeEnable = false;
     if (await self.pythonSerial.enterRawMode() != 'success') {
       await self.pythonSerial.exitRawMode(500);
+      self.pythonSerial.setReadToHandler();
       $downloadWindow.$body.text('Connection timed out. Press the reset button on your device and try again.');
       $downloadWindow.$buttonsRow.removeClass('hide');
       return;
@@ -317,6 +318,8 @@ var serial = new function() {
       let fileBuf = e.encode(filesManager.files[filename]);
       let result = await self.pythonSerial.copyFileToDevice(filename, fileBuf);
       if (result != 'success') {
+        await self.pythonSerial.exitRawMode();
+        self.pythonSerial.setReadToHandler();
         $downloadWindow.$body.text('Error downloading files');
         $downloadWindow.$buttonsRow.removeClass('hide');
         return;
