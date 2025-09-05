@@ -26,60 +26,56 @@ var ioty_generator = new function() {
     Blockly.Python.addReservedWords('is_file,is_dir');
     Blockly.Python.addReservedWords('sdcard');
     Blockly.Python.addReservedWords('esp32');
-    Blockly.Python.addReservedWords('mpu6050,mpu6050_device');
-    Blockly.Python.addReservedWords('pca9685,pca9685_device');
-    Blockly.Python.addReservedWords('ssd1306,ssd1306_i2c');
+    Blockly.Python.addReservedWords('mpu6050');
+    Blockly.Python.addReservedWords('pca9685');
+    Blockly.Python.addReservedWords('ssd1306');
     Blockly.Python.addReservedWords('urequests');
-    Blockly.Python.addReservedWords('espnow,esp_now');
+    Blockly.Python.addReservedWords('espnow');
     Blockly.Python.addReservedWords('ez_espnow');
-    Blockly.Python.addReservedWords('ez_httpd,ezhttpd');
+    Blockly.Python.addReservedWords('ez_httpd');
     Blockly.Python.addReservedWords('ucsv');
-    Blockly.Python.addReservedWords('i2c_lcd,lcd');
-    Blockly.Python.addReservedWords('dht,dht_device');
-    Blockly.Python.addReservedWords('ez_ds18x20,ds_device');
-    Blockly.Python.addReservedWords('non_block,nblock');
-    Blockly.Python.addReservedWords('uart1,uart2');
-    Blockly.Python.addReservedWords('gps,gps_device');
-    Blockly.Python.addReservedWords('hx711,hx711_device');
-    Blockly.Python.addReservedWords('hx710,hx710_device');
-    Blockly.Python.addReservedWords('ez_timer,ez_timer_obj,ez_timer_timeout_fn');
-    Blockly.Python.addReservedWords('spi1,spi2,softSpi1,softSpi2');
-    Blockly.Python.addReservedWords('mfrc522,mfrc522_device');
-    Blockly.Python.addReservedWords('qmc5883l,qmc5883l_device');
-    Blockly.Python.addReservedWords('hmc5883l,hmc5883l_device');
-    Blockly.Python.addReservedWords('bmp280,bmp280_device');
-    Blockly.Python.addReservedWords('max30102,max30102_device');
-    Blockly.Python.addReservedWords('vl53l0x,vl53l0x_device');
-    Blockly.Python.addReservedWords('vl53l1x,vl53l1x_device');
+    Blockly.Python.addReservedWords('i2c_lcd');
+    Blockly.Python.addReservedWords('dht');
+    Blockly.Python.addReservedWords('ez_ds18x20');
+    Blockly.Python.addReservedWords('non_block');
+    Blockly.Python.addReservedWords('gps');
+    Blockly.Python.addReservedWords('hx711');
+    Blockly.Python.addReservedWords('hx710');
+    Blockly.Python.addReservedWords('ez_timer,ez_timer_timeout_fn');
+    Blockly.Python.addReservedWords('mfrc522');
+    Blockly.Python.addReservedWords('qmc5883l');
+    Blockly.Python.addReservedWords('hmc5883l');
+    Blockly.Python.addReservedWords('bmp280');
+    Blockly.Python.addReservedWords('max30102');
+    Blockly.Python.addReservedWords('vl53l0x');
+    Blockly.Python.addReservedWords('vl53l1x');
     Blockly.Python.addReservedWords('mqtt_logger');
-    Blockly.Python.addReservedWords('ds3231,ds3231_device');
-    Blockly.Python.addReservedWords('bme280,bme280_device');
-    Blockly.Python.addReservedWords('apds9960,apds9960_device');
-    Blockly.Python.addReservedWords('gy33_i2c,gy33_i2c_device');
-    Blockly.Python.addReservedWords('gy33_uart,gy33_uart_device');
-    Blockly.Python.addReservedWords('tcs3472,tcs3472_device');
+    Blockly.Python.addReservedWords('ds3231');
+    Blockly.Python.addReservedWords('bme280');
+    Blockly.Python.addReservedWords('apds9960');
+    Blockly.Python.addReservedWords('gy33_i2c');
+    Blockly.Python.addReservedWords('gy33_uart');
+    Blockly.Python.addReservedWords('tcs3472');
     Blockly.Python.addReservedWords('tween');
-    Blockly.Python.addReservedWords('max6675,max6675_device');
-    Blockly.Python.addReservedWords('encoder,encoder_device');
-    Blockly.Python.addReservedWords('huskylens,huskylib');
-    Blockly.Python.addReservedWords('tca9548a,tca9548a_device');
-    Blockly.Python.addReservedWords('music,music_device');
-    Blockly.Python.addReservedWords('scaled_text,text_scaler');
+    Blockly.Python.addReservedWords('max6675');
+    Blockly.Python.addReservedWords('encoder');
+    Blockly.Python.addReservedWords('huskylib');
+    Blockly.Python.addReservedWords('tca9548a');
+    Blockly.Python.addReservedWords('music');
+    Blockly.Python.addReservedWords('scaled_text');
     Blockly.Python.addReservedWords('PNGdecoder');
-    Blockly.Python.addReservedWords('bmp_image,bmp_image_file');
-    Blockly.Python.addReservedWords('hid_services,hid_keyboard,hid_mouse,hid_ccd,hid_joystick');
-    Blockly.Python.addReservedWords('yx5300,yx5300_device');
-    Blockly.Python.addReservedWords('ld2410,ld2410_device');
-    Blockly.Python.addReservedWords('stepper_wheels,sw_controller,sw_motor0,sw_motor1,sw_motor2,sw_motor3');
-    Blockly.Python.addReservedWords('sw_drive,sw_delta,sw_mecanum');
-    Blockly.Python.addReservedWords('camera');
+    Blockly.Python.addReservedWords('bmp_image');
+    Blockly.Python.addReservedWords('hid_services');
+    Blockly.Python.addReservedWords('yx5300');
+    Blockly.Python.addReservedWords('ld2410');
+    Blockly.Python.addReservedWords('stepper_wheels');
     Blockly.Python.addReservedWords('camera');
     Blockly.Python.addReservedWords('mv');
     Blockly.Python.addReservedWords('wheeled_drives');
-    Blockly.Python.addReservedWords('ili9341,ili9341_device');
+    Blockly.Python.addReservedWords('ili9341');
     Blockly.Python.addReservedWords('xglcd_font');
-    Blockly.Python.addReservedWords('xpt2046,xpt2046_device');
-    Blockly.Python.addReservedWords('st7789,st7789_device');
+    Blockly.Python.addReservedWords('xpt2046');
+    Blockly.Python.addReservedWords('st7789');
     Blockly.Python.addReservedWords('lds02rr');
     Blockly.Python.addReservedWords('amg8833');
     Blockly.Python.addReservedWords('vs1003');
@@ -94,12 +90,6 @@ var ioty_generator = new function() {
     for (let generator in self.generators) {
       Blockly.Python[generator] = self.generators[generator];
     }
-
-    // Note. These blocks are named differently from their generator functions.
-    // procedures_defnoreturn > procedures_defreturn
-    // urequests_simple > urequests_simple_advance
-    // urequests_advance > urequests_simple_advance
-
   };
 
   // Generate python code
