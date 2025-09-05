@@ -21,10 +21,8 @@ var ioty_generator = new function() {
     Blockly.Python.addReservedWords('json,math_map');
     Blockly.Python.addReservedWords('ioty_neopixel');
     Blockly.Python.addReservedWords('ioty_mqtt,ioty_mqtt_cb,mqtt_msg,binascii');
-    Blockly.Python.addReservedWords('i2c');
     Blockly.Python.addReservedWords('dateTime,ntptime');
     Blockly.Python.addReservedWords('is_file,is_dir');
-    Blockly.Python.addReservedWords('sdcard');
     Blockly.Python.addReservedWords('esp32');
     Blockly.Python.addReservedWords('mpu6050');
     Blockly.Python.addReservedWords('pca9685');
@@ -1513,6 +1511,7 @@ var ioty_generator = new function() {
     'sdcard_init': function(block) {
       self.imports['machine'] = 'import machine';
       self.imports['os'] = 'import os';
+      self.reservedVariables['sdcard_init'] = ['sdcard'];
 
       let slot = block.getFieldValue('slot');
       let cs = block.getFieldValue('cs');
