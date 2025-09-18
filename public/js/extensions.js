@@ -994,7 +994,8 @@ var extensions = new function() {
           'It can be used to detect hot or warm objects (eg. a human) from a distance.' +
         '</p>' +
         '<p>' +
-          'It is recommended to set the I2C bus to a higher speed (eg. 400kHz) when using this device.' +
+          'It is recommended to set the I2C bus to a higher speed (eg. 400kHz) when using this device. ' +
+          'For some models, the PS pin must be connected to ground to enable I2C mode.' +
         '</p>'
     },
   ]
