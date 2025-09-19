@@ -164,7 +164,8 @@ var ioty_generator = new function() {
 
     let matches = code.matchAll(placeholderRegexG);
     for (let _ of matches) {
-      code = code.replace(placeholderRegex, globalString);
+      let prefixSpaces = code.match(placeholderRegex)[1];
+      code = code.replace(placeholderRegex, prefixSpaces + globalString);
     }
 
     return code;
@@ -207,15 +208,16 @@ var ioty_generator = new function() {
     let placeholderRegexG = new RegExp(placeholderRegexStr, 'g');
     let placeholderRegex = new RegExp(placeholderRegexStr);
 
-    let replacementCode = '';
-    for (let topic in self.mqttSubscriptions) {
-      replacementCode += 'ioty_mqtt.subscribe(b\'' + topic + '\')\n';
-    }
-
     let matches = code.matchAll(placeholderRegexG);
     for (let _ of matches) {
       let prefixSpaces = code.match(placeholderRegex)[1];
-      code = code.replace(placeholderRegex, prefixSpaces + replacementCode);
+
+      let replacementCode = '';
+      for (let topic in self.mqttSubscriptions) {
+        replacementCode += prefixSpaces + 'ioty_mqtt.subscribe(b\'' + topic + '\')\n';
+      }
+
+      code = code.replace(placeholderRegex, replacementCode);
     }
 
     return code;
@@ -226,15 +228,16 @@ var ioty_generator = new function() {
     let placeholderRegexG = new RegExp(placeholderRegexStr, 'g');
     let placeholderRegex = new RegExp(placeholderRegexStr);
 
-    let replacementCode = '';
-    for (let cb of self.ezTimerCb) {
-      replacementCode += 'ez_timer_obj.set_interval(' + cb.function + ', ' + cb.interval + ', offset=' + cb.offset + ')\n';
-    }
-
     let matches = code.matchAll(placeholderRegexG);
     for (let _ of matches) {
       let prefixSpaces = code.match(placeholderRegex)[1];
-      code = code.replace(placeholderRegex, prefixSpaces + replacementCode);
+
+      let replacementCode = '';
+      for (let cb of self.ezTimerCb) {
+        replacementCode += prefixSpaces + 'ez_timer_obj.set_interval(' + cb.function + ', ' + cb.interval + ', offset=' + cb.offset + ')\n';
+      }
+
+      code = code.replace(placeholderRegex, replacementCode);
     }
 
     return code;
@@ -2633,6 +2636,9 @@ var ioty_generator = new function() {
       var interval = block.getFieldValue('interval');
       var offset = block.getFieldValue('offset');
       var statements = Blockly.Python.statementToCode(block, 'statements');
+      if (statements == '') {
+        statements = Blockly.Python.INDENT + 'pass\n';
+      }
 
       let functionName = 'ez_timer_cb_' + self.ezTimerCb.length;
 
@@ -2679,6 +2685,9 @@ var ioty_generator = new function() {
       // Usual stuff
       var interval = block.getFieldValue('timeout');
       var statements = Blockly.Python.statementToCode(block, 'statements');
+      if (statements == '') {
+        statements = Blockly.Python.INDENT + 'pass\n';
+      }
 
       var code =
         'def ez_timer_timeout_fn():\n'
