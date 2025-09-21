@@ -1,3 +1,5 @@
+import struct
+
 class UARTDriver:
     def __init__(self, uart):
         self.uart = uart
@@ -183,3 +185,85 @@ class UARTDriver:
 
     def get_speed(self):
         return self.speed
+
+
+class I2CDriver:
+    def __init__(self, i2c, addr=38):
+        self.i2c = i2c
+        self.addr = addr
+        self.target_speed = bytearray(8)
+        self.pwm = bytearray(8)
+        self.buf = bytearray(4)
+
+    def set_motor_model(self, model):
+        if model < 1 or model > 4:
+            raise ValueError('Model must be between 1 and 4')
+        return self.i2c.writeto_mem(self.addr, 0x01, struct.pack('B', model))
+
+    def set_deadzone(self, deadzone):
+        if deadzone < 0 or deadzone > 3600:
+            raise ValueError('Deadzone must be between 0 and 3600')
+        return self.i2c.writeto_mem(self.addr, 0x02, struct.pack('>H', deadzone))
+
+    def set_pulse_per_revolution(self, pulse):
+        if pulse < 1 or pulse > 65535:
+            raise ValueError('Pulse per revolution must be between 1 and 65535')
+        return self.i2c.writeto_mem(self.addr, 0x03, struct.pack('>H', pulse))
+
+    def set_gear_ratio(self, ratio):
+        if ratio < 1 or ratio > 65535:
+            raise ValueError('Gear ratio must be between 1 and 65535')
+        return self.i2c.writeto_mem(self.addr, 0x04, struct.pack('>H', ratio))
+
+    def set_wheel_diameter(self, diameter):
+        return self.i2c.writeto_mem(self.addr, 0x05, struct.pack('<f', diameter))
+
+    def _set_speed(self):
+        return self.i2c.writeto_mem(self.addr, 0x06, self.target_speed)
+
+    def set_all_speed(self, motor1, motor2, motor3, motor4):
+        self.set_speed(1, motor1)
+        self.set_speed(2, motor2)
+        self.set_speed(3, motor3)
+        self.set_speed(4, motor4)
+        self._set_speed()
+
+    def set_speed(self, motor, speed):
+        if motor < 1 or motor > 4:
+            raise ValueError('Motor must be between 1 and 4')
+        offset = (motor - 1) * 2
+        self.target_speed[offset] = (speed >> 8) & 0xFF
+        self.target_speed[offset + 1] = speed & 0xFF
+        self._set_speed()
+
+    def _set_pwm(self):
+        return self.i2c.writeto_mem(self.addr, 0x07, self.pwm)
+
+    def set_all_pwm(self, motor1, motor2, motor3, motor4):
+        self.set_pwm(1, motor1)
+        self.set_pwm(2, motor2)
+        self.set_pwm(3, motor3)
+        self.set_pwm(4, motor4)
+        self._set_pwm()
+
+    def set_pwm(self, motor, pwm):
+        if motor < 1 or motor > 4:
+            raise ValueError('Motor must be between 1 and 4')
+        offset = (motor - 1) * 2
+        self.pwm[offset] = (pwm >> 8) & 0xFF
+        self.pwm[offset + 1] = pwm & 0xFF
+        self._set_pwm()
+
+    def get_steps(self, motor):
+        if motor < 1 or motor > 4:
+            raise ValueError('Motor must be between 1 and 4')
+        offset = (motor - 1) * 2
+        self.buf[0:2] = self.i2c.readfrom_mem(self.addr, 0x20 + offset, 2)
+        self.buf[2:4] = self.i2c.readfrom_mem(self.addr, 0x20 + offset + 1, 2)
+        return struct.unpack('>i', self.buf)[0]
+
+    # This returns a value that is 4 times the expected; don't know why
+    def get_pulses_per_10ms(self, motor):
+        if motor < 1 or motor > 4:
+            raise ValueError('Motor must be between 1 and 4')
+        return struct.unpack('>h', self.i2c.readfrom_mem(self.addr, 0x10 + motor - 1, 2))[0]
