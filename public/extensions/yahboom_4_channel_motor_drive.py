@@ -19,7 +19,8 @@ class UARTDriver:
             'wheel_diameter': 0,
             'pid': [0, 0, 0],
         }
-        self.settings_received = False
+        self.voltage = 0.0
+        self.received = False
 
     def update(self):
         buf = self.buf
@@ -71,7 +72,10 @@ class UARTDriver:
                             self.settings['pid'][2] = float(value[1])
                     except:
                         pass
-            self.settings_received = True
+            self.received = True
+        elif self.buf[1:8] == b'Battery':
+            self.voltage = float(self.buf[9:ptr-2])
+            self.received = True
 
     def _parse_encoder(self, ptr):
         parts = self.buf[6:ptr].split(b',')
@@ -101,11 +105,18 @@ class UARTDriver:
             pass
 
     def get_settings(self):
-        self.settings_received = False
+        self.received = False
         self.uart.write(b'$read_flash#')
-        while not self.settings_received:
+        while not self.received:
             self.update()
         return self.settings
+
+    def get_voltage(self):
+        self.received = False
+        self.uart.write(b'$read_vol#')
+        while not self.received:
+            self.update()
+        return self.voltage
 
     def set_motor_model(self, model):
         if model < 1 or model > 4:
