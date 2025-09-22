@@ -1,0 +1,19 @@
+{
+  "type": "yahboom_4cmd_i2c_set_gear_ratio",
+  "message0": "#blk-yahboom_4cmd_i2c_set_gear_ratio# %1",
+  "args0": [
+    {
+      "type": "field_number",
+      "name": "value",
+      "value": "30",
+      "min": "0",
+      "max": "65535",
+      "precision": "1"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-yahboom_4cmd_i2c_set_gear_ratio_tooltip#",
+  "helpUrl": ""
+}

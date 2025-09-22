@@ -998,6 +998,22 @@ var extensions = new function() {
           'For some models, the PS pin must be connected to ground to enable I2C mode.' +
         '</p>'
     },
+    {
+      id: 'yahboom_4cmd',
+      name: 'Yahboom 4 channel motor drive',
+      files: [
+        ['yahboom_4_channel_motor_drive.py', 'extensions/yahboom_4_channel_motor_drive.py?v=1046f59f'],
+      ],
+      description:
+        '<p>' +
+          'The Yahboom 4 channel motor drive provides control of up to 4 DC motors. ' +
+          'It is capable of reading motor encoders and using it to regulate speed.' +
+        '</p>' +
+        '<p>' +
+          'This device can work in both UART and I2C mode, but in I2C mode, some capabilities are not available. ' +
+          'For UART mode, the baudrate must be initialized to 115200. ' +
+        '</p>'
+    },
   ]
 
   this.init = function() {

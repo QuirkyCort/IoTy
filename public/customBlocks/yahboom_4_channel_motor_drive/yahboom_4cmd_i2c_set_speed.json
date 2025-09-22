@@ -1,0 +1,22 @@
+{
+  "type": "yahboom_4cmd_i2c_set_speed",
+  "message0": "#blk-yahboom_4cmd_i2c_set_speed# %1 #blk-to_speed# %2",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "motor",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "speed",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-yahboom_4cmd_i2c_set_speed_tooltip#",
+  "helpUrl": ""
+}

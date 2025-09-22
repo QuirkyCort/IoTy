@@ -1,0 +1,22 @@
+{
+  "type": "yahboom_4cmd_uart_set_pwm",
+  "message0": "#blk-yahboom_4cmd_uart_set_pwm# %1 #blk-to_pwm# %2",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "motor",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "pwm",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-yahboom_4cmd_uart_set_pwm_tooltip#",
+  "helpUrl": ""
+}

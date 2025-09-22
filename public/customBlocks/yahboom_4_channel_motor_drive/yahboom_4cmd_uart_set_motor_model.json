@@ -1,0 +1,21 @@
+{
+  "type": "yahboom_4cmd_uart_set_motor_model",
+  "message0": "#blk-yahboom_4cmd_uart_set_motor_model# %1",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "model",
+      "options": [
+        ["1: 520", "1"],
+        ["2: 310", "2"],
+        ["3: TT", "3"],
+        ["4: TT (no encoder)", "4"]
+      ]
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-yahboom_4cmd_uart_set_motor_model_tooltip#",
+  "helpUrl": ""
+}

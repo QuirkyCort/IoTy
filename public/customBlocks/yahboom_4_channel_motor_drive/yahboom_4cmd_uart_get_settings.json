@@ -1,0 +1,9 @@
+{
+  "type": "yahboom_4cmd_uart_get_settings",
+  "message0": "#blk-yahboom_4cmd_uart_get_settings#",
+  "args0": [],
+  "output": "Dict",
+  "colour": 230,
+  "tooltip": "#blk-yahboom_4cmd_uart_get_settings_tooltip#",
+  "helpUrl": ""
+}

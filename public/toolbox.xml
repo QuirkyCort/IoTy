@@ -3065,4 +3065,179 @@
       </value>
     </block>
   </category>
+  <category toolboxitemid="yahboom_4cmd" name="Yahboom 4CMD" colour="#5b67a5" hidden="true">
+    <label text="UART Mode"></label>
+    <block type="yahboom_4cmd_uart_init"></block>
+    <block type="yahboom_4cmd_uart_update"></block>
+    <block type="yahboom_4cmd_uart_get_settings"></block>
+    <block type="yahboom_4cmd_uart_get_voltage"></block>
+    <block type="yahboom_4cmd_uart_set_motor_model"></block>
+    <block type="yahboom_4cmd_uart_set_deadzone"></block>
+    <block type="yahboom_4cmd_uart_set_ppr"></block>
+    <block type="yahboom_4cmd_uart_set_gear_ratio"></block>
+    <block type="yahboom_4cmd_uart_set_wheel_diameter"></block>
+    <block type="yahboom_4cmd_uart_set_pid"></block>
+    <block type="yahboom_4cmd_uart_set_all_speed">
+      <value name="m1">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="m2">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="m3">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="m4">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="yahboom_4cmd_uart_set_speed">
+      <value name="motor">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+      <value name="speed">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="yahboom_4cmd_uart_set_all_pwm">
+      <value name="m1">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="m2">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="m3">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="m4">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="yahboom_4cmd_uart_set_pwm">
+      <value name="motor">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+      <value name="pwm">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="yahboom_4cmd_uart_set_receive_mode"></block>
+    <block type="yahboom_4cmd_uart_get_steps"></block>
+    <block type="yahboom_4cmd_uart_get_steps_per_10ms"></block>
+    <block type="yahboom_4cmd_uart_get_speed"></block>
+
+    <label text="I2C Mode"></label>
+    <block type="yahboom_4cmd_i2c_init"></block>
+    <block type="yahboom_4cmd_i2c_set_motor_model"></block>
+    <block type="yahboom_4cmd_i2c_set_deadzone"></block>
+    <block type="yahboom_4cmd_i2c_set_ppr"></block>
+    <block type="yahboom_4cmd_i2c_set_gear_ratio"></block>
+    <block type="yahboom_4cmd_i2c_set_wheel_diameter"></block>
+    <block type="yahboom_4cmd_i2c_set_all_speed">
+      <value name="m1">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="m2">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="m3">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="m4">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="yahboom_4cmd_i2c_set_speed">
+      <value name="motor">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+      <value name="speed">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="yahboom_4cmd_i2c_set_all_pwm">
+      <value name="m1">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="m2">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="m3">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="m4">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="yahboom_4cmd_i2c_set_pwm">
+      <value name="motor">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+      <value name="pwm">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="yahboom_4cmd_i2c_get_steps">
+      <value name="motor">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="yahboom_4cmd_i2c_get_steps_per_10ms">
+      <value name="motor">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+    </block>
+  </category>
 </xml>

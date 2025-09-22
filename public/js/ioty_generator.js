@@ -84,6 +84,7 @@ var ioty_generator = new function() {
     Blockly.Python.addReservedWords('pms7003');
     Blockly.Python.addReservedWords('ags10');
     Blockly.Python.addReservedWords('mlx90640');
+    Blockly.Python.addReservedWords('yahboom_4_channel_motor_drive');
 
     for (let generator in self.generators) {
       Blockly.Python[generator] = self.generators[generator];
@@ -6040,6 +6041,276 @@ var ioty_generator = new function() {
 
       let code =
         'mlx90640_device.get_temperature(' + x + ', ' + y + ')';
+
+      return [code, Blockly.Python.ORDER_ATOMIC];
+    },
+
+    'yahboom_4cmd_uart_init': function(block) {
+      self.imports['yahboom_4_channel_motor_drive'] = 'import yahboom_4_channel_motor_drive';
+      self.reservedVariables['yahboom_4cmd_uart_init'] = ['yahboom_4cmd_uart_device'];
+
+      let uart = block.getFieldValue('uart');
+
+      let code = 'yahboom_4cmd_uart_device = yahboom_4_channel_motor_drive.UARTDriver(' + uart + ')\n';
+
+      return code;
+    },
+
+    'yahboom_4cmd_uart_update': function(block) {
+      let code = 'yahboom_4cmd_uart_device.update()\n';
+
+      return code;
+    },
+
+    'yahboom_4cmd_uart_get_settings': function(block) {
+      let code =
+        'yahboom_4cmd_uart_device.get_settings()';
+
+      return [code, Blockly.Python.ORDER_ATOMIC];
+    },
+
+    'yahboom_4cmd_uart_get_voltage': function(block) {
+      let code =
+        'yahboom_4cmd_uart_device.get_voltage()';
+
+      return [code, Blockly.Python.ORDER_ATOMIC];
+    },
+
+    'yahboom_4cmd_uart_set_motor_model': function(block) {
+      let model = block.getFieldValue('model');
+
+      let code = 'yahboom_4cmd_uart_device.set_motor_model(' + model + ')\n';
+
+      return code;
+    },
+
+    'yahboom_4cmd_uart_set_deadzone': function(block) {
+      let value = block.getFieldValue('value');
+
+      let code = 'yahboom_4cmd_uart_device.set_deadzone(' + value + ')\n';
+
+      return code;
+    },
+
+    'yahboom_4cmd_uart_set_ppr': function(block) {
+      let value = block.getFieldValue('value');
+
+      let code = 'yahboom_4cmd_uart_device.set_pulses_per_revolution(' + value + ')\n';
+
+      return code;
+    },
+
+    'yahboom_4cmd_uart_set_gear_ratio': function(block) {
+      let value = block.getFieldValue('value');
+
+      let code = 'yahboom_4cmd_uart_device.set_gear_ratio(' + value + ')\n';
+
+      return code;
+    },
+
+    'yahboom_4cmd_uart_set_wheel_diameter': function(block) {
+      let value = block.getFieldValue('value');
+
+      let code = 'yahboom_4cmd_uart_device.set_wheel_diameter(' + value + ')\n';
+
+      return code;
+    },
+
+    'yahboom_4cmd_uart_set_pid': function(block) {
+      let p = block.getFieldValue('p');
+      let i = block.getFieldValue('i');
+      let d = block.getFieldValue('d');
+
+      let code = 'yahboom_4cmd_uart_device.set_pid(' + p + ', ' + i + ', ' + d + ')\n';
+
+      return code;
+    },
+
+    'yahboom_4cmd_uart_set_all_speed': function(block) {
+      let m1 = Blockly.Python.valueToCode(block, 'm1', Blockly.Python.ORDER_NONE);
+      let m2 = Blockly.Python.valueToCode(block, 'm2', Blockly.Python.ORDER_NONE);
+      let m3 = Blockly.Python.valueToCode(block, 'm3', Blockly.Python.ORDER_NONE);
+      let m4 = Blockly.Python.valueToCode(block, 'm4', Blockly.Python.ORDER_NONE);
+
+      let code =
+        'yahboom_4cmd_uart_device.set_all_speed(' + m1 + ', ' + m2 + ', ' + m3 + ', ' + m4 + ')\n';
+
+      return code;
+    },
+
+    'yahboom_4cmd_uart_set_speed': function(block) {
+      let motor = Blockly.Python.valueToCode(block, 'motor', Blockly.Python.ORDER_NONE);
+      let speed = Blockly.Python.valueToCode(block, 'speed', Blockly.Python.ORDER_NONE);
+
+      let code =
+        'yahboom_4cmd_uart_device.set_speed(' + motor + ', ' + speed + ')\n';
+
+      return code;
+    },
+
+    'yahboom_4cmd_uart_set_all_pwm': function(block) {
+      let m1 = Blockly.Python.valueToCode(block, 'm1', Blockly.Python.ORDER_NONE);
+      let m2 = Blockly.Python.valueToCode(block, 'm2', Blockly.Python.ORDER_NONE);
+      let m3 = Blockly.Python.valueToCode(block, 'm3', Blockly.Python.ORDER_NONE);
+      let m4 = Blockly.Python.valueToCode(block, 'm4', Blockly.Python.ORDER_NONE);
+
+      let code =
+        'yahboom_4cmd_uart_device.set_all_pwm(' + m1 + ', ' + m2 + ', ' + m3 + ', ' + m4 + ')\n';
+
+      return code;
+    },
+
+    'yahboom_4cmd_uart_set_pwm': function(block) {
+      let motor = Blockly.Python.valueToCode(block, 'motor', Blockly.Python.ORDER_NONE);
+      let pwm = Blockly.Python.valueToCode(block, 'pwm', Blockly.Python.ORDER_NONE);
+
+      let code =
+        'yahboom_4cmd_uart_device.set_pwm(' + motor + ', ' + pwm + ')\n';
+
+      return code;
+    },
+
+    'yahboom_4cmd_uart_set_receive_mode': function(block) {
+      let steps = block.getFieldValue('steps');
+      let steps_per_10ms = block.getFieldValue('steps_per_10ms');
+      let speed = block.getFieldValue('speed');
+
+      let code =
+        'yahboom_4cmd_uart_device.set_receive_mode(' + steps + ', ' + steps_per_10ms + ', ' + speed + ')\n';
+
+      return code;
+    },
+
+    'yahboom_4cmd_uart_get_steps': function(block) {
+      let code =
+        'yahboom_4cmd_uart_device.get_steps()';
+
+      return [code, Blockly.Python.ORDER_ATOMIC];
+    },
+
+    'yahboom_4cmd_uart_get_steps_per_10ms': function(block) {
+      let code =
+        'yahboom_4cmd_uart_device.get_steps_per_10ms()';
+
+      return [code, Blockly.Python.ORDER_ATOMIC];
+    },
+
+    'yahboom_4cmd_uart_get_speed': function(block) {
+      let code =
+        'yahboom_4cmd_uart_device.get_speed()';
+
+      return [code, Blockly.Python.ORDER_ATOMIC];
+    },
+
+    'yahboom_4cmd_i2c_init': function(block) {
+      self.imports['yahboom_4_channel_motor_drive'] = 'import yahboom_4_channel_motor_drive';
+      self.reservedVariables['yahboom_4cmd_i2c_init'] = ['yahboom_4cmd_i2c_device'];
+
+      let id = block.getFieldValue('id');
+
+      let code = 'yahboom_4cmd_i2c_device = yahboom_4_channel_motor_drive.I2CDriver(' + id + ')\n';
+
+      return code;
+    },
+
+    'yahboom_4cmd_i2c_set_motor_model': function(block) {
+      let model = block.getFieldValue('model');
+
+      let code = 'yahboom_4cmd_i2c_device.set_motor_model(' + model + ')\n';
+
+      return code;
+    },
+
+    'yahboom_4cmd_i2c_set_deadzone': function(block) {
+      let value = block.getFieldValue('value');
+
+      let code = 'yahboom_4cmd_i2c_device.set_deadzone(' + value + ')\n';
+
+      return code;
+    },
+
+    'yahboom_4cmd_i2c_set_ppr': function(block) {
+      let value = block.getFieldValue('value');
+
+      let code = 'yahboom_4cmd_i2c_device.set_pulses_per_revolution(' + value + ')\n';
+
+      return code;
+    },
+
+    'yahboom_4cmd_i2c_set_gear_ratio': function(block) {
+      let value = block.getFieldValue('value');
+
+      let code = 'yahboom_4cmd_i2c_device.set_gear_ratio(' + value + ')\n';
+
+      return code;
+    },
+
+    'yahboom_4cmd_i2c_set_wheel_diameter': function(block) {
+      let value = block.getFieldValue('value');
+
+      let code = 'yahboom_4cmd_i2c_device.set_wheel_diameter(' + value + ')\n';
+
+      return code;
+    },
+
+    'yahboom_4cmd_i2c_set_all_speed': function(block) {
+      let m1 = Blockly.Python.valueToCode(block, 'm1', Blockly.Python.ORDER_NONE);
+      let m2 = Blockly.Python.valueToCode(block, 'm2', Blockly.Python.ORDER_NONE);
+      let m3 = Blockly.Python.valueToCode(block, 'm3', Blockly.Python.ORDER_NONE);
+      let m4 = Blockly.Python.valueToCode(block, 'm4', Blockly.Python.ORDER_NONE);
+
+      let code =
+        'yahboom_4cmd_i2c_device.set_all_speed(' + m1 + ', ' + m2 + ', ' + m3 + ', ' + m4 + ')\n';
+
+      return code;
+    },
+
+    'yahboom_4cmd_i2c_set_speed': function(block) {
+      let motor = Blockly.Python.valueToCode(block, 'motor', Blockly.Python.ORDER_NONE);
+      let speed = Blockly.Python.valueToCode(block, 'speed', Blockly.Python.ORDER_NONE);
+
+      let code =
+        'yahboom_4cmd_i2c_device.set_speed(' + motor + ', ' + speed + ')\n';
+
+      return code;
+    },
+
+    'yahboom_4cmd_i2c_set_all_pwm': function(block) {
+      let m1 = Blockly.Python.valueToCode(block, 'm1', Blockly.Python.ORDER_NONE);
+      let m2 = Blockly.Python.valueToCode(block, 'm2', Blockly.Python.ORDER_NONE);
+      let m3 = Blockly.Python.valueToCode(block, 'm3', Blockly.Python.ORDER_NONE);
+      let m4 = Blockly.Python.valueToCode(block, 'm4', Blockly.Python.ORDER_NONE);
+
+      let code =
+        'yahboom_4cmd_i2c_device.set_all_pwm(' + m1 + ', ' + m2 + ', ' + m3 + ', ' + m4 + ')\n';
+
+      return code;
+    },
+
+    'yahboom_4cmd_i2c_set_pwm': function(block) {
+      let motor = Blockly.Python.valueToCode(block, 'motor', Blockly.Python.ORDER_NONE);
+      let pwm = Blockly.Python.valueToCode(block, 'pwm', Blockly.Python.ORDER_NONE);
+
+      let code =
+        'yahboom_4cmd_i2c_device.set_pwm(' + motor + ', ' + pwm + ')\n';
+
+      return code;
+    },
+
+    'yahboom_4cmd_i2c_get_steps': function(block) {
+      let motor = Blockly.Python.valueToCode(block, 'motor', Blockly.Python.ORDER_NONE);
+
+      let code =
+        'yahboom_4cmd_i2c_device.get_steps(' + motor +')';
+
+      return [code, Blockly.Python.ORDER_ATOMIC];
+    },
+
+    'yahboom_4cmd_i2c_get_steps_per_10ms': function(block) {
+      let motor = Blockly.Python.valueToCode(block, 'motor', Blockly.Python.ORDER_NONE);
+
+      let code =
+        'yahboom_4cmd_i2c_device.get_steps_per_10ms(' + motor + ')';
 
       return [code, Blockly.Python.ORDER_ATOMIC];
     },

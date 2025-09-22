@@ -3972,7 +3972,194 @@ let MSGS = {
   },
   '#blk-camera2_set_quality_tooltip#': {
     en: 'Sets the quality of the JPEG image. Ranges from 0 (lowest) to 100 (highest).',
-  },};
+  },
+  '#blk-yahboom_4cmd_uart_init#': {
+    en: 'Init Yahboom 4CMD on',
+  },
+  '#blk-yahboom_4cmd_uart_init_tooltip#': {
+    en: 'You must have an \\"init UART\\" block with the appropriate pins and baudrate (115200) set correctly before this.',
+  },
+  '#blk-yahboom_4cmd_uart_update#': {
+    en: 'Yahboom 4CMD (UART): update',
+  },
+  '#blk-yahboom_4cmd_uart_update_tooltip#': {
+    en: 'In UART mode, you must run this frequently to read steps, pulses-per-10ms, and speed. The readings will not change if you do not run this.',
+  },
+  '#blk-yahboom_4cmd_uart_get_settings#': {
+    en: 'Yahboom 4CMD (UART): get settings',
+  },
+  '#blk-yahboom_4cmd_uart_get_settings_tooltip#': {
+    en: 'Returns the current settings as a dictionary. These settings are stored in the device\'s EEPROM, and will persist after power off.',
+  },
+  '#blk-yahboom_4cmd_uart_get_voltage#': {
+    en: 'Yahboom 4CMD (UART): get voltage',
+  },
+  '#blk-yahboom_4cmd_uart_get_voltage_tooltip#': {
+    en: 'Returns the battery voltage.',
+  },
+  '#blk-yahboom_4cmd_uart_set_motor_model#': {
+    en: 'Yahboom 4CMD (UART): set motor model',
+  },
+  '#blk-yahboom_4cmd_uart_set_motor_model_tooltip#': {
+    en: 'All this does is determine the motor/encoder direction, so you can use models not listed here. If you choose the non-encoder model, you will not be able to set speed.',
+  },
+  '#blk-yahboom_4cmd_uart_set_deadzone#': {
+    en: 'Yahboom 4CMD (UART): set deadzone',
+  },
+  '#blk-yahboom_4cmd_uart_set_deadzone_tooltip#': {
+    en: 'Tune this if the motor is vibrating',
+  },
+  '#blk-yahboom_4cmd_uart_set_ppr#': {
+    en: 'Yahboom 4CMD (UART): set pulses per revolution',
+  },
+  '#blk-yahboom_4cmd_uart_set_ppr_tooltip#': {
+    en: 'Sets the number of encoder pulses per wheel revolution. This is used to calculate and control speed.',
+  },
+  '#blk-yahboom_4cmd_uart_set_gear_ratio#': {
+    en: 'Yahboom 4CMD (UART): set gear ratio',
+  },
+  '#blk-yahboom_4cmd_uart_set_gear_ratio_tooltip#': {
+    en: 'Sets the motor gear ratio. This is used to calculate and control speed.',
+  },
+  '#blk-yahboom_4cmd_uart_set_wheel_diameter#': {
+    en: 'Yahboom 4CMD (UART): set wheel_diameter',
+  },
+  '#blk-yahboom_4cmd_uart_set_wheel_diameter_tooltip#': {
+    en: 'Sets the wheel diameter in mm. This is used to calculate and control speed.',
+  },
+  '#blk-yahboom_4cmd_uart_set_pid#': {
+    en: 'Yahboom 4CMD (UART): set PID',
+  },
+  '#blk-yahboom_4cmd_uart_set_pid_tooltip#': {
+    en: 'Sets the PID gains for speed control.',
+  },
+  '#blk-yahboom_4cmd_uart_set_all_speed#': {
+    en: 'Yahboom 4CMD (UART): set all speed',
+  },
+  '#blk-yahboom_4cmd_uart_set_all_speed_tooltip#': {
+    en: 'Sets the speed (in mm/s) for all 4 motors. Max of -1000 to 1000 mm/s.',
+  },
+  '#blk-yahboom_4cmd_uart_set_speed#': {
+    en: 'Yahboom 4CMD (UART): set motor',
+  },
+  '#blk-to_speed#': {
+    en: 'to speed',
+  },
+  '#blk-yahboom_4cmd_uart_set_speed_tooltip#': {
+    en: 'Sets the speed (in mm/s) for the specified motor. Max of -1000 to 1000 mm/s.',
+  },
+  '#blk-yahboom_4cmd_uart_set_all_pwm#': {
+    en: 'Yahboom 4CMD (UART): set all pwm',
+  },
+  '#blk-yahboom_4cmd_uart_set_all_pwm_tooltip#': {
+    en: 'Sets the pwm duty for all 4 motors. Max of -3600 to 3600.',
+  },
+  '#blk-yahboom_4cmd_uart_set_pwm#': {
+    en: 'Yahboom 4CMD (UART): set motor',
+  },
+  '#blk-to_pwm#': {
+    en: 'to pwm',
+  },
+  '#blk-yahboom_4cmd_uart_set_pwm_tooltip#': {
+    en: 'Sets the pwm duty for the specified motor. Max of -3600 to 3600.',
+  },
+  '#blk-yahboom_4cmd_uart_set_receive_mode#': {
+    en: 'Yahboom 4CMD (UART): set receive mode',
+  },
+  '#blk-yahboom_4cmd_uart_set_receive_mode_tooltip#': {
+    en: 'To get information about the motor status, you must first set the receive mode, then run \\"update\\" frequently.',
+  },
+  '#blk-yahboom_4cmd_uart_get_steps#': {
+    en: 'Yahboom 4CMD (UART): get steps',
+  },
+  '#blk-yahboom_4cmd_uart_get_steps_tooltip#': {
+    en: 'Returns an array containing the total number of steps for each motor. Note that there are 4 steps per pulse. Must first be enabled in receive mode, and \\"update\\" must run first.',
+  },
+  '#blk-yahboom_4cmd_uart_get_steps_per_10ms#': {
+    en: 'Yahboom 4CMD (UART): get steps per 10ms',
+  },
+  '#blk-yahboom_4cmd_uart_get_steps_per_10ms_tooltip#': {
+    en: 'Returns an array containing the number of steps taken within the last 10ms for each motor. Note that there are 4 steps per pulse. Must first be enabled in receive mode, and \\"update\\" must run first.',
+  },
+  '#blk-yahboom_4cmd_uart_get_speed#': {
+    en: 'Yahboom 4CMD (UART): get speed',
+  },
+  '#blk-yahboom_4cmd_uart_get_speed_tooltip#': {
+    en: 'Returns an array containing the speed (mm/s) for each motor. Must first be enabled in receive mode, and \\"update\\" must run first.',
+  },
+  '#blk-yahboom_4cmd_i2c_init#': {
+    en: 'Init Yahboom 4CMD on',
+  },
+  '#blk-yahboom_4cmd_i2c_init_tooltip#': {
+    en: 'You must have an \\"init I2C\\" block before this',
+  },
+  '#blk-yahboom_4cmd_i2c_set_motor_model#': {
+    en: 'Yahboom 4CMD (I2C): set motor model',
+  },
+  '#blk-yahboom_4cmd_i2c_set_motor_model_tooltip#': {
+    en: 'All this does is determine the motor/encoder direction, so you can use models not listed here. If you choose the non-encoder model, you will not be able to set speed.',
+  },
+  '#blk-yahboom_4cmd_i2c_set_deadzone#': {
+    en: 'Yahboom 4CMD (I2C): set deadzone',
+  },
+  '#blk-yahboom_4cmd_i2c_set_deadzone_tooltip#': {
+    en: 'Tune this if the motor is vibrating',
+  },
+  '#blk-yahboom_4cmd_i2c_set_ppr#': {
+    en: 'Yahboom 4CMD (I2C): set pulses per revolution',
+  },
+  '#blk-yahboom_4cmd_i2c_set_ppr_tooltip#': {
+    en: 'Sets the number of encoder pulses per wheel revolution. This is used to calculate and control speed.',
+  },
+  '#blk-yahboom_4cmd_i2c_set_gear_ratio#': {
+    en: 'Yahboom 4CMD (I2C): set gear ratio',
+  },
+  '#blk-yahboom_4cmd_i2c_set_gear_ratio_tooltip#': {
+    en: 'Sets the motor gear ratio. This is used to calculate and control speed.',
+  },
+  '#blk-yahboom_4cmd_i2c_set_wheel_diameter#': {
+    en: 'Yahboom 4CMD (I2C): set wheel_diameter',
+  },
+  '#blk-yahboom_4cmd_i2c_set_wheel_diameter_tooltip#': {
+    en: 'Sets the wheel diameter in mm. This is used to calculate and control speed.',
+  },
+  '#blk-yahboom_4cmd_i2c_set_all_speed#': {
+    en: 'Yahboom 4CMD (I2C): set all speed',
+  },
+  '#blk-yahboom_4cmd_i2c_set_all_speed_tooltip#': {
+    en: 'Sets the speed (in mm/s) for all 4 motors. Max of -1000 to 1000 mm/s.',
+  },
+  '#blk-yahboom_4cmd_i2c_set_speed#': {
+    en: 'Yahboom 4CMD (I2C): set motor',
+  },
+  '#blk-yahboom_4cmd_i2c_set_speed_tooltip#': {
+    en: 'Sets the speed (in mm/s) for the specified motor. Max of -1000 to 1000 mm/s.',
+  },
+  '#blk-yahboom_4cmd_i2c_set_all_pwm#': {
+    en: 'Yahboom 4CMD (I2C): set all pwm',
+  },
+  '#blk-yahboom_4cmd_i2c_set_all_pwm_tooltip#': {
+    en: 'Sets the pwm duty for all 4 motors. Max of -3600 to 3600.',
+  },
+  '#blk-yahboom_4cmd_i2c_set_pwm#': {
+    en: 'Yahboom 4CMD (I2C): set motor',
+  },
+  '#blk-yahboom_4cmd_i2c_set_pwm_tooltip#': {
+    en: 'Sets the pwm duty for the specified motor. Max of -3600 to 3600.',
+  },
+  '#blk-yahboom_4cmd_i2c_get_steps#': {
+    en: 'Yahboom 4CMD (I2C): get steps for motor',
+  },
+  '#blk-yahboom_4cmd_i2c_get_steps_tooltip#': {
+    en: 'Returns the total number of steps for the specified motor. Note that there are 4 steps per pulse.',
+  },
+  '#blk-yahboom_4cmd_i2c_get_steps_per_10ms#': {
+    en: 'Yahboom 4CMD (I2C): get steps per 10ms for motor',
+  },
+  '#blk-yahboom_4cmd_i2c_get_steps_per_10ms_tooltip#': {
+    en: 'Returns the number of steps taken within the last 10ms for the specified motor. Note that there are 4 steps per pulse.',
+  },
+};
 let MSGS_KEYS = Object.keys(MSGS);
 
 let LANG = localStorage.getItem('LANG');

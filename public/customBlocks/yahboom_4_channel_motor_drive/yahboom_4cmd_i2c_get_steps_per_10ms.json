@@ -1,0 +1,15 @@
+{
+  "type": "yahboom_4cmd_i2c_get_steps_per_10ms",
+  "message0": "#blk-yahboom_4cmd_i2c_get_steps_per_10ms# %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "motor",
+      "check": "Number"
+    }
+  ],
+  "output": "Number",
+  "colour": 230,
+  "tooltip": "#blk-yahboom_4cmd_i2c_get_steps_per_10ms_tooltip#",
+  "helpUrl": ""
+}

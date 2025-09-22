@@ -1,0 +1,9 @@
+{
+  "type": "yahboom_4cmd_uart_get_voltage",
+  "message0": "#blk-yahboom_4cmd_uart_get_voltage#",
+  "args0": [],
+  "output": "Number",
+  "colour": 230,
+  "tooltip": "#blk-yahboom_4cmd_uart_get_voltage_tooltip#",
+  "helpUrl": ""
+}

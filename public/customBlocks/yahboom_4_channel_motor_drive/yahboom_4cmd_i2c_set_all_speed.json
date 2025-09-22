@@ -1,0 +1,32 @@
+{
+  "type": "yahboom_4cmd_i2c_set_all_speed",
+  "message0": "#blk-yahboom_4cmd_i2c_set_all_speed# %1 %2 %3 %4",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "m1",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "m2",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "m3",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "m4",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-yahboom_4cmd_i2c_set_all_speed_tooltip#",
+  "helpUrl": ""
+}

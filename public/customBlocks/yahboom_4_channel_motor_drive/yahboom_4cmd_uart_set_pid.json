@@ -1,0 +1,26 @@
+{
+  "type": "yahboom_4cmd_uart_set_pid",
+  "message0": "#blk-yahboom_4cmd_uart_set_pid# P: %1 I: %2 D: %3",
+  "args0": [
+    {
+      "type": "field_number",
+      "name": "p",
+      "value": "0.8"
+    },
+    {
+      "type": "field_number",
+      "name": "i",
+      "value": "0.06"
+    },
+    {
+      "type": "field_number",
+      "name": "d",
+      "value": "0.5"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-yahboom_4cmd_uart_set_pid_tooltip#",
+  "helpUrl": ""
+}

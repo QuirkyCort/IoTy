@@ -1,0 +1,9 @@
+{
+  "type": "yahboom_4cmd_uart_get_steps",
+  "message0": "#blk-yahboom_4cmd_uart_get_steps#",
+  "args0": [],
+  "output": "Array",
+  "colour": 230,
+  "tooltip": "#blk-yahboom_4cmd_uart_get_steps_tooltip#",
+  "helpUrl": ""
+}

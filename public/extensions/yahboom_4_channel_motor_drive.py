@@ -9,7 +9,7 @@ class UARTDriver:
         self.target_speed = [b'0',b'0',b'0',b'0']
         self.pwm = [b'0',b'0',b'0',b'0']
         self.steps = [0,0,0,0]
-        self.pulses_per_10ms = [0,0,0,0]
+        self.steps_per_10ms = [0,0,0,0]
         self.speed = [0,0,0,0]
         self.settings = {
             'motor_model': 0,
@@ -45,7 +45,7 @@ class UARTDriver:
         if self.buf[1:5] == b'MAll':
             self._parse_encoder(ptr)
         elif self.buf[1:5] == b'MTEP':
-            self._parse_pulses_per_10ms(ptr)
+            self._parse_steps_per_10ms(ptr)
         elif self.buf[1:5] == b'MSPD':
             self._parse_speed(ptr)
         elif self.buf[0:10] == b'Motor_type':
@@ -86,12 +86,12 @@ class UARTDriver:
         except:
             pass
 
-    def _parse_pulses_per_10ms(self, ptr):
+    def _parse_steps_per_10ms(self, ptr):
         parts = self.buf[6:ptr].split(b',')
         if len(parts) < 4:
             return
         try:
-            self.pulses_per_10ms = [int(parts[0]), int(parts[1]), int(parts[2]), int(parts[3])]
+            self.steps_per_10ms = [int(parts[0]), int(parts[1]), int(parts[2]), int(parts[3])]
         except:
             pass
 
@@ -128,7 +128,7 @@ class UARTDriver:
             raise ValueError('Deadzone must be between 0 and 3600')
         self.uart.write(b'$deadzone:' + bytes(str(deadzone), 'utf-8') + b'#')
 
-    def set_pulse_per_revolution(self, pulse):
+    def set_pulses_per_revolution(self, pulse):
         if pulse < 1 or pulse > 65535:
             raise ValueError('Pulse per revolution must be between 1 and 65535')
         self.uart.write(b'$mline:' + bytes(str(pulse), 'utf-8') + b'#')
@@ -173,26 +173,26 @@ class UARTDriver:
         self.pwm[motor - 1] = bytes(str(pwm), 'utf-8')
         self._set_pwm()
 
-    def set_receive_mode(self, encoder, pulses_per_10ms, speed):
+    def set_receive_mode(self, encoder, steps_per_10ms, speed):
         if encoder:
             encoder = b'1'
         else:
             encoder = b'0'
-        if pulses_per_10ms:
-            pulses_per_10ms = b'1'
+        if steps_per_10ms:
+            steps_per_10ms = b'1'
         else:
-            pulses_per_10ms = b'0'
+            steps_per_10ms = b'0'
         if speed:
             speed = b'1'
         else:
             speed = b'0'
-        self.uart.write(b'$upload:' + encoder + b',' + pulses_per_10ms + b',' + speed + b'#')
+        self.uart.write(b'$upload:' + encoder + b',' + steps_per_10ms + b',' + speed + b'#')
 
     def get_steps(self):
         return self.steps
 
-    def get_pulses_per_10ms(self):
-        return self.pulses_per_10ms
+    def get_steps_per_10ms(self):
+        return self.steps_per_10ms
 
     def get_speed(self):
         return self.speed
@@ -216,7 +216,7 @@ class I2CDriver:
             raise ValueError('Deadzone must be between 0 and 3600')
         return self.i2c.writeto_mem(self.addr, 0x02, struct.pack('>H', deadzone))
 
-    def set_pulse_per_revolution(self, pulse):
+    def set_pulses_per_revolution(self, pulse):
         if pulse < 1 or pulse > 65535:
             raise ValueError('Pulse per revolution must be between 1 and 65535')
         return self.i2c.writeto_mem(self.addr, 0x03, struct.pack('>H', pulse))
@@ -273,8 +273,7 @@ class I2CDriver:
         self.buf[2:4] = self.i2c.readfrom_mem(self.addr, 0x20 + offset + 1, 2)
         return struct.unpack('>i', self.buf)[0]
 
-    # This returns a value that is 4 times the expected; don't know why
-    def get_pulses_per_10ms(self, motor):
+    def get_steps_per_10ms(self, motor):
         if motor < 1 or motor > 4:
             raise ValueError('Motor must be between 1 and 4')
         return struct.unpack('>h', self.i2c.readfrom_mem(self.addr, 0x10 + motor - 1, 2))[0]

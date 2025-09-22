@@ -1,0 +1,9 @@
+{
+  "type": "yahboom_4cmd_uart_get_speed",
+  "message0": "#blk-yahboom_4cmd_uart_get_speed#",
+  "args0": [],
+  "output": "Array",
+  "colour": 230,
+  "tooltip": "#blk-yahboom_4cmd_uart_get_speed_tooltip#",
+  "helpUrl": ""
+}
