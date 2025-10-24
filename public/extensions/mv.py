@@ -251,6 +251,98 @@ def hough_circles_single_viper(buf: ptr8, w: int, h: int, r: int, minR2: int, ma
 
     return results
 
+class HoughLine:
+    def __init__(self, w, h, minAngle, maxAngle, angleStep):
+        self.w = w
+        self.h = h
+        self.minAngle = minAngle
+        self.maxAngle = maxAngle
+        self.angleStep = angleStep
+        self.rMax = math.ceil(math.sqrt(w ** 2 + h ** 2) / 2)
+        self.aLen = (maxAngle - minAngle) // angleStep
+        self.rLen = self.rMax * 2 + 1
+        self.centerX = w // 2
+        self.centerY = h // 2
+        self.accum = bytearray(self.aLen * self.rLen * 2)
+        self.dirVecs = bytearray(self.aLen * 4 * 2)
+        self._clear_accum()
+        self._init_dirVecs(minAngle, maxAngle, angleStep)
+
+    @micropython.viper
+    def _clear_accum(self):
+        accum = ptr16(self.accum)
+        for i in range(int(self.aLen * self.rLen)):
+            accum[i] = uint(0)
+
+    @micropython.viper
+    def _init_dirVecs(self, minAngle, maxAngle, angleStep):
+        dirVecs = ptr32(self.dirVecs)
+        i = 0
+        for a in range(minAngle, maxAngle, angleStep):
+            aRadian = math.radians(a)
+            dirVecs[i] = int(math.floor(1024.0 * math.cos(aRadian)))
+            i += 1
+            dirVecs[i] = int(math.floor(1024.0 * math.sin(aRadian)))
+            i += 1
+
+    def find_line(self, buf, threshold):
+        self._clear_accum()
+        results = self._find_line_viper(buf, threshold)
+
+        merged_results = []
+        for result in results:
+            merged = False
+            for merged_result in merged_results:
+                if (merged_result[3]-1 <= result[0] <= merged_result[4]+1
+                    and merged_result[5]-1 <= result[1] <= merged_result[6]+1):
+                    merged_result[0] += 1
+                    merged_result[1] += result[0]
+                    merged_result[2] += result[1]
+                    merged_result[3] = min(result[0], merged_result[3])
+                    merged_result[4] = max(result[0], merged_result[4])
+                    merged_result[5] = min(result[1], merged_result[5])
+                    merged_result[6] = max(result[1], merged_result[6])
+                    merged = True
+                    break
+            if merged == False:
+                merged_results.append([1, result[0], result[1], result[0], result[0], result[1], result[1]])
+
+        final_results = []
+        for merged_result in merged_results:
+            final_results.append([merged_result[0], merged_result[1] / merged_result[0] * self.angleStep + self.minAngle, merged_result[2] / merged_result[0]])
+
+        final_results.sort(key=lambda x: -x[0])
+        return final_results
+
+    @micropython.viper
+    def _find_line_viper(self, buf: ptr8, threshold: int):
+        w = int(self.w)
+        h = int(self.h)
+        rMax = int(self.rMax)
+        centerX = int(self.centerX)
+        centerY = int(self.centerY)
+        aLen = int(self.aLen)
+        rLen = int(self.rLen)
+        dirVecs = ptr32(self.dirVecs)
+        accum = ptr16(self.accum)
+
+        for y in range(h):
+            row = y * w
+            posY = y - centerY
+            for x in range(w):
+                if buf[row + x]:
+                    posX = x - centerX
+                    for i in range(aLen):
+                        r = (dirVecs[i*2] * posX + dirVecs[i*2+1] * posY) >> 10
+                        accum[i * rLen + r + rMax] += 1
+
+        results = []
+        for i in range(aLen):
+            for j in range(rLen):
+                if accum[i * rLen + j] > threshold:
+                    results.append([i, j - rMax])
+        return results
+
 def _process_blobs(blobs, pixelsThreshold):
     keys = list(blobs.keys())
     keys.sort()
