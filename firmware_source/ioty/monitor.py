@@ -5,10 +5,13 @@ try:
     import os
     from time import sleep_ms
     import machine
-
-    _timer = machine.Timer(-1)
 except:
     pass
+
+try:
+    _timer = machine.Timer(-1)
+except:
+    _timer = machine.Timer(0)
 
 def schedule_in(handler, delay_ms):
     def _wrap(_arg):
