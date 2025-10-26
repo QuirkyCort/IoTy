@@ -1,6 +1,6 @@
 {
-  "type": "stepper_wheels_motor_run_steps",
-  "message0": "#blk-stepper_wheels_motor_run_steps# %1 #blk-at# %2 #blk-steps_per_second# #blk-for# %3 #blk-steps# %4 #blk-and# %5",
+  "type": "stepper_wheels_motor_run_target",
+  "message0": "#blk-stepper_wheels_motor_run_target# %1 #blk-at# %2 #blk-steps_per_second# #blk-to_position# %3 %4 #blk-and# %5",
   "args0": [
     {
       "type": "field_dropdown",
@@ -31,7 +31,7 @@
     },
     {
       "type": "input_value",
-      "name": "steps",
+      "name": "target",
       "check": "Number"
     },
     {
@@ -67,6 +67,6 @@
   "previousStatement": null,
   "nextStatement": null,
   "colour": 230,
-  "tooltip": "#blk-stepper_wheels_motor_run_steps_tooltip#",
+  "tooltip": "#blk-stepper_wheels_motor_run_target_tooltip#",
   "helpUrl": ""
 }

@@ -2056,6 +2056,18 @@
         </shadow>
       </value>
     </block>
+    <block type="stepper_wheels_motor_run_target">
+      <value name="speed">
+        <shadow type="math_number">
+          <field name="NUM">200</field>
+        </shadow>
+      </value>
+      <value name="target">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
     <block type="stepper_wheels_motor_stop"></block>
     <block type="stepper_wheels_motor_get_steps"></block>
     <block type="stepper_wheels_motor_reset_steps"></block>

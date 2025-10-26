@@ -4363,13 +4363,39 @@ var ioty_generator = new function() {
     },
 
     'stepper_wheels_motor_run_steps': function(block) {
-      var index = block.getFieldValue('index');
+      let index = block.getFieldValue('index');
       let speed = Blockly.Python.valueToCode(block, 'speed', Blockly.Python.ORDER_NONE);
       let steps = Blockly.Python.valueToCode(block, 'steps', Blockly.Python.ORDER_NONE);
-      var wait = block.getFieldValue('wait');
+      let wait = block.getFieldValue('wait');
+      let ramp = block.getFieldValue('ramp');
+
+      if (ramp == 'RAMP') {
+        ramp = ', ramp=True';
+      } else {
+        ramp = ', ramp=False';
+      }
 
       var code =
-        'sw_motor' + index + '.run_steps(' + speed + ', ' + steps + ', wait=' + wait + ')\n';
+        'sw_motor' + index + '.run_steps(' + speed + ', ' + steps + ramp + ', wait=' + wait + ')\n';
+
+      return code;
+    },
+
+    'stepper_wheels_motor_run_target': function(block) {
+      let index = block.getFieldValue('index');
+      let speed = Blockly.Python.valueToCode(block, 'speed', Blockly.Python.ORDER_NONE);
+      let target = Blockly.Python.valueToCode(block, 'target', Blockly.Python.ORDER_NONE);
+      let wait = block.getFieldValue('wait');
+      let ramp = block.getFieldValue('ramp');
+
+      if (ramp == 'RAMP') {
+        ramp = ', ramp=True';
+      } else {
+        ramp = ', ramp=False';
+      }
+
+      var code =
+        'sw_motor' + index + '.run_target(' + speed + ', ' + target + ramp + ', wait=' + wait + ')\n';
 
       return code;
     },

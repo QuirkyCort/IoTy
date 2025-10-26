@@ -2954,7 +2954,16 @@ let MSGS = {
     en: 'run motor on port',
   },
   '#blk-stepper_wheels_motor_run_steps_tooltip#': {
-    en: 'If set to \\"wait for completion\\", the program will wait for the movement to complete before running the next block.',
+    en: 'If set to \\"wait for completion\\", the program will wait for the movement to complete before running the next block. If ramp is true, the motor will gradually accelerate and decelerate.',
+  },
+  '#blk-stepper_wheels_motor_run_target#': {
+    en: 'run motor on port',
+  },
+  '#blk-to_position#': {
+    en: 'to position',
+  },
+  '#blk-stepper_wheels_motor_run_target_tooltip#': {
+    en: 'If set to \\"wait for completion\\", the program will wait for the movement to complete before running the next block. If ramp is true, the motor will gradually accelerate and decelerate.',
   },
   '#blk-stepper_wheels_motor_stop#': {
     en: 'stop motor on port',
