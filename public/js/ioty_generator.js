@@ -87,7 +87,7 @@ var ioty_generator = new function() {
     Blockly.Python.addReservedWords('yahboom_4_channel_motor_drive');
 
     for (let generator in self.generators) {
-      Blockly.Python[generator] = self.generators[generator];
+      Blockly.Python.forBlock[generator] = self.generators[generator];
     }
   };
 
@@ -248,7 +248,7 @@ var ioty_generator = new function() {
   // Python Generators
   //
   this.generators = {
-    'procedures_defreturn': function(block) {
+    'procedures_defreturn': function(block, haveReturnValue=true) {
       // First, add a 'global' statement for every variable that is not shadowed by
       // a local parameter.
       const globals = [];
@@ -279,18 +279,27 @@ var ioty_generator = new function() {
         args[i] = Blockly.Python.nameDB_.getName(variables[i], Blockly.Names.NameType.VARIABLE);
       }
       let statements = Blockly.Python.statementToCode(block, 'STACK');
-      let returnValue = Blockly.Python.valueToCode(block, 'RETURN', Blockly.Python.ORDER_NONE) || '';
-      if (returnValue) {
+      let returnValue = '';
+      if (haveReturnValue) {
+        returnValue = Blockly.Python.valueToCode(block, 'RETURN', Blockly.Python.ORDER_NONE) || '';
         returnValue = Blockly.Python.INDENT + 'return ' + returnValue + '\n';
-      } else if (!statements) {
-        statements = Blockly.Python.INDENT + 'pass';
       }
-      let code =
-        'def ' + funcName + '(' + args.join(', ') + '):\n'
-        + globalString
+      let body = globalString
         + self.RESERVED_VARIABLES_PLACEHOLDER
         + statements
         + returnValue;
+
+      function stripComments(code) {
+        return code.split('\n').filter(line => !line.trim().startsWith('#')).join('\n').trim();
+      }
+
+      if (stripComments(statements + returnValue) === '') {
+        body += Blockly.Python.INDENT + 'pass\n';
+      }
+
+      let code =
+        'def ' + funcName + '(' + args.join(', ') + '):\n'
+        + body;
 
       Blockly.Python.definitions_[funcName] = code;
 
@@ -298,7 +307,7 @@ var ioty_generator = new function() {
     },
 
     'procedures_defnoreturn': function(block) {
-      return self.generators['procedures_defreturn'](block);
+      return self.generators['procedures_defreturn'](block, false);
     },
 
     // Start

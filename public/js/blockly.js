@@ -60,6 +60,8 @@ var blockly = new function() {
         self.toolboxXml = (new DOMParser()).parseFromString(response, "text/xml");
         options.toolbox = self.toolboxXml.getElementById('toolbox');
         self.workspace = Blockly.inject('blocklyDiv', options);
+        self.minimap = new Minimap(self.workspace);
+        self.minimap.init();
         self.registerCustomToolbox();
 
         self.loadDefaultWorkspace();
@@ -164,7 +166,7 @@ var blockly = new function() {
     let oldXmlText = self.getXmlText();
     if (xmlText) {
       try {
-        let dom = Blockly.Xml.textToDom(xmlText);
+        let dom = Blockly.utils.xml.textToDom(xmlText);
         self.workspace.clear();
         Blockly.Xml.domToWorkspace(dom, self.workspace);
 
@@ -216,20 +218,23 @@ var blockly = new function() {
   // Register custom toolbox to modify procedures blocks
   this.registerCustomToolbox = function() {
     self.workspace.registerToolboxCategoryCallback('PROCEDURE2', function(workspace){
-      let blocks = self.workspace.toolboxCategoryCallbacks.get('PROCEDURE')(self.workspace);
-
+      let blocks = self.workspace.getToolboxCategoryCallback('PROCEDURE')(self.workspace);
       for (let block of blocks) {
-        let blockType = block.getAttribute('type');
-        if (blockType == 'procedures_callnoreturn' || blockType == 'procedures_callreturn') {
-          block.setAttribute('inline', true);
-          let argsNumber = block.getElementsByTagName('arg').length;
-          for (let i=0; i<argsNumber; i++) {
-            let shadow = Blockly.Xml.textToDom('<value name="ARG' + i + '"><shadow type="math_number"><field name="NUM">0</field></shadow></value>');
-            block.append(shadow);
+        if (block.type == 'procedures_callnoreturn' || block.type == 'procedures_callreturn') {
+          block.inline = true;
+          block.inputs = {};
+          for (let i=0; i<block.extraState.params.length; i++) {
+            block.inputs['ARG' + i] = {
+              'shadow': {
+                'type': 'math_number',
+                'fields': {
+                  'NUM': 0
+                }
+              }
+            }
           }
         }
       }
-
       return blocks;
     });
   };

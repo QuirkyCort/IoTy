@@ -304,6 +304,14 @@ ul.menuDropDownRightAlign {
 .blocklyEditor.hide {
   display: none; }
 
+.blockly-minimap {
+  position: absolute;
+  box-shadow: none;
+  width: 200px;
+  height: 150px;
+  top: 0;
+  right: 1em; }
+
 .python {
   display: flex;
   flex-direction: column;
