@@ -23,6 +23,17 @@ var main = new function() {
 
   // Run on page load
   this.init = async function() {
+    self.$navs = $('nav li');
+    self.$panels = $('.panels .panel');
+    self.$fileMenu = $('.fileMenu');
+    self.$appMenu = $('.appMenu');
+    self.$helpMenu = $('.helpMenu');
+    self.$languageMenu = $('.language');
+    self.$newsButton = $('.news');
+    self.$connectStatus = $('#connectionStatus')
+    self.$connectMenu = $('#connectMenu');
+    self.$projectName = $('#projectName');
+
     connectionMode = localStorage.getItem('connectionMode');
 
     if (['ble', 'mqtt', 'serial'].includes(connectionMode)) {
@@ -46,18 +57,7 @@ var main = new function() {
     } else {
       self.settings = self.defaultSettings();
     }
-
-    self.$navs = $('nav li');
-    self.$panels = $('.panels .panel');
-    self.$fileMenu = $('.fileMenu');
-    self.$appMenu = $('.appMenu');
-    self.$helpMenu = $('.helpMenu');
-    self.$languageMenu = $('.language');
-    self.$newsButton = $('.news');
-    self.$connectStatus = $('#connectionStatus')
-    self.$connectMenu = $('#connectMenu');
-
-    self.$projectName = $('#projectName');
+    self.loadProjectNameFromSettings();
 
     self.updateTextLanguage();
 
@@ -71,7 +71,6 @@ var main = new function() {
 
     window.addEventListener('beforeunload', self.checkUnsaved);
     blocklyPanel.onActive();
-    self.loadProjectName();
 
     let $firmwareWindow = self.hiddenButtonDialog('Firmware Download', 'Preloading Firmware...');
     self.preloadFirmwareFiles();
@@ -84,11 +83,13 @@ var main = new function() {
 
   this.defaultSettings = function() {
     return {
+      projectName: '',
       extensions: [],
     }
   };
 
   this.saveSettingsToLocalStorage = function() {
+    self.saveProjectNameToSettings();
     localStorage.setItem('iotySettings', JSON.stringify(self.settings));
   };
 
@@ -611,9 +612,9 @@ var main = new function() {
       filesManager.modified = false;
       localStorage.setItem('iotyPythonModified', false);
       blocklyPanel.setDisable(false);
-      self.$projectName.val('');
-      self.saveProjectName();
       self.settings = self.defaultSettings();
+      self.loadProjectNameFromSettings();
+      self.saveSettingsToLocalStorage();
       extensions.processExtensions();
     });
   };
@@ -648,15 +649,20 @@ var main = new function() {
   }
 
   // Load project name from local storage
-  this.loadProjectName = function() {
-    self.$projectName.val(localStorage.getItem('projectName'));
+  this.loadProjectNameFromSettings = function() {
+    // Legacy support 1 Nov 2025. Remove after some time.
+    let projectName = self.settings.projectName;
+    if (projectName === undefined) {
+      self.$projectName.val(localStorage.getItem('projectName'));
+    }
+    self.$projectName.val(self.settings.projectName);
   };
 
   // Remove problematic characters then save project name
-  this.saveProjectName = function() {
+  this.saveProjectNameToSettings = function() {
     let filtered = self.$projectName.val().replace(/[^0-9a-zA-Z_\- ]/g, '').trim();
     self.$projectName.val(filtered);
-    localStorage.setItem('projectName', filtered);
+    self.settings.projectName = filtered;
   };
 
   // Download to single file
@@ -686,7 +692,8 @@ var main = new function() {
 
   // save to computer
   this.saveToComputer = function() {
-    let filename = self.$projectName.val();
+    self.saveSettingsToLocalStorage(); // filter project name and save settings
+    let filename = self.settings.projectName;
     if (filename.trim() == '') {
       filename = 'IoTy_Blocks';
     }
@@ -742,21 +749,26 @@ var main = new function() {
           blockly.loadJsonText(content);
         });
 
+      self.settings = self.defaultSettings();
+      filesManager.modified = false;
+      self.tabClicked('navBlocks');
+
       await zip.file('settings.json').async('string')
         .then(function(content){
           self.settings = JSON.parse(content);
         });
 
       extensions.processExtensions();
+      if (self.settings.projectName === undefined) {
+        self.settings.projectName = file.name.replace(/.zip/, '');
+      }
+      self.$projectName.val(self.settings.projectName);
+      self.saveSettingsToLocalStorage();
     }
 
     JSZip.loadAsync(file)
       .then(loadFiles)
       .catch(error => showErrorModal(i18n.get('#main-invalid_blocks_file#')));
-
-    let filename = file.name.replace(/.zip/, '');
-    self.$projectName.val(filename);
-    self.saveProjectName();
   };
 
   // load old xml format from computer
@@ -768,12 +780,13 @@ var main = new function() {
     reader.readAsText(file);
     let filename = file.name.replace(/.xml/, '');
     self.$projectName.val(filename);
-    self.saveProjectName();
+    self.saveProjectNameToSettings();
   };
 
   // save to computer
   this.savePythonToComputer = async function() {
-    let filename = self.$projectName.val();
+    self.saveSettingsToLocalStorage(); // filter project name and save settings
+    let filename = self.settings.projectName;
     if (filename.trim() == '') {
       filename = 'IoTy_Python';
     }
@@ -783,7 +796,13 @@ var main = new function() {
     }
     filesManager.updateCurrentFile();
 
-    self.downloadZipFile(filename, filesManager.files);
+    let files = {};
+    for (let f in filesManager.files) {
+      files[f] = filesManager.files[f];
+    }
+    files['settings.json'] = JSON.stringify(self.settings);
+
+    self.downloadZipFile(filename, files);
   };
 
   // load from computer
@@ -808,12 +827,28 @@ var main = new function() {
         throw new Error('No main.py in zip archive');
       }
 
+      self.settings = self.defaultSettings();
+
       for (let filename of filenames) {
-        await zip.file(filename).async('string')
-          .then(function(content){
-            filesManager.add(filename, content);
-          });
+        if (filename == 'settings.json') {
+          await zip.file('settings.json').async('string')
+            .then(function(content){
+              self.settings = JSON.parse(content);
+            });
+        } else {
+          await zip.file(filename).async('string')
+            .then(function(content){
+              filesManager.add(filename, content);
+            });
+        }
       }
+
+      extensions.processExtensions();
+      if (self.settings.projectName === undefined) {
+        self.settings.projectName = file.name.replace(/.zip/, '');
+      }
+      self.$projectName.val(self.settings.projectName);
+      self.saveSettingsToLocalStorage();
 
       filesManager.modified = true;
       filesManager.unsaved = true;
