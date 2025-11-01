@@ -1257,12 +1257,20 @@ var main = new function() {
 
   // Display what's new if not seen before
   this.showWhatsNew = function(forceShow=false) {
-    let current = 20250602;
+    let current = 20251101;
     let lastShown = localStorage.getItem('whatsNew');
     if (lastShown == null || parseInt(lastShown) < current || forceShow) {
       let options = {
         title: 'What\'s New',
         message:
+        '<h3>1 Nov 2025 (Blockly 12.3.0)</h3>' +
+        '<p>' +
+          'Updated the blocks library (Blockly) to version 12.3.0. ' +
+          'I\'ve also added a blocks minimap; this should make large programs easier to navigate. ' +
+        '</p>' +
+        '<p>' +
+          'Added an extension for the Yahboom 4 channel motor drive' +
+        '</p>' +
         '<h3>2 Jun 2025 (New extensions)</h3>' +
         '<p>' +
           '<ul>' +
@@ -1281,11 +1289,6 @@ var main = new function() {
         '</p>' +
         '<p>' +
           'Put together, these new additions allows you to stream internet radio stations on your ESP32 device.' +
-        '</p>' +
-        '<h3>3 Oct 2024 (Firmware 14)</h3>' +
-        '<p>' +
-          'A new firmware version (14) is released. ' +
-          '<strong>You must update to this new version or network functions will not work!</strong>' +
         '</p>'
       }
       acknowledgeDialog(options, function(){
