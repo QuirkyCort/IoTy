@@ -743,7 +743,7 @@ var ioty_generator = new function() {
     },
 
     'bytearray_get_slice': function(block) {
-      let variable = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('variable'), 'VARIABLE');
+      let variable = Blockly.Python.nameDB_.getNameForUserVariable(block.getFieldValue('variable'), 'VARIABLE');
       var start = Blockly.Python.valueToCode(block, 'start', Blockly.Python.ORDER_ATOMIC);
       var end = Blockly.Python.valueToCode(block, 'end', Blockly.Python.ORDER_ATOMIC);
 
@@ -753,7 +753,7 @@ var ioty_generator = new function() {
     },
 
     'bytearray_set_slice': function(block) {
-      let variable = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('variable'), 'VARIABLE');
+      let variable = Blockly.Python.nameDB_.getNameForUserVariable(block.getFieldValue('variable'), 'VARIABLE');
       var start = Blockly.Python.valueToCode(block, 'start', Blockly.Python.ORDER_ATOMIC);
       var end = Blockly.Python.valueToCode(block, 'end', Blockly.Python.ORDER_ATOMIC);
       var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_ATOMIC);
@@ -1406,7 +1406,7 @@ var ioty_generator = new function() {
     },
 
     'file_open': function(block) {
-      var variable = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('variable'), 'VARIABLE');
+      var variable = Blockly.Python.nameDB_.getNameForUserVariable(block.getFieldValue('variable'), 'VARIABLE');
       var filename = Blockly.Python.valueToCode(block, 'filename', Blockly.Python.ORDER_NONE);
       var mode = block.getFieldValue('mode');
       var type = block.getFieldValue('type');
@@ -1417,7 +1417,7 @@ var ioty_generator = new function() {
     },
 
     'file_readline': function(block) {
-      var variable = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('variable'), 'VARIABLE');
+      var variable = Blockly.Python.nameDB_.getNameForUserVariable(block.getFieldValue('variable'), 'VARIABLE');
 
       var code = variable + '.readline()';
 
@@ -1425,7 +1425,7 @@ var ioty_generator = new function() {
     },
 
     'file_read': function(block) {
-      var variable = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('variable'), 'VARIABLE');
+      var variable = Blockly.Python.nameDB_.getNameForUserVariable(block.getFieldValue('variable'), 'VARIABLE');
       var size = Blockly.Python.valueToCode(block, 'size', Blockly.Python.ORDER_NONE);
 
       var code = variable + '.read(' + size + ')';
@@ -1434,7 +1434,7 @@ var ioty_generator = new function() {
     },
 
     'file_write': function(block) {
-      var variable = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('variable'), 'VARIABLE');
+      var variable = Blockly.Python.nameDB_.getNameForUserVariable(block.getFieldValue('variable'), 'VARIABLE');
       var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_NONE);
       var newline = block.getFieldValue('newline');
 
@@ -1449,7 +1449,7 @@ var ioty_generator = new function() {
     },
 
     'file_write_binary': function(block) {
-      var variable = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('variable'), 'VARIABLE');
+      var variable = Blockly.Python.nameDB_.getNameForUserVariable(block.getFieldValue('variable'), 'VARIABLE');
       var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_NONE);
 
       var code = variable + '.write(' + value + ')\n';
@@ -1458,7 +1458,7 @@ var ioty_generator = new function() {
     },
 
     'file_close': function(block) {
-      var variable = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('variable'), 'VARIABLE');
+      var variable = Blockly.Python.nameDB_.getNameForUserVariable(block.getFieldValue('variable'), 'VARIABLE');
 
       var code = variable + '.close()\n';
 
@@ -1466,7 +1466,7 @@ var ioty_generator = new function() {
     },
 
     'file_flush': function(block) {
-      var variable = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('variable'), 'VARIABLE');
+      var variable = Blockly.Python.nameDB_.getNameForUserVariable(block.getFieldValue('variable'), 'VARIABLE');
 
       var code = variable + '.flush()\n';
 
@@ -1854,7 +1854,7 @@ var ioty_generator = new function() {
     },
 
     'dict_key_value': function(block) {
-      var variable = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('variable'), 'VARIABLE');
+      var variable = Blockly.Python.nameDB_.getNameForUserVariable(block.getFieldValue('variable'), 'VARIABLE');
 
       var code = variable;
 
@@ -1913,7 +1913,7 @@ var ioty_generator = new function() {
 
       let method = block.getFieldValue('method');
       var url = Blockly.Python.valueToCode(block, 'url', Blockly.Python.ORDER_ATOMIC);
-      let variable = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('variable'), 'VARIABLE');
+      let variable = Blockly.Python.nameDB_.getNameForUserVariable(block.getFieldValue('variable'), 'VARIABLE');
       let type = block.getFieldValue('type');
 
       let return_method;
@@ -2134,9 +2134,9 @@ var ioty_generator = new function() {
     },
 
     'ez_httpd_wait_for_connection': function(block) {
-      let url = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('url'), 'VARIABLE');
-      let query = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('query'), 'VARIABLE');
-      let content = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('content'), 'VARIABLE');
+      let url = Blockly.Python.nameDB_.getNameForUserVariable(block.getFieldValue('url'), 'VARIABLE');
+      let query = Blockly.Python.nameDB_.getNameForUserVariable(block.getFieldValue('query'), 'VARIABLE');
+      let content = Blockly.Python.nameDB_.getNameForUserVariable(block.getFieldValue('content'), 'VARIABLE');
 
       var code = url + ', ' + query + ', ' + content + ' = ezhttpd.wait_for_connection()\n';
 
@@ -2176,7 +2176,7 @@ var ioty_generator = new function() {
     'ucsv_reader': function(block) {
       self.imports['ucsv'] = 'import ucsv';
 
-      var variable = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('variable'), 'VARIABLE');
+      var variable = Blockly.Python.nameDB_.getNameForUserVariable(block.getFieldValue('variable'), 'VARIABLE');
       var filename = Blockly.Python.valueToCode(block, 'filename', Blockly.Python.ORDER_NONE);
 
       var code = variable + ' = ucsv.reader(' + filename + ')\n';
@@ -2187,7 +2187,7 @@ var ioty_generator = new function() {
     'ucsv_writer': function(block) {
       self.imports['ucsv'] = 'import ucsv';
 
-      var variable = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('variable'), 'VARIABLE');
+      var variable = Blockly.Python.nameDB_.getNameForUserVariable(block.getFieldValue('variable'), 'VARIABLE');
       var filename = Blockly.Python.valueToCode(block, 'filename', Blockly.Python.ORDER_NONE);
       var mode = block.getFieldValue('mode');
 
@@ -2202,7 +2202,7 @@ var ioty_generator = new function() {
     },
 
     'ucsv_readrow': function(block) {
-      var variable = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('variable'), 'VARIABLE');
+      var variable = Blockly.Python.nameDB_.getNameForUserVariable(block.getFieldValue('variable'), 'VARIABLE');
 
       var code = 'next(' + variable + ')';
 
@@ -2210,7 +2210,7 @@ var ioty_generator = new function() {
     },
 
     'ucsv_writerow': function(block) {
-      var variable = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('variable'), 'VARIABLE');
+      var variable = Blockly.Python.nameDB_.getNameForUserVariable(block.getFieldValue('variable'), 'VARIABLE');
       var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_NONE);
 
       var code = variable + '.writerow(' + value + ')\n';
@@ -2219,7 +2219,7 @@ var ioty_generator = new function() {
     },
 
     'ucsv_close': function(block) {
-      var variable = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('variable'), 'VARIABLE');
+      var variable = Blockly.Python.nameDB_.getNameForUserVariable(block.getFieldValue('variable'), 'VARIABLE');
 
       var code = variable + '.close()\n';
 
@@ -2227,7 +2227,7 @@ var ioty_generator = new function() {
     },
 
     'ucsv_flush': function(block) {
-      var variable = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('variable'), 'VARIABLE');
+      var variable = Blockly.Python.nameDB_.getNameForUserVariable(block.getFieldValue('variable'), 'VARIABLE');
 
       var code = variable + '.flush()\n';
 
@@ -5757,7 +5757,7 @@ var ioty_generator = new function() {
     },
 
     'circularBuffer_can_write': function(block) {
-      let variable = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('variable'), 'VARIABLE');
+      let variable = Blockly.Python.nameDB_.getNameForUserVariable(block.getFieldValue('variable'), 'VARIABLE');
       let size = Blockly.Python.valueToCode(block, 'size', Blockly.Python.ORDER_ATOMIC);
 
       var code = variable + '.can_write(' + size + ')';
@@ -5766,7 +5766,7 @@ var ioty_generator = new function() {
     },
 
     'circularBuffer_write': function(block) {
-      let variable = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('variable'), 'VARIABLE');
+      let variable = Blockly.Python.nameDB_.getNameForUserVariable(block.getFieldValue('variable'), 'VARIABLE');
       let data = Blockly.Python.valueToCode(block, 'data', Blockly.Python.ORDER_ATOMIC);
 
       var code = variable + '.write(' + data + ')\n';
@@ -5775,7 +5775,7 @@ var ioty_generator = new function() {
     },
 
     'circularBuffer_can_read': function(block) {
-      let variable = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('variable'), 'VARIABLE');
+      let variable = Blockly.Python.nameDB_.getNameForUserVariable(block.getFieldValue('variable'), 'VARIABLE');
       let size = Blockly.Python.valueToCode(block, 'size', Blockly.Python.ORDER_ATOMIC);
 
       var code = variable + '.can_read(' + size + ')';
@@ -5784,7 +5784,7 @@ var ioty_generator = new function() {
     },
 
     'circularBuffer_read': function(block) {
-      let variable = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('variable'), 'VARIABLE');
+      let variable = Blockly.Python.nameDB_.getNameForUserVariable(block.getFieldValue('variable'), 'VARIABLE');
       let size = Blockly.Python.valueToCode(block, 'size', Blockly.Python.ORDER_ATOMIC);
 
       var code = variable + '.read(' + size + ')';
@@ -5793,7 +5793,7 @@ var ioty_generator = new function() {
     },
 
     'circularBuffer_free_space': function(block) {
-      let variable = Blockly.Python.nameDB_.getNameForUserVariable_(block.getFieldValue('variable'), 'VARIABLE');
+      let variable = Blockly.Python.nameDB_.getNameForUserVariable(block.getFieldValue('variable'), 'VARIABLE');
 
       var code = variable + '.free_space()';
 
