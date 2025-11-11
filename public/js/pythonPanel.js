@@ -92,8 +92,12 @@ var pythonPanel = new function() {
     filesManager.setToDefault();
     await extensions.processExtensions();
     filesManager.select('main.py');
-    let code = blockly.generator.genCode();
-    self.editor.setValue(code, 1);
+    try {
+      let code = blockly.generator.genCode();
+      self.editor.setValue(code, 1);
+    } catch (e) {
+      console.error('Error generating Python code from Blockly:', e);
+    }
     self.ignoreChange--;
   };
 }
