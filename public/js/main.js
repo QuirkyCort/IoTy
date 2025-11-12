@@ -1248,7 +1248,10 @@ var main = new function() {
 
   this.runSelectedBlock = function() {
     Blockly.Python.init(blockly.workspace);
-    let code = Blockly.Python.blockToCode(Blockly.getSelected(), true);
+    // let code = Blockly.Python.blockToCode(Blockly.getSelected(), true);
+    let blockID = document.querySelector('.blocklyWorkspace .blocklyPassiveFocus').parentNode.getAttribute('data-id');
+    let block = blockly.workspace.getBlockById(blockID);
+    let code = Blockly.Python.blockToCode(block, true);
     let interface = main.getInterface();
     if (typeof interface.sendSerialPasteMode == 'function') {
       interface.sendSerialPasteMode(code);
