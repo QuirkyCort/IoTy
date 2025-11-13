@@ -543,3 +543,7 @@ ul.menuDropDownRightAlign {
 
 .icon-joystick:before {
   content: "\e90a"; }
+
+.blocklyPassiveFocus {
+  stroke: #fc3;
+  stroke-width: 3px; }
