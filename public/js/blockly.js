@@ -45,8 +45,6 @@ var blockly = new function() {
       self.loadCustomBlocks()
         .then(self.loadToolBox)
         .then(self.generator.load());
-      Blockly.Python['math_change'] = self.math_change;
-
     });
     document.head.appendChild(script);
   };
@@ -237,17 +235,6 @@ var blockly = new function() {
       }
       return blocks;
     });
-  };
-
-  //
-  // Special generators
-  //
-  this.math_change = function(block) {
-    var argument0 = Blockly.Python.valueToCode(block, 'DELTA',
-        Blockly.Python.ORDER_ADDITIVE) || '0';
-    var varName = Blockly.Python.nameDB_.getName(block.getFieldValue('VAR'),
-        Blockly.VARIABLE_CATEGORY_NAME);
-    return varName + ' += ' + argument0 + '\n';
   };
 }
 

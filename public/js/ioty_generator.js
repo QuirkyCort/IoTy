@@ -248,6 +248,16 @@ var ioty_generator = new function() {
   // Python Generators
   //
   this.generators = {
+    //
+    // Special generators
+    //
+    'math_change': function(block) {
+      var argument0 = Blockly.Python.valueToCode(block, 'DELTA',
+          Blockly.Python.ORDER_ADDITIVE) || '0';
+      var varName = Blockly.Python.nameDB_.getNameForUserVariable(block.getFieldValue('VAR'), Blockly.VARIABLE_CATEGORY_NAME);
+      return varName + ' += ' + argument0 + '\n';
+    },
+
     'procedures_defreturn': function(block, haveReturnValue=true) {
       // First, add a 'global' statement for every variable that is not shadowed by
       // a local parameter.
