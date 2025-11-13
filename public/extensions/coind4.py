@@ -98,6 +98,8 @@ class CoinD4:
         start_angle, end_angle = struct.unpack('<HH', buf[4:8])
         start_angle = start_angle >> 1
         end_angle = end_angle >> 1
+        if end_angle < start_angle:
+            start_angle -= 23040 # 360 * 64
         if buf[2] & 1:
             self.speed = (buf[2] >> 1) / 10
 

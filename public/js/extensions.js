@@ -914,7 +914,7 @@ var extensions = new function() {
       id: 'coind4',
       name: 'COIN-D4 LIDAR',
       files: [
-        ['coind4.py', 'extensions/coind4.py?v=3814a093'],
+        ['coind4.py', 'extensions/coind4.py?v=05a3ab9c'],
       ],
       description:
         '<p>' +
