@@ -1,4 +1,4 @@
-.blocklyPassiveFocus {
+.blocklyPassiveFocus:not(.blocklyWorkspace){
     stroke: #fc3;
     stroke-width: 3px;
 }
