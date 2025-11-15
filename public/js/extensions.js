@@ -291,7 +291,7 @@ var extensions = new function() {
           'The HMC5883L is often used as a magnetic compass for navigation purposes. ' +
         '</p>' +
         '<p>' +
-          'It is often found in the form of a GY-271 module, but note that the GY-271 may also be equipped with a GMC5883L instead. ' +
+          'It is often found in the form of a GY-271 module, but note that the GY-271 may also be equipped with a QMC5883L instead. ' +
           'You can check by doing an I2C scan; the QMC5883L will have an address of 0x0D (13), while the HMC5883L uses address 0x1E (30).' +
         '</p>' +
         '<p><a href="https://tutorials.aposteriori.com.sg/120-IoTy/110-Extensions_Hardware/120-Magnetic-Sensor.html" target="_blank">Documentations</a></p>'
