@@ -738,6 +738,12 @@ var extensions = new function() {
           'Note that in the ESP32S3 Cam...' +
         '</p>' +
         '<p>' +
+          '<ul>' +
+            '<li>Camera LED is on pin 2; digital_write 1 to activate.</li>' +
+            '<li>There is a WS2812 (Neopixel) LED on pin 48.</li>' +
+          '</ul>' +
+        '</p>' +
+        '<p>' +
           'This extension only adds blocks. ' +
         '</p>'
     },

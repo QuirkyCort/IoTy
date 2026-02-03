@@ -52,6 +52,11 @@ var pythonPanel = new function() {
       enableLiveAutocompletion: true
     });
 
+    // Disable auto select of first suggestion
+    let Autocomplete = ace.require("ace/autocomplete").Autocomplete;
+    Autocomplete.prototype.__defineSetter__("autoSelect", function() { })
+    Autocomplete.prototype.__defineGetter__("autoSelect", function() { })
+
     var staticWordCompleter = {
       getCompletions: function(editor, session, pos, prefix, callback) {
         var wordList = [];

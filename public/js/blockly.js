@@ -58,8 +58,8 @@ var blockly = new function() {
         self.toolboxXml = (new DOMParser()).parseFromString(response, "text/xml");
         options.toolbox = self.toolboxXml.getElementById('toolbox');
         self.workspace = Blockly.inject('blocklyDiv', options);
-        self.minimap = new Minimap(self.workspace);
-        self.minimap.init();
+        // self.minimap = new Minimap(self.workspace);
+        // self.minimap.init();
         self.registerCustomToolbox();
 
         self.loadDefaultWorkspace();
