@@ -1892,13 +1892,17 @@ var ioty_generator = new function() {
 
       let i=0;
       while (true) {
-        let key = Blockly.Python.valueToCode(block, 'key' + i, Blockly.Python.ORDER_NONE);
-        if (key) {
-          code += '[' + key + ']';
-        } else {
+        try {
+          let key = Blockly.Python.valueToCode(block, 'key' + i, Blockly.Python.ORDER_NONE);
+          if (key) {
+            code += '[' + key + ']';
+          } else {
+            break;
+          }
+          i++;
+        } catch {
           break;
         }
-        i++;
       }
 
       return [code, Blockly.Python.ORDER_ATOMIC];
