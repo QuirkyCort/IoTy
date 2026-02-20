@@ -1,6 +1,7 @@
 let MSGS = {
   '#blk-pins#': {
     en: 'Pins',
+    ru: 'Пины',
   },
   '#blk-control#': {
     en: 'Control',
@@ -119,7 +120,8 @@ let MSGS = {
     hu: 'Indításkor',
   },
   '#blk-set_pin#': {
-    en: 'set pin'
+    en: 'set pin',
+    ru: 'задать пину',
   },
   '#blk-adv_set_pin#': {
     en: 'adv: set pin'
@@ -132,6 +134,7 @@ let MSGS = {
   },
   '#blk-to_mode#': {
     en: 'to mode',
+    ru: 'режим',
   },
   '#blk-input#': {
     en: 'input',
@@ -144,6 +147,7 @@ let MSGS = {
   },
   '#blk-read_pin#': {
     en: 'digital read pin',
+    ru: 'прочитать цифровой пин',
   },
   '#blk-adv_read_pin#': {
     en: 'adv: digital read pin',
@@ -153,6 +157,7 @@ let MSGS = {
   },
   '#blk-write_pin#': {
     en: 'digital write pin',
+    ru: 'запись в цифровой пин',
   },
   '#blk-adv_write_pin#': {
     en: 'adv: digital write pin',
@@ -162,9 +167,11 @@ let MSGS = {
   },
   '#blk-to#': {
     en: 'to',
+    ru: 'значение',
   },
   '#blk-analog_read_pin#': {
     en: 'analog read pin',
+    ru: 'прочитать аналоговый пин',
   },
   '#blk-adv_analog_read_pin#': {
     en: 'adv: analog read pin',
@@ -174,6 +181,7 @@ let MSGS = {
   },
   '#blk-touch_read_pin#': {
     en: 'touch read pin',
+    ru: 'прочитать емкость пина',
   },
   '#blk-adv_touch_read_pin#': {
     en: 'adv: touch read pin',
@@ -183,18 +191,21 @@ let MSGS = {
   },
   '#blk-set_analog_write_freq#': {
     en: 'Set analog write frequency on pin',
+    ru: 'задать частоту на алоговом пине',
   },
   '#blk-adv_set_analog_write_freq#': {
     en: 'adv: Set analog write frequency on pin',
   },
   '#blk-hz#': {
     en: 'Hz',
+    ru: 'Гц',
   },
   '#blk-set_analog_write_freq_tooltip#': {
     en: 'Range from 1Hz to 40,000,000Hz',
   },
   '#blk-analog_write_pin#': {
     en: 'analog write pin',
+    ru: 'записать в аналоговый пин',
   },
   '#blk-adv_analog_write_pin#': {
     en: 'adv: analog write pin',
@@ -317,6 +328,7 @@ let MSGS = {
   },
   '#blk-type_cast#': {
     en: 'convert to',
+    ru: 'преобразовать в',
   },
   '#blk-type_cast_tooltip#': {
     en: 'Convert from one data type into another.',
@@ -350,6 +362,7 @@ let MSGS = {
   },
   '#blk-with#': {
     en: 'with',
+    ru: 'с',
   },
   '#blk-led_as#': {
     en: 'leds as',
@@ -398,6 +411,7 @@ let MSGS = {
   },
   '#blk-servo_write#': {
     en: 'servo write pin',
+    ru: 'серво двигатель на пине',
   },
   '#blk-adv_servo_write#': {
     en: 'adv: servo write pin',
@@ -413,9 +427,11 @@ let MSGS = {
   },
   '#blk-us#': {
     en: 'μs',
+    ru: 'мкс',
   },
   '#blk-hc_sr04_ping_trig#': {
     en: 'HC-SR04 ping trig',
+    ru: 'HC-SR04 расстояние trig',
   },
   '#blk-adv_hc_sr04_ping_trig#': {
     en: 'adv: HC-SR04 ping trig',
@@ -428,15 +444,19 @@ let MSGS = {
   },
   '#blk-unit#': {
     en: 'unit',
+    ru: 'в',
   },
   '#blk-network#': {
     en: 'Network',
+    ru: 'Сеть',
   },
   '#blk-connect_to_wifi#': {
     en: 'Connect to WiFi',
+    ru: 'Подключиться к WiFi',
   },
   '#blk-with_password#': {
     en: 'with password',
+    ru: 'с паролем',
   },
   '#blk-connect_to_wifi_tooltip#': {
     en: 'If the \\"When Started\\" block is set to \\"wait for Internet connection\\", your device will connect automatically and you should not use this block.',
@@ -446,57 +466,69 @@ let MSGS = {
   },
   '#blk-connect_to_mqtt_server#': {
     en: 'MQTT: Connect to server',
+    ru: 'MQTT: подключиться к серверу',
   },
   '#blk-connect_to_mqtt_server_tooltip#': {
     en: 'Connects to the server with the specified username and password. Will throw an error if the user or password is invalid.',
   },
   '#blk-on_port#': {
     en: 'on port',
+    ru: 'порт',
   },
   '#blk-with_user#': {
     en: 'with user',
+    ru: 'пользователь',
   },
   '#blk-and_password#': {
     en: 'and password',
+    ru: 'пароль',
   },
   '#blk-mqtt_wait_msg#': {
     en: 'MQTT: Wait for message',
   },
   '#blk-mqtt_check_msg#': {
     en: 'MQTT: Check for message',
+    ru: 'MQTT: проверить сообщения',
   },
   '#blk-mqtt_check_msg_tooltip#': {
     en: 'Checks for messages. You must run this frequently. The \\"MQTT: On receive message for topic\\" block will not run if you do not run this.',
   },
   '#blk-mqtt_on_receive#': {
     en: 'MQTT: On receive message for topic',
+    ru: 'MQTT: когда получено сообщение по теме',
+
   },
   '#blk-mqtt_on_receive_tooltip#': {
     en: 'This function will run when a new message is found when running \\"MQTT: Check for message\\".',
   },
   '#blk-with_mqtt_msg#': {
     en: 'with: mqtt_msg',
+    ru: 'которое хранится в mqtt_msg',
   },
   '#blk-mqtt_msg_tooltip#': {
     en: 'This variable will contain the received message in string format. This block can only be used in a \\"MQTT: On receive message for topic\\" block.',
   },
   '#blk-mqtt_publish#': {
     en: 'MQTT: Publish to topic',
+    ru: 'MQTT: опубликовать в теме',
   },
   '#blk-mqtt_publish_tooltip#': {
     en: 'Encodes the specified string in UTF-8 format and publish it to the specified topic.',
   },
   '#blk-message#': {
     en: 'message',
+    ru: 'сообщение',
   },
   '#blk-mqtt_publish_bytes#': {
     en: 'MQTT: Publish bytes to topic',
+    ru: 'MQTT: опубликовать байты в теме',
   },
   '#blk-mqtt_publish_bytes_tooltip#': {
     en: 'Publish the bytes object to the specified topic.',
   },
   '#blk-i2c_init#': {
     en: 'init',
+    ru: 'инициализировать',
   },
   '#blk-i2c_init_tooltip#': {
     en: 'Initialize I2C device 1 or 2 using their default pins. If you need Soft I2C or different pins, use the other \\"init I2C\\" block',
@@ -506,9 +538,11 @@ let MSGS = {
   },
   '#blk-on_pins#': {
     en: 'on pins',
+    ru: 'на пинах',
   },
   '#blk-freq#': {
     en: 'freq',
+    ru: 'частота',
   },
   '#blk-i2c_scan#': {
     en: 'scan for i2c devices on',
@@ -625,6 +659,7 @@ let MSGS = {
   },
   '#main-load_extension#': {
     en: 'Load extension...',
+    ru: 'Загрузить расширение...',
   },
   '#main-load_python_lib#': {
     en: 'Load Python module from your computer',
@@ -696,6 +731,7 @@ let MSGS = {
   },
   '#main-connectMode#': {
     en: 'Connection Mode...',
+    ru: 'Режим подключения...',
   },
   '#main-connectBLE#': {
     en: 'Connect (Bluetooth)',
@@ -705,33 +741,43 @@ let MSGS = {
   },
   '#main-connectSerial#': {
     en: 'Connect (Serial)...',
+    ru: 'Подключиться (Serial)...',
   },
   '#main-download#': {
     en: 'Download to device',
+    ru: 'Загрузить на устройство',
   },
   '#main-runSelectedBlock#': {
     en: 'Run selected block',
+    ru: 'Запустить выбранные блоки',
   },
   '#main-erase#': {
     en: 'Erase device',
+    ru: 'Очистить устройство',
   },
   '#main-changeName#': {
     en: 'Change device name',
+    ru: 'Сменить имя устройства',
   },
   '#main-updateFirmware#': {
     en: 'Update Firmware',
+    ru: 'Обновить прошивку',
   },
   '#main-checkVersion#': {
     en: 'Check Version',
+    ru: 'Проверить версию',
   },
   '#main-getInfo#': {
     en: 'Get Device Info',
+    ru: 'Получить информацию об устройстве',
   },
   '#main-listFiles#': {
     en: 'Files on Device...',
+    ru: 'Файлы на устройстве...',
   },
   '#main-configureDeviceNetwork#': {
     en: 'Configure Device Network...',
+    ru: 'Сетевые настройки устройства...',
   },
   '#main-softResetDevice#': {
     en: 'Soft Reset Device',
@@ -741,9 +787,11 @@ let MSGS = {
   },
   '#main-disconnect#': {
     en: 'Disconnect',
+    ru: 'Отключить',
   },
   '#main-appBuilder_title#': {
     en: 'MQTT App Builder',
+    ru: 'MQTT Дашборд',
   },
   '#main-appBuilder_description#': {
     en: 'The MQTT App Builder allows you to build a web-based app that can control your IoTy device through the MQTT protocol.',
@@ -849,9 +897,11 @@ let MSGS = {
   },
   '#extensions-close#': {
     en: 'Close',
+    ru: 'Закрыть',
   },
   '#extensions-select_extensions#': {
     en: 'Select Extensions',
+    ru: 'Список расширений',
   },
   '#blk-mpu6050_init#': {
     en: 'init MPU-6050 on',
@@ -861,6 +911,7 @@ let MSGS = {
   },
   '#blk-with_address#': {
     en: 'with address',
+    ru: 'по адресу',
   },
   '#blk-mpu6050_calibrate#': {
     en: 'calibrate MPU-6050',
@@ -948,9 +999,11 @@ let MSGS = {
   },
   '#blk-ssd1306_init#': {
     en: 'init SSD-1306 on',
+    ru: 'инициализировать SSD-1306 на',
   },
   '#blk-height#': {
     en: 'height',
+    ru: 'высота',
   },
   '#blk-and_addr#': {
     en: 'and address',
@@ -960,78 +1013,94 @@ let MSGS = {
   },
   '#blk-ssd1306_init_sh1106#': {
     en: 'init SH-1106 on',
+    ru: 'инициализировать SH-1106 на',
   },
   '#blk-ssd1306_init_sh1106_tooltip#': {
     en: 'Use this to init a SH1106 display. After init, all the SSD1306 blocks can be used with the SH1106.',
   },
   '#blk-ssd1306_fill#': {
     en: 'fill SSD-1306 with color',
+    ru: 'заливка SSD-1306 цветом',
   },
   '#blk-ssd1306_fill_tooltip#': {
     en: 'Color should be either 1 or 0. You can use this to erase the screen.',
   },
   '#blk-ssd1306_show#': {
     en: 'SSD-1306 show',
+    ru: 'SSD-1306 отрисовать',
   },
   '#blk-ssd1306_show_tooltip#': {
     en: 'You must run this to show what you have drawn to the screen',
   },
   '#blk-ssd1306_text#': {
     en: 'SSD-1306 draw text',
+    ru: 'SSD-1306 изобразить текст',
   },
   '#blk-at_xy#': {
     en: 'at x,y',
+    ru: 'в x,y',
   },
   '#blk-and_color#': {
     en: 'and color',
+    ru: 'цветом',
   },
   '#blk-ssd1306_text_tooltip#': {
     en: 'You must run show to display the text on screen',
   },
   '#blk-ssd1306_pixel#': {
     en: 'SSD-1306 draw pixel at x,y',
+    ru: 'SSD-1306 изобразить пиксель в x,y',
   },
   '#blk-ssd1306_pixel_tooltip#': {
     en: 'You must run show to display the drawn pixel on screen',
   },
   '#blk-ssd1306_line#': {
     en: 'SSD-1306 draw line from x1,y1',
+    ru: 'SSD-1306 изобразить отрезок от x1,y1'
   },
   '#blk-to_x2y2#': {
     en: 'to x2,y2',
+    ru: 'до x2,y2',
   },
   '#blk-ssd1306_line_tooltip#': {
     en: 'You must run show to display the drawn line on screen',
   },
   '#blk-ssd1306_rect#': {
     en: 'SSD-1306 draw rect at x,y',
+    ru: 'SSD-1306 изобразить прямоугольник от x,y',
   },
   '#blk-with_wh#': {
     en: 'with w,h',
+    ru: 'с шириной, высотой',
   },
   '#blk-color#': {
     en: 'color',
+    ru: 'и цветом',
   },
   '#blk-ssd1306_rect_tooltip#': {
     en: 'You must run show to display the drawn rectangle on screen',
   },
   '#blk-ssd1306_ellipse#': {
     en: 'SSD-1306 draw ellipse at x,y',
+    ru: 'SSD-1306 изобразить эллипс с центром в x,y',
   },
   '#blk-with_xryr#': {
     en: 'with xr,yr',
+    ru: 'с полуосями a,b',
   },
   '#blk-ssd1306_ellipse_tooltip#': {
     en: 'You must run show to display the drawn ellipse on screen',
   },
   '#blk-ssd1306_scroll#': {
     en: 'scroll SSD-1306 display with xstep,ystep',
+    ru: 'SSD-1306 прокрутка изображения с xШагом,yШагом',
   },
   '#blk-ssd1306_scroll_tooltip#': {
     en: 'Shift the content of the display.',
   },
   '#blk-dict#': {
     en: 'Dictionaries',
+    ru: 'Словари',
   },
   '#blk-dict_key_value_tooltip#': {
     en: 'Insert either a variable or another copy of this block into the first input',
@@ -1050,6 +1119,7 @@ let MSGS = {
   },
   '#blk-data#': {
     en: 'Data',
+    ru: 'Данные',
   },
   '#blk-map#': {
     en: 'map',
@@ -1068,39 +1138,48 @@ let MSGS = {
   },
   '#blk-json_dumps#': {
     en: 'json dump string',
+    ru: 'JSON в строку',
   },
   '#blk-json_dumps_tooltip#': {
     en: 'Converts the provided data obj into a JSON string',
   },
   '#blk-json_loads#': {
     en: 'json load string',
+    ru: 'строка в JSON',
   },
   '#blk-json_loads_tooltip#': {
     en: 'Converts the JSON string into a data obj',
   },
   '#blk-request_to#': {
     en: 'request to',
+    ru: 'запрос к',
   },
   '#blk-and_put_result_in#': {
     en: 'and put result in',
+    ru: 'поместить ответ в',
   },
   '#blk-as#': {
     en: 'as',
+    ru: 'как',
   },
   '#blk-urequests_simple_tooltip#': {
     en: 'Simple requests. Note that https requests requires more RAM and may fail especially if Bluetooth is enabled.',
   },
   '#blk-in_body#': {
     en: 'in body',
+    ru: 'в теле',
   },
   '#blk-and_header#': {
     en: 'and header',
+    ru: 'и заголовком',
   },
   '#blk-on_success#': {
     en: 'on success',
+    ru: 'при успехе',
   },
   '#blk-on_fail#': {
     en: 'on fail',
+    ru: 'при ошибке',
   },
   '#blk-urequests_advance_tooltip#': {
     en: 'Request header should be a dictionary. Body should be bytes (data) or JSON encodable data (json).',
@@ -1122,45 +1201,53 @@ let MSGS = {
   },
   '#blk-urequests_settimeout#': {
     en: 'urequest: set timeout to',
+    ru: 'urequest: задать таймаут в сек',
   },
   '#blk-urequests_settimeout_tooltip#': {
     en: 'Timeout in seconds. If 0, the socket will be in non-blocking mode. If set to None, it will be in blocking mode. If non-zero, an exception will be raised if the timeout expires before a read/write completes.',
   },
   '#blk-connect_to_configured_wifi#': {
     en: 'Connect to configured WiFi',
+    ru: 'Подключиться к настроенному WiFi',
   },
   '#blk-connect_to_configured_wifi_tooltip#': {
     en: 'Connect to the WiFi hotspot that was configured via \\"Configure Device Network...\\". If the \\"When Started\\" block is set to \\"wait for Internet connection\\", your device will connect automatically and you should not use this block.',
   },
   '#blk-wlan_get_ip#': {
     en: 'IP address',
+    ru: 'IP адрес',
   },
   '#blk-wlan_get_ip_tooltip#': {
     en: 'After connecting to WiFi, you can use this to get your IP address.',
   },
   '#blk-start_as_ap#': {
     en: 'start as Access Point',
+    ru: 'запустить точку доступа',
   },
   '#blk-start_as_ap_tooltip#': {
     en: 'Password must be either empty (open AP) or at least 8 characters long.',
   },
   '#blk-wlan_scan#': {
     en: 'scan for WiFi',
+    ru: 'список WiFi сетей',
   },
   '#blk-wlan_scan_tooltip#': {
     en: 'Returns a list of available WiFi networks. Returns a list of tuples containing (ssid, bssid, channel, RSSI, authmode, hidden).',
   },
   '#blk-wlan_is_present#': {
     en: 'WiFi SSID',
+    ru: 'WiFi с SSID',
   },
   '#blk-is_present#': {
     en: 'is present',
+    ru: 'доступна',
   },
   '#blk-wlan_is_present_tooltip#': {
     en: 'Returns True if the specified WiFi SSID is available.',
   },
   '#blk-wlan_is_connected#': {
     en: 'WiFi is connected',
+    ru: 'есть подключение к WiFi',
   },
   '#blk-wlan_is_connected_tooltip#': {
     en: 'Returns True if connected to a router or if a client is connected to your device (AP Mode), else returns None.',
@@ -1488,27 +1575,32 @@ let MSGS = {
   },
   '#blk-dht_init#': {
     en: 'init DHT sensor type',
+    ru: 'инициализировать DHT датчик',
   },
   '#blk-dht_init_tooltip#': {
     en: 'Initialize the DHT sensor.',
   },
   '#blk-on_pin#': {
     en: 'on pin',
+    ru: 'на пине',
   },
   '#blk-dht_measure#': {
     en: 'dht measure',
+    ru: 'DHT измерить',
   },
   '#blk-dht_measure_tooltip#': {
     en: 'Performs a measurement. You must run this before reading the temperature or humidity.',
   },
   '#blk-dht_temperature#': {
     en: 'dht temperature',
+    ru: 'DHT температура',
   },
   '#blk-dht_temperature_tooltip#': {
     en: 'Retrieve the temperature in Celsius from the last measurement. You must run a \\"measure\\" command first.',
   },
   '#blk-dht_humidity#': {
     en: 'dht humidity',
+    ru: 'DHT влажность',
   },
   '#blk-dht_humidity_tooltip#': {
     en: 'Retrieve the humidity in percentage from the last measurement. You must run a \\"measure\\" command first.',
@@ -1563,6 +1655,7 @@ let MSGS = {
   },
   '#blk-init#': {
     en: 'init',
+    ru: 'инициализировать',
   },
   '#blk-uart_init_tooltip#': {
     en: 'Initialize the hardware UART device with the specified baudrate and pins.',
@@ -1605,12 +1698,15 @@ let MSGS = {
   },
   '#blk-decode#': {
     en: 'decode',
+    ru: 'декодировать',
   },
   '#blk-encode#': {
     en: 'encode',
+    ru: 'закодировать',
   },
   '#blk-as_utf8#': {
     en: 'as utf-8',
+    ru: 'c utf-8',
   },
   '#blk-decode_tooltip#': {
     en: 'Decode a bytes object into a string using the utf-8 encoding.',
@@ -3291,6 +3387,7 @@ let MSGS = {
   },
   '#blk-width#': {
     en: 'width',
+    ru: 'ширина',
   },
   '#blk-mirror#': {
     en: 'mirror',
