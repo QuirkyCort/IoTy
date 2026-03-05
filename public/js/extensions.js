@@ -766,7 +766,7 @@ var extensions = new function() {
       id: 'wheeled_drives',
       name: 'Wheeled Drives',
       files: [
-        ['wheeled_drives.py', 'extensions/wheeled_drives.py?v=d0314d9d'],
+        ['wheeled_drives.py', 'extensions/wheeled_drives.py?v=d7617844'],
       ],
       description:
         '<p>' +

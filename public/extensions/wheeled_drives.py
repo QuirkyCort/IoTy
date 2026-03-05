@@ -60,7 +60,7 @@ def delta(mode, direction, speed, turn, max_speed=1023):
     vf = [math.cos(direction) * speed, math.sin(direction) * speed]
 
     m = (v2[0] - v1[0]) / (v2[1] - v1[1])
-    m3 = (vf[0] - turn * v1[0] - (vf[1] - turn * v1[1]) * m) / (v3[0] - v1[0] - (se.v3[1] - v1[1]) * m)
+    m3 = (vf[0] - turn * v1[0] - (vf[1] - turn * v1[1]) * m) / (v3[0] - v1[0] - (v3[1] - v1[1]) * m)
     m2 = (vf[1] - turn * v1[1] - m3 * (v3[1] - v1[1])) / (v2[1] - v1[1])
     m1 = turn - m2 - m3
 
