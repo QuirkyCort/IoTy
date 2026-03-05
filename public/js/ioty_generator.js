@@ -254,7 +254,7 @@ var ioty_generator = new function() {
     'math_change': function(block) {
       var argument0 = Blockly.Python.valueToCode(block, 'DELTA',
           Blockly.Python.ORDER_ADDITIVE) || '0';
-      var varName = Blockly.Python.nameDB_.getNameForUserVariable(block.getFieldValue('VAR'), Blockly.VARIABLE_CATEGORY_NAME);
+      let varName = Blockly.Python.getVariableName(block.getFieldValue('VAR'));
       return varName + ' += ' + argument0 + '\n';
     },
 
