@@ -1260,12 +1260,20 @@ var main = new function() {
 
   // Display what's new if not seen before
   this.showWhatsNew = function(forceShow=false) {
-    let current = 20251101;
+    let current = 20260313;
     let lastShown = localStorage.getItem('whatsNew');
     if (lastShown == null || parseInt(lastShown) < current || forceShow) {
       let options = {
         title: 'What\'s New',
         message:
+        '<h3>13 Mar 2026 (Blockly)</h3>' +
+        '<p>' +
+          'Blocks minimap was removed due to bugs in the plugin. ' +
+          'A blocks search feature has been added. ' +
+        '</p>' +
+        '<p>' +
+          'Fixed a few bugs related to the "change variable" and Dictionary blocks. ' +
+        '</p>' +
         '<h3>1 Nov 2025 (Blockly 12.3.0)</h3>' +
         '<p>' +
           'Updated the blocks library (Blockly) to version 12.3.0. ' +
@@ -1284,14 +1292,6 @@ var main = new function() {
             '<li>AGS10 Total Volatile Organic Compounds (Air Quality)</li>' +
             '<li>MLX90640 (Thermal Camera)</li>' +
           '</ul>' +
-        '</p>' +
-        '<h3>21 Mar 2025</h3>' +
-        '<p>' +
-          'Added extension for VS1003 MP3/WMA Audio CODEC and Circular Buffer. ' +
-          'Added blocks to urequests to facilitate streaming. ' +
-        '</p>' +
-        '<p>' +
-          'Put together, these new additions allows you to stream internet radio stations on your ESP32 device.' +
         '</p>'
       }
       acknowledgeDialog(options, function(){
