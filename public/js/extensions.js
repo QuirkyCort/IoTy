@@ -1042,6 +1042,18 @@ var extensions = new function() {
           'This will produce a sudden jump in the heading value when calibration is achieved, and can cause significant issues if you are not prepared for it. ' +
         '</p>'
     },
+    {
+      id: 'as5600',
+      name: 'AS5600 Magnetic Position Sensor',
+      files: [
+        ['as5600.py', 'extensions/as5600.py?v=13e0de61'],
+      ],
+      description:
+        '<p>' +
+          'The AS5600 is a high-precision magnetic position sensor that provides accurate angular position information. ' +
+          'It is commonly used with a magnet attached to the shaft of a wheel or robot arm, allowing it to detect the absolute position of the shaft.' +
+        '</p>'
+    },
   ]
 
   this.init = function() {

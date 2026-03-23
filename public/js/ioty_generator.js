@@ -86,6 +86,7 @@ var ioty_generator = new function() {
     Blockly.Python.addReservedWords('mlx90640');
     Blockly.Python.addReservedWords('yahboom_4_channel_motor_drive');
     Blockly.Python.addReservedWords('bno055');
+    Blockly.Python.addReservedWords('as5600');
 
     for (let generator in self.generators) {
       Blockly.Python.forBlock[generator] = self.generators[generator];
@@ -6466,6 +6467,63 @@ var ioty_generator = new function() {
       let code = 'bno055_i2c_device.reset()\n';
 
       return code;
+    },
+
+    'as5600_init': function(block) {
+      self.imports['as5600'] = 'import as5600';
+      self.reservedVariables['as5600_init'] = ['as5600_device'];
+
+      let id = block.getFieldValue('id');
+
+      let code = 'as5600_device = as5600.AS5600(' + id + ')\n';
+
+      return code;
+    },
+
+    'as5600_config': function(block) {
+      let hysteresis = block.getFieldValue('hysteresis');
+      let slow_filter = block.getFieldValue('slow_filter');
+      let fast_filter_threshold = block.getFieldValue('fast_filter_threshold');
+
+      let code = 'as5600_device.config(hysteresis=as5600.' + hysteresis + ', slow_filter=as5600.' + slow_filter + ', fast_filter_threshold=as5600.' + fast_filter_threshold + ')\n';
+
+      return code;
+    },
+
+    'as5600_angle_degrees': function(block) {
+      let code = 'as5600_device.angle() * .0878906250';
+
+      return [code, Blockly.Python.ORDER_MULTIPLICATIVE];
+    },
+
+    'as5600_angle': function(block) {
+      let code = 'as5600_device.angle()';
+
+      return [code, Blockly.Python.ORDER_ATOMIC];
+    },
+
+    'as5600_raw_angle': function(block) {
+      let code = 'as5600_device.raw_angle()';
+
+      return [code, Blockly.Python.ORDER_ATOMIC];
+    },
+
+    'as5600_status': function(block) {
+      let code = 'as5600_device.status()';
+
+      return [code, Blockly.Python.ORDER_ATOMIC];
+    },
+
+    'as5600_agc': function(block) {
+      let code = 'as5600_device.agc()';
+
+      return [code, Blockly.Python.ORDER_ATOMIC];
+    },
+
+    'as5600_magnitude': function(block) {
+      let code = 'as5600_device.magnitude()';
+
+      return [code, Blockly.Python.ORDER_ATOMIC];
     },
   };
 }

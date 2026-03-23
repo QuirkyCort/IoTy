@@ -1,0 +1,9 @@
+{
+  "type": "as5600_angle_degrees",
+  "message0": "#blk-as5600_angle_degrees#",
+  "args0": [],
+  "output": "Number",
+  "colour": 230,
+  "tooltip": "#blk-as5600_angle_degrees_tooltip#",
+  "helpUrl": ""
+}

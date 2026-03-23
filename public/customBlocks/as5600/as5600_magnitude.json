@@ -1,0 +1,9 @@
+{
+  "type": "as5600_magnitude",
+  "message0": "#blk-as5600_magnitude#",
+  "args0": [],
+  "output": "Number",
+  "colour": 230,
+  "tooltip": "#blk-as5600_magnitude_tooltip#",
+  "helpUrl": ""
+}

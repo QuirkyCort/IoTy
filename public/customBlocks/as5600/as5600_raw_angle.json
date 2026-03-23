@@ -1,0 +1,9 @@
+{
+  "type": "as5600_raw_angle",
+  "message0": "#blk-as5600_raw_angle#",
+  "args0": [],
+  "output": "Number",
+  "colour": 230,
+  "tooltip": "#blk-as5600_raw_angle_tooltip#",
+  "helpUrl": ""
+}

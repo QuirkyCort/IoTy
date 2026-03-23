@@ -1,0 +1,9 @@
+{
+  "type": "as5600_agc",
+  "message0": "#blk-as5600_agc#",
+  "args0": [],
+  "output": "Number",
+  "colour": 230,
+  "tooltip": "#blk-as5600_agc_tooltip#",
+  "helpUrl": ""
+}

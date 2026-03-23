@@ -4264,6 +4264,64 @@ let MSGS = {
   '#blk-bno055_i2c_reset_tooltip#': {
     en: 'Resets the device, restoring all power on defaults and resets all calibration',
   },
+  '#blk-as5600_init#': {
+    en: 'Init AS5600 on',
+  },
+  '#blk-as5600_init_tooltip#': {
+    en: 'You must have an \\"init I2C\\" block before this.',
+  },
+  '#blk-as5600_config#': {
+    en: 'as5600: config with',
+  },
+  '#blk-hysteresis#': {
+    en: 'hysteresis',
+  },
+  '#blk-slow_filter#': {
+    en: 'slow filter',
+  },
+  '#blk-fast_filter_threshold': {
+    en: 'fast filter threshold',
+  },
+  '#blk-as5600_config_tooltip#': {
+    en: 'Configure the device. Hyteresis reduces changes in output when the magnet is not moving. Slow filter reduces noise at the expense of response time. Fast filter threshold reduces the delay when slow filter is in use.',
+  },
+  '#blk-as5600_angle_degrees#': {
+    en: 'as5600: angle in degrees',
+  },
+  '#blk-as5600_angle_degrees_tooltip#': {
+    en: 'Returns the angle in degrees as a float',
+  },
+  '#blk-as5600_angle#': {
+    en: 'as5600: angle (0 - 4095)',
+  },
+  '#blk-as5600_angle_tooltip#': {
+    en: 'Returns the angle as an integer between 0 to 4095',
+  },
+  '#blk-as5600_raw_angle#': {
+    en: 'as5600: raw angle',
+  },
+  '#blk-as5600_raw_angle_tooltip#': {
+    en: 'Same as angle, but without hysteresis or filters',
+  },
+  '#blk-as5600_status#': {
+    en: 'as5600: status',
+  },
+  '#blk-as5600_status_tooltip#': {
+    en: 'Returns 2 if magnet is not detected, 4 if magnet is detected, 5 if magnet is too strong, 6 if magnet is detected but too weak.',
+  },
+  '#blk-as5600_agc#': {
+    en: 'as5600: automatic gain control',
+  },
+  '#blk-as5600_agc_tooltip#': {
+    en: 'Returns the gain. Max is 255 on 5V, and 128 on 3.3V.',
+  },
+  '#blk-as5600_magnitude#': {
+    en: 'as5600: magnitude',
+  },
+  '#blk-as5600_magnitude_tooltip#': {
+    en: 'Returns the magnitude of the magnetic field',
+  },
+
 };
 let MSGS_KEYS = Object.keys(MSGS);
 

@@ -3271,5 +3271,15 @@
     <block type="bno055_i2c_set_offsets"></block>
     <block type="bno055_i2c_reset"></block>
   </category>
+  <category toolboxitemid="as5600" name="AS5600" colour="#5b67a5" hidden="true">
+    <block type="as5600_init"></block>
+    <block type="as5600_config"></block>
+    <block type="as5600_angle_degrees"></block>
+    <block type="as5600_angle"></block>
+    <block type="as5600_raw_angle"></block>
+    <block type="as5600_status"></block>
+    <block type="as5600_agc"></block>
+    <block type="as5600_magnitude"></block>
+  </category>
   <search name='Search'></search>
 </xml>

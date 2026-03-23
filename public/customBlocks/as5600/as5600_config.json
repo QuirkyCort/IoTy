@@ -1,0 +1,45 @@
+{
+  "type": "as5600_config",
+  "message0": "#blk-as5600_config# #blk-hysteresis# %1 #blk-slow_filter# %2 #blk-fast_filter_threshold# %3",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "hysteresis",
+      "options": [
+        ["Off", "HYSTERESIS_OFF"],
+        ["1 LSB", "HYSTERESIS_1LSB"],
+        ["2 LSB", "HYSTERESIS_2LSB"],
+        ["4 LSB", "HYSTERESIS_4LSB"]
+      ]
+    },
+    {
+      "type": "field_dropdown",
+      "name": "slow_filter",
+      "options": [
+        ["16x", "SLOW_FILTER_16X"],
+        ["8x", "SLOW_FILTER_8X"],
+        ["4x", "SLOW_FILTER_4X"],
+        ["2x", "SLOW_FILTER_2X"]
+      ]
+    },
+    {
+      "type": "field_dropdown",
+      "name": "fast_filter_threshold",
+      "options": [
+        ["Slow Only", "FAST_FILTER_THRESHOLD_SLOW_ONLY"],
+        ["6 LSB", "FAST_FILTER_THRESHOLD_6LSB"],
+        ["7 LSB", "FAST_FILTER_THRESHOLD_7LSB"],
+        ["8 LSB", "FAST_FILTER_THRESHOLD_8LSB"],
+        ["10 LSB", "FAST_FILTER_THRESHOLD_10LSB"],
+        ["18 LSB", "FAST_FILTER_THRESHOLD_18LSB"],
+        ["21 LSB", "FAST_FILTER_THRESHOLD_21LSB"],
+        ["24 LSB", "FAST_FILTER_THRESHOLD_24LSB"]
+      ]
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-as5600_config_tooltip#",
+  "helpUrl": ""
+}
