@@ -1,0 +1,9 @@
+{
+  "type": "bno055_i2c_calibrated",
+  "message0": "#blk-bno055_i2c_calibrated#",
+  "args0": [],
+  "output": "Boolean",
+  "colour": 230,
+  "tooltip": "#blk-bno055_i2c_calibrated_tooltip#",
+  "helpUrl": ""
+}

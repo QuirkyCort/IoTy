@@ -4168,6 +4168,102 @@ let MSGS = {
   '#blk-yahboom_4cmd_i2c_get_steps_per_10ms_tooltip#': {
     en: 'Returns the number of steps taken within the last 10ms for the specified motor. Note that there are 4 steps per pulse.',
   },
+  '#blk-bno055_i2c_init#': {
+    en: 'Init BNO055 on',
+  },
+  '#blk-bno055_i2c_init_tooltip#': {
+    en: 'You must have an \\"init I2C\\" block before this. Set transpose and sign if the orientation of the sensor is not mounted component side up and horizontal.',
+  },
+  '#blk-transpose#': {
+    en: 'transpose',
+  },
+  '#blk-sign#': {
+    en: 'sign',
+  },
+  '#blk-bno055_i2c_set_mode#': {
+    en: 'bno055: set mode to',
+  },
+  '#blk-bno055_i2c_set_mode_tooltip#': {
+    en: 'Sets the mode. If the mode does not support fusion, euler angles and quaternions will not be available.',
+  },
+  '#blk-bno055_i2c_calibrated#': {
+    en: 'bno055: calibrated',
+  },
+  '#blk-bno055_i2c_calibrated_tooltip#': {
+    en: 'Returns true if sensor calibration is complete',
+  },
+  '#blk-bno055_i2c_cal_status#': {
+    en: 'bno055: calibration status',
+  },
+  '#blk-bno055_i2c_cal_status_tooltip#': {
+    en: 'Returns a tuple containing the calibration status for System, Gyroscope, Accelerometer, and Magnetometer. Each value ranges from 0 to 3, with 3 being fully calibrated.',
+  },
+  '#blk-bno055_i2c_temperature#': {
+    en: 'bno055: temperature',
+  },
+  '#blk-bno055_i2c_temperature_tooltip#': {
+    en: 'Returns the temperature in Celsius. This is the temperature of the sensor chip, which may be different from the ambient temperature.',
+  },
+  '#blk-bno055_i2c_mag#': {
+    en: 'bno055: magnetic vector',
+  },
+  '#blk-bno055_i2c_mag_tooltip#': {
+    en: 'Returns the magnetic field vector in microteslas.',
+  },
+  '#blk-bno055_i2c_accel#': {
+    en: 'bno055: acceleration vector',
+  },
+  '#blk-bno055_i2c_accel_tooltip#': {
+    en: 'Returns the acceleration vector in meters per second squared.',
+  },
+  '#blk-bno055_i2c_lin_acc#': {
+    en: 'bno055: linear acceleration vector',
+  },
+  '#blk-bno055_i2c_lin_acc_tooltip#': {
+    en: 'Returns the acceleration vector in meters per second squared, excluding gravity.',
+  },
+  '#blk-bno055_i2c_gravity#': {
+    en: 'bno055: gravity vector',
+  },
+  '#blk-bno055_i2c_gravity_tooltip#': {
+    en: 'Returns the gravity vector in meters per second squared.',
+  },
+  '#blk-bno055_i2c_gyro#': {
+    en: 'bno055: gyroscope vector',
+  },
+  '#blk-bno055_i2c_gyro_tooltip#': {
+    en: 'Returns the gyroscope vector in degrees per second.',
+  },
+  '#blk-bno055_i2c_euler#': {
+    en: 'bno055: euler angles',
+  },
+  '#blk-bno055_i2c_euler_tooltip#': {
+    en: 'Returns the euler angles in degrees.',
+  },
+  '#blk-bno055_i2c_quaternion#': {
+    en: 'bno055: rotation quaternion',
+  },
+  '#blk-bno055_i2c_quaternion_tooltip#': {
+    en: 'Returns the quaternion in the order w, x, y, z.',
+  },
+  '#blk-bno055_i2c_sensor_offsets#': {
+    en: 'bno055: sensor offsets',
+  },
+  '#blk-bno055_i2c_sensor_offsets_tooltip#': {
+    en: 'Returns the current sensor calibration offsets as a bytearray.',
+  },
+  '#blk-bno055_i2c_set_offsets#': {
+    en: 'bno055: set offsets to',
+  },
+  '#blk-bno055_i2c_set_offsets_tooltip#': {
+    en: 'Sets the sensor offsets. The input should be a bytearray that was previously obtained from a \\"sensor offsets\\" block.',
+  },
+  '#blk-bno055_i2c_reset#': {
+    en: 'bno055: reset',
+  },
+  '#blk-bno055_i2c_reset_tooltip#': {
+    en: 'Resets the device, restoring all power on defaults and resets all calibration',
+  },
 };
 let MSGS_KEYS = Object.keys(MSGS);
 

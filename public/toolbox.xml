@@ -3252,5 +3252,24 @@
       </value>
     </block>
   </category>
+  <category toolboxitemid="bno055" name="BNO055" colour="#5b67a5" hidden="true">
+    <block type="bno055_i2c_init"></block>
+    <block type="bno055_i2c_set_mode">
+      <field name="mode">NDOF_MODE</field>
+    </block>
+    <block type="bno055_i2c_calibrated"></block>
+    <block type="bno055_i2c_cal_status"></block>
+    <block type="bno055_i2c_temperature"></block>
+    <block type="bno055_i2c_mag"></block>
+    <block type="bno055_i2c_gyro"></block>
+    <block type="bno055_i2c_accel"></block>
+    <block type="bno055_i2c_lin_acc"></block>
+    <block type="bno055_i2c_gravity"></block>
+    <block type="bno055_i2c_euler"></block>
+    <block type="bno055_i2c_quaternion"></block>
+    <block type="bno055_i2c_sensor_offsets"></block>
+    <block type="bno055_i2c_set_offsets"></block>
+    <block type="bno055_i2c_reset"></block>
+  </category>
   <search name='Search'></search>
 </xml>

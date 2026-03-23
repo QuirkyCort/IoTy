@@ -1,0 +1,9 @@
+{
+  "type": "bno055_i2c_lin_acc",
+  "message0": "#blk-bno055_i2c_lin_acc#",
+  "args0": [],
+  "output": "Array",
+  "colour": 230,
+  "tooltip": "#blk-bno055_i2c_lin_acc_tooltip#",
+  "helpUrl": ""
+}

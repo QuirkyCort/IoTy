@@ -1,0 +1,9 @@
+{
+  "type": "bno055_i2c_accel",
+  "message0": "#blk-bno055_i2c_accel#",
+  "args0": [],
+  "output": "Array",
+  "colour": 230,
+  "tooltip": "#blk-bno055_i2c_accel_tooltip#",
+  "helpUrl": ""
+}

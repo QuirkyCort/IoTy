@@ -1,0 +1,9 @@
+{
+  "type": "bno055_i2c_sensor_offsets",
+  "message0": "#blk-bno055_i2c_sensor_offsets#",
+  "args0": [],
+  "output": "Bytes",
+  "colour": 230,
+  "tooltip": "#blk-bno055_i2c_sensor_offsets_tooltip#",
+  "helpUrl": ""
+}

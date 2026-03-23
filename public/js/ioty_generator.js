@@ -85,6 +85,7 @@ var ioty_generator = new function() {
     Blockly.Python.addReservedWords('ags10');
     Blockly.Python.addReservedWords('mlx90640');
     Blockly.Python.addReservedWords('yahboom_4_channel_motor_drive');
+    Blockly.Python.addReservedWords('bno055');
 
     for (let generator in self.generators) {
       Blockly.Python.forBlock[generator] = self.generators[generator];
@@ -6256,8 +6257,9 @@ var ioty_generator = new function() {
       self.reservedVariables['yahboom_4cmd_i2c_init'] = ['yahboom_4cmd_i2c_device'];
 
       let id = block.getFieldValue('id');
+      let addr = block.getFieldValue('addr');
 
-      let code = 'yahboom_4cmd_i2c_device = yahboom_4_channel_motor_drive.I2CDriver(' + id + ')\n';
+      let code = 'yahboom_4cmd_i2c_device = yahboom_4_channel_motor_drive.I2CDriver(' + id + ', addr=' + addr + ')\n';
 
       return code;
     },
@@ -6362,6 +6364,108 @@ var ioty_generator = new function() {
         'yahboom_4cmd_i2c_device.get_steps_per_10ms(' + motor + ')';
 
       return [code, Blockly.Python.ORDER_ATOMIC];
+    },
+
+    'bno055_i2c_init': function(block) {
+      self.imports['bno055'] = 'import bno055';
+      self.reservedVariables['bno055_i2c_init'] = ['bno055_i2c_device'];
+
+      let id = block.getFieldValue('id');
+      let addr = block.getFieldValue('addr');
+      let transpose = block.getFieldValue('transpose');
+      let sign = block.getFieldValue('sign');
+
+      let code = 'bno055_i2c_device = bno055.BNO055(' + id + ', address=' + addr + ', transpose=(' + transpose + '), sign=(' + sign + '))\n';
+
+      return code;
+    },
+
+    'bno055_i2c_set_mode': function(block) {
+      let mode = block.getFieldValue('mode');
+
+      let code = 'bno055_i2c_device.mode(bno055.' + mode + ')\n';
+
+      return code;
+    },
+
+    'bno055_i2c_calibrated': function(block) {
+      let code = 'bno055_i2c_device.calibrated()';
+
+      return [code, Blockly.Python.ORDER_ATOMIC];
+    },
+
+    'bno055_i2c_cal_status': function(block) {
+      let code = 'bno055_i2c_device.cal_status()';
+
+      return [code, Blockly.Python.ORDER_ATOMIC];
+    },
+
+    'bno055_i2c_temperature': function(block) {
+      let code = 'bno055_i2c_device.temperature()';
+
+      return [code, Blockly.Python.ORDER_ATOMIC];
+    },
+
+    'bno055_i2c_mag': function(block) {
+      let code = 'bno055_i2c_device.mag()';
+
+      return [code, Blockly.Python.ORDER_ATOMIC];
+    },
+
+    'bno055_i2c_gyro': function(block) {
+      let code = 'bno055_i2c_device.gyro()';
+
+      return [code, Blockly.Python.ORDER_ATOMIC];
+    },
+
+    'bno055_i2c_accel': function(block) {
+      let code = 'bno055_i2c_device.accel()';
+
+      return [code, Blockly.Python.ORDER_ATOMIC];
+    },
+
+    'bno055_i2c_lin_acc': function(block) {
+      let code = 'bno055_i2c_device.lin_acc()';
+
+      return [code, Blockly.Python.ORDER_ATOMIC];
+    },
+
+    'bno055_i2c_gravity': function(block) {
+      let code = 'bno055_i2c_device.gravity()';
+
+      return [code, Blockly.Python.ORDER_ATOMIC];
+    },
+
+    'bno055_i2c_euler': function(block) {
+      let code = 'bno055_i2c_device.euler()';
+
+      return [code, Blockly.Python.ORDER_ATOMIC];
+    },
+
+    'bno055_i2c_quaternion': function(block) {
+      let code = 'bno055_i2c_device.quaternion()';
+
+      return [code, Blockly.Python.ORDER_ATOMIC];
+    },
+
+    'bno055_i2c_sensor_offsets': function(block) {
+      let code = 'bno055_i2c_device.sensor_offsets()';
+
+      return [code, Blockly.Python.ORDER_ATOMIC];
+    },
+
+    'bno055_i2c_set_offsets': function(block) {
+      let offsets = Blockly.Python.valueToCode(block, 'offsets', Blockly.Python.ORDER_NONE);
+
+      let code = 'bno055_i2c_device.set_offsets(' + offsets + ')\n';
+
+      return code;
+    },
+
+    'bno055_i2c_reset': function(block) {
+      let code = 'bno055_i2c_device.reset()\n';
+
+      return code;
     },
   };
 }

@@ -1,0 +1,9 @@
+{
+  "type": "bno055_i2c_euler",
+  "message0": "#blk-bno055_i2c_euler#",
+  "args0": [],
+  "output": "Array",
+  "colour": 230,
+  "tooltip": "#blk-bno055_i2c_euler_tooltip#",
+  "helpUrl": ""
+}

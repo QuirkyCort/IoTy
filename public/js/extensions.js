@@ -1020,6 +1020,28 @@ var extensions = new function() {
           'For UART mode, the baudrate must be initialized to 115200. ' +
         '</p>'
     },
+    {
+      id: 'bno055',
+      name: 'BNO055 IMU',
+      files: [
+        ['bno055.py', 'extensions/bno055.py?v=c6fe3ef1'],
+        ['bno055_base.py', 'extensions/bno055_base.py?v=97726715'],
+      ],
+      description:
+        '<p>' +
+          'The BNO055 is a 9-axis absolute orientation sensor that combines a 3-axis gyroscope, a 3-axis accelerometer, and a 3-axis magnetometer. ' +
+          'This device is capable of performing sensor fusion in hardware.' +
+        '</p>' +
+        '<p>' +
+          'Note that this device can work in UART, HID-I2C, and I2C mode, but this driver only supports I2C mode. ' +
+          'On many boards, there are two jumper pads that need to be soldered closed to enable I2C mode. ' +
+          'The address may be 40 or 41 depending on the state of COM3, it may also be 64 if set to HID-I2C mode. ' +
+        '</p>' +
+        '<p>' +
+          'Note also that the heading will be relative when the sensor is not calibrated, and absolute (to magnetic north) when calibrated. ' +
+          'This will produce a sudden jump in the heading value when calibration is achieved, and can cause significant issues if you are not prepared for it. ' +
+        '</p>'
+    },
   ]
 
   this.init = function() {

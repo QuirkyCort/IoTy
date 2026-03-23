@@ -1,0 +1,10 @@
+{
+  "type": "bno055_i2c_reset",
+  "message0": "#blk-bno055_i2c_reset#",
+  "args0": [],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-bno055_i2c_reset_tooltip#",
+  "helpUrl": ""
+}

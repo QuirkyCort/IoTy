@@ -1,0 +1,29 @@
+{
+  "type": "bno055_i2c_set_mode",
+  "message0": "#blk-bno055_i2c_set_mode# %1",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "mode",
+      "options": [
+        ["Accelerometer only", "ACCONLY_MODE"],
+        ["Magnetometer only", "MAGONLY_MODE"],
+        ["Gyroscope only", "GYROONLY_MODE"],
+        ["Accelerometer + Magnetometer", "ACC_MAG_MODE"],
+        ["Accelerometer + Gyroscope", "ACC_GYRO_MODE"],
+        ["Magnetometer + Gyroscope", "MAG_GYRO_MODE"],
+        ["Accelerometer + Magnetometer + Gyroscope", "AMG_MODE"],
+        ["Accelerometer + Gyroscope (Fusion, Relative)", "IMUPLUS_MODE"],
+        ["Accelerometer + Compass (Fusion, Absolute)", "COMPASS_MODE"],
+        ["Accelerometer + Compass (Fusion, Relative)", "M4G_MODE"],
+        ["All (Fusion, Absolute, No Fast Magnetometer Calibration)", "NDOF_FMC_OFF_MODE"],
+        ["All (Fusion, Absolute)", "NDOF_MODE"]
+      ]
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-bno055_i2c_set_mode_tooltip#",
+  "helpUrl": ""
+}

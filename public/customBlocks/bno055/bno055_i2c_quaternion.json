@@ -1,0 +1,9 @@
+{
+  "type": "bno055_i2c_quaternion",
+  "message0": "#blk-bno055_i2c_quaternion#",
+  "args0": [],
+  "output": "Array",
+  "colour": 230,
+  "tooltip": "#blk-bno055_i2c_quaternion_tooltip#",
+  "helpUrl": ""
+}

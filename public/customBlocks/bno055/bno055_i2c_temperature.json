@@ -1,0 +1,9 @@
+{
+  "type": "bno055_i2c_temperature",
+  "message0": "#blk-bno055_i2c_temperature#",
+  "args0": [],
+  "output": "Number",
+  "colour": 230,
+  "tooltip": "#blk-bno055_i2c_temperature_tooltip#",
+  "helpUrl": ""
+}

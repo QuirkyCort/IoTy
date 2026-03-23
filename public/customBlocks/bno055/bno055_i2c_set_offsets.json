@@ -1,0 +1,17 @@
+{
+  "type": "bno055_i2c_set_offsets",
+  "message0": "#blk-bno055_i2c_set_offsets# %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "offsets",
+      "check": "Bytes"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-bno055_i2c_set_offsets_tooltip#",
+  "helpUrl": ""
+}
