@@ -1260,12 +1260,20 @@ var main = new function() {
 
   // Display what's new if not seen before
   this.showWhatsNew = function(forceShow=false) {
-    let current = 20260313;
+    let current = 20260327;
     let lastShown = localStorage.getItem('whatsNew');
     if (lastShown == null || parseInt(lastShown) < current || forceShow) {
       let options = {
         title: 'What\'s New',
         message:
+        '<h3>27 Mar 2026 (New extensions)</h3>' +
+        '<p>' +
+          '<ul>' +
+            '<li>BNO055 (9-axis absolute orientation sensor)</li>' +
+            '<li>AS5600 (Magnetic Position Sensor)</li>' +
+            '<li>QMC5883P (Magnetic Sensor) (...often missold as QMC5883L or HMC5883L)</li>' +
+          '</ul>' +
+        '</p>' +
         '<h3>13 Mar 2026 (Blockly)</h3>' +
         '<p>' +
           'Blocks minimap was removed due to bugs in the plugin. ' +
@@ -1281,17 +1289,6 @@ var main = new function() {
         '</p>' +
         '<p>' +
           'Added an extension for the Yahboom 4 channel motor drive' +
-        '</p>' +
-        '<h3>2 Jun 2025 (New extensions)</h3>' +
-        '<p>' +
-          '<ul>' +
-            '<li>System (Access to deepsleep and watchdog in Blocks)</li>' +
-            '<li>COIN-D4 (LiDAR)</li>' +
-            '<li>Delta 2D (LiDAR)</li>' +
-            '<li>PMS7003 Particle Concentration Sensor (Air Quality)</li>' +
-            '<li>AGS10 Total Volatile Organic Compounds (Air Quality)</li>' +
-            '<li>MLX90640 (Thermal Camera)</li>' +
-          '</ul>' +
         '</p>'
       }
       acknowledgeDialog(options, function(){
