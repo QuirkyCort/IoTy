@@ -42,6 +42,7 @@ var ioty_generator = new function() {
     Blockly.Python.addReservedWords('ez_timer,ez_timer_timeout_fn');
     Blockly.Python.addReservedWords('mfrc522');
     Blockly.Python.addReservedWords('qmc5883l');
+    Blockly.Python.addReservedWords('qmc5883p');
     Blockly.Python.addReservedWords('hmc5883l');
     Blockly.Python.addReservedWords('bmp280');
     Blockly.Python.addReservedWords('max30102');
@@ -2835,6 +2836,34 @@ var ioty_generator = new function() {
       let axis = block.getFieldValue('axis');
 
       let code = 'qmc5883l_device.get_' + axis + '()';
+
+      return [code, Blockly.Python.ORDER_ATOMIC];
+    },
+
+    'qmc5883p_init': function(block) {
+      self.imports['qmc5883p'] = 'import qmc5883p';
+      self.reservedVariables['qmc5883p_init'] = ['qmc5883p_device'];
+
+      var id = block.getFieldValue('id');
+      let addr = block.getFieldValue('addr');
+      let scale = block.getFieldValue('scale');
+
+      let code =
+        'qmc5883p_device = qmc5883p.QMC5883P(' + id + ', addr=' + addr + ', scale=qmc5883p.SCALE_' + scale + ')\n';
+
+      return code;
+    },
+
+    'qmc5883p_read': function(block) {
+      let code = 'qmc5883p_device.read()\n';
+
+      return code;
+    },
+
+    'qmc5883p_value': function(block) {
+      let axis = block.getFieldValue('axis');
+
+      let code = 'qmc5883p_device.get_' + axis + '()';
 
       return [code, Blockly.Python.ORDER_ATOMIC];
     },

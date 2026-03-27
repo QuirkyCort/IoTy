@@ -1349,6 +1349,11 @@
     <block type="qmc5883l_read"></block>
     <block type="qmc5883l_value"></block>
   </category>
+  <category toolboxitemid="qmc5883p" name="QMC5883P" colour="#5b67a5" hidden="true">
+    <block type="qmc5883p_init"></block>
+    <block type="qmc5883p_read"></block>
+    <block type="qmc5883p_value"></block>
+  </category>
   <category toolboxitemid="hmc5883l" name="HMC5883L" colour="#5b67a5" hidden="true">
     <block type="hmc5883l_init">
       <field name="scale">1300G</field>

@@ -1,0 +1,20 @@
+{
+  "type": "qmc5883p_value",
+  "message0": "#blk-qmc5883p_value# %1",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "axis",
+      "options": [
+        ["X-axis", "x"],
+        ["Y-axis", "y"],
+        ["Z-axis", "z"],
+        ["All (List)", "all"]
+      ]
+    }
+  ],
+  "output": ["Number", "Array"],
+  "colour": 230,
+  "tooltip": "#blk-qmc5883p_value_tooltip#",
+  "helpUrl": ""
+}
