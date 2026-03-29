@@ -47,6 +47,8 @@ def main():
 
         try:
             mqtt = start_mqtt()
+            if mqtt == None:
+                return
             while True:
                 if mqtt:
                     mqtt.check_msg()
