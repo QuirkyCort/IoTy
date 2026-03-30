@@ -1,0 +1,27 @@
+{
+  "type": "neopixel_set_adv",
+  "message0": "#blk-neopixel_at_pin# %1 #blk-set_pixel# %2 #blk-to_color# %3",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "pin",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "pixel",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "color",
+      "check": "Array"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "",
+  "helpUrl": ""
+}

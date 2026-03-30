@@ -1,0 +1,17 @@
+{
+  "type": "neopixel_write_adv",
+  "message0": "#blk-write_neopixel# %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "pin",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "",
+  "helpUrl": ""
+}

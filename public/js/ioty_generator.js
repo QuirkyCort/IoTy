@@ -901,6 +901,18 @@ var ioty_generator = new function() {
       return code;
     },
 
+    'neopixel_init_adv': function(block) {
+      self.imports['ioty_neopixel'] = 'import ioty_neopixel';
+
+      var pin = Blockly.Python.valueToCode(block, 'pin', Blockly.Python.ORDER_ATOMIC);
+      var pixels = Blockly.Python.valueToCode(block, 'pixels', Blockly.Python.ORDER_ATOMIC);
+      var format = block.getFieldValue('format');
+
+      var code = 'ioty_neopixel.init(' + pin + ', ' + pixels + ', format=' + format + ')\n';
+
+      return code;
+    },
+
     'neopixel_color': function(block) {
       var color = block.getFieldValue('color');
 
@@ -954,6 +966,18 @@ var ioty_generator = new function() {
       return code;
     },
 
+    'neopixel_set_adv': function(block) {
+      self.imports['ioty_neopixel'] = 'import ioty_neopixel';
+
+      var pin = Blockly.Python.valueToCode(block, 'pin', Blockly.Python.ORDER_ATOMIC);
+      var pixel = Blockly.Python.valueToCode(block, 'pixel', Blockly.Python.ORDER_NONE);
+      var color = Blockly.Python.valueToCode(block, 'color', Blockly.Python.ORDER_NONE);
+
+      var code = 'ioty_neopixel.set(' + pin + ', ' + pixel + ', ' + color + ')\n';
+
+      return code;
+    },
+
     'neopixel_fill': function(block) {
       self.imports['ioty_neopixel'] = 'import ioty_neopixel';
 
@@ -965,10 +989,31 @@ var ioty_generator = new function() {
       return code;
     },
 
+    'neopixel_fill_adv': function(block) {
+      self.imports['ioty_neopixel'] = 'import ioty_neopixel';
+
+      var pin = Blockly.Python.valueToCode(block, 'pin', Blockly.Python.ORDER_ATOMIC);
+      var color = Blockly.Python.valueToCode(block, 'color', Blockly.Python.ORDER_NONE);
+
+      var code = 'ioty_neopixel.fill(' + pin + ', ' + color + ')\n';
+
+      return code;
+    },
+
     'neopixel_write': function(block) {
       self.imports['ioty_neopixel'] = 'import ioty_neopixel';
 
       var pin = block.getFieldValue('pin');
+
+      var code = 'ioty_neopixel.write(' + pin + ')\n';
+
+      return code;
+    },
+
+    'neopixel_write_adv': function(block) {
+      self.imports['ioty_neopixel'] = 'import ioty_neopixel';
+
+      var pin = Blockly.Python.valueToCode(block, 'pin', Blockly.Python.ORDER_ATOMIC);
 
       var code = 'ioty_neopixel.write(' + pin + ')\n';
 

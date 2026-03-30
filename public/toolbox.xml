@@ -875,6 +875,50 @@
         </shadow>
       </value>
     </block>
+    <block type="neopixel_init_adv">
+      <value name="pin">
+        <shadow type="math_number">
+          <field name="NUM">48</field>
+        </shadow>
+      </value>
+      <value name="pixels">
+        <shadow type="math_number">
+          <field name="NUM">6</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="neopixel_set_adv">
+      <value name="pin">
+        <shadow type="math_number">
+          <field name="NUM">48</field>
+        </shadow>
+      </value>
+      <value name="pixel">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="color">
+        <shadow type="neopixel_color"></shadow>
+      </value>
+    </block>
+    <block type="neopixel_fill_adv">
+      <value name="pin">
+        <shadow type="math_number">
+          <field name="NUM">48</field>
+        </shadow>
+      </value>
+      <value name="color">
+        <shadow type="neopixel_color"></shadow>
+      </value>
+    </block>
+    <block type="neopixel_write_adv">
+      <value name="pin">
+        <shadow type="math_number">
+          <field name="NUM">48</field>
+        </shadow>
+      </value>
+    </block>
   </category>
   <category toolboxitemid="mpu6050" name="MPU-6050" colour="#5b67a5" hidden="true">
     <block type="mpu6050_init"></block>

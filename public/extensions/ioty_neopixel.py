@@ -1,7 +1,7 @@
 from machine import Pin
 from neopixel import NeoPixel
 
-_pins = [None] * 39
+_pins = {}
 
 def init(pin, pixels, format=3):
     _pins[pin] = NeoPixel(Pin(pin, Pin.OUT), pixels, bpp=format)

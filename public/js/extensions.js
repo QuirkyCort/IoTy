@@ -66,7 +66,7 @@ var extensions = new function() {
       id: 'ioty_neopixel',
       name: 'Neopixel (WS2812 LEDs)',
       files: [
-        ['ioty_neopixel.py', 'extensions/ioty_neopixel.py?v=d1501cc5'],
+        ['ioty_neopixel.py', 'extensions/ioty_neopixel.py?v=0a803691'],
       ],
       description:
         '<p>' +

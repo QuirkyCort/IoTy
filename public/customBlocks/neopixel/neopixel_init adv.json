@@ -1,0 +1,36 @@
+{
+  "type": "neopixel_init_adv",
+  "message0": "#blk-neopixel_init# %1 #blk-with# %2 #blk-led_as# %3",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "pin",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "pixels",
+      "check": "Number"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "format",
+      "options": [
+        [
+          "RGB",
+          "3"
+        ],
+        [
+          "RGB+W",
+          "4"
+        ]
+      ]
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-neopixel_init_adv_tooltip#",
+  "helpUrl": ""
+}
