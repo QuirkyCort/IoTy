@@ -4,14 +4,26 @@ from time import sleep_ms
 import ioty.constants as constants
 
 def main():
-    led = Pin(constants._LED_PIN, Pin.OUT)
+    if type(constants._LED_ON) == int:
+        led = Pin(constants._LED_PIN, Pin.OUT)
+    elif constants._LED_ON == 'n':
+        import neopixel
+        led = neopixel.NeoPixel(Pin(constants._LED_PIN), 1)
     btn = Pin(constants._BOOT_PIN, Pin.IN, Pin.PULL_UP)
 
     def led_on():
-        led.value(constants._LED_ON)
+        if type(constants._LED_ON) == int:
+            led.value(constants._LED_ON)
+        elif constants._LED_ON == 'n':
+            led.fill((0, 0, 50))
+            led.write()
 
     def led_off():
-        led.value(1 - constants._LED_ON)
+        if type(constants._LED_ON) == int:
+            led.value(1 - constants._LED_ON)
+        elif constants._LED_ON == 'n':
+            led.fill((0, 0, 0))
+            led.write()
 
     def blink(ms,count=1):
         for _ in range(count):
@@ -38,13 +50,14 @@ def main():
         led_on()
         return mqtt
 
-    def start_mqtt_ble_mode():
+    def start_ble_mode():
         try:
             from ioty.ble import BLE_Service
             BLE_Service()
         except:
             pass
 
+    def start_mqtt_mode():
         try:
             mqtt = start_mqtt()
             if mqtt == None:
@@ -84,7 +97,8 @@ def main():
                 break
 
         if ble_mode:
-            start_mqtt_ble_mode()
+            start_ble_mode()
+            start_mqtt_mode()
         else:
             start_ap_mode()
 
@@ -93,6 +107,6 @@ def main():
             os.stat('main.py')
         except:
             led_on()
-            start_mqtt_ble_mode()
+            start_ble_mode()
 
 main()

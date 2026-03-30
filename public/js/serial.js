@@ -35,6 +35,10 @@ var serial = new function() {
       usbProductId: 21971,
       usbVendorId: 6790
     },
+    { // ESP32-S3
+      usbProductId: 16385,
+      usbVendorId: 12346
+    },
   ];
 
   this.writeEnable = false;
