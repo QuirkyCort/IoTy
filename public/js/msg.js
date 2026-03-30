@@ -348,6 +348,9 @@ let MSGS = {
   '#blk-neopixel_init#': {
     en: 'Initialize Neopixel at pin',
   },
+  '#blk-neopixel_init_adv_tooltip#': {
+    en: 'Works the same as the other init block, but supports any pins; useful for boards with different pins than the ESP32.',
+  },
   '#blk-with#': {
     en: 'with',
   },
