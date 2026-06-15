@@ -99,7 +99,9 @@ class HTTPD:
         self.send_bytes(response_data.encode(), status)
 
     def send_bytes(self, response_data, status='200 OK'):
-        header = b'HTTP/1.0 ' + status.encode() + b'\r\n\r\n'
+        header = b'HTTP/1.0 ' + status.encode() + b'\r\n'
+        header += b'Content-Length:' + str(len(response_data)).encode() + b'\r\n'
+        header += b'\r\n'
         try:
             self.client_connection.sendall(header)
             self.client_connection.sendall(response_data)
