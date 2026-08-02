@@ -50,6 +50,11 @@ var serial = new function() {
   };
 
   this.connectDialog = function() {
+    if (self.port != null) {
+      toastMsg('Already connected to device');
+      return;
+    }
+
     let $body = $(
       '<p>' +
         '"Filtered Connect" can help hide the non-ESP32 devices, but some valid ESP32 devices may not appear.' +
