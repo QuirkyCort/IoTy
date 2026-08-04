@@ -1,10 +1,10 @@
 import io
+import os
+from time import sleep_ms
+import machine
 
 try:
     from ioty.ble import BLE_Service
-    import os
-    from time import sleep_ms
-    import machine
 except:
     pass
 
