@@ -1,0 +1,11 @@
+{
+  "type": "serial_mqtt_init",
+  "message0": "#blk-serial_mqtt_init#",
+  "args0": [],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 65,
+  "tooltip": "#blk-serial_mqtt_init_tooltip#",
+  "helpUrl": ""
+}

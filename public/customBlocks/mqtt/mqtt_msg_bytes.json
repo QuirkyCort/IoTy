@@ -1,0 +1,9 @@
+{
+  "type": "mqtt_msg_bytes",
+  "message0": "mqtt_msg_bytes",
+  "args0": [],
+  "output": "String",
+  "colour": 330,
+  "tooltip": "#blk-mqtt_msg_bytes_tooltip#",
+  "helpUrl": ""
+}

@@ -609,6 +609,7 @@
     <block type="mqtt_connect_to_server"></block>
     <block type="mqtt_on_receive"></block>
     <block type="mqtt_msg"></block>
+    <block type="mqtt_msg_bytes"></block>
     <block type="mqtt_publish">
       <value name="value">
         <shadow type="text">
@@ -3330,5 +3331,21 @@
     <block type="as5600_agc"></block>
     <block type="as5600_magnitude"></block>
   </category>
+  <category toolboxitemid="serial_mqtt" name="Serial MQTT" colour="#9fa55b">
+    <block type="serial_mqtt_init"></block>
+    <block type="serial_mqtt_on_receive"></block>
+    <block type="serial_mqtt_msg"></block>
+    <block type="serial_mqtt_msg_bytes"></block>
+    <block type="serial_mqtt_publish">
+      <value name="value">
+        <shadow type="text">
+          <field name="TEXT">hello</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="serial_mqtt_publish_bytes"></block>
+    <block type="serial_mqtt_check_msg"></block>
+  </category>
+
   <search name='Search'></search>
 </xml>

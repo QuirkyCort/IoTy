@@ -483,6 +483,9 @@ let MSGS = {
   '#blk-mqtt_msg_tooltip#': {
     en: 'This variable will contain the received message in string format. This block can only be used in a \\"MQTT: On receive message for topic\\" block.',
   },
+  '#blk-mqtt_msg_bytes_tooltip#': {
+    en: 'This variable will contain the received message in bytes format. This block can only be used in a \\"MQTT: On receive message for topic\\" block.',
+  },
   '#blk-mqtt_publish#': {
     en: 'MQTT: Publish to topic',
   },
@@ -4342,7 +4345,45 @@ let MSGS = {
   '#blk-as5600_magnitude_tooltip#': {
     en: 'Returns the magnitude of the magnetic field',
   },
-
+  '#blk-serial_mqtt_init#': {
+    en: 'Init Serial MQTT',
+  },
+  '#blk-serial_mqtt_init_tooltip#': {
+    en: 'Initializes the Serial MQTT connection.',
+  },
+  '#blk-serial_mqtt_check_msg#': {
+    en: 'Serial MQTT: Check for message',
+  },
+  '#blk-serial_mqtt_check_msg_tooltip#': {
+    en: 'Checks for messages. You must run this frequently. The \\"Serial MQTT: On receive message for topic\\" block will not run if you do not run this.',
+  },
+  '#blk-serial_mqtt_on_receive#': {
+    en: 'Serial MQTT: On receive message for topic',
+  },
+  '#blk-serial_mqtt_on_receive_tooltip#': {
+    en: 'This function will run when a new message is found when running \\"Serial MQTT: Check for message\\".',
+  },
+  '#blk-with_serial_mqtt_msg#': {
+    en: 'with: serial_mqtt_msg',
+  },
+  '#blk-serial_mqtt_msg_tooltip#': {
+    en: 'This variable will contain the received message in string format. This block can only be used in a \\"Serial MQTT: On receive message for topic\\" block.',
+  },
+  '#blk-serial_mqtt_msg_bytes_tooltip#': {
+    en: 'This variable will contain the received message in bytes format. This block can only be used in a \\"Serial MQTT: On receive message for topic\\" block.',
+  },
+  '#blk-serial_mqtt_publish#': {
+    en: 'Serial MQTT: Publish to topic',
+  },
+  '#blk-serial_mqtt_publish_tooltip#': {
+    en: 'Encodes the specified string in UTF-8 format and publish it to the specified topic.',
+  },
+  '#blk-serial_mqtt_publish_bytes#': {
+    en: 'Serial MQTT: Publish bytes to topic',
+  },
+  '#blk-serial_mqtt_publish_bytes_tooltip#': {
+    en: 'Publish the bytes object to the specified topic.',
+  },
 };
 let MSGS_KEYS = Object.keys(MSGS);
 

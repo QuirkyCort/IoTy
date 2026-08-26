@@ -377,6 +377,9 @@ var extensions = new function() {
         '<p>' +
           'This extension allows you to log data to an internal circular buffer, and send it out via MQTT when it receives a request for it. ' +
           'It should be used together with the "Chart" widget in the MQTT App Builder.' +
+        '</p>' +
+        '<p>' +
+          'This extension only works with the normal network MQTT, and not the Serial MQTT library. ' +
         '</p>'
     },
     {
@@ -1068,6 +1071,22 @@ var extensions = new function() {
         '<p>' +
           'The AS5600 is a high-precision magnetic position sensor that provides accurate angular position information. ' +
           'It is commonly used with a magnet attached to the shaft of a wheel or robot arm, allowing it to detect the absolute position of the shaft.' +
+        '</p>'
+    },
+    {
+      id: 'serial_mqtt',
+      name: 'Serial MQTT',
+      files: [
+        ['serial_mqtt.py', 'extensions/serial_mqtt.py?v=7ff46087'],
+      ],
+      description:
+        '<p>' +
+          'This library allows passing of MQTT messages between the IoTy MQTT App Builder and your microcontroller via a serial connection (USB or Bluetooth). ' +
+          'This can be useful in situations where a network connection is unavailable or when lower latencies are desired.' +
+        '</p>' +
+        '<p>' +
+          'For Bluetooth connection to work, the "When Started" block must enable Bluetooth. ' +
+          'If using Python, you\'ll need to "import ioty.monitor". ' +
         '</p>'
     },
   ]

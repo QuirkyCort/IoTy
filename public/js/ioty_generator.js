@@ -3,12 +3,14 @@ var ioty_generator = new function() {
 
   this.MQTT_CALLBACK_PLACEHOLDER = '# MQTT Callback Placeholder; you should not see this! #\n';
   this.MQTT_SUBSCRIPTION_PLACEHOLDER = '# MQTT Subscription Placeholder; you should not see this! #\n';
+  this.SERIAL_MQTT_SUBSCRIPTION_PLACEHOLDER = '# Serial MQTT Subscription Placeholder; you should not see this! #\n';
   this.EZ_TIMER_CALLBACK_PLACEHOLDER = '# EZ Timer Callback Placeholder; you should not see this! #\n';
   this.RESERVED_VARIABLES_PLACEHOLDER = '# Reserved Variables Placeholder; you should not see this! #\n';
 
   this.imports = {};
   this.iotyImports = {};
   this.mqttSubscriptions = {};
+  this.serialMqttSubscriptions = {};
   this.ezTimerCb = [];
   this.reservedVariables = {};
   this.startType = 'RUN';
@@ -88,6 +90,7 @@ var ioty_generator = new function() {
     Blockly.Python.addReservedWords('yahboom_4_channel_motor_drive');
     Blockly.Python.addReservedWords('bno055');
     Blockly.Python.addReservedWords('as5600');
+    Blockly.Python.addReservedWords('serial_mqtt,serial_mqtt_msg');
 
     for (let generator in self.generators) {
       Blockly.Python.forBlock[generator] = self.generators[generator];
@@ -99,6 +102,7 @@ var ioty_generator = new function() {
     self.imports = {};
     self.iotyImports = {};
     self.mqttSubscriptions = {};
+    self.serialMqttSubscriptions = {};
     self.ezTimerCb = [];
     self.reservedVariables = {};
     self.startType = 'RUN';
@@ -107,6 +111,7 @@ var ioty_generator = new function() {
 
     workspaceCode = self._mqttCBSubstitution(workspaceCode);
     workspaceCode = self._mqttSubscriptionSubstitution(workspaceCode);
+    workspaceCode = self._serialMqttSubscriptionSubstitution(workspaceCode);
     workspaceCode = self._ezTimerCBSubstitution(workspaceCode);
     workspaceCode = self._reservedVariablesSubstitution(workspaceCode);
 
@@ -219,6 +224,26 @@ var ioty_generator = new function() {
       let replacementCode = '';
       for (let topic in self.mqttSubscriptions) {
         replacementCode += prefixSpaces + 'ioty_mqtt.subscribe(b\'' + topic + '\')\n';
+      }
+
+      code = code.replace(placeholderRegex, replacementCode);
+    }
+
+    return code;
+  }
+
+  this._serialMqttSubscriptionSubstitution = function(code) {
+    let placeholderRegexStr = '([^\S\r\n]*)' + self.SERIAL_MQTT_SUBSCRIPTION_PLACEHOLDER;
+    let placeholderRegexG = new RegExp(placeholderRegexStr, 'g');
+    let placeholderRegex = new RegExp(placeholderRegexStr);
+
+    let matches = code.matchAll(placeholderRegexG);
+    for (let _ of matches) {
+      let prefixSpaces = code.match(placeholderRegex)[1];
+
+      let replacementCode = '';
+      for (let topic in self.serialMqttSubscriptions) {
+        replacementCode += prefixSpaces + 'serial_mqtt_client.subscribe(\'' + topic + '\', ' + self.serialMqttSubscriptions[topic] + ')\n';
       }
 
       code = code.replace(placeholderRegex, replacementCode);
@@ -1238,7 +1263,7 @@ var ioty_generator = new function() {
 
       let functionName = 'ioty_mqtt_cb_' + topic.replaceAll(/\W*/g, '');
 
-      self.mqttSubscriptions[topic] = functionName + '(msg.decode())\n';
+      self.mqttSubscriptions[topic] = functionName + '(msg)\n';
 
       var code =
         '\n# MQTT callback for topic ' + topic + '\n' +
@@ -1254,6 +1279,12 @@ var ioty_generator = new function() {
     },
 
     'mqtt_msg': function(block) {
+      code = 'mqtt_msg.decode()';
+
+      return [code, Blockly.Python.ORDER_ATOMIC];
+    },
+
+    'mqtt_msg_bytes': function(block) {
       code = 'mqtt_msg';
 
       return [code, Blockly.Python.ORDER_ATOMIC];
@@ -6598,6 +6629,103 @@ var ioty_generator = new function() {
       let code = 'as5600_device.magnitude()';
 
       return [code, Blockly.Python.ORDER_ATOMIC];
+    },
+
+    'serial_mqtt_init': function(block) {
+      self.imports['serial_mqtt'] = 'import serial_mqtt';
+      self.imports['binascii'] = 'import binascii';
+      self.reservedVariables['mqtt_connect_to_server'] = ['serial_mqtt_client'];
+
+      var code =
+        'serial_mqtt_client = serial_mqtt.MQTTClient()\n' +
+        self.SERIAL_MQTT_SUBSCRIPTION_PLACEHOLDER;
+
+        return code;
+    },
+
+    'serial_mqtt_check_msg': function(block) {
+      var code = 'serial_mqtt_client.check_msg()\n';
+
+      return code;
+    },
+
+    'serial_mqtt_on_receive': function(block) {
+      // First, add a 'global' statement for every variable that is not shadowed by
+      // a local parameter.
+      const globals = [];
+      const workspace = blockly.workspace;
+      const usedVariables = Blockly.Variables.allUsedVarModels(workspace) || [];
+      for (let i = 0, variable; (variable = usedVariables[i]); i++) {
+        const varName = variable.name;
+        if (block.getVars().indexOf(varName) === -1) {
+          globals.push(Blockly.Python.nameDB_.getName(varName, Blockly.Names.NameType.VARIABLE));
+        }
+      }
+      // Add developer variables.
+      const devVarList = Blockly.Variables.allDeveloperVariables(workspace);
+      for (let i = 0; i < devVarList.length; i++) {
+        globals.push(
+            Blockly.Python.nameDB_.getName(devVarList[i], Blockly.Names.NameType.DEVELOPER_VARIABLE));
+      }
+      const globalString = globals.length ?
+        Blockly.Python.INDENT + 'global ' + globals.join(', ') + '\n' :
+        '';
+
+      // Usual stuff
+      var topic = block.getFieldValue('topic');
+      var statements = Blockly.Python.statementToCode(block, 'statements');
+
+      topic = escapeSingleQuotes(topic);
+
+      let functionName = 'ioty_mqtt_cb_' + topic.replaceAll(/\W*/g, '');
+
+      self.serialMqttSubscriptions[topic] = functionName;
+
+      var code =
+        '\n# MQTT callback for topic ' + topic + '\n' +
+        'def ' + functionName + '(serial_mqtt_msg):\n'
+        + globalString
+        + self.RESERVED_VARIABLES_PLACEHOLDER;
+
+      code += statements ? statements : '    pass\n';
+
+      Blockly.Python.definitions_[functionName] = code;
+
+      return null;
+    },
+
+    'serial_mqtt_msg': function(block) {
+      code = 'serial_mqtt_msg.decode()';
+
+      return [code, Blockly.Python.ORDER_ATOMIC];
+    },
+
+    'serial_mqtt_msg_bytes': function(block) {
+      code = 'serial_mqtt_msg';
+
+      return [code, Blockly.Python.ORDER_ATOMIC];
+    },
+
+    'serial_mqtt_publish': function(block) {
+      var topic = block.getFieldValue('topic');
+      var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_NONE);
+
+      topic = escapeSingleQuotes(topic);
+
+      var code = 'serial_mqtt_client.publish(\'' + topic + '\', bytes(' + value + ', \'utf-8\'))\n'
+
+      return code;
+    },
+
+    'serial_mqtt_publish_bytes': function(block) {
+      var topic = block.getFieldValue('topic');
+      var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_NONE);
+
+      topic = escapeSingleQuotes(topic);
+
+      var code = 'serial_mqtt_client.publish(\'' + topic + '\', ' + value + ')\n'
+
+      return code;
     },
   };
 }

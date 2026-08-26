@@ -1,0 +1,9 @@
+{
+  "type": "serial_mqtt_msg",
+  "message0": "serial_mqtt_msg",
+  "args0": [],
+  "output": "String",
+  "colour": 330,
+  "tooltip": "#blk-serial_mqtt_msg_tooltip#",
+  "helpUrl": ""
+}
