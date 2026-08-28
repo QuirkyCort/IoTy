@@ -759,6 +759,7 @@
       <field name="mosi">13</field>
       <field name="miso">12</field>
     </block>
+    <block type="spi_init_any"></block>
     <block type="spi_write">
       <value name="value">
         <shadow type="math_number">
@@ -772,6 +773,7 @@
     <block type="uart_init">
       <field name="rx">5</field>
     </block>
+    <block type="uart_init_any"></block>
     <block type="uart_any"></block>
     <block type="uart_read">
       <value name="size">
@@ -3331,7 +3333,7 @@
     <block type="as5600_agc"></block>
     <block type="as5600_magnitude"></block>
   </category>
-  <category toolboxitemid="serial_mqtt" name="Serial MQTT" colour="#9fa55b">
+  <category toolboxitemid="serial_mqtt" name="Serial MQTT" colour="#9fa55b" hidden="true">
     <block type="serial_mqtt_init"></block>
     <block type="serial_mqtt_on_receive"></block>
     <block type="serial_mqtt_msg"></block>

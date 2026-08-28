@@ -508,7 +508,7 @@ let MSGS = {
     en: 'Initialize I2C device 1 or 2 using their default pins. If you need Soft I2C or different pins, use the other \\"init I2C\\" block',
   },
   '#blk-i2c_init_with_pins_tooltip#': {
-    en: 'A more advanced version of init i2c that allows setting of SCL and SDA pins',
+    en: 'An advanced version of init i2c that allows setting of SCL and SDA pins. Use with caution, as some pins may not work properly or may conflict with other peripherals.',
   },
   '#blk-on_pins#': {
     en: 'on pins',
@@ -1573,6 +1573,9 @@ let MSGS = {
   '#blk-uart_init_tooltip#': {
     en: 'Initialize the hardware UART device with the specified baudrate and pins.',
   },
+  '#blk-uart_init_any_tooltip#': {
+    en: 'An advanced version of init uart that allows setting any pins as tx and rx. Use with caution, as some pins may not work properly or may conflict with other peripherals.',
+  },
   '#blk-at_baudrate#': {
     en: 'at baudrate',
   },
@@ -1761,6 +1764,9 @@ let MSGS = {
   },
   '#blk-spi_init_tooltip#': {
     en: 'Initialize the hardware SPI device with the specified baudrate and pins.',
+  },
+  '#blk-spi_init_any_tooltip#': {
+    en: 'An advanced version of init spi that allows setting any pins as sck, mosi, and miso. Use with caution, as some pins may not work properly or may conflict with other peripherals.',
   },
   '#blk-spi_write_tooltip#': {
     en: 'Write the specified value to the SPI device.',

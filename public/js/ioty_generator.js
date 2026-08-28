@@ -2530,6 +2530,10 @@ var ioty_generator = new function() {
       return code;
     },
 
+    'uart_init_any': function(block) {
+      return self.generators['uart_init'](block);
+    },
+
     'uart_any': function(block) {
       var id = block.getFieldValue('id');
 
@@ -2824,6 +2828,10 @@ var ioty_generator = new function() {
         id + ' = machine.' + cmd + '(' + channel + 'baudrate=' + baudrate + ', sck=Pin(' + sck + '), mosi=Pin(' + mosi + '), miso=Pin(' + miso + '))\n';
 
       return code;
+    },
+
+    'spi_init_any': function(block) {
+      return self.generators['spi_init'](block);
     },
 
     'spi_read': function(block) {
