@@ -1,0 +1,9 @@
+{
+  "type": "ewm550_get_role",
+  "message0": "#blk-ewm550_get_role#",
+  "args0": [],
+  "output": "Number",
+  "colour": 230,
+  "tooltip": "#blk-ewm550_get_role_tooltip#",
+  "helpUrl": ""
+}

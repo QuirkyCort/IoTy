@@ -6735,6 +6735,140 @@ var ioty_generator = new function() {
 
       return code;
     },
+
+    'ewm550_init': function(block) {
+      self.imports['ewm550'] = 'import ewm550';
+      self.reservedVariables['ewm550_init'] = ['ewm550_device'];
+
+      let uart = block.getFieldValue('uart');
+
+      let code = 'ewm550_device = ewm550.EWM550(uart' + uart + ')\n';
+
+      return code;
+    },
+
+    'ewm550_update': function(block) {
+      let code = 'ewm550_device.update()\n';
+
+      return code;
+    },
+
+    'ewm550_update_return': function(block) {
+      let code = 'ewm550_device.update()';
+
+      return [code, Blockly.Python.ORDER_ATOMIC];
+    },
+
+    'ewm550_get_distances': function(block) {
+      let code = 'ewm550_device.get_distances()';
+
+      return [code, Blockly.Python.ORDER_ATOMIC];
+    },
+
+    'ewm550_write_settings': function(block) {
+      let code = 'ewm550_device.write_settings()\n';
+
+      return code;
+    },
+
+    'ewm550_get_role': function(block) {
+      let code = 'ewm550_device.get_role()';
+
+      return [code, Blockly.Python.ORDER_ATOMIC];
+    },
+
+    'ewm550_set_role': function(block) {
+      let role = block.getFieldValue('role');
+
+      let code = 'ewm550_device.set_role(' + role + ')\n';
+
+      return code;
+    },
+
+    'ewm550_get_channel': function(block) {
+      let code = 'ewm550_device.get_channel()';
+
+      return [code, Blockly.Python.ORDER_ATOMIC];
+    },
+
+    'ewm550_set_channel': function(block) {
+      let channel = block.getFieldValue('channel');
+
+      let code = 'ewm550_device.set_channel(' + channel + ')\n';
+
+      return code;
+    },
+
+    'ewm550_get_power': function(block) {
+      let code = 'ewm550_device.get_power()';
+
+      return [code, Blockly.Python.ORDER_ATOMIC];
+    },
+
+    'ewm550_set_power': function(block) {
+      let power = block.getFieldValue('power');
+
+      let code = 'ewm550_device.set_power(' + power + ')\n';
+
+      return code;
+    },
+
+    'ewm550_get_responder_num': function(block) {
+      let code = 'ewm550_device.get_responder_num()';
+
+      return [code, Blockly.Python.ORDER_ATOMIC];
+    },
+
+    'ewm550_set_responder_num': function(block) {
+      let responder_num = block.getFieldValue('responder_num');
+
+      let code = 'ewm550_device.set_responder_num(' + responder_num + ')\n';
+
+      return code;
+    },
+
+    'ewm550_get_srcaddr': function(block) {
+      let code = 'ewm550_device.get_srcaddr()';
+
+      return [code, Blockly.Python.ORDER_ATOMIC];
+    },
+
+    'ewm550_set_srcaddr': function(block) {
+      let srcaddr = Blockly.Python.valueToCode(block, 'srcaddr', Blockly.Python.ORDER_NONE);
+
+      let code = 'ewm550_device.set_srcaddr(' + srcaddr + ')\n';
+
+      return code;
+    },
+
+    'ewm550_get_dstaddr': function(block) {
+      let code = 'ewm550_device.get_dstaddr()';
+
+      return [code, Blockly.Python.ORDER_ATOMIC];
+    },
+
+    'ewm550_set_dstaddr': function(block) {
+      let dstaddr = Blockly.Python.valueToCode(block, 'dstaddr', Blockly.Python.ORDER_NONE);
+
+      let code = 'ewm550_device.set_dstaddr(' + dstaddr + ')\n';
+
+      return code;
+    },
+
+    'ewm550_get_interval': function(block) {
+      let code = 'ewm550_device.get_interval()';
+
+      return [code, Blockly.Python.ORDER_ATOMIC];
+    },
+
+    'ewm550_set_interval': function(block) {
+      let interval = Blockly.Python.valueToCode(block, 'interval', Blockly.Python.ORDER_NONE);
+
+      let code = 'ewm550_device.set_interval(' + interval + ')\n';
+
+      return code;
+    },
+
   };
 }
 

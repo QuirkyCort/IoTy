@@ -4390,6 +4390,120 @@ let MSGS = {
   '#blk-serial_mqtt_publish_bytes_tooltip#': {
     en: 'Publish the bytes object to the specified topic.',
   },
+  '#blk-ewm550_init#': {
+    en: 'Init EWM550 on',
+  },
+  '#blk-ewm550_init_tooltip#': {
+    en: 'You must have an \\"init UART\\" block with the appropriate pins and baudrate set before this.'
+  },
+  '#blk-ewm550_update#': {
+    en: 'ewm550: update',
+  },
+  '#blk-ewm550_update_tooltip#': {
+    en: 'Run this frequently to read data from the sensor. The readings will not change if you do not run this.',
+  },
+  '#blk-ewm550_update_return#': {
+    en: 'ewm550: update',
+  },
+  '#blk-ewm550_update_return_tooltip#': {
+    en: 'Works like the above update, but returns True when new data is available.',
+  },
+  '#blk-ewm550_get_distances#': {
+    en: 'ewm550: get distances',
+  },
+  '#blk-ewm550_get_distances_tooltip#': {
+    en: 'Returns a dict. The key is the sensor address, and the value is a list containing the distance (cm), SNR (db), and timestamp (ms).',
+  },
+  '#blk-ewm550_get_role#': {
+    en: 'ewm550: get role',
+  },
+  '#blk-ewm550_get_role_tooltip#': {
+    en: 'Returns the role of the sensor. 0 (Tag), 1 (Base Station), or 2 (Transmode).',
+  },
+  '#blk-ewm550_set_role#': {
+    en: 'ewm550: set role to',
+  },
+  '#blk-ewm550_set_role_tooltip#': {
+    en: 'Sets the role of the sensor. 0 (Tag), 1 (Base Station), or 2 (Transmode). You must perform a \\"write settings\\" after this to effect the change.',
+  },
+  '#blk-ewm550_get_channel#': {
+    en: 'ewm550: get channel',
+  },
+  '#blk-ewm550_get_channel_tooltip#': {
+    en: 'Returns the channel of the sensor. 5 or 9.',
+  },
+  '#blk-ewm550_set_channel#': {
+    en: 'ewm550: set channel to',
+  },
+  '#blk-ewm550_set_channel_tooltip#': {
+    en: 'Sets the channel of the sensor. 5 or 9. You must perform a \\"write settings\\" after this to effect the change.',
+  },
+  '#blk-ewm550_get_power#': {
+    en: 'ewm550: get power',
+  },
+  '#blk-ewm550_get_power_tooltip#': {
+    en: 'Returns the power of the sensor. 0 to 3 (integer).',
+  },
+  '#blk-ewm550_set_power#': {
+    en: 'ewm550: set power to',
+  },
+  '#blk-ewm550_set_power_tooltip#': {
+    en: 'Sets the power of the sensor. 0 to 3 (integer). You must perform a \\"write settings\\" after this to effect the change.',
+  },
+  '#blk-ewm550_get_responder_num#': {
+    en: 'ewm550: get number of responders',
+  },
+  '#blk-ewm550_get_responder_num_tooltip#': {
+    en: 'Get the number of configured responders. This is only valid when the sensor is in Base Station mode.',
+  },
+  '#blk-ewm550_set_responder_num#': {
+    en: 'ewm550: set number of responders to',
+  },
+  '#blk-ewm550_set_responder_num_tooltip#': {
+    en: 'Set the number of configured responders (max 5). This is only valid when the sensor is in Base Station mode. You must perform a \\"write settings\\" after this to effect the change.',
+  },
+  '#blk-ewm550_get_srcaddr#': {
+    en: 'ewm550: get source address',
+  },
+  '#blk-ewm550_get_srcaddr_tooltip#': {
+    en: 'Get the source address of the sensor. This is a 4 characters hex string.',
+  },
+  '#blk-ewm550_set_srcaddr#': {
+    en: 'ewm550: set source address to',
+  },
+  '#blk-ewm550_set_srcaddr_tooltip#': {
+    en: 'Set the source address of the sensor. This is a 4 characters hex string. You must perform a \\"write settings\\" after this to effect the change.',
+  },
+  '#blk-ewm550_get_dstaddr#': {
+    en: 'ewm550: get destination address',
+  },
+  '#blk-ewm550_get_dstaddr_tooltip#': {
+    en: 'Get the destination address of the sensor. This is a 20 characters hex string, 4 characters for each of the 5 destinations.',
+  },
+  '#blk-ewm550_set_dstaddr#': {
+    en: 'ewm550: set destination address to',
+  },
+  '#blk-ewm550_set_dstaddr_tooltip#': {
+    en: 'Set the destination address of the sensor. This is a 20 characters hex string, 4 characters for each of the 5 destinations. You must perform a \\"write settings\\" after this to effect the change.',
+  },
+  '#blk-ewm550_get_interval#': {
+    en: 'ewm550: get interval',
+  },
+  '#blk-ewm550_get_interval_tooltip#': {
+    en: 'Get the interval of the sensor. This is a positive integer ranging from 30 to 2000 ms.',
+  },
+  '#blk-ewm550_set_interval#': {
+    en: 'ewm550: set interval to',
+  },
+  '#blk-ewm550_set_interval_tooltip#': {
+    en: 'Set the interval of the sensor. This is a positive integer ranging from 30 to 2000 ms. You must perform a \\"write settings\\" after this to effect the change.',
+  },
+  '#blk-ewm550_write_settings#': {
+    en: 'ewm550: write settings',
+  },
+  '#blk-ewm550_write_settings_tooltip#': {
+    en: 'Write the current settings to the sensor\'s EEPROM. This will persist after power off.',
+  },
 };
 let MSGS_KEYS = Object.keys(MSGS);
 

@@ -1,0 +1,9 @@
+{
+  "type": "ewm550_get_dstaddr",
+  "message0": "#blk-ewm550_get_dstaddr#",
+  "args0": [],
+  "output": "String",
+  "colour": 230,
+  "tooltip": "#blk-ewm550_get_dstaddr_tooltip#",
+  "helpUrl": ""
+}

@@ -1,0 +1,20 @@
+{
+  "type": "ewm550_set_channel",
+  "message0": "#blk-ewm550_set_channel# %1",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "channel",
+      "options": [
+        ["5", "5"],
+        ["9", "9"]
+      ]
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-ewm550_set_channel_tooltip#",
+  "helpUrl": ""
+}

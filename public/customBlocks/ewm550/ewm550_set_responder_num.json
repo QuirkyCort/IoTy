@@ -1,0 +1,23 @@
+{
+  "type": "ewm550_set_responder_num",
+  "message0": "#blk-ewm550_set_responder_num# %1",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "responder_num",
+      "options": [
+        ["1", "1"],
+        ["2", "2"],
+        ["3", "3"],
+        ["4", "4"],
+        ["5", "5"]
+      ]
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-ewm550_set_responder_num_tooltip#",
+  "helpUrl": ""
+}

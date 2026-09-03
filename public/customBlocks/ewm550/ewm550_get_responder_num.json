@@ -1,0 +1,9 @@
+{
+  "type": "ewm550_get_responder_num",
+  "message0": "#blk-ewm550_get_responder_num#",
+  "args0": [],
+  "output": "Number",
+  "colour": 230,
+  "tooltip": "#blk-ewm550_get_responder_num_tooltip#",
+  "helpUrl": ""
+}

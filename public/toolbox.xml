@@ -3348,6 +3348,52 @@
     <block type="serial_mqtt_publish_bytes"></block>
     <block type="serial_mqtt_check_msg"></block>
   </category>
+  <category toolboxitemid="ewm550" name="EWM550" colour="#5b67a5" hidden="true">
+    <block type="ewm550_init"></block>
+    <block type="ewm550_update"></block>
+    <block type="ewm550_update_return"></block>
+    <block type="ewm550_get_distances"></block>
+    <block type="ewm550_write_settings"></block>
+    <block type="ewm550_set_role"></block>
+    <block type="ewm550_set_channel">
+      <field name="channel">9</field>
+    </block>
+    <block type="ewm550_set_power">
+      <field name="power">3</field>
+    </block>
+    <block type="ewm550_set_responder_num">
+      <field name="responder_num">1</field>
+    </block>
+    <block type="ewm550_set_srcaddr">
+      <value name="srcaddr">
+        <shadow type="text">
+          <field name="TEXT">AA00</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="ewm550_set_dstaddr">
+      <value name="dstaddr">
+        <shadow type="text">
+          <field name="TEXT">AA000000000000000000</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="ewm550_set_interval">
+      <value name="interval">
+        <shadow type="math_number">
+          <field name="NUM">500</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="ewm550_get_interval"></block>
+    <block type="ewm550_get_role"></block>
+    <block type="ewm550_get_channel"></block>
+    <block type="ewm550_get_power"></block>
+    <block type="ewm550_get_responder_num"></block>
+    <block type="ewm550_get_srcaddr"></block>
+    <block type="ewm550_get_dstaddr"></block>
+    <block type="ewm550_get_interval"></block>
+  </category>
 
   <search name='Search'></search>
 </xml>

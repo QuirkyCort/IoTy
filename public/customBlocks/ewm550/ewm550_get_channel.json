@@ -1,0 +1,9 @@
+{
+  "type": "ewm550_get_channel",
+  "message0": "#blk-ewm550_get_channel#",
+  "args0": [],
+  "output": "Number",
+  "colour": 230,
+  "tooltip": "#blk-ewm550_get_channel_tooltip#",
+  "helpUrl": ""
+}

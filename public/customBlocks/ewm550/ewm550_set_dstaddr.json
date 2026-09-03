@@ -1,0 +1,17 @@
+{
+  "type": "ewm550_set_dstaddr",
+  "message0": "#blk-ewm550_set_dstaddr# %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "dstaddr",
+      "check": "String"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-ewm550_set_dstaddr_tooltip#",
+  "helpUrl": ""
+}

@@ -1,0 +1,9 @@
+{
+  "type": "ewm550_get_distances",
+  "message0": "#blk-ewm550_get_distances#",
+  "args0": [],
+  "output": "Array",
+  "colour": 230,
+  "tooltip": "#blk-ewm550_get_distances_tooltip#",
+  "helpUrl": ""
+}

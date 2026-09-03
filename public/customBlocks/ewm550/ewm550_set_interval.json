@@ -1,0 +1,17 @@
+{
+  "type": "ewm550_set_interval",
+  "message0": "#blk-ewm550_set_interval# %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "interval",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-ewm550_set_interval_tooltip#",
+  "helpUrl": ""
+}

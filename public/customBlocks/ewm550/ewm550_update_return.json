@@ -1,0 +1,9 @@
+{
+  "type": "ewm550_update_return",
+  "message0": "#blk-ewm550_update_return#",
+  "args0": [],
+  "output": "Boolean",
+  "colour": 230,
+  "tooltip": "#blk-ewm550_update_return_tooltip#",
+  "helpUrl": ""
+}

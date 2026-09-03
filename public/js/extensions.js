@@ -1089,6 +1089,22 @@ var extensions = new function() {
           'If using Python, you\'ll need to "import ioty.monitor". ' +
         '</p>'
     },
+    {
+      id: 'ewm550',
+      name: 'EWM550 / EWT550 UWB Ranging Module',
+      files: [
+        ['ewm550.py', 'extensions/ewm550.py?v=60a5901e'],
+      ],
+      description:
+        '<p>' +
+          'The EWM550 / EWT550 is a UWB (Ultra-Wideband) ranging module that provides precise distance measurements between two devices. ' +
+          'It is commonly used in applications requiring accurate localization and tracking. ' +
+          'Max range is 130m (clear and open environment) and accuracy is within 30cm. ' +
+        '</p>' +
+        '<p>' +
+          'Note that the default baudrate is 921600 (...user configurable), and you must initialize the UART at the correct rate. ' +
+        '</p>'
+    },
   ]
 
   this.init = function() {

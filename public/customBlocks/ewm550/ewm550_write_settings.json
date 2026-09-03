@@ -1,0 +1,10 @@
+{
+  "type": "ewm550_write_settings",
+  "message0": "#blk-ewm550_write_settings#",
+  "args0": [],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-ewm550_write_settings_tooltip#",
+  "helpUrl": ""
+}

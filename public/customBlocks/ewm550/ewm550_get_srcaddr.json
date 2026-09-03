@@ -1,0 +1,9 @@
+{
+  "type": "ewm550_get_srcaddr",
+  "message0": "#blk-ewm550_get_srcaddr#",
+  "args0": [],
+  "output": "String",
+  "colour": 230,
+  "tooltip": "#blk-ewm550_get_srcaddr_tooltip#",
+  "helpUrl": ""
+}

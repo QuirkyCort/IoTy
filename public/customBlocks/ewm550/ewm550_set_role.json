@@ -1,0 +1,21 @@
+{
+  "type": "ewm550_set_role",
+  "message0": "#blk-ewm550_set_role# %1",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "role",
+      "options": [
+        ["Tag", "0"],
+        ["Base Station", "1"],
+        ["Transmode", "2"]
+      ]
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "#blk-ewm550_set_role_tooltip#",
+  "helpUrl": ""
+}
