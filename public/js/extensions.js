@@ -1093,7 +1093,7 @@ var extensions = new function() {
       id: 'ewm550',
       name: 'EWM550 / EWT550 UWB Ranging Module',
       files: [
-        ['ewm550.py', 'extensions/ewm550.py?v=60a5901e'],
+        ['ewm550.py', 'extensions/ewm550.py?v=6cc59935'],
       ],
       description:
         '<p>' +
