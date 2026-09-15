@@ -163,7 +163,7 @@ const dictCreateMutator = {
     this.appendDummyInput('CLOSE' + this.itemCount_)
       .appendField(']')
 
-    key.connection.setShadowDom(Blockly.Xml.textToDom('<shadow type="text"></shadow>'));
+    key.connection.setShadowDom(Blockly.utils.xml.textToDom('<shadow type="text"></shadow>'));
 
     this.appendDummyInput('END')
       .appendField(createMinusField(), 'PLUS')
