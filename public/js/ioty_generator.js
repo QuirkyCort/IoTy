@@ -107,7 +107,13 @@ var ioty_generator = new function() {
     self.reservedVariables = {};
     self.startType = 'RUN';
 
-    let workspaceCode = Blockly.Python.workspaceToCode(blockly.workspace);
+    let workspaceCode = '';
+    try {
+      workspaceCode = Blockly.Python.workspaceToCode(blockly.workspace);
+    } catch (err) {
+      toastMsg('Error converting blocks. See console for details.');
+      throw err;
+    }
 
     workspaceCode = self._mqttCBSubstitution(workspaceCode);
     workspaceCode = self._mqttSubscriptionSubstitution(workspaceCode);
