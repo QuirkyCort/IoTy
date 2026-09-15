@@ -2020,10 +2020,17 @@ var ioty_generator = new function() {
 
       // Only used by advance
       let body_type = block.getFieldValue('body_type');
-      let body = Blockly.Python.valueToCode(block, 'body', Blockly.Python.ORDER_ATOMIC);
-      let header = Blockly.Python.valueToCode(block, 'header', Blockly.Python.ORDER_ATOMIC);
-      var on_success = Blockly.Python.statementToCode(block, 'on_success');
-      var on_fail = Blockly.Python.statementToCode(block, 'on_fail');
+      let body = null;
+      let header = null;
+      let on_success = '';
+      let on_fail = null;
+
+      try { // These will fail if the block is a urequests_simple
+        body = Blockly.Python.valueToCode(block, 'body', Blockly.Python.ORDER_ATOMIC);
+        header = Blockly.Python.valueToCode(block, 'header', Blockly.Python.ORDER_ATOMIC);
+        on_success = Blockly.Python.statementToCode(block, 'on_success');
+        on_fail = Blockly.Python.statementToCode(block, 'on_fail');
+      } catch {}
 
       let param = '';
 
