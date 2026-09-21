@@ -939,7 +939,7 @@ var extensions = new function() {
       id: 'coind4',
       name: 'COIN-D4 LIDAR',
       files: [
-        ['coind4.py', 'extensions/coind4.py?v=05a3ab9c'],
+        ['coind4.py', 'extensions/coind4.py?v=e0cb19ad'],
       ],
       description:
         '<p>' +

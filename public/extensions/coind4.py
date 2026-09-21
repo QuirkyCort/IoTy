@@ -18,21 +18,27 @@ class CoinD4:
         self.measurements = []
         self.sample_count = 0
         self.measurement_ptr = 0
-        self._prev_start_angle = 0
+        self.measurements_ptr = 0
         if self.integer:
-            for _ in range(360):
-                self.measurements.append(0)
+            for i in range(2):
+                self.measurements.append([])
+                for _ in range(360):
+                    self.measurements[i].append(0)
         else:
-            for _ in range(420):
-                if strength:
-                    self.measurements.append([0.0, 0, 0])
-                else:
-                    self.measurements.append([0.0, 0])
+            for i in range(2):
+                self.measurements.append([])
+                for _ in range(420):
+                    if strength:
+                        self.measurements[i].append([0.0, 0, 0])
+                    else:
+                        self.measurements[i].append([0.0, 0])
 
     def update(self):
         buf = self.buf
         ptr = self.ptr
         uart_buf = self.uart_buf
+
+        completed_read = False
         while self.uart.any():
             count = self.uart.readinto(uart_buf)
 
@@ -59,9 +65,10 @@ class CoinD4:
                         ptr = 0
                         if self._checksum_correct():
                             self.ptr = ptr
-                            return self._parse_frame()
+                            if self._parse_frame():
+                                completed_read = True
         self.ptr = ptr
-        return False
+        return completed_read
 
     def _send_cmd(self, code):
         cmd = bytearray(4)
@@ -83,7 +90,7 @@ class CoinD4:
         self._send_cmd(0xF5)
 
     def get_measurements(self):
-        return self.measurements
+        return self.measurements[1 - self.measurements_ptr]
 
     def get_rpm(self):
         return self.speed * 60
@@ -92,7 +99,7 @@ class CoinD4:
         integer = self.integer
         strength = self.strength
         buf = self.buf
-        measurements = self.measurements
+        measurements = self.measurements[self.measurements_ptr]
         measurement_ptr = self.measurement_ptr
 
         start_angle, end_angle = struct.unpack('<HH', buf[4:8])
@@ -102,10 +109,6 @@ class CoinD4:
             start_angle -= 23040 # 360 * 64
         if buf[2] & 1:
             self.speed = (buf[2] >> 1) / 10
-
-        if start_angle < self._prev_start_angle and integer == False:
-            measurement_ptr = 0
-        self._prev_start_angle = start_angle
 
         if self.sample_count > 1:
             angle_step = (end_angle - start_angle) // (self.sample_count - 1)
@@ -125,12 +128,15 @@ class CoinD4:
                 if strength:
                     measurements[measurement_ptr][2] = buf[start_index+2] >> 2 | (0x03 & buf[start_index+1]) << 6
                 measurement_ptr += 1
+
         self.measurement_ptr = measurement_ptr
 
         if end_angle > 22080: # 345 * 64
             if not integer:
                 for i in range(measurement_ptr, len(measurements)):
                     measurements[i][1] = -1
+                self.measurement_ptr = 0
+            self.measurements_ptr = 1 - self.measurements_ptr
             return True
         return False
 
