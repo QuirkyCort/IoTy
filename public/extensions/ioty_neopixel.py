@@ -7,12 +7,11 @@ def init(pin, pixels, format=3):
     _pins[pin] = NeoPixel(Pin(pin, Pin.OUT), pixels, bpp=format)
 
 def set(pin, pixel, color):
-    try:
-        _pins[pin][pixel] = color
-    except:
-        pass
+    color = tuple(map(int, color))
+    _pins[pin][pixel] = color
 
 def fill(pin, color):
+    color = tuple(map(int, color))
     _pins[pin].fill(color)
 
 def hsv2rgb(h, s, v):
