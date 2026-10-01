@@ -1260,12 +1260,23 @@ var main = new function() {
 
   // Display what's new if not seen before
   this.showWhatsNew = function(forceShow=false) {
-    let current = 20260327;
+    let current = 20261001;
     let lastShown = localStorage.getItem('whatsNew');
     if (lastShown == null || parseInt(lastShown) < current || forceShow) {
       let options = {
         title: 'What\'s New',
         message:
+        '<h3>1 Oct 2026</h3>' +
+        '<p>' +
+          'New extensions:' +
+          '<ul>' +
+            '<li>EWM550 (UWB ranging module)</li>' +
+            '<li>Serial MQTT (Connect to MQTT App Builder via USB Serial or Bluetooth)</li>' +
+          '</ul>' +
+        '</p>' +
+        '<p>' +
+          'Added custom object detector to the MQTT App Builder.' +
+        '</p>' +
         '<h3>27 Mar 2026 (New extensions)</h3>' +
         '<p>' +
           '<ul>' +
@@ -1281,14 +1292,6 @@ var main = new function() {
         '</p>' +
         '<p>' +
           'Fixed a few bugs related to the "change variable" and Dictionary blocks. ' +
-        '</p>' +
-        '<h3>1 Nov 2025 (Blockly 12.3.0)</h3>' +
-        '<p>' +
-          'Updated the blocks library (Blockly) to version 12.3.0. ' +
-          'I\'ve also added a blocks minimap; this should make large programs easier to navigate. ' +
-        '</p>' +
-        '<p>' +
-          'Added an extension for the Yahboom 4 channel motor drive' +
         '</p>'
       }
       acknowledgeDialog(options, function(){
