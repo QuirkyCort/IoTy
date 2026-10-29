@@ -292,7 +292,12 @@ class PythonSerial {
     let cmd =
       'import ubinascii\n' +
       'f = open("' + filename + '", "rb")\n' +
-      'print(ubinascii.b2a_base64(f.read()).decode(), end="")\n';
+      'while True:\n' +
+      '  buf = f.read(999)\n' + // Each block should be a multiple of 3 bytes to avoid padding in base64 encoding
+      '  if len(buf) == 0:\n' +
+      '    break\n' +
+      '  print(ubinascii.b2a_base64(buf, False).decode(), end="")\n' +
+      'f.close()\n';
 
     return (await this.sendPythonCmdAndRun(cmd));
   }
