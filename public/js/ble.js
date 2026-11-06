@@ -284,7 +284,7 @@ var ble = new function() {
     return await self.retrieve_status();
   };
 
-  this.downloadOneFileFromDevice = async function(filename) {
+  this.downloadOneFileFromDevice = async function(filename, progressCB=null) {
     self.dataNotificationBuf = new Uint8Array();
     await self.setCmdMode(constants._MODE_READ);
     await self.writeData(filename);

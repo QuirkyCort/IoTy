@@ -454,7 +454,7 @@ var mqtt = new function() {
     }
   };
 
-  this.downloadOneFileFromDevice = async function(filename) {
+  this.downloadOneFileFromDevice = async function(filename, progressCB=null) {
     let nonce = await self.sendCmd(constants._MODE_READ, {filename: filename});
     if (nonce) {
       let response = await self.waitForResponse(nonce);

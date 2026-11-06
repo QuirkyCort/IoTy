@@ -288,8 +288,23 @@ class PythonSerial {
     return (await this.sendPythonCmdAndRun(cmd))[0];
   }
 
-  async copyFileFromDevice(filename) {
+  async copyFileFromDevice(filename, progressCB=null) {
     let cmd =
+      'import os\n' +
+      'try:\n' +
+      '  size = os.stat("' + filename + '")[6]\n' +
+      '  print(size, end="")\n' +
+      'except:\n' +
+      '  print("fail", end="")\n';
+
+    let result = await this.sendPythonCmdAndRun(cmd);
+    if (result[0] != 'success') {
+      return result;
+    }
+    let size = Math.round(parseInt(result[1]) * 4 / 3); // Base64 encoding increases size by 4/3
+    console.log('File size: ' + size);
+    
+    cmd =
       'import ubinascii\n' +
       'f = open("' + filename + '", "rb")\n' +
       'while True:\n' +
@@ -299,7 +314,17 @@ class PythonSerial {
       '  print(ubinascii.b2a_base64(buf, False).decode(), end="")\n' +
       'f.close()\n';
 
-    return (await this.sendPythonCmdAndRun(cmd));
+    let self = this;
+    let timer = setInterval(function() {
+      if (progressCB) {
+        progressCB(self.readBuf.length, size);
+      }
+    }, 500);
+
+    result = await this.sendPythonCmdAndRun(cmd);
+    clearInterval(timer);
+
+    return result;
   }
 
   async deleteFile(filename) {

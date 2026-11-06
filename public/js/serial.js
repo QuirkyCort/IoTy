@@ -557,7 +557,7 @@ var serial = new function() {
     }
   };
 
-  this.downloadOneFileFromDevice = async function(filename) {
+  this.downloadOneFileFromDevice = async function(filename, progressCB=null) {
     self.pythonSerial.setReadToBuf();
     self.writeEnable = false;
     if (await self.pythonSerial.enterRawMode() != 'success') {
@@ -565,7 +565,7 @@ var serial = new function() {
       return null;
     }
 
-    let result = await self.pythonSerial.copyFileFromDevice(filename);
+    let result = await self.pythonSerial.copyFileFromDevice(filename, progressCB);
     await self.pythonSerial.exitRawMode();
     self.pythonSerial.setReadToHandler();
     self.writeEnable = true;

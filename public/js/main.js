@@ -1105,9 +1105,18 @@ var main = new function() {
     let files = {};
     let count = 1;
 
+    let $span1 = $('<span></span>');
+    let $span2 = $('<span></span>');
+    $updateWindow.$body.empty();
+    $updateWindow.$body.append($span1);
+    $updateWindow.$body.append($('<br>'));
+    $updateWindow.$body.append($span2);
+
     for (let file of filesToDownload) {
-      $updateWindow.$body.text('File (' + count + ' / ' + filesToDownload.length + ')');
-      let content = await interface.downloadOneFileFromDevice(file);
+      $span1.text('File (' + count + ' / ' + filesToDownload.length + ')');
+      let content = await interface.downloadOneFileFromDevice(file, function(current, total) {
+        $span2.text('Progress: ' + current + ' / ' + total);
+      });
       if (content == null) {
         $updateWindow.$body.text('Download failed');
         $updateWindow.$buttonsRow.removeClass('hide');
@@ -1117,6 +1126,8 @@ var main = new function() {
       files[file] = content;
       count++;
     }
+
+    $span2.text('Download completed');
 
     if (filesToDownload.length == 1) {
       let filename = filesToDownload[0];
