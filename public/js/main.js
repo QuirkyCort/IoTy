@@ -671,7 +671,9 @@ var main = new function() {
     hiddenElement.href = 'data:' + mimetype + ';base64,' + content;
     hiddenElement.target = '_blank';
     hiddenElement.download = filename;
+    document.body.appendChild(hiddenElement);
     hiddenElement.dispatchEvent(new MouseEvent('click'));
+    document.body.removeChild(hiddenElement);
   }
 
   // Download to zip  file
@@ -712,7 +714,6 @@ var main = new function() {
     var hiddenElement = document.createElement('input');
     hiddenElement.type = 'file';
     hiddenElement.accept = 'application/zip,.zip,application/xml,.xml';
-    hiddenElement.dispatchEvent(new MouseEvent('click'));
     hiddenElement.addEventListener('change', function(e){
       if (e.target.files[0].name.slice(-4) == '.zip') {
         self.loadFromComputerZip(e.target.files[0]);
@@ -720,6 +721,9 @@ var main = new function() {
         self.loadFromComputerXml(e.target.files[0]);
       }
     });
+    document.body.appendChild(hiddenElement);
+    hiddenElement.dispatchEvent(new MouseEvent('click'));
+    document.body.removeChild(hiddenElement);
   };
 
   // import functions from blocks file
@@ -734,11 +738,13 @@ var main = new function() {
     var hiddenElement = document.createElement('input');
     hiddenElement.type = 'file';
     hiddenElement.accept = 'application/zip,.zip';
-    hiddenElement.dispatchEvent(new MouseEvent('click'));
     hiddenElement.addEventListener('change', function(e){
       JSZip.loadAsync(e.target.files[0])
         .then(loadFiles);
     });
+    document.body.appendChild(hiddenElement);
+    hiddenElement.dispatchEvent(new MouseEvent('click'));
+    document.body.removeChild(hiddenElement);
   };
 
   // load new zip format from computer
@@ -810,8 +816,10 @@ var main = new function() {
     var hiddenElement = document.createElement('input');
     hiddenElement.type = 'file';
     hiddenElement.accept = 'application/zip,.zip';
-    hiddenElement.dispatchEvent(new MouseEvent('click'));
     hiddenElement.addEventListener('change', self.loadPythonFromComputerZip);
+    document.body.appendChild(hiddenElement);
+    hiddenElement.dispatchEvent(new MouseEvent('click'));
+    document.body.removeChild(hiddenElement);
   };
 
   this.loadPythonFromComputerZip = function(e) {
@@ -1019,7 +1027,6 @@ var main = new function() {
   this.uploadFileSelect = function() {
     let hiddenElement = document.createElement('input');
     hiddenElement.type = 'file';
-    hiddenElement.dispatchEvent(new MouseEvent('click'));
     hiddenElement.addEventListener('change', function(e){
       let filename = e.target.files[0].name;
       let file = e.target.files[0];
@@ -1029,6 +1036,9 @@ var main = new function() {
       };
       reader.readAsArrayBuffer(file);
     });
+    document.body.appendChild(hiddenElement);
+    hiddenElement.dispatchEvent(new MouseEvent('click'));
+    document.body.removeChild(hiddenElement);
   };
 
   this.uploadFileSetName = function(filename, content) {
