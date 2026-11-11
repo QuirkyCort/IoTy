@@ -1143,9 +1143,10 @@ var main = new function() {
       let filename = filesToDownload[0];
       let content = files[filename];
       if (content instanceof Uint8Array) {
-        content = String.fromCharCode(...content);
+        content = content.toBase64();
+      } else {
+        content = btoa(content);
       }
-      content = btoa(content);
       main.downloadFile(filename, content, 'application/octet-stream');
     } else {
       main.downloadZipFile('deviceFiles', files);
